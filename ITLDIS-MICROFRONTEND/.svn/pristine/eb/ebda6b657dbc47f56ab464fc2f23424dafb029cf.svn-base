@@ -1,0 +1,8 @@
+<app-lost-drop-enquiry
+[dropDownResult]="dropDownResult"
+(selectResultValue)="selectResultValue($event)"
+[dropDownLostDrop]="dropDownLostDrop"
+[dropDownBrand]="dropDownBrand"
+[dropDownReason]="dropDownReason"
+(getLostDropFormStatusAndData)="getLostDropFormStatusAndData($event)"
+></app-lost-drop-enquiry>

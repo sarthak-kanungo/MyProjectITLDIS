@@ -1,0 +1,103 @@
+<div class="card-from mt-3 mb-3">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <div [formGroup]="labourChargesForm">
+                    <table class="table w-100 table-bordered table-sm" formArrayName="labourChargesControl">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 10px"> </th>
+                                <th scope="col" style="width: 150px;">Category</th>
+                                <th scope="col" style="width: 150px;">FRS Code</th>
+                                <th scope="col" style="width: 150px;">Description</th>
+                                <th scope="col" style="width: 150px;">Hour</th>
+                                <th scope="col" style="width: 150px;">Amount</th>
+                                <th scope="col" style="width: 150px;" *ngIf="ishideForDraftFlag">Approve Amount</th>
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let labour of labourData">
+                                <td></td>
+                                <td>{{labour.category}}</td>
+                                <td>{{labour.jobCodeNo}}</td>
+                                <td>{{labour.description}}</td>
+                                <td>{{labour.hour}}</td>
+                                <td>{{labour.amount}}</td>
+                            </tr>
+                            <tr *ngFor="let option of labourChargesForm.get('labourChargesControl')['controls'];let i = index" [formGroupName]="i">
+                                <td style="vertical-align: middle;">
+                                    <mat-checkbox color="basic" class="form-control form-control-sm"
+                                        [formControl]="option.get('isSelected')" [checked]></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>Select</mat-label>
+                                        <mat-select formControlName="category" [compareWith]="serviceCategoryCompare"  (selectionChange)="makeAmountEd($event, option)">
+                                            <mat-option *ngFor="let code of serviceCategoryList" [value]="code">
+                                                {{code.category}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                                <!-- [compareWith]="serviceCategoryCompare" -->
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>FRS Code</mat-label>
+                                        <input matInput placeholder="FRS Code" [formControl]="option.get('frsCode')"
+                                            [matAutocomplete]="autoFrsCode" (keydown)="onKeyDownFrsCode($event,i)" />
+                                        <mat-autocomplete #autoFrsCode="matAutocomplete"
+                                            [displayWith]="displayLabourCodeFn" [panelWidth]="700"
+                                            (optionSelected)="frsCodeSelection($event, i)">
+                                            <mat-option *ngFor="let option of frsCodeList " [value]="option">
+                                                {{ option?.value }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <mat-error *ngIf="option.get('frsCode').hasError('selectFromList')">
+                                            Select From List
+                                        </mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Description"
+                                            [formControl]="option.get('description')" />
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Hour" [formControl]="option.get('hour')" />
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Amount" [formControl]="option.get('amount')" />
+                                    </mat-form-field>
+                                </td>
+                                <td *ngIf="ishideForDraftFlag">
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Approve Amount"
+                                            [formControl]="option.get('approveAmount')">
+                                    </mat-form-field>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" text-center " *ngIf="status == 'Open'">
+                    <button type="button" class="btn btn-sm btn_primary " *ngIf="!isView" (click)="addRow()">
+                        Add Row
+                    </button>
+                    <button type="button" class="btn btn-sm btn_secondary ml-2" *ngIf="!isView" (click)="deleteRow()">
+                        Delete Row
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="card-from mb-0 mt-2" [formGroup]="dealerTypeForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Dealer Type</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="dealerTypeForm" [style.fontSize.px]="11">
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="table-responsive mt-1">
+              <table class="table w-100 table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" style="width: 100px;">Select</th>
+                    <th scope="col">Type Of Dealer </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <mat-checkbox color="basic"></mat-checkbox>
+                    </td>
+                    <td>Agri Machinery Dealer</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <mat-checkbox color="basic"></mat-checkbox>
+                    </td>
+                    <td>Engine</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Dealer Star Rating</mat-label>
+              <mat-select formControlName="dealerStarRating">
+                <mat-option *ngFor="let star of stars" [value]="star">{{star}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

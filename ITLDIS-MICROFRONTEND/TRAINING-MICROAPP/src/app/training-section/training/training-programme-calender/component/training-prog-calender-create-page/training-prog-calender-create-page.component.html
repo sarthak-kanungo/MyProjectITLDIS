@@ -1,0 +1,307 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Training Program calendar</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="tpcForm">
+          <div class="row" [style.fontSize.px]="11">
+            <div class="col-lg-2" *ngIf="!isCreate">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Program Number</mat-label>
+                <input matInput placeholder="Program Number" formControlName="programNumber">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Program Date</mat-label>
+                <input matInput placeholder="Program Date" [matDatepicker]="picker3" formControlName="programDate"
+                  (click)="picker3.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Program Date</mat-label>
+                <input matInput placeholder="Program Date" formControlName="programDate">
+              </mat-form-field>
+            </div> -->
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="department">
+                  <mat-option *ngFor="let value of departmentList" [value]="value.departmentName">{{value.departmentName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Department</mat-label>
+                <input matInput placeholder="Department" formControlName="department">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Program Location</mat-label>
+                <mat-select formControlName="programLocation" (selectionChange)="enableLocationField($event.value)">
+                  <mat-option *ngFor="let value of locationList" [value]="value">{{value.Training_loc_desc}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2" *ngIf="showLocation">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Location</mat-label>
+                <input matInput placeholder="Dealer Location" formControlName="location">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Type of Training</mat-label>
+                <mat-select formControlName="typeofTraining" (selectionChange)="getTrainingModule($event.value)">
+                  <mat-option *ngFor="let value of trainingList" [value]="value">{{value.Training_Type_desc}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="tpcForm.get('typeofTraining').hasError('required')">
+                  Please select from list</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Training Module</mat-label>
+                <mat-select formControlName="trainingModule">
+                  <mat-option *ngFor="let value of trainingModuleList" [value]="value">{{value.Training_Module_desc}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Last Nomination Date</mat-label>
+                <input readonly matInput (click)="picker4.open()" [matDatepicker]="picker4"
+                  placeholder="Last Nomination Date" formControlName="lastNominationDate" [min]=todayDate
+                  (dateChange)="getStartDate($event.value)" [max]=holidayDateMax>
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+                <!-- <mat-error *ngIf="tpcForm.get('lastNominationDate').hasError('lndError')">
+                  Last Nomination Date Should not Gratter than End Date</mat-error> -->
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input readonly matInput (click)="picker1.open()" [matDatepickerFilter]="myFilter" [matDatepicker]="picker1" placeholder="Start Date"
+                  formControlName="startDate" [min]=todayDate (dateChange)="getStartDate($event.value)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input readonly matInput (click)="picker2.open()" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="End Date"
+                  formControlName="endDate" (dateChange)="getEndDate($event.value)">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Max No Of Nominees</mat-label>
+                <input matInput placeholder="Max No Of Nominees" formControlName="maxNoOfNominees"
+                  (change)="checkMaxNominee($event.target.value)">
+                <!-- <mat-error *ngIf="tpcForm.get('noNominees').hasError('maxNomineeError')">
+                  Value Should be Gratter than or Equal to  {{tpcForm.get('noNominees').value}}</mat-error> -->
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>No. of Allowed Nominees</mat-label>
+                <input matInput placeholder="Allowed Nominees" formControlName="noNominees"
+                  (change)="checkNominee($event.target.value)">
+                <mat-error *ngIf="tpcForm.get('noNominees').hasError('nomineeError')">
+                  Value Should be less than or Equal to Max Nominee</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="'isCreate || isEdit' && !isApprove && !isView">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Applicable States</mat-label>
+               
+                <mat-select formControlName="applicableStates" multiple (selectionChange)="getDealerName($event.value)">
+                 
+                  <mat-option *ngFor="let value of statesList" [value]="value">{{value.state}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isView || isApprove">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Applicable States</mat-label>
+                <textarea matInput placeholder="Applicable States" formControlName="applicableStates"></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="'isCreate || isEdit' && !isApprove && !isView">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Name</mat-label>
+                <mat-select formControlName="dealerName" multiple>
+                  <mat-option *ngIf="dealerNameList && dealerNameList.length>0" #allSelected value="all" (click)="toggleAllSelection()">Select All
+                </mat-option>
+                  <mat-option *ngFor="let value of dealerNameList" [value]="value">{{value.dealer}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        
+            <div class="col-lg-2" *ngIf="isView || isApprove">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Name</mat-label>
+                <textarea matInput placeholder="Dealer Name" formControlName="dealerName"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Holiday Date</mat-label>
+                <mat-chip-list #chipList aria-label="Choose a date" (click)="picker.open()">
+                  <mat-chip *ngFor="let value of model" [selectable]="false" [removable]="true"
+                    (removed)="remove(value)" style="font-size: 11px;" [disabled]="isView || isApprove">
+                    {{ value | date }}
+                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                  </mat-chip>
+                  <input formControlName="holidayDate" matInput [matDatepicker]="picker" placeholder="Choose a date"
+                    (dateChange)="dateChanged($event)" [matChipInputFor]="chipList" readonly [min]='holidayDateMin'
+                    [max]='holidayDateMax' />
+                </mat-chip-list>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+                <mat-datepicker #picker [startAt]="holidayDateMin" [dateClass]="dateClass">
+                </mat-datepicker>
+                <!-- <mat-error *ngIf="tpcForm.get('holidayDate').hasError('startEndError')">
+                  Please Select Start and End Date First</mat-error> -->
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+            <button *ngIf="isCreate" type="button" class="btn btn_primary px-3  ml-3"
+              (click)="validateForm()">Submit</button>
+            <button *ngIf="isEdit && !isApprove" type="button" class="btn btn_primary px-3  ml-3"
+              (click)="validateForm()">Update</button>
+            <button *ngIf="'isCreate || isEdit' && !isApprove && !isView" type="button"
+              class="btn btn_secondary px-3 ml-3" (click)="reset()"> Clear </button>
+            <button *ngIf="isView" type="button" class="btn btn_primary px-3  ml-3" (click)="exitForm()">Exit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card-from mt-2" [formGroup]="implementForm" *ngIf="'isApprove || isView' && isViewNomineeTable">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Nomination Person Details</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive ">
+          <table class="table table-bordered table-sm" style="width: max-content;">
+            <thead class="thead-light">
+              <tr>
+                <th class="p-2" *ngFor="let tableHeading of implementHeading">{{tableHeading.name}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of implementForm.controls; let i=index" [formGroupName]="i">
+                <td style="vertical-align: middle;">{{i+1}}</td>
+                <td style="vertical-align: middle;">
+                  <mat-form-field appearance="outline">
+                    <mat-select placeholder="ConfirmNomination" formControlName="confirmNomination" [disabled]="isView">
+                      <mat-option *ngFor="let status of confirmationList" [value]="status">
+                        {{status}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td style="vertical-align: middle;">
+                  <div class="form-check mt-2">
+                    <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;" formControlName="attended">
+                    </mat-checkbox>
+                  </div>
+                </td>
+                <td style="vertical-align: middle;" class="long">
+
+                  <input matInput placeholder="Dealer Name" formControlName="dealerName">
+                </td>
+                <td style="vertical-align: middle;">
+                  <input matInput placeholder="Nomination No" formControlName="nominationNo">
+                </td>
+                <td style="vertical-align: middle;" class="long1">
+                  <input matInput placeholder="Nomination Date" formControlName="nominationDate">
+                </td>
+
+                <td style="vertical-align: middle;">
+                  <input matInput placeholder="state" formControlName="state">
+                </td>
+                <td style="vertical-align: middle;">
+                  <input matInput placeholder="dealerLocation" formControlName="dealerLocation">
+                </td>
+                <td style="vertical-align: middle;" class="long1">
+                  <input matInput placeholder="designation" formControlName="designation">
+                </td>
+                <td style="vertical-align: middle;">
+                  <input matInput placeholder="empCode" formControlName="empCode">
+                </td>
+                <td style="vertical-align: middle;">
+                  <input matInput placeholder="name" formControlName="name">
+                </td>
+                <td style="vertical-align: middle;">
+                  <input matInput placeholder="empContactNumber" formControlName="empContactNumber">
+                </td>
+                <td style="vertical-align: middle;" *ngIf="!tsize">
+                  <input matInput placeholder="tShirtSize" formControlName="tShirtSize">
+                </td>
+                <td style="vertical-align: middle;" *ngIf="tsize">
+                  <input matInput placeholder="tShirtSize" formControlName="tShirtSize" value="Not Applicable">
+                </td>
+                
+                <!-- <td style="vertical-align: middle;">
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="Post Test" formControlName="postTest">
+                  </mat-form-field>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!--  <div class=" text-center mt-1">
+          <button type="button" class="btn btn_primary px-2"> Add Row
+          </button>
+          <button type="button" class="btn btn_secondary px-2 ml-2"> Delete Row
+          </button>
+        </div> -->
+
+      </div>
+      <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+        <button *ngIf="isApprove" type="button" style="text-align: center;" class="btn btn_primary px-3  ml-3"
+          (click)="validateForm()">Approve</button>
+      </div>
+    </div>
+  </div>
+</div>

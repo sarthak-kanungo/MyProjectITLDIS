@@ -1,0 +1,121 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <p class="mb-0">Search Part Return </p>
+                        <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                            New
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <app-part-return-search [partReturnSearchForm]="partReturnSearchForm"></app-part-return-search>
+                        <div class="mt-1 text-center">
+                            <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchPartReturn()"
+                                [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)"> Search
+                            </button>
+                            <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary" (click)="resetSearchForm()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+                [totalElements]="totalTableElements" [searchValue]="searchValue"
+                [clickOnTableFields]="clickOnTableFields" [page]="partReturnSearchForm.get('page').value"
+                [size]="partReturnSearchForm.get('size').value" (actionOnTableRecord)="actionOnTableRecord($event)"
+                (columnLengthChanges)="columnLengthChanges($event)" (pageChange)="pageChangeOfSearchTable($event)" [clearSearchRow]="clearSearchRow" >
+
+                <td [ngsw-searchField]="returnNo" [searchColumnName]="'returnNo'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #returnNo [(ngModel)] ="returnNoNgModel" >
+                    </mat-form-field>
+                </td>
+
+                <td [ngsw-searchField]="returnDate" [searchColumnName]="'returnDate'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput [matDatepicker]="returnDate" #returnDateInput
+                            (dateInput)="etSearchDateValueChange(returnDateInput.value,'returnDate')" [(ngModel)] ="returnDateNgModel" >
+                        <mat-datepicker-toggle matSuffix [for]="returnDate"></mat-datepicker-toggle>
+                        <mat-datepicker #returnDate></mat-datepicker>
+                    </mat-form-field>
+                </td>
+
+                <td [ngsw-searchField]="reasonForReturn" [searchColumnName]="'reasonForReturn'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #reasonForReturn [(ngModel)] ="reasonForReturnNgModel" >
+                    </mat-form-field>
+                </td>
+
+                <td [ngsw-searchField]="requisitionNo" [searchColumnName]="'requisitionNo'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #requisitionNo [(ngModel)] ="requisitionNoNgModel" >
+                    </mat-form-field>
+                </td>
+
+                <td [ngsw-searchField]="requisitionDate" [searchColumnName]="'requisitionDate'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput [matDatepicker]="requisitionDate" #requisitionDateInput
+                            (dateInput)="etSearchDateValueChange(requisitionDateInput.value,'requisitionDate')" [(ngModel)] ="requisitionDateNgModel" >
+                        <mat-datepicker-toggle matSuffix [for]="requisitionDate"></mat-datepicker-toggle>
+                        <mat-datepicker #requisitionDate></mat-datepicker>
+                    </mat-form-field>
+                </td>
+
+                <td [ngsw-searchField]="requisitionPurpose" [searchColumnName]="'requisitionPurpose'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #requisitionPurpose [(ngModel)] ="requisitionPurposeNgModel" >
+                    </mat-form-field>
+                </td>
+                
+                <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #jobCardNo [(ngModel)] ="jobCardNoNgModel" >
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput [matDatepicker]="jobCardDate" #jobCardDateInput
+                            (dateInput)="etSearchDateValueChange(jobCardDateInput.value,'jobCardDate')" [(ngModel)] ="jobCardDateNgModel" >
+                        <mat-datepicker-toggle matSuffix [for]="jobCardDate"></mat-datepicker-toggle>
+                        <mat-datepicker #jobCardDate></mat-datepicker>
+                    </mat-form-field>
+                </td>
+
+                <!-- <td [ngsw-searchField]="requestedBy" [searchColumnName]="'requestedBy'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #requestedBy>
+                    </mat-form-field>
+                </td>
+                
+                <td [ngsw-searchField]="issueDate" [searchColumnName]="'issueDate'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput [matDatepicker]="issueDate" #issueDateInput
+                            (dateInput)="etSearchDateValueChange(issueDateInput.value,'issueDate')">
+                        <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
+                        <mat-datepicker #issueDate></mat-datepicker>
+                    </mat-form-field>
+                </td> -->
+                <td [ngsw-searchField]="partsIssuedBy" [searchColumnName]="'partsIssuedBy'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10" [(ngModel)] ="partsIssuedByNgModel" >
+                        <input matInput #partsIssuedBy>
+                    </mat-form-field>
+                </td>
+                <!-- <td [ngsw-searchField]="issueTo" [searchColumnName]="'issueTo'">
+                  <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                      <input matInput #issueTo>
+                  </mat-form-field>
+              </td> -->
+            </ngsw-search-table>
+        </div>
+    </div>
+</div>

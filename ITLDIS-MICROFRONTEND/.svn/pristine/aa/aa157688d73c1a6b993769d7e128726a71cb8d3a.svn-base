@@ -1,0 +1,41 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0">Follow Up History</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 130px; padding-bottom: 11px;">Followup Date </th>
+                <th scope="col" style="padding-bottom: 11px;">Followed By </th>
+                <th scope="col" style="padding-bottom: 11px;">Follow Up Type </th>
+                <th scope="col" style="width: 130px;padding-bottom: 11px;">Next Follow Up Date </th>
+                <th scope="col" style="width: 130px;">Tentative Purchase Date</th>
+                <th scope="col" style="width: 330px; padding-bottom: 11px">Remarks</th>
+                <th scope="col" style="padding-bottom: 11px;">Enquiry Type</th>
+                <th scope="col" style="width: 130px;padding-bottom: 11px">Updation Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let followupHistory of followupHistoryDomain">
+                <td>{{followupHistory.followUpDate}}</td>
+                <td>{{followupHistory.followedBy}}</td>
+                <td>{{followupHistory.followUpType}}</td>
+                <td>{{followupHistory.nextFollowUpDate}}</td>
+                <td>{{followupHistory.tentativePurchaseDate}}</td>
+                <td>{{followupHistory.remarks}}</td>
+                <td>{{followupHistory.enquiryType}}</td>
+                <td>{{followupHistory.updationDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

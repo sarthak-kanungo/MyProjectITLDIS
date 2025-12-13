@@ -1,0 +1,24 @@
+@mixin color($color) {
+  color: $color;
+}
+
+@mixin bg-color($color) {
+  background-color: $color;
+}
+
+@mixin text_ellipsis($max_width, $white_space:normal) {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+
+  @if (type-of($max_width)==string) {
+    @warn "Unknown character of type string `#{$max_width}`.";
+
+  }
+
+  @else {
+    max-width: $max_width;
+  }
+  @if ($white_space){
+    white-space:$white_space
+  }
+}

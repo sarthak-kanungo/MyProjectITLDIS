@@ -1,0 +1,47 @@
+<!--------------------------------------Toll Free History--------------------------------------------->
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Toll Free History </p>
+    </div>
+    <div class="card-body">
+      <!-- <form [formGroup]="freeServiceHistoryForm" [style.fontSize.px]="11"> -->
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Toll Free Call Code</th>
+              <th scope="col">Date</th>
+              <th scope="col">Department</th>
+              <th scope="col">Complaint Type</th>
+              <th scope="col">Description</th>
+              <th scope="col">Action Taken</th>
+              <th scope="col">Action Taken Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let option of tollFreeHistoryForm['controls']; let i = index;">
+              <td>
+                <p (click)="tollFreeModal(option.get('id').value)" class="jobcardno">{{option.get('callNo').value}}</p>
+              </td>
+              <td [textContent]="option.get('callDate').value">
+              </td>
+              <td [textContent]="option.get('department').value">
+              </td>
+              <td [textContent]="option.get('complaint').value">
+              </td>
+              <td [textContent]="option.get('description').value">
+              </td>
+              <td [textContent]="option.get('actionTaken').value">
+              </td>
+              <td [textContent]="option.get('actionDate').value">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>

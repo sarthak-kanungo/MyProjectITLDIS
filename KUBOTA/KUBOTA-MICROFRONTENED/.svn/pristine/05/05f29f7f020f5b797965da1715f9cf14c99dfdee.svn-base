@@ -1,0 +1,118 @@
+<!-- <div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">check Point Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table w-100 table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Sr.No</th>
+              <th scope="col">Aggregate Type</th>
+              <th scope="col">Checkpoint</th>
+              <th scope="col">Ok</th>
+              <th scope="col">Remark</th>
+            </tr>
+            <tr></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let option of mrcCheckList let i=index" 
+              [ngClass]="{'bg-light' : option?.isSpoiled, 'text-muted' : option?.isSpoiled}" >
+              <td>{{option?.checkpointSequenceNo}}</td>
+              <td>{{option?.aggregate}}</td>
+              <td>{{option?.mrcCheckpoint}}</td>
+              <td>
+                <mat-checkbox color="basic" [checked]="option?.defaultTick" (change)="onChange($event, option,i+1)">
+                </mat-checkbox>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <input matInput (change)="changeRemark($event,i+1)" >
+                </mat-form-field>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Check Point Details</p>
+    </div>
+    <div class="card-body mb-2">
+      <div class="table-responsive mt-1">
+        <form [formGroup]="checkPointTableForm">
+          <table class="table table-bordered table-sm w-100" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Aggregate Type</th>
+                <th scope="col">Check Point</th>
+                <th scope="col">Specification</th>
+                <th scope="col">Ok</th>
+                <th scope="col">Remark</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of checkPointTableForm.get('dataTable')['controls']; let i = index;"
+                [formGroupName]="i">
+                <td style="vertical-align: middle;">{{i+1}}</td>
+
+                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+                  [attr.rowspan]="getRowSpan(item.get('aggregate'), i)"
+                  [style.display]="getRowSpan(item.get('aggregate'), i) ? '' : 'none'"
+                  [textContent]="item.get('aggregate').value"
+                  (input)="contenteditableValuechange($event.target.textContent,item,'aggregate')">
+                </td>
+
+                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+                  [textContent]="item.get('checkpointDesc').value"
+                  (input)="contenteditableValuechange($event.target.textContent,item,'checkpointDesc')">
+                </td>
+                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+                  [textContent]="item.get('observedSpecification').value"
+                  (input)="contenteditableValuechange($event.target.textContent,item,'observedSpecification')"
+                  *ngIf="!isView && item.get('fieldType').value.value==='CHECK BOX'">
+                </td>
+                <td style='vertical-align: middle' *ngIf="!isView && item.get('fieldType').value.value==='DROP DOWN'">
+                  <mat-form-field appearance="outline"
+                      [style.fontSize.px]="11" class="w-100">
+                      <mat-label>Select</mat-label>
+                      <mat-select formControlName="observedSpecification"
+                          (click)="checkListChange($event,item.get('checkpointId').value)" required>
+                          <mat-option *ngFor="let code of checkListDropDown"
+                              [value]="code.observedSpecification">
+                              {{code.observedSpecification}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                </td>
+                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+                  [textContent]="item.get('observedSpecification').value"
+                  (input)="contenteditableValuechange($event.target.textContent,item,'observedSpecification')"
+                  *ngIf="isView">
+                </td>
+                <td style="vertical-align: middle;" >
+                  <mat-checkbox color="basic" [checked]="item?.defaultTick" (change)="onChange($event, item)"
+                    formControlName="defaultTick">
+                  </mat-checkbox>
+                </td>
+                <td style="vertical-align: middle;">
+                  <mat-form-field appearance="outline" [style.fontSize.px]="11">
+                    <input type="text" matInput formControlName="remarks">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

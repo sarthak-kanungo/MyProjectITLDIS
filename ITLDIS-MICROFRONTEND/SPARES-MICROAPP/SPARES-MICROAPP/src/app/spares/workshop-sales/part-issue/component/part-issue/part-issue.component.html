@@ -1,0 +1,140 @@
+<ng-container [formGroup]="partIssueForm" [style.fontSize.px]="11">
+    <div class="row">
+    	<div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+                <mat-label>Issue No.</mat-label>
+                <input type="text" matInput placeholder="Issue No."
+                    formControlName="partIssueNo">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Issue Type</mat-label>
+                <mat-select formControlName="issueType">
+                    <mat-option *ngFor="let issue of issueTypeList$ | async" [value]="issue.value">
+                        {{issue.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="partIssueForm.get('issueType').hasError('required')">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="selectedIssueType==='APR'">
+            <mat-form-field appearance="outline">
+                <mat-label>Requisition No.</mat-label>
+                <input type="text" matInput [required]="partIssueForm.get('sparePartRequisition') && partIssueForm.get('sparePartRequisition').hasError('required')" placeholder="Requisition No."
+                    formControlName="sparePartRequisition" [matAutocomplete]="autoSparePartRequisition">
+                <mat-autocomplete #autoSparePartRequisition="matAutocomplete" [displayWith]="displayFn"
+                    [panelWidth]="400" (optionSelected)="sparePartRequisitionOptionSelected($event)">
+                    <mat-option *ngFor="let option of sparePartRequisitionList$ | async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="partIssueForm.get('sparePartRequisition').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="partIssueForm.get('sparePartRequisition').hasError('selectFromList')">
+                    {{partIssueForm.get('sparePartRequisition').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="selectedIssueType==='APR'">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Requisition Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Requisition Date"
+                    formControlName="requisitionDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" #jobCardFieldRef *ngIf="selectedIssueType==='Job Card'">
+            <mat-form-field appearance="outline">
+                <mat-label>Job Card No.</mat-label>
+                <input type="text" matInput placeholder="Job Card No." formControlName="jobCardNo"
+                    [matAutocomplete]="autoJobCardNo">
+                <mat-autocomplete #autoJobCardNo="matAutocomplete" [displayWith]="displayFn" [panelWidth]="250"
+                    (optionSelected)="jobCardNoOptionSelected($event)">
+                    <mat-option *ngFor="let option of jobCardNoList$ | async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="partIssueForm.get('jobCardNo').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="partIssueForm.get('jobCardNo').hasError('selectFromList')">
+                    {{partIssueForm.get('jobCardNo').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" #jobCardFieldRef *ngIf="selectedIssueType==='Job Card'">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Job Card Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Job Card Date" formControlName="jobCardDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="partIssueForm.get('sparePartRequisition').value || partIssueForm.get('jobCardNo').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Issue Against</mat-label>
+                <mat-select formControlName="issueAgainst" (selectionChange)="issueAgainstSelectionChange($event)">
+                    <mat-option *ngFor="let issueAgainst of issueAgainstListTemp" [value]="issueAgainst.value">
+                        {{issueAgainst.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="partIssueForm.get('issueAgainst').hasError('required')">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" #jobCardFieldRef *ngIf="partIssueForm.get('advancedSparePartIssue')">
+            <mat-form-field appearance="outline">
+                <mat-label>API No.</mat-label>
+                <input type="text" matInput placeholder="API No." formControlName="advancedSparePartIssue"
+                    [matAutocomplete]="autoAdvancedSparePartIssue">
+                <mat-autocomplete #autoAdvancedSparePartIssue="matAutocomplete" [displayWith]="displayFn" [panelWidth]="200" (optionSelected)="advancedSparePartIssueOptionSelected($event)">
+                    <mat-option *ngFor="let option of advancedSparePartIssueNoList$ | async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="partIssueForm.get('advancedSparePartIssue').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="partIssueForm.get('advancedSparePartIssue').hasError('selectFromList')">
+                    {{partIssueForm.get('advancedSparePartIssue').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Issued Date</mat-label>
+                <input matInput [matDatepicker]="picker2" placeholder="Issued Date" formControlName="issueDate" [value]="serverDate$ | async">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Parts Issued by</mat-label>
+                <input matInput placeholder="Parts Issued by" formControlName="partsIssuedBy" [value]="loginUser && loginUser.name">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Issue To</mat-label>
+                <mat-select formControlName="issueTo" [compareWith]="compareFn">
+                    <mat-option *ngFor="let issue of issueTo$" [value]="issue">
+                        {{issue.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="partIssueForm.get('issueTo').hasError('required')">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</ng-container>

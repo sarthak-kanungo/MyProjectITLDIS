@@ -1,0 +1,52 @@
+<div class="card-from mt-2">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <p class="mb-0" style="text-align: center;">Do you want to save deatils as Verified?</p>
+        <button class="font-weight-bold btn btn_header bg_white" (click)="close()">Close</button>
+      </div>
+      <div class="card-body">
+        <div class="container-fluid card_body">          
+          <form  [style.fontSize.px]="10" class="border p-2" [formGroup]="kaiInvoiceForm">
+             
+              <div class="row"> 
+
+                 <div class="col-lg-6 mt-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Invoice Number</mat-label>
+                        <input matInput placeholder="Invoice Number" (keyup)="onKey($event)" (keypress)="preventSpecialCharacter($event)" formControlName="invoiceNo">
+                        <mat-error *ngIf="this.kaiInvoiceForm.get('invoiceNo').hasError('required')"><b>Invoice Number is Required</b></mat-error>
+                    </mat-form-field>
+                   
+                </div> 
+
+
+                <div class="col-lg-6 mt-3" >
+                    <mat-form-field appearance="outline" class="w-100">
+
+                        <mat-label>Invoice Date</mat-label>
+                        <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2"
+                            placeholder="Invoice Date" formControlName="invoiceDate" [max]="futureDate" (dateChange)="setToDate($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-error *ngIf="this.kaiInvoiceForm.get('invoiceDate').hasError('required')"><b>Invoice Date is Required</b></mat-error>
+                    </mat-form-field>
+                </div>
+
+        </div>
+
+        </form>
+      </div>
+      <div class="container-fluid card_footer m-2">
+        <div class="row">
+          <div class="col-7 text-center">
+            <button type="button" class="btn  btn_primary" (click)="submit()"> Confirm </button>
+          </div>
+          <div class="col-4 text-center">
+            <button type="button" class="btn  btn_primary" (click)="cancel()"> Cancel </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>

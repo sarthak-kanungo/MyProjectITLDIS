@@ -1,0 +1,37 @@
+<div class="card-body">
+
+    <form [formGroup]="transporterSearchForm" [style.fontSize.px]="10">
+        <div class="row">
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Transporter Code</mat-label>
+                    <input matInput placeholder="Transporter Code" formControlName="transporterCode"
+                        [matAutocomplete]="autoTransporterCode">
+                    <mat-autocomplete #autoTransporterCode="matAutocomplete" [panelWidth]="500"
+                        [displayWith]="displayFnTransporterCode">
+                        <mat-option *ngFor="let option of (transporterCode$ | async)" [value]="option">
+                            {{option?.transporterCode}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Transporter Name</mat-label>
+                    <input matInput placeholder="Transporter Name" formControlName="transporterName"
+                        [matAutocomplete]="autoTransporterName">
+                    <mat-autocomplete #autoTransporterName="matAutocomplete" [panelWidth]="500"
+                        [displayWith]="displayFnTransporterName">
+                        <mat-option *ngFor="let option of (transporterName$ | async)" [value]="option">
+                            {{option?.transporter}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>

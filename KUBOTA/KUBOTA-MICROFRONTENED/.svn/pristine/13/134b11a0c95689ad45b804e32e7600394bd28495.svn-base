@@ -1,0 +1,120 @@
+<div class="container-fluid mt-4 mb-3">
+  <form>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between header">
+                <p class="mb-0">Search Logsheet</p>
+                <div>
+                  <!--  ***** REQUIRED - Don't Delete this code *****  -->
+
+                  <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                    [routerLink]="['./create']" routerLinkActive="router-link-active">
+                    <b class="btnName">New</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <app-log-sheet-search [searchForm]="searchForm"></app-log-sheet-search>
+            <div class="text-center  mt-2 mb-2">
+              <button (click)="search()" type="button" class="btn  btn_primary px-3" >
+                Search
+                <!-- [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)" -->
+              </button>
+              <button (click)="clear()" type="button" class="btn  btn_primary px-3 ml-2">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="mt-2">
+    <!-- space for ngsw search table -->
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[
+        { title: 'logsheetNo', isClickable: true },{ title: 'action', isClickable: true }
+      ]" (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [actionButtons]="actionButtons" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="logsheetReport($event)">
+      <td></td>
+      <td [ngsw-searchField]="logsheetNo" [searchColumnName]="'logsheetNo'">
+          <input class="w-100 borderRadius" #logsheetNo />
+      </td>
+      <td [ngsw-searchField]="logsheetDate" [searchColumnName]="'logsheetDate'">
+          <input class="w-100 borderRadius"  #logsheetDate
+            type="date" (change)="etSearchDateValueChange(logsheetDate.value, 'logsheetDate')" />
+      </td>
+      <td [ngsw-searchField]="logsheetType" [searchColumnName]="'logsheetType'">
+          <input class="w-100 borderRadius" #logsheetType />
+      </td>
+      <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+          <input class="w-100 borderRadius" #status />
+      </td>
+      <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'">
+          <input class="w-100 borderRadius" #jobCardNo />
+      </td>
+      <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'">
+          <input class="w-100 borderRadius" #jobCardDate 
+            type="date" (change)="etSearchDateValueChange(jobCardDate.value, 'jobCardDate')" />
+      </td>
+      <td [ngsw-searchField]="installationDate" [searchColumnName]="'installationDate'">
+          <input class="w-100 borderRadius" #installationDate 
+            type="date" (change)="etSearchDateValueChange(installationDate.value, 'installationDate')" />
+      </td>
+      <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+          <input class="w-100 borderRadius" #customerName />
+      </td>
+      <td [ngsw-searchField]="address" [searchColumnName]="'address'">
+          <input class="w-100 borderRadius" #address />
+      </td>
+      <td [ngsw-searchField]="dateOfFailure" [searchColumnName]="'dateOfFailure'">
+          <input class="w-100 borderRadius" #dateOfFailure
+            type="date" (change)="etSearchDateValueChange(dateOfFailure.value, 'dateOfFailure')" />
+      </td>
+      <td [ngsw-searchField]="hours" [searchColumnName]="'hours'">
+          <input class="w-100 borderRadius" #hours />
+      </td>
+      <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+          <input class="w-100 borderRadius" #model />
+      </td>
+      <td [ngsw-searchField]="registrationNumber" [searchColumnName]="'registrationNumber'">
+          <input class="w-100 borderRadius" #registrationNumber />
+      </td>
+      <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+          <input class="w-100 borderRadius" #chassisNo />
+      </td>
+      <td [ngsw-searchField]="serviceDealer" [searchColumnName]="'serviceDealer'">
+          <input class="w-100 borderRadius" #serviceDealer />
+      </td>
+      <td [ngsw-searchField]="serviceDealerCity" [searchColumnName]="'serviceDealerCity'">
+          <input class="w-100 borderRadius" #serviceDealerCity />
+      </td>
+      <td [ngsw-searchField]="soldToDealer" [searchColumnName]="'soldToDealer'">
+          <input class="w-100 borderRadius" #soldToDealer />
+      </td>
+      <td [ngsw-searchField]="crop" [searchColumnName]="'crop'">
+        
+          <input class="w-100 borderRadius" #crop />
+        
+      </td>
+      <td [ngsw-searchField]="cropCondition" [searchColumnName]="'cropCondition'">
+          <input class="w-100 borderRadius" #cropCondition />
+      </td>
+      <td [ngsw-searchField]="failureType" [searchColumnName]="'failureType'">
+          <input class="w-100 borderRadius" #failureType />
+      </td>
+
+      <td [ngsw-searchField]="soilType" [searchColumnName]="'soilType'">
+          <input class="w-100 borderRadius" #soilType />
+      </td>
+      <td [ngsw-searchField]="fieldCondition" [searchColumnName]="'fieldCondition'">
+          <input class="w-100 borderRadius" #fieldCondition />
+      </td>
+
+    </ngsw-search-table>
+  </div>
+</div>

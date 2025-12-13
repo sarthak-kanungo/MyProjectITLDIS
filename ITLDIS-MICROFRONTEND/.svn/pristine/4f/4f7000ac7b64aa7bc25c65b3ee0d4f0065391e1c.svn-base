@@ -1,0 +1,93 @@
+<div class="container-fluid create-form mb-3 mt-4">
+    <div class="card-from mb-0">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">WCR Parts Final Status</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="wcrStatusForm" [style.fontSize.px]="10">
+            <div class="table-responsive mt-1">
+              <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" style="width: 50px;"><input color="basic" (change)="checkAll($event)" type="checkbox"> Sr No.</th>
+                    <th scope="col">Wcr No</th>
+                    <th scope="col" style="width: 80px;">Wcr Date
+                    <th scope="col">Wcr Type
+                    <th scope="col">Status</th>
+                    <th scope="col">Dealer Code</th>
+                    <th scope="col">Dealer Name</th>
+                    <th scope="col">Workshop Address</th>
+                    <th scope="col">Dealer Mobile No</th>
+                    <th scope="col">Job Card No</th>
+                    <th scope="col" style="width: 80px;">Jon Card Date</th>
+                    <th scope="col">Goodwill No</th>
+                    <th scope="col" style="width: 80px;">Goodwill Date</th>
+                    <th scope="col">Pcr No</th>
+                    <th scope="col" style="width: 80px;">Pcr Date</th>
+                    <th scope="col" style="width: 80px;">Installation Date</th>
+                    <th scope="col" style="width: 80px;">Date Of Failure</th>
+                    <th scope="col" style="width: 80px;">Date Of Repair</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Customer Address</th>
+                    <th scope="col">Customer Mobile No</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Chassis No</th>
+                    <th scope="col">Engine No</th>
+                    <th scope="col">Sold To Dealer</th>
+                    <th scope="col">Hour</th>
+                    <th scope="col">Failure Type</th>
+                    <th scope="col">Rcn Number</th>
+                    <th scope="col" style="width: 80px;">Rcn Date</th>
+                    <th scope="col">Last Approved By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fg of wcrStatusForm.get('wcr')['controls']; let i = index;">
+                    <td>
+                      <mat-checkbox [formControl]="fg.get('isSelect')" [checked]="allChecked">{{i+1}}</mat-checkbox>
+                    </td>
+                    <td>{{fg.get('wcrNo').value}}</td>
+                    <td>{{fg.get('wcrDate').value}}</td>
+                    <td>{{fg.get('wcrType').value}}</td>
+                    <td>{{fg.get('status').value}}</td>
+                    <td>{{fg.get('dealerCode').value}}</td>
+                    <td>{{fg.get('dealerName').value}}</td>
+                    <td>{{fg.get('workshopAddress').value}}</td>
+                    <td>{{fg.get('dealerMobileNo').value}}</td>
+                    <td>{{fg.get('jobCardNo').value}}</td>
+                    <td>{{fg.get('jobCardDate').value}}</td>
+                    <td>{{fg.get('goodwillNo').value}}</td>
+                    <td>{{fg.get('goodwillDate').value}}</td>
+                    <td>{{fg.get('pcrNo').value}}</td>
+                    <td>{{fg.get('pcrDate').value}}</td>
+                    <td>{{fg.get('installationDate').value}}</td>
+                    <td>{{fg.get('dateOfFailure').value}}</td>
+                    <td>{{fg.get('dateOfRepair').value}}</td>
+                    <td>{{fg.get('customerName').value}}</td>
+                    <td>{{fg.get('customerAddress').value}}</td>
+                    <td>{{fg.get('customerMobileNo').value}}</td>
+                    <td>{{fg.get('model').value}}</td>
+                    <td>{{fg.get('chassisNo').value}}</td>
+                    <td>{{fg.get('engineNo').value}}</td>
+                    <td>{{fg.get('soldToDealer').value}}</td>
+                    <td>{{fg.get('hour').value}}</td>
+                    <td>{{fg.get('failureType').value}}</td>
+                    <td>{{fg.get('rcnNumber').value}}</td>
+                    <td>{{fg.get('rcnDate').value}}</td>
+                    <td>{{fg.get('lastApprovedBy').value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>        
+            <div class="card-body">
+              <div class=" text-center mt-2 ">
+                <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="validateForm()"> Update
+                </button>
+              </div>  
+            </div>
+          </form>   
+        </div>
+      </div>
+    </div>
+  </div>

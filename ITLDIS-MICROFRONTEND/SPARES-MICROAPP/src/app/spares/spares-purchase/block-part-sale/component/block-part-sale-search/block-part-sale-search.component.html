@@ -1,0 +1,100 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0">Advance</p>
+                <!-- <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                <b>New </b>
+            </button> -->
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searchBlockParts" [style.fontSize.px]="10">
+                    <div class="row">
+
+
+
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                <!-- <mat-label>Item No.</mat-label> -->
+                                <input matInput placeholder="Part No."
+                                    formControlName="partNo"
+                                    [matAutocomplete]="autopartNo">
+                                <mat-autocomplete #autopartNo="matAutocomplete"
+                                    (optionSelected)="itemNumberSelection($event)"
+                                     [panelWidth]="500">
+                                    <mat-option *ngFor="let option of filteredItemNumberList"
+                                        [value]="option.partNo">
+                                        {{option?.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <!-- <mat-error *ngIf="detail.get('sparePartMaster').hasError('selectFromList')">Select from list</mat-error> -->
+                            </mat-form-field>
+                        </div>
+
+
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                <input matInput placeholder="part Description" formControlName="itemDescription">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="status">
+                                    <mat-option>SELECT</mat-option>
+                                    <mat-option  *ngFor="let status of statusList" [value]="status.value"> {{status.name}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            
+                        </div>
+
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary" (onUrlChange)="onUrlChange($event)"
+                                (click)="search()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        (actionOnTableRecord)="actionOnTableRecord($event)"
+        [clickOnTableFields]="[{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]"
+        (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+        <td></td>
+
+        <td [ngsw-searchField]="partNo" [searchColumnName]="'partNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #partNo [(ngModel)]="partNoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="partDescription" [searchColumnName]="'partDescription'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #partDescription [(ngModel)]="partDescriptionNgModel">
+            </mat-form-field>
+        </td>
+
+    </ngsw-search-table>
+</div>

@@ -1,0 +1,49 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Create Spare Descripancy Claim</p>
+        </div>
+        <form  [style.fontSize.px]="10">
+           <div class="card-body">
+              <div>
+                <app-page-spare-descripancy-claim (grnDealerId)="grnDealerId($event)"[createSpareDescripancyForm]="createSpareDescripancyForm"  (sendInvoiceId)="getInvoiceId($event)"  (sendClaimType)="getClaimType($event)" (sendGrnId)="getGrnId($event)"></app-page-spare-descripancy-claim>
+                <app-item-details-spare-descripancy-claim  [viewClaimType]="viewClaimType" [editSpareGRNId]="editSpareGRNId" [partDetailsForm]="partDetailsForm"[claimType]="claimType" [grnId]="grnId"></app-item-details-spare-descripancy-claim>
+                <app-approve-spare-descripancy-claim *ngIf="isApprove ||(isView && loginitldis)" [spareDescApprovalForm]="spareDescApprovalForm"></app-approve-spare-descripancy-claim>
+                <app-upload-image [isView]="isView" [isEdit]="isEdit" [isApprove]="isApprove" [attachmentList]="attachmentList" [attachementForm]="attachementForm"></app-upload-image>
+               
+              </div>
+              <div class=" text-center mt-2 ">
+                <button *ngIf="isCreate || isEdit" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="validateForm('save')" > Save
+                  </button>
+                  <button *ngIf="isCreate || isEdit" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="validateForm('submit')"> Submit
+                  </button>
+
+
+                  <button *ngIf="isApprove" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                  (click)="approveOrReject('Approve')"> Approve
+              </button>
+
+              
+              <button *ngIf="isApprove" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+              (click)="approveOrReject('Reject')"> Reject
+          </button>
+                  
+                  <button *ngIf="isView && showDownloadPdf" type="button" class="btn btn_secondary px-3 ml-3 " (click)="downloadPdf()"> View PDF
+                  </button>
+                  <button *ngIf="!isView"type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="exitForm()"> Exit
+                  </button>
+                  <button *ngIf="isCreate"type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="clearForm()"> Clear
+                  </button>
+                 
+                 
+              </div>
+           </div>
+      </form>            
+    </div>
+   </div>
+  </div>

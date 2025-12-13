@@ -1,0 +1,71 @@
+<div class="container-fluid mt-4 mb-3">
+  <form>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between header">
+                <p class="mb-0">Search KAI Inspection Sheet</p>
+                <div>
+                  <!-- <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                    [routerLink]="['./create']" routerLinkActive="router-link-active">
+                    <b class="btnName">New</b>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+
+            <app-kai-inspection-sheet-search [searchForm]="searchForm"></app-kai-inspection-sheet-search>
+            <div class="text-center  mt-2 mb-2">
+              <button (click)="search()" type="button" class="btn  btn_primary px-3" [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"> Search
+              </button>
+              <button (click)="clear()" type="button" class="btn  btn_primary px-3 ml-2"> Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="mt-2">
+    <!-- space for ngsw search table -->
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[
+        { title: 'inspectionNo', isClickable: true },{ title:'action', isClickable: true }
+      ]" (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [actionButtons]="actionButtons" [clearSearchRow]="clearSearchRow" >
+      <td></td>
+      <td [ngsw-searchField]="inspectionNo" [searchColumnName]="'inspectionNo'">
+          <input class="w-100 borderRadius" #inspectionNo />
+      </td>
+      <td [ngsw-searchField]="inspectedDate" [searchColumnName]="'inspectedDate'">
+          <input class="w-100 borderRadius" #inspectedDate
+            type="date" (change)="etSearchDateValueChange(inspectedDate.value, 'inspectedDate')" />
+      </td>
+      <td [ngsw-searchField]="inspectedBy" [searchColumnName]="'inspectedBy'">
+          <input class="w-100 borderRadius" #inspectedBy />
+      </td>
+      <td [ngsw-searchField]="wcrNo" [searchColumnName]="'wcrNo'">
+          <input class="w-100 borderRadius" #wcrNo />
+      </td>
+      <td [ngsw-searchField]="wcrDate" [searchColumnName]="'wcrDate'">
+          <input class="w-100 borderRadius" #wcrDate
+            type="date" (change)="etSearchDateValueChange(wcrDate.value, 'wcrDate')" />
+      </td>
+      <td [ngsw-searchField]="wcrType" [searchColumnName]="'wcrType'">
+          <input class="w-100 borderRadius" #wcrType />
+      </td>
+      <td [ngsw-searchField]="wcrStatus" [searchColumnName]="'wcrStatus'">
+          <input class="w-100 borderRadius" #wcrStatus />
+      </td>
+      
+     
+     
+
+    </ngsw-search-table>
+
+  </div>
+
+</div>

@@ -1,0 +1,36 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Function </p>
+      </div>
+      <div class="card-body">
+        <form [style.fontSize.px]="11">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm" >
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 100px;">Assign Role</th>
+                <th scope="col">Functions </th>
+              </tr>
+            </thead>
+            <tbody >
+              <!-- <tr *ngFor="let option of dealerFunctionList">
+                <td><mat-checkbox color="basic"  (change)='onChange($event)' formControlName="assignRole"></mat-checkbox></td>
+                <td >
+                  <input matInput formControlName="function" [value]="option.role_name">
+                </td>
+              </tr> -->
+              <tr *ngFor="let option of roleFunctionForm['controls']; let i = index;">
+                <!-- <td>{{i+1}}</td> -->
+                <td><input type="checkbox" color="basic" (change)='onChange($event)' [checked]="option.get('assignRole').value" [formControl]="option.get('assignRole')"/> </td>
+                <td> <input matInput >{{option.get('role_name').value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </form>
+      </div>
+
+    </div>
+  </div>

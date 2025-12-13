@@ -1,0 +1,162 @@
+<div class="container-fluid create-form mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+      	    <div class="card-header">
+        	    <p class="mb-0">Delivery Challan Cancellation Approval</p>
+          	</div>
+	        <div class="card-body">
+	    		<ngsw-search-table [tableTitle]="''" [dataTable]="dataTable" [totalElements]="totalTableElements"
+					(pageChange)="pageChange($event)" [searchValue]="searchValue" 
+					(actionOnTableRecord)="actionOnTableRecord($event)"
+    				[clickOnTableFields]="[{'title':'deliveryChallanNumber','isClickable':true},{'title':'approve','isClickable':true}]">
+    				
+				    <td></td>
+				    <td [ngsw-searchField]="deliveryChallanNumber" [searchColumnName]="'deliveryChallanNumber'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #deliveryChallanNumber>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="deliveryChallanDatePicker" [searchColumnName]="'deliveryChallanDate'">
+				        <mat-form-field>
+				            <input matInput [matDatepicker]="deliveryChallanDatePicker" placeholder="Choose a date" #deliveryChallanDate
+				                (dateChange)="dateChanges($event, 'deliveryChallanDate')">
+				            <mat-datepicker-toggle matSuffix [for]="deliveryChallanDatePicker"></mat-datepicker-toggle>
+				            <mat-datepicker #deliveryChallanDatePicker></mat-datepicker>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="deliveryChallantype" [searchColumnName]="'deliveryChallantype'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #deliveryChallantype>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="enquiryNumber" [searchColumnName]="'enquiryNumber'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #enquiryNumber>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="enquiryDate" [searchColumnName]="'enquiryDate'">
+				        <mat-form-field>
+				            <input matInput [matDatepicker]="enquiryDatePickerRef" placeholder="Choose a date" #enquiryDate
+				                (dateChange)="dateChanges($event, 'enquiryDate')">
+				            <mat-datepicker-toggle matSuffix [for]="enquiryDatePickerRef"></mat-datepicker-toggle>
+				            <mat-datepicker #enquiryDatePickerRef></mat-datepicker>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="enquiryType" [searchColumnName]="'enquiryType'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #enquiryType>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="dcStatus" [searchColumnName]="'dcStatus'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #dcStatus>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="itemNumber" [searchColumnName]="'itemNumber'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #itemNumber>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #itemDescription>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="quantity" [searchColumnName]="'quantity'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #quantity>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="chassisNumber" [searchColumnName]="'chassisNumber'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #chassisNumber>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="engineNumber" [searchColumnName]="'engineNumber'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #engineNumber>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="customerType" [searchColumnName]="'customerType'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #customerType>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="companyName" [searchColumnName]="'companyName'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #companyName>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #customerCode>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #customerName>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="invoiceCustomerName" [searchColumnName]="'invoiceCustomerName'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #invoiceCustomerName>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #mobileNumber>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #address1>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #pinCode>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #postOffice>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="village" [searchColumnName]="'village'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #village>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #tehsil>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #district>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #city>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+				        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+				            <input matInput #state>
+				        </mat-form-field>
+				    </td>
+				    <td [ngsw-searchField]="cancelRequestDatePicker" [searchColumnName]="'cancelRequestDate'">
+				        <mat-form-field>
+				            <input matInput [matDatepicker]="cancelRequestDatePicker" placeholder="Choose a date" #cancelRequestDate
+				                (dateChange)="dateChanges($event, 'cancelRequestDate')">
+				            <mat-datepicker-toggle matSuffix [for]="cancelRequestDatePicker"></mat-datepicker-toggle>
+				            <mat-datepicker #cancelRequestDatePicker></mat-datepicker>
+				        </mat-form-field>
+				    </td>
+				</ngsw-search-table>
+	    	</div>
+    	</div>
+    </div>
+</div>      

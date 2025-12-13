@@ -1,0 +1,38 @@
+<div class="card-body" [formGroup]="btBtSearchForm" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Bin Transfer No.</mat-label>
+                <input matInput placeholder="Bin Transfer No." formControlName="binTransferNo"
+                 [matAutocomplete]="autoItemNo">
+                      <mat-autocomplete #autoItemNo="matAutocomplete"
+                          [panelWidth]="300" [displayWith]="displayFnNo">
+                          <mat-option *ngFor="let option of (transferNoList$| async)"
+                              [value]="option">
+                              {{option?.binTransferNo}}
+                          </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                      <mat-error *ngIf="btBtSearchForm.get('binTransferNo').hasError('selectFromList')">
+                        Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Bin Transfer From Date"
+                    formControlName="binTransferFromDate" (dateChange)="fromDateSelected($event)" [max]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Bin Transfer To Date"
+                    formControlName="binTransferToDate"  [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

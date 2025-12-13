@@ -1,0 +1,88 @@
+<div class="card-from mt-2" [formGroup]="implementForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">IMPLEMENT</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of implementHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of implementForm.controls; let i=index" [formGroupName]="i">
+              <td style="vertical-align: middle;">
+                <mat-checkbox formControlName="isSelected" [checked]></mat-checkbox>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>Implement Category</mat-label>
+                  <input matInput placeholder="Implement Category" formControlName="implementCategory">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>Implement</mat-label>
+                  <input matInput placeholder="Implement" formControlName="implement">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>Implement Make</mat-label>
+                  <input matInput placeholder="Implement Make" formControlName="implementMake">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>Implement Serial Number</mat-label>
+                  <input matInput placeholder="Implement Serial Number" formControlName="implementSerialNumber">
+                  <mat-error *ngIf="list.get('implementSerialNumber').errors?.validSerialNo">Please Enter Alphanumeric
+                    Number.</mat-error>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>Gear Ratio</mat-label>
+                  <input matInput placeholder="Gear Ratio" formControlName="gearRatio">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>Engine RPM</mat-label>
+                  <input matInput placeholder="Engine RPM" formControlName="engineRpm">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                  <mat-label>% Of Usage</mat-label>
+                  <input matInput placeholder="% Of Usage" formControlName="percentOfUsage">
+                </mat-form-field>
+              </td>
+              <td>
+
+                <div class="form-check mt-2">
+                  <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;"
+                    formControlName="usageFailure"></mat-checkbox>
+                </div>
+
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+     <!--  <div class=" text-center mt-1">
+        <button type="button" class="btn btn_primary px-2"> Add Row
+        </button>
+        <button type="button" class="btn btn_secondary px-2 ml-2"> Delete Row
+        </button>
+      </div> -->
+
+    </div>
+
+  </div>
+</div>

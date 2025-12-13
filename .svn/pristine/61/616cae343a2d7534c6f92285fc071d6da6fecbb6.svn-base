@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  ::ng-deep mat-paginator {
+    .mat-paginator-page-size-select {
+      min-width: 50px;
+    }
+    .mat-paginator-page-size-label {
+      display: none;
+    }
+  }
+
+
+  .mat-paginator-page-size-label{
+    display: none;
+  }

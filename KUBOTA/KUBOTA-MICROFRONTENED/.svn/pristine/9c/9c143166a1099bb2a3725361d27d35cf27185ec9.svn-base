@@ -1,0 +1,61 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipe/camel-case-to-regular-string.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Pipe } from '@angular/core';
+export class CamelCaseToRegularStringPipe {
+    /**
+     * @param {?} value
+     * @param {?=} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    transform(value, tableName, tableType) {
+        /** @type {?} */
+        let regularString = '';
+        value.split('').map((/**
+         * @param {?} char
+         * @return {?}
+         */
+        char => {
+            if (/[A-Z]/.test(char)) {
+                regularString += ' ';
+            }
+            regularString += char;
+        }));
+        regularString = regularString.charAt(0).toUpperCase() + regularString.slice(1);
+        return regularString;
+    }
+    // changeKey
+    /**
+     * @private
+     * @param {?} key
+     * @param {?} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    transformEnterBy(key, tableName, tableType) {
+        /** @type {?} */
+        const serachIndex = tableName.toLowerCase().search('voucher');
+        /**
+         * @return {?}
+         */
+        function isTransformKey() {
+            if (serachIndex >= 0) {
+                return true;
+            }
+            return false;
+        }
+        if (isTransformKey()) {
+            return 'Staff';
+        }
+        return 'AddedBy';
+    }
+}
+CamelCaseToRegularStringPipe.decorators = [
+    { type: Pipe, args: [{
+                name: 'camelCaseToRegularString'
+            },] }
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FtZWwtY2FzZS10by1yZWd1bGFyLXN0cmluZy5waXBlLmpzIiwic291cmNlUm9vdCI6Im5nOi8vbmdzdy1zZWFyY2gtdGFibGUvIiwic291cmNlcyI6WyJsaWIvcGlwZS9jYW1lbC1jYXNlLXRvLXJlZ3VsYXItc3RyaW5nLnBpcGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxPQUFPLEVBQUUsSUFBSSxFQUFpQixNQUFNLGVBQWUsQ0FBQztBQUtwRCxNQUFNLE9BQU8sNEJBQTRCOzs7Ozs7O0lBQ3ZDLFNBQVMsQ0FBQyxLQUFhLEVBQUUsU0FBa0IsRUFBRSxTQUFrQjs7WUFDekQsYUFBYSxHQUFHLEVBQUU7UUFDdEIsS0FBSyxDQUFDLEtBQUssQ0FBQyxFQUFFLENBQUMsQ0FBQyxHQUFHOzs7O1FBQUMsSUFBSSxDQUFDLEVBQUU7WUFDekIsSUFBSSxPQUFPLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxFQUFFO2dCQUN0QixhQUFhLElBQUksR0FBRyxDQUFDO2FBQ3RCO1lBQ0QsYUFBYSxJQUFJLElBQUksQ0FBQztRQUN4QixDQUFDLEVBQUMsQ0FBQztRQUNILGFBQWEsR0FBRyxhQUFhLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxDQUFDLFdBQVcsRUFBRSxHQUFHLGFBQWEsQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUM7UUFFL0UsT0FBTyxhQUFhLENBQUM7SUFDdkIsQ0FBQzs7Ozs7Ozs7O0lBRU8sZ0JBQWdCLENBQUMsR0FBRyxFQUFFLFNBQWlCLEVBQUUsU0FBa0I7O2NBQzNELFdBQVcsR0FBVyxTQUFTLENBQUMsV0FBVyxFQUFFLENBQUMsTUFBTSxDQUFDLFNBQVMsQ0FBQzs7OztRQUNyRSxTQUFTLGNBQWM7WUFDckIsSUFBSSxXQUFXLElBQUksQ0FBQyxFQUFFO2dCQUNwQixPQUFPLElBQUksQ0FBQzthQUNiO1lBQ0QsT0FBTyxLQUFLLENBQUM7UUFDZixDQUFDO1FBQ0QsSUFBSSxjQUFjLEVBQUUsRUFBRTtZQUNwQixPQUFPLE9BQU8sQ0FBQztTQUNoQjtRQUNELE9BQU8sU0FBUyxDQUFDO0lBQ25CLENBQUM7OztZQTdCRixJQUFJLFNBQUM7Z0JBQ0osSUFBSSxFQUFFLDBCQUEwQjthQUNqQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IFBpcGUsIFBpcGVUcmFuc2Zvcm0gfSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuQFBpcGUoe1xuICBuYW1lOiAnY2FtZWxDYXNlVG9SZWd1bGFyU3RyaW5nJ1xufSlcbmV4cG9ydCBjbGFzcyBDYW1lbENhc2VUb1JlZ3VsYXJTdHJpbmdQaXBlIGltcGxlbWVudHMgUGlwZVRyYW5zZm9ybSB7XG4gIHRyYW5zZm9ybSh2YWx1ZTogc3RyaW5nLCB0YWJsZU5hbWU/OiBzdHJpbmcsIHRhYmxlVHlwZT86IHN0cmluZyk6IGFueSB7XG4gICAgbGV0IHJlZ3VsYXJTdHJpbmcgPSAnJztcbiAgICB2YWx1ZS5zcGxpdCgnJykubWFwKGNoYXIgPT4ge1xuICAgICAgaWYgKC9bQS1aXS8udGVzdChjaGFyKSkge1xuICAgICAgICByZWd1bGFyU3RyaW5nICs9ICcgJztcbiAgICAgIH1cbiAgICAgIHJlZ3VsYXJTdHJpbmcgKz0gY2hhcjtcbiAgICB9KTtcbiAgICByZWd1bGFyU3RyaW5nID0gcmVndWxhclN0cmluZy5jaGFyQXQoMCkudG9VcHBlckNhc2UoKSArIHJlZ3VsYXJTdHJpbmcuc2xpY2UoMSk7XG5cbiAgICByZXR1cm4gcmVndWxhclN0cmluZztcbiAgfVxuICAvLyBjaGFuZ2VLZXlcbiAgcHJpdmF0ZSB0cmFuc2Zvcm1FbnRlckJ5KGtleSwgdGFibGVOYW1lOiBzdHJpbmcsIHRhYmxlVHlwZT86IHN0cmluZyk6IHN0cmluZyB7XG4gICAgY29uc3Qgc2VyYWNoSW5kZXg6IG51bWJlciA9IHRhYmxlTmFtZS50b0xvd2VyQ2FzZSgpLnNlYXJjaCgndm91Y2hlcicpO1xuICAgIGZ1bmN0aW9uIGlzVHJhbnNmb3JtS2V5KCkge1xuICAgICAgaWYgKHNlcmFjaEluZGV4ID49IDApIHtcbiAgICAgICAgcmV0dXJuIHRydWU7XG4gICAgICB9XG4gICAgICByZXR1cm4gZmFsc2U7XG4gICAgfVxuICAgIGlmIChpc1RyYW5zZm9ybUtleSgpKSB7XG4gICAgICByZXR1cm4gJ1N0YWZmJztcbiAgICB9XG4gICAgcmV0dXJuICdBZGRlZEJ5JztcbiAgfVxufVxuIl19

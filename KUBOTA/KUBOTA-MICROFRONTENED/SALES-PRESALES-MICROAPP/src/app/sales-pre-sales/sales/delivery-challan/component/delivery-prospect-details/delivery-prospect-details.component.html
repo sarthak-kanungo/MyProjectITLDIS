@@ -1,0 +1,168 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">{{isDealerTransferDc?'Dealer':'Customer'}} Details</p>
+        </div>
+
+        <div class="card-body">
+            <form [formGroup]="prospectDetailsForm" [style.fontSize.px]="10">
+                <div class="row">
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Type</mat-label>
+                            <input matInput required placeholder="Customer Type" formControlName="customerType">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Company Name</mat-label>
+                            <input matInput placeholder="Company Name" formControlName="companyName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Code</mat-label>
+                            <input matInput required placeholder="Customer Code" formControlName="customerCode">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput required placeholder="Customer Name" formControlName="customerName">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dealer Code</mat-label>
+                            <input matInput required placeholder="Dealer Code" formControlName="dealerCode">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dealer Name</mat-label>
+                            <input matInput required placeholder="Dealer Name" formControlName="dealerName">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isDealerTransferDc"></div>
+                    <div class="col-lg-2" *ngIf="isDealerTransferDc"></div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2"></div>
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Invoicing Customer Name</mat-label>
+                            <input matInput required placeholder="Invoicing Customer Name" required
+                                formControlName="invoiceCustomerName">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc"></div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc"></div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc"></div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc"></div>
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc"></div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 1</mat-label>
+                            <input matInput required placeholder="Address 1" formControlName="address1">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 2</mat-label>
+                            <input matInput required placeholder="Address 2" formControlName="address2">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 3</mat-label>
+                            <input matInput required placeholder="Address 3" formControlName="address3">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pin Code</mat-label>
+                            <input matInput required placeholder="Pin Code" formControlName="pinCode">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Post Office</mat-label>
+                            <input matInput required placeholder="Post Office" formControlName="postOffice">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Village</mat-label>
+                            <input matInput required placeholder="Village" formControlName="village">
+                        </mat-form-field>
+                    </div> -->
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tehsil/Taluka/Mandal</mat-label>
+                            <input matInput required placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>District</mat-label>
+                            <input matInput required placeholder="District" formControlName="district">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City/Village</mat-label>
+                            <input matInput required placeholder="City/Village" formControlName="city">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput required placeholder="State" formControlName="state">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput required placeholder="Mobile No." formControlName="mobileNumber">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!isDealerTransferDc">
+                        <mat-form-field appearance="outline">
+                            <mat-label>PAN No.</mat-label>
+                            <input matInput placeholder="PAN No." formControlName="panNumber">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>GSTIN No.</mat-label>
+                            <input matInput placeholder="GSTIN No." formControlName="gstInNumber">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,5 @@
+.k-quic-details {
+    label {
+        font-size: 13px;;
+    }
+}

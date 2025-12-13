@@ -1,0 +1,93 @@
+<div class="card-from mt-2 implement" [formGroup]="implementForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">IMPLEMENT</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th class="p-2" *ngFor="let tableHeading of implementHeading">{{tableHeading}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of implementForm.controls; let i=index" [formGroupName]="i">
+                <td class="chkBox">
+                  <mat-checkbox [labelPosition]="'before'" [checked] formControlName="isSelected">{{i+1}}</mat-checkbox>
+                </td>
+                <td>
+                  <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                    <mat-label>Implement Category</mat-label>
+                <!-- <input matInput placeholder="Implement Category" formControlName="implementCategory" required> -->
+                 <mat-select formControlName="impCategory" required>
+               <mat-option *ngFor="let value of catgList" [value]="value.lookupval">{{value.lookupval}}
+               </mat-option>
+               </mat-select>
+            </mat-form-field>
+                  <!-- <mat-form-field appearance="outline">
+                    <mat-label>Implement Category</mat-label>
+                    <input matInput placeholder="Implement Category" formControlName="impCategory">
+                </mat-form-field> -->
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Implement</mat-label>
+                    <input matInput placeholder="Implement" formControlName="implement">
+                </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Implement Make</mat-label>
+                    <input matInput placeholder="Implement Make" formControlName="impMake">
+                </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Implement Sl.No</mat-label>
+                    <input matInput placeholder="Implement Sl.No" formControlName="impSLNo">
+                    <mat-error *ngIf="list.get('impSLNo').errors?.validSerialNo">Please enter alphanumeric number.</mat-error>
+                </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Gear Ratio</mat-label>
+                    <input matInput placeholder="Gear Ratio'" formControlName="gearRatio">
+                    <mat-error *ngIf="list.get('gearRatio').errors?.pattern">
+                      Enter a valid ratio  <b>for eg. 3:4</b>
+                  </mat-error>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Engine RPM</mat-label>
+                    <input matInput placeholder="Engine RPM" formControlName="engineRPM">
+                </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>% of Usage</mat-label>
+                    <input matInput placeholder="% of Usage" formControlName="usage">
+                    <mat-error *ngIf="list.get('usage').errors?.min">Enter value between 1 to 100.</mat-error>
+                    <mat-error *ngIf="list.get('usage').errors?.max">Total usage exceed above 100.</mat-error>
+                </mat-form-field>
+                </td>
+                
+                <td><mat-checkbox checked="true" formControlName="failure"></mat-checkbox></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class=" text-center mt-1">
+            <button *ngIf="!isView" [style.fontSize.px]="11" (click)="addRow()" type="button" class="btn btn_primary px-2"> Add Row
+            </button>
+            <button *ngIf="formLength > 1 && !isView" [style.fontSize.px]="11" (click)="deleteRow()" type="button" class="btn btn_secondary px-2 ml-2"> Delete Row
+            </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

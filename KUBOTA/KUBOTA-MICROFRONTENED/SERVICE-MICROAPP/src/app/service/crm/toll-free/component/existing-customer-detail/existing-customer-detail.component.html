@@ -1,0 +1,200 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Existing Customer Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="customerDetailsForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2" *ngIf="!isView">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Customer Name / Mobile No</mat-label>
+                            <input matInput placeholder="Customer Name / Mobile No" formControlName="mobileNumber" [matAutocomplete]="autoCustomerCode" required>
+                            <mat-autocomplete #autoCustomerCode="matAutocomplete" [panelWidth]="500"
+                                (optionSelected)="selectedCustomerCode($event)" [displayWith]="displayFnCustomerCode">
+                                <mat-option *ngFor="let option of customerCodeList" [value]="option">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error
+                                *ngIf="customerDetailsForm.get('mobileNumber').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Customer Name / Mobile No</mat-label>
+                            <input matInput placeholder="Customer Name / Mobile No" formControlName="mobileNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Title</mat-label>
+                            <input matInput placeholder="Title" formControlName="title" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="First Name" formControlName="firstName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Middle Name</mat-label>
+                            <input matInput placeholder="Middle Name" formControlName="middleName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Last Name" formControlName="lastName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Prefered Language</mat-label>
+                            <input matInput placeholder="Prefered Language" formControlName="preferedLanguage" readonly>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Alternate Mobile No.</mat-label>
+                            <input matInput placeholder="Alternate Mobile No." formControlName="alternateMobileNo"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Telephone</mat-label>
+                            <input matInput placeholder="Telephone" formControlName="telephone" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pan No.</mat-label>
+                            <input matInput placeholder="Pan No." formControlName="panNo" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Gstin</mat-label>
+                            <input matInput placeholder="Gstin" formControlName="gstin" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sold Dealer Name</mat-label>
+                            <input matInput placeholder="Sold Dealer Name" formControlName="soldDealerName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contact Person Name</mat-label>
+                            <input matInput placeholder="Contact Person Name" formControlName="contactPersonName"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contact Person Mobile</mat-label>
+                            <input matInput placeholder="Contact Person Mobile" formControlName="contactPersonMobile"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Address Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="customerDetailsForm" [style.fontSize.px]="11">
+                <div class="row">
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 1</mat-label>
+                            <input matInput placeholder="Address 1" required formControlName="address1" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 2</mat-label>
+                            <input matInput placeholder="Address 2" formControlName="address2" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label> Address 3</mat-label>
+                            <input matInput placeholder="Address 3" formControlName="address3" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <input matInput placeholder="Country" formControlName="country" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="State" formControlName="state" readonly>
+                            <mat-error
+                                *ngIf="customerDetailsForm.get('state').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>District</mat-label>
+                            <input matInput placeholder="District" formControlName="district" readonly>
+                            <mat-error
+                                *ngIf="customerDetailsForm.get('district').hasError('selectFromList')">
+                                Please select from list
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Tehsil/ Taluk/ Mandal</mat-label>
+                            <input matInput placeholder="Tehsil/ Taluk/ Mandal" formControlName="tehsil" readonly>
+                            <mat-error
+                                *ngIf="customerDetailsForm.get('tehsil').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Village /City</mat-label>
+                            <input matInput placeholder="Village /City" formControlName="city" readonly>
+                            <mat-error *ngIf="customerDetailsForm.get('city').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Pin Code</mat-label>
+                            <input matInput placeholder="Pin Code" formControlName="pinCode" readonly>
+                            <mat-error
+                                *ngIf="customerDetailsForm.get('pinCode').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->

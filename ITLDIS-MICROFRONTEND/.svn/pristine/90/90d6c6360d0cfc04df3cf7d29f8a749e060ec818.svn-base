@@ -1,0 +1,16 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="font-weight-bold" style="color: #354052">
+                Sales Invoice Return
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<app-spare-parts-sales-return-invoice></app-spare-parts-sales-return-invoice>
+</div>

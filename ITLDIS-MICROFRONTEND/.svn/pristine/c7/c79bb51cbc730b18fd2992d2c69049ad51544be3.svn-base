@@ -1,0 +1,74 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Last Purchase Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <div [formGroup]="purchaseDetails">
+          <table class="table table-bordered table-sm" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 50px;">Select</th>
+                <th scope="col" style="width: 20%;">Manufacturer</th>
+                <th scope="col" style="width: 20%;">Model</th>
+                <th scope="col" style="width: 20%;">Year of Purchase</th>
+                <th scope="col" style="">Serial No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of purchaseDetails.get('dataTable')['controls']; index as i" [formGroupName]="i">
+                <td>
+                  <mat-checkbox formControlName="isSelected" color="basic" [checked]></mat-checkbox>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Manufacturer</mat-label>
+                    <mat-select required formControlName="brand">
+                      <mat-option *ngFor="let title of manufacturers" [value]="title.brand">{{title.brand}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Model</mat-label>
+                    <mat-select required formControlName="model" *ngIf="option.get('modelEditable').value!='Y'">
+                      <mat-option *ngFor="let model of models" [value]="model.model">{{model.model}}
+                      </mat-option>
+                    </mat-select>
+                    <input matInput placeholder="Model" formControlName="model" *ngIf="option.get('modelEditable').value==='Y'">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Year of Purchase</mat-label>
+                    <input matInput placeholder="Year of Purchase" formControlName="yearOfPurchase">
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Serial No.</mat-label>
+                    <input matInput placeholder="Serial No." formControlName="serialno">
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class=" text-center" *ngIf="!isView">
+        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+        <button type="button" class="btn btn-sm btn_secondary ml-2 " (click)="deleteRow()"> Delete Row
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

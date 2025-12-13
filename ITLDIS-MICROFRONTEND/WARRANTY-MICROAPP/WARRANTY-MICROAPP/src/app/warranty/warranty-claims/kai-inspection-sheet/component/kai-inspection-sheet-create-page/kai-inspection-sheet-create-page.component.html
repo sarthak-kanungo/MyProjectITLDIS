@@ -1,0 +1,39 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Inspection Sheet</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <app-kai-inspection-sheet [kisForm]="kisForm" [isView]="isView"></app-kai-inspection-sheet>
+          <app-kai-inspection-sheet-material-details *ngIf="materialDetailForm && materialDetailForm.length > 0" [materialDetailForm]="materialDetailForm">
+          </app-kai-inspection-sheet-material-details>
+          <app-kai-inspection-sheet-labourcharge *ngIf="labourChargeForm && labourChargeForm.length > 0" [labourChargeForm]="labourChargeForm">
+          </app-kai-inspection-sheet-labourcharge>
+          <app-kai-inspection-sheet-outside-labourcharge *ngIf="outsideLabourChargeForm && outsideLabourChargeForm.length > 0" [outsideLabourChargeForm]="outsideLabourChargeForm">
+          </app-kai-inspection-sheet-outside-labourcharge>
+          <app-kai-inspection-sheet-file-upload *ngIf="isKaiPhoto" [uploadFileForm]="uploadFileForm"></app-kai-inspection-sheet-file-upload>
+          <app-kai-inspection-sheet-transporter-details [transporterDetailForm]="transporterDetailForm">
+          </app-kai-inspection-sheet-transporter-details>
+          <app-kai-inspection-sheet-k-quic-details [kQuickForm]="kQuickForm"></app-kai-inspection-sheet-k-quic-details>
+
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+
+            <button *ngIf="operation == 'create' || operation == 'approve'" (click)="formValid('submit')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button *ngIf="operation == 'create' || operation == 'approve'" (click)="formValid('hold')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Hold
+            </button>
+            <!-- <button  type="button" class="btn btn_primary pl-3 pr-3 ml-3"> View PDF
+            </button> -->
+            <button *ngIf="operation == 'view'"  type="button" class="btn btn_primary px-3 ml-3" (click)="viewPrint('true')" > Print
+            </button>
+            <!-- <button type="button" class="btn btn_primary px-3 ml-3"> Clear
+            </button> -->
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

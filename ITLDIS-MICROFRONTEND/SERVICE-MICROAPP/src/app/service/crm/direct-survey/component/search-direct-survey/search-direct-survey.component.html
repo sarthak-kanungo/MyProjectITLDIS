@@ -1,0 +1,105 @@
+<!-- <form>
+    <div class="container-fluid mt-4 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Direct Survey</p>
+                                <div>
+                                    <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                                    [routerLink]="[ './create' ]">
+                                    <b class="btnName">New</b>
+                                  </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-survey-summary-report-search-result [surveySummaryReportForm]=surveySummaryReportForm>
+                        </app-survey-summary-report-search-result>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary"
+                                (click)="searchSurveySummaryReportForTable()"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2"
+                                (click)="clearSurveySummaryReportForm()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form> -->
+
+<!-- <div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [actionButtons]="actionButtons" [searchValue]="searchValue"
+        [clickOnTableFields]="[{title:'dealerCode'},{title:'action'}]" (actionOnTableRecord)="tableAction($event)"
+        (pageChange)="pageChange($event)" [page]="page" [size]="size" [searchValue]="searchValue">
+
+    <td [ngsw-searchField]="action" [searchColumnName]="'action'" class="action">
+        <input class="w-100 borderRadius" #action>
+    </td>
+
+
+        <td [ngsw-searchField]="surveyNumber" [searchColumnName]="'surveyNumber'" class="surveyNumber">
+            <input class="w-100 borderRadius" #surveyNumber>
+        </td>
+        <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'" class="customerCode">
+            <input class="w-100 borderRadius" #customerCode>
+        </td>
+
+        <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'" class="customerName">
+            <input class="w-100 borderRadius" #customerName>
+        </td>
+
+        <td [ngsw-searchField]="customerNumber" [searchColumnName]="'customerNumber'" class="customerNumber">
+            <input class="w-100 borderRadius" #customerNumber>
+        </td>
+
+        <td [ngsw-searchField]="customerAlternetNumber" [searchColumnName]="'customerAlternetNumber'"
+            class="customerAlternetNumber">
+            <input class="w-100 borderRadius" #customerAlternetNumber>
+        </td>
+
+        <td [ngsw-searchField]="location" [searchColumnName]="'location'" class="location">
+            <input class="w-100 borderRadius" #location>
+        </td>
+
+        <td [ngsw-searchField]="state" [searchColumnName]="'state'" class="state">
+            <input class="w-100 borderRadius" #state>
+        </td>
+
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName">
+            <input class="w-100 borderRadius" #dealerName>
+        </td>
+
+        <td [ngsw-searchField]="model" [searchColumnName]="'model'" class="model">
+            <input class="w-100 borderRadius" #model>
+        </td>
+
+        <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'" class="chassisNo">
+            <input class="w-100 borderRadius" #chassisNo>
+        </td>
+
+        <td [ngsw-searchField]="dateOfInstallation" [searchColumnName]="'dateOfInstallation'"
+            class="dateOfInstallation">
+            <input class="w-100 borderRadius" #dateOfInstallation>
+        </td>
+
+        <td [ngsw-searchField]="surveyType" [searchColumnName]="'surveyType'" class="surveyType">
+            <input class="w-100 borderRadius" #surveyType>
+        </td>
+
+        <td [ngsw-searchField]="surveyStatus" [searchColumnName]="'surveyStatus'" class="surveyStatus">
+            <input class="w-100 borderRadius" #surveyStatus>
+        </td>
+
+        <td [ngsw-searchField]="customerSatisfied" [searchColumnName]="'customerSatisfied'" class="customerSatisfied">
+            <input class="w-100 borderRadius" #customerSatisfied>
+        </td>
+
+    </ngsw-search-table>
+</div> -->

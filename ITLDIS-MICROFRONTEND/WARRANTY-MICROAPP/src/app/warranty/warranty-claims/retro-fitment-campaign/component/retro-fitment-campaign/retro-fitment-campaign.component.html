@@ -1,0 +1,86 @@
+<ng-container [formGroup]="rfcForm">
+    <div class="row" [style.fontSize.px]="11">
+        <div class="col-lg-3" *ngIf="isView">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Retro Fitment No.</mat-label>
+                <input matInput placeholder="Retro Fitment No." formControlName="retrofitmentNo">
+                <mat-autocomplete>
+                    <mat-option>
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Campaign Name</mat-label>
+                <input matInput placeholder="Campaign Name" autocomplete="off"  formControlName="campaignName">
+                <mat-error *ngIf="rfcForm.get('campaignName').hasError('required')">
+                    <strong> Campaign Name is Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Retro Fitment Date</mat-label>
+                <input readonly matInput [matDatepicker]="picker" placeholder="Retro Fitment Date"
+                    (click)="picker.open()" formControlName="retrofitmentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Start Date</mat-label>
+                <input readonly matInput [matDatepicker]="picker1" placeholder="Start Date" (click)="picker1.open()"
+                    formControlName="startDate" (dateChange)="setEndDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="rfcForm.get('startDate').hasError('required')">
+                    <strong> Campaign Start Date is Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>End Date</mat-label>
+                <input readonly matInput [matDatepicker]="picker2" placeholder="End Date" (click)="picker2.open()"
+                    formControlName="endDate" [min]="campaignEndDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="rfcForm.get('endDate').hasError('required')">
+                    <strong> Campaign End Date is Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row my-3" [style.fontSize.px]="12">
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Chassis Number</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file"  accept='.xlsx' class="custom-file-input"
+                                (change)="fileSelectionChanges($event)" [disabled]="isView">
+                            <label class="custom-file-label">{{ isView ? rfcForm.get('chassisNo').value :
+                                fileName}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" text-right" *ngIf="!isView">
+            <a class="btn btn-link" style="color: #00a8a9;font-size: 15px;margin-left: 300px;"
+                (click)="downloadTemplate()"><u>Download Excel Template</u></a>
+            <!-- <a class="pr-2 pointerTag" style="color: #00a8a9;font-size: 15px;" (click)="uploadExcel()"><u>Excel Upload</u></a> -->
+        </div>
+
+    </div>
+
+
+</ng-container>

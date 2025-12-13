@@ -1,0 +1,59 @@
+<div class="card-from">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Customer and Machine Details</p>
+        </div>
+        <div class="card-body">
+            <div class="row" [formGroup]="customerMachineDetailsForm" [style.fontSize.px]="11">
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Customer Address</mat-label>
+                        <input matInput placeholder="Customer Address" formControlName="address">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Customer Cell No.</mat-label>
+                        <input matInput placeholder="Customer Cell No." formControlName="mobileNumber">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Previous Service Type</mat-label>
+                        <input matInput placeholder="Previous Service Type" formControlName="previousServiceType">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Previous Service Date</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Previous Service Date"
+                            formControlName="previousServiceDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Previous Service Hours</mat-label>
+                        <input matInput placeholder="Previous Service Hours" formControlName="previousServiceHour">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Next Due Service Type</mat-label>
+                        <input matInput placeholder="Next Due Service Type" formControlName="nextDueServiceType">
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

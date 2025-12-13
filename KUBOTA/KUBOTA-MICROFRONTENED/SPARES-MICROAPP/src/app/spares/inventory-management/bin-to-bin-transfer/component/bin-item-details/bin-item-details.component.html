@@ -1,0 +1,175 @@
+
+<div class=" text-right">
+    <a class="pr-3" style="color: #00a8a9;font-size: 15px;"  (click)="downloadTemplate()"><u>Download Template</u></a>
+  	<a class="pr-2" style="color: #00a8a9;font-size: 15px;"  (click)="uploadExcel()"><u>Excel Upload</u></a>
+</div>
+
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+          border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Item Details</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="itemDetailsTable">
+        <div formArrayName="itemDetailsRowData">
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 50px;padding-bottom: 11px"></th>
+                  <th scope="col" style="width: 50px;padding-bottom: 11px">SRN</th>
+                  <th scope="col" style="width: 300px;padding-bottom: 11px">Item No</th>
+                  <th scope="col" style="width: 300px;padding-bottom: 11px">Item Description</th>
+                  <th scope="col" style="width: 300px;padding-bottom: 11px">Total Stock</th>
+                  <th scope="col" style="width: 200px;padding-bottom: 11px">From Store</th>
+                  <th scope="col" style="width: 200px">From Bin Location</th>
+                  <th scope="col" style="width: 150px">From Bin Stock</th>
+                  <th scope="col" style="width: 150px;padding-bottom: 11px">Transfer Qty</th>
+                  <th scope="col" style="width: 200px;padding-bottom: 11px">To Store</th>
+                  <th scope="col" style="width: 200px">To Bin Location</th>
+                  <th scope="col" style="width: 200px;padding-bottom: 11px">To Bin Stock</th>
+                  <!-- <th scope="col" style="width: 50px;padding-bottom: 11px">Default Bin?</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of itemDetailsTable['controls'].itemDetailsRowData['controls']; let i = index"
+                  [formGroupName]="i">
+                  <td >
+                    <mat-checkbox color="basic" class="form-control form-control-sm" formControlName="isSelected"
+                      [checked]></mat-checkbox>
+
+                  </td>
+                  <td >
+                    {{i+1}}
+                  </td>
+                  <td >
+                    <!-- <div class="input-group input-group-sm">
+                      <input type="search" class="form-control form-control-sm" formControlName="itemNo">
+                      <div class="input-group-append">
+                        <button class="input-group-text"><i class="material-icons"
+                            style="font-size:20px">search</i></button>
+                      </div>
+                    </div> -->
+                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                      <mat-label>Item Number</mat-label>
+                      <input matInput placeholder="Item Number" formControlName="itemNo"
+                          [matAutocomplete]="autoItemNo">
+                      <mat-autocomplete #autoItemNo="matAutocomplete"
+                          (optionSelected)="optionSelectedItem($event, row)"
+                          [displayWith]="displayFnItemNo" [panelWidth]="300">
+                          <mat-option *ngFor="let option of (itemNoList$| async)"
+                              [value]="option">
+                              {{option?.value}}
+                          </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                      <mat-error *ngIf="row.get('itemNo').hasError('selectFromList')">
+                        Please select from list</mat-error>
+                  </mat-form-field>
+                  </td>
+                  <td >
+                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                         <input matInput placeholder="Item Description"
+                             formControlName="itemDescription">
+                     </mat-form-field>
+                  </td>
+                  <td >
+                     <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                         <input matInput placeholder="Available Stock"
+                             formControlName="availableStock">
+                     </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>From Store</mat-label>
+                      <mat-select formControlName="fromStore" [compareWith]="compareFn">
+                          <mat-option *ngFor="let store of storeList$ | async" [value]="store">
+                              {{store.value}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10" class="w-100">
+                      <mat-label>From Bin Location</mat-label>
+                      <input matInput placeholder="From Bin Location" formControlName="fromLocation"
+                          [matAutocomplete]="autoFromLocation">
+                      <mat-autocomplete #autoFromLocation="matAutocomplete" [panelWidth]="200" 
+                              (optionSelected)="optionSelectedFromBin($event, row)" [displayWith]="displayFnFromLocation">
+                          <mat-option *ngFor="let option of (fromLocations$| async)" [value]="option">
+                              {{option.value}}
+                          </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <mat-error *ngIf="row.get('fromLocation').hasError('selectFromList')">
+                        Please select from list</mat-error>
+                  </td>
+                  <td >
+                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                         <input matInput placeholder="Stock"
+                             formControlName="fromBinStock" >
+                     </mat-form-field>
+                  </td>
+                  <td >
+                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                         <input matInput placeholder="Transfer Quantity"
+                             formControlName="transferQty" max>
+                     </mat-form-field>
+                     <mat-error *ngIf="row.get('transferQty').hasError('maxValue')">Tranfer Qty should not be more than Stock {{row.get('fromBinStock').value}}</mat-error>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10" class="w-100">
+                      <mat-label>To Store</mat-label>
+                      <mat-select formControlName="toStore" [compareWith]="compareFn">
+                        <mat-option *ngFor="let store of storeList$ | async" [value]="store">
+                          {{store.value}}
+                      </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10" class="w-100">
+                      <mat-label>To Location</mat-label>
+                      <input matInput placeholder="From Bin Location" formControlName="toLocation" 
+                          [matAutocomplete]="autoToLocation" (change)="checkBinLocationFormate(row)" minlength="9" maxlength="9">
+                      <mat-autocomplete #autoToLocation="matAutocomplete" [panelWidth]="200" [displayWith]="displayFnFromLocation"
+                                        (optionSelected)="optionSelectedToBin($event, row)">
+                          <mat-option *ngFor="let option of (toLocations$| async)" [value]="option">
+                              {{option.value}}
+                          </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-error *ngIf="row.get('toLocation').hasError('selectFromList')">
+                        Please select from list</mat-error>
+                    <mat-error *ngIf="row.get('toLocation').hasError('binError')">
+                      Location should be in Pattern <b>A00-00-00</b></mat-error>
+                  </td>
+                  <td >
+                     <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                         <input matInput placeholder="Stock"
+                             formControlName="toBinStock">
+                     </mat-form-field>
+
+                  </td>
+                  <!-- <td >
+                    <mat-checkbox color="basic" class="form-control form-control-sm" formControlName="default"
+                      [checked]></mat-checkbox>
+
+                  </td> -->
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+      <div class=" text-center ">
+        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+        <button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()">Delete Row </button>
+      </div>
+    </div>
+
+  </div>
+</div>

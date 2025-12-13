@@ -1,0 +1,76 @@
+<div class="heading mt-3" style="font-size:15px;">
+
+  <div class="card-from mt-2" id="divshow">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Invoice Cancellation </p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="invoiceCancellationFrom" [style.fontSize.px]="10">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cancellation Type</mat-label>
+                <mat-select required formControlName="cancellationType"
+                  (selectionChange)="cancellationTypeSelectionChange($event)">
+                  <mat-option *ngFor="let cencellationType of cencellationTypes" [value]="cencellationType.value">
+                    {{cencellationType.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Cancellation Reason</mat-label>
+                <mat-select formControlName="invoiceCancellationReason">
+                  <mat-option *ngFor="let cancellationReason of cancellationReasons" [value]="cancellationReason.value">
+                    {{cancellationReason.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+           <!--  <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Brand</mat-label>
+                <mat-select formControlName="brand">
+                  <mat-option *ngFor="let brand of brands" [value]="brand.value">
+                    {{brand.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Model</mat-label>
+                <input matInput placeholder="Model" formControlName="model">
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Reason</mat-label>
+                <mat-select formControlName="reason">
+                  <mat-option *ngFor="let reason of cancellationOtherReason" [value]="reason.value">{{reason.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <input matInput placeholder="Remarks" required formControlName="remarks">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>

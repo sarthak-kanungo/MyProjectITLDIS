@@ -1,0 +1,174 @@
+<div class="container-fluid mt-4 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0"> Search Criteria</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="inputCriteriaForm" [style.fontSize.px]="10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Sales Person</mat-label>
+                                        <mat-select formControlName="salesPerson"> <!-- (selectionChange)="onSelectionSalesPerson($event.value)" -->
+                                            <mat-option></mat-option>
+                                            <mat-option *ngFor="let option of dropdownSalePerson?.result"
+                                                [value]="option?.salesPerson">{{option?.salesPerson}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Enquiry No.</mat-label>
+                                        <input matInput placeholder="Enquiry No./Name/Mobile No./Tehsil" formControlName="enquiryNumber"
+                                            [matAutocomplete]="autoEnquiryNo">
+                                        <mat-autocomplete #autoEnquiryNo="matAutocomplete" [panelWidth]="500"
+                                            [displayWith]="displayEnquiryNoFn">
+                                            <mat-option *ngFor="let option of searchEnquiryCode?.result"
+                                                [value]="option">
+                                                {{option?.value}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Tehsil/Taluka</mat-label>
+                                        <input matInput placeholder="Tehsil/Taluka" formControlName="taluka"
+                                            [matAutocomplete]="dropDownTehsil">
+                                        <mat-autocomplete #dropDownTehsil="matAutocomplete" [panelWidth]="500"
+                                            [displayWith]="displayTehsil">
+                                            <mat-option *ngFor="let option of dropdownTehsil?.result"
+                                                [value]="option?.tehsil">{{option?.displayValue}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <!-- <mat-select formControlName="taluka">
+                                            <mat-option>ALL</mat-option>
+                                            <mat-option *ngFor="let option of dropdownTehsil?.result"
+                                                [value]="option?.tehsil">{{option?.tehsil}}
+                                            </mat-option>
+                                        </mat-select> -->
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Enquiry Type</mat-label>
+                                        <mat-select formControlName="enquiryType">
+                                            <mat-option></mat-option>
+                                            <mat-option *ngFor="let state of states" [value]="state">{{state}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Auto Close</mat-label>
+                                        <mat-select formControlName="autoClose">
+                                            <mat-option></mat-option>
+                                            <mat-option *ngFor="let autoClose of autoCloses" [value]="autoClose">
+                                                {{autoClose}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mx-auto text-center">
+                                    <button type="button" class="btn px-3 btn_primary"
+                                        (click)="serchEnquirytoTransfer()"> Search </button>
+                                        <button type="button" class="btn px-3 ml-2 btn_primary"
+                                        (click)="clearEnquirytoTransfer()"> Clear </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showDiv">
+        <div class="mt-3">
+            <div class="d-flex bd-highlight">
+                <div class="mr-auto pt-2 bd-highlight">
+                    <p class="font-weight-bold" style="color: #354052">
+                        Search Results
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <form mt-1>
+            <div class="table-responsive ">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 50px;">
+                                <mat-checkbox color="basic" (change)="allSelectEnquiry(allSelect)" #allSelect>
+                                </mat-checkbox>
+                            </th>
+                            <th scope="col" style="width: 100px;">Enquiry No.</th>
+                            <th scope="col" style="width: 100px;">Enquiry Date</th>
+                            <th scope="col" style="width: 100px;">Sales Person</th>
+                            <th scope="col" style="width: 100px;">Enquiry Status</th>
+                            <th scope="col" style="width: 100px;">Enquiry Type</th>
+                            <th scope="col" style="width: 100px;">Variant</th>
+                            <th scope="col" style="width: 100px;">Customer Name</th>
+                            <th scope="col" style="width: 50px;">Tehsil</th>
+                            <th scope="col" style="width: 50px;">District</th>
+                            <th scope="col" style="width: 50px;">City</th>
+                            <th scope="col" style="width: 50px;">State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let transferEnquiry of transferEnquiryByValue">
+                            <td>
+                                <mat-checkbox color="basic" (change)="onSelectEnquiry(transferEnquiry, enq)" #enq [checked]="transferEnquiry.isSelected">
+                                </mat-checkbox>
+                            </td>
+                            <td>{{transferEnquiry.enquiryNumber}}</td>
+                            <td>{{transferEnquiry.enquiryDate}}</td>
+                            <td>{{transferEnquiry.salesPerson}}</td>
+                            <td>{{transferEnquiry.enquiryStatus}}</td>
+                            <td>{{transferEnquiry.enquiryType}}</td>
+                            <td>{{transferEnquiry.variant}}</td>
+                            <td>{{transferEnquiry.customerName}}</td>
+                            <td>{{transferEnquiry.tehsil}}</td>
+                            <td>{{transferEnquiry.district}}</td>
+                            <td>{{transferEnquiry.city}}</td>
+                            <td>{{transferEnquiry.state}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+        <form [formGroup]="transferEnquiryToForm" class="mt-3" [style.fontSize.px]="10">
+            <div class="row">
+                <div class="col-lg-10"></div>
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Transfer to Sales Person</mat-label>
+                        <mat-select required formControlName="transferToEmployeeId">
+                            <mat-option *ngFor="let option of transfertoSalesPerson?.result" [value]="option">
+                                {{option?.firstName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+
+        <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary px-3" (click)="submitTransfer()"> Submit</button>
+            <!-- 
+            <button type="button" class="btn btn_secondary px-3 ml-3"> Clear
+            </button>
+            <button type="button" class="btn btn_primary px-3 ml-3"> Exit
+            </button> -->
+        </div>
+    </div>
+
+</div>

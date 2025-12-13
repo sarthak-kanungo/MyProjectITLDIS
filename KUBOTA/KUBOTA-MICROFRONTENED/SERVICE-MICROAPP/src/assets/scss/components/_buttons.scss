@@ -1,0 +1,20 @@
+/* -------------------------------------
+          Button color css 
+---------------------------------------- */
+
+.btn_header {
+  padding: 0.25rem 0.4rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  border-radius: 0.2rem;
+  color: $color_eastern_blue;
+}
+.card-from {
+  .card {
+    .card-header {
+      .btn_header {
+        margin-bottom: 1px;
+      }
+    }
+  }
+}

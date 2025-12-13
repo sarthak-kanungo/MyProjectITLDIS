@@ -1,0 +1,9 @@
+<app-enquiry-search-criteria [dropdownModel]="dropdownModel" [dropdownSubModel]="dropdownSubModel"
+    [dropdownProduct]="dropdownProduct" [dropdownVariant]="dropdownVariant" [dropdownseries]="dropdownseries"
+    [dropdownSource]="dropdownSource" [dropdownRetailConversionActivity]="dropdownRetailConversionActivity"
+    (autoEnquiryNumber)="autoEnquiryNumber($event)" [enquiryCode]="enquiryCode" (autoItemNo)="autoItemNo($event)"
+    [itemNo]="itemNo" (onEnquirySearch)="onEnquirySearch($event)" (productSelected)="productSelected($event)"
+    (seriesSelected)="seriesSelected($event)" (modelSelected)="modelSelected($event)" [dataTable]="dataTable"
+    [totalTableRecords]="totalTableRecords"
+    (itemNumberGetData)="itemNumberGetData($event)" [allDataForPatch]="allDataForPatch">
+</app-enquiry-search-criteria>

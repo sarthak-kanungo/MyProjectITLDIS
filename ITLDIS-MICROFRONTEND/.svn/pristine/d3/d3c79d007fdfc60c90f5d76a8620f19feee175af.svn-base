@@ -1,0 +1,102 @@
+
+<div class = "card-from mt-2" >
+    <div class = "card">
+        <div class="card-header">
+            <p class="mb-0">Service Feedback Machines</p>
+        </div>
+        <div class = "class-body">
+            <div class="mt-2">
+
+                <div class="card-body" [formGroup]="jobCardSearchForm" [style.fontSize.px]="11">
+                    <div class="row">
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Chassis No.</mat-label>
+                                <input matInput placeholder="Chassis No." [matAutocomplete]="auto2" formControlName="chassisNo">
+                                <mat-icon matSuffix>search</mat-icon>
+                                
+                                <mat-autocomplete [panelWidth]="200" #auto2="matAutocomplete">
+                                    <mat-option *ngFor="let option of chassisData" [value]="option.chassisNumber">
+                                        {{option.chassisNumber}}
+                                        </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>  
+                        
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Mobile No.</mat-label>
+                                <input matInput placeholder="Customer Mobile No." formControlName="mobileNo" inputmode="numeric" 
+                                 [matAutocomplete]="automobileNo" minlength="10" maxlength="10">
+                                <mat-autocomplete #automobileNo="matAutocomplete" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of customerMobileList " [value]="option.mobileNumber">
+                                        {{option?.mobileNumber}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Name</mat-label>
+                                <input matInput placeholder="Customer Name" formControlName="customerName"  
+                                 [matAutocomplete]="autoCustName" >
+                                 <mat-autocomplete #autoCustName="matAutocomplete" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of customerNameList " [value]="option.customerName">
+                                        {{option?.customerName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Current Service Due Type</mat-label>
+                                <input matInput placeholder="Current Service Due Type" formControlName="currentServiceDueType"  
+                                 [matAutocomplete]="autoDueType" >
+                                <mat-autocomplete #autoDueType="matAutocomplete" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of dueTypeList " [value]="option.currentServiceDueType">
+                                        {{option?.currentServiceDueType}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div> -->
+
+                       
+
+                        <div class="text-center ml-5 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchTable()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearSearchFields()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                
+                <div class="mt-1">
+                    <div id="container">
+                        <div id="content">          
+                          <div class="fix">
+                        <ngsw-search-table   [dataTable]="dataTable" [totalElements]="totalTableElements"
+                        (pageChange)="pageSizeChange($event)" [page]="page" [size]="size"  [searchValue]="searchValue" 
+                        [clickOnTableFields]="[{title:'edit'}]" (actionOnTableRecord)="tableAction($event)">
+                        <!-- [clearSearchRow]="clearSearchRow">   -->
+                        </ngsw-search-table>
+                        </div>
+                        </div>
+                    </div>
+                </div>              
+
+            </div>
+        </div>
+    </div>
+</div>

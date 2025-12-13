@@ -1,0 +1,54 @@
+<div class="card-body">
+  <div class="row" [formGroup]="pdcDetailsForm" [style.fontSize.px]="11">
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Chassis No.</mat-label>
+        <input matInput placeholder="Chassis No." formControlName="chassisNo" [matAutocomplete]="autoChassisNo" required
+          (keydown)="onKeyDownChasisNo($event)">
+        <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500"
+          (optionSelected)="selectedChassisNumber($event)" [displayWith]="displayFnChassisNo">
+          <mat-option *ngFor="let option of (chassisNoList$ | async)" [value]="option">
+            {{option?.code}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="pdcDetailsForm.get('chassisNo').hasError('required')">
+          Chassis No. is Required</mat-error>
+        <mat-error *ngIf="pdcDetailsForm.get('chassisNo').hasError('selectFromList')">
+          Please select from list</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+      <mat-form-field appearance="outline">
+        <mat-label>PDC No.</mat-label>
+        <input matInput placeholder="PDC No." formControlName="pdcNo">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>PDC Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="PDC Date" formControlName="pdcDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Engine No.</mat-label>
+        <input matInput placeholder="Engine No." formControlName="engineNo">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Machine Model</mat-label>
+        <input matInput placeholder="Machine Model" formControlName="model">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Customer Name</mat-label>
+        <input matInput placeholder="Customer Name" formControlName="name">
+      </mat-form-field>
+    </div>
+  </div>
+</div>

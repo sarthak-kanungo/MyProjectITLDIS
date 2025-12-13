@@ -1,0 +1,12 @@
+::ng-deep editable-table{
+    thead{
+        tr{
+            th.Item.No, .Item.Description {
+                width: 150px !important;
+            }
+            th.HSN.Code, .Unit.Price {
+                width: 75px !important;
+            }
+        }
+    }
+}

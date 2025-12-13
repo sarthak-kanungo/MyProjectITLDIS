@@ -1,0 +1,99 @@
+<div class="card-body">
+  <form [formGroup]="paymentReceiptForm" [style.fontSize.px]="10">
+
+    <div class="row">
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline">
+          <mat-label>Receipt No.</mat-label>
+          <input matInput placeholder="Receipt No." formControlName="receiptNo">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Receipt Date</mat-label>
+          <input matInput [matDatepicker]="picker1" placeholder="Receipt Date" formControlName="receiptDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Payee Type</mat-label>
+          <mat-select required formControlName="payeeType" (selectionChange)="customerTypeChanges($event)">
+            <mat-option *ngFor="let customerType of customerTypeList" [value]="customerType.customerType">
+              {{customerType.customerType}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="paymentReceiptForm.get('payeeType').hasError('required')">
+            Customer type is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+          <mat-label>{{changedLabel?changedLabel:'Customer'}} Code</mat-label>
+          <input matInput placeholder="{{changedLabel?changedLabel:'Customer'}} Code" [matAutocomplete]="autoPayeeCode"
+            formControlName="customerDealerMechanicCode" required>
+          <mat-autocomplete #autoPayeeCode="matAutocomplete" [displayWith]="displayAutocompleteValueFn"
+            [panelWidth]="500" (optionSelected)="customerCodeSelected($event)">
+            <mat-option *ngFor="let option of customerDealerMechanicCodeList |async" [value]="option">
+              {{option.value}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-error *ngIf="paymentReceiptForm.get('customerDealerMechanicCode').hasError('required')">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Receipt Type</mat-label>
+          <mat-select required formControlName="receiptType">
+            <mat-option *ngFor="let receiptType of receiptTypeList" [value]="receiptType.receiptType">
+              {{receiptType.receiptType}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="paymentReceiptForm.get('receiptType').hasError('required')">
+            Receipt type is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Receipt Mode</mat-label>
+          <mat-select required formControlName="receiptMode">
+            <mat-option *ngFor="let receiptMode of receiptModeList" [value]="receiptMode.receiptMode">
+              {{receiptMode.receiptMode}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="paymentReceiptForm.get('receiptMode').hasError('required')">
+            Receipt mode is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Receipt Amount </mat-label>
+          <input matInput placeholder="Receipt Amount" formControlName="receiptAmount" required>
+          <mat-error *ngIf="paymentReceiptForm.get('receiptAmount').hasError('required')">
+            Receipt amount is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Payment Type</mat-label>
+          <mat-select required formControlName="paymentType">
+            <mat-option *ngFor="let paymentType of paymentTypeList" [value]="paymentType">{{paymentType}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+
+    </div>
+  </form>
+</div>

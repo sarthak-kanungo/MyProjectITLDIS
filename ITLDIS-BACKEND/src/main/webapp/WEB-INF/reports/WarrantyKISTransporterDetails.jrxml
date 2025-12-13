@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="WarrantyKISTransportDetails" pageWidth="555" pageHeight="842" columnWidth="515" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="f623e870-be6b-484e-871d-bec6cad1fd26">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Kubota"/>
+	<parameter name="inspectionNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC sp_warrantyInspectionSheetPrint  $P{inspectionNo}, 'Transporter']]>
+	</queryString>
+	<field name="TransporterName" class="java.lang.String"/>
+	<field name="DocketNumber" class="java.lang.String"/>
+	<field name="NumberofBoxes" class="java.lang.String"/>
+	<field name="DispatchDate" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="555" height="13" uuid="ab4c15c0-6359-4460-bade-fcff9483c779">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transporter Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="13" width="100" height="13" uuid="31ac9ee9-a885-4468-bf69-28564465c753">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transporter Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="13" width="100" height="13" uuid="1bb129b2-b366-4f19-b023-dbf86b8693e6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Docket Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="13" width="20" height="13" uuid="8306c484-cf61-4438-a067-1c3906b3d112"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="13" width="20" height="13" uuid="7a89986a-1b76-45e9-9866-686989c08731"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="13" width="180" height="13" uuid="9b9d3776-1147-42e5-9961-ca5e25bf3663">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TransporterName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="13" width="135" height="13" uuid="cf9f46b6-96d2-4474-b892-105a99f7cfbd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DocketNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-20" y="26" width="100" height="13" uuid="ceae8db4-df28-46ff-90bd-622acb90a188">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of Boxes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="26" width="20" height="13" uuid="41a523d3-1871-41fd-992c-a89ca8c1b1a7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="26" width="180" height="13" uuid="f2a586dc-40f5-477a-a4b7-e5d0396322dd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumberofBoxes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="26" width="100" height="13" uuid="fbe1f49f-902b-4e98-9650-0357cec7fcae">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dispatch Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="26" width="20" height="13" uuid="dab5c9b9-4499-4bd6-a05a-97921f9446dc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="26" width="135" height="13" uuid="0920c00a-32b7-4894-afc1-5824102bb423">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DispatchDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

@@ -1,0 +1,43 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+  <!-- <div class="heading">
+    <p class="font-weight-bold">Assign Org Hierarchy To Dealer</p>
+  </div> -->
+  <div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <p class="mb-0">Organization Level Hierarchy To Dealer</p>
+        <button  class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">
+            Close
+        </button>
+    </div>
+      
+      <div class="card-body">
+        <form [formGroup]="orgHierItemForm">
+          <div class="row">
+
+            <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                    <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                        {{option.hierarchy_desc}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+        </form>
+
+        <div class=" text-center mt-2 ">
+          <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit
+          </button>
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="closeDialog()"> Exit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

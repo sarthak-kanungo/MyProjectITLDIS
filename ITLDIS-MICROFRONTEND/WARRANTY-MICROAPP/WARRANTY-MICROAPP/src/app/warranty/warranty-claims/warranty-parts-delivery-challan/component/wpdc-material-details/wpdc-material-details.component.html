@@ -1,0 +1,62 @@
+<div class="card-from mt-2 wpdc-material-detail" [formGroup]="materialDetailForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">MATERIAL DETAILS</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="p-2" *ngFor="let tableHeading of materialDetailHeading">{{tableHeading}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of materialDetailForm.controls; let i=index" [formGroupName]="i">
+                            <td>{{i+1}}</td>
+                            <td>{{list.controls.wcrNo.value}}</td>
+                            <td>{{list.controls.itemNo.value}}</td>
+                            <td>{{list.controls.itemDescription.value}}</td>
+                            <td>{{list.controls.hsnCode.value}}</td>
+                            <td>{{list.controls.unitPrice.value}}</td>
+                            <td>{{list.controls.quantity.value}}</td>
+                            <td>{{list.controls.value.value  | number: '1.0-2'}}</td>
+                            <!-- <td>{{list.controls.gstPercent.value}}</td>
+                            <td>{{list.controls.gstAmount.value  | number: '1.0-2'}}</td> -->
+                            <td>{{list.controls.totalAmount.value | number: '1.0-2'}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive mt-3">
+                <table class="col-4 float-right text-left table table-bordered table-sm">
+                    <tbody>
+                        <tr>
+                            <td>Base Amount(Sum of Value)</td>
+                            <td>{{totalValue}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total GST Amount(Sum of GST Amount)</td>
+                            <td>{{totalGstAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount(Sum of Total Amount)</td>
+                            <td>{{totalAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row justify-content-end">
+                <mat-form-field appearance="outline" class="col-5">
+                    <mat-label>Amount in words</mat-label>
+                    <input disabled matInput placeholder="Amount in words" [value]="totalAmount | numberToWords">
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

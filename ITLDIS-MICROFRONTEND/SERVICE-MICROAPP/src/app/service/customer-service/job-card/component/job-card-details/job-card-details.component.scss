@@ -1,0 +1,10 @@
+button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+.quantity::-webkit-inner-spin-button,
+.quantity::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

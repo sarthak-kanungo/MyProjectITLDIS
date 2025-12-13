@@ -1,0 +1,21 @@
+<div class="card-body">
+    <div class="row" [formGroup]="searchStoreForm" [style.fontSize.px]="11">
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Branch</mat-label>
+                <mat-select formControlName="Branch">
+                    <mat-option *ngFor="let branche of branches" [value]="branche">{{branche}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Store Name</mat-label>
+                <input matInput placeholder="Store Name" formControlName="storeName">
+            </mat-form-field>
+        </div>
+    </div>
+
+</div>

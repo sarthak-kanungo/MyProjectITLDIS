@@ -1,0 +1,31 @@
+<app-sales-purchase-order-search
+    [poNumberAutoList]="poNumberAutocomplete"
+    (poNumberAutoChange)="poNumberValueChanges($event)"
+    [displayPoNumberFn]="displayPoNumber"
+
+    [itemNumberAutoList]="itemNumberAutocomplete"
+    (itemNumberAutoChange)="itemNumberValueChanges($event)"
+    [displayItemNumberFn]="displayItemNumber"
+
+    [poTypesList]="poTypesList"
+    [depotsList]="depotsList"
+    [poStatusList]="poStatusList"
+    [dealerList]="dealerList"
+   
+    [productsList]="productsList"
+    [seriesList]="seriesList"
+    [modelsList]="modelsList"
+    [submodelsList]="submodelsList"
+    [variantsList]="variantsList"
+    [isShowAdvanceFilter]="isShowAdvanceFilter"
+
+    (getSearchFormValues)="getSearchFormValues($event)"
+    [dataTable]="dataTable"
+    [totalTableElements]="totalTableElements"
+    [actionButtons]="actionButtons"
+    (tableAction) ="tableAction($event)"
+    (pageChange)="pageChange($event)"
+    (initialQueryParamsEvent)="initialQueryParams($event)"
+    (onUrlChangeEvent)="onUrlChange($event)"
+    [searchFilter]="searchFilter">
+</app-sales-purchase-order-search>

@@ -1,0 +1,99 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Service Claim</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="serviceClaimForm" [style.fontSize.px]="11">
+                    <div class="row">
+
+                        <div class="col-lg-2" *ngIf="!isCreate">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Claim No.</mat-label>
+                                <input matInput placeholder="Claim No." formControlName="claimNo">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Claim Date</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="Claim Date"  formControlName="claimDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2 " *ngIf="!isCreate">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Claim Status</mat-label>
+                                <input matInput placeholder="Claim Status"  formControlName="claimStatus">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>From Date</mat-label>
+                                <input matInput placeholder="From Date"  formControlName="fromDate">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>To Date</mat-label>
+                                <input matInput placeholder="To Date"  formControlName="toDate">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Dealer Code</mat-label>
+                                <input matInput placeholder="Dealer Code"  formControlName="dealerCode">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Dealer Name</mat-label>
+                                <input matInput placeholder="Dealer Name"  formControlName="dealerName">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Star Category</mat-label>
+                                <input matInput placeholder="Star Category"  formControlName="starCategory">
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+                </form>
+
+               <app-claim-machine-service-details></app-claim-machine-service-details>
+               <app-claim-job-card-details [isView]="isView" [isApprove]="isApprove" [loginUSer]="loginUSer"></app-claim-job-card-details>
+
+                <div class=" text-center mt-2 ">
+                    <button type="button" class="btn btn_primary px-3 "  *ngIf="isApprove" (click)="approveClaim('Approve')"> Approve
+                    </button>
+                    
+                    <button type="button" class="btn btn_primary px-3 ml-3" [disabled]="isDisabled" *ngIf="isApprove" (click)="approveClaim('Reject')"> Reject
+                    </button>
+
+                    <button type="button" class="btn btn_primary px-3 ml-3" [disabled]="isDisabled" *ngIf="isCreate" (click)="validateForm()"> Submit
+                    </button>
+                    <!-- <button type="button" class="btn btn_secondary px-3 ml-3" disabled> Print
+                    </button>
+                    <button type="button" class="btn btn_secondary px-3 ml-3" disabled> View Pdf
+                    </button> -->
+                    <!-- <button type="button" class="btn btn_primary px-3 ml-3" [disabled]="isDisabled" *ngIf="isCreate" (click)="clearForm()"> Clear
+                    </button> -->
+                    <!-- <button type="button" class="btn btn_primary px-3 ml-3"> Exit
+                    </button> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

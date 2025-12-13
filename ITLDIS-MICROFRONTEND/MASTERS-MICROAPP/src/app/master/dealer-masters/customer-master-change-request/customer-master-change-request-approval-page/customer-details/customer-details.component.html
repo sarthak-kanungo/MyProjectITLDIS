@@ -1,0 +1,309 @@
+<div [formGroup]="customerMasterDetailsForm">
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label><b>Customer Change Request</b></mat-label>
+      <input matInput placeholder="Request Change No."  formControlName="editCount">
+    </mat-form-field>
+  </div>
+</div>
+<div [formGroup]="customerMasterDetailsForm" [style.fontSize.px]="11" class="col-lg-6" style="float:left; border-right:2px solid #00a8a9;">
+  <div class="card-header" style='margin-bottom:5px;'>
+      <div class="d-flex justify-content-between header" align="center">
+          <p class="mb-0" > Master Details</p>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Customer Code</mat-label>
+        <input matInput placeholder="Customer Code" formControlName="customerCode">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Customer Type</mat-label>
+        <mat-select required formControlName="customerType">
+          <mat-option *ngFor="let customerType of customerTypes" [value]="customerType.prospectType">
+            {{customerType.prospectType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Title</mat-label>
+        <mat-select required formControlName="title">
+          <mat-option *ngFor="let title of titles" [value]="title.title">{{title.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" required formControlName="firstName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Middle Name</mat-label>
+        <input matInput placeholder="Middle Name" formControlName="middleName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" required formControlName="lastName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile No.</mat-label>
+        <input matInput placeholder="Mobile No." required formControlName="mobileNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Alternate Mobile No.</mat-label>
+        <input matInput placeholder="Alternate Mobile No." formControlName="alternateMobileNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>WhatsApp No.</mat-label>
+        <input matInput placeholder="WhatsApp No." formControlName="whatsAppNumber">
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-4">
+      <div class="d-flex bd-highlight">
+        <div class="pr-1 w-25 flex-fill bd-highlight">
+          <mat-form-field appearance="outline">
+            <mat-label>STD</mat-label>
+            <input type="tel" matInput placeholder="STD" formControlName="std">
+          </mat-form-field>
+        </div>
+        <div class="w-75 flex-fill bd-highlight">
+          <mat-form-field appearance="outline">
+            <mat-label>Telephone No.</mat-label>
+            <input type="tel" matInput placeholder="Telephone No." formControlName="telephoneNumber">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>PAN No.</mat-label>
+        <input matInput placeholder="PAN No." formControlName="panNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Aadhar Card No.</mat-label>
+        <input matInput placeholder="Aadhar Card No." required formControlName="aadharNo">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>GSTIN No.</mat-label>
+        <input matInput placeholder="GSTIN No." formControlName="gstNumber" >
+        <mat-error *ngIf="customerMasterDetailsForm?.get('gstNumber').invalid">Valid GSTIN Number Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Date of Birth" formControlName="dateofBirth">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Occupation</mat-label>
+        <mat-select required formControlName="occupation">
+          <mat-option *ngFor="let qualification of qualifications" [value]="qualification.occupation">{{qualification.occupation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" *ngIf="isView">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Preferred language</mat-label>
+        <mat-select formControlName="language">
+          <mat-option *ngFor="let language of languages" [value]="language.lookuptext">{{language.lookuptext}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-4" *ngIf="!isView">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Preferred language</mat-label>
+        <input matInput placeholder="Preferred language" formControlName="language">
+      </mat-form-field>
+    </div>
+
+  </div>
+</div>
+
+<div [formGroup]="customerMasterDetailsFormReq" [style.fontSize.px]="11" class="col-lg-6" style="float:left;margin-bottom:5px">
+ <div class="card-header"  style='margin-bottom:5px;'>
+      <div class="d-flex justify-content-between header" align="center">
+          <p class="mb-0" > Change Request Details</p>
+      </div>
+  </div>
+  <div class="row">
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" >
+        <mat-label>Customer Code</mat-label>
+        <input matInput placeholder="Customer Code" formControlName="customerCode" [ngStyle]="customerMasterDetailsFormReq.get('customerCode').value!==customerMasterDetailsForm.get('customerCode').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4"  >
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Customer Type</mat-label>
+        <mat-select required formControlName="customerType" [ngStyle]="customerMasterDetailsFormReq.get('customerType').value!==customerMasterDetailsForm.get('customerType').value?{'background-color': '#DAF7A6'} : {'background-color': ''} " >
+          <mat-option *ngFor="let customerType of customerTypes" [value]="customerType.prospectType">
+            {{customerType.prospectType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" class="w-100" >
+        <mat-label>Title</mat-label>
+        <mat-select required formControlName="title" [ngStyle]="customerMasterDetailsFormReq.get('title').value!==customerMasterDetailsForm.get('title').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+          <mat-option *ngFor="let title of titles" [value]="title.title">{{title.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" >
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" required formControlName="firstName" [ngStyle]="customerMasterDetailsFormReq.get('firstName').value!==customerMasterDetailsForm.get('firstName').value?{'background-color': '#DAF7A6'} : {'background-color': ''}">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline">
+        <mat-label>Middle Name</mat-label>
+        <input matInput placeholder="Middle Name" formControlName="middleName" [ngStyle]="customerMasterDetailsFormReq.get('middleName').value!==customerMasterDetailsForm.get('middleName').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" required formControlName="lastName" [ngStyle]="customerMasterDetailsFormReq.get('lastName').value!==customerMasterDetailsForm.get('lastName').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile No.</mat-label>
+        <input matInput placeholder="Mobile No." required formControlName="mobileNumber" [ngStyle]="customerMasterDetailsFormReq.get('mobileNumber').value!==customerMasterDetailsForm.get('mobileNumber').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+      <mat-form-field appearance="outline" >
+        <mat-label>Alternate Mobile No.</mat-label>
+        <input matInput placeholder="Alternate Mobile No." formControlName="alternateMobileNumber" [ngStyle]="customerMasterDetailsFormReq.get('alternateMobileNumber').value!==customerMasterDetailsForm.get('alternateMobileNumber').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline" >
+        <mat-label>WhatsApp No.</mat-label>
+        <input matInput placeholder="WhatsApp No." formControlName="whatsAppNumber" [ngStyle]="customerMasterDetailsFormReq.get('whatsAppNumber').value!==customerMasterDetailsForm.get('whatsAppNumber').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-4" >
+      <div class="d-flex bd-highlight">
+        <div class="pr-1 w-25 flex-fill bd-highlight">
+          <mat-form-field appearance="outline">
+            <mat-label>STD</mat-label>
+            <input type="tel" matInput placeholder="STD" formControlName="std" [ngStyle]="customerMasterDetailsFormReq.get('std').value!==customerMasterDetailsForm.get('std').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+          </mat-form-field>
+        </div>
+        <div class="w-75 flex-fill bd-highlight" >
+          <mat-form-field appearance="outline">
+            <mat-label>Telephone No.</mat-label>
+            <input type="tel" matInput placeholder="Telephone No." formControlName="telephoneNumber" [ngStyle]="customerMasterDetailsFormReq.get('telephoneNumber').value!==customerMasterDetailsForm.get('telephoneNumber').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline">
+        <mat-label>PAN No.</mat-label>
+        <input matInput placeholder="PAN No." formControlName="panNumber" [ngStyle]="customerMasterDetailsFormReq.get('panNumber').value!==customerMasterDetailsForm.get('panNumber').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline" >
+        <mat-label>Aadhar Card No.</mat-label>
+        <input matInput placeholder="Aadhar Card No." required formControlName="aadharNo" [ngStyle]="customerMasterDetailsFormReq.get('aadharNo').value!==customerMasterDetailsForm.get('aadharNo').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline">
+        <mat-label>GSTIN No.</mat-label>
+        <input matInput placeholder="GSTIN No." formControlName="gstNumber" [ngStyle]="customerMasterDetailsFormReq.get('gstNumber').value!==customerMasterDetailsForm.get('gstNumber').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+        <mat-error *ngIf="customerMasterDetailsForm?.get('gstNumber').invalid">Valid GSTIN Number Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Date of Birth" formControlName="dateofBirth" [ngStyle]="customerMasterDetailsFormReq.get('dateofBirth').value!==customerMasterDetailsForm.get('dateofBirth').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Occupation</mat-label>
+        <mat-select required formControlName="occupation" [ngStyle]="customerMasterDetailsFormReq.get('occupation').value!==customerMasterDetailsForm.get('occupation').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+          <mat-option *ngFor="let qualification of qualifications" [value]="qualification.occupation">{{qualification.occupation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-4" >
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Preferred language</mat-label>
+        <mat-select formControlName="language" [ngStyle]="customerMasterDetailsFormReq.get('language').value!==customerMasterDetailsForm.get('language').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+          <mat-option *ngFor="let language of languages" [value]="language.lookuptext">{{language.lookuptext}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+
+  </div>
+</div>

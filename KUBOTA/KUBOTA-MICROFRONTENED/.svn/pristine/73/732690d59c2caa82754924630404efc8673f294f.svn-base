@@ -1,0 +1,13 @@
+table.table-sm td {
+    padding-top: .3rem;
+    padding-bottom: 0rem;
+    padding-right: .3rem;
+  }
+
+//   ::ng-deep .mat-form-field-infix {
+//     display: block;
+//     position: relative;
+//     flex: auto;
+//     min-width: 0;
+//     width: 100px;
+// }

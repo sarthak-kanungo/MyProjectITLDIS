@@ -1,0 +1,82 @@
+<form [formGroup]="stockAdjustmentSearchResultForm">
+    <div class="container-fluid create-form  mt-4 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0 label">Search Stock Adjustment Details</p>
+                                        <div *ngIf="usertype=='dealer'">
+                                            <button [routerLink]="[ './create' ]"
+                                                class="font-weight-bold btn btn_header bg_white">
+                                                New
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-inventory-adjustment></app-search-inventory-adjustment>
+                        <div class=" text-center mt-2 mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchData()"
+                                [insertQueryParams]="filterData" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)" title="Search"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2" title="Clear" (click)="clearForm()"> Clear
+                            </button>
+                            <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary" style="height:35px" title="Download Report" (click)="generateReport()">
+                                <mat-icon>cloud_download</mat-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+        <div class="container-fluid">
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+                [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [page]="page" [size]="size"
+                (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)"
+                [clickOnTableFields]="[{ 'title': 'adjustmentNo', 'isClickable': true },{ 'title': 'action', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+                <td></td>
+                <td *ngIf="isKai" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #dealerCode>
+                    </mat-form-field>
+                </td>
+                <td *ngIf="isKai" [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #dealerName>
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="adjustmentNo" [searchColumnName]="'adjustmentNo'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #adjustmentNo>
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="adjustmentDate" [searchColumnName]="'adjustmentDate'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #adjustmentDate>
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="adjustmentStatus" [searchColumnName]="'adjustmentStatus'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #adjustmentStatus>
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="adjustmentValue" [searchColumnName]="'adjustmentValue'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #adjustmentValue>
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="totalLineItem" [searchColumnName]="'totalLineItem'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #totalLineItem>
+                    </mat-form-field>
+                </td>
+
+            </ngsw-search-table>
+        </div>

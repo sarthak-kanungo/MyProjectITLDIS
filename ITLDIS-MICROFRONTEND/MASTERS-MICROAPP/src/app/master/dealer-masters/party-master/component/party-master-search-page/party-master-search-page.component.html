@@ -1,0 +1,44 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Party Master</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-party [partyMasterSearchForm]="searchForm"></app-search-party>
+                        <!-- <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                                Clear
+                            </button>
+                        </div> 
+                                                [insertQueryParams]="searchFilter" 
+                            (initialQueryParams)="initialQueryParams($event)"
+                    -->
+                        <div class="text-center mt-2 mb-2">
+                            <button type="button" (click)="search()" class="btn  btn_primary px-3"
+                                (onUrlChange)="onUrlChange($event)">Search</button>
+                            <button type="button" (click)="clearForm()"
+                                class="btn  btn_primary px-3 ml-2">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<app-party-search-result #partySearchResultComponent [dataTable]="dataTable" (pageChangeValue)="pageChange($event)"
+    [totalTableElements]="totalTableElements" [searchFilter]="searchFilter" ></app-party-search-result>

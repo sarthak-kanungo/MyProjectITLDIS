@@ -1,0 +1,68 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Customer</p>
+                                <!-- <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <app-search-customer>
+                        </app-search-customer>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="search()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="mt-2">
+    	 <!-- space for ngsw search table -->
+     <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[{ title: 'customerCode', isClickable: true }, { title: 'edit', isClickable: true }]" 
+      (pageChange)="pageSizeChange($event)" [searchValue]="searchValue" [actionButtons]="actionButtons">
+      <td></td>
+      <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'">
+          <input class="w-100 borderRadius" #customerCode />
+      </td>
+      <td [ngsw-searchField]="customerType" [searchColumnName]="'customerType'">
+          <input class="w-100 borderRadius" #customerType />
+      </td>
+      <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+          <input class="w-100 borderRadius" #customerName />
+      </td>
+      <td [ngsw-searchField]="customerAddress" [searchColumnName]="'customerAddress'">
+          <input class="w-100 borderRadius" #customerAddress />
+      </td>
+      <td [ngsw-searchField]="mobileNo" [searchColumnName]="'mobileNo'">
+          <input class="w-100 borderRadius" #mobileNo />
+      </td>
+      <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+          <input class="w-100 borderRadius" #city />
+      </td>
+      <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+          <input class="w-100 borderRadius" #district />
+      </td>
+      <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+          <input class="w-100 borderRadius" #state />
+      </td>
+     </ngsw-search-table>
+     
+    </div>
+</div>
+

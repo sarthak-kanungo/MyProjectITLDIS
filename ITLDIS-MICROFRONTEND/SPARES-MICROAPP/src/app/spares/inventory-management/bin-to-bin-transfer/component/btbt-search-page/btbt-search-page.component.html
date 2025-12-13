@@ -1,0 +1,96 @@
+<form [formGroup]="btBtSearchResultForm">
+    <div class="container-fluid create-form  mt-4 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0 label">Search Bin To Bin Transfer Details</p>
+                                        <div>
+                                            <button [routerLink]="[ './create' ]"
+                                                class="font-weight-bold btn btn_header bg_white">
+                                                New
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-btbt-search></app-btbt-search>
+                        <div class=" text-center mt-2 mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchData()"
+                                [insertQueryParams]="filterData" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clearForm()"> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+        <div class="container-fluid">
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+                [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [page]="page" [size]="size"
+                (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)" [isExcelImport]="true" (exportToExcel)="downloadExcel($event)"
+                [clickOnTableFields]="[{ 'title': 'print', 'isClickable': true }]"
+                [clearSearchRow]="clearSearchRow" >
+                <td></td>
+                <td [ngsw-searchField]="transferNumber" [searchColumnName]="'transferNumber'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #transferNumber [(ngModel)] ="transferNumberNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="transferDate" [searchColumnName]="'transferDate'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #transferDate [(ngModel)] ="transferDateNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="itemNo" [searchColumnName]="'itemNo'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #itemNo [(ngModel)] ="itemNoNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #itemDescription [(ngModel)] ="itemDescriptionNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="fromStore" [searchColumnName]="'fromStore'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #fromStore [(ngModel)] ="fromStoreNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="fromLocation" [searchColumnName]="'fromLocation'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #fromLocation [(ngModel)] ="fromLocationNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="mrp" [searchColumnName]="'mrp'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #mrp [(ngModel)] ="mrpNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="transferQty" [searchColumnName]="'transferQty'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #transferQty [(ngModel)] ="transferQtyNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="toStore" [searchColumnName]="'toStore'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #toStore [(ngModel)] ="toStoreNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="toLocation" [searchColumnName]="'toLocation'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #toLocation [(ngModel)] ="toLocationNgModel">
+                    </mat-form-field>
+                </td>
+
+            </ngsw-search-table>
+        </div>

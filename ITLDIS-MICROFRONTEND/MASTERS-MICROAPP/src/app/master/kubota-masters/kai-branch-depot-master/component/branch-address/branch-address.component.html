@@ -1,0 +1,152 @@
+<div class="card-from mb-0 mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Branch Address</p>
+      </div>
+      <div class="card-body">
+
+        <form [formGroup]="branchAddressForm" [style.fontSize.px]="11">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Address 1</mat-label>
+                <input matInput placeholder="Address 1" formControlName="address1">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Address 2</mat-label>
+                <input matInput placeholder="Address 2" formControlName="address2">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Address 3</mat-label>
+                <input matInput placeholder="Address 3" formControlName="address3">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Pin Code</mat-label>
+                <input matInput placeholder="Pin Code" formControlName="pinCode">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Tehsil</mat-label>
+                <input matInput placeholder="Tehsil" formControlName="tehsil">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput placeholder="City" formControlName="city">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="State" formControlName="state">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                <input matInput placeholder="Country" formControlName="country">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                  <mat-form-field appearance="outline">
+                    <mat-label>STD</mat-label>
+                    <input type="tel" matInput placeholder="STD" formControlName="std">
+                  </mat-form-field>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Telephone No.</mat-label>
+                    <input type="tel" matInput placeholder="Telephone No." formControlName="telephoneNo">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Email Id</mat-label>
+                <input matInput placeholder="Email Id" formControlName="email">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Fax</mat-label>
+                <input matInput placeholder="Fax" formControlName="fax">
+              </mat-form-field>
+            </div>
+
+          </div>
+        </form>
+
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 150px;">ACCPAC Location Code</th>
+                <th scope="col" style="width: 150px;">Vendor Order</th>
+                <th scope="col" style="width: 150px;">Sales to Dealer </th>
+                <th scope="col" style="width: 150px;">Product Category</th>
+                <th scope="col" style="width: 150px;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let vendor of vendors" [value]="vendor">{{vendor}}</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let salesdealer of salesdealers" [value]="salesdealer">{{salesdealer}}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let Products of Products" [value]="Products">{{Products}}</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let item of status" [value]="item">{{item}}</option>
+                  </select>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class=" text-center ">
+          <button type="button" class="btn btn-sm btn_primary "> Add Row</button>
+          <button type="button" class="btn btn-sm btn_secondary ml-2 "> Delete Row
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

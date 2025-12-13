@@ -1,0 +1,57 @@
+<div class="card-body" [formGroup]="searchPscForm">
+    <div class="row" [style.fontSize.px]="11">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No./Engine No./Machine Model</mat-label>
+                <input matInput placeholder="Chassis No./Engine No./Machine Model" formControlName="chassisNo"
+                    [matAutocomplete]="autoChassisNo">
+                <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500">
+                    <mat-option *ngFor="let option of (chassisNoList$ | async) " [value]="option.code">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>PSC No.</mat-label>
+                <input matInput placeholder="PSC No." formControlName="pscNo" [matAutocomplete]="autoPscNo">
+                <mat-autocomplete #autoPscNo="matAutocomplete" [panelWidth]="500">
+                    <mat-option *ngFor="let option of (pscNoList$ | async) " [value]="option.pscNo">
+                        {{option?.pscNo}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="PSC Date From" formControlName="fromDate"
+                    readonly (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="PSC Date To" formControlName="toDate" readonly
+                    (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                    {{option.hierarchy_desc}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
+
+</div>

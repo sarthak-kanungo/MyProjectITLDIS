@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "jwe.keystore.path",
+    "type": "java.lang.String",
+    "description": "A description for 'jwe.keystore.path'"
+  },
+  {
+    "name": "jwe.keystore.keyPassword",
+    "type": "java.lang.String",
+    "description": "A description for 'jwe.keystore.keyPassword'"
+  },
+  {
+    "name": "jwe.keystore.alias",
+    "type": "java.lang.String",
+    "description": "A description for 'jwe.keystore.alias'"
+  },
+  {
+    "name": "jwe.keystore.password",
+    "type": "java.lang.String",
+    "description": "A description for 'jwe.keystore.password'"
+  }
+]} 

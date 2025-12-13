@@ -1,0 +1,37 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Implement Details</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 150px">SR NO</th>
+                            <th scope="col" style="width: 150px">Item No</th>
+                            <th scope="col" style="width: 150px">Item Description.</th>
+                            <th scope="col" style="width: 130px">Hsn Code</th>
+                            <th scope="col" style="width: 212px">Chassis No</th>
+                            <th scope="col" style="width: 212px">CSB No</th>
+                            <th scope="col" style="width: 100px">Product</th>
+                            <th scope="col" style="width: 100px">Model </th>
+                            <th scope="col" style="width: 100px">Series</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let implement of implementListForShowData; let i=index">
+                        <td>{{i+1}} </td>
+                        <td>{{implement.item_no}}</td>
+                        <td>{{implement.item_description}}</td>
+                        <td>{{implement.hsn_code}}</td>
+                        <td>{{implement.chassis_no}}</td>
+                        <td>{{implement.csb_number}}</td>
+                        <td>{{implement.product}}</td>
+                        <td>{{implement.model}}</td>
+                        <td>{{implement.series}}</td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

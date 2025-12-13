@@ -1,0 +1,47 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Booking Details</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="serviceBookingForm">
+
+                    <app-booking-details [bookingDetailsBasicForm]=bookingDetailsBasicForm
+                        [viewServiceBooking]="viewServiceBooking"></app-booking-details>
+                    <app-customer-machine-details [customerMachineDetailsForm]=customerMachineDetailsForm>
+                    </app-customer-machine-details>
+                    <div *ngIf="isViewbookingCancellation">
+                        <app-booking-cancellation [bookingCancellationForm]=bookingCancellationForm [viewServiceBooking]="viewServiceBooking">
+                        </app-booking-cancellation>
+                    </div>
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary px-3" *ngIf="!isView && bookingStatus=='Draft'"
+                            (click)="saveAndSubmitServiceBooking(true)" [disabled]="isSubmitDisable">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="!isView"
+                            (click)="saveAndSubmitServiceBooking(false)" [disabled]="isSubmitDisable"> Submit
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="isView"> Print
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isViewForCancel && bookingStatus=='Open'"
+                            (click)="bookingCancellation()" [disabled]="isSubmitDisable"> Click to Cancel
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isViewJobCard"
+                            (click)="isShowViewJobCard = !isShowViewJobCard" ng-model="show"> View Job
+                            Card Details
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" (click)="location.back()"> Back
+                        </button>
+                        
+                    </div>
+
+                    <div *ngIf="isShowViewJobCard" id="divshow">
+                        <app-view-job-card-details [viewJobCardForm]=viewJobCardForm></app-view-job-card-details>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Other Machine Details</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="currentMachineryDetailsForm">
+        <div formArrayName="machineryDetails">
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 100px;">Select</th>
+                  <th scope="col" style="width: 250px;">Brand </th>
+                  <th scope="col">Model </th>
+                  <th scope="col" style="width: 120px;">Year Of Purchase</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let row of currentMachineryDetailsForm['controls'].machineryDetails['controls']; let i = index"
+                  [formGroupName]="i">
+                  <td class="pt-4">
+                    <mat-checkbox color="basic" formControlName="isSelected"
+                      [checked]></mat-checkbox>
+                  </td>
+                  <td class="pt-2">
+                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                        <mat-label>Brand</mat-label>
+                      <mat-select formControlName="brand">
+                        <mat-option *ngFor="let option of dropDownBrand?.result" [value]="option?.brand">
+                          {{option?.brand}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td class="pt-2">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                      <mat-label>Model</mat-label>
+                      <input matInput placeholder="Model" formControlName="model">
+                    </mat-form-field>
+                  <td class="pt-2">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                      <mat-label>Year Of Purchase</mat-label>
+                      <input matInput placeholder="Year Of Purchase" formControlName="yearOfPurchase" maxlength="4"
+                        (keypress)=keyyear($event)>
+                    </mat-form-field>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+      <div class=" text-center ">
+        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+        <button type="button" class="btn btn-sm btn_secondary ml-2 " (click)="deleteRow()"> Delete Row
+        </button>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>

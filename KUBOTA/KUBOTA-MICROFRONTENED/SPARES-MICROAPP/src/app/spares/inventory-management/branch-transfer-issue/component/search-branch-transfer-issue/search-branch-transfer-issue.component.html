@@ -1,0 +1,119 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Branch Transfer Issue</p>
+                <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                    <b>New </b>
+                </button>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searchBranchTransferIssue" [style.fontSize.px]="10">
+                    <div class="row">
+
+
+                        <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Issue No</mat-label>
+                                <input matInput placeholder="Issue No" formControlName="issueNo"
+                                    [matAutocomplete]="autoRequestNo">
+                                <mat-autocomplete #autoRequestNo="matAutocomplete"
+                                    [displayWith]="displayRequestNo" [panelWidth]="300">
+                                 <mat-option *ngFor="let option of issueData" [value]="option.issueNo">
+                                         {{option.issueNo}} 
+                                    </mat-option> 
+                                </mat-autocomplete>
+                                <!-- <mat-error *ngIf="searcbankDetails.get('employeeCode').errors?.selectFromList">Please select from list</mat-error> -->
+                                <mat-icon matSuffix>search</mat-icon>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2 ">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="status">
+                                    <mat-option *ngFor="let item of statusList" [value]="item">{{item}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Issue from Date"
+                    formControlName="fromDate" (dateChange)="fromDateSelected($event)" [max]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="Issue to Date"
+                    formControlName="toDate" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+    
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"
+                                (click)="searchData()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        (actionOnTableRecord)="actionOnTableRecord($event)" [clickOnTableFields]="[
+        { title: 'issueNo', isClickable: true },{ title: 'action', isClickable: true }]"
+        (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+
+<td>
+</td>
+<td [ngsw-searchField]="issueNo" [searchColumnName]="'issueNo'">
+    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #issueNo [(ngModel)] ="issueNoNgModel">
+    </mat-form-field>
+</td>
+<td [ngsw-searchField]="reqFromBranch" [searchColumnName]="'reqFromBranch'">
+    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #reqFromBranch [(ngModel)] ="reqFromBranchNgModel">
+    </mat-form-field>
+</td>
+
+<td [ngsw-searchField]="reqBy" [searchColumnName]="'reqBy'">
+    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #reqBy [(ngModel)] ="reqByNgModel">
+    </mat-form-field>
+</td>
+<td [ngsw-searchField]="reqToBranch" [searchColumnName]="'reqToBranch'">
+    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #reqToBranch [(ngModel)] ="reqToBranchNgModel">
+    </mat-form-field>
+</td>
+
+
+    </ngsw-search-table>
+</div> 

@@ -1,0 +1,96 @@
+<div class="card-body" [formGroup]="soSearchForm" [style.fontSize.px]="11">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Customer Order No.</mat-label>
+                <input matInput placeholder="Customer Order No." formControlName="customerOrderNo"
+                    [matAutocomplete]="autoCustomerOrderNo" matTooltip="Search Customer Order Number">
+                <mat-autocomplete #autoCustomerOrderNo="matAutocomplete" [displayWith]="displayFnCustomerOrderNo"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of (customerOrderNoList$ | async)" [value]="option">
+                        {{option?.saleOrderNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Customer Name</mat-label>
+                <input matInput placeholder="Customer Name" formControlName="customerName"
+                    [matAutocomplete]="autoCustomerName" matTooltip="Search Customer Name">
+                <mat-autocomplete #autoCustomerName="matAutocomplete" [displayWith]="displayFnCustomerName"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of (customerNameList$ | async)" [value]="option">
+                        {{option?.customerName}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Customer Type</mat-label>
+                <mat-select formControlName="customerType">
+                    <mat-option *ngFor="let customer of customersList" [value]="customer.customerType">
+                        {{customer.customerType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Customer Order Status</mat-label>
+                <mat-select formControlName="customerOrderStatus">
+                    <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100 pb_0" appearance="outline">
+                <mat-label>Order From Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Order From Date" formControlName="orderFromDate"  (dateChange)="fromDateSelected($event)" [max]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100 pb_0" appearance="outline">
+                <mat-label>Order To Date</mat-label>
+                <input matInput [matDatepicker]="picker2" placeholder="Order To Date" formControlName="orderToDate" 
+                [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="card-from mt-2" *ngIf="searchForm">
+            <div class="card" style="border: 1px solid #45afaf;">
+                <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+                    <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-2">
+            <div class="mx-auto d-flex justify-content-between">
+                <div></div>
+                <a class=" font-weight-bold mt-3 cursor_pointer " style=" color: #007bff;"
+                    (click)="searchForm = !searchForm">
+                    <u>
+                        {{searchForm ? 'Hide Advance Search Filters' : 'Advance Search'}}
+                    </u>
+                </a>
+            </div>
+        </div> -->
+    </div>

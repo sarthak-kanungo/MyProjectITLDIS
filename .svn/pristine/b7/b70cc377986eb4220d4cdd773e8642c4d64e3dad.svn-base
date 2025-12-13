@@ -1,0 +1,101 @@
+<div class="card-body">
+
+    <div [formGroup]="transporterDetailsForm" [style.fontSize.px]="10">
+        <div class="row">
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label> Transporter Code</mat-label>
+                    <input matInput placeholder="Transporter Code" formControlName="transporterCode">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Transporter Name</mat-label>
+                    <input matInput placeholder="Transporter Name" required formControlName="transporterName">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Transporter Location</mat-label>
+                    <input matInput placeholder="Transporter Location" required formControlName="transporterLocation">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>GST No.</mat-label>
+                    <input matInput placeholder="GST No."  formControlName="gstNumber">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>PAN No.</mat-label>
+                    <input matInput placeholder="PAN No." formControlName="panNumber">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Adhar Card No.</mat-label>
+                    <input matInput placeholder="Adhar Card No."  formControlName="adharNumber">
+                </mat-form-field>
+            </div>
+        </div>
+        <!--1st row -->
+        <div class="row">
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label> Title</mat-label>
+                    <mat-select formControlName="title" required>
+                        <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" required formControlName="firstName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput placeholder="Middle Name" formControlName="middleName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label> Last Name</mat-label>
+                    <input matInput placeholder="Last Name" formControlName="lastName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Designation</mat-label>
+                    <input matInput placeholder="designation" formControlName="designation">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label> Email</mat-label>
+                    <input matInput placeholder="Email Id"  formControlName="email">
+                </mat-form-field>
+            </div>
+        </div>
+        <!--2nd row -->
+        <div class="row">
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mobile No.</mat-label>
+                    <input matInput placeholder="Mobile No." required formControlName="mobileNo">
+                </mat-form-field>
+            </div>
+        </div>
+        <!--3rd row -->
+    </div>
+</div> 

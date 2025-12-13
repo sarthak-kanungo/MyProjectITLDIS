@@ -1,0 +1,75 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Work Experience</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <div  [formGroup]="employeeWorkExperienceForm">
+          <table class="table table-bordered table-sm" formArrayName="dataTables">
+            <thead class="thead-light">
+              <tr>
+                  <th scope="col" style="width:100px;">Select</th>
+                <th scope="col" style="width:212px;">Company Name</th>
+                <th scope="col" style="width:100px;">From Date</th>
+                <th scope="col" style="width:100px;">To Date</th>
+                <th scope="col" style="width:212px;">Designation</th>
+                <th scope="col" style="width:212px;">Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of employeeWorkExperienceForm.get('dataTables')['controls']; index as i "
+              [formGroupName]="i">
+              <td class="text-center" style="padding-top: 11px">
+                <mat-checkbox formControlName="isSelected" color="basic" [checked]></mat-checkbox>
+              </td>
+                <td style="padding-top: 10px">
+                  <!-- <input class="form-control form-control-sm" type="text"> -->
+                  <mat-form-field appearance="outline">
+                    <mat-label> Company Name</mat-label>
+                    <input matInput placeholder="Company Name" formControlName="companyName">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field  [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="dp1" placeholder="From Date"  formControlName="fromDate" [max]="today">
+                    <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                    <mat-datepicker #dp1 ></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field  [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="dp2" placeholder="To Date" formControlName="toDate" [min]="today">
+                    <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                    <mat-datepicker #dp2 ></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td style="padding-top: 10px">
+                   <mat-form-field appearance="outline">
+                    <mat-label> Designation</mat-label>
+                    <input matInput placeholder="Designation" formControlName="designation">
+                  </mat-form-field>
+                </td>
+                <td style="padding-top: 10px">
+                   <mat-form-field appearance="outline">
+                    <mat-label> Role</mat-label>
+                    <input matInput placeholder="Role" formControlName="role">
+                  </mat-form-field>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class=" text-center" *ngIf="!isView">
+          <button type="button" class="btn btn-sm btn_primary " (click)=addRow()> Add Row</button>
+          <button type="button" class="btn btn-sm btn_secondary ml-2" (click)=deleteRow()> Delete Row </button>
+        </div>
+      
+      
+      </div> 
+    </div>
+
+    </div>
+  </div>

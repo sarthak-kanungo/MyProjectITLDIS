@@ -1,0 +1,23 @@
+<app-search-quotation
+    [searchSourceTypeList]="searchSourceTypeList"
+    [searchProductTypeList]="searchProductTypeList"
+    [searchSeariesTypeList]="searchSeariesTypeList"
+    [searchModelTypeList]="searchModelTypeList"
+    [searchSubModelTypeList]="searchSubModelTypeList"
+    [searchVariantTypeList]="searchVariantTypeList"
+    [enquiryStatusList]="enquiryStatusList"
+    [salesPersonList]="salesPersonList"
+    [getItemNo]="getItemNo"
+    [dataTable]="dataTable"
+    [totalTableRecords]="totalTableRecords"
+    [quotationCodeList]="quotationCodeList"
+    [serverDate]="serverDate"
+    (btnActionValue)="btnActionValue($event)"
+    (quotationCodeChange)="quotationCodeChange($event)"
+    (productSelectionChange)="getSearies($event)"
+    (seriesSelectionChange)="getModelBySeries($event)"
+    (modelSelectionChange)="getSubModelByModel($event)"
+    (subModelSelectionChange)="getVariantBySubModel($event)"
+    (autoItemNO)="autoItemNO($event)"
+    (onSearch)="onSearch($event)">
+</app-search-quotation>

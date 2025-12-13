@@ -1,0 +1,143 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Back Order Cancellation</p>
+                <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                    <b>New </b>
+                </button>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searchOrderPlanningSheet" [style.fontSize.px]="10">
+                    <div class="row">
+                        
+                        <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Back Order Cancellation No</mat-label>
+                                <input matInput placeholder="Back Order Cancellation No" formControlName="bocNo" [matAutocomplete]="autobocNo">
+                                
+                                <mat-autocomplete autoActiveFirstOption #autobocNo="matAutocomplete">
+                                    <mat-option *ngFor="let boc of bocList" [value]="boc.bocNo">
+                                      {{boc.bocNo}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                  <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        
+
+                       
+
+                        <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Dealer Code</mat-label>
+                                <input matInput placeholder="Dealer Code" formControlName="dealerCode" [matAutocomplete]="autodealerCode" 
+                                >
+                                
+                                <mat-autocomplete autoActiveFirstOption #autodealerCode="matAutocomplete">
+                                    <mat-option *ngFor="let dealer of dealerList" [value]="dealer.value">
+                                      {{dealer.value}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                  <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Request Status</mat-label>
+                                <mat-select  formControlName="requestStatus">
+                                    <mat-option *ngFor="let dataStatus of allStatus" [value]="dataStatus.status">
+                                        {{dataStatus.status}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+
+
+
+
+
+                         <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Back Order From Date</mat-label>
+                              <input matInput [matDatepicker]="orderFromDatePicker" placeholder="Order Planning From Date" formControlName="fromDate" (dateChange)="fromDateSelected($event)" [max]="today">
+                              <mat-datepicker-toggle matSuffix [for]="orderFromDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker #orderFromDatePicker></mat-datepicker>
+                            </mat-form-field>
+                          </div> 
+                      
+                          <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Back Order To Date</mat-label>
+                              <input matInput [matDatepicker]="orderToDatePicker" placeholder="Order Planning To Date" formControlName="toDate" [max]="maxDate" [min]="minDate">
+                              <mat-datepicker-toggle matSuffix [for]="orderToDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker #orderToDatePicker></mat-datepicker>
+                            </mat-form-field>
+                          </div> 
+
+
+
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"
+                                (click)="searchData()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+    [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" 
+    (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChange($event)" [clickOnTableFields]="[
+    { title: 'bocNo', isClickable: true },{ title: 'action', isClickable: true }]"
+    [clearSearchRow]="clearSearchRow">
+    <td></td>
+    <td [ngsw-searchField]="bocNo" [searchColumnName]="'bocNo'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #bocNo [(ngModel)] ="bocNoNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #dealerName [(ngModel)] ="dealerNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #dealerCode [(ngModel)] ="dealerCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="reqGivenBy" [searchColumnName]="'reqGivenBy'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #reqGivenBy [(ngModel)] ="reqGivenByNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #status [(ngModel)] ="statusNgModel">
+        </mat-form-field>
+    </td>
+    </ngsw-search-table>
+</div>

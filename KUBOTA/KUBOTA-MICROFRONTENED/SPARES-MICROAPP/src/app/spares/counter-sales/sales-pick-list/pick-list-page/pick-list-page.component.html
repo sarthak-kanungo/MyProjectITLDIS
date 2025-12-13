@@ -1,0 +1,41 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+        <div class="card-from">
+        <div class="card">
+                <div class="card-header">
+                <p class="mb-0">Sales Pick List</p>
+                </div>
+                    <form [formGroup]="plForm" [style.fontSize.px]="11">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <app-pick-list [pickListForm]="pickListForm" [isView]="isView" [isEdit]="isEdit">
+                                    
+                                </app-pick-list>
+                            </div>
+                            
+                                
+                            <div class="card-body">
+                              <app-pl-item-details [itemDetailsTable]="itemDetailsTable" [isView]="isView" [isEdit]="isEdit">
+                              
+                              </app-pl-item-details>
+                            </div>
+                            
+                            <div class=" text-center mt-2 ">
+                                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                                  (click)="validateForm()" *ngIf="!isView"  [disabled]="isSubmitDisable"> Submit
+                                </button>
+                                <button type="button" class="btn btn_secondary px-3 mx-2 " *ngIf="isView"  (click)="viewPrint('true')">
+                                  View PDF
+                                </button>
+                                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()">
+                                  Exit
+                                </button>
+                                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="backBtn()">
+                                  Back
+                                </button>
+                              </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+</div>

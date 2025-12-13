@@ -1,0 +1,450 @@
+<div class="card-from mt-3 " >
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Outside Job Charges</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <div [formGroup]="jobCodeForm">
+                    <table class="table w-100 table-bordered table-sm" formArrayName="jobCodeControl">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 10px"> </th>
+                                <th scope="col" style="width: 150px;">Category</th>
+
+                                <th scope="col" style="width: 150px;">Job Code</th>
+                                <th scope="col" style="width: 150px;">Description</th>
+                                <th scope="col" style="width: 150px;">Amount</th>
+                                <th scope="col" style="width: 150px;" *ngIf="ishideForDraftFlag">Approve Amount</th>
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                  let option of jobCodeForm.get('jobCodeControl')['controls'];
+                  let i = index
+                " [formGroupName]="i">
+                                <td style="vertical-align: middle;">
+                                    <mat-checkbox color="basic" class="form-control form-control-sm"
+                                        [formControl]="option.get('isSelected')" [checked]></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <mat-label>Select</mat-label>
+                                        <mat-select formControlName="category" [compareWith]="serviceCategoryCompare">
+                                            <mat-option *ngFor="let code of serviceCategoryList" [value]="code">
+                                                {{code.category}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>JOB Code</mat-label>
+                                        <input matInput placeholder="JOB Code" [formControl]="option.get('jobCode')"
+                                            [matAutocomplete]="autoJobCode" />
+                                        <mat-autocomplete #autoJobCode="matAutocomplete"
+                                            [displayWith]="displayJobCodeFn" [panelWidth]="700"
+                                            (optionSelected)="jobCodeSelection($event, i)">
+                                            <mat-option *ngFor="let option of jobCodeList | async" [value]="option">
+                                                {{ option?.value }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <mat-error *ngIf="option.get('jobCode').hasError('selectFromList')">
+                                            Select From List
+                                        </mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Description"
+                                            [formControl]="option.get('description')" />
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Amount" [formControl]="option.get('amount')" />
+                                    </mat-form-field>
+                                </td>
+                                <td *ngIf="ishideForDraftFlag">
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Approve Amount"
+                                            [formControl]="option.get('approveAmount')">
+                                    </mat-form-field>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" text-center "  *ngIf="status === 'Open'">
+                    <button type="button" class="btn btn-sm btn_primary " *ngIf="!isView" (click)="addRow()">
+                        Add Row
+                    </button>
+                    <button type="button" class="btn btn-sm btn_secondary ml-2" *ngIf="!isView" (click)="deleteRow()">
+                        Delete Row
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [formGroup]="outsideJobChargeForm" class="mt-3">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Final Action Taken</mat-label>
+                <textarea matInput placeholder="Final Action Taken" 
+                    formControlName="finalActionTaken"></textarea>
+                <mat-error *ngIf="outsideJobChargeForm.get('finalActionTaken').hasError('required')">
+                    <strong> Final Action Taken Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-12" *ngIf="!isTablesShow">
+            <mat-form-field appearance="outline">
+                <mat-label>Suggestions & Advised to Customers</mat-label>
+                <textarea matInput placeholder="Suggestions & Advised to Customers" 
+                    formControlName="suggestionAndAdvice"></textarea>
+                <mat-error *ngIf="outsideJobChargeForm.get('suggestionAndAdvice').hasError('required')">
+                    <strong> Suggestions & Advised to Customers Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="card-from mt-2">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;">Document Upload</p>
+            </div>
+            <div class="card-body">
+
+                <div class="card-group" *ngIf="!isView && status =='Open'">
+                    <div class="card" *ngIf="isFreeService">
+                        <div class="card-body">
+                            <div class=" input-group"
+                                [ngClass]="{'upload-err': outsideJobChargeForm.controls.couponOne.invalid && outsideJobChargeForm.controls.couponOne.touched}"
+                                 >
+                                <div class="custom-file">
+                                    <label class="custom-file-label">Free Service Coupon Page One:</label>
+                                    <input type="file" name="image" (change)="fileSelectionChanges($event)"
+                                        formControlName="couponOne" accept="image/x-png,image/jpeg,application/pdf"
+                                        class="custom-file-input" />
+                                </div>
+                            </div>
+                            <div *ngFor="let file of files">
+                                <div class="card" [style.width.rem]="13">
+                                    <label class="card-text"> </label>
+                                    <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                                        width="185" />
+                                    <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" width="185" />
+                                    <i style="color: #45afaf;" class="material-icons"
+                                        (click)="deleteImage(file.id)">delete</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" *ngIf="isFreeService">
+                        <div class="card-body">
+
+                            <div class=" input-group"
+                                [ngClass]="{'upload-err': outsideJobChargeForm.controls.couponTwo.invalid && outsideJobChargeForm.controls.couponTwo.touched}"
+                                 >
+                                <div class="custom-file">
+                                    <label class="custom-file-label">Free Service Coupon Page Two:</label>
+                                    <input type="file" name="image"
+                                        (change)="fileSelectionServiceCoupon2Changes($event)"
+                                        accept="image/x-png,image/jpeg,application/pdf" class="custom-file-input"
+                                        formControlName="couponTwo" />
+                                </div>
+                            </div>
+
+                            <div *ngFor="let file of serviceCouponList">
+                                <div class="card" [style.width.rem]="13">
+                                    <label class="card-text"> </label>
+                                    <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                                        width="185" />
+                                    <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" width="185" />
+                                    <div class="card-body">
+                                        <hr>
+                                        <i style="color: #45afaf;" class="material-icons"
+                                            (click)="deleteImageCouponTwo(file.id)">delete</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            
+
+                            <div class=" input-group"
+                                [ngClass]="{'upload-err': outsideJobChargeForm.controls.hourMeter.invalid && outsideJobChargeForm.controls.hourMeter.touched}"
+                                 >
+                                <div class="custom-file">
+                                    <label class="custom-file-label">Hour Meter Photograph:</label>
+                                    <input type="file"  name="image"
+                                        (change)="fileSelectionHourMeterChanges($event)" accept="image/x-png,image/jpeg,application/pdf"
+                                        class="custom-file-input" formControlName="hourMeter" />
+                                </div>
+                            </div>
+
+                            <div *ngFor="let file of hourMeterList">
+                                <div class="card" [style.width.rem]="13">
+                                    <label class="card-text"> </label>
+                                    <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                                        width="185" />
+                                    <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" width="185" />
+                                    <div class="card-body">
+                                        <hr>
+                                        <i style="color: #45afaf;" class="material-icons"
+                                            (click)="deleteImageHour(file.id)">delete</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="  input-group"
+                                [ngClass]="{'upload-err': outsideJobChargeForm.controls.chassisNumber.invalid && outsideJobChargeForm.controls.chassisNumber.touched}">
+                                <div class="custom-file">
+                                    <label class="custom-file-label">Chassis Number Photograph:</label>
+                                    <input type="file" name="image" 
+                                        (change)="fileSelectionChasisNumberChanges($event)"
+                                        accept="image/x-png,image/jpeg,application/pdf" class="custom-file-input"
+                                        formControlName="chassisNumber" />
+                                </div>
+                            </div>
+
+                            <div *ngFor="let file of chassisNumberList">
+                                <div class="card" [style.width.rem]="13">
+                                    <label class="card-text"> </label>
+                                    <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                                        width="185" />
+                                    <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" width="185" />
+                                    <div class="card-body">
+                                        <hr>
+                                        <i style="color: #45afaf;" class="material-icons"
+                                            (click)="deleteImageChassis(file.id)">delete</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- for sign job card -->
+                    <div class="card" *ngIf="showPdfs || patchRetroCheckbox">
+                        <div class="card-body">
+                            
+
+                            <div class=" input-group"
+                                [ngClass]="{'upload-err': outsideJobChargeForm.controls.signedJobcard.invalid && outsideJobChargeForm.controls.signedJobcard.touched}"
+                                 >
+                                <div class="custom-file">
+                                    <label class="custom-file-label">Sign Job Card:</label>
+                                    <input type="file"  name="image"
+                                        (change)="fileSelectionSign($event)" accept="application/pdf"
+                                        class="custom-file-input" formControlName="signedJobcard" />
+                                </div>
+                            </div>
+
+                            <div *ngFor="let file of jobCardList">
+                                <div class="card" [style.width.rem]="13">
+                                    <label class="card-text"> </label>
+                                    <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                                        width="185" />
+                                    <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" width="185" />
+                                    <div class="card-body">
+                                        <hr>
+                                        <i style="color: #45afaf;" class="material-icons"
+                                            (click)="deleteImageJobCard(file.id)">delete</i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                     <!-- for acknowledge form -->
+                     <div class="card" *ngIf="showPdfs  patchRetroCheckbox">
+                        <div class="card-body">
+                            
+
+                            <div class=" input-group"
+                                [ngClass]="{'upload-err': outsideJobChargeForm.controls.retroAcknowledgementForm.invalid && outsideJobChargeForm.controls.retroAcknowledgementForm.touched}"
+                                 >
+                                <div class="custom-file">
+                                    <label class="custom-file-label">Retro Acknowledgement Form:</label>
+                                    <input type="file"  name="image"
+                                        (change)="fileSelectRetroAckForm($event)" accept="application/pdf"
+                                        class="custom-file-input" formControlName="retroAcknowledgementForm" />
+                                </div>
+                            </div>
+
+                            <div *ngFor="let file of ackList">
+                                <div class="card" [style.width.rem]="13">
+                                    <label class="card-text"> </label>
+                                    <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                                        width="185" />
+                                    <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" width="185" />
+                                    <div class="card-body">
+                                        <hr>
+                                        <i style="color: #45afaf;" class="material-icons"
+                                            (click)="deleteImageAckForm(file.id)">delete</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+
+                    
+
+                </div>
+             
+
+                <div class="row mt-2 text-center">
+                    <div class="card-body" *ngIf="selectedPhotosOne">
+                        <div style="align-items: center;">
+                            <div class="col-md-3  justify-content-around " *ngFor="let file of selectedPhotosOne">
+                                <div class="card " [style.width.rem]="13" style="align-items: center;">
+                                    <label><strong>
+                                            <h5> Coupon One:</h5>
+                                        </strong></label>
+                                    <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="selectedPhotosTwo">
+                        <div style="align-items: center;">
+
+                            <div class="col-md-3   justify-content-around " *ngFor="let file of selectedPhotosTwo">
+                                <div class="card " [style.width.rem]="13" style="align-items: center;">
+                                    <label><strong>
+                                            <h5> Coupon Two:</h5>
+                                        </strong></label>
+
+                                    <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="selectedPhotosCoupon">
+                        <div style="align-items: center;">
+                            <div class="col-md-3   justify-content-around " *ngFor="let file of selectedPhotosCoupon">
+                                <div class="card " [style.width.rem]="13" style="align-items: center;">
+                                    <label><strong>
+                                            <h5>Hour Meter:</h5>
+                                        </strong></label>
+                                    <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="selectedPhotosChassis">
+                        <div style="align-items: center;">
+                            <div class="col-md-3  justify-content-around " *ngFor="let file of selectedPhotosChassis">
+                                <div class="card " [style.width.rem]="13" style="align-items: center;">
+                                    <label><strong>
+                                            <h5>Chassis Number:</h5>
+                                        </strong></label>
+
+                                    <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="card-body" *ngIf="selectedJobPdf">
+                        <div style="align-items: center;">
+                            <div class="col-md-3  justify-content-around " *ngFor="let file of selectedJobPdf">
+                                <div class="card " [style.width.rem]="13" style="align-items: center;">
+                                    <label><strong>
+                                            <h5>Sign Job Card:</h5>
+                                        </strong></label>
+
+                                    <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body" *ngIf="selectedAckPdf">
+                        <div style="align-items: center;">
+                            <div class="col-md-3  justify-content-around " *ngFor="let file of selectedAckPdf">
+                                <div class="card " [style.width.rem]="13" style="align-items: center;">
+                                    <label><strong>
+                                            <h5>Retro Acknowledgement Form:</h5>
+                                        </strong></label>
+
+                                    <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+                    <!--  -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

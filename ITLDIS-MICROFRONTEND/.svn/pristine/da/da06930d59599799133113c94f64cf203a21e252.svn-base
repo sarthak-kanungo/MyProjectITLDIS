@@ -1,0 +1,4 @@
+<app-activity-report-search-table
+[getSearchActivityStatus]="searchActivityStatusList"
+[totalTableElements]="totalTableElements"
+></app-activity-report-search-table>

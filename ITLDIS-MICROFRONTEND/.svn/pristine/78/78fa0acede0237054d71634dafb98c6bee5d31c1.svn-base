@@ -1,0 +1,264 @@
+<div class="row" [formGroup]="partQuotationDetailsForm" [style.fontSize.px]="11">
+
+  <div class="col-lg-2" *ngIf="isView || isEdit">
+    <mat-form-field appearance="outline">
+      <mat-label>Quotation No.</mat-label>
+      <input matInput placeholder="Quotation No." formControlName="quotationNumber">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Customer Type</mat-label>
+      <mat-select formControlName="customerType" required (selectionChange)="selectionCustomerType($event)">
+        <mat-option *ngFor="let customer of customersType" [value]="customer.customerType">{{customer.customerType}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="partQuotationDetailsForm.get('customerType').hasError('required')"> Customer Type is Required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label> Quotation Date </mat-label>
+      <input matInput [matDatepicker]="picker1" placeholder="Quotation Date" formControlName="quotationDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2" *ngIf="isRetailer">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Retailer</mat-label>
+      <input matInput placeholder="Retailer" formControlName="retailer" [matAutocomplete]="autoRetailer"
+        (keydown)="onKeyDown($event)">
+      <mat-autocomplete #autoRetailer="matAutocomplete" [displayWith]="displayFnRetailer" [panelWidth]="500"
+        (optionSelected)="retailerSelect($event)">
+        <mat-option *ngFor="let option of (retailerList$ | async)" [value]="option">
+          {{option?.value}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-error *ngIf="partQuotationDetailsForm.get('retailer').hasError('required')"> Please select from list</mat-error>
+    <mat-error *ngIf="partQuotationDetailsForm.get('retailer').hasError('pincodeRequired')">Address Pincode not available</mat-error>
+  </div>
+
+  <div class="col-lg-2" *ngIf="isRetailer">
+    <mat-form-field appearance="outline">
+      <mat-label> Retailer Name </mat-label>
+      <input matInput placeholder="Retailer Name" formControlName="retailerName">
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2" *ngIf="isMachine">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Mechanic</mat-label>
+      <input matInput placeholder="Mechanic" formControlName="mechanic" [matAutocomplete]="autoMachine"
+        (keydown)="onKeyDown($event)">
+      <mat-autocomplete #autoMachine="matAutocomplete" [displayWith]="displayFnMachine" [panelWidth]="500"
+        (optionSelected)="machineSelect($event)">
+        <mat-option *ngFor="let option of (machineList$ | async)" [value]="option">
+          {{option?.value}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-error *ngIf="partQuotationDetailsForm.get('mechanic').hasError('required')"> Please select from list</mat-error>
+    <mat-error *ngIf="partQuotationDetailsForm.get('mechanic').hasError('pincodeRequired')">Address Pincode not available</mat-error>
+
+  </div>
+
+  <div class="col-lg-2" *ngIf="isMachine">
+    <mat-form-field appearance="outline">
+      <mat-label> Mechanic Name </mat-label>
+      <input matInput placeholder="Mechanic Name" formControlName="mechanicName">
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2" *ngIf="isNewExisting">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Customer Name/Mobile No.</mat-label>
+      <input matInput placeholder="Customer Name/Mobile No" maxlength="10" formControlName="mobileNumber"
+        (keydown)="onKeyDownCustomerName($event)" [matAutocomplete]="autoCustomerName" required>
+      <mat-autocomplete #autoCustomerName="matAutocomplete" [panelWidth]="500"
+        (optionSelected)="selectedCustomerName($event)" [displayWith]="displayFnCustomerName">
+        <mat-option *ngFor="let option of (customerName$ | async)" [value]="option">
+          {{option?.value}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-error *ngIf="partQuotationDetailsForm.get('mobileNumber').hasError('required')"> Customer Name/Mobile No. is Required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2" *ngIf="isNewExisting">
+    <mat-form-field appearance="outline">
+      <mat-label> Customer Name </mat-label>
+      <input matInput placeholder="Customer Name " formControlName="customerName" required>
+      <mat-error *ngIf="partQuotationDetailsForm.get('customerName').hasError('required')"> Customer Name is Required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2" *ngIf="isNewExisting">
+    <mat-form-field appearance="outline">
+      <mat-label> Customer Address 1 </mat-label>
+      <input matInput placeholder="Customer Address 1" formControlName="address1" required>
+      <mat-error *ngIf="partQuotationDetailsForm.get('mobileNumber').hasError('required')"> Customer Address 1 is Required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2" *ngIf="isNewExisting">
+    <mat-form-field appearance="outline">
+      <mat-label> Customer Address 2 </mat-label>
+      <input matInput placeholder="Customer Address 2" formControlName="address2">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label> Country </mat-label>
+      <input matInput placeholder="Country" formControlName="country">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>State</mat-label>
+      <input matInput placeholder="State" formControlName="state" [matAutocomplete]="autoState" required (change)="stateValue($event.target.value)">
+      <mat-autocomplete #autoState="matAutocomplete" (optionSelected)="selectedState($event)"
+        [displayWith]="displayFnState">
+        <mat-option *ngFor="let option of (state$ | async)" [value]="option">
+          {{option?.state}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="partQuotationDetailsForm.get('state').hasError('required')"> State is Required
+      </mat-error>
+      <mat-error *ngIf="partQuotationDetailsForm.get('state').hasError('stateError')"> Please select from List
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>District</mat-label>
+      <input matInput placeholder="District" formControlName="district" [matAutocomplete]="autoDistrict" required (change)="districtValue($event.target.value)">
+      <mat-autocomplete #autoDistrict="matAutocomplete" (optionSelected)="selectedDistrict($event)"
+        [displayWith]="displayFnDistrict">
+        <mat-option *ngFor="let option of (district$ | async)" [value]="option">
+          {{option?.district}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="partQuotationDetailsForm.get('district').hasError('required')"> District is Required
+      </mat-error>
+      <mat-error *ngIf="partQuotationDetailsForm.get('district').hasError('districtError')"> Please select from List
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Tehsil/Taluk/Mandal</mat-label>
+      <input matInput placeholder="Tehsil/Taluk/Mandal" formControlName="tehsil" [matAutocomplete]="autoTehsil"
+        required (change)="tehsilValue($event.target.value)">
+      <mat-autocomplete #autoTehsil="matAutocomplete" (optionSelected)="selectedTehsil($event)"
+        [displayWith]="displayFnTehsil">
+        <mat-option *ngFor="let option of (tehsil$ | async)" [value]="option">
+          {{option?.tehsil}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="partQuotationDetailsForm.get('tehsil').hasError('required')"> Tehsil/Taluk/Mandal is Required
+      </mat-error>
+      <mat-error *ngIf="partQuotationDetailsForm.get('tehsil').hasError('tehsilError')">  Please select from List
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Village/City</mat-label>
+      <input matInput placeholder="Village/City" formControlName="city" [matAutocomplete]="autoCity" required (change)="villageValue($event.target.value)">
+      <mat-autocomplete #autoCity="matAutocomplete" (optionSelected)="selectedCity($event)"
+        [displayWith]="displayFnCity">
+        <mat-option *ngFor="let option of (city$ | async)" [value]="option">
+          {{option?.city}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="partQuotationDetailsForm.get('city').hasError('required')"> Village/City is Required
+      </mat-error>
+      <mat-error *ngIf="partQuotationDetailsForm.get('city').hasError('cityError')"> Village/City is Required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Pin Code</mat-label>
+      <input matInput placeholder="Pin Code" formControlName="pinCode" [matAutocomplete]="autoPinCode" required (change)="pinCodeValue($event.target.value)">
+      <mat-autocomplete #autoPinCode="matAutocomplete" (optionSelected)="selectedPinCode($event)"
+        [displayWith]="displayFnPinCode">
+        <mat-option *ngFor="let option of (pinCode$ | async)" [value]="option">
+          {{option?.pinCode}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="partQuotationDetailsForm.get('pinCode').hasError('required')"> Pin Code is Required
+      </mat-error>
+      <mat-error *ngIf="partQuotationDetailsForm.get('pinCode').hasError('pinCodeError')"> Please select from List
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label> Post Office</mat-label>
+      <input matInput placeholder=" Post Office" formControlName="postOffice" [matAutocomplete]="autoPostOffice"
+        required (change)="postOfficeValue($event.target.value)">
+      <mat-autocomplete #autoPostOffice="matAutocomplete" [displayWith]="displayFnPostOffice">
+        <mat-option *ngFor="let option of (postOffice$ | async)" [value]="option">
+          {{option?.postOffice}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="partQuotationDetailsForm.get('postOffice').hasError('required')"> Post Office is Required
+      </mat-error>
+      <mat-error *ngIf="partQuotationDetailsForm.get('postOffice').hasError('postOfficeError')"> Please select from List
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label> Discount Rate </mat-label>
+      <input class="quantity" type="number" matInput placeholder="Discount Rate" formControlName="discountRate">
+      <mat-error
+        *ngIf="partQuotationDetailsForm.get('discountRate').hasError('moreThan') && !partQuotationDetailsForm.get('discountRate').hasError('required')">
+        Discount Rate exceeds 100</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label> Total Discount Value </mat-label>
+      <input matInput placeholder="Total Discount Value" formControlName="totalDiscountValue">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label> Total Basic Value </mat-label>
+      <input matInput placeholder="Total Basic Value" formControlName="totalBasicValue">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label> Total Tax Value </mat-label>
+      <input matInput placeholder="Total Tax Value" formControlName="totalTaxValue">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label> Total Quotation Amount</mat-label>
+      <input matInput placeholder="Total Quotation Amount" formControlName="totalQuotationAmount">
+    </mat-form-field>
+  </div>
+</div>
+
+<!-- <div class="text-right">
+  <a class="pr-3" style="color: #00a8a9;" (click)="downloadTemplate()"><u>Template Format Download</u></a>
+  <a class="pr-2" style="color: #00a8a9;" (click)=""><u>Excel Upload</u></a>
+</div> -->
+<div class="text-right" style="font-size: small;" *ngIf="!isView">
+  <a class="px-2 link" (click)="uploadExcel()">Upload Excel</a> |
+  <a class="px-2 link" (click)="downloadTemplate()">Download Template</a>
+</div>

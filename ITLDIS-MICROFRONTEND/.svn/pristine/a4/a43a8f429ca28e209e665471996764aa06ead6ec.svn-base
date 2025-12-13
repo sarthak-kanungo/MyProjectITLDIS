@@ -1,0 +1,41 @@
+<!-- <div class="row">
+    <div class="col-lg-12">
+    <div class="text-center alert alert-secondary" style="margin-top: 100px">
+        Table Data Not Found </div>
+    </div>
+</div> -->
+
+
+<div class="container-fluid mt-3 mb-3">
+    <div class="mt-3" *ngIf="dataTable">
+
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [searchValue]="searchValue"
+            [totalElements]="totalTableElements" (actionOnTableRecord)="actionOnTableRecord($event)" [clearSearchRow]="clearSearchRow"
+            [actionButtons]="actionButtons" [clickOnTableFields]="clickOnTableFields" (pageChange)="pageChange($event)"
+            [page]="searchFilter['page'] ||0" [size]="searchFilter['size'] ||10">
+            <td></td>
+            <td [ngsw-searchField]="roleCode" [searchColumnName]="'roleCode'">
+                <input type="text" #roleCode [(ngModel)]="roleCodeNg">
+            </td>
+
+            <td [ngsw-searchField]="roleName" [searchColumnName]="'roleName'">
+                <input type="text" #roleName [(ngModel)]="roleNameNg">
+            </td>
+
+            <!-- <td [ngsw-searchField]="menuName" [searchColumnName]="'menuName'">
+                <input type="text" #menuName>
+            </td> -->
+
+            <td [ngsw-searchField]="roleActive" [searchColumnName]="'roleActive'">
+                <input type="text" #roleActive [(ngModel)]="roleActiveNg">
+            </td>
+
+            <!-- <td [ngsw-searchField]="menuActive" [searchColumnName]="'menuActive'">
+                <input type="text" #menuActive>
+            </td> -->
+            <td [ngsw-searchField]="applicableTo" [searchColumnName]="'applicableTo'">
+                <input type="text" #applicableTo [(ngModel)]="applicableToNg">
+            </td>
+        </ngsw-search-table>
+    </div>
+</div>

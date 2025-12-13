@@ -1,0 +1,119 @@
+<div class="container-fluid create-form mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">New Parts Claim</p>
+      </div>
+      <div class="card-body">
+        <form [style.fontSize.px]="10">
+          <div class="row">
+
+
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Claim/ Request No.</mat-label>
+                <input matInput placeholder="Claim/ Request No.">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>DMS GRN No.</mat-label>
+                <input matInput placeholder="DMS GRN No.">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Claim Invoice No.</mat-label>
+                <input matInput placeholder="Claim Invoice No.">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>KAI Invoice No.</mat-label>
+                <input matInput placeholder="KAI Invoice No.">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Claim Status</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let claim of claims" [value]="claim">{{claim}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Claim/ Request From Date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="Claim/ Request To Date">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker3" placeholder="GRN From Date">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker4" placeholder="GRN To Date">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker5" placeholder="Invoice From Date">
+                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                <mat-datepicker #picker5></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker6" placeholder="Invoice To Date">
+                <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                <mat-datepicker #picker6></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary px-3 mx-2 ">
+              Search
+            </button>
+
+
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+  <app-dynamic-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements">
+  </app-dynamic-table>
+</div>

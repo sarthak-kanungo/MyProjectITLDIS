@@ -1,0 +1,39 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Wholesale Incentive Scheme Details</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm" >  
+              
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">Dealer Code</th>
+                <th scope="col">Dealer Name</th>
+                <th scope="col">Wholesale Qty. </th>
+                <th scope="col">Incentive Value</th>
+                <th scope="col">Retails</th>
+                <th scope="col">Claim Amount</th>
+                <th scope="col">Total Amount</th>
+
+              </tr>
+            </thead>
+            <tbody *ngIf="wholesaleIncentiveSchemeDetails">
+              <tr>
+                <td>{{wholesaleIncentiveSchemeDetails.dealerCode}}</td>
+                <td>{{wholesaleIncentiveSchemeDetails.dealerName}}</td>
+                <td>{{wholesaleIncentiveSchemeDetails.wholesaleQty}}</td>
+                <td>{{wholesaleIncentiveSchemeDetails.incentiveValue}}</td>
+                <td>{{wholesaleIncentiveSchemeDetails.retails}}</td>
+                <td>{{wholesaleIncentiveSchemeDetails.claimAmount}}</td>
+                <td>{{wholesaleIncentiveSchemeDetails.totalAmount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>

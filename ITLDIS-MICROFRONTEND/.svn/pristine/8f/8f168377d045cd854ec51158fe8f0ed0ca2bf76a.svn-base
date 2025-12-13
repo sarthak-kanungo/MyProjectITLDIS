@@ -1,0 +1,134 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Product Interested</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="productInterestedForm" [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Item No.</mat-label>
+              <input matInput placeholder="Item No." formControlName="itemNo" [matAutocomplete]="autoItemNo"
+                (keydown)="onKeyDownItemNo($event)">
+              <mat-autocomplete #autoItemNo="matAutocomplete" (optionSelected)="optionSelectedItemNo($event)"
+                [displayWith]="selectItemNo" [panelWidth]="500">
+                <mat-option *ngFor="let option of itemNoList?.result" [value]="option">
+                  {{option.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Model</mat-label>
+              <input matInput placeholder="Model" required formControlName="model" [matAutocomplete]="autoModel"
+                (keydown)="onKeyDownModel($event)">
+              <mat-autocomplete #autoModel="matAutocomplete" (optionSelected)="optionSelectedModel($event)">
+                <mat-option *ngFor="let option of model?.result" [value]="option?.model">
+                  {{option?.model}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Item Description</mat-label>
+              <input matInput placeholder="Item Description" formControlName="itemDescription">
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Sub Model</mat-label>
+              <input matInput placeholder="Sub Model" required formControlName="subModel"
+                [matAutocomplete]="autoSubModel">
+              <mat-autocomplete #autoSubModel="matAutocomplete" (optionSelected)="optionSelectedSubModel($event)">
+                <mat-option *ngFor="let option of subModel?.result" [value]="option?.subModel">
+                  {{option?.subModel}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Variant</mat-label>
+              <input matInput placeholder="Variant" required formControlName="variant" [matAutocomplete]="autoVariant">
+              <mat-autocomplete #autoVariant="matAutocomplete" (optionSelected)="optionSelectedVariant($event)">
+                <mat-option *ngFor="let option of variant?.result" [value]="option?.variant">
+                  {{option?.variant}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Series</mat-label>
+              <input matInput placeholder="Series" formControlName="series">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Product</mat-label>
+              <input matInput placeholder="Product" formControlName="product">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Exchange Required</mat-label>
+              <mat-select required formControlName="exchangeRequired"
+                (selectionChange)="selectionExchangeRequired($event.value)">
+                <mat-option *ngFor="let option of exchanges" [value]="option.exchangeRequired">
+                  {{option.exchangeRequired}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="showexchange">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Exchange Brand</mat-label>
+              <mat-select formControlName="exchangeBrand">
+                <mat-option *ngFor="let brand of dropDownExchangeBrand?.result" [value]="brand?.exchangeBrand">
+                  {{brand?.exchangeBrand}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="showexchange">
+            <mat-form-field appearance="outline">
+              <mat-label>Exchange Model</mat-label>
+              <input matInput maxlength="20" placeholder="Exchange Model" formControlName="exchangeModel">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2" *ngIf="showexchange">
+            <mat-form-field appearance="outline">
+              <mat-label>Exchange Model Year</mat-label>
+              <input matInput maxlength="4" placeholder="Exchange Model Year" formControlName="exchangeModelYear" (keypress)=keyPress($event)>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2" *ngIf="showexchange">
+            <mat-form-field appearance="outline">
+              <mat-label>Estimated Exchange price</mat-label>
+              <input class="quantity" type="number" onKeyPress="if(this.value.length==10) return false;" matInput
+                placeholder="Estimated Exchange price" formControlName="estimatedExchangePrice"
+                (keypress)=keyPress($event)>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

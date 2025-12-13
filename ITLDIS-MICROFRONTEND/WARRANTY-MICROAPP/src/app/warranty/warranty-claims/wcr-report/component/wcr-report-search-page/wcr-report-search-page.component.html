@@ -1,0 +1,39 @@
+<div class="container-fluid mt-4 mb-3">
+    <form >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-from">
+            <div class="card">
+              <div class="card-header">
+                <div class="d-flex justify-content-between header">
+                  <p class="mb-0">Search WCR Report</p>
+                  <div>
+                    <!-- <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 " [routerLink]="['./create']" routerLinkActive="router-link-active" >
+                      <b class="btnName">New</b>
+                    </button> -->
+                  </div>
+                </div>
+              </div>
+
+              <app-wcr-report-search></app-wcr-report-search>
+              <div class="text-center  mt-2 mb-2">
+                <button type="button" class="btn  btn_primary px-3" > Search
+                </button>
+                <button type="button" class="btn  btn_primary px-3 ml-2" > Clear
+                </button>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </form>
+  
+    <div class="mt-2">
+     <!-- space for ngsw search table -->
+     <ngsw-search-table [tableTitle]="'Search Result'"></ngsw-search-table>
+
+    </div>
+  
+  </div>

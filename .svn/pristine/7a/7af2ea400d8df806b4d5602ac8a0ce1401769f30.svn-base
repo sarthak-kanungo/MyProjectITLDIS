@@ -1,0 +1,153 @@
+<!-- <div class="container-fluid px-5 mt-4">
+    <div class="heading">
+        <h6 class="font-weight-bold">Purchase</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 " *ngFor="let item of purchase; let i=index">
+            <div class="card text-white text-left mb-4" [style.background-color]="getColor(item.name)">
+                <div class="card-body">
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.pending}}
+                    </a> <br>
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.approved}}
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    {{item.name}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="heading">
+        <h6 class="font-weight-bold">Enquiry</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let item of enquiry; let i=index">
+            <div class="card text-white text-left mb-4" [style.background-color]="getColor(item.name)">
+                <div class="card-body">
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.hot}}
+                    </a> <br>
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.warm}}
+                    </a><br>
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.cold}}
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    {{item.name}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="heading">
+        <h6 class="font-weight-bold">Sales</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let item of sales; let i=index">
+            <div class="card text-white text-left mb-4" [style.background-color]="getColor(item.name)">
+                <div class="card-body">
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.pending}}
+                    </a> <br>
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.approved}}
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    {{item.name}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="heading">
+        <h6 class="font-weight-bold">Branch Transfer</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let item of branch; let i=index">
+            <div class="card text-white text-left mb-4" [style.background-color]="getColor(item.name)">
+                <div class="card-body">
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.pending}}
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    {{item.name}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="heading">
+        <h6 class="font-weight-bold">Activity</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let item of activity; let i=index">
+            <div class="card text-white text-left mb-4" [style.background-color]="getColor(item.name)">
+                <div class="card-body">
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.pending}}
+                    </a><br>
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.approved}}
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    {{item.name}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="heading">
+        <h6 class="font-weight-bold">Schemes</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let item of schemes; let i=index">
+            <div class="card text-white text-left mb-4" [style.background-color]="getColor(item.name)">
+                <div class="card-body">
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.pending}}
+                    </a><br>
+                    <a [routerLink]="[ './notdata' ]">
+                       {{item.approved}}
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    {{item.name}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div> -->
+<div class="container-fluid">
+    <div class="row">
+    	<div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center;margin-top:15px;">
+    		<img src="./assets/carousel-img1.png" class="imgsize"/>
+    	</div>
+    </div>
+</div>    

@@ -1,0 +1,9 @@
+.pick:hover{
+	cursor : pointer
+}
+.numberField{
+	text-align: center;
+}
+.numericField{
+	text-align: right;
+}

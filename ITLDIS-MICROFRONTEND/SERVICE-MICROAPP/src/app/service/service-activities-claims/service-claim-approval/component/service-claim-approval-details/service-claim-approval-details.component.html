@@ -1,0 +1,233 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+    
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">{{docType}}</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="claimDetailsForm" [style.fontSize.px]="11" *ngIf="isView">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Document Number</mat-label>
+                                <input matInput placeholder="Document Number" formControlName="docNo">
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Document Date</mat-label>
+                                <input matInput placeholder="Document Date" formControlName="docDate">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <input matInput placeholder="Status" formControlName="status">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="wcrClaimDetailsForm" [style.fontSize.px]="11" *ngIf="docType == 'WCR Claim' && isCreate">
+                    <div class="row" *ngIf="!isView">
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Dealer Ship</mat-label>
+                                <input matInput placeholder="Dealer Ship" formControlName="dealerId"
+                                    [matAutocomplete]="autoDealercode">
+                                <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="300" [displayWith]="displayDealerCodeFn">
+                                    <mat-option *ngFor="let option of dealercodeList?.result" [value]="option" >
+                                        {{option?.displayString}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error *ngIf="wcrClaimDetailsForm.controls.dealerId.errors?.selectFromList">Please select from list</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>WCR No.</mat-label>
+                                <input matInput placeholder="WCR No." formControlName="claimNo" [matAutocomplete]="mAuto">
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-autocomplete  autoActiveFirstOption #mAuto="matAutocomplete"  [panelWidth]="300" [displayWith]="displayWcrFn">
+                                    <mat-option *ngFor="let option of wcrData?.result" [value]="option">
+                                        {{option.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error *ngIf="wcrClaimDetailsForm.controls.claimNo.hasError('selectFromList')">Please select from list</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>WCR Type</mat-label>
+                                <mat-select formControlName="wcrType">
+                                    <mat-option *ngFor="let value of wcrType?.result" [value]="value.wcr_type">
+                                        {{value.wcr_type}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline" >
+                                
+                                <mat-label>PCR No.</mat-label>
+                                <input matInput placeholder="PCR No." [matAutocomplete]="auto" formControlName="pcrNumber">
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"  [panelWidth]="300" [displayWith]="displayPcrFn">
+                                    <mat-option *ngFor="let option of pcrData?.result" [value]="option" [style.fontSize.px]="12">
+                                    {{option.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error *ngIf="wcrClaimDetailsForm.controls.pcrNumber.hasError('selectFromList')">Please select from list</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline" >
+                                
+                                <mat-label>Job Card No.</mat-label>
+                                <input matInput placeholder="Job Card No." [matAutocomplete]="auto1" formControlName="jobcardNumber">
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-autocomplete autoActiveFirstOption [panelWidth]="300"  #auto1="matAutocomplete"  [displayWith]="displayJobcodeFn">
+                                    <mat-option *ngFor="let option of jobCodeData?.result" [value]="option">
+                                    {{option.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error *ngIf="wcrClaimDetailsForm.controls.jobcardNumber.hasError('selectFromList')">Please select from list</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>WCR From Date</mat-label>
+                                <input matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="WCR From Date" formControlName="fromDate" [max]="newdate" (dateChange)="setToDate($event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>WCR To Date</mat-label>
+                                <input matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="WCR To Date" formControlName="toDate"  [min]="minDate" [max]="maxDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="text-center  col-lg-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                              Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                              Clear
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div style="width:100%;overflow:auto;">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th *ngIf="!isView"><input color="basic" (change)="checkAll($event)" type="checkbox"></th>
+                            <th>SRN.</th>
+                            <th>Dealer Name</th>
+                            <th>Dealer Code</th>
+                            <th>Claim Number</th>
+                            <th>Claim Date</th>
+                            <th *ngIf="docType == 'WCR Claim'">WCR Type</th>
+                            <th *ngIf="docType == 'WCR Claim'">Chaiss No</th>
+                            <th *ngIf="docType == 'WCR Claim'">Hour Meter</th>
+                            <th *ngIf="docType == 'WCR Claim'">PCR</th>
+                            <th *ngIf="docType == 'WCR Claim'">Jobcard Number</th>
+                            <th *ngIf="docType == 'WCR Claim'">Chassis No</th>
+                            <th *ngIf="docType == 'WCR Claim'">Engine No</th>
+                            <th *ngIf="docType == 'WCR Claim'">Model</th>
+                            <th *ngIf="docType == 'WCR Claim'">Invoice No</th>
+                            <th >Claim Amount</th>
+                            <th *ngIf="docType == 'WCR Claim' || isView">Approved Amount</th>
+                            <th *ngIf="docType == 'WCR Claim' || isView">Invoice Date</th>
+                            <th *ngIf="docType == 'WCR Claim' || isView">Total Invoice Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of claimList;let i=index;">
+                            <td *ngIf="!isView"><input color="basic" [checked]="allChecked" (change)="claimSelection(row.claimId)" type="checkbox"></td>
+                            <td>{{i+1}}</td>
+                            <td>{{row.dealerName}}</td>
+                            <td>{{row.dealerCode}}</td>
+                            <td>{{row.claimNo}}</td>
+                            <td>{{row.claimDate}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.wcrType}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.machineNumber}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.hourMeter}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.pcrNumber}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.jobcardNumber}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.machineNumber}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.engineNumber}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.model}}</td>
+                            <td *ngIf="docType == 'WCR Claim'">{{row.invoiceNumber}}</td>
+                            <td>{{row.claimAmount}}</td>
+
+                            <td *ngIf="docType == 'WCR Claim' || isView">{{row.approvedAmount}}</td>
+                            <td *ngIf="docType == 'WCR Claim' || isView">{{row.invoiceDate}}</td>
+                            <td *ngIf="docType == 'WCR Claim' || isView">{{row.totalInvoicedAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 </div>
+        
+                  <div class="card-from mt-2" *ngIf="isApprove || isView">
+                    <div class="card" style="border: 1px solid #45afaf;">
+                        <div class="card-header" style="background-color: #45afaf;
+                                              border: 1px solid #45afaf;">
+                            <p class="mb-0" style="font-size: 13px;">Approval Details</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive mt-1">
+                                <table class="table table-bordered table-sm">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Approver Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">is Final Approver?</th>
+                                            <th scope="col">Approval Date</th>
+                                            <th scope="col">Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let approvalDetail of approvalDetails">
+                                            <td >{{approvalDetail.approvedBy}}</td>
+                                            <td >{{approvalDetail.approvalStatus}}</td>
+                                            <td >{{approvalDetail.isFinalApprover}}</td>
+                                            <td >{{approvalDetail.approvalDate}}</td>
+                                            
+                                            <td >{{approvalDetail.approverRemarks}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                 
+
+
+                <div class=" text-center mt-2 ">
+                 
+                    <button type="button" *ngIf="!isView && !isApprove" class="btn btn_primary px-3 ml-3" (click)="validateForm()"> Submit
+                    </button>
+                    
+                    <button type="button" *ngIf="isApprove" class="btn btn_primary px-3 ml-3" (click)="approveClaimCheck('Approve')"> Approve
+                    </button>
+                    
+                    <button type="button" *ngIf="isApprove" class="btn btn_primary px-3 ml-3" (click)="approveClaimCheck('Reject')"> Reject
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,99 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from mb-0 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0">Market Intelligence Create</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="marketDetailsForm" (ngSubmit)="onSubmit()" [style.fontSize.px]="11">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Username</mat-label>
+                                        <input matInput placeholder="Product" formControlName="username" disabled>
+                                        <mat-error *ngIf="marketDetailsForm.get('username').hasError('required')">
+                                            Username is Required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline" >
+                                            <mat-label>Dealer Code</mat-label>
+                                            <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Dealer Name</mat-label>
+                                        <input matInput placeholder="Dealer Name" formControlName="dealer_name" disabled>
+                                        <mat-error *ngIf="marketDetailsForm.get('dealer_name').hasError('required')">
+                                            Dealer Name is Required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date" disabled>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="marketDetailsForm.get('date').hasError('required')">
+                                            Date is Required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Feedback Category</mat-label>
+                                        <mat-select formControlName="feedbackCategoryId" required>
+                                            <mat-option *ngFor="let cat of categories" [value]="cat.lookupId">
+                                                {{cat.lookupval}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="marketDetailsForm.get('feedbackCategoryId').hasError('required')">
+                                            Feedback Category is Required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Product</mat-label>
+                                        <mat-select formControlName="productName" required>
+                                            <mat-option *ngFor="let productItem of dropdownProduct" [value]="productItem.product">
+                                                {{productItem.product}}
+                                            </mat-option>
+                                            <mat-error *ngIf="marketDetailsForm.get('productName').hasError('required')">
+                                                Product is required</mat-error>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Competitor</mat-label>
+                                        <mat-select formControlName="competitorName" required>
+                                            <mat-option *ngFor="let competitor of dropDownExchangeBrand" [value]="competitor.exchangeBrand">
+                                                {{competitor.exchangeBrand}}
+                                            </mat-option>
+                                            <mat-error *ngIf="marketDetailsForm.get('competitorName').hasError('required')">
+                                                Competitor is required</mat-error>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-12">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Feedback</mat-label>
+                                        <textarea matInput placeholder="Leave a comment" formControlName="feedbackDesc" required></textarea>
+                                        <mat-error *ngIf="marketDetailsForm.get('feedbackDesc').hasError('required')">
+                                            Feedback is Required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class=" text-center mt-2 ">
+                                <button type="submit" class="btn btn_primary px-3  ml-3"  [disabled]="marketDetailsForm.invalid">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

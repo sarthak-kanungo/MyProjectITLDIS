@@ -1,0 +1,193 @@
+<div class="card-body">
+    <form [formGroup]="serviceBookingSearchForm" [style.fontSize.px]="11">
+        <div class="row">
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Booking No.</mat-label>
+                    <input matInput placeholder="Booking No." formControlName="bookingNo"
+                        [matAutocomplete]="autoBookingNo">
+                    <mat-autocomplete #autoBookingNo="matAutocomplete" [panelWidth]="500">
+                        <mat-option *ngFor="let option of (bookingNoList$ | async)" [value]="option.code">
+                            {{option?.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let item of status" [value]="item.status">{{item.status}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Chassis No.</mat-label>
+                    <input matInput placeholder="Chassis No." formControlName="chassisNo"
+                        [matAutocomplete]="autoChassisNo">
+                    <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500">
+                        <mat-option *ngFor="let option of (chassisNoList$ | async)" [value]="option.code">
+                            {{option?.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Source of Booking</mat-label>
+                    <mat-select formControlName="sourceOfBooking">
+                        <mat-option *ngFor="let source of sourceofBooking" [value]="source.sourceOfBooking">
+                            {{source.sourceOfBooking}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Booking Date From"
+                        formControlName="bookingFromDate" readonly (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker1" placeholder="Booking Date To"
+                        formControlName="bookingToDate" readonly (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="card-from mt-2" *ngIf="isAdvanceSearch">
+            <div class="card" style="border: 1px solid #45afaf;">
+                <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+                    <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Mechanic</mat-label>
+                                <mat-select formControlName="mechanicName">
+                                    <mat-option *ngFor="let mechanic of mechanicName" [value]="mechanic.name">
+                                        {{mechanic.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Engine No.</mat-label>
+                                <input matInput placeholder="Engine No." formControlName="engineNo"
+                                    [matAutocomplete]="autoEngineNo">
+                                <mat-autocomplete #autoEngineNo="matAutocomplete" [panelWidth]="500">
+                                    <mat-option *ngFor="let option of (engineNoList$ | async)" [value]="option.engineNo">
+                                        {{option?.engineNo}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Machine Model</mat-label>
+                                <mat-select formControlName="machineSubModel"
+                                    (selectionChange)="selectionMachineModel($event)">
+                                    <mat-option *ngFor="let model of machineModel" [value]="model">
+                                        {{model.model}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Service Category</mat-label>
+                                <mat-select formControlName="serviceCategory"
+                                    (selectionChange)="selectionServiceCategory($event)">
+                                    <mat-option *ngFor="let category of serviceCategory" [value]="category">
+                                        {{category.category}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Service Type</mat-label>
+                                <mat-select formControlName="serviceType">
+                                    <mat-option *ngFor="let option of serviceType" [value]="option.serviceType">
+                                        {{option.serviceType}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Place of Service</mat-label>
+                                <mat-select formControlName="placeOfService">
+                                    <mat-option *ngFor="let option of placeOfService" [value]="option.placeOfService">
+                                        {{option.placeOfService}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Activity Type</mat-label>
+                                <mat-select formControlName="activityType" (selectionChange)="activityChanged($event)">
+                                    <mat-option *ngFor="let option of activityType" [value]="option">
+                                        {{option?.activityType}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Activity No.</mat-label>
+                                <input matInput placeholder="Activity No." formControlName="activityNo"
+                                    [matAutocomplete]="autoActivityNo">
+                                <mat-autocomplete #autoActivityNo="matAutocomplete" [panelWidth]="500"
+                                    [displayWith]="displayFnActivityNo">
+                                    <mat-option *ngFor="let option of (activityNoList$ | async)" [value]="option">
+                                        {{option?.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100">
+                                <input matInput [matDatepicker]="picker2" placeholder="Appointment Date From"
+                                    formControlName="appointmentFromDate" readonly (click)="picker2.open()">
+                                <mat-datepicker-toggle matSuffix [for]="picker2">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100">
+                                <input matInput [matDatepicker]="picker3" placeholder="Appointment Date To"
+                                    formControlName="appointmentToDate" readonly (click)="picker3.open()">
+                                <mat-datepicker-toggle matSuffix [for]="picker3">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

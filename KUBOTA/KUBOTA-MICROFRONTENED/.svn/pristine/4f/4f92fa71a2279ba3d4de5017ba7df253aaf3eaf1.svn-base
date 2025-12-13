@@ -1,0 +1,16 @@
+<div>
+    <!-- <object id="pdf-viewer"
+        data="assets/pdf_open_parameters.pdf#toolbar=0&navpanes=0&statusbar=0&view=Fit;readonly=true; disableprint=true;"
+        type="application/pdf"
+        width="100%"
+        height="100%" (scroll)="scrolled($event)" (click)="preventDefault($event)" (keydown)="preventDefault($event)">
+        <a href="assets/pdf_open_parameters.pdf#toolbar=0&navpanes=0&scrollbar=0">test.pdf</a>
+    </object> -->
+    <!-- <input (click)="onFileSelected()" type="button" id="file"> -->
+    <pdf-viewer
+        [src]="pdfSrc"
+        [(page)]="pageVariable"
+        (page-rendered)="pageRendered($event)"
+        [original-size]="false"
+        [render-text]="false"></pdf-viewer>
+</div>

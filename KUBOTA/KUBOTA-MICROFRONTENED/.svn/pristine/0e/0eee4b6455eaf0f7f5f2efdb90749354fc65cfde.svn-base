@@ -1,0 +1,5 @@
+<app-current-machinery-details
+[dataAutoPopulateByMobileNumber]="dataAutoPopulateByMobileNumber"
+(getFormStatusandFormData)="getFormStatusandFormDataWithFormName($event)"
+>
+</app-current-machinery-details>

@@ -1,0 +1,99 @@
+<div class="card-from mt-2" *ngIf="isActivityPurposeConversion">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Enquiry Details</p>
+    </div>
+    <div class="card-body">
+
+      <form [formGroup]="enquiryDetailsForm">
+        <div formArrayName="enquiryDetailsFormArray">
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 10px">Select</th>
+                  <th scope="col" style="width: 50px">Enquiry No.</th>
+                  <th scope="col" style="width: 50px">Customer Name</th>
+                  <th scope="col" style="width: 50px">Mobile No.</th>
+                  <th scope="col" style="width: 50px">Village</th>
+                  <th scope="col" style="width: 50px">Tehsil</th>
+                  <th scope="col" style="width: 50px">Model</th>
+                  <th scope="col" style="width: 50px">Enquiry Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let detail of enquiryDetailsForm['controls'].enquiryDetailsFormArray['controls']; let i = index"
+                  [formGroupName]="i">
+                  <td style="width: 20px">
+                    <mat-checkbox color="basic" class="form-control form-control-sm" [checked]
+                      formControlName="isSelected">
+                    </mat-checkbox>
+                  </td>
+                  <td style="width: 30px">
+                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Enquiry No.</mat-label>
+                      <input matInput placeholder="Enquiry No./Mobile No./Name /Tehsil" [formControl]="detail.get('enquiryNumber')"
+                        [matAutocomplete]="autoEnquiryNumber" (keyup) = "getEnquiryNumber($event)">
+                      <mat-autocomplete #autoEnquiryNumber="matAutocomplete" [panelWidth]="500"
+                        (optionSelected)="enquiryNoSelection($event,i)" [displayWith]="displayEnquiryNoFn">
+                        <mat-option *ngFor="let option of enquiryNo?.result" [value]="option">
+                          {{option.value}}
+                        </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </td>
+                  <td style="width: 30px">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Customer Name</mat-label>
+                      <input matInput placeholder="Customer Name" [formControl]="detail.get('firstName')">
+                    </mat-form-field>
+                  </td>
+                  <td style="width: 30px">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Mobile No.</mat-label>
+                      <input matInput placeholder="Mobile No." [formControl]="detail.get('mobileNumber')">
+                    </mat-form-field>
+                  </td>
+
+                  <td style="width: 30px">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Village</mat-label>
+                      <input matInput placeholder="Village" [formControl]="detail.get('city')">
+                    </mat-form-field>
+                  </td>
+
+                  <td style="width: 30px">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Tehsil</mat-label>
+                      <input matInput placeholder="Tehsil" [formControl]="detail.get('tehsil')">
+                    </mat-form-field>
+                  </td>
+                  <td style="width: 30px">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Model</mat-label>
+                      <input matInput placeholder="model" [formControl]="detail.get('model')">
+                    </mat-form-field>
+                  </td>
+                  <td style="width: 30px">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                      <mat-label>Enquiry Type</mat-label>
+                      <input matInput placeholder="Enquiry Type" [formControl]="detail.get('enquiryType')">
+                    </mat-form-field>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+      <div class=" text-center ">
+        <button type="button" class="btn btn-sm btn_primary " *ngIf="!isView" (click)="addRow()"> Add Row</button>
+        <button type="button" class="btn btn-sm btn_secondary ml-2" *ngIf="!isView" (click)="deleteRow()">Delete Row </button>
+      </div>
+    </div>
+  </div>
+</div>

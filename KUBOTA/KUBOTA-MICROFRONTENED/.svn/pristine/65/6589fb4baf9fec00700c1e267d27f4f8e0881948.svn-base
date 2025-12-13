@@ -1,0 +1,14 @@
+.loginbox {
+    border-right: 1px solid #00a8a9;
+    height: 85vh ;
+}
+@media(min-width:600px){
+    .show{
+        display: block;
+    }
+}
+@media(max-width:599px){
+    .show{
+        display: none;
+    }
+}

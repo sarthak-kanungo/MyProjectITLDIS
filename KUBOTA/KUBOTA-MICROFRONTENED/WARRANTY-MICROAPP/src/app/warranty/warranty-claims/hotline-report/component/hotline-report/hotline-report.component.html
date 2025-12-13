@@ -1,0 +1,165 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="hotlineReportForm">
+    <div *ngIf="isView || isEdit" class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Hotline No.</mat-label>
+            <input matInput placeholder="Hotline No." formControlName="hotlineNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-3" *ngIf="!isView && !isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Plant</mat-label>
+            <mat-select formControlName="hotlinePlantMaster">
+                <mat-option *ngFor="let plant of planList" [value]="plant">{{plant.code}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hotlineReportForm.get('hotlinePlantMaster').hasError('required')">
+                Plant Name is Required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Plant</mat-label>
+            <input matInput placeholder="Plant" formControlName="hotlinePlantMaster">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Hotline Date</mat-label>
+            <input readonly matInput placeholder="Hotline Date" formControlName="hotlineDate">
+            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="hotlineReportForm.get('hotlineDate').hasError('required')">
+                Hotline Date is Required</mat-error> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isView && !isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="departmentMaster">
+                <mat-option *ngFor="let department of departMentList" [value]="department"
+                    (click)="departmentIncharge(department)">
+                    {{department?.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hotlineReportForm.get('departmentMaster').hasError('required')">
+                Department is Required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView||isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <input matInput placeholder="Department" formControlName="departmentMaster">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="!isView && !isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Department Incharge</mat-label>
+            <mat-select formControlName="employeeMaster">
+                <mat-option *ngFor="let incharge of inchargeList" [value]="incharge">{{incharge.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hotlineReportForm.get('employeeMaster').hasError('required')">
+                Department Incharge is Required</mat-error>
+            <!-- <input matInput placeholder="Department Incharge" formControlName="departmentIncharge"> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Department Incharge</mat-label>
+            <input matInput placeholder="Department Incharge" formControlName="employeeMaster">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isView && !isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Depot </mat-label>
+            <mat-select formControlName="dealerDepotMapping">
+                <mat-option *ngFor="let depo of depotList" [value]="depo">{{depo.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hotlineReportForm.get('dealerDepotMapping').hasError('required')">
+                Deport is Required</mat-error>
+            <!-- <mat-error *ngIf="hotlineReportForm.get('depoLocation').hasError('required')"><b>Depot is Required</b></mat-error> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Depot</mat-label>
+            <input matInput placeholder="Depot Location" formControlName="dealerDepotMapping">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Failure</mat-label>
+            <input matInput [matDatepicker]="picker1" [max]="maxDate" placeholder="Date of Failure" formControlName="failureDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="hotlineReportForm.get('failureDate').hasError('required')">
+                Failure Date is Required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3" *ngIf="!isView && !isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Condition When Failure Found</mat-label>
+            <mat-select formControlName="conditionFailureMaster">
+                <mat-option *ngFor="let code of failureCodeList" [value]="code">{{code.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hotlineReportForm.get('conditionFailureMaster').hasError('required')">
+                Condition when Failure found is Required</mat-error>
+            <!-- <mat-error *ngIf="hotlineReportForm.get('failureCondition').hasError('selectFromList')"><b>Please select from list</b></mat-error> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Condition When Failure Found</mat-label>
+            <input matInput placeholder="Condition When Failure Found" formControlName="conditionFailureMaster">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isView && !isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Failure Type</mat-label>
+            <mat-select formControlName="failureType">
+                <mat-option *ngFor="let failure of failureType" [value]="failure">{{failure.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hotlineReportForm.get('failureType').hasError('required')">
+                Failure Type is Required</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Failure Type</mat-label>
+            <input matInput placeholder="Status" formControlName="failureType">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView ||isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <input matInput placeholder="Status" formControlName="status">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+            <mat-label>Complaint</mat-label>
+            <textarea matInput placeholder="Complaint" formControlName="complaint"></textarea>
+            <!-- <input matInput placeholder="Complaint" formControlName="complaint"> -->
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-4">
+        <mat-form-field appearance="outline">
+            <mat-label>Remarks</mat-label>
+            <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+            <!-- <input matInput placeholder="Remarks" formControlName="remark"> -->
+        </mat-form-field>
+    </div>
+</div>

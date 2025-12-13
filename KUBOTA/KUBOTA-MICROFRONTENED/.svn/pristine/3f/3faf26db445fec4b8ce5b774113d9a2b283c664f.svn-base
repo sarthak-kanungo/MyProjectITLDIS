@@ -1,0 +1,34 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mb-0">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Add Enquiry Follow Up</p>
+        </div>
+        <div class="card-body">
+       <app-add-enquiry-followup-container (SelectForDisplayCards)="SelectForDisplayCards($event)" (sendFollowupData)="getEnquiryFollowupData($event)"></app-add-enquiry-followup-container>
+
+       <div *ngIf="isSelectFollowup">
+        <app-current-enquiry-followup-container (sendCurrentFollowupData)="geturrentFollowupData($event)" ></app-current-enquiry-followup-container>
+       </div>
+        
+       <div *ngIf="isSelectLostDrop">
+        <app-lost-drop-enquiry-container (sendLostDropFormData)="getLostDropData($event)"></app-lost-drop-enquiry-container>
+       </div>
+         
+
+          <div class=" text-center mt-2 ">
+              <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm('submit')"> Submit
+                </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+            </button>
+         
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="onClickExit()"> Exit
+            </button>
+          </div>
+
+        </div>
+  
+      </div>
+    </div>
+<app-followup-history [followupHistoryDomain]="followupHistoryDomain"></app-followup-history>
+</div>    

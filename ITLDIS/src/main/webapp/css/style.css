@@ -1,0 +1,69 @@
+body{margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif; font-size:11px;}
+.heading{line-height:30px; background:#d9d9d9; border:solid 1px #000; }
+.heading1{ background:#d9d9d9; border:solid 1px #000; }
+.heading span{font-weight:bold;}
+.table{border-left:solid 1px #a6a6a6; border-bottom:solid 1px #fff; border-top:solid 1px #a6a6a6; padding:2px 5px; }
+.table1{ border-left:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6;  padding:2px 5px;   padding:2px 5px;}
+.table2{  border-top:solid 1px #a6a6a6; border-right:solid 1px #a6a6a6; padding:2px 5px;  }
+.table3{  border-bottom:solid 1px #a6a6a6; border-right:solid 1px #a6a6a6;  padding:2px 5px;   }
+.table4{border-left:solid 1px #a6a6a6; padding:2px 5px;}
+.table5{border-right:solid 1px #a6a6a6; padding:2px 5px;}
+.table6{border-left:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6; padding:2px 5px;}
+.table7{border-right:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6; padding:2px 5px;}
+.table span{color:#a6a6a6;}
+.table1 span{color:#a6a6a6;}
+.table2 span{color:#a6a6a6;}
+.table3 span{color:#a6a6a6;}
+.table4 span{color:#a6a6a6;}
+.table5 span{color:#a6a6a6;}
+.tablebottom span{color:#a6a6a6;}
+.tablebottom{border-left:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6; border-top:solid 1px #a6a6a6; padding:2px 5px; }
+.table_tb{border-top:solid 1px #a6a6a6;border-bottom:solid 1px #a6a6a6; padding-right:5px;}
+.msgText{font-weight: bold; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; color: #ff0000; }
+.green{border:solid 1px #a6a6a6; background:#92d050;}
+.yellow{border:solid 1px #a6a6a6; background:#ffc000;}
+.error{color:#ff0000;font-weight: bold;}
+.mandatory{font-family:Verdana, Geneva, sans-serif; font-size:9px; color:#F00;}
+.formtable{border-left:solid 1px #a6a6a6; border-top:solid 1px #a6a6a6;  padding:2px 5px; }
+.formtabletd{ border-top:solid 1px #a6a6a6;  padding:2px 5px; }
+.formtableblank{border-top:solid 1px #a6a6a6; padding:2px 5px;}
+.formtableblankleftright{border-left:solid 1px #a6a6a6; border-right:solid 1px #a6a6a6;padding:2px 5px;}
+.formtableopp1{border-left:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6;  padding:2px 5px; }
+.formtableopp2{ border-bottom:solid 1px #a6a6a6;  padding:2px 5px; }
+.formtableblankopp1{border-bottom:solid 1px #a6a6a6; padding:2px 5px;}
+.formtableblankoppright1{border-right:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6; padding:2px 5px;}
+.table2opp{border-bottom:solid 1px #a6a6a6; border-right:solid 1px #a6a6a6; padding:2px 5px;  }
+.table2oppleftrightbottom{border-left:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6; border-right:solid 1px #a6a6a6; padding:2px 5px;}
+.formtablewb{border-left:solid 1px #a6a6a6;   padding:2px 5px; }
+.formtablewb1{   padding:2px 5px; }
+.formtableoppwb2{  padding:2px 5px; }
+.formtablerwb{border-right:solid 1px #a6a6a6;   padding:2px 5px; }
+.formtbottom1{border-left:solid 1px #a6a6a6; border-bottom:solid 1px #a6a6a6;  padding:2px 5px; }
+.formtablebottomtd{ border-bottom:solid 1px #a6a6a6;  padding:2px 5px; }
+.formtablebottomblank{border-bottom:solid 1px #a6a6a6; padding:2px 5px;}
+.tableinput{width:178px; height:18px; border:solid 1px #a6a6a6;}
+.tabletextarea{width:174px; height:50px; border:solid 1px #a6a6a6;}
+.tableselectbox{height:20px; border:solid 1px #a6a6a6;}
+.headingSpas { font-size: 11px; font-family: verdana; 	}
+.tableStyle {background-color:#A6A6A6;}
+.tdStyle {FONT-SIZE: 11px;FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;	background-color:#FFFFFF;        padding-left:10px;}
+.tdStyle a:hover{    color:#333333;    text-decoration: underline;}
+.tdStyle a{    color:#333333;    text-decoration: none;}
+.headingSpas1{
+    background-color:#EEE;
+    color:#CC0000;
+    padding:2px 20px;
+    text-transform:uppercase;
+    border:solid 1px #999999;
+}
+.grid a{color:blue!important; text-decoration:none;}
+.grid a:hover{text-decoration:underline!important; color:#f27135!important;}
+.verticalText{
+    /*writing-mode:tb-rl;*/
+    writing-mode: tb-rl;
+    white-space:nowrap;
+    display:block;
+    width:30px;
+    height:110px;
+    padding:15px 15px;
+}

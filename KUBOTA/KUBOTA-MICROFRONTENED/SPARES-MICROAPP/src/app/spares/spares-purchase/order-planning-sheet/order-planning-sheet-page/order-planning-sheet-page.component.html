@@ -1,0 +1,37 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Order Planning Sheet</p>
+        </div>
+        <form  [style.fontSize.px]="10">
+           <div class="card-body">
+              <div>
+               <app-create-order-planning-sheet [partDetails]="partDetails" (orderTypeId)="getOrderTypeId($event)" (logicId)="getLogicTypeId($event)" [orderPlanningForm]="orderPlanningForm"  (count)="getCount($event)"></app-create-order-planning-sheet>
+               <app-part-detail-order-planning-sheet [partDetails]="partDetails" [searchCount]="searchCount" [editTotalOrderValue]="editTotalOrderValue"></app-part-detail-order-planning-sheet>
+              </div>
+              <div class=" text-center mt-2 ">
+                <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="validateForm('draft')" > Save
+                  </button>
+                  <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="validateForm('submit')"> Submit
+                  </button>
+                  
+                  <button *ngIf="isView && orderPlanningStatus" type="button" class="btn btn_secondary px-3 ml-3 " (click)="downloadPdf()"> View PDF
+                  </button>
+                  <button *ngIf="!isView"type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="exitForm()"> Exit
+                  </button>
+                  <button *ngIf="isCreate"type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="clearForm()"> Clear
+                  </button>
+                 
+                 
+              </div>
+           </div>
+      </form>            
+    </div>
+   </div>
+  </div>

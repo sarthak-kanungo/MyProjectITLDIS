@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ORDERCANCELLATIONREPORT" pageWidth="595" pageHeight="942" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="01cb0927-c32c-4ca0-bb10-831a4b567af8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="bocid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_BACK_ORDER_CANCELLATION_REPORT  $P{bocid} ,'header'
+
+]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+	</field>
+	<field name="bocNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="bocNo"/>
+		<property name="com.jaspersoft.studio.field.label" value="bocNo"/>
+	</field>
+	<field name="dealerId" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dealerId"/>
+		<property name="com.jaspersoft.studio.field.label" value="dealerId"/>
+	</field>
+	<field name="dealerCode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dealerCode"/>
+		<property name="com.jaspersoft.studio.field.label" value="dealerCode"/>
+	</field>
+	<field name="dealerName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dealerName"/>
+		<property name="com.jaspersoft.studio.field.label" value="dealerName"/>
+	</field>
+	<field name="requestedGivenBy" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="requestedGivenBy"/>
+		<property name="com.jaspersoft.studio.field.label" value="requestedGivenBy"/>
+	</field>
+	<field name="mobileNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mobileNo"/>
+		<property name="com.jaspersoft.studio.field.label" value="mobileNo"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+	</field>
+	<variable name="srlno" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{COLUMN_COUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="66">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="2" width="555" height="14" uuid="b1d406ce-8151-4f85-b3d2-ac39560f4e7c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Order Cancellation Report]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="392" y="23" width="163" height="14" uuid="1bc91f9a-82f0-411d-bba6-c5df8cf50fbf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="23" width="107" height="14" uuid="20e54c18-f628-4935-ab8f-6ccf6dc37927"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Dealer Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="387" y="23" width="5" height="14" uuid="1fc2eb45-4cdd-430e-a880-f52b9bf4ef5d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="37" width="107" height="14" uuid="a05ad224-c5e5-402f-832b-b44679f9756e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Mobile No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="387" y="37" width="5" height="14" uuid="1bcd2b8b-fa15-4493-bc6c-e905547700b3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="392" y="37" width="163" height="14" uuid="bebae7a4-8a38-45de-95de-d0149e22fb87"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mobileNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="37" width="115" height="14" uuid="fe13351c-0ff3-4ea1-bdf2-504596aa009a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Request Given By]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="115" y="37" width="5" height="14" uuid="c4d4cb8d-bcb8-4f9b-9437-66bd2cc0b4ec"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="23" width="115" height="14" uuid="730340f3-5850-43cd-b79c-885777e0b5fc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Dearler Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="115" y="23" width="5" height="14" uuid="5d5e32ff-f9f6-4feb-a124-c2358578cf74"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="120" y="37" width="160" height="14" uuid="3bbcdbc4-1387-47a7-b508-ee859f3a2677"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{requestedGivenBy}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="120" y="23" width="160" height="14" uuid="09d436df-8a50-4cb7-bd3e-d066db7782e7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerCode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="2" width="555" height="49" uuid="ddc307da-27d9-4c0f-ab16-d75eff334921"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="51" width="555" height="15" uuid="4a3a5e27-29f3-48c2-aa10-75380b7708b4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="bocid">
+					<subreportParameterExpression><![CDATA[$P{bocid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ORDERCANCELLATIONREPORTDETAIL.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+</jasperReport>

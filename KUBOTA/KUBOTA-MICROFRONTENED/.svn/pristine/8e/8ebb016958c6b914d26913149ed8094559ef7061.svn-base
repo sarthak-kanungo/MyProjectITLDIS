@@ -1,0 +1,16 @@
+.w_50 {
+  min-width: 50px;
+  max-width: 50px;
+}
+.w_100 {
+  min-width: 100px;
+  max-width: 100px;
+}
+.w_120 {
+  min-width: 120px;
+  max-width: 120px;
+}
+.w_250 {
+  min-width: 250px;
+  max-width: 250px;
+}

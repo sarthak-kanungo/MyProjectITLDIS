@@ -1,0 +1,34 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+    <!-- <div class="heading">
+        <p class="font-weight-bold">Dealer Master</p>
+    </div> -->
+    <div class="card-from mb-0">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Dealer Master</p>
+            </div>
+            <div class="card-body">
+                <form>
+                    <app-dealer-master-details></app-dealer-master-details>                   
+                    <app-dealer-address></app-dealer-address>
+                    <app-dealer-type></app-dealer-type>
+                    <app-dealer-contact-details></app-dealer-contact-details>
+                    <app-kai-representatives></app-kai-representatives>
+    
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit
+                        </button>
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+                        </button>
+    
+                        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+                        </button>
+    
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

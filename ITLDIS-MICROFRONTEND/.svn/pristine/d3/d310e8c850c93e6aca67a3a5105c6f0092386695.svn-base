@@ -1,0 +1,13 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: ngsw-search-table.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { ColumnSearch, NgswSearchTableService, NgswSearchTableComponent, NgswSearchTableModule } from './public-api';
+export { SearchFieldDirective as ɵa } from './lib/directives/search-field.directive';
+export { CamelCaseToRegularStringPipe as ɵb } from './lib/pipe/camel-case-to-regular-string.pipe';
+export { GetKeyValueFromObjectPipe as ɵc } from './lib/pipe/get-key-value-from-object.pipe';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmdzdy1zZWFyY2gtdGFibGUuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ3N3LXNlYXJjaC10YWJsZS8iLCJzb3VyY2VzIjpbIm5nc3ctc2VhcmNoLXRhYmxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O0FBSUEsc0dBQWMsY0FBYyxDQUFDO0FBRTdCLE9BQU8sRUFBQyxvQkFBb0IsSUFBSSxFQUFFLEVBQUMsTUFBTSx5Q0FBeUMsQ0FBQztBQUNuRixPQUFPLEVBQUMsNEJBQTRCLElBQUksRUFBRSxFQUFDLE1BQU0sOENBQThDLENBQUM7QUFDaEcsT0FBTyxFQUFDLHlCQUF5QixJQUFJLEVBQUUsRUFBQyxNQUFNLDJDQUEyQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHZW5lcmF0ZWQgYnVuZGxlIGluZGV4LiBEbyBub3QgZWRpdC5cbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL3B1YmxpYy1hcGknO1xuXG5leHBvcnQge1NlYXJjaEZpZWxkRGlyZWN0aXZlIGFzIMm1YX0gZnJvbSAnLi9saWIvZGlyZWN0aXZlcy9zZWFyY2gtZmllbGQuZGlyZWN0aXZlJztcbmV4cG9ydCB7Q2FtZWxDYXNlVG9SZWd1bGFyU3RyaW5nUGlwZSBhcyDJtWJ9IGZyb20gJy4vbGliL3BpcGUvY2FtZWwtY2FzZS10by1yZWd1bGFyLXN0cmluZy5waXBlJztcbmV4cG9ydCB7R2V0S2V5VmFsdWVGcm9tT2JqZWN0UGlwZSBhcyDJtWN9IGZyb20gJy4vbGliL3BpcGUvZ2V0LWtleS12YWx1ZS1mcm9tLW9iamVjdC5waXBlJzsiXX0=

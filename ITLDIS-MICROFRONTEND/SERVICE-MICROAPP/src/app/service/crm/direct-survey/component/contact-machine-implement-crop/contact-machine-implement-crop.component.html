@@ -1,0 +1,203 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Contact Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="contactDetailForm " [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Name" formControlName="name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profile</mat-label>
+                                <mat-select  placeholder="Profile"  formControlName="profile">
+                                    <mat-option *ngFor="let pro of profileList" [value]="pro">
+                                        {{pro.lookupval}}
+                                    </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput placeholder="Mobile Number" formControlName="mobileNo" minlength="10" maxlength="10">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Age</mat-label>
+                            <input matInput placeholder="Age" formControlName="age">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+       <!-- ************************************************************* -->
+
+       <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Machine Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="machineForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Age of Machine in Mths</mat-label>
+                            <input matInput placeholder="Age of Machine" formControlName="ageOfMachine" >
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>House Meter Reading</mat-label>
+                            <input matInput placeholder="House Meter Reading" formControlName="houseMeterReading" (change)="getMeterHours($event.target.value)">
+                            <mat-error
+                                *ngIf="machineForm.get('houseMeterReading').hasError('hmrError')">
+                                Value should be greater than <b>{{meterHours}}</b>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                            <mat-label>First Time Buyer</mat-label>
+                            <mat-select  placeholder="First Time Buyer"  formControlName="firstTimeBuyer" (selectionChange)="factorInfluencedOptSelect($event.value)">
+                                <mat-option *ngFor="let buyer of buyerType" [value]="buyer.value">
+                                    {{buyer.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Brand/Model</mat-label>
+                            <input matInput placeholder="Brand/Model" formControlName="brand">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Model</mat-label>
+                            <input matInput placeholder="Model" formControlName="model">
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Factor Influenced To Buy itldis Machine</mat-label>
+                                <mat-select  placeholder="Factor Influenced To Buy itldis Machine"  formControlName="factorInfluenced">
+                                    <mat-option *ngFor="let fitbkm of factorInfluencedList" [value]="fitbkm">
+                                        {{fitbkm.lookupval}}
+                                    </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><br>
+
+     <!-- **************************************************************************************** -->
+     <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Major Implement Details</p>
+        </div>
+        <div class="card-body">
+            <div class="card" style="border: 1px solid #45afaf;">
+                <div class="table-responsive mt-1">
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">S.No. </th>
+                                <th scope="col">Implement </th>
+                                <th scope="col">Hours </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let option of implementForm['controls']; let i = index;">
+                                <td class="col-lg-2">{{i+1}}</td>
+                                <td class="col-lg-4">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Implement"
+                                            [formControl]="option.get('implementName')">
+                                    </mat-form-field>
+                                </td>
+                                <td class="col-lg-4">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Hours"
+                                            [formControl]="option.get('hours')">
+                                    </mat-form-field>
+                                </td>
+                                <td *ngIf="isCreate"class="col-lg-2"><mat-icon type="button" (click) = "deleteRowImplement(i)">delete</mat-icon></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="isCreate" class=" text-center mt-2 mb-3">
+                    <button style="text-align: right;" type="button" class="btn btn-sm btn_primary " (click)="addRowImplement()"> Add</button>
+                </div>
+             </div>
+        </div>
+     </div><br>
+
+ <!-- **************************************************************************************** -->
+      <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Major Crops</p>
+        </div>
+        <div class="card-body">
+            <!-- <div class="card" style="border: 1px solid #45afaf;">
+                <div class="table-responsive mt-1">
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Major Crop </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let option of cropForm['controls']; let i = index;">
+                                <td class="col-lg-2">{{i+1}}</td>
+                                <td class="col-lg-8">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Major Crop"
+                                            [formControl]="option.get('crop')">
+                                    </mat-form-field>
+                                </td>
+                                <td class="col-lg-2"><mat-icon type="button" (click) = "deleteRowCrop(i)">delete</mat-icon></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" text-center mt-2 mb-3">
+                    <button style="text-align: right;" type="button" class="btn btn-sm btn_primary " (click)="addRowCrop()"> Add</button>
+                </div>
+             </div> -->
+
+
+             <div [formGroup]="cropForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                         <mat-form-field appearance="outline">
+                           <mat-select  placeholder="Major Crop Grown"  formControlName="cropGrown" multiple>
+                                <mat-option *ngFor="let crop of cropList" [value]="crop">
+                                    {{crop.cropGrown}}
+                                </mat-option>
+                           </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+</div><br>

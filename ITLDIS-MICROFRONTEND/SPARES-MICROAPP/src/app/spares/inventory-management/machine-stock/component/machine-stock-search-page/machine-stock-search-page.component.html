@@ -1,0 +1,134 @@
+<form [formGroup]="machineStockSearchPageForm">
+    <div class="container-fluid create-form  mt-4 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0 label">Search Machine Stock</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-machine-stock-search></app-machine-stock-search>
+                        <div class=" text-center mt-2 mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchData()"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clearForm()"> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalSearchRecordCount"
+        [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" (pageChange)="pageChange($event)" [isExcelImport]="true" (exportToExcel)="machineStockExcelReport($event)">
+
+        <td [ngsw-searchField]="zone" [searchColumnName]="'zone'" *ngIf="userType==='itldis'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #zone>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="region" [searchColumnName]="'region'" *ngIf="userType==='itldis'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #region>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="area" [searchColumnName]="'area'" *ngIf="userType==='itldis'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #area>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" *ngIf="userType==='itldis'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #dealerCode>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" *ngIf="userType==='itldis'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #dealerName>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="dealerLocation" [searchColumnName]="'dealerLocation'" *ngIf="userType==='itldis'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #dealerLocation>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="product" [searchColumnName]="'product'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #product>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="series" [searchColumnName]="'series'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #series>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #model>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #subModel>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="variant" [searchColumnName]="'variant'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #variant>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="itemNo" [searchColumnName]="'itemNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #itemNo>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #itemDescription>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #chassisNo>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #engineNo>
+            </mat-form-field>
+        </td>
+        <!-- <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput type="text" #status>
+                    </mat-form-field>
+                </td> -->
+        <td [ngsw-searchField]="lastTransactinType" [searchColumnName]="'lastTransactinType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #lastTransactinType>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="lastTransactinNo" [searchColumnName]="'lastTransactinNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #lastTransactinNo>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="lastTransactinDate" [searchColumnName]="'lastTransactinDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #lastTransactinDate>
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" #dealerState>
+            </mat-form-field>
+        </td>
+    </ngsw-search-table>
+</div>

@@ -1,0 +1,39 @@
+// @import "../theme";
+
+:host {
+  display: flex;
+  flex-direction: column !important;
+  outline: 1px solid #01b8b8;
+  // width: 100%;
+  margin: 0px 0px;
+
+  .mat-list-item.active {
+    background-color: #038f8f;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    border-radius: 4px;
+  }
+  &:hover,
+  &:focus {
+    > .mat-list-item:not(.expanded) {
+      background-color: rgba(255, 255, 255, 0.1) !important ;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+      border-radius: 4px;
+    }
+  }
+}
+
+.mat-list-item {
+  padding: 0px 0;
+  display: flex;
+  width: auto;
+  .routeIcon {
+    color: #ffffff;
+    margin-right: 15px;
+  }
+  .expandIcon{
+    margin-left: auto;
+  }
+  ::ng-deep .mat-list-item-content {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,373 @@
+<div class="container-fluid mt-4">
+
+    <div class="container-fluid mb-3">
+        <div class="row">
+            <!-- <div class="col-lg-12"> -->
+            <div class="card-from w-100">
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <p class="mb-0"> Search Purchase Order</p>
+                        <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white"
+                            *ngIf="loginUserType!=='itldis'">
+                            <b>New </b>
+                        </button>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="searchPoForm" [style.fontSize.px]="10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Purchase Order No.</mat-label>
+                                        <input matInput placeholder="Purchase Order No." formControlName="poNumber"
+                                            [matAutocomplete]="poNumberAuto">
+                                        <mat-autocomplete #poNumberAuto="matAutocomplete"
+                                            [displayWith]="displayPoNumberFn" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of poNumberAutoList | async"
+                                                [value]="option.poNumber">
+                                                {{option['suggestion']}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <!-- <mat-error
+                                                *ngIf="searchPoForm.get('poNumber').hasError('required')">
+                                                Allows only dropdown values</mat-error> -->
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Purchase Order Type</mat-label>
+                                        <mat-select formControlName="poType">
+                                            <mat-option *ngFor="let potype of poTypesList" [value]="potype.typeName">
+                                                {{potype.typeName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+<!-- 
+                                <div class="col-lg-2" *ngIf='!isKai'>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Depot</mat-label>
+                                        <mat-select formControlName="depot">
+                                            <mat-option *ngFor="let depot of depotsList" [value]="depot.branchName">
+                                                {{depot.branchName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div> -->
+
+                                <div class="col-lg-2" *ngIf='isKai'>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                      <mat-label>Depot </mat-label>
+                                      <mat-select formControlName="depot" multiple>
+                                        <mat-option *ngFor="let depot of depotsList" [value]="depot.branchName">
+                                            {{depot.branchName}}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Item No.</mat-label>
+                                        <input matInput placeholder="Item No." formControlName="itemNo"
+                                            [matAutocomplete]="itemNumberAuto">
+                                        <mat-autocomplete #itemNumberAuto="matAutocomplete" [panelWidth]="700">
+                                            <mat-option *ngFor="let option of itemNumberAutoList | async"
+                                                [value]="option.code">
+                                                {{option.value}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker" placeholder="Purchase Order From Date"
+                                            formControlName="fromDate" (click)="picker.open()" [max]="todaysDate"
+                                            (dateChange)="fromDateChange($event)">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker1" placeholder="Purchase Order To Date"
+                                            formControlName="toDate" (click)="picker1.open()" [max]="maxDate"
+                                            [min]="minDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2" *ngIf='isKai'>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Dealer Code/Dealer Name/Location</mat-label>
+                                        <input matInput placeholder="Dealer Code/Dealer Name/Location"
+                                            formControlName="dealerCode" [matAutocomplete]="autoDealercode">
+                                        <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500"
+                                            (optionSelected)="getDealerName($event)"
+                                            [displayWith]="displayDealerCodeFn">
+                                            <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                                {{option?.displayString}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2" *ngIf='isKai'>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Dealer Name</mat-label>
+                                        <input matInput placeholder="Dealer Name" formControlName="dealerName"
+                                            disabled="disabled">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="card-from mt-2" *ngIf="isShowAdvanceFilter">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p class="mb-0"> Advance Search</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Purchase Order Status</mat-label>
+                                                    <mat-select formControlName="poStatus">
+                                                        <mat-option *ngFor="let status of poStatusList"
+                                                            [value]="status.status">{{status.status}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <!-- <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Dealer</mat-label>
+                                                    <mat-select formControlName="dealer">
+                                                        <mat-option *ngFor="let dealer of dealerList" [value]="dealer">
+                                                            {{dealer}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div> -->
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Product</mat-label>
+                                                    <mat-select formControlName="product"
+                                                        (selectionChange)="selectProduct($event.value)">
+                                                        <mat-option *ngFor="let product of productsList"
+                                                            [value]="product.product">
+                                                            {{product.product}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Series</mat-label>
+                                                    <mat-select formControlName="series"
+                                                        (selectionChange)="selectSeries($event.value)">
+                                                        <mat-option *ngFor="let item of seriesList"
+                                                            [value]="item.series">
+                                                            {{item.series}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Model</mat-label>
+                                                    <mat-select formControlName="model"
+                                                        (selectionChange)="selectModel($event.value)">
+                                                        <mat-option *ngFor="let model of modelsList"
+                                                            [value]="model.model">
+                                                            {{model.model}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Sub Model</mat-label>
+                                                    <mat-select formControlName="subModel"
+                                                        (selectionChange)="selectSubModel($event.value)">
+                                                        <mat-option *ngFor="let submodel of submodelsList"
+                                                            [value]="submodel.subModel">{{submodel.subModel}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Variant</mat-label>
+                                                    <mat-select formControlName="variant">
+                                                        <mat-option *ngFor="let variant of variantsList"
+                                                            [value]="variant.variant">
+                                                            {{variant.variant}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2" *ngFor="let level of orgLevels">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>{{level['LEVEL_DESC']}}</mat-label>
+                                                    <mat-select formControlName="orgHierLevel1"
+                                                        *ngIf="level['SEQ_NO'] == 1">
+                                                        <mat-option value='all' (click)="getOrgLevelHier2('all')">ALL
+                                                        </mat-option>
+                                                        <mat-option *ngFor="let hier of orgHierLevels1" [value]="hier"
+                                                            (click)="getOrgLevelHier2(hier)">{{hier['hierarchy_desc']}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-select formControlName="orgHierLevel2"
+                                                        *ngIf="level['SEQ_NO'] == 2">
+                                                        <mat-option value='all' (click)="getOrgLevelHier3('all')">ALL
+                                                        </mat-option>
+                                                        <mat-option *ngFor="let hier of orgHierLevels2" [value]="hier"
+                                                            (click)='getOrgLevelHier3(hier)'>{{hier['hierarchy_desc']}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-select formControlName="orgHierLevel3"
+                                                        *ngIf="level['SEQ_NO'] == 3">
+                                                        <mat-option value='all' (click)="getOrgLevelHier4('all')">ALL
+                                                        </mat-option>
+                                                        <mat-option *ngFor="let hier of orgHierLevels3" [value]="hier"
+                                                            (click)='getOrgLevelHier4(hier)'>{{hier['hierarchy_desc']}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-select formControlName="orgHierLevel4"
+                                                        *ngIf="level['SEQ_NO'] == 4">
+                                                        <mat-option value='all' (click)="getOrgLevelHier5('all')">ALL
+                                                        </mat-option>
+                                                        <mat-option *ngFor="let hier of orgHierLevels4" [value]="hier"
+                                                            (click)='getOrgLevelHier5(hier)'>{{hier['hierarchy_desc']}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-select formControlName="orgHierLevel5"
+                                                        *ngIf="level['SEQ_NO'] == 5">
+                                                        <mat-option *ngFor="let hier of orgHierLevels5" [value]="hier">
+                                                            {{hier['hierarchy_desc']}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mx-auto d-flex justify-content-between">
+                                    <div></div>
+                                    <div>
+                                        <button type="button" class="btn pl-3 pr-3 mt-2 btn_primary"
+                                            [insertQueryParams]="searchFilter"
+                                            (initialQueryParams)="initialQueryParams($event)"
+                                            (onUrlChange)="onUrlChange($event)" (click)="searchPo()">
+                                            Search </button>
+                                        <button type="button" class="btn pl-3 pr-3 mt-2 ml-2 btn_primary"
+                                            (click)="clearForm()">
+                                            Clear </button>
+                                    </div>
+
+                                    <a class="font-weight-bold mt-3 cursor_pointer anchorColor"
+                                        (click)="showAdvanceSearch()">
+                                        <u>{{isShowAdvanceFilter ? 'Hide Advance Search Filters' : 'Advance
+                                            Search'}}</u>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            [actionButtons]="actionButtons" (actionOnTableRecord)="tableActionClick($event)"
+            [page]="searchFilter['page'] ||0" [size]="searchFilter['size'] ||10"
+            [clickOnTableFields]="[{'title':'P_O_Number','isClickable':true},{'title':'edit','isClickable':true},{'title':'approve','isClickable':true}]"
+            (pageChange)="pageSizeChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="salesPoExcelReport($event)">
+            <td></td>
+            <td [ngsw-searchField]="poNumber" [searchColumnName]="'P_O_Number'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #poNumber [(ngModel)]="poNumberNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'"
+                *ngIf="loginUserType != 'dealer'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #lastApprovedBy [(ngModel)]="lastApprovedByModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="poDate" [searchColumnName]="'P_O_Date'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="poDatePicker" #poDate
+                        (dateInput)="etSearchDateValueChange(poDate.value,'P_O_Date')" [(ngModel)]="poDateNgModel">
+                    <mat-datepicker-toggle matSuffix [for]="poDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #poDatePicker></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="poType" [searchColumnName]="'P_O_Type'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #poType [(ngModel)]="poTypeNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #dealerCode [(ngModel)]="dealerCodeNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #dealerName [(ngModel)]="dealerNameNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="depot" [searchColumnName]="'depot'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #depot [(ngModel)]="depotNgModel">
+                </mat-form-field>
+            </td>
+
+
+            <td [ngsw-searchField]="totalQuantity" [searchColumnName]="'totalQuantity'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #totalQuantity [(ngModel)]="totalQuantityNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="poStatus" [searchColumnName]="'P_O_Status'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #poStatus [(ngModel)]="poStatusNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="totalCreditLimit" [searchColumnName]="'totalCreditLimit'" *ngIf="isKaiLogin">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #totalCreditLimit [(ngModel)]="totalCreditLimitNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="availableLimit" [searchColumnName]="'availableLimit'" *ngIf="isKaiLogin">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #availableLimit [(ngModel)]="availableLimitNgModel">
+                </mat-form-field>
+            </td>
+        </ngsw-search-table>
+    </div>
+
+
+    <!-- ****** TABLE LISTING -->

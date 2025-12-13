@@ -1,0 +1,133 @@
+<div class="container-fluid mt-3 mb-3">
+    <div class="row">
+      <!-- <div class="col-lg-12">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="font-weight-bold" style="color: #354052">
+                Designation Master
+              </p>
+            </div>
+          </div>
+        </div> -->
+      <div class="col-lg-12 mt-2">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between">
+              <p class="mb-0"> Search Dealer Territory Mapping</p>
+              <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                New
+              </button>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="searchdealerMapping" [style.fontSize.px]="11">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Dealership</mat-label>
+                      <input matInput placeholder="Dealership" formControlName="dealerName"
+                        [matAutocomplete]="autoDealer">
+                      <mat-autocomplete #autoDealer="matAutocomplete" [displayWith]="displayDealerShip"
+                        [panelWidth]="300">
+                        <mat-option *ngFor="let option of dealerList" [value]="option.dealerName">
+                          {{option.dealerName}}
+                        </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Territory No</mat-label>
+                      <input matInput placeholder="Territory No" formControlName="territoryNo"
+                        [matAutocomplete]="autoTerritoryNo">
+                      <mat-autocomplete #autoTerritoryNo="matAutocomplete" [displayWith]="displayTerritoryNo"
+                        [panelWidth]="300">
+                        <mat-option *ngFor="let list of territoryList" [value]="list.territoryNo">
+                          {{list?.territoryNo}}
+                        </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Branch</mat-label>
+                      <input matInput placeholder="Branch" formControlName="branchName"
+                      [matAutocomplete]="autoDealerBranch">
+                    <mat-autocomplete #autoDealerBranch="matAutocomplete" [displayWith]="displayDealerBranch"
+                      [panelWidth]="300">
+                      <mat-option *ngFor="let branch of autoSearchBranchList" [value]="branch.branchName">
+                        {{branch?.branchName}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <div class="mt-1">
+                      <button type="button" class="btn px-3 btn_primary" (click)="searchDesignationMaster()"> Search </button>
+                      <button type="button" class="btn btn_secondary px-3 ml-2" (click)="clearForm()">
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3">
+      
+      <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+        [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [showPartial]="false" [clearSearchRow]="clearSearchRow"
+        (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)"
+        [clickOnTableFields]="[{ title: 'territoryNo', isClickable: true },{ title: 'action', isClickable: true }]">
+        <td></td>
+        <td [ngsw-searchField]="territoryNo" [searchColumnName]="'territoryNo'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #territoryNo [(ngModel)] ="territoryNoNgModel">
+          </mat-form-field>
+        </td>
+  
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #dealerName [(ngModel)] ="dealerNameNgModel">
+          </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="branchName" [searchColumnName]="'branchName'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #branchName [(ngModel)] ="branchNameNgModel">
+          </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="countryName" [searchColumnName]="'countryName'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #countryName [(ngModel)] ="countryNameNgModel">
+          </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="stateName" [searchColumnName]="'stateName'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #stateName [(ngModel)] ="stateNameNgModel">
+          </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #dealerName [(ngModel)] ="dealerNameNgModel">
+          </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="tehsilName" [searchColumnName]="'tehsilName'">
+          <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #tehsilName [(ngModel)] ="tehsilNameNgModel">
+          </mat-form-field>
+        </td>
+  
+  
+      </ngsw-search-table>
+    </div>
+  </div>

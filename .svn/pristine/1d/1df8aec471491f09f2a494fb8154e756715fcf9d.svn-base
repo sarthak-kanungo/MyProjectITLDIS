@@ -1,0 +1,38 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Job Card Details</p>
+        </div>
+        <div class="card-body">
+            <div class="row" [formGroup]="viewJobCardForm" [style.fontSize.px]="11">
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Job Card No.</mat-label>
+                        <input matInput placeholder="Job Card No." formControlName="jobCardNo">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Service Date</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Service Date"
+                            formControlName="serviceDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Actual Mechanic </mat-label>
+                        <input matInput placeholder="Actual Mechanic" formControlName="actualMechanic">
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

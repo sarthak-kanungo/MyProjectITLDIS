@@ -1,0 +1,60 @@
+<div class="row" [formGroup]="pickListForm">
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Pick List No.</mat-label>
+        <input matInput placeholder="Pick List No" formControlName="picklistNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Pick List Date</mat-label>
+        <input matInput placeholder="Pick List Date" formControlName="picklistDate">
+      </mat-form-field>
+    </div>
+   
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Customer Order No.</mat-label>
+          <input 
+            matInput placeholder="Customer Order No." formControlName="saleOrderNumber" [matAutocomplete]="saleOrderNumber"
+            (keydown)="onKeyDownForQuotation($event)" >
+            <mat-autocomplete #saleOrderNumber="matAutocomplete" [displayWith]="displayFnSalesOrderNo" (optionSelected)="customerOrderNoSelect($event)" [panelWidth]="500">
+		        <mat-option *ngFor="let option of customerOrderNoList" [value]="option">
+		          {{option.displayValue}}
+		        </mat-option>
+      		</mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="pickListForm.get('saleOrderNumber').hasError('selectFromList')"> Select From List</mat-error>
+        </mat-form-field>
+    </div>
+    
+ 	<div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Customer Order Date</mat-label>
+        <input matInput placeholder="Customer Order Date" formControlName="saleOrderDate">
+      </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Customer Name.</mat-label>
+        <input matInput placeholder="Customer Name" formControlName="customerName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput placeholder="Mobile Number"  formControlName="contactNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>City</mat-label>
+        <input 
+          matInput placeholder="City" formControlName="city">
+      </mat-form-field>
+    </div>
+</div>    

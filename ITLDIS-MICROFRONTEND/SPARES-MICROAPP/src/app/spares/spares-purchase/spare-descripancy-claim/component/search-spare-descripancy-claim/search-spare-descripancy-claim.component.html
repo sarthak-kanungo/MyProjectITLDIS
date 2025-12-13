@@ -1,0 +1,179 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Spare Descripancy Claim</p>
+                <button *ngIf="userType.userType=='dealer'" [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                    <b >New </b>
+                </button>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searchSpareDescripancyClaimForm" [style.fontSize.px]="10">
+                    <div class="row">
+
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Claim No</mat-label>
+                                <input matInput placeholder="Claim NO" (keypress)="searchAutoClaim()" formControlName="claimNo"  [matAutocomplete]="autoClaimNo">
+                                <mat-autocomplete #autoClaimNo="matAutocomplete"
+                                    
+                                     [panelWidth]="200">
+                                    <mat-option *ngFor="let option of claimNoList"
+                                        [value]="option.claimNo">
+                                        {{option?.claimNo}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Grn No</mat-label>
+                                <input matInput placeholder="Grn NO" (keypress)="autoSearchGrnNo()" formControlName="grnNo"  [matAutocomplete]="autoGrnNo">
+                                <mat-autocomplete #autoGrnNo="matAutocomplete"
+                                    
+                                     [panelWidth]="200">
+                                    <mat-option *ngFor="let grnNumber of grnNoList"
+                                        [value]="grnNumber.grnNo">
+                                        {{grnNumber?.grnNo}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div> -->
+                       
+                        
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="claimStatus">
+                                    <mat-option *ngFor="let status of statusList" [value]="status">
+                                        {{status}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>From Date</mat-label>
+                                <input matInput [matDatepicker]="FromDatePicker" placeholder="From Date"
+                                    formControlName="fromDate" [max]="maxDate" (dateChange)="fromDateSelected1($event)">
+                                <mat-datepicker-toggle matSuffix [for]="FromDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #FromDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>To Date</mat-label>
+                                <input matInput [matDatepicker]="ToDatePicker" placeholder="To Date"
+                                    formControlName="toDate"   [max]="maxDate">
+                                <mat-datepicker-toggle matSuffix [for]="ToDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #ToDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"
+                                (click)="searchSpareDescripancyClaim()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        (actionOnTableRecord)="actionOnTableRecord($event)" [clickOnTableFields]="[
+        { title: 'claimReqNo', isClickable: true },{ title: 'action', isClickable: true }]"
+        (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+
+        <td></td>
+
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="status" [searchColumnName]="'Status'">
+            <input class="w-100 borderRadius" #status>
+        </td>
+        <td [ngsw-searchField]="spGrnNo" [searchColumnName]="'Sp Grn No'">
+            <input class="w-100 borderRadius" #spGrnNo>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+
+        <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'">
+            <input class="w-100 borderRadius" #pcrStatus>
+        </td>
+
+
+
+    </ngsw-search-table>
+</div>

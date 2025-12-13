@@ -1,0 +1,83 @@
+<div class="row" [formGroup]="branchTransferIssueForm">
+    <div class="col-lg-3" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Branch Transfer Issue No </mat-label>
+            <input matInput placeholder="Branch Transfer Issue No " formControlName="branchTransferIssueNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status </mat-label>
+            <input matInput placeholder="Status" formControlName="status">
+        </mat-form-field>
+    </div>
+    
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker" placeholder="Branch Transfer Issue Date" formControlName="issueDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Issue By </mat-label>
+            <input matInput placeholder="Request No." formControlName="employeeMaster">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Issuing Branch </mat-label>
+            <input matInput placeholder="Issuing Branch" formControlName="byBranchMaster">
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-3" *ngIf="isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Issue to Branch </mat-label>
+            <mat-select  formControlName="toBranchMaster" (selectionChange)="getissueToBranchEdit($event)">
+                <mat-option *ngFor="let issueTo of issueToList" [value]="issueTo.branchName">
+                    {{issueTo.branchName}} | {{issueTo.branchCode}}
+                </mat-option>
+                
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Issue to Branch </mat-label>
+            <mat-select  formControlName="toBranchMaster" (selectionChange)="getIssueToData($event)">
+                <mat-option *ngFor="let issueTo of issueToList" [value]="issueTo">
+                    {{issueTo.branchName}} | {{issueTo.branchCode}}
+                </mat-option>
+                
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Issue to Branch </mat-label>
+            <input matInput placeholder="Issue To Branch" formControlName="toBranchMaster">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-3" *ngIf="!isView" style="margin-top: 5px;">
+        <ng-multiselect-dropdown   class="customClass" [placeholder]="'Request Number'"[settings]="dropdownSettings"[data]="newrequestNoList" [(ngModel)]="selectedItems"(onSelect)="getRequestId($event)" formControlName="reqNo">
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Request No </mat-label>
+            <input matInput placeholder="Request No" formControlName="reqNo">
+        </mat-form-field>
+    </div>
+    
+
+   
+</div>

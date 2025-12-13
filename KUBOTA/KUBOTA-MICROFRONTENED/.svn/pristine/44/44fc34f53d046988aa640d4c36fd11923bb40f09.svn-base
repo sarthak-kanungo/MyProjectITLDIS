@@ -1,0 +1,178 @@
+<div class="container-fluid mt-4">
+    <div class="card-from ">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Sales Invoice</p>
+                <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white" *ngIf="usertype=='dealer'">
+                    <b>New </b>
+                </button>
+            </div>
+            <div class="card-body">
+                <form [style.fontSize.px]="10" [formGroup]="searchInvoiceForm">
+
+                    <app-spares-sales-invoice-search [searchSparesInvoiceForm]="searchInvoiceForm"
+                        [filterState]="filterData">
+                    </app-spares-sales-invoice-search>
+
+                    <div class=" text-center mt-2 pb-2">
+                        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" title="Search" (click)="searchSparesInvoice()">
+                            Search
+                        </button>
+                        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" title="Clear" (click)="clearForm()"> Clear
+                        </button>
+                        <button type="button" class="btn ml-3 pl-3 pr-3 btn_primary" style="height:35px" title="Download Report" (click)="generateReport()">
+                            <mat-icon>cloud_download</mat-icon></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        (actionOnTableRecord)="tableAction($event)"
+        [clickOnTableFields]="[{'title':'Sales_Invoice_Number','isClickable':true},{'title':'edit','isClickable':true},{'title':'Cancel','isClickable':true}]"
+        (pageChange)="pageSizeChange($event)" [searchValue]="searchValue" [actionButtons]="actionButtons" [page]="page"
+        [size]="size" [clearSearchRow]="clearSearchRow" >
+
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td [ngsw-searchField]="Sales_Invoice_Number" [searchColumnName]="'Sales_Invoice_Number'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Sales_Invoice_Number  [(ngModel)] ="Sales_Invoice_NumberNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="invoiceDate" [searchColumnName]="'Invoice_Date'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="invoiceDatePicker" #invoiceDate
+                    (dateInput)="etSearchDateValueChange(invoiceDate.value,'Invoice_Date')" [(ngModel)] ="Invoice_DateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="invoiceDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #invoiceDatePicker></mat-datepicker>
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="Customer_Type" [searchColumnName]="'Customer_Type'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Customer_Type [(ngModel)] ="Customer_TypeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Reference_Document" [searchColumnName]="'Reference_Document'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Reference_Document [(ngModel)] ="Reference_DocumentNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="refDocDate" [searchColumnName]="'Reference_Document_Date'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="refDocDatePicker" #refDocDate
+                    (dateInput)="etSearchDateValueChange(refDocDate.value,'Reference_Document_Date')" [(ngModel)] ="Reference_Document_DateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="refDocDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #refDocDatePicker></mat-datepicker>
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="Sales_Type" [searchColumnName]="'Sales_Type'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Sales_Type [(ngModel)] ="Sales_TypeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Customer_Code" [searchColumnName]="'Customer_Code'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Customer_Code [(ngModel)] ="Customer_CodeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Customer_Name" [searchColumnName]="'Customer_Name'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Customer_Name [(ngModel)] ="Customer_NameNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Contact_Number" [searchColumnName]="'Contact_Number'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Contact_Number [(ngModel)] ="Contact_NumberNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Customer_Address1" [searchColumnName]="'Customer_Address1'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Customer_Address1 [(ngModel)] ="Customer_Address1NgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Customer_Address2" [searchColumnName]="'Customer_Address2'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Customer_Address2 [(ngModel)] ="Customer_Address1NgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Post_Office" [searchColumnName]="'Post_Office'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Post_Office [(ngModel)] ="Customer_Address2NgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Pincode" [searchColumnName]="'Pincode'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Pincode [(ngModel)] ="PincodeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Village" [searchColumnName]="'Village'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Village [(ngModel)] ="VillageNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Tehsil" [searchColumnName]="'Tehsil'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Tehsil [(ngModel)] ="TehsilNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="District" [searchColumnName]="'District'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #District [(ngModel)] ="DistrictNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="State" [searchColumnName]="'State'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #State [(ngModel)] ="StateNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Mode_Of_Transport" [searchColumnName]="'Mode_Of_Transport'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Mode_Of_Transport [(ngModel)] ="Mode_Of_TransportNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="Transporter" [searchColumnName]="'Transporter'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #Transporter [(ngModel)] ="TransporterNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="L_R_No" [searchColumnName]="'L_R_No'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #L_R_No [(ngModel)] ="L_R_NoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #chassisNo [(ngModel)] ="chassisNoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #engineNo [(ngModel)] ="engineNoNgModel">
+            </mat-form-field>
+        </td>
+       
+        <td [ngsw-searchField]="jobCardNumber" [searchColumnName]="'jobCardNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #jobCardNumber [(ngModel)] ="jobCardNumberNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="wcrNo" [searchColumnName]="'wcrNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #wcrNo [(ngModel)] ="wcrNoNgModel">
+            </mat-form-field>
+        </td>
+  
+  
+    </ngsw-search-table>
+
+</div>

@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="form22" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="60a41a59-ab5c-423c-8b38-bf9ffe291bfd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Kubota Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ChassisNo" class="java.lang.String"/>
+	<parameter name="Usercode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC [SP_FORM_22_DTL] $P{ChassisNo},$P{Usercode},1]]>
+	</queryString>
+	<field name="depotAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="depotAddress"/>
+		<property name="com.jaspersoft.studio.field.label" value="depotAddress"/>
+	</field>
+	<field name="modelName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modelName"/>
+		<property name="com.jaspersoft.studio.field.label" value="modelName"/>
+	</field>
+	<field name="chassisNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="chassisNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="chassisNumber"/>
+	</field>
+	<field name="engineNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="engineNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="engineNumber"/>
+	</field>
+	<field name="certificateNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="certificateNo"/>
+		<property name="com.jaspersoft.studio.field.label" value="certificateNo"/>
+	</field>
+	<field name="noiseLevelA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="noiseLevelA"/>
+		<property name="com.jaspersoft.studio.field.label" value="noiseLevelA"/>
+	</field>
+	<field name="noiseLevelB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="noiseLevelB"/>
+		<property name="com.jaspersoft.studio.field.label" value="noiseLevelB"/>
+	</field>
+	<field name="noiseLevelC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="noiseLevelC"/>
+		<property name="com.jaspersoft.studio.field.label" value="noiseLevelC"/>
+	</field>
+	<field name="emailId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emailId"/>
+		<property name="com.jaspersoft.studio.field.label" value="emailId"/>
+	</field>
+	<field name="cin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cin"/>
+		<property name="com.jaspersoft.studio.field.label" value="cin"/>
+	</field>
+	<field name="logoPath" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="logoPath"/>
+		<property name="com.jaspersoft.studio.field.label" value="logoPath"/>
+	</field>
+	<field name="signPath" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="signPath"/>
+		<property name="com.jaspersoft.studio.field.label" value="signPath"/>
+	</field>
+	<variable name="SrNo" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{SrNo}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="SrNo_Det" class="java.lang.Integer" incrementType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$V{SrNo_Det}]]></variableExpression>
+		<initialValueExpression><![CDATA[2]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="528" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="195" width="216" height="14" uuid="7625c32a-0650-4b23-a219-c587ca80ea0b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[1. Model/Commercial Name of the vehicle :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="219" width="220" height="13" uuid="b2930d86-94bc-4bc5-8c62-a95d8bd1f45e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[2. Chassis number :]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="220" y="219" width="290" height="13" uuid="b797bf5a-d057-42a8-972f-c8dd590afc5e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{chassisNumber}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="220" y="242" width="290" height="13" uuid="856d91f6-dc5d-4997-86dd-a39a7edefb42"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{engineNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="242" width="151" height="13" uuid="edf99438-6288-4a40-acff-289409db6969"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[3. Engine number:]]></text>
+			</staticText>
+			<image hAlign="Left" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="0" y="0" width="170" height="40" uuid="d870d783-bcb6-4f32-8f7b-656edfd2bd2f"/>
+				<imageExpression><![CDATA[$F{logoPath}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="42" width="198" height="13" uuid="0d2922e1-1ae9-4721-aba4-c9dac891dad1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Kubota Agricultural Machinary India Pvt. Ltd.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="59" width="552" height="1" uuid="256d8b7f-e558-475b-a8b4-2b142a9f78e8"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="61" width="552" height="26" uuid="bf1e763b-ee8f-4479-9749-49dfd2a9f2b6"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Form “22”]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="340" y="0" width="214" height="55" uuid="4ee5d356-1875-4c15-9715-9541e3bb9df4"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="11"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{depotAddress}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="220" y="196" width="334" height="13" uuid="e3f11c23-882a-45cc-963c-c9ea88e91efa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="88" width="552" height="14" uuid="e75b2160-3af8-48db-9ca0-c84950f6bec5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[[See rules 47 (1)(g)]]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="106" width="552" height="14" uuid="a52ae6bb-4ab6-4351-bc9f-9d8ba545447a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[ROAD-WORTHINESS CERTIFICATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="122" width="552" height="14" uuid="4f19c69c-db8f-4210-a212-c5c3d88a4702">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="138" width="552" height="14" uuid="4ab54086-fa18-44da-b028-e2e5a5376d4f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Compliance to Emission and Noise Standards]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="153" width="552" height="14" uuid="cc3bd442-1c37-4809-9f65-912de551b0e2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[(To be issued by the Manufacturer or Importer, along with the vehicle)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="168" width="552" height="14" uuid="3bc02256-2ff7-4956-b199-f3e17f0fd891">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[It is certified that the following vehicle complies with the provisions of the Motor Vehicles Act, 1988, and the rules made thereunder:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="267" width="151" height="13" uuid="f361def8-8ad3-46ec-8c5c-26a7a1cfa04b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[4. Applicable Emission norms : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="225" y="267" width="156" height="13" uuid="54e1b960-d81b-429a-97ba-74c10aada2b0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[Bharat (Trem) Stage-IIIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="291" width="554" height="33" uuid="891a43df-0a35-4029-943c-bbe76c5a404a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[5. Emission, Sound Level for Horn and Pass by noise values of the above vehicle model, obtained during Type Approval Testing as per Central Motor Vehicle Rules, 1989 are given below:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="225" y="344" width="156" height="13" uuid="caaedea5-1775-4f78-a45f-a1b8102cbf26"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[Diesel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="344" width="170" height="13" uuid="6d964305-aab1-4635-ae97-4c7833ccee32"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(ii) Type of Fuel : ]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="220" y="327" width="290" height="13" uuid="87dbd5dd-deb8-4ba5-b9ca-25f5258976f2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="327" width="190" height="13" uuid="945281f1-8d42-4c0d-8ff4-3022974aa801"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(i) Type Approval certificate No. : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="361" width="170" height="13" uuid="e46354ae-95c6-4f48-b890-2b746a31e121"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(iii) Emission values for vehicles:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="433" width="170" height="13" uuid="3575e3e4-266d-4a06-90e8-ab53e6ddf378"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(iv) Noise level (as applicable):]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="398" width="554" height="30" uuid="88f41204-11f8-4bc2-8f35-f3f1e97060ac"/>
+				<subreportParameter name="ChassisNo">
+					<subreportParameterExpression><![CDATA[$P{ChassisNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Usercode">
+					<subreportParameterExpression><![CDATA[$P{Usercode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["form22subreport.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="375" width="553" height="20" uuid="8fb94c5d-c66c-4fdf-9b2b-5d166646016f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[TABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="450" width="548" height="13" isPrintInFirstWholeBand="true" uuid="a5ab4d8d-bed4-4295-8a02-e7bf3be4d574"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="false" isItalic="false" pdfEncoding=""/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(a) Horn (for all vehicles other than agricultural tractors and construction equipment vehicles) as installed on]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="463" width="300" height="13" isPrintInFirstWholeBand="true" uuid="07374909-3d5b-4636-aae7-ed53db2011ac"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="false" isItalic="false" pdfEncoding=""/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[the vehicle: ___________ dB(A); (upto 1 decimal place)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="280" y="463" width="268" height="13" isPrintInFirstWholeBand="true" uuid="7bb7a837-77d0-4928-ad64-3954149ab996"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="10" isBold="true" pdfEncoding=""/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noiseLevelA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="280" y="481" width="268" height="13" isPrintInFirstWholeBand="true" uuid="a392e745-2eb8-4244-8cdb-7dfb6468fd53"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfEncoding=""/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noiseLevelB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="481" width="320" height="13" isPrintInFirstWholeBand="true" uuid="a7d40009-6810-44ef-9187-c0ade107eeac"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="false" isItalic="false" pdfEncoding=""/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(b) Pass by or Bystander’s position: ___________ dB(A);]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="512" width="300" height="13" isPrintInFirstWholeBand="true" uuid="ecf2cdc4-152c-4204-9c08-8e467ae44586"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="false" isItalic="false" pdfEncoding=""/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[equipment vehicles): ____________ dB(A)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="280" y="512" width="268" height="13" isPrintInFirstWholeBand="true" uuid="9172543e-7410-42f6-8d9b-2ed6addbaa45"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="10" isBold="true" pdfEncoding=""/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noiseLevelC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="499" width="548" height="13" isPrintInFirstWholeBand="true" uuid="c448f5d7-4594-472d-bef4-a552d148ba20"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="false" isItalic="false" pdfEncoding=""/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[(c) Driver-perceived or Operator’s ear level (as applicable for agricultural tractors and construction]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="109">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="95" width="555" height="13" uuid="7097e4fb-502b-41a8-ad11-9fa757d0dc3f"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Email : kai_g.info@kubota.com CIN - U29210HR2008FTC093295]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="2" width="555" height="20" uuid="9fa6ac63-77d6-4545-a9ad-aabe9d4cab38"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement markup="html">
+					<font size="11" isBold="true" isUnderline="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[For Kubota Agricultural Machinery India Private Limited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="61" width="555" height="14" uuid="61a0cf93-a7b4-4aa7-bb11-63b55d63b62e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="11" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Authorised Signatory ]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="1" y="76" width="554" height="1" uuid="c28e486e-a27d-46bb-8761-c490c5a8c1e8"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="79" width="555" height="15" uuid="7ab20770-37ff-4803-a969-a08bbc61e80d"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Registered Office : 18/4, Mathura Road, Faridabad, Haryana - 121007 India]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="21" width="179" height="40" uuid="7c1d89e1-3da6-457a-8cc3-7d01eb655ec0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$F{signPath}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

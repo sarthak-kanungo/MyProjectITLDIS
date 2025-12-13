@@ -1,0 +1,54 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Dealer</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-dealer-department>
+                        </app-search-dealer-department>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchDealerDepartment()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- <app-dealer-department-master-search-table></app-dealer-department-master-search-table> -->
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable"
+    [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+    [clickOnTableFields]="[{title:'edit'},{title:'departmentCode'},{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]"  (actionOnTableRecord)="tableAction($event)"
+    (pageChange)="pageChange($event)"  [page]="page" [size]="size"   [clearSearchRow]="clearSearchRow" [searchValue]="searchValue">
+    <td></td>
+    <td></td>
+
+    <td [ngsw-searchField]="departmentCode" [searchColumnName]="'departmentCode'" class="departmentCode">
+        <input class="w-100 borderRadius" #departmentCode [(ngModel)] ="departmentCodeNgModel">
+    </td>
+
+    <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'" class="departmentName">
+        <input class="w-100 borderRadius" #departmentName [(ngModel)] ="departmentNameNgModel">
+    </td>
+
+</ngsw-search-table>
+</div>

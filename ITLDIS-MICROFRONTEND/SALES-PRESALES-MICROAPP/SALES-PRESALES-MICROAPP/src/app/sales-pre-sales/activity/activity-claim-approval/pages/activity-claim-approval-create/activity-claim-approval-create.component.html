@@ -1,0 +1,28 @@
+<div class="container-fluid create-form mb-3 mt-4">
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Marketing Activity Claim Approval</p>
+            </div>
+            <div class="card-body">
+                <app-claim-approval-create [viewActivityClaim]="ViewActivityClaimDomain"
+                    (getFormStatusandData)="getFormStatusandData($event)"></app-claim-approval-create>
+                <app-claim-approval-dealer-info [viewActivityClaim]="ViewActivityClaimDomain"></app-claim-approval-dealer-info>
+                <app-claim-approval-heads [viewHeads]="ViewActivityClaimDomain"></app-claim-approval-heads>
+                <div class=" text-center mt-2 ">
+                    <button type="button" class="btn btn_primary pl-3 pr-3 mr-3" (click)="validateForm('approve')">
+                        Approve
+                    </button>
+                    <button type="button" class="btn btn_primary pl-3 pr-3 mr-3"> Hold
+                    </button>
+
+                    <button type="button" class="btn btn_secondary pl-3 pr-3 " (click)="back()"> Back
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

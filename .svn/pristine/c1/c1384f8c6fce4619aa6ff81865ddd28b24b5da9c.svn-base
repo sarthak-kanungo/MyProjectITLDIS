@@ -1,0 +1,214 @@
+<form [formGroup]="implementsDisplayForm" [style.fontSize.px]="10">
+  <div class="table-responsive mt-3">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th class="w_120">Item No.</th>
+          <th scope="col" class="w_250">Item Description</th>
+          <th scope="col" class="w_50">Color</th>
+          <th scope="col" class="w_50">Qty.</th>
+          <th scope="col" class="w_100">Rate ( Excluding GST )</th>
+          <th scope="col" class="w_100">Basic Price</th>
+          <th scope="col" class="w_50">Gross Discount</th>
+          <th scope="col" class="w_100">Amount After Discount</th>
+          <th scope="col" class="w_50">IGST%</th>
+          <th scope="col" class="w_50">SGST%</th>
+          <th scope="col" class="w_50">CGST%</th>
+          <th scope="col" class="w_100">GST Amount</th>
+          <th scope="col" class="w_100">Total Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="itemNo">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="itemDescription">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="color">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="qty">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="rate">
+              <mat-error
+                *ngIf="implementsDisplayForm.get('rate').hasError('required')">
+                This field is required.
+              </mat-error>
+            </mat-form-field>
+          </td>
+          
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="basicPrice">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="discount">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="amountAfterDiscount">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="igst">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="sgst">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="cgst">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="gstamt">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" formControlName="total">
+            </mat-form-field>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</form>
+<div class="row mt-1">
+  <div class="col-md-12">
+    <mat-checkbox color="basic"
+      (change)="checkChange($event)" ng-model="show" [labelPosition]="labelPosition"
+      [checked]="isShowAddImplementsTable" [disabled]="editableTable_viewOnly">
+      <b>Add Implements</b>
+    </mat-checkbox>
+    <editable-table
+      *ngIf="isShowAddImplementsTable"
+      [tableConfig]="tableConfig"
+      [tableData]="tableData"
+      [formGroupForTableRow]="editableTableFormGroup"
+      [getFormData]="getFormData"
+      [assignListToAutocomplete]="dataAutoItemNo"
+      [viewOnly]="editableTable_viewOnly"
+      [patchValue]="patchValueToEditableTable"
+      [validationError]="etValidationError"
+      (optionSelected)="optionSelected($event)"
+      (tableValueChanges)="tableValueChange($event)"
+      (searchValueChanges)="editableTableSearchValueChanges($event)"
+      (deletedTableRecords)="deletedTableRecordsFromEditableTable($event)">
+    </editable-table>
+    <!-- 
+       [getFormData]="getFormData"
+       [assignListToSelect]="assignListToSelect"
+      [patchValueToSelect]="selectPatchValue" -->
+  </div>
+</div>
+<div class="row mt-1">
+  <div class="col-6">
+    <form [formGroup]="chargesForm">
+      <table class="table w-50 table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Charges</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class='text-right text-vertical-middle'>Insurance</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="insurance">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class='text-right text-vertical-middle'>RTO</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="rto">
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+  <div class="col-6 d-flex justify-content-end">
+    <form [formGroup]="calcDisplayForm">
+      <table class="table w-100 table-bordered table-sm ">
+        <tbody>
+          <tr>
+            <td class="text-right text-vertical-middle">Basic Value</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="basicValue">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right text-vertical-middle">Discount</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="discount">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right text-vertical-middle">Taxable Amount</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="taxableAmount">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right text-vertical-middle">GST Amount</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="gstAmt">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right text-vertical-middle">Charges</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="charges">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right text-vertical-middle">Total Amount</td>
+            <td class='text-vertical-middle'>
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <input matInput type="text" formControlName="totalAmt">
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>

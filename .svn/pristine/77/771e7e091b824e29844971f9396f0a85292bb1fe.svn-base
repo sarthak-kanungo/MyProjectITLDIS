@@ -1,0 +1,95 @@
+<div class="mt-2 remark" [style.fontSize.px]="12" [formGroup]="remarkForm">
+
+    <div class="row mb-1">
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Dealer Remarks</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Dealer Remarks</mat-label>
+                        <input  matInput placeholder="Dealer Remarks" formControlName="dealerRemarks" maxlength="499">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" *ngIf="isKaiUser">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">KAI PCR Remarks</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>KAI PCR Remarks</mat-label>
+                        <input  matInput placeholder="KAI PCR Remarks" formControlName="pcrRemark" maxlength="499">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" *ngIf="isKaiUser">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">KAI Remarks</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>KAI Remarks</mat-label>
+                        <input  matInput placeholder="KAI Remarks" formControlName="kaiRemarks" maxlength="499">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        
+    </div>
+
+
+
+    <!-- <div class="row mt-1">
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Video</label>
+                </div>
+                <div class="w-50 flex-fill bd-highlight">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02"
+                                aria-describedby="inputGroupFileAddon02">
+                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-25"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">APPROVED BY</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>APPROVED BY</mat-label>
+                        <input  matInput placeholder="APPROVED BY">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">APPROVED DATE</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>APPROVED DATE</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="APPROVED DATE" >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+    </div> -->

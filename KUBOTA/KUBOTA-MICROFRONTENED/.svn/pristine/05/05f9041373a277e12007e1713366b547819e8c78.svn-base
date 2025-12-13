@@ -1,0 +1,50 @@
+<div class="container confirmation_card">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card_header card_header_secondary mb-2">
+                    <h4 class="card_title mb-0"> {{data.title}}</h4>
+                    <i class="material-icons icon_close" (click)="close()">
+                        close
+                    </i>
+                </div>
+                <div class="container-fluid card_body">
+                    <form [formGroup]="representativeForm" [style.fontSize.px]="11">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Representative Name</mat-label>
+                                    <input matInput placeholder="Representative Name"
+                                        formControlName="representativeName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Representative Type</mat-label>
+                                    <mat-select formControlName="representativeType">
+                                        <mat-option *ngFor="let option of representativeTypes"
+                                            [value]="option.representativeType">{{option.representativeType}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </form>
+                    <ng-content></ng-content>
+                </div>
+                <div class="container-fluid card_footer">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button class="btn button mr-2"
+                                [ngClass]="{'button_color_green':(!!btnName && (btnName.toLowerCase() === 'add'))}"
+                                *ngFor="let btnName of data.buttonName; let i = index" (click)="submit(btnName, i)">
+                                {{btnName}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<form [formGroup]="invoiceForm" [style.fontSize.px]="10">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Type</mat-label>
+                <mat-select required formControlName="invoiceType">
+                    <mat-option *ngFor="let option of invoiceTypeList$ | async" [value]="option.value">
+                        {{option.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="invoiceForm.get('invoiceNumber').value">
+            <mat-form-field appearance="outline">
+                <mat-label>Invoice No.</mat-label>
+                <input
+                    type="text"
+                    placeholder="Invoice No."
+                    matInput
+                    formControlName="invoiceNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="invoiceForm.get('invoiceDate').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Invoice Date" formControlName="invoiceDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Customer Code</mat-label>
+                <input
+                    type="text"
+                    placeholder="Customer Code"
+                    matInput
+                    required
+                    formControlName="customerCode"
+                    [matAutocomplete]="autoCustomerCode">
+                <mat-autocomplete
+                    #autoCustomerCode="matAutocomplete"
+                    [displayWith]="displayCodeFn"
+                    [panelWidth]="550"
+                    (optionSelected)="customerCodeSelected($event)">
+                    <mat-option *ngFor="let option of customerCodeList$ | async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="invoiceForm.get('customerCode').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="invoiceForm.get('customerCode').hasError('selectFromList')">
+                    {{invoiceForm.get('customerCode').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Customer Name</mat-label>
+                <input matInput placeholder="Customer Name" formControlName="customerName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="invoiceForm.get('invoiceStatus').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Status</mat-label>
+                <input matInput placeholder="Invoice Status" formControlName="invoiceStatus">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Hypothecation</mat-label>
+                <input
+                    type="text"
+                    placeholder="Hypothecation"
+                    matInput
+                    formControlName="hypothecation"
+                    [matAutocomplete]="autoHypothecation">
+                <mat-autocomplete
+                    #autoHypothecation="matAutocomplete"
+                    [displayWith]="displayFn"
+                    (optionSelected)="hypothecationSelected($event)">
+                    <mat-option *ngFor="let option of hypothecationList$ | async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,64 @@
+
+        <div class="card-from mt-2 ">
+            <div class="card" style="border: 1px solid #45afaf;">
+              <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;">Retail Incentive Scheme Details</p>
+              </div>
+              <div class="card-body mb-2">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" >
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col" style="width: 53px;">Sr No.</th>
+                        <th scope="col" style="width: 100px;">Customer Name</th>
+                        <th scope="col" style="width: 100px;">Mobile No.</th>
+                        <th scope="col" style="width: 100px;">Address 1</th>
+                        <th scope="col" style="width: 100px;">Pincode</th>
+                        <th scope="col" style="width: 100px;">Post Office</th>
+                        <th scope="col" style="width: 100px;">Tehsil/Taluka</th>
+                        <th scope="col" style="width: 100px;">District</th>
+                        <th scope="col" style="width: 100px;">State</th>
+                        <th scope="col" style="width: 100px;">City</th>
+                        <th scope="col" style="width: 100px;">Village</th>
+                        <th scope="col" style="width: 100px;">DC No.</th>
+                        <th scope="col" style="width: 100px;">DC Date</th>
+                        <th scope="col" style="width: 100px;"> Model+Variant </th>
+                        <th scope="col" style="width: 100px;">Scheme</th>
+                        <th scope="col" style="width: 100px;">DSE</th>
+                        <th scope="col" style="width: 100px;">TM/SM/BM</th>
+                        <th scope="col" style="width: 100px;">GM</th>
+                        <th scope="col" style="width: 150px;">Amount</th>
+  
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="retailIncentiveSchemeDetails">
+                      <tr *ngFor="let row of retailIncentiveSchemeDetails;let indx = index;">
+                        <td>{{indx+1}}</td>
+                        <td>{{row.customerName}}</td>
+                        <td>{{row.mobileNo}}</td>
+                        <td>{{row.address1}}</td>
+                        <td>{{row.pincode}}</td>
+                        <td>{{row.postOffice}}</td>
+                        <td>{{row.tehsil}}</td>
+                        <td>{{row.district}}</td>
+                        <td>{{row.state}}</td>
+                        <td>{{row.city}}</td>
+                        <td>{{row.village}}</td>
+                        <td>{{row.dcNo}}</td>
+                        <td>{{row.dcDate}}</td>
+                        <td>{{row.modelVariant}}</td>
+                        <td>{{row.scheme}}</td>
+                        <td>{{row.dse}}</td>
+                        <td>{{row.tm}}</td>
+                        <td>{{row.gm}}</td>
+                        <td>{{row.amount}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+  
+            </div>
+      </div>
+  

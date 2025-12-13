@@ -1,0 +1,59 @@
+.btn_primary {
+  border: 1px solid transparent !important;
+  color: #ffffff !important;
+  background-color: #028383 !important;
+}
+.btn_secondary {
+  border: 1px solid #6295b6 !important;
+  color: #028383 !important;
+}
+mat-option{
+  color: black !important;
+}
+[hidden] { display: none !important;}
+table {
+  width: 100%;
+}
+th{
+  font-weight: bold
+}
+th, td{
+  font-size: 12px;
+}  
+td{
+  color: black
+}
+table.table-sm th {
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+  padding-right: .3rem;
+}
+table.table-sm td {
+  padding-top: .3rem;
+  padding-bottom: 0rem;
+  padding-right: .3rem;
+}
+.data2{
+  width: 125px;
+  border-radius: 3px;
+  border: 1px solid #737373;
+}
+.input{
+  width: 100px;
+  border-radius: 3px;
+  border: 1px solid #737373;
+}
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: gray;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #00a8a9 !important;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

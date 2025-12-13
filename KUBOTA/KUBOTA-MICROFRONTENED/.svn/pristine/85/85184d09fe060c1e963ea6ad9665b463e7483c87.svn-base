@@ -1,0 +1,91 @@
+<div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="d-flex justify-content-between header">
+                    <p class="mb-0 label">Form F - Form 22</p>
+                    <div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body" [formGroup]="machineSearchForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100 pb_0">
+                            <mat-label>Machine Number</mat-label>
+                            <input matInput placeholder="Machine Number" formControlName="machineNo"
+                                [matAutocomplete]="autoMachineNo" matTooltip="Search Machine Number">
+                            <mat-autocomplete #autoMachineNo="matAutocomplete"  [panelWidth]="500">
+                                <mat-option *ngFor="let option of kaiChassisNoList" [value]="option.code">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>        
+            </div>
+            <div class="text-center  mt-2 mb-2">
+                <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                  Search
+                </button>
+                <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                  Clear
+                </button>
+              </div>
+          </div>
+       </div>
+    </div> 
+  </div>
+</div>
+<div class="container-fluid icon_class">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+      [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [page]="page" [size]="size"
+      [showPartial]="false" (actionOnTableRecord)="actionOnTableRecord($event)"
+      (pageChange)="pageChange($event)"
+      [clickOnTableFields]="[{ 'title': 'formF', 'isClickable': true },{ 'title': 'Form 22', 'isClickable': true }]"
+      [clearSearchRow]="clearSearchRow">
+
+      <td></td>
+      <td></td>  
+      <td [ngsw-searchField]="dealer" [searchColumnName]="'dealer'">
+        <input class="w-100 borderRadius" #dealer [(ngModel)]="dealerNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>  
+      <td [ngsw-searchField]="machineNo" [searchColumnName]="'machineNo'">
+        <input class="w-100 borderRadius" #machineNo [(ngModel)]="machineNoNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>  
+      <td [ngsw-searchField]="engine" [searchColumnName]="'engine'">
+        <input class="w-100 borderRadius" #engine [(ngModel)]="engineNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>
+      <td [ngsw-searchField]="product" [searchColumnName]="'product'">
+        <input class="w-100 borderRadius" #product [(ngModel)]="productNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>
+      <td [ngsw-searchField]="series" [searchColumnName]="'series'">
+        <input class="w-100 borderRadius" #series [(ngModel)]="seriesNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>
+      <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+        <input class="w-100 borderRadius" #model [(ngModel)]="modelNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>
+      <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'">
+        <input class="w-100 borderRadius" #subModel [(ngModel)]="subModelNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>
+      <td [ngsw-searchField]="variant" [searchColumnName]="'variant'">
+        <input class="w-100 borderRadius" #variant [(ngModel)]="variantNgModel"
+          [ngModelOptions]="{standalone: true}">
+      </td>
+    </ngsw-search-table>     
+</div>    

@@ -1,0 +1,42 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Warranty Claim Request</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="wcr-form">
+            <app-wcr-report class="wcr-report" [wcrReportForm]="wcrReportForm"></app-wcr-report>
+            <div class="text-center mt-2 mb-2">
+              <button [style.fontSize.px]="14" type="button" (click)="wcrReport()" class="btn  btn_primary px-3"> Search
+              </button>
+              <button [style.fontSize.px]="14" type="button" (click)="clear()" class="btn  btn_primary px-3 ml-2"> Clear
+              </button>
+            </div>
+          </div>
+          
+          <app-wcr-report-details *ngIf="wcrReportDetailForm && wcrReportDetailForm.length > 0"
+            [wcrReportDetailForm]="wcrReportDetailForm"></app-wcr-report-details>
+          <app-wcr-report-credit-details style="display: none;" *ngIf="wcrReportCreditDetailForm && wcrReportCreditDetailForm.length > 0"
+            [wcrReportCreditDetailForm]="wcrReportCreditDetailForm"></app-wcr-report-credit-details>
+
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+            <button *ngIf="wcrResponse.length > 0" type="button" class="btn btn_primary px-3" (click)="createDC()"> Proceed To DC
+            </button>
+            <!-- <button type="button" class="btn btn_primary px-3 ml-3"> Create Invoice
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Credit Note Request To Finance
+            </button>
+            <button type="button" class="btn btn_primary px-3 ml-3"> Claim Request To Vendor
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Export To Excel
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Export To PDF
+            </button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

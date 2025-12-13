@@ -1,0 +1,53 @@
+<div [formGroup]="questionMasterSearchForm" [style.fontSize.px]="11">
+    <div class="row card-body">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Question Type</mat-label>
+                <mat-select placeholder="Question Type" formControlName="questionType">
+                    <mat-option *ngFor="let type of questionType" [value]="type">
+                        {{type.Survey_type_desc}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Question Code</mat-label>
+                <input matInput placeholder="Question Code" formControlName="questionCode">
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Question Code</mat-label>
+                <input matInput placeholder="Question Code" formControlName="questionCode" [matAutocomplete]="autoQuestionCode" (ngModelChange)="getQuestionCode($event)" >
+                <mat-autocomplete #autoQuestionCode="matAutocomplete" [displayWith]="displayFnForQuestionCode"
+                    [panelWidth]="200">
+                    <mat-option *ngFor="let option of questionList$" [value]="option">
+                        {{option?.question_Code}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" >
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" [max]="today" (dateChange)="setToDate($event, 'pcr')">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate"  [min]="fromDate" [max]="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+    </div>
+</div>

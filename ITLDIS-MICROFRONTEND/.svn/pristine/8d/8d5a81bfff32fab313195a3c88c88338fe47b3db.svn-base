@@ -1,0 +1,39 @@
+::ng-deep ngsw-search-table 
+{
+    table {
+        thead {
+            tr {
+                th.salesOrderDate{
+                    div{
+                            width: 100px;
+                     }
+                  }  
+                  th.totalBasicValue{
+                    div{
+                            width: 100px;
+                     }
+                  } 
+                  th.totalDiscountValue{
+                    div{
+                            width: 115px;
+                     }
+                  } 
+                  th.totalSalesOrderAmount{
+                    div{
+                            width: 145px;
+                     }
+                  }
+                  th.totalTaxAmount{
+                    div{
+                            width: 100px;
+                     }
+                  }
+                  th.mobileNumber{
+                    div{
+                            width: 95px;
+                     }
+                  }
+               }
+             }
+          } 
+        }

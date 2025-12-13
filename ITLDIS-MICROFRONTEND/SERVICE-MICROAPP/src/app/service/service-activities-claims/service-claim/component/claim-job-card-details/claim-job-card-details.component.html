@@ -1,0 +1,89 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Document Details</p>
+      </div>
+      <div class="card-body" [formGroup]="jobCardDetailsForm">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="padding-bottom: 12px;width: 20px;">Sr.No.</th>
+                <th scope="col" style="width: 100px;padding-bottom: 12px;">Customer Code</th>
+                <th scope="col" style="width: 200px;padding-bottom: 12px;">Customer Name</th>
+                <th scope="col" style="width: 100px;padding-bottom: 12px;">Document No.</th>
+                <th scope="col" style="width: 100px;padding-bottom: 12px;">Document Date</th>
+                <th scope="col" style="width: 100px;padding-bottom: 12px;">Chassis No.</th>
+                <th scope="col" style="padding-bottom: 12px;width: 100px;">Model</th>
+                <th scope="col" style="width: 150px;padding-bottom: 12px;">Type Of Service</th>
+                <th scope="col" style="width: 100px;">Date of installation</th>
+                <th scope="col" style="width: 100px;" *ngIf="isKai">Free Service Coupon 1</th>
+                <th scope="col" style="width: 100px;" *ngIf="isKai">Free Service Coupon 2</th>
+                <th scope="col" style="width: 100px;" *ngIf="isKai">Hour Meter</th>
+                <th scope="col" style="width: 100px;" *ngIf="isKai">Chassis</th>
+                <th scope="col" style="padding-bottom: 12px;width: 100px;">Amount</th>
+                <th scope="col" style="width: 100px;padding-bottom: 12px;">Bonus Amount</th>
+                <th scope="col" style="padding-bottom: 12px;width: 100px;" *ngIf="isView">Approved Amount</th>
+                <th scope="col" style="padding-bottom: 12px;width: 100px;" *ngIf="isApprove">Approved
+                  <mat-checkbox color="basic" (change)="checkAll($event)"></mat-checkbox>
+                </th>
+                <!-- <th scope="col" style="padding-bottom: 12px;width: 100px;" *ngIf="isApprove || isView">Rejection Reason</th> -->
+                <th scope="col" style="padding-bottom: 12px;width: 100px;" *ngIf="isApprove || isView">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of headsTable;let i = index;">
+                <td>{{i+1}}</td>
+                <td>{{option.customerCode}}</td>
+                <td>{{option.customerName}}</td>
+                <td>
+                  <!-- <a class="text-primary" [routerLink]="[ '/service/customer-service/job-card/create' ]">
+                   <u>{{option.documentNo}}</u>
+                   </a> -->
+                   {{option.documentNo}}
+                </td>
+                <td>{{option.documentDate}}</td>
+                <td>{{option.chassisNo}}</td>
+                <td>{{option.model}}</td>
+                <td>{{option.typeOfService}}</td>
+                <td>{{option.dateofInstallation}}</td>
+                <td *ngIf="isKai">
+                  <a class="text-primary" (title)="option.serviceType1" (click)="showImageInPopup(option.serviceType1)">Click</a>
+                </td>
+                <td *ngIf="isKai">
+                  <a class="text-primary" (title)="option.serviceType2" (click)="showImageInPopup(option.serviceType2)">Click</a>
+                </td>
+                <td *ngIf="isKai">
+                  <a class="text-primary" (title)="option.hourMeter" (click)="showImageInPopup(option.hourMeter)">Click</a>
+                </td>
+                <td *ngIf="isKai">
+                  <a class="text-primary" (title)="option.chassisPic" (click)="showImageInPopup(option.chassisPic)">Click</a>
+                </td>
+                <td>{{option.amount}}</td>
+                <td>{{option.bonusAmount}}</td>
+                <td *ngIf="isView">{{option.approvedAmount}}</td>
+                <td *ngIf="isApprove"><mat-checkbox color="basic" [formControl]="jobCardDetailsForm.controls[i].get('selection')" [checked]="allChecked || jobCardDetailsForm.controls[i].get('selection').value" (change)="addIdForApproval(option.id, $event)"></mat-checkbox></td>
+                <!-- <td *ngIf="isApprove || isView">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Rejection Reason</mat-label>
+                    <mat-select [formControl]="jobCardDetailsForm.controls[i].get('rejectionReason')">
+                      <mat-option *ngFor="let option of rejectionReason" [value]="option">
+                          {{option}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td> -->
+
+                <td *ngIf="isApprove || isView">
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="Remarks"  [formControl]="jobCardDetailsForm.controls[i].get('remark')">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+    </div>
+  </div>

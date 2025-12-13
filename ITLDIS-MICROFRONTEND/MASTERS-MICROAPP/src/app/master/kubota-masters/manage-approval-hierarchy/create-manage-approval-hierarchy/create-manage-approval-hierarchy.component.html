@@ -1,0 +1,121 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Create Approval Hierarchy</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="createApprovalHier">
+
+          <div class="col-lg-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Transaction Type</mat-label>
+              <input matInput placeholder="Transaction Type" autocomplete="off" formControlName="tranType">
+
+            </mat-form-field>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <p class="mb-0">Details Approval Hierarchy</p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th>SR NO</th>
+                    <th>SELECT</th>
+                    <th>Designation Level</th>
+
+                    <th>Approver Level Seq</th>
+                    <th>Group Seq No</th>
+                    <th>Final Approval Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fg of createApprovalHier.get('details')['controls']; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>
+
+                      <mat-checkbox [formControl]="fg.get('isSelect')"></mat-checkbox>
+                    </td>
+                    <td>
+                      <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                        <input type="text" matInput required placeholder="Designation Level"
+                          [formControl]="fg.get('designationLevel')" [matAutocomplete]="autoTranType"
+                          (keyup)="searchTransactionType($event,fg)" (keyup)="keyUp($event)">
+                        <mat-autocomplete #autoTranType="matAutocomplete" [displayWith]="displayTransactionType"
+                          (optionSelected)="selectTransactionType($event)" [panelWidth]="450">
+                          <mat-option *ngFor="let tran of tranList" [value]="tran">
+                            {{tran.desigLevel}}
+                          </mat-option>
+                        </mat-autocomplete>
+                        <mat-icon matSuffix>search</mat-icon>
+                      </mat-form-field>
+
+                    </td>
+
+
+
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <input matInput placeholder="Approver Level Seq" (keypress)="validateNumericValue($event)"
+                          required autocomplete="off" [formControl]="fg.get('approverLevelSeq')">
+                      </mat-form-field>
+                    </td>
+
+                    <td>
+                      <mat-form-field appearance="outline">
+                        <input matInput placeholder="Group Sequence No" required autocomplete="off"
+                          (keypress)="validateNumericValue($event)" [formControl]="fg.get('grpSeqNo')">
+                      </mat-form-field>
+                    </td>
+
+                    <td>
+                      <mat-checkbox [checked]="fg.get('isFinalApprovalStatus').value==='Y'"
+                        [formControl]="fg.get('isFinalApprovalStatus')" (change)="checkBox($event,fg)"></mat-checkbox>
+
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <!-- </div> -->
+          <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+
+              <div class="w-100 text-right">
+                <button (click)="addRow()" type="button" class="btn btn_primary px-2" style="font-size: 11px;"> Add Row
+                </button>
+                <button (click)="deleteRow()" type="button" class="btn btn_secondary px-2 ml-2"
+                  style="font-size: 11px;">
+                  Delete Row
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="text-center mt-2 ">
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="submitApproval()"
+              [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              {{ loading ? 'Submitting...' : 'Submit' }}
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="exit ()"> Exit</button>
+            <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Exit</button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

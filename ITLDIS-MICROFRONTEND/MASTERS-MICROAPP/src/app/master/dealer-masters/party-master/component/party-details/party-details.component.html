@@ -1,0 +1,136 @@
+<div [formGroup]="partyMasterDetailsForm" [style.fontSize.px]="11">
+  <div class="row">
+
+
+    <div class="col-lg-3">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Branch</mat-label>
+        <input matInput placeholder="Branch Code" formControlName="branchCode" [matAutocomplete]="autoBranchCode">
+        <mat-autocomplete #autoBranchCode="matAutocomplete" [panelWidth]="500"
+          (optionSelected)="selectedBranchCode($event)" [displayWith]="displayFnBranchCode">
+          <mat-option *ngFor="let option of  branchCodeList$?.result" [value]="option">
+            {{option?.displayString}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="partyMasterDetailsForm.get('branchCode').hasError('selectFromList')">Please select from list
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-3" *ngIf="!isCreate">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Party Code</mat-label>
+        <input matInput placeholder="Party Code" formControlName="partyCode" readonly>
+        <!-- <mat-autocomplete #autoPartyCode="matAutocomplete" [displayWith]="displayFnForPartyCode" [panelWidth]="500">
+          <mat-option *ngFor="let option of partyCode$?.result" [value]="option.partyCode">
+            {{option?.partyCode}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Category</mat-label>
+        <mat-select required formControlName="category" [compareWith]="compareFnCategory"
+          (selectionChange)="selectionChangedCateogory($event)">
+          <mat-option *ngFor="let category of categories" [value]="category">{{category.displayValue}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Party Name</mat-label>
+        <input matInput placeholder="Party Name" required formControlName="partyName" (blur)="validatePartyName()">
+        <!-- <mat-autocomplete #autoPartyName="matAutocomplete" [displayWith]="displayFnForPartyName" [panelWidth]="500">
+          <mat-option *ngFor="let option of partyName$?.result" [value]="option.partyName">
+            {{option?.partyName}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon> -->
+        <mat-error *ngIf="partyMasterDetailsForm.get('partyName').hasError('alreadyExist')">Party Name already exist
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Party Location</mat-label>
+        <input matInput placeholder="Party Location" required formControlName="partyLocation">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label> GST No.</mat-label>
+        <input matInput placeholder="GST No." formControlName="gstNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label> PAN No. </mat-label>
+        <input matInput placeholder="PAN No." formControlName="panNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Aadhar Card No.</mat-label>
+        <input matInput placeholder="Aadhar Card No." formControlName="adharCardNumber">
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Title</mat-label>
+        <mat-select required formControlName="title">
+          <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" required formControlName="firstName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Middle Name</mat-label>
+        <input matInput placeholder="Middle Name" formControlName="middleName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" formControlName="lastName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Designation</mat-label>
+        <input matInput placeholder="Designation" formControlName="designation">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile</mat-label>
+        <input matInput placeholder="Mobile" required formControlName="mobileNumber">
+      </mat-form-field>
+    </div>
+  </div>
+</div>

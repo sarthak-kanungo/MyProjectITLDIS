@@ -1,0 +1,139 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header" *ngIf="!isDialogView">
+                <p class="mb-0" >New Toll Free Call</p>
+            </div>
+            <div class="card-header d-flex justify-content-between"  *ngIf="isDialogView">
+                <p class="mb-0">Toll Free Call</p>
+                <button *ngIf="isDialogView" class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">Close</button>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="tollFreeCreateDetailsFrom" [style.fontSize.px]="10">
+                    <div class="row">
+
+                        <div *ngIf="isEdit || isView" class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Toll Free Call No</mat-label>
+                                <input matInput placeholder="Toll Free Call No" formControlName="callNo">
+                                <mat-icon matSuffix>search</mat-icon>
+                                <!-- <mat-autocomplete #tollfreecallNo="matAutocomplete" [panelWidth]="500"
+                                    (optionSelected)="selectedDirectSurveyNo($event)"
+                                    [displayWith]="displayFnDirectSurveyNo">
+                                    <mat-option *ngFor="let option of (directSurveyNoList$ | async)" [value]="option">
+                                        {{option?.tollfreecallNo}}
+                                    </mat-option>
+                                </mat-autocomplete> -->
+                                <!-- <mat-error
+                                    *ngIf="tollFreeCreateDetailsFrom.get('tollfreecallNo').hasError('selectFromList')">
+                                    Please select from list</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Toll Free Call Date</mat-label>
+                                <input matInput placeholder="Toll Free Call Date" [matDatepicker]="picker1"
+                                    formControlName="callDate" (click)="picker1.open()">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <input matInput placeholder="Status" formControlName="status" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <app-customer-detail [customerDetailsForm]="tollFreeCreateDetailsFrom"
+                        (customerSelecction)="onclick($event)" [isView]="isView"></app-customer-detail>
+                    <app-enquiry [enquiryDetailsForm]="enquiryDetailsForm"
+                        *ngIf="customerType=='Enquiry'" [isView]="isView"></app-enquiry>
+                    <app-existing-customer-detail [customerDetailsForm]="customerDetailsForm"
+                        *ngIf="customerType=='Existing Customer'" [isView]="isView">
+                    </app-existing-customer-detail>
+                    <app-machine-detail [machineDetailsForm]="machineDetailsForm"
+                        *ngIf="customerType=='Existing Customer'" [isView]="isView"></app-machine-detail>
+                    <app-complaint [complaintForm]="complaintDetailsForm" [fileUploadedList]="fileUploadedList" *ngIf="customerType=='Existing Customer'" [referenceDetailsForm]="tollFreeCreateDetailsFrom"  [isView]="isView" [isEdit]="isEdit" [isCreate]="isCreate">
+                    </app-complaint>
+                    <div class="mt-2" *ngIf="!isDialogView && customerType=='Existing Customer' && getcustomerId!=''">
+                        <button mat-button *ngIf="!isFreeServiceHistory" type="button"
+                            class="btn btn_primary px-3  ml-3" (click)="showFreeServiceHistory()"
+                            style="line-height: 2 !important;margin-right: 5px;">
+                            <mat-icon>history</mat-icon> Free
+                            Service History
+                        </button>
+                        <button mat-button *ngIf="isFreeServiceHistory" type="button"
+                            class="btn btn_primary px-3  ml-3 bbc" (click)="showFreeServiceHistory()"
+                            style="background-color: #495057 !important;line-height: 2 !important; margin-right: 5px;">
+                            <mat-icon>highlight_off</mat-icon> Free Service
+                            History
+                        </button>
+
+                        <button mat-button *ngIf="!isSurveyHistory" type="button" class="btn btn_primary px-3  ml-3"
+                            (click)="showSurveyHistory()" style="line-height: 2 !important;margin-right: 5px;">
+                            <mat-icon>history</mat-icon> Survey History
+                        </button>
+                        <button mat-button *ngIf="isSurveyHistory" type="button" class="btn btn_primary px-3  ml-3 bbc"
+                            (click)="showSurveyHistory()"
+                            style="background-color: #495057 !important;line-height: 2 !important; margin-right: 5px;">
+                            <mat-icon>highlight_off</mat-icon> Survey History
+                        </button>
+
+                        <button mat-button *ngIf="!isTollFreeHistory" type="button" class="btn btn_primary px-3  ml-3"
+                            (click)="showTollFreeHistory()" style="line-height: 2 !important;margin-right: 5px;">
+                            <mat-icon>history</mat-icon> Toll Free History
+                        </button>
+                        <button mat-button *ngIf="isTollFreeHistory " type="button"
+                            class="btn btn_primary px-3  ml-3 bbc" (click)="showTollFreeHistory()"
+                            style="background-color: #495057 !important;line-height: 2 !important; margin-right: 5px;">
+                            <mat-icon>highlight_off</mat-icon> Toll Free
+                            History
+                        </button>
+                    </div>
+                    <app-free-service-history [freeServiceHistoryForm]="freeServiceHistoryForm" *ngIf="!isDialogView && customerType=='Existing Customer' && isFreeServiceHistory">
+                    </app-free-service-history>
+                    <app-survey-history [surveyHistoryForm]="surveyHistoryForm" *ngIf="!isDialogView && customerType=='Existing Customer' && isSurveyHistory">
+                    </app-survey-history>
+                    <app-toll-free-history [tollFreeHistoryForm]="tollFreeHistoryForm" *ngIf="!isDialogView && customerType=='Existing Customer' && isTollFreeHistory">
+                    </app-toll-free-history>
+
+                    <!-- <div class="mt-2" *ngIf="customerType=='Existing Customer'">
+                        <button *ngIf="!isFreeServiceHistory" type="button" class="btn btn_primary px-3  ml-3"
+                            (click)="showFreeServiceHistory()">Show Free Service History</button>
+                        <button *ngIf="isFreeServiceHistory" type="button" class="btn btn_primary px-3  ml-3 bbc"
+                            (click)="showFreeServiceHistory()"> Hide Free Service History</button>
+
+                        <button *ngIf="!isSurveyHistory" type="button" class="btn btn_primary px-3  ml-3"
+                            (click)="showSurveyHistory()"> Show Survey History</button>
+                        <button *ngIf="isSurveyHistory" type="button" class="btn btn_primary px-3  ml-3 bbc"
+                            (click)="showSurveyHistory()"> Hide Survey History</button>
+
+                        <button *ngIf="!isTollFreeHistory" type="button" class="btn btn_primary px-3  ml-3"
+                            (click)="showTollFreeHistory()"> Show Toll Free History</button>
+                        <button *ngIf="isTollFreeHistory " type="button" class="btn btn_primary px-3  ml-3 bbc"
+                            (click)="showTollFreeHistory()"> Hide Toll Free History</button>
+                    </div> -->
+                    <div class=" text-center mt-2 " *ngIf="!isDialogView">
+                        <!-- <button type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()">
+                            Save
+                        </button> -->
+                        <button type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()" *ngIf="isCreate" [disabled]='isSubmitDisable'>
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPrint()" *ngIf="isView">
+                            Print </button>
+                        <button type="button" class="btn btn_primary px-3  ml-3" (click)="exitForm()">
+                            Exit
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" (click)="clearForm()" *ngIf="isCreate"> Clear
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

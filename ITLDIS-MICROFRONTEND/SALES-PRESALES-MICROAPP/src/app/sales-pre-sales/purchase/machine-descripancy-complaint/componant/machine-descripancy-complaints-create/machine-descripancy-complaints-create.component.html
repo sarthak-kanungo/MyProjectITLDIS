@@ -1,0 +1,144 @@
+<form [formGroup]="machineGrnFrom" [style.fontSize.px]="10">
+    <div class="row">
+
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+                <mat-label>Complaint No.</mat-label>
+                <input matInput placeholder="Complaint No." formControlName="complaintNo">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Complaint Date" formControlName="complaintDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Chassis No.</mat-label>
+                <input matInput placeholder="Chassis No." required formControlName="chassisNo"
+                    [matAutocomplete]="autoChasisNumber">
+                <mat-autocomplete #autoChasisNumber="matAutocomplete" (optionSelected)="optionSelectedChasisNo($event)"
+                    [displayWith]="displayChasisNoFn">
+                    <mat-option *ngFor="let option of searchChasisNumber?.result" [value]="option">
+                        {{option?.chassisNo}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Engine No.</mat-label>
+                <input matInput placeholder="Engine No." formControlName="engineNo">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>GRN No.</mat-label>
+                <input matInput placeholder="GRN No." formControlName="dmsGrnNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!isCreate">
+            <mat-form-field appearance="outline">
+                <mat-label>Complaint Status</mat-label>
+                <input matInput placeholder="Complaint Status" formControlName="complaintStatus">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="KAI Invoice Date"
+                    formControlName="kaiInvoiceDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="GRN Date" formControlName="grnDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Transporter Name</mat-label>
+                <input matInput placeholder="Transporter Name" formControlName="transporterName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Transporter Vehicle No.</mat-label>
+                <input matInput placeholder="Transporter Vehicle No" formControlName="transporterVehicleNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>L.R. No.</mat-label>
+                <input matInput placeholder="L.R. No." formControlName="lrNo">
+            </mat-form-field>
+        </div>
+
+    </div>
+</form>
+
+
+<app-md-complaints></app-md-complaints>
+
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Document Upload</p>
+        </div>
+
+        <div class="card-body">
+            <div class="row" *ngIf="isCreate">
+                <div class="col-lg-2">
+                    <input type="file" name="image" (change)="fileSelctionChanges($event)"
+                        accept="image/x-png,image/jpeg,image/pdf,image/xlsx,image/doc,application/pdf" />
+                </div>
+            </div>
+            <div class="row mt-2 text-center">
+                <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+                    <div class="card" [style.width.rem]="13">
+                        <label> {{file.file.name}} </label>
+                        <img [src]="file.previewUrl" height="120" width="185" />
+                        <div class="card-body" *ngIf="isCreate">
+                            <hr>
+                            <i class="material-icons" (click)="deleteImage(file.id)">delete</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-approval-details *ngIf="userType == 'itldis'" [approvalList]="approvalList"></app-approval-details>
+<div class=" text-center mt-2 mb-2">
+    <!-- <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm()" *ngIf="!isView"> Save
+    </button> -->
+    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateFormForSubmit()" *ngIf="isCreate">
+        Submit
+    </button>
+    <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " disabled *ngIf="!isView"> View PDF
+    </button> -->
+    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="!isView" (click)="clearAll()"> Clear
+    </button>
+    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isApprove" (click)="approveRejectClaim('Approve')"> Approve
+    </button>
+    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isApprove" (click)="approveRejectClaim('Reject')"> Reject
+    </button>
+</div>

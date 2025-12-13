@@ -1,0 +1,102 @@
+<div [formGroup]="qaReportForm" [style.fontSize.px]="11">
+    <div class="row card-body"> 
+        <div class="col-lg-2" >
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="From Date"  formControlName="fromDate"
+                                        [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate"
+                                        [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Product</mat-label>
+                <mat-select formControlName="product"
+                    (selectionChange)="selectProduct($event.value)">
+                    <mat-option *ngFor="let option of products" [value]="option.product">
+                        {{option?.product}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+         <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Series</mat-label>
+                <mat-select formControlName="series"
+                    (selectionChange)="selectSeries($event.value)" [compareWith]="compareFnSeries">
+                    <mat-option *ngFor="let option of seriesByProduct"
+                        [value]="option.series">{{option?.series}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model</mat-label>
+                <mat-select formControlName="model"
+                    (selectionChange)="selectModel($event.value)" [compareWith]="compareFnModel">
+                    <mat-option *ngFor="let option of modelBySeries"
+                        [value]="option.model">
+                        {{option?.model}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sub Model</mat-label>
+                <mat-select formControlName="subModel" (selectionChange)="selectSubModel($event.value)"
+                    [compareWith]="compareFnSubModel">
+                    <mat-option *ngFor="let option of subModelByModel"
+                        [value]="option.subModel">
+                        {{option?.subModel}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Variant</mat-label>
+                <mat-select formControlName="variant">
+                    <mat-option *ngFor="let option of variants" [value]="option.variant">
+                        {{option?.variant}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> 
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Question</mat-label>
+                <mat-select formControlName="question">
+                    <mat-option *ngFor="let ques of questionList"
+                        [value]="ques">
+                        {{ques?.question}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Survey Type </mat-label>
+                <mat-select formControlName="surveyType">
+                    <mat-option *ngFor="let st of syurveyType" [value]="st.id">
+                        {{st.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+    </div>
+   

@@ -1,0 +1,4 @@
+.upload-err {
+    border: 2px solid #f44336;
+    border-radius: 5px;
+}

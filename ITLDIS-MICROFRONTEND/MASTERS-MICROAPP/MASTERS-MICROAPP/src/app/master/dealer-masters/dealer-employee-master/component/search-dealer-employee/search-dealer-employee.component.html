@@ -1,0 +1,84 @@
+<div [formGroup]="employeeForm" [style.fontSize.px]="11" class="container-fluid create-form  mt-4  pb_0">
+    <div class="row">
+
+      
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Employee Code</mat-label>
+              <input 
+                matInput placeholder="Employee Code" formControlName="employeeCode" [matAutocomplete]="autoEmployeeCode"
+                (ngModelChange)="onKeyEmployeeeCode($event)" >
+                <mat-autocomplete #autoEmployeeCode="matAutocomplete"  [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeCodeList" [value]="option.employeeCode">
+                      {{option.employeeCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Mobile No.</mat-label>
+              <input 
+                matInput placeholder="Mobile No." formControlName="mobileNo" [matAutocomplete]="autoMobileNo"
+                (ngModelChange)="onKeyEmployeeeCode($event)" >
+                <mat-autocomplete #autoMobileNo="matAutocomplete"  [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeMobileList" [value]="option.mobilenumber">
+                      {{option.mobilenumber}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Employee Name</mat-label>
+            <input 
+              matInput placeholder="Employee Name" formControlName="employeeName" [matAutocomplete]="autoEmployeeName"
+              (ngModelChange)="onKeyEmployeeName($event)" >
+              <mat-autocomplete #autoEmployeeName="matAutocomplete"  [panelWidth]="300">
+                  <mat-option *ngFor="let option of employeeNameList" [value]="option.employeeName">
+                    {{option.employeeName}}
+                  </mat-option>
+                </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+      </div>
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>State</mat-label>
+          <mat-select required formControlName="state">
+            <mat-option *ngFor="let name of stateList" [value]="name.state">
+                {{name.state}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Dealer Name/Dealer Code</mat-label>
+        <input 
+          matInput placeholder="Dealer Name/Dealer Code" formControlName="dealerCode" [matAutocomplete]="autoDealerCode"
+          (ngModelChange)="onkeyDealerCode($event)">
+          <mat-autocomplete #autoDealerCode="matAutocomplete" [displayWith]="displayDealerCode"  [panelWidth]="400">
+              <mat-option *ngFor="let option of dealerCodeList" [value]="option">
+                {{option.displayString}}
+              </mat-option>
+            </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Department Name</mat-label>
+        <mat-select required formControlName="departmentId">
+            <mat-option *ngFor="let name of departmentsCodeAndName" [value]="name.id">
+                {{name.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+    </div>
+</div>

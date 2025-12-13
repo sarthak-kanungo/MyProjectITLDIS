@@ -1,0 +1,164 @@
+<div class="card-body" [style.fontSize.px]="11" [formGroup]="searchForm">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Logsheet No.</mat-label>
+                <input matInput placeholder="Logsheet No." [matAutocomplete]="auto" formControlName="logsheetNo">
+                <mat-icon matSuffix>search</mat-icon>
+                
+                <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of logSheetData" [value]="option">
+                      {{option.value}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="searchForm.controls.logsheetNo.errors?.selectFromList">Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline" >
+                <mat-label>Logsheet Type</mat-label>
+                <mat-select formControlName="logsheetType">
+                    <mat-option *ngFor="let value of logsheetType" [value]="value.logsheetType">{{value.logsheetType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let value of status" [value]="value.lookupval">{{value.lookupval}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline" >
+                <mat-label>Job Card No.</mat-label>
+                <input matInput placeholder="Job Card No." [matAutocomplete]="auto1" formControlName="jobCardNo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto1="matAutocomplete">
+                    <mat-option *ngFor="let option of jobCodeData" [value]="option">
+                      {{option.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="searchForm.controls.jobCardNo.errors?.selectFromList">Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+       
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline" >
+                
+                <mat-label>Chassis No.</mat-label>
+                <input matInput placeholder="Chassis No." [matAutocomplete]="auto2" formControlName="chassisNo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto2="matAutocomplete">
+                    <mat-option *ngFor="let option of chassisData" [value]="option">
+                      {{option.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="searchForm.controls.chassisNo.errors?.selectFromList">Please select from list</mat-error>
+            </mat-form-field>
+
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                
+                <mat-label>Logsheet From Date</mat-label>
+                <input readonly matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="From Date" formControlName="logsheetFromDate" [max]="newdate" (dateChange)="setToDate($event, 'logsheet')">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100" >
+                
+                <mat-label>Logsheet To Date</mat-label>
+                <input readonly matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="To Date" formControlName="logsheetToDate"  [min]="fromDate" [max]="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        
+    </div>
+
+<!-- ================= ADVANCE SEARCH ================ -->
+
+    <div class="text-right" [style.fontSize.px]="12">
+        <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;" (click)="onClickAdvanceSearch()">
+            <u> {{isAdvanceSearch ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+        </a>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="isAdvanceSearch">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Machine Model</mat-label>
+                            <mat-select formControlName="machineModel">
+                                <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Failure Type</mat-label>
+                            <mat-select formControlName="failureType">
+                                <mat-option *ngFor="let value of failureType" [value]="value.failureType">{{value.failureType}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Cell No.</mat-label>
+                            <input #input matInput placeholder="Customer Cell No." [matAutocomplete]="auto3" formControlName="mobileNo">
+                            <mat-icon matSuffix>search</mat-icon>
+                            
+                            <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto3="matAutocomplete">
+                                <mat-option *ngFor="let option of mobileData" [value]="option">
+                                  {{option.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="searchForm.controls.mobileNo.errors?.selectFromList">Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Registration No.</mat-label>
+                            <input matInput placeholder="Registration No." formControlName="registrationNo">
+                        </mat-form-field>
+                    </div>
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            
+                            <mat-label>Jobcard From Date</mat-label>
+                            <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2" placeholder="From Date" formControlName="jobCardFromDate" [max]="newdate" (dateChange)="setToDate($event, 'jobCard')">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100" >
+                            
+                            <mat-label>Jobcard To Date</mat-label>
+                            <input readonly matInput (click)="picker3.open()" [matDatepicker]="picker3" placeholder="To Date" formControlName="jobCardToDate" [min]="fromDate1" [max]="toDate1">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

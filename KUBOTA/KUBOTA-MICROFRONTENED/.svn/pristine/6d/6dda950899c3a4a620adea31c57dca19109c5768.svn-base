@@ -1,0 +1,45 @@
+<div class="card-from mt-4">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Heads</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 10px;">Sr No.</th>
+              <th scope="col" style="width: 200px;">Heads </th>
+              <th scope="col" style="width: 80px;">Approved Proposal Amount </th>
+              <th scope="col" style="width: 80px;">Actual Claim Amount</th>
+              <!-- <th scope="col" style="width: 80px;">Approved Amount</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let head of viewHeads?.activityClaimHeads; let i=index;">
+              <td>{{i + 1}}</td>
+              <td>{{head?.headName}}</td>
+              <td>{{head?.amount}}</td>
+              <td>{{head?.actualClaimAmount}}</td>
+              <!-- <td><input type="number" (keyup)="onActualClaimAmount($event.target.value, head)"
+                  [value]="head?.approvedAmount ? head?.approvedAmount : head?.actualClaimAmount"></td> -->
+            </tr>
+            <!-- <tr>
+                <th colspan="2" class="border_none"></th>
+              <th>GST Amount</th>
+              <th></th>
+             
+            </tr> -->
+            <tr>
+              <th colspan="2" class="border_none"></th>
+              <th>Total Amount</th>
+              <th>{{totalAmount}}</th>
+              </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

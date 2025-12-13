@@ -1,0 +1,49 @@
+<div [formGroup]="dealerDetails">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Designation Code</mat-label>
+                <input  required matInput placeholder="Designation Code" formControlName="designationCode" (change)="checkDuplicateDesignationCode($event.target.value)">
+                <mat-error *ngIf="dealerDetails.get('designationCode').hasError('designationCodeErroe')">
+                     Designation Code Already Exist
+                    </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Designation Name</mat-label>
+                <input required matInput placeholder="Designation Name" formControlName="designationName" (change)="checkDuplicateDesignationName($event.target.value)">
+                <mat-error *ngIf="dealerDetails.get('designationName').hasError('designationNameErroe')">
+                    Designation Name Already Exist
+                   </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Department</mat-label>
+                <mat-select required formControlName="department">
+                    <mat-option *ngFor="let department of departmentsforDealer" [value]="department">
+                        {{department.department_name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+       
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <input matInput placeholder="Remarks" formControlName="remarks">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" style="padding-top: 10px;">
+            <mat-checkbox formControlName="isSelected" color="basic" [checked]></mat-checkbox>
+            <span class="ml-1">Active</span>
+        </div> -->
+        
+    </div>
+</div>

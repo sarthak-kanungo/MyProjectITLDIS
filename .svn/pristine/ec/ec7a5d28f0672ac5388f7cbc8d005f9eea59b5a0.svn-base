@@ -1,0 +1,50 @@
+<div class="container-fluid mt-4">
+  <!-- <div class="heading">
+    <p class="font-weight-bold">Machine Transfer Request(To Co-dealer)</p>
+  </div> -->
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Machine Transfer Request(To Co-dealer)</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="createTransferForm">
+
+          <app-machine-transfer-request-create (toDealerId)="getMachineTraxnsferCreateData($event)"
+            [isView]="isView" [sendViewResultToCreate]="sendViewResultToCreate" [isApprove]="isApprove">
+
+          </app-machine-transfer-request-create>
+          <app-machine-transfer-req-item-details [isView]="isView">
+
+          </app-machine-transfer-req-item-details>
+
+          <app-create-mtr-list-approval *ngIf="userType=='kubota'" [requestnumber]="requestnumber">
+
+          </app-create-mtr-list-approval>
+
+          <!-- <editable-table formControlName="itemDetails" [tableConfig]="tableConfig"
+            (searchValueChanges)="editableTableSearchValueChanges($event)" [assignListToAutocomplete]="assignTo"
+            (optionSelected)="optionSelected($event)" (tableValueChanges)="tableValueChange($event)"
+            [patchValue]="patchValue" [viewOnly]="isView" [formGroupForTableRow]="etControlsConfig">
+            <ng-container class="table_footer">
+
+            </ng-container>
+          </editable-table> -->
+
+        </form>
+        <div class=" text-center mt-2">
+          <button type="button" class="btn btn_primary pl-3 pr-3"  *ngIf="!isView" (click)="validateForm()"> Submit
+          </button>
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " *ngIf="isView" > View PDF
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"  *ngIf="!isView" (click)="clearrForm()"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isApprove" (click)="approveReject('Approve')"> Approve
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isApprove" (click)="approveReject('Reject')"> Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

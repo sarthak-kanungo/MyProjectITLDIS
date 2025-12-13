@@ -1,0 +1,78 @@
+
+  
+  <div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Incentive Scheme Claim</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="incentiveSchemeClaim" [style.fontSize.px]="10">
+          <div class="row">
+
+            <div class="col-lg-2" *ngIf="display">
+              <mat-form-field appearance="outline">
+                <mat-label>Claim No.</mat-label>
+                <input matInput placeholder="Claim No." formControlName="claimNo">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Claim Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Claim Date" formControlName="claimDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2 ">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Claim Month</mat-label>
+                <mat-select required formControlName="month">
+                  <mat-option *ngFor="let month of months" [value]="month.id">{{month.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </form>
+
+
+
+
+<app-wholesale-incentive-scheme-details [wholesaleIncentiveSchemeDetails]="wholesaleIncentiveSchemeDetails"></app-wholesale-incentive-scheme-details>
+
+<app-retail-incent-scheme-detail [retailIncentiveSchemeDetails]="retailIncentiveSchemeDetails"></app-retail-incent-scheme-detail>
+       
+<app-incentive-scheme-claim-approval-details *ngIf="userType=='itldis'" [approvalList]="approvalList"></app-incentive-scheme-claim-approval-details>
+
+        <div class=" text-center mt-2 ">
+          <button type="button" class="btn btn_primary pl-3 pr-3 " *ngIf="!isView" (click)="validateForm()"> Submit
+          </button>
+<!-- 
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " *ngIf="!isView" disabled> View PDF
+          </button>
+
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="!isView" disabled> Print
+          </button> -->
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="!isView"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="approveRejectClaim('Approve')" *ngIf="isApprove"> Approve
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="approveRejectClaim('Reject')" *ngIf="isApprove"> Reject
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="approveRejectClaim('Hold')" *ngIf="isApprove"> Hold
+          </button>
+
+          <!-- <button *ngIf="wholesaleIncentiveSchemeDetails?.status=='Invoice Generated' || wholesaleIncentiveSchemeDetails?.invoiceUploadedBy" (click)="viewInvoice()">View Invoice</button> -->
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+

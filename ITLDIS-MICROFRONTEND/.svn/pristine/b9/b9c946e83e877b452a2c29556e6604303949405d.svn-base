@@ -1,0 +1,111 @@
+<div class="card-body">
+  <form [formGroup]="exchangeInventoryForm" [style.fontSize.px]="10">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Enquiry No.</mat-label>
+          <input matInput placeholder="Enquiry No." formControlName="enquiryNumber">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Brand Name</mat-label>
+          <input matInput placeholder="Brand Name" formControlName="brandName">
+        </mat-form-field>
+      </div>
+      <!-- </div> -->
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Vehical Status</mat-label>
+          <input matInput placeholder="Vehical Status" formControlName="status">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Model Name</mat-label>
+          <input matInput placeholder="Model Name" formControlName="modelName">
+        </mat-form-field>
+      </div>
+      <!-- </div> -->
+
+      <!-- <div class="row"> -->
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Model Year</mat-label>
+          <input matInput placeholder="Model Year" formControlName="modelYear">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Inv In Date</mat-label>
+          <input matInput placeholder="Inv In Date" formControlName="invInDate" >
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Estimated Exchange Price</mat-label>
+          <input matInput placeholder="Estimated Exchange Price" formControlName="estimatedExchangePrice">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Buyer Name</mat-label>
+          <input matInput placeholder="Buyer Name" formControlName="buyerName">
+        </mat-form-field>
+      </div>
+      <!-- </div> -->
+
+      <!-- <div class="row"> -->
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Buyer Contact No.</mat-label>
+          <input matInput placeholder="Buyer Contact No." formControlName="buyerContactNo">
+        </mat-form-field>
+      </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Sale Date</mat-label>
+            <input matInput placeholder="Sale Date" formControlName="saledate">
+          </mat-form-field>
+        </div>
+        <!-- </div> -->
+
+        <!-- <div class="row"> -->
+
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Selling Price</mat-label>
+            <input matInput placeholder="Selling Price" formControlName="sellingprice">
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Sale Remarks</mat-label>
+            <input matInput placeholder="Sale Remarks" formControlName="saleremarks">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class=" text-center   mt-3 mb-2 ">
+
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+        </button>
+      </div>
+  </form>
+</div>

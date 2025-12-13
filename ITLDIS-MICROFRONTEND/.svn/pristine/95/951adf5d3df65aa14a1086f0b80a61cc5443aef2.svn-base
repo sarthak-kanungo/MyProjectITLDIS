@@ -1,0 +1,15 @@
+
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #00a8a9;
+  
+}
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #00a8a9;
+}
+
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+  

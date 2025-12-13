@@ -1,0 +1,91 @@
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: gray;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #00a8a9 !important;
+}
+.w_50 {
+  width: 50px;
+}
+.w_100 {
+  width: 100px;
+}
+.w_120 {
+  width: 120px;
+}
+.w_250 {
+  width: 250px;
+}
+.text-vertical-middle{
+	vertical-align : middle !important;
+}
+.text-right{
+	text-align : right !important
+}
+:host {
+  ::ng-deep editable-table {
+    .Item.No {
+      min-width: 120px;
+      max-width: 120px;
+    }
+    .Receipt.Qty {
+      width: 100px !important;
+    }
+    .Item.Description{
+      width: 250px;
+      min-width: 250px;
+      max-width: 250px;
+    }
+    .Rate{
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+    }
+    .Qty{
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .Color{
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .IGST{
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .SGST{
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .CGST{
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .Gross.Discount{
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .Amount.After.Discount{
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+    }
+    .GST.Amount {
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+    }
+    .Total.Amount {
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+    }
+  }
+}

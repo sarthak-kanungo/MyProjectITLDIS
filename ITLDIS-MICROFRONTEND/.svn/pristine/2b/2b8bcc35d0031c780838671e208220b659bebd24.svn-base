@@ -1,0 +1,151 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/et-data-handler.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Injectable, EventEmitter } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
+import * as i0 from "@angular/core";
+var EtDataHandlerService = /** @class */ (function () {
+    function EtDataHandlerService() {
+        var _this = this;
+        this.sendColumnNameRecord$ = new Subject();
+        this.sendColumnRecord$ = new Subject();
+        this.validateTable$ = new EventEmitter();
+        this.getTableRecord$ = new EventEmitter();
+        this.getColumnNameToCollectColumnRecord$ = new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        function (subscriber) {
+            _this.sendColumnNameRecord = subscriber;
+        }));
+    }
+    /**
+     * @param {?} formControlName
+     * @return {?}
+     */
+    EtDataHandlerService.prototype.getColumnRecord = /**
+     * @param {?} formControlName
+     * @return {?}
+     */
+    function (formControlName) {
+        // console.log('formControlName', formControlName);
+        this.sendColumnNameRecord$.next(formControlName);
+        // return this.sendColumnRecord$;
+    };
+    /**
+     * @return {?}
+     */
+    EtDataHandlerService.prototype.getColumnNameToCollectColumnRecord = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        function (subscriber) {
+            _this.sendColumnNameRecord = subscriber;
+        }));
+    };
+    /**
+     * @param {?} columnRecordList
+     * @param {?} formControlName
+     * @return {?}
+     */
+    EtDataHandlerService.prototype.emitColumnRecord = /**
+     * @param {?} columnRecordList
+     * @param {?} formControlName
+     * @return {?}
+     */
+    function (columnRecordList, formControlName) {
+        var _this = this;
+        // console.log('columnRecordList', columnRecordList);
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            _this.sendColumnRecord$.next({ recordList: columnRecordList, formControlName: formControlName });
+        }), 1);
+    };
+    /**
+     * @return {?}
+     */
+    EtDataHandlerService.prototype.validateTable = /**
+     * @return {?}
+     */
+    function () {
+        return this.validateTable$;
+    };
+    /**
+     * @return {?}
+     */
+    EtDataHandlerService.prototype.getValidTableRecord = /**
+     * @return {?}
+     */
+    function () {
+        this.validateTable$.emit(true);
+        return this.getTableRecord$;
+    };
+    /**
+     * @param {?} record
+     * @return {?}
+     */
+    EtDataHandlerService.prototype.sendTableRecord = /**
+     * @param {?} record
+     * @return {?}
+     */
+    function (record) {
+        var _this = this;
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            _this.getTableRecord$.emit(record);
+        }), 100);
+    };
+    EtDataHandlerService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    EtDataHandlerService.ctorParameters = function () { return []; };
+    /** @nocollapse */ EtDataHandlerService.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function EtDataHandlerService_Factory() { return new EtDataHandlerService(); }, token: EtDataHandlerService, providedIn: "root" });
+    return EtDataHandlerService;
+}());
+export { EtDataHandlerService };
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.sendColumnNameRecord;
+    /** @type {?} */
+    EtDataHandlerService.prototype.sendColumnNameRecord$;
+    /** @type {?} */
+    EtDataHandlerService.prototype.sendColumnRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.validateTable$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.getTableRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.getColumnNameToCollectColumnRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.sendColumnRecord;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXQtZGF0YS1oYW5kbGVyLnNlcnZpY2UuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9lZGl0YWJsZS10YWJsZS8iLCJzb3VyY2VzIjpbImxpYi9ldC1kYXRhLWhhbmRsZXIuc2VydmljZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLE9BQU8sRUFBRSxVQUFVLEVBQUUsWUFBWSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBQ3pELE9BQU8sRUFBRSxPQUFPLEVBQUUsVUFBVSxFQUFjLE1BQU0sTUFBTSxDQUFDOztBQUd2RDtJQWNFO1FBQUEsaUJBQWlCO1FBUlYsMEJBQXFCLEdBQUcsSUFBSSxPQUFPLEVBQVUsQ0FBQztRQUM5QyxzQkFBaUIsR0FBRyxJQUFJLE9BQU8sRUFBZ0IsQ0FBQztRQUMvQyxtQkFBYyxHQUFHLElBQUksWUFBWSxFQUFXLENBQUM7UUFDN0Msb0JBQWUsR0FBRyxJQUFJLFlBQVksRUFBVSxDQUFDO1FBQzdDLHdDQUFtQyxHQUFHLElBQUksVUFBVTs7OztRQUFTLFVBQUEsVUFBVTtZQUM3RSxLQUFJLENBQUMsb0JBQW9CLEdBQUcsVUFBVSxDQUFDO1FBQ3pDLENBQUMsRUFBQyxDQUFDO0lBRWEsQ0FBQzs7Ozs7SUFFakIsOENBQWU7Ozs7SUFBZixVQUFnQixlQUF1QjtRQUNyQyxtREFBbUQ7UUFDbkQsSUFBSSxDQUFDLHFCQUFxQixDQUFDLElBQUksQ0FBQyxlQUFlLENBQUMsQ0FBQztRQUNqRCxpQ0FBaUM7SUFDbkMsQ0FBQzs7OztJQUNELGlFQUFrQzs7O0lBQWxDO1FBQUEsaUJBSUM7UUFIQyxPQUFPLElBQUksVUFBVTs7OztRQUFTLFVBQUEsVUFBVTtZQUN0QyxLQUFJLENBQUMsb0JBQW9CLEdBQUcsVUFBVSxDQUFDO1FBQ3pDLENBQUMsRUFBQyxDQUFDO0lBQ0wsQ0FBQzs7Ozs7O0lBQ0QsK0NBQWdCOzs7OztJQUFoQixVQUFpQixnQkFBNEIsRUFBRSxlQUF1QjtRQUF0RSxpQkFLQztRQUpDLHFEQUFxRDtRQUNyRCxVQUFVOzs7UUFBQztZQUNULEtBQUksQ0FBQyxpQkFBaUIsQ0FBQyxJQUFJLENBQUMsRUFBRSxVQUFVLEVBQUUsZ0JBQWdCLEVBQUUsZUFBZSxpQkFBQSxFQUFFLENBQUMsQ0FBQztRQUNqRixDQUFDLEdBQUUsQ0FBQyxDQUFDLENBQUM7SUFDUixDQUFDOzs7O0lBQ0QsNENBQWE7OztJQUFiO1FBQ0UsT0FBTyxJQUFJLENBQUMsY0FBYyxDQUFDO0lBQzdCLENBQUM7Ozs7SUFDRCxrREFBbUI7OztJQUFuQjtRQUNFLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO1FBQy9CLE9BQU8sSUFBSSxDQUFDLGVBQWUsQ0FBQztJQUM5QixDQUFDOzs7OztJQUNELDhDQUFlOzs7O0lBQWYsVUFBZ0IsTUFBYztRQUE5QixpQkFJQztRQUhDLFVBQVU7OztRQUFDO1lBQ1QsS0FBSSxDQUFDLGVBQWUsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLENBQUM7UUFDcEMsQ0FBQyxHQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQ1YsQ0FBQzs7Z0JBM0NGLFVBQVUsU0FBQztvQkFDVixVQUFVLEVBQUUsTUFBTTtpQkFDbkI7Ozs7OytCQU5EO0NBZ0RDLEFBNUNELElBNENDO1NBekNZLG9CQUFvQjs7Ozs7O0lBRS9CLG9EQUFpRDs7SUFDakQscURBQXFEOztJQUNyRCxpREFBdUQ7Ozs7O0lBQ3ZELDhDQUFxRDs7Ozs7SUFDckQsK0NBQXFEOzs7OztJQUNyRCxtRUFFRzs7Ozs7SUFDSCxnREFBMEMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBJbmplY3RhYmxlLCBFdmVudEVtaXR0ZXIgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7IFN1YmplY3QsIE9ic2VydmFibGUsIFN1YnNjcmliZXIgfSBmcm9tICdyeGpzJztcbmltcG9ydCB7IENvbHVtblJlY29yZCB9IGZyb20gJy4vZWRpdGFibGUtdGFibGUtY29uZmlnJztcblxuQEluamVjdGFibGUoe1xuICBwcm92aWRlZEluOiAncm9vdCdcbn0pXG5leHBvcnQgY2xhc3MgRXREYXRhSGFuZGxlclNlcnZpY2Uge1xuXG4gIHByaXZhdGUgc2VuZENvbHVtbk5hbWVSZWNvcmQ6IFN1YnNjcmliZXI8c3RyaW5nPjtcbiAgcHVibGljIHNlbmRDb2x1bW5OYW1lUmVjb3JkJCA9IG5ldyBTdWJqZWN0PHN0cmluZz4oKTtcbiAgcHVibGljIHNlbmRDb2x1bW5SZWNvcmQkID0gbmV3IFN1YmplY3Q8Q29sdW1uUmVjb3JkPigpO1xuICBwcml2YXRlIHZhbGlkYXRlVGFibGUkID0gbmV3IEV2ZW50RW1pdHRlcjxib29sZWFuPigpO1xuICBwcml2YXRlIGdldFRhYmxlUmVjb3JkJCA9IG5ldyBFdmVudEVtaXR0ZXI8b2JqZWN0PigpO1xuICBwcml2YXRlIGdldENvbHVtbk5hbWVUb0NvbGxlY3RDb2x1bW5SZWNvcmQkID0gbmV3IE9ic2VydmFibGU8c3RyaW5nPihzdWJzY3JpYmVyID0+IHtcbiAgICB0aGlzLnNlbmRDb2x1bW5OYW1lUmVjb3JkID0gc3Vic2NyaWJlcjtcbiAgfSk7XG4gIHByaXZhdGUgc2VuZENvbHVtblJlY29yZDogU3Vic2NyaWJlcjxhbnk+O1xuICBjb25zdHJ1Y3RvcigpIHsgfVxuXG4gIGdldENvbHVtblJlY29yZChmb3JtQ29udHJvbE5hbWU6IHN0cmluZykge1xuICAgIC8vIGNvbnNvbGUubG9nKCdmb3JtQ29udHJvbE5hbWUnLCBmb3JtQ29udHJvbE5hbWUpO1xuICAgIHRoaXMuc2VuZENvbHVtbk5hbWVSZWNvcmQkLm5leHQoZm9ybUNvbnRyb2xOYW1lKTtcbiAgICAvLyByZXR1cm4gdGhpcy5zZW5kQ29sdW1uUmVjb3JkJDtcbiAgfVxuICBnZXRDb2x1bW5OYW1lVG9Db2xsZWN0Q29sdW1uUmVjb3JkKCkge1xuICAgIHJldHVybiBuZXcgT2JzZXJ2YWJsZTxzdHJpbmc+KHN1YnNjcmliZXIgPT4ge1xuICAgICAgdGhpcy5zZW5kQ29sdW1uTmFtZVJlY29yZCA9IHN1YnNjcmliZXI7XG4gICAgfSk7XG4gIH1cbiAgZW1pdENvbHVtblJlY29yZChjb2x1bW5SZWNvcmRMaXN0OiBBcnJheTxhbnk+LCBmb3JtQ29udHJvbE5hbWU6IHN0cmluZykge1xuICAgIC8vIGNvbnNvbGUubG9nKCdjb2x1bW5SZWNvcmRMaXN0JywgY29sdW1uUmVjb3JkTGlzdCk7XG4gICAgc2V0VGltZW91dCgoKSA9PiB7XG4gICAgICB0aGlzLnNlbmRDb2x1bW5SZWNvcmQkLm5leHQoeyByZWNvcmRMaXN0OiBjb2x1bW5SZWNvcmRMaXN0LCBmb3JtQ29udHJvbE5hbWUgfSk7XG4gICAgfSwgMSk7XG4gIH1cbiAgdmFsaWRhdGVUYWJsZSgpIHtcbiAgICByZXR1cm4gdGhpcy52YWxpZGF0ZVRhYmxlJDtcbiAgfVxuICBnZXRWYWxpZFRhYmxlUmVjb3JkKCk6IEV2ZW50RW1pdHRlcjxvYmplY3Q+IHtcbiAgICB0aGlzLnZhbGlkYXRlVGFibGUkLmVtaXQodHJ1ZSk7XG4gICAgcmV0dXJuIHRoaXMuZ2V0VGFibGVSZWNvcmQkO1xuICB9XG4gIHNlbmRUYWJsZVJlY29yZChyZWNvcmQ6IG9iamVjdCkge1xuICAgIHNldFRpbWVvdXQoKCkgPT4ge1xuICAgICAgdGhpcy5nZXRUYWJsZVJlY29yZCQuZW1pdChyZWNvcmQpO1xuICAgIH0sIDEwMCk7XG4gIH1cbn1cbiJdfQ==

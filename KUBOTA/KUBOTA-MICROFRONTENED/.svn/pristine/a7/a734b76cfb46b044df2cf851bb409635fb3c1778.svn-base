@@ -1,0 +1,7 @@
+<div class="container-fluid mb-3 mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <app-search-machine-grn></app-search-machine-grn>
+        </div>
+    </div>
+</div>

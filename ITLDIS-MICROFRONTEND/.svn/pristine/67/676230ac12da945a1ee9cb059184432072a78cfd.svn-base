@@ -1,0 +1,30 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Heads</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 5px;">Sr No.</th>
+              <th scope="col" style="width: 100px;">Head </th>
+              <th scope="col" style="width: 100px;">Amount </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let head of heads;let ind = index;">
+              <td>{{ind+1}}</td>
+              <td>{{head?.headName}}</td>
+              <td>{{head?.amount}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>

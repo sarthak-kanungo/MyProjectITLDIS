@@ -1,0 +1,50 @@
+<div class="container-fluid create-form mb-3 mt-4">
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Delivery Challan</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="dcMainForm">
+
+                    <app-delivery-challan formControlName="deliveryChallan"
+                        (challanTypeChanges)="dcTypeChanges($event)" [isView]="isView">
+                    </app-delivery-challan>
+
+                    <app-implements-and-accessories formControlName="implementsForm" [isView]="isView"></app-implements-and-accessories>
+
+                    <app-delivery-prospect-details formControlName="prospectForm"
+                        [isDealerTransferDc]="isDealerTransferDc" [isView]="isView">
+                    </app-delivery-prospect-details>
+
+                    <app-deliverable-checklist *ngIf="!isDealerTransferDc" [deliverableCheckList]="deliverableCheckList"
+                        [isView]="(isView|| isCancel)">
+                    </app-deliverable-checklist>
+
+                    <app-delivery-insurance-details formControlName="insuranceForm" *ngIf="!isDealerTransferDc" [isView]="isView">
+                    </app-delivery-insurance-details>
+					<div *ngIf="(isView || isApprove)">
+	                    <app-approval-details [approvalHierDetails]="approvalHierDetails"></app-approval-details>
+	                </div>
+
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateCancelForm('Approve')"
+                            *ngIf="isApprove" [disabled]="isSubmitDisable">Approve DC
+                        </button>
+                         <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateCancelForm('Reject')"
+                            *ngIf="isApprove" [disabled]="isSubmitDisable">Reject DC
+                        </button>
+                        
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="printDC('true')" *ngIf="isView"> Print
+                        </button>
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="printGatepass('true')" *ngIf="isView"> Get
+                            Gate Pass
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

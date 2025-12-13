@@ -1,0 +1,236 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                  border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Machine Details</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="poMachineDetailsForm">
+                <div formArrayName="machineDetails">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 10px;" *ngFor="let title of tableTitle">{{title}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of poMachineDetailsForm['controls'].machineDetails['controls']; let i = index"
+                                    [formGroupName]="i">
+                                    <td>
+                                        <mat-checkbox color="basic" class="form-control form-control-sm"
+                                            formControlName="isSelected" [checked]="false"></mat-checkbox>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Item No.</mat-label>
+                                            <input matInput placeholder="Item No." formControlName="machineMaster"
+                                                [matAutocomplete]="autoItemNo" required="required">
+                                            <mat-autocomplete #autoItemNo="matAutocomplete" [displayWith]="displayItemNumberFn"
+                                              [panelWidth]="700"  (optionSelected)="itemNumberSelection($event,i)">
+                                                <mat-option *ngFor="let option of filteredItemNumberList |async"
+                                                    [value]="option">
+                                                    {{option.value}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Item Description"
+                                                formControlName="itemDescription" required="required">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Variant" formControlName="variant">
+                                        </mat-form-field>
+                                    </td>
+                                    <!-- <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Colour" formControlName="colour">
+                                        </mat-form-field>
+                                    </td> -->
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Quantity" formControlName="quantity" autocomplete="off" maxlength="4" required>
+                                        </mat-form-field>
+                                    </td>
+                                    <td *ngIf="false">  <!-- May be open when acccpac data will be their -->
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="ACCPAC Stock Quantity"
+                                                formControlName="accpacStockQuantity">
+                                        </mat-form-field>
+                                    </td>
+                                    <td *ngIf="false">
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="ACCPAC Location Code"
+                                                formControlName="accpacLocationCode">
+                                        </mat-form-field>
+                                    </td>
+                                    <!-- <td *ngIf="isApproveOrReject">
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Discount Type</mat-label>
+                                            <mat-select formControlName="discountType"
+                                                (selectionChange)="typeChange($event,row)">
+                                                <mat-option *ngFor="let type of discountTypeList" [value]="type.value">
+                                                    {{type.value}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td> -->
+                                    <td *ngIf="isApproveOrReject==true || isView==true">
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Discount Amount</mat-label>
+                                            <input matInput placeholder="Discount Amount"  
+                                                formControlName="discountAmount" maxlength="12">
+                                        </mat-form-field>
+                                        <mat-error *ngIf="row.get('discountAmount').hasError('pattern')">
+                                            Discount Amount is required as (000000000.00)</mat-error>
+                                    </td>
+                                    
+                                    <td *ngIf="isApproveOrReject==true || isView==true">
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Discount Percentage</mat-label>
+                                            <input matInput placeholder="Discount Percentage" 
+                                                formControlName="discountPercentage" maxlength="6">
+                                        </mat-form-field>
+                                        <mat-error *ngIf="row.get('discountPercentage').hasError('pattern')">
+                                            Discount Percentage is required as (00.00)</mat-error>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Unit Price" formControlName="unitPrice">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Amount" formControlName="amount">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" text-center" *ngIf="!isApproveOrReject && !isView">
+                        <button type="button" class="btn btn-sm btn_primary" (click)="addRow()"> Add Row</button>
+                        <button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()"> Delete
+                            Row</button>
+                    </div>
+                </div>
+                <div class="col-lg-12 d-flex justify-content-end mt-3">
+                    <div class="col-lg-9">
+                        <div class="table-responsive" *ngIf="salesPoApprovalDetailListFinal && loginType != 'dealer'">
+                            <!-- <table class="table table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <th scope="col" style="width: 10px;text-align:left"
+                                        *ngFor="let title of salesPoApprovalDetailList?.head">{{title}}
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let record of salesPoApprovalDetailList?.list; let i=index">
+                                        <td *ngFor="let key of salesPoApprovalDetailList?.head; let i=index">
+                                            {{record[key]}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table> -->
+                            <div class="card-header" style="background-color: #45afaf; border: 1px solid #45afaf;">
+                                <p class="mb-0" style="font-size: 13px;">{{salesPoApprovalDetailListFinal[0].approvalType}}</p>
+                            </div>
+                            <table class="table table-bordered table-sm">
+			                    <thead class="thead-light">
+			                        <tr>
+			                            <th scope="col">Approval Status</th>
+			                            <th scope="col">Is Final Approver?</th>
+			                            <th scope="col">Approved By</th>
+			                            <th scope="col">Approval Date</th>
+			                            <th scope="col">Remarks</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        <tr *ngFor="let approval of salesPoApprovalDetailListFinal">
+			                            <td align="left">{{approval['approvalStatus']}}</td>
+			                            <td >{{approval['isFinalApprover']}}</td>
+			                            <td >{{approval['approvedBy']}}</td>
+			                            <td >{{approval['approvalDate']}}</td>
+			                            <td >{{approval['approverRemarks']}}</td>
+			                        </tr>
+			                    </tbody>
+			                </table>
+                        </div>
+                        
+                        <div *ngIf="isApprovalRequired === 'YES'">
+                            
+                            <mat-checkbox color="basic" class="form-control form-control-sm"
+                                                        formControlName="isApprovalRequired" (click)="checkManagment($event)" >
+                                    <mat-label>Is Management Approval Required ?</mat-label>                        
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                    <table class="col-lg-3">
+                        <tr>
+                            <td>Base Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Base Amount" formControlName="basicAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total GST Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Total GST Amount" formControlName="totalGstAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td>TCS</td>
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100">
+                                	<mat-label>TCS %</mat-label>
+				                    <mat-select formControlName="tcsPercent" (selectionChange)="calculateTcsSelection()"
+                                    [(ngModel)] = "toSelectValue" >
+				                    	<mat-option *ngFor="let tcs of tcsPercList" [value]="tcs.tcsValue">
+				                            {{tcs.displayValue}}
+				                        </mat-option>
+				                    </mat-select>
+				                </mat-form-field>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td>TCS%</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="TCS %" formControlName="tcsPercent">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total TCS Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Total TCS Amount"
+                                        formControlName="tcsValue">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total PO Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Total PO Amount" formControlName="totalAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

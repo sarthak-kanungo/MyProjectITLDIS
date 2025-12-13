@@ -1,0 +1,6 @@
+.btn_primary {
+    border: 1px solid transparent !important;
+    color: #ffffff !important;
+    background-color: #028383 !important;
+  }
+  

@@ -1,0 +1,126 @@
+<div class="row mt-4 mb-3">
+  <div class="col-lg-12">
+    <div class="card-from">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex justify-content-between header">
+            <p class="mb-0">Search Activity Type Budget</p>
+            <div>
+              <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                <b class="btnName">New</b>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="activityTypeBudget" [style.fontSize.px]="10">
+            <div class="row">
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Activity Type</mat-label>
+                  <mat-select formControlName="activityType">
+                    <mat-option *ngFor="let activityType of activityTypes?.result" [value]="activityType?.activityType">
+                      {{activityType?.activityType}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Budget Type</mat-label>
+                  <mat-select formControlName="budgetType">
+                    <mat-option *ngFor="let budgetType of budgetTypes?.result" [value]="budgetType?.budgetType">
+                      {{budgetType?.budgetType}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Maximum Limit</mat-label>
+                  <input matInput placeholder="Maximum Limit" formControlName="maximumLimit"
+                    [matAutocomplete]="automaximumLimit">
+                  <mat-autocomplete #automaximumLimit="matAutocomplete">
+                    <mat-option *ngFor="let option of maximumLimitList | async" [value]="option?.maximumLimit">
+                      {{option?.maximumLimit}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Maximum Day Month</mat-label>
+                  <input matInput placeholder="Maximum Day Month" formControlName="maximumDayMonth"
+                    [matAutocomplete]="automaximumDayMonth">
+                  <mat-autocomplete #automaximumDayMonth="matAutocomplete">
+                    <mat-option *ngFor="let option of maximumDayMonthList | async" [value]="option?.maximumDayMonth">
+                      {{option?.maximumDayMonth}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>KAI Share %</mat-label>
+                  <input matInput placeholder="KAI Share %" formControlName="kaiShare" [matAutocomplete]="autokaiShare">
+                  <mat-autocomplete #autokaiShare="matAutocomplete">
+                    <mat-option *ngFor="let option of kaiShareList | async" [value]="option?.kaiShare">
+                      {{option?.kaiShare}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div> -->
+
+            </div>
+            <div class="mx-auto text-center">
+              <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchActivityBudget()"> Search
+              </button>
+              <button type="button" class="btn pl-3 pr-3 ml-2 btn_primary" (click)="clear()"> Clear </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+  [totalElements]="totalTableElements" [searchValue]="searchValue" [showPartial]="false"
+  [clearSearchRow]="clearSearchRow"
+  [clickOnTableFields]="[{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]"
+  (pageChange)="pageChange($event)">
+
+  <td [ngsw-searchField]="activityType" [searchColumnName]="'activityType'">
+    <input type="text" #activityType [(ngModel)]="activityTypeNg">
+  </td>
+  <td [ngsw-searchField]="budgetType" [searchColumnName]="'budgetType'">
+    <input type="text" #budgetType [(ngModel)]="budgetTypeNg">
+  </td>
+  <td [ngsw-searchField]="maximumLimit" [searchColumnName]="'maximumLimit'">
+    <input type="text" #maximumLimit [(ngModel)]="maximumLimitNg">
+  </td>
+  <td [ngsw-searchField]="maximumDayMonth" [searchColumnName]="'maximumDayMonth'">
+    <input type="text" #maximumDayMonth [(ngModel)]="maximumDayMonthNg">
+  </td>
+  <td [ngsw-searchField]="kaiShare" [searchColumnName]="'kaiShare'">
+    <input type="text" #kaiShare [(ngModel)]="kaiShareNg">
+  </td>
+
+  <td [ngsw-searchField]="activeStatus" [searchColumnName]="'activeStatus'">
+    <input type="text" #activeStatus [(ngModel)]="activeStatusNg">
+  </td>
+
+
+</ngsw-search-table>

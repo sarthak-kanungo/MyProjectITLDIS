@@ -1,0 +1,190 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0">Organization Hierarchy</p>
+            <button class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">
+                Close
+            </button>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="orgHierForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label> Department</mat-label>
+                            <mat-select required formControlName="department"
+                                (selectionChange)="empMastDeptSelect($event)">
+                                <mat-option *ngFor="let department of departmentsList" [value]="department">
+                                    {{department.departmentName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <form [formGroup]="orgHierItemsForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2" data-dept="" *ngFor="let sale of orgHierLevelList ;let i=index">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                            <mat-select formControlName="{{sale.LEVEL_DESC}}"
+                                (selectionChange)="selectLevels($event,i)">
+                                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                    {{option.hierarchy_desc}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- {{orgHierForm.value | json}} -->
+
+            </form>
+            <div class=" text-center mt-2 ">
+                <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="viewOegHierDetails()"> Add </button>
+                <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearFormData()"> Clear
+                </button> -->
+            </div>
+        </div>
+
+        <div *ngIf="view">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0">Employee's Alloted Hierarchy Details</p>
+            </div>
+            <div>
+                <table class="table w-100 table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Department Name</th>
+                            <th>Employee Name</th>
+                            <th>Hierarchy Code</th>
+                            <th>Hierarchy Desc</th>
+                            <th>OrgHierarchy Id</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let option of orghierarchyForm['controls']; let i = index;">
+                            <td >{{option.get('departmentName').value}}</td>
+                            <td>{{option.get('employee_name').value}}</td>
+                            <td>{{option.get('hierarchyCode').value}}</td>
+                            <td>{{option.get('hierarchyDesc').value}}</td>
+                            <td>{{option.get('hoDepartmentId').value}}</td>
+                            <td style="justify-content: center;display: flex;">
+                                <tr >
+                                    <mat-slide-toggle (change)="onFormSubmit(option.get('id').value, option.get('status').value)"
+                                        [formControl]="option.get('status')" >
+                                    </mat-slide-toggle>
+                                    
+                                </tr>
+                                
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="tableView">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0">Organization Hierarchy Details</p>
+            </div>
+            <div>
+                <table class="table w-100 table-bordered table-sm" *ngIf="salesTableView">
+                    <thead class="thead-light">
+                        <tr>
+                            <!-- <th scope="col">Sr.No</th> -->
+                            <th scope="col">Action</th>
+                            <th scope="col">Department</th>
+                            <th scope="col" *ngFor="let sale of viewSalesTableHedderList">{{sale.LEVEL_DESC}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let viewData of viewSalesTableBodyListHtml; let i=index">
+                            <td>
+                                <mat-icon type="button" (click)="deleteSalesRow(i)">delete</mat-icon>
+                            </td>
+                            <th>SALES</th>
+                            <td>{{viewData.HO}}</td>
+                            <td>{{viewData.ZONE}}</td>
+                            <td>{{viewData.REGION}}</td>
+                            <td>{{viewData.AREA}}</td>
+                            <td>{{viewData.TERRITORY}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table w-100 table-bordered table-sm" *ngIf="mktTableView">
+                    <thead class="thead-light">
+                        <tr>
+                            <!-- <th scope="col">Sr.No</th> -->
+                            <th scope="col">Action</th>
+                            <th scope="col">Department</th>
+                            <th scope="col" *ngFor="let sale of viewMktTableHedderList">{{sale.LEVEL_DESC}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let mkt of viewMktTableBodyListHtml; let i=index">
+                            <td>
+                                <mat-icon type="button" (click)="deleteMktRow(i)">delete</mat-icon>
+                            </td>
+                            <th>MARKETING</th>
+                            <td>{{mkt.HOD_MARKETING}}</td>
+                            <td>{{mkt.AM}}</td>
+                            <td>{{mkt.EXECUTIVE}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table w-100 table-bordered table-sm" *ngIf="serviceTableView">
+                    <thead class="thead-light">
+                        <tr>
+                            <!-- <th scope="col">Sr.No</th> -->
+                            <th scope="col">Action</th>
+                            <th scope="col">Department</th>
+                            <th scope="col" *ngFor="let serviceHead of viewServiceTableHedderList">
+                                {{serviceHead.LEVEL_DESC}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let serviceBody of viewServiceTableBodyListHtml; let i=index">
+                            <td>
+                                <mat-icon type="button" (click)="deleteServiceRow(i)">delete</mat-icon>
+                            </td>
+                            <th>SERVICE</th>
+                            <td>{{serviceBody.HO_SERVICE}}</td>
+                            <td>{{serviceBody.ZONE}}</td>
+                            <td>{{serviceBody.AREA}}</td>
+                            <td>{{serviceBody.TERRITORY}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table w-100 table-bordered table-sm" *ngIf="sparesTableView">
+                    <thead class="thead-light">
+                        <tr>
+                            <!-- <th scope="col">Sr.No</th> -->
+                            <th scope="col">Action</th>
+                            <th scope="col">Department</th>
+                            <th scope="col" *ngFor="let spareHead of viewSparesTableHedderList">{{spareHead.LEVEL_DESC}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let spareBody of viewSparesTableBodyListHtml; let i=index">
+                            <td>
+                                <mat-icon type="button" (click)="deleteSparesRow(i)">delete</mat-icon>
+                            </td>
+                            <th>SPARE PARTS</th>
+                            <td>{{spareBody.HO_SPARES}}</td>
+                            <td>{{spareBody.REGION}}</td>
+                            <td>{{spareBody.TERRITORY}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class=" text-center mt-2 ">
+                    <button type="button" class="btn btn_primary pl-3 pr-3 " *ngIf="salesTableView || mktTableView || serviceTableView || sparesTableView" (click)="submitData()"> Submit
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

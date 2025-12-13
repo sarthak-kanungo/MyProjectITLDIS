@@ -1,0 +1,56 @@
+<form >
+    <div class="container-fluid create-form  mt-4  pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0">Search Assigned User To Branch</p>
+                                        <div>
+                                            <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "[routerLink]="[ './create' ]">
+                                                <b class="btnName">New</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-assign-user-to-branch-search-result [userToBranchForm]="userToBranchForm"></app-assign-user-to-branch-search-result>
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchAssignUserToBranch()"
+                             > Search
+                        </button>
+                        <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clearUserAssignToBranch()">
+                            Clear
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable"
+    [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+    [clickOnTableFields]="[{title:'employeeName'},{title:'edit'}]" [clearSearchRow]="clearSearchRow" (actionOnTableRecord)="tableAction($event)"
+    (pageChange)="pageChange($event)">
+
+    <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+        <input class="w-100 borderRadius edit" #edit>
+    </td>
+    <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'" class="employeeName">
+        <input class="w-100 borderRadius" #employeeName [(ngModel)] ="employeeNameNgModel">
+    </td>
+    <td [ngsw-searchField]="branchName" [searchColumnName]="'branchName'" class="branchName">
+        <input class="w-100 borderRadius" #branchName [(ngModel)] ="branchNameNgModel">
+    </td>
+    <td [ngsw-searchField]="isActive" [searchColumnName]="'isActive'" class="isActive">
+        <input class="w-100 borderRadius" #isActive [(ngModel)] ="isActiveNgModel">
+    </td>
+    </ngsw-search-table>
+</div>

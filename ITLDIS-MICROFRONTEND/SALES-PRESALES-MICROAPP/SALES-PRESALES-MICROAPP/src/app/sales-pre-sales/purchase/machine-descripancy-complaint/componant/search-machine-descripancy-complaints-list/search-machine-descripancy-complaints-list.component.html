@@ -1,0 +1,176 @@
+<div class="card-from">
+  <div class="card">
+    <div class="card-header">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="d-flex justify-content-between header">
+            <p class="mb-0 label" style="padding: 3px;"> Search Machine Descripancy Complaint</p>
+
+            <div *ngIf="userType != 'itldis'">
+              <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                <b class="btnName">New</b>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <p class="mb-0"> Search Machine Descripancy Complaint</p> -->
+
+
+    </div>
+    <div class="card-body">
+
+      <form [formGroup]="machineDescripancyComplaintListForm" [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Complaint No.</mat-label>
+              <input matInput placeholder="Complaint No." formControlName="complaintNo"
+                [matAutocomplete]="autoComplaintNumber">
+              <mat-autocomplete #autoComplaintNumber="matAutocomplete" [displayWith]="displayComplaintNoFn" [panelWidth]="500">
+                <mat-option *ngFor="let option of complaintNoData?.result" [value]="option">
+                  {{option?.complaintNumber}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Complaint Status</mat-label>
+              <mat-select formControlName="complaintStatus">
+                <mat-option *ngFor="let status of dropdownComplaintStatus?.result" [value]="status">
+                  {{status.complaintStatus}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>GRN No.</mat-label>
+              <input matInput placeholder="GRN No." formControlName="grnNo" [matAutocomplete]="autoGrnNumber">
+              <mat-autocomplete #autoGrnNumber="matAutocomplete" [displayWith]="displayGrnNoFn" [panelWidth]="500">
+                <mat-option *ngFor="let option of grnNumberData?.result" [value]="option">
+                  {{option?.dmsGrnNumber}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Chassis No.</mat-label>
+              <input matInput placeholder="Chassis No." formControlName="chassisNo"
+                [matAutocomplete]="autoChasisNumber">
+              <mat-autocomplete #autoChasisNumber="matAutocomplete" [displayWith]="displayChasisNoFn" [panelWidth]="500">
+                <mat-option *ngFor="let option of chasisNoData?.result" [value]="option">
+                  {{option?.chassisNo}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput  [matDatepicker]="picker" placeholder="Complaint From Date"
+                formControlName="complaintFromDate" readonly (click)="picker.open()"  (dateChange)="fromDateSelected($event)" [max]="today">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput [min]="machineDescripancyComplaintListForm.controls.complaintFromDate.value"
+               [matDatepicker]="picker1" placeholder="Complaint To Date"
+                formControlName="complaintToDate" readonly (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="col-lg-12">
+          <div class="mx-auto text-center">
+            <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="onSearch()"> Search </button>
+            <button type="button" class="btn px-3 ml-2 btn_primary"
+            (click)="clearMachineDescComplaintSearch()"> Clear </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+<div class="mt-2">
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+    (actionOnTableRecord)="actionOnTableRecord($event)" [searchValue]="searchValue" (pageChange)="pageChange($event)"
+    [clickOnTableFields]="[{'title':'complaintNumber','isClickable':true},{'title':'action','isClickable':true}]">
+
+    <td></td>
+    <td [ngsw-searchField]="complaintNumber" [searchColumnName]="'complaintNumber'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #complaintNumber [(ngModel)] ="complaintNumberNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="complaintStatus" [searchColumnName]="'complaintStatus'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #complaintStatus [(ngModel)] ="complaintStatusNgModel">
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #chassisNo [(ngModel)] ="chassisNoNgModel">
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #engineNo [(ngModel)] ="engineNoNgModel">
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dmsGrnNumber" [searchColumnName]="'dmsGrnNumber'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #dmsGrnNumber [(ngModel)] ="dmsGrnNumberNgModel">
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="picker10" [searchColumnName]="'kaiInvoiceDate'">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker10" placeholder="KAI Invoice Date" #kaiInvoiceDate
+          (dateChange)="sortByDate($event, 'kaiInvoiceDate')" [(ngModel)] ="kaiInvoiceDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="picker10"></mat-datepicker-toggle>
+        <mat-datepicker #picker10></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="picker9" [searchColumnName]="'grnDate'">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker9" placeholder="GRN Date" #grnDate
+          (dateChange)="sortByDate($event, 'grnDate')" [(ngModel)] ="grnDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>
+        <mat-datepicker #picker9></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="transporterName" [searchColumnName]="'transporterName'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #transporterName [(ngModel)] ="transporterNameNgModel">
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="transporterVehicleNumber" [searchColumnName]="'transporterVehicleNumber'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #transporterVehicleNumber [(ngModel)] ="transporterVehicleNumberNgModel">
+      </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="lrNo" [searchColumnName]="'lrNo'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #lrNo [(ngModel)] ="lrNoNgModel">
+      </mat-form-field>
+    </td>
+
+  </ngsw-search-table>
+</div>

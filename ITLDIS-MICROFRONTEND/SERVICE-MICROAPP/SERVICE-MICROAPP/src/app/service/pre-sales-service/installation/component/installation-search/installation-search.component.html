@@ -1,0 +1,72 @@
+<div class="card-body">
+    <div class="row" [formGroup]="installationSearchForm" [style.fontSize.px]="11">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No./Engine No./Model/Customer Name</mat-label>
+                <input matInput placeholder="Chassis No./Engine No./Model/Customer Name" formControlName="chassisNo" [matAutocomplete]="autoChassisNo"
+                matTooltip="Chassis No./Engine No./Model/Service Staff Name/Customer Name">
+                <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500"
+                    >
+                    <mat-option *ngFor="let option of (chassisNoList$ | async)" [value]="option.code">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Installation No.</mat-label>
+                <input matInput placeholder="Installation No." formControlName="installationNo"
+                    [matAutocomplete]="autoInstallationNo">
+                <mat-autocomplete #autoInstallationNo="matAutocomplete" [panelWidth]="500"
+                    >
+                    <mat-option *ngFor="let option of (installationNumber$ | async)" [value]="option.installationNumber">
+                        {{option?.installationNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Installation Type</mat-label>
+                <mat-select formControlName="installationType">
+                    <mat-option *ngFor="let installationType of installationTypes" [value]="installationType">
+                        {{installationType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Dealer Ship</mat-label>
+                <input matInput placeholder="Dealer Ship" formControlName="dealerShip"
+                    [matAutocomplete]="autoDealercode">
+                <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn" (optionSelected)="dealerSelect($event)">
+                    <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                        {{option?.displayString}}
+                    </mat-option>
+                </mat-autocomplete>
+
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Installation Date From"
+                    formControlName="fromDate" readonly (click)="picker.open()"  [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Installation Date To"
+                    formControlName="toDate" readonly (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

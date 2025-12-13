@@ -1,0 +1,109 @@
+<div class="card-from mt-2 failure-part" [formGroup]="failurePartForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">FAILURE PARTS</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of failurePartHeading">
+                {{ tableHeading }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of failurePartForm.controls; let i = index" [formGroupName]="i">
+              <td class="chkBox">
+                <mat-checkbox [labelPosition]="'before'" [checked] formControlName="isSelected">{{i+1}}</mat-checkbox>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" *ngIf="isShow">
+                  <mat-label>Part No</mat-label>
+                  <input #input matInput placeholder="Part No" formControlName="partNo" [matAutocomplete]="auto" (keydown)='functionName($event,i)'/>
+                  <mat-icon matSuffix>search</mat-icon>
+                  <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto="matAutocomplete" 
+                    (optionSelected)="getPartDetailsByPartNumber($event, list)">
+                    <mat-option *ngFor="let option of autoCompleteData" [value]="option">
+                      {{ option.itemNo }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="list.get('partNo').hasError('selectFromList')">Please select from list</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" *ngIf="!isShow">
+                  <mat-label>Part No</mat-label>
+                  <input matInput placeholder="Part No" formControlName="partNo" />
+                </mat-form-field>
+              </td>
+              <!-- <input matInput placeholder="Part No" [hidden]="true" formControlName="sparePartMasterId" /> -->
+           
+               
+              
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <input matInput placeholder="Description" formControlName="description" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Quantity</mat-label>
+                  <input matInput placeholder="Quantity" formControlName="claimQuantity" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" *ngIf="isShow">
+                  <mat-label>Failure Code</mat-label>
+                  <input #input matInput placeholder="Failure Code" formControlName="failureCode" [matAutocomplete]="auto" required (keypress)='focusApi($event,i)'>
+                  <mat-icon matSuffix>search</mat-icon>
+                  
+                  <mat-autocomplete [displayWith]="displayCodeFns" autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedOption($event, list)">
+                      <mat-option *ngFor="let option of code" [value]="option">
+                        {{option.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="list.controls.failureCode.hasError('selectFromList')">Please select from list</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" *ngIf="!isShow">
+                <mat-label>Failure Code</mat-label>
+              <input matInput placeholder="Failure code" formControlName="failureCode" />
+              </mat-form-field>
+              </td>
+              
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Failure Description</mat-label>
+                  <input matInput placeholder="Failure Description"  formControlName="failureDescription" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-radio-button *ngIf="isShow" value="true" (change)="selectedRadBtn($event,list)" color="accent" >
+                
+                </mat-radio-button>
+                <mat-radio-group [hidden]="true" aria-label="Select an option"   formControlName="keyPartNumber">
+                  <mat-radio-button (change)="selectedRadBtn($event,list)"></mat-radio-button>      
+                </mat-radio-group>   
+                <mat-radio-button *ngIf="!isShow" [checked]="list.controls.keyPartNumber.value" disabled="true" value="true" (change)="selectedRadBtn($event,list)" color="accent" >
+                
+                </mat-radio-button>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class=" text-center mt-1" *ngIf="isShow">
+        <button [style.fontSize.px]="11" (click)="addRow()" type="button" class="btn btn_primary px-2">
+          Add Row
+        </button>
+        <button [style.fontSize.px]="11" (click)="deleteRow()" type="button" class="btn btn_secondary px-2 ml-2">
+          Delete Row
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

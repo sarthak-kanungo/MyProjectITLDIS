@@ -1,0 +1,54 @@
+<form [formGroup]="branchTransferReceiptForm" [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Branch Transfer Issue No.</mat-label>
+              <input matInput placeholder="Branch Transfer Issue No." formControlName="branchtransferissueno">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Branch Transfer Receipt No.</mat-label>
+              <input matInput placeholder="Branch Transfer Receipt No." formControlName="receiptno">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker" placeholder="Branch Transfer Receipt Date" formControlName="branchtransferreceiptdate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Issuing Branch</mat-label>
+              <mat-select formControlName="issuingbranch">
+                <mat-option *ngFor="let branch of branches" [value]="branch">{{branch}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Received By</mat-label>
+              <input matInput placeholder="Received By" formControlName="receivedby">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Receiving Branch</mat-label>
+              <input matInput placeholder="Receiving Branch" formControlName="receivingbranch">
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+      
+    

@@ -1,0 +1,46 @@
+<div class="container confirmation_card">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card_header card_header_secondary mb-2">
+                    <h4 class="card_title mb-0">Follow up History</h4>
+                    <i class="material-icons icon_close" (click)="close()">
+                        close
+                    </i>
+                </div>
+                <div class="container-fluid card_body">
+                    <div class="text-center p-2">
+                      {{followupHistoryData}}
+                    </div>
+                    <div class="table-responsive mt-1" *ngIf="isFollowupHistrory">
+                        <table class="table table-bordered table-sm">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col" style="width: 130px; padding-bottom: 11px;">Followup Date </th>
+                              <th scope="col" style="padding-bottom: 11px;">Followed By </th>
+                              <th scope="col" style="padding-bottom: 11px;">Follow Up Type </th>
+                              <th scope="col" style="width: 130px;padding-bottom: 11px;">Next Follow Up Date </th>
+                              <th scope="col" style="width: 130px;">Tentative Purchase Date</th>
+                              <th scope="col" style="width: 330px; padding-bottom: 11px">Remarks</th>
+                              <th scope="col" style="width: 130px;padding-bottom: 11px">Updation Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let data of followupHistory">
+                              <td>{{data.followUpDate}}</td>
+                              <td>{{data.followedBy}}</td>
+                              <td>{{data.followUpType}}</td>
+                              <td>{{data.nextFollowUpDate}}</td>
+                              <td>{{data.tentativePurchaseDate}}</td>
+                              <td>{{data.remarks}}</td>
+                              <td>{{data.updationDate}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    <ng-content></ng-content>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

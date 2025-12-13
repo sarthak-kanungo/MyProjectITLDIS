@@ -1,0 +1,94 @@
+<div class="container-fluid mt-4 mb-3">
+<div class="card-from">
+
+  <div class="card">
+    <div class="card-header">
+      <p class="mb-0">Add KAI Activity Type Budget</p>
+    </div>
+    <div class="card-body">
+
+      <form [formGroup]="activityTypeBudgetFrom" [style.fontSize.px]="10">
+        <div class="row">
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Activity Type</mat-label>
+              <mat-select formControlName="activityType" required >
+                <mat-option *ngFor="let activityType of activityTypes?.result" [value]="activityType">
+                  {{activityType?.activityType}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="activityTypeBudgetFrom.get('activityType').hasError('required')">
+                Activity Type is required</mat-error>
+
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Add Head</mat-label>
+              <mat-select formControlName="addHead" required multiple>
+                <mat-option *ngFor="let option of heads?.result" [value]="option">
+                  {{option?.head}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="activityTypeBudgetFrom.get('addHead').hasError('required')">
+                Add Head is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Budget Type</mat-label>
+              <mat-select formControlName="budgetType" required (selectionChange)="selectBudgetType($event)">
+                <mat-option *ngFor="let budgetType of budgetTypes?.result" [value]="budgetType?.budgetType">
+                  {{budgetType?.budgetType}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="activityTypeBudgetFrom.get('budgetType').hasError('required')">
+                Budget Type is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="!isMaxLimit">
+            <mat-form-field appearance="outline">
+              <mat-label>Maximum Limit</mat-label>
+              <input matInput placeholder="Maximum Limit" formControlName="maximumLimit" required
+                (keypress)=keyPressMaxLimit($event)>
+              <mat-error *ngIf="activityTypeBudgetFrom.get('maximumLimit').hasError('required')">
+                Maximum Limit is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2" *ngIf="!isMaxDay">
+            <mat-form-field appearance="outline">
+              <mat-label>Maximum Day Month</mat-label>
+              <input matInput placeholder="Maximum Day Month" formControlName="maximumDayMonth" required
+                (keypress)=keyPressMaxDay($event)>
+              <mat-error *ngIf="activityTypeBudgetFrom.get('maximumDayMonth').hasError('required')">
+                Maximum Day Month is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="!isMaxPer">
+            <mat-form-field appearance="outline">
+              <mat-label>KAI Share %</mat-label>
+              <input matInput placeholder="KAI Share %" formControlName="kaiShare" required
+                (keypress)=keyPressShare($event)>
+              <mat-error *ngIf="activityTypeBudgetFrom.get('kaiShare').hasError('required')">
+                KAI Share Percentage is required</mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="mx-auto text-center">
+          <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm()"> Submit
+          </button>
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+          </button>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+</div>

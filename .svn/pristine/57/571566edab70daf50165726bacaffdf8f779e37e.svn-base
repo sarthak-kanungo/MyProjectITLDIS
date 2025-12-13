@@ -1,0 +1,62 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Assign Function</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive mt-1">
+          <div [formGroup]="functionTableForm">
+            <div formArrayName="tableData">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 150px;">Assign Function</th>
+                <th scope="col">Functions </th>
+                <!-- <th scope="col" style="width: 150px;">Permissions </th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let option of functionTableForm.get('tableData')['controls']; index as i "
+              [formGroupName]="i">
+              <td class="text-center" style="padding-top: 11px">
+                <mat-checkbox formcontrolName="assignFunction" color="basic" [checked]="option?.value.assignFunction"
+                            (change)="assignFunction($event,option)"  ></mat-checkbox>
+
+              </td>                
+              <td>                
+                <mat-form-field appearance="outline" [style.fontSize.px]="9">
+                  <mat-label>Function</mat-label>
+                  <input type="text" matInput formControlName="role_name" [value]="option?.value.role_name" >
+              </mat-form-field>
+              </td>
+                <!-- <td>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let permission of permissions" [value]="permission">{{permission}}</option>
+                  </select>
+                </td> -->
+              </tr>
+             
+              <!-- <tr>
+                <td class="pt-3"> <mat-checkbox color="basic"></mat-checkbox></td>
+                <mat-checkbox formcontrolName="dealers" color="basic" [checked]="option?.get('dealers')"></mat-checkbox>
+
+                <td></td>
+                <td>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let permission of permissions" [value]="permission">{{permission}}</option>
+                  </select>
+                </td>
+              </tr> -->
+             
+            </tbody>
+          </table>
+        </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+

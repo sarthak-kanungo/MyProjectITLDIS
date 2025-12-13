@@ -1,0 +1,58 @@
+<div [formGroup]="nominationSearchForm" [style.fontSize.px]="11">
+  <div class="row card-body">
+
+ 
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Program Number</mat-label>
+            <input matInput placeholder="Program Number" formControlName="programNumber" [matAutocomplete]="autoProgramNo" (ngModelChange)="getProgramNumber($event)" >
+            <mat-autocomplete #autoProgramNo="matAutocomplete" [displayWith]="displayFnForProgramNo"
+                [panelWidth]="200">
+                <mat-option *ngFor="let option of programNoList$" [value]="option">
+                    {{option?.programNumber}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Nomination Number</mat-label>
+          <input matInput placeholder="Nomination Number" formControlName="nominatinoNumber" [matAutocomplete]="autoNominationNo" (ngModelChange)="getNominatinoNumber($event)" >
+          <mat-autocomplete #autoNominationNo="matAutocomplete" [displayWith]="displayFnForNominationNo"
+              [panelWidth]="200">
+              <mat-option *ngFor="let option of nominationNo$" [value]="option">
+                  {{option?.nominationNumber}}
+              </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+  </div>
+    <!-- <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Training Module</mat-label>
+        <mat-select formControlName="trainingModule">
+          <mat-option *ngFor="let value of trainingModuleList" [value]="value">{{value.Training_Module_desc}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-2" >
+      <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" [max]="newdate" (dateChange)="setToDate($event, 'pcr')">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  </div>
+
+  <div class="col-lg-2">
+      <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate"  [min]="fromDate" [max]="newdate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+  </div>
+  </div>
+</div>

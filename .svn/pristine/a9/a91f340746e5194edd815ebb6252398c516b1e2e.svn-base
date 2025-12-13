@@ -1,0 +1,69 @@
+<div class="card-from mt-2">
+	<div class="card" style="border: 1px solid #45afaf;">
+		<div class="card-header"
+			style="background-color: #45afaf; border: 1px solid #45afaf;">
+			<p class="mb-0" style="font-size: 13px;">Item Detail</p>
+		</div>
+		<div class="card-body">
+			<form>
+				<div>
+					<div class="table-responsive mt-1">
+						<table class="table table-bordered table-sm">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col" class="w_50" *ngIf="!isView"></th>
+									<th scope="col" class="w_120">Item No.</th>
+									<th scope="col" class="w_250">Item Description</th>
+									<th scope="col" class="w_100">UOM</th>
+									<th scope="col" class="w_100">Requisition Qty</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr #trRef
+									*ngFor="let tableRowFg of itemDetailTable['controls']; let i = index"
+									[attr.aria-itemNumber]="tableRowFg.get('itemNo').value">
+									<td *ngIf="!isView"><mat-checkbox color="basic"
+											class="form-control form-control-sm"
+											[formControl]="tableRowFg.get('isSelected')" [checked]></mat-checkbox>
+									</td>
+									<td><mat-form-field appearance="outline" class="w-120"
+											[style.fontSize.px]="10"> <mat-label>Item
+										Number</mat-label> <input matInput placeholder="Item Number"
+											[formControl]="tableRowFg.get('itemNo')"
+											[matAutocomplete]="autoItemNumber"> <mat-autocomplete
+											#autoItemNumber="matAutocomplete"
+											(optionSelected)="optionSelectedItem($event, tableRowFg)"
+											[displayWith]="displayFnItemNumber" [panelWidth]="300">
+										<mat-option *ngFor="let option of (itemNumberList$| async)"
+											[value]="option"> {{option?.value}} </mat-option> </mat-autocomplete> <mat-icon
+											matSuffix>search</mat-icon> <mat-error
+											*ngIf="tableRowFg.get('itemNo').hasError('selectFromList')">
+										Please select from list</mat-error> </mat-form-field></td>
+									<td><mat-form-field class="w-250" appearance="outline"
+											[style.fontSize.px]="10"> <input matInput
+											placeholder="Item Description"
+											[formControl]="tableRowFg.get('itemDescription')"> </mat-form-field></td>
+									<td><mat-form-field class="w-100" appearance="outline"
+											[style.fontSize.px]="10"> <input matInput
+											placeholder="UOM" [formControl]="tableRowFg.get('uom')">
+										</mat-form-field></td>
+									<td><mat-form-field class="w-100" appearance="outline"
+											[style.fontSize.px]="10"> <input matInput
+											placeholder="Requisition Qty"
+											[formControl]="tableRowFg.get('requisitionQty')"> 
+										<mat-error *ngIf="tableRowFg.get('requisitionQty').hasError('required')">
+												Quantity Required</mat-error></mat-form-field>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</form>
+			<div class=" text-center mt-2" *ngIf="!isView">
+                <button type="button" class="btn btn-sm btn_primary" (click)="createNewRow()">Add Row</button>
+                <button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()">Delete Row </button>
+            </div>
+		</div>
+	</div>
+</div>

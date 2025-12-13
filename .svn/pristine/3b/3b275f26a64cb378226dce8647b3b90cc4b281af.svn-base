@@ -1,0 +1,153 @@
+<div class="container-fluid create-form mt-4 pb_0">
+  <div class="row">
+    <div class="col-lg-12">
+      <form [formGroup]="invoiceSearchForm">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="d-flex justify-content-between header">
+                    <p class="mb-0 label">{{pageHeader}}</p>
+                    <div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body" [style.fontSize.px]="11">
+              <div class="row">
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Invoice Number</mat-label>
+                    <input matInput placeholder="Invoice Number" formControlName="invoiceNumber" [matAutocomplete]="autoInvoiceNo">
+                    <mat-autocomplete #autoInvoiceNo="matAutocomplete" [panelWidth]="500">
+                                  <mat-option *ngFor="let option of invoiceList?.result" [value]="option.invoiceNo">
+                                    {{option?.displayValue}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Claim Number</mat-label>
+                    <input matInput placeholder="Claim Number" formControlName="claimNumber" [matAutocomplete]="autoClaimNo">
+                    <mat-autocomplete #autoClaimNo="matAutocomplete" [panelWidth]="500">
+                                  <mat-option *ngFor="let option of claimList?.result" [value]="option.claimNo">
+                                    {{option?.displayValue}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2" *ngIf="pageHeader == 'Marketing Activity Claim Invoice'">
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Activity No.</mat-label>
+                      <input matInput placeholder="Activity No." formControlName="activityNumber"
+                          [matAutocomplete]="autoActivityNumber">
+                      <mat-autocomplete #autoActivityNumber="matAutocomplete" [panelWidth]="500">
+                          <mat-option *ngFor="let option of autoActivityNo?.result"
+                              [value]="option.activityNo">
+                              {{option?.displayValue}}
+                          </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+              </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Invoice Date From</mat-label>
+                    <input matInput [matDatepicker]="picker" readonly placeholder="Invoice Date From"
+                      formControlName="fromDate" (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Invoice Date To</mat-label>
+                    <input matInput [matDatepicker]="picker1" readonly placeholder="Invoice Date To"
+                      formControlName="toDate" (click)="picker1.open()"  [max]="maxDate" [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2" *ngIf='isKai'>
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Dealer Code</mat-label>
+                      <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                          [matAutocomplete]="autoDealercode">
+                      <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn">
+                          <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                              {{option?.displayString}}
+                          </mat-option>
+                      </mat-autocomplete>
+
+                      <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+              </div>
+              </div>
+              <div class="row" *ngIf='isKai'>
+                <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                        <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                            <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                {{option.hierarchy_desc}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center  mt-2 mb-2">
+              <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                Search
+              </button>
+              <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="mt-2">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue"
+      [clearSearchRow]="clearSearchRow"
+      [clickOnTableFields]="[{title:'invoiceNumber'},{title:'action'},{title:'kaiInvoiceUpload'},{title:'invoice'}]" (actionOnTableRecord)="tableAction($event)"
+      >
+              <td></td>
+              <td></td>
+              <td></td>
+              <td  [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" >
+                  <input class="w-100 borderRadius" #dealerName [(ngModel)]="dealerNameNgModel"/>
+              </td> 
+              <td  [ngsw-searchField]="invoiceNumber" [searchColumnName]="'invoiceNumber'" >
+                  <input class="w-100 borderRadius" #invoiceNumber [(ngModel)]="invoiceNumberNgModel"/>
+              </td> 
+              <td  [ngsw-searchField]="invoiceDate" [searchColumnName]="'invoiceDate'" >
+                  <input class="w-100 borderRadius" #invoiceDate [(ngModel)]="invoiceDateNgModel"/>
+              </td> 
+              <td  [ngsw-searchField]="invoiceType" [searchColumnName]="'invoiceType'" >
+                  <input class="w-100 borderRadius" #invoiceType [(ngModel)]="invoiceTypeNgModel"/>
+              </td> 
+              <td  [ngsw-searchField]="status" [searchColumnName]="'status'" >
+                  <input class="w-100 borderRadius" #status [(ngModel)]="statusNgModel"/>
+              </td> 
+              <td  [ngsw-searchField]="claimNumber" [searchColumnName]="'claimNumber'" >
+                  <input class="w-100 borderRadius" #claimNumber [(ngModel)]="claimNumberNgModel"/>
+              </td> 
+              <td  [ngsw-searchField]="claimDate" [searchColumnName]="'claimDate'" >
+                  <input class="w-100 borderRadius" #claimDate [(ngModel)]="claimDateNgModel"/>
+              </td>    
+    </ngsw-search-table>          
+  </div>
+</div>

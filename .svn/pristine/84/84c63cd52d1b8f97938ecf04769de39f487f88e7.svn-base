@@ -1,0 +1,207 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Incentive Scheme Approval</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="incentiveSchemeMaster" [style.fontSize.px]="10">
+                <div class="row">
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Scheme No.</mat-label>
+                            <input matInput placeholder="Scheme No.">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Scheme Type</mat-label>
+                            <mat-select [disabled]="disable">
+                                <mat-option *ngFor="let schemetype of schemetypes" [value]="schemetype">{{schemetype}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput [matDatepicker]="picker1" placeholder="Scheme Date" [disabled]="disable">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Reference Scheme No</mat-label>
+                            <input matInput placeholder="Reference Scheme No" [disabled]="disable">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Activity No.</mat-label>
+                            <input matInput placeholder="Activity No." [disabled]="disable">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2 ">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Status</mat-label>
+                            <mat-select [disabled]="disable">
+                                <mat-option *ngFor="let item of status" [value]="item">{{item}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Zone</mat-label>
+                            <mat-select [disabled]="disable">
+                                <mat-option *ngFor="let zone of zones" [value]="zone">{{zone}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Region</mat-label>
+                            <mat-select [disabled]="disable">
+                                <mat-option *ngFor="let region of regions" [value]="region">{{region}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Product</mat-label>
+                            <input matInput placeholder="Product" [disabled]="disable">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Series </mat-label>
+                            <input matInput placeholder="Series" [disabled]="disable">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label> Model </mat-label>
+                            <input matInput placeholder="Model" [disabled]="disable">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Sub Model</mat-label>
+                            <mat-select [disabled]="disable">
+                                <mat-option *ngFor="let submodel of submodels" [value]="submodel">{{submodel}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Variant</mat-label>
+                            <input matInput placeholder="Variant" [disabled]="disable">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Item</mat-label>
+                            <input matInput placeholder="Item" [disabled]="disable">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput [matDatepicker]="picker2" placeholder="Valid To" [disabled]="disable">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput [matDatepicker]="picker3" placeholder="Valid From" [disabled]="disable">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+
+                        <div class="form-check mt-2">
+                            <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;"
+                                [labelPosition]="labelPosition">Maximum Qty.</mat-checkbox>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+                        <div class="form-check mt-2">
+                            <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;"
+                                [labelPosition]="labelPosition">Attachment REQ For Claim</mat-checkbox>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+                        <div class="form-check mt-2">
+                            <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;"
+                                [labelPosition]="labelPosition">Incentive Allowed For Exceeded Qty.</mat-checkbox>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <div class=" text-center ">
+                <button type="button" class="btn btn_primary pl-3 pr-3"> Excel Upload
+                </button>
+            </div>
+
+           
+           
+            
+                        <p>Dealers</p>
+                        <p> in progress </p>
+                   
+
+
+
+
+
+
+            <div class=" text-center mt-2 ">
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"
+                    [routerLink]="[ '/sales/schemes/incentive-schemes-approval' ]"> Go Back
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3 "> Approve
+                </button>
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

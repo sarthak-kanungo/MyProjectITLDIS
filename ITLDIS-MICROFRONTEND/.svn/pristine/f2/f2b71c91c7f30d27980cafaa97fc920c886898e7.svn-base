@@ -1,0 +1,221 @@
+<div class="card-body">
+  <form [formGroup]="createPoForm" [style.fontSize.px]="10">
+    <div class="row">
+
+      <div class="col-lg-2" *ngIf="!isDealerCode && (isView || isEdit || isApproveOrReject)">
+        <mat-form-field appearance="outline">
+          <mat-label>Dealer Code</mat-label>
+          <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="!isDealerCode && (isView || isEdit || isApproveOrReject)">
+        <mat-form-field appearance="outline">
+          <mat-label>Dealer Name</mat-label>
+          <input matInput placeholder="Dealer Name" formControlName="dealerName">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>PO Type</mat-label>
+          <mat-select required formControlName="poType" (selectionChange)="poTypeChange($event)">
+            <mat-option *ngFor="let potype of poTypeList" [value]="potype.typeName">{{potype.typeName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Depot</mat-label>
+          <mat-select required formControlName="depot">
+            <mat-option *ngFor="let depot of depoList" [value]="depot">{{depot.branchName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="isView || isEdit || isApproveOrReject">
+        <mat-form-field appearance="outline">
+          <mat-label>PO No.</mat-label>
+          <input matInput placeholder="PO No." formControlName="poNumber">
+          <!-- <mat-icon matSuffix>search</mat-icon> -->
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>PO Date</mat-label>
+          <input matInput [matDatepicker]="picker1" placeholder="PO Date" formControlName="poDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline">
+          <mat-label> Total Qty. </mat-label>
+          <input matInput placeholder="Total Qty" formControlName="totalQuantity">
+        </mat-form-field>
+      </div>
+
+      <!-- added by mahesh kumar -->
+      <div class="col-lg-3" *ngIf="showCreditfield && isCreate">
+        <mat-form-field appearance="outline">
+          <mat-label>Cheque Number</mat-label>
+          <input matInput placeholder="Cheque Number" minlength="6" maxlength="6" formControlName="chequeNumber">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3" *ngIf="showCreditFieldEditOrView &&(isView || isEdit || isApproveOrReject)">
+        <mat-form-field appearance="outline">
+          <mat-label>Cheque Number</mat-label>
+          <input matInput placeholder="Cheque Number" minlength="6" maxlength="6" formControlName="chequeNumber">
+        </mat-form-field>
+      </div>
+      
+      <div class="col-lg-2" *ngIf="showCreditfield && isCreate">
+        <mat-form-field appearance="outline">
+          <mat-label>Cheque Date</mat-label>
+          <input matInput [matDatepicker]="chequeDatepicker" [min]="newDate" placeholder="Cheque Date" formControlName="chequeDate">
+          <mat-datepicker-toggle matSuffix [for]="chequeDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #chequeDatepicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-2" *ngIf="!isCreate && showCreditFieldEditOrView  &&(isView || isEdit || isApproveOrReject) ">
+        <mat-form-field appearance="outline">
+          <mat-label>Cheque Date</mat-label>
+          <input matInput [matDatepicker]="picker2" placeholder="Check Date" formControlName="chequeDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      
+      
+      
+      <div class="col-lg-3" *ngIf="showCreditfield && isCreate">
+        <mat-form-field appearance="outline">
+          <mat-label>Cheque Amount</mat-label>
+          <input matInput placeholder="Cheque Amount" maxlength="9" formControlName="chequeAmount">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3" *ngIf="showCreditFieldEditOrView &&(isView || isEdit || isApproveOrReject)">
+        <mat-form-field appearance="outline">
+          <mat-label>Cheque Amount</mat-label>
+          <input matInput placeholder="Cheque Amount" maxlength="9" formControlName="chequeAmount">
+        </mat-form-field>
+      </div>
+<!-- till here       -->
+
+      <div class="col-lg-2" *ngIf="isView || isEdit || isApproveOrReject">
+        <mat-form-field appearance="outline">
+          <mat-label>PO Status</mat-label>
+          <input matInput placeholder="PO  Status" formControlName="poStatus">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="!isDealerCode">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Credit Limit</mat-label>
+          <input matInput placeholder="Total Credit Limit" formControlName="totalCreditLimit">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="!isDealerCode">
+        <mat-form-field appearance="outline">
+          <mat-label> Available Limit </mat-label>
+          <input matInput placeholder="Avaliable Limit" formControlName="availableLimit">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="!isDealerCode">
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <input matInput placeholder="State" formControlName="billingState">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-3" *ngIf="!isEdit || !isView">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Machine Type</mat-label>
+          <mat-select required formControlName="machineType" (selectionChange)="selectMachineType($event)">
+            <mat-option *ngFor="let machineType of machineTypeList" [value]="machineType.typeName">{{machineType.typeName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+
+<div class="card-from mt-2" *ngIf="!isView">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Current Outstanding(O/S) Status</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th class="p-2" *ngFor="let tableHeading of kaiStatusHeading">{{tableHeading}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let outstanding of kaiStatusList">
+                <td>{{outstanding.totalOs}}</td>
+                <td>{{outstanding.currentOs}}</td>
+                <td>{{outstanding.os0To30Days}}</td>
+                <td>{{outstanding.os31To60Days}}</td>
+                <td>{{outstanding.os61To90Days}}</td>
+                <td>{{outstanding.os90Days}}</td>
+                <td>{{outstanding.paymentPending}}</td>
+                <td>{{outstanding.netOs}}</td>
+                <td>{{outstanding.pendingOrder}}</td>
+                <td>{{outstanding.orderUnderProcess}}</td>
+                <td>{{outstanding.channelFinanceAvailable}}</td>
+                <td>{{outstanding.exposureAmount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-from mt-2" *ngIf="isApproveOrReject || isView">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Last Outstanding(O/S) Status</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th class="p-2" *ngFor="let tableHeading of kaiStatusHeading">{{tableHeading}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let outstanding of kaiStatusListLast">
+                <td>{{outstanding.totalOs}}</td>
+                <td>{{outstanding.currentOs}}</td>
+                <td>{{outstanding.os0To30Days}}</td>
+                <td>{{outstanding.os31To60Days}}</td>
+                <td>{{outstanding.os61To90Days}}</td>
+                <td>{{outstanding.os90Days}}</td>
+                <td>{{outstanding.paymentPending}}</td>
+                <td>{{outstanding.netOs}}</td>
+                <td>{{outstanding.pendingOrder}}</td>
+                <td>{{outstanding.orderUnderProcess}}</td>
+                <td>{{outstanding.channelFinanceAvailable}}</td>
+                <td>{{outstanding.exposureAmount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

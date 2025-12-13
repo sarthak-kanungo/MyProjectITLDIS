@@ -1,0 +1,70 @@
+<div class="mt-2 remark" [style.fontSize.px]="12" [formGroup]="vendorRespomseForm">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label"><b style="margin-left:20px">RESPONSE FROM VENDOR</b></label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Response from Vendor</mat-label>
+                        <input matInput placeholder="Response from Vendor" formControlName="responseFromVendor">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">FILE ATTACHMENT</p>
+        </div>
+        <div class="card-body">
+           
+            <div class="row" [style.fontSize.px]="14" *ngIf="!isFilesCountFive()">
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                       
+                        <div class="w-50 flex-fill bd-highlight">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" (change)="fileSelectionChanges($event)" [disabled]="isView" class="custom-file-input" name="image" accept="image/x-png,image/jpeg">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-25"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-2 text-center">
+                <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+                  <div class="card file-preview-card">
+                    <label class="custom-preview-label"> {{file.file.name}} </label>
+                    <img [src]="file.previewUrl" height="120" width="185" />
+                    <div class="card-body">
+                      <i style="color: #45afaf; cursor: pointer;" class="material-icons" (click)="deleteImage(file.id)">delete</i>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row mt-2 text-center" *ngIf="isView">
+                <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of answerPhoto">
+                  <div class="card file-preview-card">
+                    <label> {{file.fileName}} </label>
+                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="120" width="185" />
+                    <div class="card-body">
+                      <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                        <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           
+        </div>
+    </div>
+</div>

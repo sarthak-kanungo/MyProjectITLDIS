@@ -1,0 +1,146 @@
+<form>
+    <div class="container-fluid create-form  mt-4  pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0">Search Employee</p>
+                                        <div>
+                                            <button type="button" class="btn btn-xs ml-2 bg-white "
+                                                [routerLink]="[ './create' ]">
+                                                <b class="btnName">New</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-dealer-employee [employeeForm]=employeeForm></app-search-dealer-employee>
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchEmployeeMaster()"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clearEmployeeMaster()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"
+        [clickOnTableFields]="[{title:'employeeCode'},{title:'edit'}]" (actionOnTableRecord)="tableAction($event)"
+        (pageChange)="pageChange($event)" [page]="page" [size]="size">
+
+        <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+            <input class="w-100 borderRadius edit" #edit>
+        </td>
+
+        <td [ngsw-searchField]="employeeCode" [searchColumnName]="'employeeCode'" class="employeeCode">
+            <input class="w-100 borderRadius" #employeeCode [(ngModel)]="employeeCodeNgModel">
+        </td>
+        <td [ngsw-searchField]="title" [searchColumnName]="'title'" class="title">
+            <input class="w-100 borderRadius" #title [(ngModel)]="titleNgModel">
+        </td>
+        <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'" class="employeeName">
+            <input class="w-100 borderRadius" #employeeName [(ngModel)]="employeeNameNgModel">
+        </td>
+        <!-- <td [ngsw-searchField]="middleName" [searchColumnName]="'middleName'" class="middleName">
+            <input class="w-100 borderRadius" #middleName [(ngModel)]="middleNameNgModel">
+        </td>
+        <td [ngsw-searchField]="lastName" [searchColumnName]="'lastName'" class="lastName">
+            <input class="w-100 borderRadius" #lastName [(ngModel)]="lastNameNgModel">
+        </td> -->
+
+        <td [ngsw-searchField]="emailId" [searchColumnName]="'emailId'" class="emailId">
+            <input class="w-100 borderRadius" #emailId [(ngModel)]="emailIdNgModel">
+        </td>
+        <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'" class="mobileNumber">
+            <input class="w-100 borderRadius" #mobileNumber [(ngModel)]="mobileNumberNgModel">
+        </td>
+        <td [ngsw-searchField]="alternateMobileNumber" [searchColumnName]="'alternateMobileNumber'"
+            class="alternateMobileNumber">
+            <input class="w-100 borderRadius" #alternateMobileNumber [(ngModel)]="alternateMobileNumberNgModel">
+        </td>
+        <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'" class="departmentName">
+            <input class="w-100 borderRadius" #departmentName [(ngModel)]="departmentNameNgModel">
+        </td>
+        <td [ngsw-searchField]="designation" [searchColumnName]="'designation'" class="designation">
+            <input class="w-100 borderRadius" #designation [(ngModel)]="designationNgModel">
+        </td>
+
+        <td [ngsw-searchField]="licenceType" [searchColumnName]="'licenceType'" class="licenceType">
+            <input class="w-100 borderRadius" #licenceType [(ngModel)]="licenceTypeNgModel">
+        </td>
+        <td [ngsw-searchField]="drivingLicenceNumber" [searchColumnName]="'drivingLicenceNumber'"
+            class="drivingLicenceNumber">
+            <input class="w-100 borderRadius" #drivingLicenceNumber [(ngModel)]="drivingLicenceNumberNgModel">
+        </td>
+        <td [ngsw-searchField]="drivingLicenceExpiryDate" [searchColumnName]="'drivingLicenceExpiryDate'"
+            class="drivingLicenceExpiryDate">
+            <input class="w-100 borderRadius" #drivingLicenceExpiryDate [(ngModel)]="drivingLicenceExpiryDateNgModel">
+        </td>
+        <td [ngsw-searchField]="joiningDate" [searchColumnName]="'joiningDate'" class="joiningDate">
+            <input class="w-100 borderRadius" #joiningDate [(ngModel)]="joiningDateNgModel">
+        </td>
+        <td [ngsw-searchField]="latestSalary" [searchColumnName]="'latestSalary'" class="latestSalary">
+            <input class="w-100 borderRadius" #latestSalary [(ngModel)]="latestSalaryNgModel">
+        </td>
+
+        <td [ngsw-searchField]="leavingDate" [searchColumnName]="'leavingDate'" class="leavingDate">
+            <input class="w-100 borderRadius" #leavingDate [(ngModel)]="leavingDateNgModel">
+        </td>
+        <td [ngsw-searchField]="pfNumber" [searchColumnName]="'pfNumber'" class="pfNumber">
+            <input class="w-100 borderRadius" #pfNumber [(ngModel)]="pfNumberNgModel">
+        </td>
+        <td [ngsw-searchField]="panNumber" [searchColumnName]="'panNumber'" class="panNumber">
+            <input class="w-100 borderRadius" #panNumber [(ngModel)]="panNumberNgModel">
+        </td>
+        <td [ngsw-searchField]="esiNumber" [searchColumnName]="'esiNumber'" class="esiNumber">
+            <input class="w-100 borderRadius" #esiNumber [(ngModel)]="esiNumberNgModel">
+        </td>
+        <td [ngsw-searchField]="bankAccountNumber" [searchColumnName]="'bankAccountNumber'" class="bankAccountNumber">
+            <input class="w-100 borderRadius" #bankAccountNumber [(ngModel)]="bankAccountNumberNgModel">
+        </td>
+
+        <td [ngsw-searchField]="bankName" [searchColumnName]="'bankName'" class="bankName">
+            <input class="w-100 borderRadius" #bankName [(ngModel)]="bankNameNgModel">
+        </td>
+        <td [ngsw-searchField]="bankBranch" [searchColumnName]="'bankBranch'" class="bankBranch">
+            <input class="w-100 borderRadius" #bankBranch [(ngModel)]="bankBranchNgModel">
+        </td>
+        <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'" class="pinCode">
+            <input class="w-100 borderRadius" #pinCode [(ngModel)]="pinCodeNgModel">
+        </td>
+        <td [ngsw-searchField]="locality" [searchColumnName]="'locality'" class="locality">
+            <input class="w-100 borderRadius" #locality [(ngModel)]="localityNgModel">
+        </td>
+        <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'" class="tehsil">
+            <input class="w-100 borderRadius" #tehsil [(ngModel)]="tehsilNgModel">
+        </td>
+
+        <td [ngsw-searchField]="district" [searchColumnName]="'district'" class="district">
+            <input class="w-100 borderRadius" #district [(ngModel)]="districtNgModel">
+        </td>
+        <td [ngsw-searchField]="city" [searchColumnName]="'city'" class="city">
+            <input class="w-100 borderRadius" #city [(ngModel)]="cityNgModel">
+        </td>
+        <td [ngsw-searchField]="state" [searchColumnName]="'state'" class="state">
+            <input class="w-100 borderRadius" #state [(ngModel)]="stateNgModel">
+        </td>
+        <td [ngsw-searchField]="country" [searchColumnName]="'country'" class="country">
+            <input class="w-100 borderRadius" #country [(ngModel)]="countryNgModel">
+        </td>
+        <td [ngsw-searchField]="activeStatus" [searchColumnName]="'activeStatus'" class="activeStatus">
+            <input class="w-100 borderRadius" #activeStatus [(ngModel)]="activeStatusNgModel">
+        </td>
+
+    </ngsw-search-table>
+</div>

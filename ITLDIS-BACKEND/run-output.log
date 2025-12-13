@@ -1,0 +1,250 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.i4o.dms:itldis >-------------------------
+[INFO] Building itldis 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:2.3.3.RELEASE:run (default-cli) > test-compile @ itldis >>>
+[INFO] 
+[INFO] --- resources:3.1.0:resources (default-resources) @ itldis ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ itldis ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 1600 source files with javac [debug deprecation target 1.8] to target\classes
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[8,43] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[8,43] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[8,43] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[8,43] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[8,43] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/spares/purchase/sparepurchaseorder/dto/HeaderResponse.java:[20,41] com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion in com.fasterxml.jackson.databind.annotation.JsonSerialize has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/spares/salesorder/service/SpareSalesOrderImpl/SpareSalesOrdeImpl.java:[85,114] non-varargs call of varargs method with inexact argument type for last parameter;
+  cast to java.lang.Object for a varargs call
+  cast to java.lang.Object[] for a non-varargs call and to suppress this warning
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[25,6] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[32,6] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[36,6] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[INFO] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- resources:3.1.0:testResources (default-testResources) @ itldis ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\MyProjectITLDIS\ITLDIS-BACKEND\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ itldis ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] 
+[INFO] <<< spring-boot:2.3.3.RELEASE:run (default-cli) < test-compile @ itldis <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:2.3.3.RELEASE:run (default-cli) @ itldis ---
+[INFO] Attaching agents: []
+----------------------------------------------------------------
+
+??????????????????????????????????????????????????
+??????????????????????????????????????????????????
+??????????????????????????????????????????????????
+??????????????????????????????????????????????????
+??????????????????????????????????????????????????
+??????????????????????????????????????????????????
+
+Application Title : 
+Spring Boot Version : 2.3.3.RELEASE
+Spring Boot Formatted Version :  (v2.3.3.RELEASE)
+Application Version : 
+Application Formatted Version : 
+----------------------------------------------------------------
+2025-12-13 12:12:04.535  INFO 13612 --- [  restartedMain] com.i4o.dms.itldis.ItldisApplication     : Starting ItldisApplication on SIE-70 with PID 13612 (C:\MyProjectITLDIS\ITLDIS-BACKEND\target\classes started by Sarthak.Kanungo in C:\MyProjectITLDIS\ITLDIS-BACKEND)
+2025-12-13 12:12:04.539  INFO 13612 --- [  restartedMain] com.i4o.dms.itldis.ItldisApplication     : No active profile set, falling back to default profiles: default
+2025-12-13 12:12:04.665  INFO 13612 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-13 12:12:04.666  INFO 13612 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-13 12:12:10.862  INFO 13612 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2025-12-13 12:12:13.989  INFO 13612 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3087ms. Found 243 JPA repository interfaces.
+2025-12-13 12:12:14.963  INFO 13612 --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4621b594' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-12-13 12:12:14.968  INFO 13612 --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-12-13 12:12:16.827  INFO 13612 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8383 (http)
+2025-12-13 12:12:16.835  INFO 13612 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-13 12:12:16.835  INFO 13612 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2025-12-13 12:12:17.111  INFO 13612 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-13 12:12:17.112  INFO 13612 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12446 ms
+2025-12-13 12:12:17.482  INFO 13612 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-13 12:12:17.512  INFO 13612 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-13 12:12:17.743  INFO 13612 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:itldisdb'
+2025-12-13 12:12:18.146  WARN 13612 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-13 12:12:18.845  INFO 13612 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-13 12:12:18.933  INFO 13612 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2025-12-13 12:12:19.158  INFO 13612 --- [  restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2025-12-13 12:12:19.500  INFO 13612 --- [  restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-12-13 12:12:21.172  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.machineinstallation.domain.FiChassisCheckpointInfo
+2025-12-13 12:12:21.172  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.machineinstallation.domain.FiChassisCheckpointInfo
+2025-12-13 12:12:21.175  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.psc.domain.ChassisCheckpointId
+2025-12-13 12:12:21.176  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.psc.domain.ChassisCheckpointId
+2025-12-13 12:12:21.177  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.warranty.retrofitmentcampaign.domain.WarrantyRetrofitmentCampaignChassisId
+2025-12-13 12:12:21.177  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.warranty.retrofitmentcampaign.domain.WarrantyRetrofitmentCampaignChassisId
+2025-12-13 12:12:21.189  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.mrc.domain.ServiceMrcChassisCheckpointId
+2025-12-13 12:12:21.190  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.mrc.domain.ServiceMrcChassisCheckpointId
+2025-12-13 12:12:21.197  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.pdc.domain.ChassisCheckpointId
+2025-12-13 12:12:21.198  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.pdc.domain.ChassisCheckpointId
+2025-12-13 12:12:21.199  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.machinereinstallation.domain.RiChassisCheckpointId
+2025-12-13 12:12:21.199  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.machinereinstallation.domain.RiChassisCheckpointId
+2025-12-13 12:12:21.200  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.machineinstallation.domain.DiChassisCheckpointInfo
+2025-12-13 12:12:21.201  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.machineinstallation.domain.DiChassisCheckpointInfo
+2025-12-13 12:12:21.206  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.service.pdi.domain.ChassisCheckpointId
+2025-12-13 12:12:21.206  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.service.pdi.domain.ChassisCheckpointId
+2025-12-13 12:12:21.210  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.i4o.dms.itldis.salesandpresales.purchase.purchaseOrder.domain.DealerBankDetailsId
+2025-12-13 12:12:21.210  WARN 13612 --- [  restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.i4o.dms.itldis.salesandpresales.purchase.purchaseOrder.domain.DealerBankDetailsId
+Hibernate: drop table if exists acc_pac_claim_aprvl_dtl CASCADE 
+Hibernate: drop table if exists acc_pac_claim_aprvl_hdr CASCADE 
+Hibernate: drop table if exists acc_pac_invoice_machine_detail CASCADE 
+Hibernate: drop table if exists accpac_channel_finance_invoice CASCADE 
+Hibernate: drop table if exists accpac_dealer_outstanding CASCADE 
+Hibernate: drop table if exists accpac_spares_invoice CASCADE 
+Hibernate: drop table if exists accpac_spares_invoice_item CASCADE 
+Hibernate: drop table if exists acc_pac_dealer_master CASCADE 
+Hibernate: drop table if exists accpac_dms_spares_po_item_split CASCADE 
+Hibernate: drop table if exists acc_pac_invoice CASCADE 
+Hibernate: drop table if exists accpac_spares_dealer_outstanding CASCADE 
+Hibernate: drop table if exists accpac_stock_quantity CASCADE 
+Hibernate: drop table if exists adm_branch_master CASCADE 
+Hibernate: drop table if exists adm_branch_party_master CASCADE 
+Hibernate: drop table if exists adm_branch_user CASCADE 
+Hibernate: drop table if exists adm_dealer_bank_finance_map CASCADE 
+Hibernate: drop table if exists adm_dealer_depot_map CASCADE 
+Hibernate: drop table if exists adm_dealer_dept_map CASCADE 
+Hibernate: drop table if exists adm_dealer_emp CASCADE 
+Hibernate: drop table if exists adm_dealer_master CASCADE 
+Hibernate: drop table if exists adm_dealer_mst_department CASCADE 
+Hibernate: drop table if exists adm_dealer_mst_designation CASCADE 
+Hibernate: drop table if exists adm_dealer_org_hier_map CASCADE 
+Hibernate: drop table if exists adm_ho_designation_level CASCADE 
+Hibernate: drop table if exists adm_ho_mst_department CASCADE 
+Hibernate: drop table if exists adm_ho_mst_designation CASCADE 
+Hibernate: drop table if exists adm_ho_mst_org_level CASCADE 
+Hibernate: drop table if exists adm_ho_mst_org_level_hier CASCADE 
+Hibernate: drop table if exists adm_ho_user CASCADE 
+Hibernate: drop table if exists adm_ho_user_org_hier CASCADE 
+Hibernate: drop table if exists adm_menu_mst CASCADE 
+Hibernate: drop table if exists adm_menu_role_dtl CASCADE 
+Hibernate: drop table if exists adm_menu_role_hdr CASCADE 
+Hibernate: drop table if exists adm_menu_role_user_hdr CASCADE 
+Hibernate: drop table if exists adm_user CASCADE 
+Hibernate: drop table if exists adm_user_profile_image CASCADE 
+Hibernate: drop table if exists allocated_territory CASCADE 
+Hibernate: drop table if exists area_level CASCADE 
+Hibernate: drop table if exists binning_slip CASCADE 
+Hibernate: drop table if exists bin_transfer CASCADE 
+Hibernate: drop table if exists blood_group CASCADE 
+Hibernate: drop table if exists branch_category CASCADE 
+Hibernate: drop table if exists branch_code CASCADE 
+Hibernate: drop table if exists branch_transfer_issue CASCADE 
+Hibernate: drop table if exists branch_transfer_receipt CASCADE 
+Hibernate: drop table if exists branch_transfer_request CASCADE 
+Hibernate: drop table if exists cash_loan CASCADE 
+Hibernate: drop table if exists catalog_parts CASCADE 
+Hibernate: drop table if exists category CASCADE 
+Hibernate: drop table if exists checkpoint_specification CASCADE 
+Hibernate: drop table if exists cm_geo_city CASCADE 
+Hibernate: drop table if exists cm_geo_country CASCADE 
+Hibernate: drop table if exists cm_geo_district CASCADE 
+Hibernate: drop table if exists cm_geo_pin CASCADE 
+Hibernate: drop table if exists cm_geo_state CASCADE 
+Hibernate: drop table if exists cm_geo_tehsil CASCADE 
+Hibernate: drop table if exists cm_geo_territory_map_dtl CASCADE 
+Hibernate: drop table if exists cm_geo_territory_map_hdr CASCADE 
+Hibernate: drop table if exists cm_mst_bank CASCADE 
+Hibernate: drop table if exists cm_mst_competition_brand CASCADE 
+Hibernate: drop table if exists cm_mst_credit_card_type CASCADE 
+Hibernate: drop table if exists cm_mst_crop CASCADE 
+Hibernate: drop table if exists cm_mst_crop_condition CASCADE 
+Hibernate: drop table if exists cm_mst_insurance_company CASCADE 
+Hibernate: drop table if exists cm_mst_transporter CASCADE 
+Hibernate: drop table if exists cm_smsmail_event_mst CASCADE 
+Hibernate: drop table if exists cm_smsmail_mail CASCADE 
+Hibernate: drop table if exists csb CASCADE 
+Hibernate: drop table if exists customer_crop CASCADE 
+Hibernate: drop table if exists customer_crop_grown CASCADE 
+Hibernate: drop table if exists customer_machinery_detail CASCADE 
+Hibernate: drop table if exists customer_master CASCADE 
+Hibernate: drop table if exists customer_soil_type CASCADE 
+Hibernate: drop table if exists customer_type CASCADE 
+Hibernate: drop table if exists customer_vehicle_detail CASCADE 
+Hibernate: drop table if exists dc_cacellation_other_reason CASCADE 
+Hibernate: drop table if exists dc_cancellation_reason CASCADE 
+Hibernate: drop table if exists dc_cancellation_type CASCADE 
+Hibernate: drop table if exists dealer_branch_and_sub_dealer_master CASCADE 
+Hibernate: drop table if exists dealer_code CASCADE 
+Hibernate: drop table if exists dealer_district_mapping CASCADE 
+Hibernate: drop table if exists dealer_star_rating CASCADE 
+Hibernate: drop table if exists delivery_challan_type CASCADE 
+Hibernate: drop table if exists department CASCADE 
+Hibernate: drop table if exists depot CASCADE 
+Hibernate: drop table if exists designation_hierarchy CASCADE 
+Hibernate: drop table if exists dms_accpac_sales_po CASCADE 
+Hibernate: drop table if exists dms_accpac_sales_po_item CASCADE 
+Hibernate: drop table if exists dms_accpac_spares_po CASCADE 
+Hibernate: drop table if exists dms_accpac_spares_po_item CASCADE 
+Hibernate: drop table if exists eamg_group CASCADE 
+Hibernate: drop table if exists eamg_kit CASCADE 
+Hibernate: drop table if exists eamg_model CASCADE 
+Hibernate: drop table if exists eamg_part CASCADE 
+Hibernate: drop table if exists eamg_service_bulletin CASCADE 
+Hibernate: drop table if exists eamg_tool CASCADE 
+Hibernate: drop table if exists enquiry_lost_drop_result CASCADE 
+Hibernate: drop table if exists enquiry_purpose_of_purchase CASCADE 
+Hibernate: drop table if exists exchange_brand CASCADE 
+Hibernate: drop table if exists feedback_form CASCADE 
+Hibernate: drop table if exists fm_payment_receipt CASCADE 
+Hibernate: drop table if exists functionality_permission_mapping CASCADE 
+Hibernate: drop table if exists gender CASCADE 
+Hibernate: drop table if exists highest_qualification CASCADE 
+Hibernate: drop table if exists igst CASCADE 
+Hibernate: drop table if exists incentive_scheme_claim_approval CASCADE 
+Hibernate: drop table if exists incentive_scheme_claim_dtl CASCADE 
+Hibernate: drop table if exists incentive_scheme_claim_hdr CASCADE 
+Hibernate: drop table if exists incentive_scheme_master CASCADE 
+Hibernate: drop table if exists incentive_scheme_master_attachment CASCADE 
+Hibernate: drop table if exists incentive_scheme_master_detail CASCADE 
+Hibernate: drop table if exists inventory_items CASCADE 
+Hibernate: drop table if exists invoice_cancellation_other_reason CASCADE 
+Hibernate: drop table if exists invoice_cancellation_reason CASCADE 
+Hibernate: drop table if exists invoice_cancellation_type CASCADE 
+Hibernate: drop table if exists invoice_status CASCADE 
+Hibernate: drop table if exists invoice_type CASCADE 
+Hibernate: drop table if exists linked_to_dealer CASCADE 
+Hibernate: drop table if exists local_item_master CASCADE 
+Hibernate: drop table if exists login_id_status CASCADE 
+Hibernate: drop table if exists machine_descripancy_complaint_approval CASCADE 
+Hibernate: drop table if exists machine_descripancy_complaint_photo CASCADE 
+Hibernate: drop table if exists machine_discrepancy_claim_approval CASCADE 
+Hibernate: drop table if exists machine_grn_detail CASCADE 
+Hibernate: drop table if exists machine_grn_mst_status CASCADE 
+Hibernate: drop table if exists machine_grn_mst_type CASCADE 
+Hibernate: drop table if exists machine_inventory_ledger CASCADE 
+Hibernate: drop table if exists machine_vin_master CASCADE 
+Hibernate: drop table if exists machine_complaint_claim_mapping CASCADE 
+Hibernate: drop table if exists machine_descripancy_complaint CASCADE 
+Hibernate: drop table if exists machine_descripancy_complaint_detail CASCADE 
+Hibernate: drop table if exists machine_descripancy_complaint_status CASCADE 
+Hibernate: drop table if exists machine_descripancy_complaint_type CASCADE 
+Hibernate: drop table if exists machine_discrepancy_claim CASCADE 
+Hibernate: drop table if exists machine_discrepancy_claim_details CASCADE 
+Hibernate: drop table if exists machine_grn CASCADE 
+Hibernate: drop table if exists machine_master CASCADE 
+Hibernate: drop table if exists machine_transfer_status CASCADE 
+Hibernate: drop table if exists marital_status CASCADE 
+Hibernate: drop table if exists model_product_master CASCADE 
+Hibernate: drop table if exists model_master CASCADE 
+Hibernate: drop table if exists model_survey_master_entity CASCADE 
+Hibernate: drop table if exists mt_field_condition CASCADE 
+Hibernate: drop table if exists mt_gst_master CASCADE 
+Hibernate: drop table if exists mt_activity_effectiveness CASCADE 
+Hibernate: drop table if exists occupation CASCADE 
+Hibernate: drop table if exists old_customer CASCADE 
+Hibernate: drop table if exists party_category CASCADE 
+Hibernate: drop table if exists payment_receipt_mode CASCADE 
+Hibernate: drop table if exists payment_receipt_type CASCADE 
+Hibernate: drop table if exists permission CASCADE 
+Hibernate: drop table if exists pincode_city_mapping CASCADE 

@@ -1,0 +1,72 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                  border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Document Upload</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-3">
+                    <app-document-upload 
+                        [documentFormControl]="chequeLeafControl"
+                        [documentName]="'Cheque Leaf'"
+                        [disabled]="isView"
+                        [isEdit]="isEdit"
+                        [previewUrl]="bulkImageUrls['chequeLeaf']"
+                        [extension]="extensionChequeLeaf"
+                    ></app-document-upload>
+                </div>
+                <!-- [previewUrl]="imageBaseUrl + bulkImageUrls.chequeLeaf" -->
+
+                <div class="col-3">
+                    <app-document-upload 
+                        [documentFormControl]="coveringLetterControl"
+                        [documentName]="'Covering Letter'"
+                        [disabled]="isView"
+                        [isEdit]="isEdit"
+                        [previewUrl]="bulkImageUrls['coveringLetter']"
+                        [extension]="extensionCoveringLetter"
+                    ></app-document-upload>
+                </div>
+                <!-- [previewUrl]="imageBaseUrl + bulkImageUrls.coveringLetter" -->
+
+                <div class="col-3">
+                    <app-document-upload 
+                        [documentFormControl]="creditApplicationControl"
+                        [documentName]="'Credit Application'"
+                        [disabled]="isView"
+                        [isEdit]="isEdit"
+                        [previewUrl]="bulkImageUrls['creditApplication']"
+                        [extension]="extensionCreditApplication"
+                    ></app-document-upload>
+                </div>
+                <!-- [previewUrl]="imageBaseUrl + bulkImageUrls.creditApplication" -->
+
+                <!--added by mahesh.kumar -->
+                <div class="col-3" *ngIf="sendTrueOrFalse && (!getsendShowCreditFieldEdit || !isView || !isEdit)">
+                    <app-document-upload 
+                        [documentFormControl]="chequeCopyControl"
+                        [documentName]="'Cheque Copy'"
+                        [disabled]="isView"
+                        [isEdit]="isEdit"
+                        [previewUrl]="bulkImageUrls['chequeCopy']"
+                        [extension]="extensionChequeCopy"
+                    ></app-document-upload>
+                </div>
+
+                <div class="col-3" *ngIf="showCheckPhoto &&(isView || isEdit || isApproveOrReject)">
+                    <app-document-upload 
+                        [documentFormControl]="chequeCopyControl"
+                        [documentName]="'Cheque Copy'"
+                        [disabled]="isView"
+                        [isEdit]="isEdit"
+                        [previewUrl]="bulkImageUrls['chequeCopy']"
+                        [extension]="extensionChequeCopy"
+                    ></app-document-upload>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

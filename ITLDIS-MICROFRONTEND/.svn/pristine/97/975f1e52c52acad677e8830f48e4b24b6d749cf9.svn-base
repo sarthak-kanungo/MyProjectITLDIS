@@ -1,0 +1,23 @@
+
+// ::ng-deep .card_header_secondary {
+//     // background: linear-gradient(60deg, #ef5350, #e53935);
+//    background-color: red;
+//     color: #fff;
+//   //  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px $color_secondary_1;
+// }
+
+::ng-deep{
+    mat-form-field{
+        .mat-form-field-flex{
+            .mat-form-field-infix{
+                width: 100px;
+            }
+        }
+    }
+}
+
+.jobcardno{
+    cursor: pointer;
+    color: blue;
+    font-weight: 600;
+}

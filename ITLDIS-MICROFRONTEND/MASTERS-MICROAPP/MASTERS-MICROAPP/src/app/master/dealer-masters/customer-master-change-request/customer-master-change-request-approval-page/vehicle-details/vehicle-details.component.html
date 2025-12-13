@@ -1,0 +1,39 @@
+<div class="card-from mt-2" *ngIf="vehicalDetail">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Vehicle Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <div [formGroup]="vehicalDetail">
+          <table class="table table-bordered table-sm" formArrayName="vehicalDetailsTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 10px;">Sr.No.</th>
+                <th scope="col">Model Code</th>
+                <th scope="col">Model Desc.</th>
+                <th scope="col">Chassis No.</th>
+                <th scope="col">Registration No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of vehicalDetail?.get('vehicalDetailsTable')['controls']; index as i"
+                [formGroupName]="i">
+                <td>{{i + 1}}</td>
+                <td [attr.contenteditable]="false" [textContent]="option.get('modelcode').value"></td>
+                <td [attr.contenteditable]="false" [textContent]="option.get('modeldesc').value"></td>
+                <td [attr.contenteditable]="false" [textContent]="option.get('chassisno').value"></td>
+                <td [attr.contenteditable]="false" [textContent]="option.get('registrationno').value"></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

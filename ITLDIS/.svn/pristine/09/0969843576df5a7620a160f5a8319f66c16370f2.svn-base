@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+"http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+
+<tiles-definitions>
+    <definition name="baseLayout" path="/WEB-INF/tiles/baseLayout.jsp">
+        <put name="title"  value="ITLDIS" />
+        <put name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put name="body" value="/WEB-INF/tiles/body.jsp" />
+    </definition> 
+    <definition name="home" extends="baseLayout">
+        <put name="body" value="/common/home_page.jsp"/>
+        <!--<put name="body" value="/login/dashBoard.jsp"/>-->
+    </definition>
+    <definition name="masterOptionPath" extends="baseLayout">
+        <put name="body" value="/master/v_masters_option.jsp"/>
+    </definition>
+    <definition name="masterCmpOptionPath" extends="baseLayout">
+        <put name="body" value="/master/v_comp_master_option.jsp"/>
+    </definition>
+
+    <definition name="masterJCOptionPath" extends="baseLayout">
+        <put name="body" value="/master/v_jobcard_master_option.jsp"/>
+    </definition>
+
+
+
+    <definition name="successPath" extends="baseLayout">
+        <put name="body" value="/master/v_master_success.jsp"/>
+    </definition>
+    <!--  Master       -->
+
+    <definition name="itemMasterPath" extends="baseLayout">
+        <put name="body" value="/master/v_item_master.jsp"/>
+    </definition>
+    <definition name="jobTypeMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_jobTypeMaster.jsp"/>
+    </definition>
+    <definition name="serviceTypeMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_serviceTypeMaster.jsp"/>
+    </definition>
+    <definition name="mechanicMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_mechanicMaster.jsp"/>
+    </definition>
+    <definition name="bayMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_bayMaster.jsp"/>
+    </definition>
+    <definition name="wageMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_wageMaster.jsp"/>
+    </definition>
+    <definition name="actionMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_actionMaster.jsp"/>
+    </definition>
+    <definition name="aggregateMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_aggregateMaster.jsp"/>
+    </definition>
+    <definition name="complaintCodeMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_complaintCodeMaster.jsp"/>
+    </definition>
+    <definition name="causalCodeMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_causalCodeMaster.jsp"/>
+    </definition>
+    <definition name="complaintJobCardPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_complaintJobCard.jsp"/>
+    </definition>
+    <definition name="mangJobCardPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_manage_jobCard.jsp"/>
+    </definition>
+    <definition name="actionJobCardPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_actionJobCard.jsp"/>
+    </definition>
+    <definition name="successMsg" extends="baseLayout">
+        <put name="body" value="/common/SuccessMessage.jsp"/>
+    </definition>
+    <definition name="languageContentPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_languageContent.jsp"/>
+    </definition>
+    <definition name="jobCardStatusPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_jobCardStatus.jsp"/>
+    </definition>
+    <definition name="jobLocationPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_jobLocation.jsp"/>
+    </definition>
+    <definition name="nextserviceFromPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_nextserviceFrom.jsp"/>
+    </definition>
+    <definition name="ownerDrivenPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_ownerDriven.jsp"/>
+    </definition>
+    <definition name="applicationMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_applicationMaster.jsp"/>
+    </definition>
+    <definition name="billMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_billMaster.jsp"/>
+    </definition>
+    <definition name="otherJobWorkPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_otherJobWorkMaster.jsp"/>
+    </definition>
+    <!-- Service  -->
+
+    <definition name="vehicleInformationPath" extends="baseLayout">
+        <put name="body" value="/service/v_vehicle_information.jsp"/>
+    </definition>
+    <definition name="customerInformationPath" extends="baseLayout">
+        <put name="body" value="/service/v_customer_information.jsp"/>
+    </definition>
+    <definition name="complaintPath" extends="baseLayout">
+        <put name="body" value="/service/v_complaint.jsp"/>
+    </definition>
+    <definition name="estimatePath" extends="baseLayout">
+        <put name="body" value="/service/v_estimate.jsp"/>
+    </definition>
+    <definition name="consequenceMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_consequenceMaster.jsp"/>
+    </definition>
+    <definition name="causalVsConsequencePath" extends="baseLayout">
+        <put name="body" value="/data_master/v_causalVsConsequence.jsp"/>
+    </definition>
+
+    <definition name="manage_function_path" extends="baseLayout">
+        <put name="body" value="/data_master/v_manage_functionality.jsp"/>
+    </definition>
+    <definition name="standardChecksPath" extends="baseLayout">
+        <put name="body" value="/service/v_standard_check.jsp"/>
+    </definition>
+
+    <definition name="UserInformation" extends="baseLayout">
+        <put name="body" value="/master/v_userInfo_master.jsp"/>
+    </definition>
+
+    <definition name="manageUserListPath" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_userList_master.jsp"/>
+    </definition>
+
+    <definition name="userTypePath" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_userType_master.jsp"/>
+    </definition>
+
+    <definition name="createUser" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_add_user.jsp"/>
+    </definition>
+    <definition name="createDealer" extends="baseLayout">
+        <put name="body" value="/usermgmt/ "/>
+    </definition>
+
+    <definition name="getUserAjaxPath" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_user_detail_ajax.jsp"/>
+    </definition>
+    <definition name="getDealerAjaxPath" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_dealer_detail_ajax.jsp"/>
+    </definition>
+
+    <definition name="regionPath" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_region_master.jsp"/>
+    </definition>
+
+    <definition name="initAssignRoles_path" extends="baseLayout">
+        <put name="body" value="/usermgmt/assignRoles.jsp"/>
+    </definition>
+
+    <definition name="contentMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_contentMaster.jsp"/>
+    </definition>
+
+    <definition name="subContentMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_subContentMaster.jsp"/>
+    </definition>
+
+    <definition name="subAssemblyMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_subAssemblyMaster.jsp"/>
+    </definition>
+
+    <definition name="labourCodeMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_labourCodeMaster.jsp"/>
+    </definition>
+
+    <definition name="SubAggregateMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_SubAggregateMaster.jsp"/>
+    </definition>
+    <definition name="formCheckListMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_formCheckList.jsp"/>
+    </definition>
+
+
+    <definition name="statusPath" extends="baseLayout">
+        <put name="body" value="/service/v_status.jsp"/>
+    </definition>
+
+
+
+    <definition name="vehicle_History_detailPath" extends="baseLayout">
+        <put name="body" value="/service/v_history_info.jsp"/>
+    </definition>
+
+    <definition name="view_alljobcardDetailsPath" extends="baseLayout">
+        <put name="body" value="/service/v_viewalljobcard.jsp"/>
+    </definition>
+    <definition name="actualPath" extends="baseLayout">
+        <put name="body" value="/service/v_actual.jsp"/>
+    </definition>
+
+    <definition name="view_service" extends="baseLayout">
+        <put name="body" value="/login/dashBoard.jsp"/>
+    </definition>
+
+
+
+    <definition name="closeJCPath" extends="baseLayout">
+        <put name="body" value="/service/v_closejobcard.jsp"/>
+    </definition>
+
+    <definition name="initInstallInfo_path" extends="baseLayout">
+        <put name="body" value="/installation/v_install_information.jsp"/>
+    </definition>
+
+    <definition name="ViewInstallPrint_path" extends="baseLayout">
+        <put name="body" value="/installation/v_view_printInstall.jsp"/>
+    </definition>
+    <!--view and print Installation-->
+
+
+    <definition name="pdiVehicleInformationPath" extends="baseLayout">
+        <put name="body" value="/pdi/p_vehicle_information.jsp"/>
+    </definition>
+
+
+
+
+    <definition name="fillvehicleInformationPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_vehicle_informationfill.jsp"/>
+    </definition>
+
+
+    <definition name="fillcustomerInformationPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_customer_informationfill.jsp"/>
+    </definition>
+
+
+    <definition name="fillcomplaintPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_complaintfill.jsp"/>
+    </definition>
+
+    <definition name="fillestimatePath" extends="baseLayout">
+        <put name="body" value="/createJC/v_estimatefill.jsp"/>
+    </definition>
+
+    <definition name="fillstandardChecksPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_standard_checkfill.jsp"/>
+    </definition>
+
+    <definition name="fillstatusPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_statusfill.jsp"/>
+    </definition>
+
+    <definition name="fillhistoryPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_history_infofill.jsp"/>
+    </definition>
+
+
+    <definition name="fillactualPath" extends="baseLayout">
+        <put name="body" value="/createJC/v_actualfill.jsp"/>
+    </definition>
+
+
+
+    <definition name="view_allpendingjobcardDetailsPath" extends="baseLayout">
+        <put name="body" value="/pdi/p_viewallpendingjobcard.jsp"/>
+    </definition>
+
+
+    <definition name="initInstallCustomerInfo_path" extends="baseLayout">
+        <put name="body" value="/installation/v_installcustomer_information.jsp"/>
+    </definition>
+
+    <definition name="standardChecks4Ins_path" extends="baseLayout">
+        <put name="body" value="/installation/v_ins_standard_check.jsp"/>
+    </definition>
+
+    <definition name="viewPDIPath" extends="baseLayout">
+        <put name="body" value="/pdi/v_pdi_jobCard.jsp"/>
+    </definition>
+    <definition name="initViewPDIPath" extends="baseLayout">
+        <put name="body" value="/pdi/v_pdi_details.jsp"/>
+    </definition>
+    <definition name="viewPDIDataPath" extends="baseLayout">
+        <put name="body" value="/pdi/v_viewPDI_data.jsp"/>
+    </definition>
+
+    <definition name="ViewAllInstallList_path" extends="baseLayout">
+        <put name="body" value="/installation/v_viewall_InstallList.jsp"/>
+    </definition>
+
+    <definition name="initPartMaster_Path" extends="baseLayout">
+        <put name="body" value="/data_master/v_partmaster.jsp"/>
+    </definition>
+
+    <definition name="warrantymodel_path" extends="baseLayout">
+        <put name="body" value="/data_master/v_warrantymodel.jsp"/>
+    </definition>
+    <definition name="inventoryOptionPath" extends="baseLayout">
+        <put name="body" value="/inventory/manage_inventoryOptions.jsp"/>
+    </definition>
+    <definition name="uploadinventoryOptionPath" extends="baseLayout">
+        <put name="body" value="/inventory/upload_inventory.jsp"/>
+    </definition>
+    <definition name="viewinventoryOptionPath" extends="baseLayout">
+        <put name="body" value="/inventory/viewInventory.jsp"/>
+    </definition>
+    <definition name="lockinventoryOptionPath" extends="baseLayout">
+        <put name="body" value="/inventory/lockInventory.jsp"/>
+    </definition>
+
+    <definition name="initCounterSalePath" extends="baseLayout">
+        <put name="body" value="/inventory/counterSaleInit.jsp"/>
+    </definition>
+    <definition name="counterSaleOptionPath" extends="baseLayout">
+        <put name="body" value="/inventory/counterSale.jsp"/>
+    </definition>
+
+
+    <definition name="createSalesReturnPath" extends="baseLayout">
+        <put name="body" value="/inventory/createSalesReturn.jsp"/>
+    </definition>
+    <definition name="createChallanPath" extends="baseLayout">
+        <put name="body" value="/inventory/createChallan.jsp"/>
+    </definition>
+    <definition name="warrantyListPath" extends="baseLayout">
+        <put name="body" value="/warranty/warrantyList.jsp"/>
+    </definition>
+    <definition name="pendingForDispatchPath" extends="baseLayout">
+        <put name="body" value="/warranty/pendingPackingGenList.jsp"/>
+    </definition>
+    <definition name="partForDispatchPath" extends="baseLayout">
+        <put name="body" value="/warranty/genratePackingList.jsp"/>
+    </definition>
+    <definition name="createWarrantyPath" extends="baseLayout">
+        <put name="body" value="/warranty/createWarranty.jsp"/>
+    </definition>
+    <definition name="viewWarrantyPath" extends="baseLayout">
+        <put name="body" value="/warranty/viewWarrantyList.jsp"/>
+    </definition>
+    <definition name="claimReportPath" extends="baseLayout">
+        <put name="body" value="/warranty/claimReport.jsp"/>
+    </definition>
+    <definition name="viewPendingWarrantyPath" extends="baseLayout">
+        <put name="body" value="/warranty/pendingWarrantyList.jsp"/>
+    </definition>
+    <definition name="viewWarrantyDetailPath" extends="baseLayout">
+        <put name="body" value="/warranty/viewWarrantyDetail.jsp"/>
+    </definition>
+    <definition name="approveWarrantyPath" extends="baseLayout">
+        <put name="body" value="/warranty/approveWarranty.jsp"/>
+    </definition>
+
+    <definition name="ViewInstallList_path" extends="baseLayout">  <!--view instalation -->
+        <put name="body" value="/installation/v_view_InstallList.jsp"/>
+    </definition>
+
+    <definition name="view_warranty" extends="baseLayout">
+        <put name="body" value="/login/warrantyDashBoard.jsp"/>
+    </definition>
+
+    <definition name="initPendingDE4Approval_path" extends="baseLayout">
+        <put name="body" value="/service/v_pending4DEApproval.jsp"/>
+    </definition>
+
+    <definition name="initPending4validateVinNo_path" extends="baseLayout">
+        <put name="body" value="/service/v_vinValidation.jsp"/>
+    </definition>
+
+    <definition name="viewJobcard_path" extends="baseLayout">
+        <put name="body" value="/service/v_viewjobcardDetail.jsp"/>
+    </definition>
+
+    <definition name="initCreateInvoiceList_path" extends="baseLayout">
+        <put name="body" value="/service/v_ListofJC4Invoice.jsp"/>
+    </definition>
+
+    <definition name="generateInvoice_path" extends="baseLayout">
+        <put name="body" value="/service/v_generateInvoice.jsp"/>
+    </definition>
+    <definition name="warrantyTaxPercMaster_path" extends="baseLayout">
+        <put name="body" value="/data_master/warrntyTaxPercMaster.jsp"/>
+    </definition>
+    <definition name="pdi_ins_parameterVsmake_path" extends="baseLayout">
+        <put name="body" value="/data_master/pdi_ins_paramVsmake.jsp"/>
+    </definition>
+
+    <definition name="viewInvoiceList_path" extends="baseLayout">
+        <put name="body" value="/service/v_ListofInv4print.jsp"/>
+    </definition>
+    <definition name="viewTransacList_path" extends="baseLayout">
+        <put name="body" value="/service/v_InvoiceTransList.jsp"/>
+    </definition>
+
+    <definition name="initaddInventory_path" extends="baseLayout">
+        <put name="body" value="/inventory/addInventory.jsp"/>
+    </definition>
+
+    <definition name="viewinventory4HO_path" extends="baseLayout">
+        <put name="body" value="/inventory/viewInventory4ho.jsp"/>
+    </definition>
+
+    <definition name="printBaseLayout" path="/WEB-INF/tiles/printBaseLayout.jsp">
+        <put name="title"  value="ITLDIS" />
+        <put name="prheader" value="/WEB-INF/tiles/printHeader.jsp" />
+        <put name="prbody" value="/WEB-INF/tiles/body.jsp" />
+        <put name="prfooter" value="/WEB-INF/tiles/printFooter.jsp"/>
+    </definition>
+
+    <definition name="printPDI_path" extends="printBaseLayout">
+        <put name="prbody" value="/pdi/printPDI.jsp"/>
+    </definition>
+
+    <definition name="printINS_path" extends="printBaseLayout">
+        <put name="prbody" value="/installation/printInstallation.jsp"/>
+    </definition>
+
+    <definition name="printJobCard_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printJobCard.jsp"/>
+    </definition>
+
+    <definition name="printInvoice_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printInvoice.jsp"/>
+    </definition>
+
+    <definition name="printcheckList_path" extends="printBaseLayout">
+        <put name="prbody" value="/createJC/v_printStandardChecklist.jsp"/>
+    </definition>
+
+    <definition name="searchhistory_path" extends="baseLayout">
+        <put name="body" value="/service/v_Tractorhistory.jsp"/>
+    </definition>
+
+    <definition name="inventoryLedgerReport_path" extends="baseLayout">
+        <put name="body" value="/inventory/inventoryLedgerReport.jsp"/>
+    </definition>
+
+    <definition name="printConSaleReturn_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printCounterSaleReturn.jsp"/>
+    </definition>
+    <definition name="printExportDetail_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printprintExportDetail.jsp"/>
+    </definition>
+
+    <definition name="printInvOtherDealer_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printInvOtherDealer.jsp"/>
+    </definition>
+
+    <definition name="initRejectionMaster_path" extends="baseLayout">
+        <put name="body" value="/data_master/rejectionCodemaster.jsp"/>
+    </definition>
+
+    <definition name="initPackedWarrantyList_path" extends="baseLayout">
+        <put name="body" value="/warranty/pending4DispachedList.jsp"/>
+    </definition>
+
+    <definition name="initconsignment_path" extends="baseLayout">
+        <put name="body" value="/warranty/consignmentDetails.jsp"/>
+    </definition>
+
+    <definition name="pendingForAcknow_path" extends="baseLayout">
+        <put name="body" value="/warranty/pendingForAcknow.jsp"/>
+    </definition>
+
+    <definition name="acknowPacking_path" extends="baseLayout">
+        <put name="body" value="/warranty/acknowPacking.jsp"/>
+    </definition>
+
+    <definition name="viewPackingList_path" extends="baseLayout">
+        <put name="body" value="/warranty/ViewPackingList.jsp"/>
+    </definition>
+
+    <definition name="packingDetails4View_path" extends="baseLayout">
+        <put name="body" value="/warranty/packingDetails4View.jsp"/>
+    </definition>
+
+    <definition name="printConsignment_path" extends="printBaseLayout">
+        <put name="prbody" value="/warranty/printConsignmentDetails.jsp"/>
+    </definition>
+
+    <definition name="pendingSAPList_path" extends="baseLayout">
+        <put name="body" value="/warranty/pending4SAPCreaditNote.jsp"/>
+    </definition>
+
+    <definition name="sercviceReminder_path" extends="baseLayout">
+        <put name="body" value="/service/sercviceReminder.jsp"/>
+    </definition>
+
+    <definition name="serviceDoneLapse_path" extends="baseLayout">
+        <put name="body" value="/service/serviceDoneLapseReport.jsp"/>
+    </definition>
+
+    <definition name="printEstimate_path" extends="printBaseLayout">
+        <put name="prbody" value="/createJC/printEstimate.jsp"/>
+    </definition>
+
+    <definition name="uploadBinLoc_path" extends="baseLayout">
+        <put name="body" value="/inventory/uploadBinLocation.jsp"/>
+    </definition>
+    <definition name="manageReorderLevel_path" extends="baseLayout">
+        <put name="body" value="/inventory/manageReorderLevel.jsp"/>
+    </definition>
+    <definition name="viewReorderLevel_path" extends="baseLayout">
+        <put name="body" value="/inventory/viewReorderLevel.jsp"/>
+    </definition>
+    <definition name="addReorderPartToCart_path" extends="baseLayout">
+        <put name="body" value="/inventory/addReorderPartToCart.jsp"/>
+    </definition>
+    <definition name="createNewOrder_Path" extends="baseLayout">
+        <put name="body" value="/inventory/createNewOrder.jsp"/>
+    </definition>
+    <definition name="addPartInNewOrder_Path" extends="baseLayout">
+        <put name="body" value="/inventory/addPartInNewOrder.jsp"/>
+    </definition>
+    <definition name="viewCreditNoteList_path" extends="baseLayout">
+        <put name="body" value="/warranty/viewCreditNoteList.jsp"/>
+    </definition>
+    <definition name="viewOrder_Path" extends="baseLayout">
+        <put name="body" value="/inventory/viewOrderList.jsp"/>
+    </definition>
+    <definition name="viewOrderDetail_Path" extends="baseLayout">
+        <put name="body" value="/inventory/viewOrderDetail.jsp"/>
+    </definition>
+    <definition name="viewOrderInvoice_Path" extends="baseLayout">
+        <put name="body" value="/inventory/viewOrderInvoiceList.jsp"/>
+    </definition>
+    <definition name="viewOrderInvoiceDetail_Path" extends="baseLayout">
+        <put name="body" value="/inventory/viewOrderInvoiceDetail.jsp"/>
+    </definition>
+    <definition name="createGRN_Path" extends="baseLayout">
+        <put name="body" value="/inventory/createGRN.jsp"/>
+    </definition>
+    <definition name="initSalesPath" extends="baseLayout">
+        <put name="body" value="/master/v_sales_TMMS.jsp"/>
+    </definition>
+    <definition name="printGrn_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printGrn.jsp"/>
+    </definition>
+    <definition name="backOrderQtyDealerListPath" extends="baseLayout">
+        <put name="body" value="/inventory/pendingQtyDealerList.jsp"/>
+    </definition>
+    <definition name="misReportSearchPage" extends="baseLayout">
+        <put name="body" value="/reportUI/misReportDealer.jsp"/>
+    </definition>
+    <definition name="viewMisDMSReportPath" extends="baseLayout">
+        <put name="body" value="/reportUI/viewMisReportDMS.jsp"/>
+    </definition>
+    <definition name="reportOptionsPath" extends="baseLayout">
+        <put name="body" value="/reportUI/report_options.jsp"/>
+    </definition>
+    <definition name="locateUsPath" extends="baseLayout">
+        <put name="body" value="/login/LocateUs.jsp"/>
+    </definition>
+
+    <definition name="uploadSAPPartPath" extends="baseLayout">
+        <put name="body" value="/data_master/upload_SAP_Part.jsp"/>
+    </definition>
+    <definition name="pricelistExcelPath" extends="baseLayout">
+        <put name="body" value="/data_master/upload_pricelist_excel.jsp"/>
+    </definition>
+    <definition name="downloadPricelistExcelPath" extends="baseLayout">
+        <put name="body" value="/data_master/download_pricelist_excel.jsp"/>
+    </definition>
+    <definition name="successPricelistPath" extends="baseLayout">
+        <put name="body" value="/data_master/pricelist_success.jsp"/>
+    </definition>
+    <definition name="failureValidationErrPath" extends="baseLayout">
+        <put name="body" value="/data_master/validation_err.jsp"/>
+    </definition>
+    <definition name="readingerrpath" extends="baseLayout">
+        <put name="body" value="/data_master/reading_err.jsp"/>
+    </definition>
+    <definition name="successPartsInsertionPath" extends="baseLayout">
+        <put name="body" value="/data_master/parts_insertion_success.jsp"/>
+    </definition>
+
+    <definition name="manageUserVsPriceListPath" extends="baseLayout">
+        <put name="body" value="/data_master/manageUserVsPriceList.jsp"/>
+    </definition>
+    <definition name="manageSellingPercentagePath" extends="baseLayout">
+        <put name="body" value="/data_master/manageSellingPercentage.jsp"/>
+    </definition>
+    <definition name="changePassword_path" extends="baseLayout">
+        <put name="body" value="/usermgmt/changePassword.jsp"/>
+    </definition>
+    <definition name="uploadStockAdjustmentPath" extends="baseLayout">
+        <put name="body" value="/inventory/uploadStockAdjustment.jsp"/>
+    </definition>
+    <definition name="inventoryEXPOptionPath" extends="baseLayout">
+        <put name="body" value="/inventory/manage_inventoryOptions.jsp"/>
+    </definition>
+    <definition name="initCreateEXPOrder_path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/manageInventoryEXP.jsp"/>
+    </definition>
+    <definition name="createNewEXPOrder_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/createNewEXPOrder.jsp"/>
+    </definition>
+    <definition name="addPartInNewEXPOrder_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/addPartInNewOrder.jsp"/>
+    </definition>
+    <definition name="manageDealerListPath" extends="baseLayout">
+        <put name="body" value="/usermgmt/v_DealerList_master.jsp"/>
+    </definition>
+    <definition name="pendingCancelLinesForAcceptance_Path" extends="baseLayout">
+        <put name="body" value="/inventory/pendingCancelLinesForAcceptance.jsp"/>
+    </definition>
+    <definition name="manageUserHierarchyPath" extends="baseLayout">
+        <put name="body" value="/data_master/manageUserHierarchy.jsp"/>
+    </definition>
+    <definition name="viewOrderEXP_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/viewOrderEXPList.jsp"/>
+    </definition>
+    <definition name="viewOrderDetailEXP_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/viewOrderDetail.jsp"/>
+    </definition>
+
+     <definition name="initcreatePIforExpoOrderPath" extends="baseLayout">
+        <put name="body" value="/pi/initCreatePI.jsp"/>
+    </definition>
+     <definition name="createPIExpoOrderPath" extends="baseLayout">
+        <put name="body" value="/pi/createPI.jsp"/>
+    </definition>
+     <definition name="initViewPIPath" extends="baseLayout">
+        <put name="body" value="/pi/viewPIlist.jsp"/>
+    </definition>
+     <definition name="viewPIDetailPIPath" extends="baseLayout">
+        <put name="body" value="/pi/viewPIDetail.jsp"/>
+    </definition>
+     <definition name="getFollowupPath" extends="baseLayout">
+        <put name="body" value="/service/v_update_folloup.jsp"/>
+    </definition>
+    <definition name="viewEXPOrderInvoice_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/viewOrderInvoiceList.jsp"/>
+    </definition>
+    <definition name="viewEXPOrderInvoiceDetail_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/viewEXPOrderInvoiceDetail.jsp"/>
+    </definition>
+    <definition name="initListForInitPIPath" extends="baseLayout">
+        <put name="body" value="/pi/initPI.jsp"/>
+    </definition>
+     <definition name="custCategoryPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_manageCustCategory.jsp"/>
+    </definition>
+    <definition name="discountCategoryPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_manageDiscountCategory.jsp"/>
+    </definition>
+    <definition name="masterCustomerOptionPath" extends="baseLayout">
+        <put name="body" value="/customer_master/manageCustomer.jsp"/>
+    </definition>
+    <definition name="searchCustomerOptionPath" extends="baseLayout">
+        <put name="body" value="/customer_master/searchCustomer.jsp"/>
+    </definition>
+    <definition name="showPaymentHistoryPath" extends="baseLayout">
+        <put name="body" value="/customer_master/paymentHistory.jsp"/>
+    </definition>
+   <!-- <definition name="editCustomerDetailsPath" extends="baseLayout">
+        <put name="body" value="/customer_master/editCustomer.jsp"/>
+    </definition>-->
+     <definition name="viewSpareLubePath" extends="baseLayout">
+        <put name="body" value="/reportUI/sparesAndLubesReport.jsp"/>
+    </definition>
+     <definition name="viewSpareLubeRollingPath" extends="baseLayout">
+        <put name="body" value="/reportUI/spareAndLubesRolling.jsp"/>
+    </definition>
+    <definition name="taxChargeOEMMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_initTaxChargeOem.jsp"/>
+    </definition>
+    <definition name="initManageChargeBranchPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_manageChargeBranch.jsp"/>
+    </definition>
+    <definition name="initUploadSAPAckPath" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/uploadSAPExcel.jsp"/>
+    </definition>
+    <definition name="searchManageTaxCtgryBranchOptionPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_searchManageTaxCtgryBranch.jsp"/>
+    </definition>
+    <definition name="masterTaxCtgryBranchOptionPath" extends="baseLayout">
+        <put name="body" value="/data_master/v_manageTaxCtgryBranch.jsp"/>
+    </definition>
+    <definition name="initUploadSAPCommercialPath" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/uploadSAPCommercialExcel.jsp"/>
+    </definition>
+    <definition name="printTaxInvoice_path" extends="printBaseLayout">
+        <put name="prbody" value="/service/printTaxInvoice.jsp"/>
+    </definition>
+    <definition name="initUploadCancelledExpPath" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/uploadCancelledExp.jsp"/>
+    </definition>
+    <definition name="createGRNEXP_Path" extends="baseLayout">
+        <put name="body" value="/inventoryEXP/createGRNEXP.jsp"/>
+    </definition>
+    <definition name="initTaxAssignToDealerMastersPath" extends="baseLayout">
+        <put name="body" value="/data_master/viewTaxAssignToDealer.jsp"/>
+    </definition>    
+    <definition name="addTaxAssignToDealerMastersPath" extends="baseLayout">
+        <put name="body" value="/data_master/addTaxAssignToDealer.jsp"/>
+    </definition>
+     <definition name="viewSpareLubePathSTK" extends="baseLayout">
+        <put name="body" value="/reportUI/sparesAndLubesReportSTK.jsp"/>
+    </definition>
+    <definition name="viewSpareLubeRollingPathSTK" extends="baseLayout">
+        <put name="body" value="/reportUI/spareAndLubesRollingSTK.jsp"/>
+    </definition>
+    <definition name="viewSaleInvoice_Path" extends="baseLayout">
+        <put name="body" value="/reportUI/viewSaleInvoiceList.jsp"/>
+    </definition>
+    <definition name="initDownloadPartlist_Path" extends="baseLayout">
+        <put name="body" value="/data_master/download_partlist_excel.jsp"/>
+    </definition>
+     <definition name="viewPendingPIReport_Path" extends="baseLayout">
+        <put name="body" value="/reportUI/viewPedningPIConfirmation.jsp"/>
+    </definition>
+
+<!--===============Extended Warranty Policy=============-->
+    <definition name="view_extWarranty" extends="baseLayout">
+        <put name="body" value="/login/extWarrantyDashBoard.jsp"/>
+    </definition>
+    <definition name="initAddExtWarrantyPath" extends="baseLayout">
+        <put name="body" value="/service/addExtendedWarrenty.jsp"/>
+    </definition>
+    <definition name="viewExtWarrantyPath" extends="baseLayout">
+        <put name="body" value="/service/viewExtentedWarranty.jsp"/>
+    </definition>
+    <definition name="extWarrPopupPath" extends="baseLayout">
+        <put name="body" value="/service/viewExtWarrPopup.jsp"/>
+    </definition>
+    <definition name="viewOrderInvDetReport_Path" extends="baseLayout">
+        <put name="body" value="/reportUI/viewOrderInvDetReportList.jsp"/>
+    </definition>
+     <definition name="viewBajajExtendedWarrantyInvPath" extends="baseLayout">
+        <put name="body" value="/warranty/viewBajajExtendedWarrantyInvList.jsp"/>
+    </definition>
+     <definition name="sapDumpClaimReportPath" extends="baseLayout">
+        <put name="body" value="/warranty/sapDumpClaimReport.jsp"/>
+    </definition>
+    <definition name="gstr1ReportSearchPage" extends="baseLayout">
+        <put name="body" value="/reportUI/gstr1Report.jsp"/>
+    </definition>
+    <definition name="gstr2ReportSearchPage" extends="baseLayout">
+        <put name="body" value="/reportUI/gstr2Report.jsp"/>
+    </definition>
+    <definition name="view_ITLextWarrantyPath" extends="baseLayout">
+        <put name="body" value="/warranty/extItlWarrantyDashBoard.jsp"/>
+    </definition>
+    <definition name="initAddItlExtWarrantyPath" extends="baseLayout">
+        <put name="body" value="/service/addItlExtendedWarrenty.jsp"/>
+    </definition>
+    <definition name="viewItlExtendedWarrantyPath" extends="baseLayout">
+        <put name="body" value="/service/viewItlExtentedWarranty.jsp"/>
+    </definition>
+    <definition name="viewItlExtendedWarrantyInv" extends="baseLayout">
+        <put name="body" value="/warranty/viewItlExtendedWarrantyInvList.jsp"/>
+    </definition>
+     <definition name="viewItlExtendedWarrantyClaimStatusPath" extends="baseLayout">
+        <put name="body" value="/warranty/viewItlExtendedWarrantyClaimStatus.jsp"/>
+    </definition>
+    <definition name="viewTaxInvoiceUpdatePath" extends="baseLayout">
+        <put name="body" value="/warranty/viewTaxInvoiceUpdate.jsp"/>
+    </definition>
+    <definition name="viewTaxInvoiceUploadPath" extends="baseLayout">
+        <put name="body" value="/warranty/viewTaxInvoiceUpload.jsp"/>
+    </definition>
+    <definition name="printMassConsignment_path" extends="printBaseLayout">
+        <put name="prbody" value="/warranty/printMassConsignmentDetails.jsp"/>
+    </definition>
+    <definition name="view_BajajextWarrantyPath" extends="baseLayout">
+        <put name="body" value="/warranty/extBajajWarrantyDashBoard.jsp"/>
+    </definition>
+    <definition name="vendorCodeMasterPath" extends="baseLayout">
+        <put name="body" value="/data_master/vendorCodeMaster.jsp"/>
+    </definition>
+    <definition name="warrantyClaimStatusDashboard_path" extends="baseLayout">
+        <put name="body" value="/warranty/warrantyClaimStatusDashboard.jsp"/>
+    </definition>
+     <definition name="taxAcknowledgement_path" extends="baseLayout">
+        <put name="body" value="/warranty/taxAcknowledgement.jsp"/>
+    </definition>
+    <definition name="taxInvoiceAcknowledgeViewList_path" extends="baseLayout">
+        <put name="body" value="/warranty/taxInvoiceAcknowledgeViewList.jsp"/>
+    </definition>
+    <definition name="taxInvoiceAcknowledge_path" extends="baseLayout">
+        <put name="body" value="/warranty/taxInvoiceAcknowledge.jsp"/>
+    </definition>
+    <definition name="taxInvoiceStatus_path" extends="baseLayout">
+        <put name="body" value="/warranty/taxInvoiceStatus.jsp"/>
+    </definition>
+    <definition name="taxInvoiceAcknowledgeView_path" extends="baseLayout">
+        <put name="body" value="/warranty/taxInvoiceAcknowledgeView.jsp"/>
+    </definition>
+     
+   
+   </tiles-definitions>

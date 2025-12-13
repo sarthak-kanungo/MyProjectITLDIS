@@ -1,0 +1,53 @@
+<div class="container-fluid mt-4 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0"> Goods Receipt Note</p>
+                    </div>
+                    <div class="card-body">
+
+                        <form [style.fontSize.px]="11">
+                            <!-- [formGroup]="goodsReceiptNoteForm" -->
+                            <app-spares-grn [grnForm]="grnForm" [markForCheck]="getMarkForCheck$" [isEdit]="isEdit" [isView]="isView"></app-spares-grn>
+                            <app-spares-grn-item-details
+                                [itemDetail]="itemDetail$" (binLocationValid)="binLocationValid=$event"
+                                [itemDetailTotalForm]="itemDetailTotalForm" [markForCheck]="getMarkForCheck$"
+                                *ngIf="itemDetail$ | async">
+                            </app-spares-grn-item-details>
+                        </form>
+                        <div class=" text-center mt-2 ">
+                            <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3"
+                                (click)="saveGrnAsDraft()" [disabled]="isSubmitDisable"> Save
+                            </button>
+                            <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3 "
+                                (click)="checkForGrnSubmit()" [disabled]="isSubmitDisable">
+                                Submit
+                            </button>
+                            <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPrint('true')">
+                                View PDF
+                            </button>
+                            <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewBinningSlip('true')">
+                                PRINT BINNING SLIP
+                            </button>
+                            
+                            <!-- <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3">
+                                Raise Discrepancy Claim
+                            </button> -->
+                            <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                                (click)="clearAllSubForm()">
+                                Clear
+                            </button>
+                            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="back()"> 
+                            	Exit
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

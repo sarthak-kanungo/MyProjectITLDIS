@@ -1,0 +1,179 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Employee Bank Details</p>
+                <button *ngIf="dealerUser" [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                <b>New </b>
+            </button>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searcbankDetails" [style.fontSize.px]="10">
+                    <div class="row">
+      
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Employee Code</mat-label>
+              <input 
+                matInput placeholder="Employee Code" formControlName="employeeCode" [matAutocomplete]="autoEmployeeCode"
+                 >
+                <mat-autocomplete #autoEmployeeCode="matAutocomplete" [displayWith]="displayFnEmployeeCode" [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeCodeList" [value]="option">
+                      {{option.employeeCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="searcbankDetails.get('employeeCode').errors?.selectFromList">Please select from list</mat-error>
+                <mat-icon matSuffix>search</mat-icon>
+               
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Employee Name</mat-label>
+              <input 
+                matInput placeholder="Employee Name" formControlName="employeeName" [matAutocomplete]="autoEmployeeName"
+                (ngModelChange)="getEmployeename($event)" >
+                <mat-autocomplete #autoEmployeeName="matAutocomplete"[displayWith]="displayFnEmployeeName"  [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeNameList" [value]="option">
+                      {{option.employeeName}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="searcbankDetails.get('employeeName').errors?.selectFromList">Please select from list</mat-error>
+                <mat-icon matSuffix>search</mat-icon>
+             
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Mobile Number</mat-label>
+              <input 
+                matInput placeholder="Mobile Number" formControlName="mobileNumber" [matAutocomplete]="autoEmployeeMobile"
+                (ngModelChange)="onKeyEmployeeeCode($event)">
+                <mat-autocomplete #autoEmployeeMobile="matAutocomplete" [displayWith]="displayFnEmployeeNumber" [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeMobileList" [value]="option">
+                      {{option.mobilenumber}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Designation</mat-label>
+              <input 
+                matInput placeholder="Desigation" formControlName="designation" [matAutocomplete]="autoDesignation"
+                (ngModelChange)="getDesignation($event)" >
+                <mat-autocomplete #autoDesignation="matAutocomplete"  [displayWith]="displayFnDesignation" [panelWidth]="300">
+                    <mat-option *ngFor="let option of designationList" [value]="option">
+                      {{option.displayString}}
+                    </mat-option>
+                    
+                  </mat-autocomplete>
+                  <mat-error *ngIf="searcbankDetails.get('designation').errors?.selectFromList">Please select from list</mat-error>
+                <mat-icon matSuffix>search</mat-icon>
+
+            </mat-form-field>
+        </div>
+ 
+       
+
+      <div class="col-lg-2">
+          <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Department Name</mat-label>
+              <mat-select  formControlName="departmentname">
+                  <mat-option *ngFor="let name of departmentsCodeAndName" [value]="name">
+                      {{name.name}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+                                         
+                    
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary" 
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"
+                                (click)="searchData()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+             
+        </div>
+
+    </div>
+
+</div>
+
+ <div class="container-fluid">
+ <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+	(actionOnTableRecord)="actionOnTableRecord($event)"[page]="page" [size]="size"
+
+    (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+
+
+    <td ></td>
+  
+    <td [ngsw-searchField]="employeeCode" [searchColumnName]="'employeeCode'" class="employeeCode">
+      <input class="w-100 borderRadius" #employeeCode [(ngModel)] ="employeeCodeNgModel">
+  </td>
+
+
+    <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'" class="employeeName">
+      <input class="w-100 borderRadius" #employeeName [(ngModel)] ="employeeNameNgModel">
+  </td>
+  <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'" class="mobileNumber">
+    <input class="w-100 borderRadius" #mobileNumber [(ngModel)] ="mobileNumberNgModel">
+</td>
+
+  <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'" class="departmentName">
+      <input class="w-100 borderRadius" #departmentName [(ngModel)] ="departmentNameNgModel">
+  </td>
+  <td [ngsw-searchField]="bankName" [searchColumnName]="'bankName'" class="bankName">
+    <input class="w-100 borderRadius" #bankName [(ngModel)] ="bankNameNgModel">
+</td>
+<td [ngsw-searchField]="bankBranch" [searchColumnName]="'bankBranch'" class="bankBranch">
+  <input class="w-100 borderRadius" #bankBranch [(ngModel)] ="bankBranchNgModel">
+</td>
+<td [ngsw-searchField]="ifsCode" [searchColumnName]="'ifsCode'" class="ifsCode">
+  <input class="w-100 borderRadius" #ifsCode [(ngModel)] ="ifsCodeNgModel">
+</td>
+
+  <td [ngsw-searchField]="approvedDate" [searchColumnName]="'approvedDate'">
+    <input class="w-100 borderRadius" #approvedDate 
+      type="date" (change)="etSearchDateValueChange(approvedDate.value, 'approvedDate')" />
+</td>
+<td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'" class="lastApprovedBy">
+  <input class="w-100 borderRadius" #lastApprovedBy [(ngModel)] ="lastApprovedByNgModel"></td>
+
+  <td [ngsw-searchField]="remark" [searchColumnName]="'remark'" class="remark">
+    <input class="w-100 borderRadius" #remark [(ngModel)] ="remarkNgModel"></td>
+
+<td [ngsw-searchField]="bankAccountNo" [searchColumnName]="'bankAccountNo'" class="bankAccountNo">
+  <input class="w-100 borderRadius" #bankAccountNo [(ngModel)] ="bankAccountNoNgModel">
+</td>
+<td [ngsw-searchField]="designation" [searchColumnName]="'designation'" class="designation">
+  <input class="w-100 borderRadius" #designation [(ngModel)] ="designationNgModel">
+</td>
+
+
+
+  
+
+
+</ngsw-search-table> 
+</div>

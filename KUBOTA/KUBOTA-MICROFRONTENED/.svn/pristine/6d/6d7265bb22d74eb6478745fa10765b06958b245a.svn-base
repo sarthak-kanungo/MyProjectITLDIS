@@ -1,0 +1,158 @@
+<!-- <div class="container-fluid mt-4">
+<form [formGroup]="soSearchResultForm">
+    <div class="container-fluid create-form  mt-4 mb-0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0 label">Search SO Details</p>
+                                        <div>
+                                            <button [routerLink]="[ './create' ]"
+                                                class="font-weight-bold btn btn_header bg_white">
+                                                New
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-so-search [soSearchForm]="soSearchForm"> </app-so-search>
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchData()"
+                                [insertQueryParams]="filterData" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clearForm()"> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+           
+
+</div> -->
+
+
+<div class="container-fluid mt-4">
+	<div class="container-fluid mb-3">
+        <div class="row">
+            <!-- <div class="col-lg-12"> -->
+            <div class="card-from w-100">
+            	<div class="card">
+                       <div class="card-header d-flex justify-content-between header">
+                            <p class="mb-0 label">Search SO Details</p>
+                               <div>
+                                <button [routerLink]="[ './create' ]"
+                                    class="font-weight-bold btn btn_header bg_white">
+                                    New
+                                </button>
+                               </div>
+                       </div>
+           			 <div class="card-body">
+					    <form [formGroup]="soSearchResultForm">
+					        <div class="row">
+					            <div class="col-lg-12">
+					                <div class="card-from">
+					                    
+					                    <app-so-search [soSearchForm]="soSearchForm"> </app-so-search>
+					
+					                        <div class="text-center  mt-2 mb-2">
+					                            <button type="button" class="btn  btn_primary px-3"
+					                                (click)="searchData()" [insertQueryParams]="filterData"
+					                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+					                                Search
+					                            </button>
+					                            <button type="button" class="btn  btn_primary px-3 ml-2"
+					                                (click)="clearForm()">
+					                                Clear
+					                            </button>
+					                        </div>
+					
+					                    </div>
+					                </div>
+					            </div>
+					    	</form>
+ 					</div>
+    			</div>
+			</div>
+		</div>
+	</div>
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+    [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [page]="page" [size]="size"
+    (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)"
+    [clickOnTableFields]="[{ 'title': 'salesOrderNumber', 'isClickable': true },{ 'title': 'invoice', 'isClickable': true },{'title':'picklist','isClickable':true},{ 'title': 'edit', 'isClickable': true }]"[isExcelImport]="true" (exportToExcel)="downloadExcel($event)" [clearSearchRow]="clearSearchRow" >
+
+    <td></td>
+    <td *ngIf="!isKai"></td>
+    <td *ngIf="!isKai"></td>
+
+    <td [ngsw-searchField]="salesOrderNumber" [searchColumnName]="'salesOrderNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #salesOrderNumber [(ngModel)] ="salesOrderNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="salesOrderDate" [searchColumnName]="'salesOrderDate'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #salesOrderDate [(ngModel)] ="salesOrderDateNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="quotationNumber" [searchColumnName]="'quotationNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #quotationNumber [(ngModel)] ="quotationNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #mobileNumber [(ngModel)] ="mobileNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #customerName [(ngModel)] ="customerNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerType" [searchColumnName]="'customerType'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #customerType [(ngModel)] ="customerTypeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerAddress1" [searchColumnName]="'customerAddress1'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #customerAddress1 [(ngModel)] ="customerAddress1NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerAddress2" [searchColumnName]="'customerAddress2'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #customerAddress2 [(ngModel)] ="customerAddress2NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="totalBasicValue" [searchColumnName]="'totalBasicValue'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #totalBasicValue [(ngModel)] ="totalBasicValueNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="totalDiscountValue" [searchColumnName]="'totalDiscountValue'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #totalDiscountValue [(ngModel)] ="totalDiscountValueNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="totalSalesOrderAmount" [searchColumnName]="'totalSalesOrderAmount'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #totalSalesOrderAmount [(ngModel)] ="totalSalesOrderAmountNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="totalTaxAmount" [searchColumnName]="'totalTaxAmount'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput type="text" #totalTaxAmount [(ngModel)] ="totalTaxAmountNgModel">
+        </mat-form-field>
+    </td>
+
+</ngsw-search-table>
+</div>

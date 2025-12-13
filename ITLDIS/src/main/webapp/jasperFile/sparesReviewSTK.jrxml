@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-07-21T15:36:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Spare Review STK" pageWidth="2590" pageHeight="555" columnWidth="2590" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="ea69ee02-4dc6-4029-8ca0-ce680eb340f2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL_Report"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="month" class="java.lang.Integer"/>
+	<parameter name="finYear" class="java.lang.String"/>
+	<parameter name="loginUserID" class="java.lang.String"/>
+	<parameter name="country" class="java.lang.String"/>
+	<parameter name="zone" class="java.lang.String"/>
+	<parameter name="state" class="java.lang.String"/>
+	<parameter name="cce" class="java.lang.String"/>
+	<parameter name="ccm" class="java.lang.String"/>
+	<parameter name="dealer" class="java.lang.String"/>
+	<parameter name="week" class="java.lang.Integer"/>
+	<parameter name="monthDisplay" class="java.lang.String"/>
+	<parameter name="weekName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_REVIEW_SPARE_STK
+
+	$P{month},
+	$P{finYear},
+	$P{loginUserID},
+	$P{country},
+	$P{zone},
+	$P{state},
+	$P{cce} ,
+	$P{ccm} ,
+	$P{dealer},
+	$P{week}]]>
+	</queryString>
+	<field name="Country" class="java.lang.String"/>
+	<field name="ZoneDesc" class="java.lang.String"/>
+	<field name="Statename" class="java.lang.String"/>
+	<field name="CCM" class="java.lang.String"/>
+	<field name="CCE" class="java.lang.String"/>
+	<field name="DealerCode" class="java.lang.String"/>
+	<field name="DEALERNAME" class="java.lang.String"/>
+	<field name="LOCATION" class="java.lang.String"/>
+	<field name="DEALERSTATUS" class="java.lang.String"/>
+	<field name="DistributorName" class="java.lang.String"/>
+	<field name="DMSIntalled" class="java.lang.String"/>
+	<field name="CumTargetPurchase" class="java.math.BigDecimal"/>
+	<field name="CumActualPurchase" class="java.math.BigDecimal"/>
+	<field name="TargetSelectedMonth" class="java.math.BigDecimal"/>
+	<field name="RollingTargetMonth" class="java.math.BigDecimal"/>
+	<field name="CumRollingTargetMonth" class="java.math.BigDecimal"/>
+	<field name="CumActualMonth" class="java.math.BigDecimal"/>
+	<field name="OrderPlacedValueMonth" class="java.math.BigDecimal"/>
+	<field name="OrderInvoicedValueMonth" class="java.math.BigDecimal"/>
+	<field name="OrderCancelledValueMonth" class="java.math.BigDecimal"/>
+	<field name="PerAchdAgainstTarget" class="java.math.BigDecimal"/>
+	<field name="BackOrderTillDate" class="java.math.BigDecimal"/>
+	<field name="PerExecByStk" class="java.math.BigDecimal"/>
+	<field name="NoLiftingfromLast2Mon" class="java.lang.String"/>
+	<field name="NoLiftingfromLastMon" class="java.lang.String"/>
+	<field name="RollingTargetWK1" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK1" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK1" class="java.math.BigDecimal"/>
+	<field name="RollingTargetWK2" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK2" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK2" class="java.math.BigDecimal"/>
+	<field name="RollingTargetWK3" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK3" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK3" class="java.math.BigDecimal"/>
+	<field name="RollingTargetWK4" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK4" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK4" class="java.math.BigDecimal"/>
+	<field name="OpeningStock" class="java.math.BigDecimal"/>
+	<field name="ProcuredLocally" class="java.math.BigDecimal"/>
+	<field name="SaleWorkshop" class="java.math.BigDecimal"/>
+	<field name="SaleDoorstep" class="java.math.BigDecimal"/>
+	<field name="SaleField" class="java.math.BigDecimal"/>
+	<field name="SaleASC" class="java.math.BigDecimal"/>
+	<field name="ThroughEvent" class="java.math.BigDecimal"/>
+	<field name="SaleCounter" class="java.math.BigDecimal"/>
+	<field name="SaleWarranty" class="java.math.BigDecimal"/>
+	<field name="TotalSale" class="java.math.BigDecimal"/>
+	<field name="ClosingStock" class="java.math.BigDecimal"/>
+	<field name="CumTargetPurchaseLube" class="java.math.BigDecimal"/>
+	<field name="CumActualPurchaseLube" class="java.math.BigDecimal"/>
+	<field name="TargetSelectedMonthLube" class="java.math.BigDecimal"/>
+	<field name="RollingTargetMonthLube" class="java.math.BigDecimal"/>
+	<field name="CumRollingTargetMonthLube" class="java.math.BigDecimal"/>
+	<field name="CumActualMonthLube" class="java.math.BigDecimal"/>
+	<field name="OrderPlacedValueMonthLube" class="java.math.BigDecimal"/>
+	<field name="OrderInvoicedValueMonthLube" class="java.math.BigDecimal"/>
+	<field name="OrderCancelledValueMonthLube" class="java.math.BigDecimal"/>
+	<field name="PerAchdAgainstTargetLube" class="java.math.BigDecimal"/>
+	<field name="BackOrderTillDateLube" class="java.math.BigDecimal"/>
+	<field name="PerExecByStkLube" class="java.math.BigDecimal"/>
+	<field name="NoLiftingfromLast2MonLube" class="java.lang.String"/>
+	<field name="NoLiftingfromLastMonLube" class="java.lang.String"/>
+	<field name="RollingTargetWK1Lube" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK1Lube" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK1Lube" class="java.math.BigDecimal"/>
+	<field name="RollingTargetWK2Lube" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK2Lube" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK2Lube" class="java.math.BigDecimal"/>
+	<field name="RollingTargetWK3Lube" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK3Lube" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK3Lube" class="java.math.BigDecimal"/>
+	<field name="RollingTargetWK4Lube" class="java.math.BigDecimal"/>
+	<field name="ActualOrderedWK4Lube" class="java.math.BigDecimal"/>
+	<field name="ActualInvoicedWK4Lube" class="java.math.BigDecimal"/>
+	<field name="OpeningStockLube" class="java.math.BigDecimal"/>
+	<field name="ProcuredLocallyLube" class="java.math.BigDecimal"/>
+	<field name="SaleWorkshopLube" class="java.math.BigDecimal"/>
+	<field name="SaleDoorstepLube" class="java.math.BigDecimal"/>
+	<field name="SaleFieldLube" class="java.math.BigDecimal"/>
+	<field name="SaleASCLube" class="java.math.BigDecimal"/>
+	<field name="ThroughEventLube" class="java.math.BigDecimal"/>
+	<field name="SaleCounterLube" class="java.math.BigDecimal"/>
+	<field name="SaleWarrantyLube" class="java.math.BigDecimal"/>
+	<field name="TotalSaleLube" class="java.math.BigDecimal"/>
+	<field name="ClosingStockLube" class="java.math.BigDecimal"/>
+	<field name="DistributorCode" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="30" width="725" height="30" backcolor="#C4C4C4" uuid="8e4849d1-4c78-425d-b03c-83432d031a83"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USER DETAILS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="725" y="30" width="1865" height="30" backcolor="#DEDEDE" uuid="1222f4b8-0155-4dee-a119-6ee63c1976b5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPARES]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="2590" height="30" backcolor="#CCC2A3" uuid="67af626f-e38e-4670-aa9d-77b0dd0b7433"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  Spares Review (STK) Report for "+$P{weekName}+" of "+ $P{monthDisplay}.concat( " (")+"FY "+$P{finYear}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="0dca5943-037d-4cf4-9de5-196ebef11600"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Country]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="485" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="7eeae631-1750-4ff9-9736-8593688ced4f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stockist Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="a4773742-ae8c-48ad-8040-451aaa43b0c2">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stockist Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="a8c20224-a720-420a-8de7-b5d72d2a67d4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stockist Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="665" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="b5d79b03-cd95-4aeb-8c2d-ab465df4ee09"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DMSIntalled]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="725" y="0" width="63" height="95" backcolor="#DEDEDE" uuid="b7c71071-c9eb-484c-853e-f652da3b68d8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cumulative ABP Target till last mnth end ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="0" width="65" height="95" backcolor="#D1D1D1" uuid="793269c0-3637-4e9d-a878-ba5f6cfa1383"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stockist Location]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="240" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="71f6ed42-a8cd-4614-ba5c-3bdc4c4ecfbb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="60" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="0e3dd88f-92da-4fc6-aec0-d9fd4de84a5a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Zone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="b2b3b3a5-4c21-4bc0-a704-206d69b02a62"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[State]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="180" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="5e27dbf8-a5ba-4e94-8000-0396e5ae9831"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="910" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="6f5edfa1-6e2b-480f-a87e-bc56e87550ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ This month Rolling Target ttl ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="788" y="0" width="62" height="95" backcolor="#DEDEDE" uuid="e622544d-df33-4955-98a0-941397c05cd8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cumulative actual till last mnth end ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="850" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="b266d650-4600-4ae9-9783-665a95f6ded0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ This month ABP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="970" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="2019ff5c-f3af-4338-ba46-f44a1a6f281e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[This month Rolling Target cumm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1030" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="13b3fede-d9c4-48b6-a754-87aa1a2e284d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[This month cumm actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1090" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="13f423a7-8f52-4b54-be2b-a92eb35d55f6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ This month ordered ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1570" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="10d793a8-a7cc-4b21-9f7f-bb9b04be664a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[target wk 1 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1630" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="527c1fe5-6c08-4acf-a2a4-e1ceebc7a356"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual ordered wk 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1690" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="46772ea6-7e25-4157-ab5d-632c5a1906b4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Actual billing wk 1 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1750" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="839e6917-1670-4c4e-bb32-beea9b3065b5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ target wk 2 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1510" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="01b57390-5d9d-4078-89ce-0eab42d09331">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[not lifting last month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1450" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="8f0caa40-db82-467f-8bd3-853f0099528c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No lifting for 2 months]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1390" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="e039e177-7ef6-43eb-b848-632902a5a587"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%  Execution by stkst Rolling tgt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1330" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="71d76f34-b627-4b0d-be79-5a4cca066723"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Back Order Till Last month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1270" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="cfc20285-e105-42e5-bc76-bf9c3bd4812f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% achvd against Rolling tgt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1210" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="3d64779b-7c0b-4c4a-b1f5-e74f8807c795"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ This month cancelled ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1150" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="f97c7c09-c1d7-4008-a0cd-b31663a17645">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ This month actual achvd ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1870" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="d101844c-f127-4f9e-87aa-57e0f8a834ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual billing wk 2 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1990" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="22844d71-8d5b-4c74-9eaa-3a4aab3e6ada"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Actual ordered wk 3 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1930" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="d3b8e56d-3442-4185-8b82-44a7912d0d9a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ target wk 3 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1810" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="d7ed4112-1ef5-4502-b457-847ad8d93166"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Actual ordered wk 2 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2230" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="936e5f2d-912b-409c-a7a9-3c90b0b92e52">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual billing wk 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2110" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="18fddb20-8363-446f-b4a8-62c78de81f19"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ target wk 4 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2050" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="f4ad60b8-ac4b-428f-ab77-80b203141ee4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual billing wk 3 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2170" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="cb89800f-20dc-418c-9960-ce46be347804"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual ordered wk 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2350" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="89b17cb7-d97a-4b9c-92be-9b7e0380502b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parts procured locally]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2290" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="6035fe41-23fe-4248-b47b-89f6580f5984"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Month opening stock at dealership]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2410" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="eca37d85-3b18-4081-a083-0c559f12a24a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Counter Sales.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2530" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="9781842c-d409-462f-9fe9-6941562e2577"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Closing Stock at Week end]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2470" y="0" width="60" height="95" backcolor="#DEDEDE" uuid="e904e48d-2e54-438b-833f-fdc334b164e2"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total consumption]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="545" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="8ee7571d-b297-4e20-b11e-9b1a6e85687f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Distributor Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="605" y="0" width="60" height="95" backcolor="#D1D1D1" uuid="28c9176f-b277-454f-b5dd-e80a74fad52d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Distributor Code]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="60" height="30" uuid="b0961a06-7fc8-4fd9-8975-2745da577214"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="60" height="30" uuid="ecc12085-b829-409d-9454-587cae4a4e50"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZoneDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="60" height="30" uuid="d98088e7-0f9a-4217-a200-6b971a84ac4c"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Statename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="60" height="30" uuid="74db0998-9b29-45ed-bb0e-df34631eb6bc"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CCM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="60" height="30" uuid="ff07aea9-ffa3-4fab-817e-a40073c41f68"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CCE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="60" height="30" uuid="aef5841e-c0ab-44a4-b9ef-ff670ae17cd2"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DealerCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="60" height="30" uuid="ea6020e3-33e9-426e-b3a4-9eb63fd5b061"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEALERNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="65" height="30" uuid="706b8d61-4d56-4b19-9f40-3491583f069a"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOCATION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="60" height="30" uuid="da9275e7-c205-44a9-8ce7-e95551d28b56"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEALERSTATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="665" y="0" width="60" height="30" uuid="ce982676-6a97-4f61-9669-8610b757ac82"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DMSIntalled}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="725" y="0" width="63" height="30" uuid="6cebedae-ae22-45ff-8a1b-ae508b51816a"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CumTargetPurchase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="788" y="0" width="62" height="30" uuid="029b6f13-6891-4433-a261-ab9e94bcdb27"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CumActualPurchase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="850" y="0" width="60" height="30" uuid="73249332-e596-4c7e-aee5-a5ca68cb0365"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TargetSelectedMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="910" y="0" width="60" height="30" uuid="79814431-e543-4364-a184-a7561517a1ce"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RollingTargetMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="970" y="0" width="60" height="30" uuid="107db5f0-c417-4630-a231-cd7c52fd4b22"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CumRollingTargetMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1030" y="0" width="60" height="30" uuid="825060ed-4ea7-492e-88f3-7187ce48f2dc"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CumActualMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1090" y="0" width="60" height="30" uuid="c1a8d352-8f49-4e6f-8095-20bb868437c3"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OrderPlacedValueMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1150" y="0" width="60" height="30" uuid="2c3fe442-b23e-459f-980a-8b570240f54d"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OrderInvoicedValueMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1210" y="0" width="60" height="30" uuid="21c6a21a-ba0a-4d6a-b65c-ad17d623f14f"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OrderCancelledValueMonth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1270" y="0" width="60" height="30" uuid="4390469b-3074-46ad-8777-9722c4c43f65"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PerAchdAgainstTarget}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1330" y="0" width="60" height="30" uuid="46b05110-7a3b-47d8-a4e7-bc743d22d6b1"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BackOrderTillDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1390" y="0" width="60" height="30" uuid="3653ac55-6140-4276-8656-469f306522de"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PerExecByStk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1450" y="0" width="60" height="30" uuid="a416e20e-42e9-4ed6-844f-2af0a0edd343"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NoLiftingfromLast2Mon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1510" y="0" width="60" height="30" uuid="b935513f-e0cf-4219-b768-611fe1eb37d3"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NoLiftingfromLastMon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1570" y="0" width="60" height="30" uuid="1c39a8b0-9f57-4790-b50c-9d2b996906c3"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RollingTargetWK1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1630" y="0" width="60" height="30" uuid="dc84f8c1-0ccc-4a6a-ba63-e2b9efb03bc2"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualOrderedWK1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1690" y="0" width="60" height="30" uuid="30aeea5c-63bf-44fa-9832-b52bddbc9380"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualInvoicedWK1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1750" y="0" width="60" height="30" uuid="1cf196a3-300f-4277-bd93-79914ea5e811"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RollingTargetWK2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1810" y="0" width="60" height="30" uuid="179e6e96-4ef4-4c42-afe5-11b3d2563738"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualOrderedWK2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1870" y="0" width="60" height="30" uuid="cdaa1974-2ac5-4e3f-be66-d1882b869dd9"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualInvoicedWK2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1930" y="0" width="60" height="30" uuid="0167300a-4b8b-4598-80f3-395585eece28"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RollingTargetWK3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1990" y="0" width="60" height="30" uuid="51e42b86-cf6a-43d2-a4d2-b43f7da92df2"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualOrderedWK3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2050" y="0" width="60" height="30" uuid="aa8f36ab-b5e7-4682-9676-26fe007548af"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualInvoicedWK3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2110" y="0" width="60" height="30" uuid="b1f78b37-62d1-434d-af28-6da1217d015a"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RollingTargetWK4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2170" y="0" width="60" height="30" uuid="cdf95c5c-5bfe-4286-a334-a99ff4eb64c8"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualOrderedWK4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2230" y="0" width="60" height="30" uuid="44b9c2bb-f8d9-4064-a11c-1545177f55ae"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ActualInvoicedWK4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2290" y="0" width="60" height="30" uuid="f29d5a98-13c7-4859-ad2a-aafd918fd07c"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OpeningStock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2350" y="0" width="60" height="30" uuid="c6dcad2c-e0d4-4897-bb85-dc75814a083c"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ProcuredLocally}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2410" y="0" width="60" height="30" uuid="98e64bae-bdfa-4ae2-9dd8-3c51e3a0ade8"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SaleCounter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2470" y="0" width="60" height="30" uuid="a32be460-82b4-432f-80db-e656dfb5a4ad"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalSale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2530" y="0" width="60" height="30" uuid="86795d84-be62-43d1-87d6-bc8836987091"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ClosingStock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="545" y="0" width="60" height="30" uuid="97870aa5-ce22-4d32-b0a0-0ef79ee785b0"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DistributorName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="605" y="0" width="60" height="30" uuid="cd298e4a-6486-4a7e-bd08-22830ec556bf"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DistributorCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

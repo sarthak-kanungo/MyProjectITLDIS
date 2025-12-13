@@ -1,0 +1,143 @@
+<div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between header">
+                                    <p class="mb-0 label">Fill Ratio Report</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" [formGroup]="fillReportForm" [style.fontSize.px]="11">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>Job Card From Date</mat-label>
+                                    <input matInput [matDatepicker]="picker1" placeholder="From Date"  formControlName="jfromDate"
+                                        [max]="jnewdate" (dateChange)="setToDateJ($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>Job Card To Date</mat-label>
+                                    <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="jtoDate"
+                                        [max]="jmaxDate" [min]="jminDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>Counter Sales From Date</mat-label>
+                                    <input matInput [matDatepicker]="picker3" placeholder="From Date"  formControlName="cfromDate"
+                                        [max]="cnewdate" (dateChange)="setToDateC($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker3></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>Counter Sales To Date</mat-label>
+                                    <input matInput [matDatepicker]="picker4" placeholder="To Date" formControlName="ctoDate"
+                                        [max]="cmaxDate" [min]="cminDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker4></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Branch</mat-label>
+                                    <mat-select formControlName="branch">
+                                        <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                                            {{option?.branchcode}} - {{option?.BranchName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf='isKai'>
+                            <div class="col-lg-2" *ngIf='isKai'>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Dealer Code</mat-label>
+                                    <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                        [matAutocomplete]="autoDealercode">
+                                    <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn" (optionSelected)="dealerSelect($event)">
+                                        <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                            {{option?.displayString}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                                    <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                        <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                            {{option.hierarchy_desc}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center  mt-2 mb-2">
+                        <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                            Search
+                        </button>
+                        <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="clickExportToExcel()">
+            <td  [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" *ngIf='isKai'>
+                <input class="w-100 borderRadius" #dealerName />
+            </td>              
+            <td  [ngsw-searchField]="docType" [searchColumnName]="'docType'" >
+                <input class="w-100 borderRadius" #docType />
+            </td> 
+            <td  [ngsw-searchField]="docNumber" [searchColumnName]="'docNumber'" >
+                <input class="w-100 borderRadius" #docNumber />
+            </td> 
+            <td  [ngsw-searchField]="docDate" [searchColumnName]="'docDate'" >
+                <input class="w-100 borderRadius" #docDate />
+            </td> 
+            <td  [ngsw-searchField]="requesitionLineItemsCount" [searchColumnName]="'requesitionLineItemsCount'" >
+                <input class="w-100 borderRadius" #requesitionLineItemsCount />
+            </td> 
+            <td  [ngsw-searchField]="issuedLintItemsCount" [searchColumnName]="'issuedLintItemsCount'" >
+                <input class="w-100 borderRadius" #issuedLintItemsCount />
+            </td>  
+            <td  [ngsw-searchField]="fullyCompleted" [searchColumnName]="'fullyCompleted'" >
+                <input class="w-100 borderRadius" #fullyCompleted />
+            </td> 
+            <td  [ngsw-searchField]="partiallyCompleted" [searchColumnName]="'partiallyCompleted'" >
+                <input class="w-100 borderRadius" #partiallyCompleted />
+            </td> 
+            <td  [ngsw-searchField]="fillRateFull" [searchColumnName]="'fillRateFull'" >
+                <input class="w-100 borderRadius" #fillRateFull />
+            </td> 
+            <td  [ngsw-searchField]="fillRatePartial" [searchColumnName]="'fillRatePartial'" >
+                <input class="w-100 borderRadius" #fillRatePartial />
+            </td> 
+            <td  [ngsw-searchField]="remarks" [searchColumnName]="'remarks'" >
+                <input class="w-100 borderRadius" #remarks />
+            </td> 
+
+        </ngsw-search-table>   
+
+    </div>
+</div>         

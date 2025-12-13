@@ -1,0 +1,84 @@
+<div class="heading mt-3" style="font-size:15px;">
+    <form [formGroup]="dcCancellationForm" [style.fontSize.px]="10">
+
+        <mat-checkbox color="basic" (change)="showCancelForm($event)" [style.fontSize.px]="15"
+            [labelPosition]="labelPosition" formControlName="isCancelTick" *ngIf="isCancel">
+            <b>Cancel Delivery Challan</b>
+        </mat-checkbox>
+
+
+        <div class="card-from mt-2" *ngIf="(showHideCancelForm || (isView && dcstatus=='DC CANCELLED'))" id="divshow">
+            <div class="card">
+                <div class="card-header">
+                    <p class="mb-0" style="font-size: 13px;">Delivery Challan Cancellation </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Cancellation Type</mat-label>
+                                <mat-select required formControlName="dcCancellationType"
+                                    (selectionChange)="checkForLostToCompitition($event)">
+                                    <mat-option *ngFor="let type of cancellationTypeList"
+                                        [value]="type.cancellationType">
+                                        {{type.cancellationType}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>DC Cancellation Reason</mat-label>
+                                <mat-select required formControlName="dcCancellationReason"
+                                    (selectionChange)="checkForLostToCompitition($event)">
+                                    <mat-option *ngFor="let cancellationReason of cancellationReasonsList"
+                                        [value]="cancellationReason.cancellationReason">
+                                        {{cancellationReason.cancellationReason}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="isLostToCompitition">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Brand</mat-label>
+                                <mat-select formControlName="brand">
+                                    <mat-option *ngFor="let brand of brandsList" [value]="brand.brand">{{brand.brand}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="isLostToCompitition">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Model</mat-label>
+                                <input matInput placeholder="Model" formControlName="model">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Reason</mat-label>
+                                <mat-select required formControlName="otherReason">
+                                    <mat-option *ngFor="let reason of reasonsList" [value]="reason.reason">
+                                        {{reason.reason}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Remarks</mat-label>
+                                <input matInput placeholder="Remarks" required formControlName="dcCancelRemark">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>

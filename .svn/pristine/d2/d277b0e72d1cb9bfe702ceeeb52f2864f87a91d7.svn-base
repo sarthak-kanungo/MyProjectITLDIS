@@ -1,0 +1,71 @@
+<div class="card-body" [formGroup]="plSearchForm" [style.fontSize.px]="11">
+    <div class="row">
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Customer Order No.</mat-label>
+                <input matInput placeholder="Customer Order No." formControlName="customerOrderNo"
+                [matAutocomplete]="autoCustomerOrderNo">
+                <mat-autocomplete  #autoCustomerOrderNo="matAutocomplete" [displayWith]="displayFnCustomerOrderNo"
+                [panelWidth]="500">
+                    <mat-option>
+
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Pick list Number.</mat-label>
+                <input matInput placeholder="Customer Order No." formControlName="picklistNumber"
+                    [matAutocomplete]="autoCustomerOrderNo" matTooltip="Search Customer Order Number">
+                <mat-autocomplete #autoCustomerOrderNo="matAutocomplete" [displayWith]="displayFnCustomerOrderNo"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of (customerOrderNoList$ | async)" [value]="option">
+                        {{option?.displayValue}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Status</mat-label>
+                <mat-select formControlName="grnStatus" >
+                    <mat-option *ngFor="let status of statuses" [value]="status.statusValue" >{{status.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>Pick Order Status</mat-label>
+                <mat-select formControlName="customerOrderStatus">
+                    <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <input matInput  [matDatepicker]="picker" placeholder="PickList From Date" formControlName="orderFromDate" 
+                (click)="picker.open()" (dateChange)="fromDateSelected($event)" [max]="today" required
+                   >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <input matInput  [matDatepicker]="picker1" placeholder="PickList To Date" formControlName="orderToDate"
+                (click)="picker1.open()"[max]="maxDate" [min]="minDate" required
+                   >
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

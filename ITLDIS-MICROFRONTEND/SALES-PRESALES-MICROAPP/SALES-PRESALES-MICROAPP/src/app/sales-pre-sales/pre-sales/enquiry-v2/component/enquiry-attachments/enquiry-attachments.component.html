@@ -1,0 +1,34 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Document Upload</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="actualReportImageForm">
+        <div class="row">
+          <div class="col-md-2" >
+            <div class=" input-group">
+            <div class="custom-file">
+              <label class="custom-file-label">Upload Photo</label>
+              <input type="file" name="image" required (change)="fileSelctionChanges($event)" title="Maximum 5 documents allowed"
+                accept="image/x-png,image/jpeg,application/pdf" class="custom-file-input" formControlName="images" />
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row mt-2 text-center">
+          <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+            <div class="card" [style.width.rem]="13">
+              <label> {{file.fileName}} </label>
+              <img [src]="file.previewUrl" class="cover" height="120" width="185" />
+              <div class="card-body">
+                <hr>
+                <i class="material-icons" (click)="deleteImage(file.id)">delete</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>

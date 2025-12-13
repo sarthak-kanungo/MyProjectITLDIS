@@ -1,0 +1,76 @@
+<div class="container-fluid mt-4 ">
+  <form [formGroup]="searchForm">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between header">
+                <p class="mb-0">Search Product Storage Checksheet</p>
+                <div>
+                  <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                    <b class="btnName">New</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <app-psc-search [searchPscForm]=searchPscForm>
+            </app-psc-search>
+
+            <div class="text-center  mt-2 mb-2">
+              <button type="button" class="btn  btn_primary px-3" (click)="onClickSearchPscDetails()"
+                [insertQueryParams]="filterData" (initialQueryParams)="initialQueryParams($event)"
+                (onUrlChange)="onUrlChange($event)"> Search
+              </button>
+              <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="onClickClearPscDetails()"> Clear
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="mt-2">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons" [searchValue]="searchValue"
+      (pageChange)="pageChange($event)"
+      [clickOnTableFields]="[{ 'title': 'pscNo', 'isClickable': true }, { 'title': 'edit', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+
+      <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+
+        <input class="w-100 borderRadius" #edit [(ngModel)] ="editNgModel" [ngModelOptions]="{standalone: true}">
+
+      </td>
+      <td></td>
+      <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+
+        <input class="w-100 borderRadius" #chassisNo [(ngModel)] ="chassisNoNgModel" [ngModelOptions]="{standalone: true}">
+
+      </td>
+      <td [ngsw-searchField]="pscNo" [searchColumnName]="'pscNo'">
+
+        <input class="w-100 borderRadius" #pscNo [(ngModel)] ="pscNoNgModel" [ngModelOptions]="{standalone: true}">
+
+      </td>
+
+      <td [ngsw-searchField]="pscDate" [searchColumnName]="'pscDate'" class="pscDate">
+        <input class="w-100 borderRadius" type="date" #pscDate [(ngModel)] ="pscDateNgModel" [ngModelOptions]="{standalone: true}">
+          <!-- (change)="etSearchDateValueChange(pscDate.value,'pscDate')" -->
+      </td>
+      <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+
+        <input class="w-100 borderRadius" #engineNo [(ngModel)] ="engineNoNgModel" [ngModelOptions]="{standalone: true}">
+
+      </td>
+      <td [ngsw-searchField]="machineModel" [searchColumnName]="'machineModel'">
+
+        <input class="w-100 borderRadius" #machineModel [(ngModel)] ="machineModelNgModel" [ngModelOptions]="{standalone: true}">
+
+      </td>
+    </ngsw-search-table>
+  </div>
+
+</div>

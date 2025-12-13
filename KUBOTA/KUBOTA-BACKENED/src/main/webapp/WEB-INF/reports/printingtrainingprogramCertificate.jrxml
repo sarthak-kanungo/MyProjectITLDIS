@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="printingtrainingprogramCertificate" pageWidth="595" pageHeight="622" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c906e20b-afe2-4825-9c1e-4b2956bc177c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="kubota_uat_2"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="programId" class="java.lang.Integer"/>
+	<parameter name="employeeId" class="java.lang.Integer"/>
+	<parameter name="dealerId" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[exec SP_TR_CERTIFICATE_DATA $P{programId},$P{employeeId},$P{dealerId}]]>
+	</queryString>
+	<field name="trainingNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="trainingNo"/>
+		<property name="com.jaspersoft.studio.field.label" value="trainingNo"/>
+	</field>
+	<field name="endDate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="endDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="endDate"/>
+	</field>
+	<field name="startDate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="startDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="startDate"/>
+	</field>
+	<field name="participantsName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="participantsName"/>
+		<property name="com.jaspersoft.studio.field.label" value="participantsName"/>
+	</field>
+	<field name="dealershipName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dealershipName"/>
+		<property name="com.jaspersoft.studio.field.label" value="dealershipName"/>
+	</field>
+	<field name="trainingProgName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="trainingProgName"/>
+		<property name="com.jaspersoft.studio.field.label" value="trainingProgName"/>
+	</field>
+	<field name="kaiTrainingCentre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="kaiTrainingCentre"/>
+		<property name="com.jaspersoft.studio.field.label" value="kaiTrainingCentre"/>
+	</field>
+	<field name="kubotaSymbol" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="kubotaSymbol"/>
+		<property name="com.jaspersoft.studio.field.label" value="kubotaSymbol"/>
+	</field>
+	<field name="certificateSign" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="certificateSign"/>
+		<property name="com.jaspersoft.studio.field.label" value="certificateSign"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="580" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="580" uuid="a6401e44-db70-4862-8456-2c252d3f5931">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="39" width="30" height="20" uuid="9321dac1-b671-4c29-afc1-b708834c1958">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="39" width="40" height="20" uuid="ec77a43e-aa7f-4563-ae20-07461f86eb66"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="39" width="100" height="20" forecolor="#4B0AFF" uuid="fdaa2d37-8946-489b-87a3-65429cd1ee88"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trainingNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="39" width="90" height="20" forecolor="#4B0AFF" uuid="86b1b830-fdac-4427-97a5-fce2c71da1ba"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="195" y="57" width="170" height="53" forecolor="#000000" uuid="252cd374-a01d-4789-b42d-dede36cc6dbc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Certificate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="120" width="140" height="35" forecolor="#000000" uuid="47903123-a792-44ff-a9f3-54108deec12c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[This is                                                  to certify that]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="212" y="171" width="140" height="20" forecolor="#4B0AFF" uuid="20aac1e8-7337-4d2f-87b8-8335d377c2e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantsName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="256" y="200" width="50" height="20" uuid="622eb8a8-2345-4493-9aae-78712b6febe7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="211" y="230" width="140" height="20" forecolor="#4B0AFF" uuid="c92d9213-048e-4198-9cc0-8c3cfac13d0a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealershipName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="101" y="270" width="360" height="35" uuid="4a673a91-e727-4291-97b9-76c62b4b6f46">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[has successfully completed the Advanced Training Program                                          in]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="211" y="310" width="140" height="20" forecolor="#4B0AFF" uuid="1e0049ea-c8ca-47f4-8f16-6fc2b034143d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trainingProgName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="361" width="43" height="20" uuid="cb1c69ad-6ad7-4361-8ee3-72894ef4d378"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="361" width="30" height="20" uuid="b5ed484e-7fef-4b24-a6af-f031ea696676"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="361" width="67" height="20" forecolor="#4B0AFF" uuid="d935100c-6577-49d1-9219-87551bef98fa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="361" width="70" height="20" forecolor="#4B0AFF" uuid="5347a50d-e78c-40a9-ab07-efcee859cf1e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="400" width="130" height="25" uuid="8e5f95ef-c003-4e5d-9286-69d9b69766d5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KAI Training Center -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="400" width="110" height="25" forecolor="#4B0AFF" uuid="b96c3143-3e67-4385-8983-045238b921fb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kaiTrainingCentre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="98" y="520" width="365" height="50" uuid="a8e45371-19c8-4ee3-b42b-d33f88f8668c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GURMEET SINGH GREWAL, MANAGING DIRECTOR                                 KUBOTA AGRICULTURAL MACHINERY INDIA PVT. LTD,                                          Chennai     ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="189" width="360" height="0" uuid="36a2726c-77b3-436b-9830-46638e175bfa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="329" width="360" height="0" uuid="df7bdaf8-b696-482e-b719-e6e9fe6fa172">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="489" width="360" height="0" uuid="7413e62a-a3eb-449b-8f9d-37c004f6076b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="59" width="85" height="0" uuid="a1a53ea8-2f1a-4800-8d28-936cfbae0924">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="57" width="65" height="0" uuid="7fbe0ac2-816e-4a32-b517-0674ee1c2c27">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="248" width="360" height="0" uuid="10530299-65ab-4fd9-8a25-f50167c8c73a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="378" width="65" height="0" uuid="3b2bda55-3f71-4d56-b2f2-13025de8fa92">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="378" width="65" height="0" uuid="9088c30d-e93a-4b8c-ac6a-fded97d54c7c"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="210" y="10" width="150" height="47" uuid="b87971c8-6391-432e-a4f0-e9dad9ee7096"/>
+				<imageExpression><![CDATA["C:/Kubota-APP/Tomcat 9.0/upload-dir"+"/"+$F{kubotaSymbol}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="220" y="430" width="120" height="50" uuid="4305cd09-7e13-47fe-ae65-f4c8e26515b2"/>
+				<imageExpression><![CDATA["C:/Kubota-APP/Tomcat 9.0/upload-dir"+"/"+$F{certificateSign}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

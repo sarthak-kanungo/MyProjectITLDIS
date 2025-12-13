@@ -1,0 +1,33 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Activity Report</p>
+            </div>
+            <form [formGroup]="activityReportForm">
+                <div class="card-body">
+                    <app-service-activity-report-details [activityReportDetailsForm]="activityReportDetailsForm"></app-service-activity-report-details>
+                    <app-service-machine-details [viewActivityReport]="viewActivityReport"></app-service-machine-details>
+                    <app-activity-report-job-card-details [viewActivityReport]="viewActivityReport"></app-activity-report-job-card-details>
+                    <app-service-activity-report-upload-file [documentUplodedForm]=documentUplodedForm [viewActivityReport]="viewActivityReport"></app-service-activity-report-upload-file>
+
+
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="!isView" (click)="submitActivityReport()" [disabled]="isSubmitDisable"> Submit
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="isView" (click)="onDownloadPdf()"> View Pdf
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="!isView"> Clear
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3"*ngIf="!isView" (click)="onClickExit()"> Exit
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isView" (click)="onExit()"> Exit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

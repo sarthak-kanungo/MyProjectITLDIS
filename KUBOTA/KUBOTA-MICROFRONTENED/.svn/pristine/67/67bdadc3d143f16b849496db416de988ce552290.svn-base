@@ -1,0 +1,55 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <form [formGroup]="jobCardForm" [style.fontSize.px]="10">
+        <div class="card-from">
+            <div class="card">
+                <div class="card-header">
+                    <p class="mb-0">Job Card</p>
+                </div>
+                <div class="card-body">
+                    <app-job-card-details [machineIdPage]="machineIdPage"
+                        [serviceTypeDropdownRes]="serviceTypeDropdownRes" [isPresales]="isPresales">
+                    </app-job-card-details>
+                    <app-customer-concern *ngIf="!isShowCustConcern"></app-customer-concern>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form [formGroup]="serviceJobForm" [style.fontSize.px]="10">
+        <div class="card-from mt-2">
+            <div class="card" style="border: 1px solid #45afaf;">
+                <div class="card-header" style="background-color: #45afaf;
+                                    border: 1px solid #45afaf;">
+                    <p class="mb-0" style="font-size: 13px;">Service</p>
+                </div>
+                <div class="card-body">
+                    <app-service-job-card></app-service-job-card>
+                    <app-part-requisition [serviceCategoryListRes]="serviceCategoryListRes"
+                        [partRequisitionForm]="partRequisitionForm">
+                    </app-part-requisition>
+                    <app-labour-charges *ngIf="!isTablesShow" [labourChargesForm]="labourChargesForm">
+                    </app-labour-charges>
+                    <app-outside-job-charges [isTablesShow]="isTablesShow" [jobCodeForm]="jobCodeForm"
+                        [fileFromView]="fileFromView" [fileFromEdit]="fileFromEdit">
+                    </app-outside-job-charges>
+                    
+                    <app-approval-details [approvalHierDetails]="approvalHierDetails"></app-approval-details>
+	                
+	                
+                </div>
+
+
+                <div class="text-center mt-2 mb-2">
+                    <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="!isView"
+                        (click)="jobcardApprovalClick()"  [disabled]="isSubmitDisable">Approve
+                    </button>
+                    <button type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="jobcardRejectClick()" *ngIf="!isView"  [disabled]="isSubmitDisable">Reject
+                    </button>
+                    <button type="button" class="btn btn_primary px-3 ml-3" disabled>
+                    	Print Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

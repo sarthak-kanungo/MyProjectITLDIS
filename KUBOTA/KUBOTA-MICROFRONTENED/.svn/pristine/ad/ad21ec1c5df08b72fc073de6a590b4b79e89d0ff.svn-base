@@ -1,0 +1,62 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Prospect Background</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="prospectBackgroundForm" [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Occupation</mat-label>
+              <mat-select formControlName="occupation" required (selectionChange)="selectionoccupation($event.value)">
+                <mat-option *ngFor="let option of dropDownOccupation?.result" [value]="option?.occupation">
+                  {{option?.occupation}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="showotherinput">
+            <mat-form-field appearance="outline">
+              <mat-label>Other Occupation</mat-label>
+              <input matInput placeholder="Other Occupation" maxlength="15" formControlName="otherOccupation"
+                (keypress)=keyPress($event)>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Land Size(In Acres)</mat-label>
+              <input type="number" class="quantity" matInput placeholder="Land Size(In Acres)" required
+                formControlName="landSize" onKeyPress="if(this.value.length==4) return false;">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Soil Type</mat-label>
+              <mat-select formControlName="soilName" multiple>
+                <mat-option *ngFor="let soil of dropDownSoilType?.result" [value]="soil">{{soil?.soilType}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Major Crop Grown</mat-label>
+              <mat-select formControlName="cropName" multiple>
+                <mat-option *ngFor="let grown of  dropDownMajorCropGrown?.result" [value]="grown">{{grown?.cropGrown}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

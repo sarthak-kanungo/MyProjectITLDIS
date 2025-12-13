@@ -1,0 +1,153 @@
+
+    <div class="container-fluid create-form  mt-4  pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0">Search Survey Summary Report</p>
+                                        <div>
+                                            <!-- <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                                                <b class="btnName">New</b>
+                                            </button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-survey-summary-report-search-result [surveyStatusList]="surveyStatusList" [surveyDateList]="surveyDateList"> </app-survey-summary-report-search-result>
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary"
+                                (click)="searchSurveySummaryReportForTable()"> Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2"
+                                (click)="clearSurveySummaryReportForm()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+        [clickOnTableFields]="[{title:'action'},{title:'surveyNumber'},{'title':'UploadCallRecording'}]" (actionOnTableRecord)="tableAction($event)"
+        (pageChange)="pageChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [isExcelImport]="true" (exportToExcel)="surveyDetailsExcelReport($event)">
+
+        <!-- <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+        <input class="w-100 borderRadius edit" #edit>
+    </td> -->
+
+        <td [ngsw-searchField]="action" [searchColumnName]="'action'" class="action">
+            <input class="w-100 borderRadius" #action>
+        </td>
+        <td [ngsw-searchField]="surveyNumber" [searchColumnName]="'surveyNumber'" class="surveyNumber">
+            <input class="w-100 borderRadius" #surveyNumber>
+        </td>
+        <td [ngsw-searchField]="productGroup" [searchColumnName]="'productGroup'" class="productGroup">
+            <input class="w-100 borderRadius" #productGroup>
+        </td>
+        <td [ngsw-searchField]="product" [searchColumnName]="'product'" class="product">
+            <input class="w-100 borderRadius" #product>
+        </td>
+        <td [ngsw-searchField]="model" [searchColumnName]="'model'" class="model">
+            <input class="w-100 borderRadius" #model>
+        </td>
+        <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'" class="subModel">
+            <input class="w-100 borderRadius" #subModel>
+        </td>
+        <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'" class="chassisNo">
+            <input class="w-100 borderRadius" #chassisNo>
+        </td>
+        <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'" class="engineNo">
+            <input class="w-100 borderRadius" #engineNo>
+        </td>
+        <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'" class="customerName">
+            <input class="w-100 borderRadius" #customerName>
+        </td>
+        <td [ngsw-searchField]="customerNumber" [searchColumnName]="'customerNumber'" class="customerNumber">
+            <input class="w-100 borderRadius" #customerNumber>
+        </td>
+        <td [ngsw-searchField]="customerAlternetNumber" [searchColumnName]="'customerAlternetNumber'"class="customerAlternetNumber">
+            <input class="w-100 borderRadius" #customerAlternetNumber>
+        </td>
+        <td [ngsw-searchField]="state" [searchColumnName]="'state'" class="state">
+            <input class="w-100 borderRadius" #state>
+        </td>
+        <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" class="dealerCode">
+            <input class="w-100 borderRadius" #dealerCode>
+        </td>
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName">
+            <input class="w-100 borderRadius" #dealerName>
+        </td>
+        <td [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'" class="dealerState">
+            <input class="w-100 borderRadius" #dealerState>
+        </td>
+        <td [ngsw-searchField]="surveyType" [searchColumnName]="'surveyType'" class="surveyType">
+            <input class="w-100 borderRadius" #surveyType>
+        </td>
+        <td [ngsw-searchField]="dateOfInstallation" [searchColumnName]="'dateOfInstallation'"class="dateOfInstallation">
+            <input class="w-100 borderRadius" #dateOfInstallation>
+        </td>
+        <td [ngsw-searchField]="dcDate" [searchColumnName]="'dcDate'" class="dcDate">
+            <input class="w-100 borderRadius" #dcDate>
+        </td>
+        <td [ngsw-searchField]="surveyDate" [searchColumnName]="'surveyDate'" class="surveyDate">
+            <input class="w-100 borderRadius" #surveyDate>
+        </td>
+        <td [ngsw-searchField]="surveyDueDate" [searchColumnName]="'surveyDueDate'" class="surveyDueDate">
+            <input class="w-100 borderRadius" #surveyDueDate>
+        </td>
+        <td [ngsw-searchField]="surveyComments" [searchColumnName]="'surveyComments'" class="surveyComments">
+            <input class="w-100 borderRadius" #surveyComments>
+        </td>
+        <td [ngsw-searchField]="question" [searchColumnName]="'question'" class="question" *ngIf="reportType && reportType == 'With Questionaries'">
+            <input class="w-100 borderRadius" #question>
+        </td>
+        <td [ngsw-searchField]="mainAnswer" [searchColumnName]="'mainAnswer'" class="mainAnswer"  *ngIf="reportType && reportType == 'With Questionaries'">
+            <input class="w-100 borderRadius" #mainAnswer>
+        </td>
+        <td [ngsw-searchField]="subAnswer" [searchColumnName]="'subAnswer'" class="subAnswer"  *ngIf="reportType && reportType == 'With Questionaries'">
+            <input class="w-100 borderRadius" #subAnswer>
+        </td>
+        <td [ngsw-searchField]="surveyStatus" [searchColumnName]="'surveyStatus'" class="surveyStatus">
+            <input class="w-100 borderRadius" #surveyStatus>
+        </td>
+        <td [ngsw-searchField]="customerSatisfied" [searchColumnName]="'customerSatisfied'" class="customerSatisfied">
+            <input class="w-100 borderRadius" #customerSatisfied>
+        </td>
+        <td [ngsw-searchField]="surveyDoneBy" [searchColumnName]="'surveyDoneBy'" class="surveyDoneBy">
+            <input class="w-100 borderRadius" #surveyDoneBy>
+        </td>
+        <td [ngsw-searchField]="surveyDoneDate" [searchColumnName]="'surveyDoneDate'" class="surveyDoneDate">
+            <input class="w-100 borderRadius" #surveyDoneDate>
+        </td>
+        <td [ngsw-searchField]="actionTakenBy" [searchColumnName]="'actionTakenBy'" class="actionTakenBy"  *ngIf="reportType && reportType == 'Dissatisfied Report'">
+            <input class="w-100 borderRadius" #actionTakenBy>
+        </td>
+        <td [ngsw-searchField]="issueClosedBy" [searchColumnName]="'issueClosedBy'" class="issueClosedBy" >
+            <input class="w-100 borderRadius" #issueClosedBy>
+        </td>
+        <td [ngsw-searchField]="issueClosedOn" [searchColumnName]="'issueClosedOn'" class="issueClosedOn">
+            <input class="w-100 borderRadius" #issueClosedOn>
+        </td>
+        <td [ngsw-searchField]="department" [searchColumnName]="'department'" class="department"  *ngIf="reportType && reportType == 'Dissatisfied Report'">
+            <input class="w-100 borderRadius" #department>
+        </td>
+        <td [ngsw-searchField]="tmName" [searchColumnName]="'tmName'" class="tmName"  *ngIf="reportType && reportType == 'Dissatisfied Report'">
+            <input class="w-100 borderRadius" #tmName>
+        </td>
+        <td [ngsw-searchField]="rsmName" [searchColumnName]="'rsmName'" class="rsmName"  *ngIf="reportType && reportType == 'Dissatisfied Report'">
+            <input class="w-100 borderRadius" #rsmName>
+        </td>
+        <td [ngsw-searchField]="zone" [searchColumnName]="'zone'" class="zone"  *ngIf="reportType && reportType == 'Dissatisfied Report'">
+            <input class="w-100 borderRadius" #zone>
+        </td>
+    </ngsw-search-table>
+</div>

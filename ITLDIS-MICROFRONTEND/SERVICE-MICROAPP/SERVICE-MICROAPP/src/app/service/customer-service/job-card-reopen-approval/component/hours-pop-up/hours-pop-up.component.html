@@ -1,0 +1,45 @@
+<div style="display: flex; justify-content: flex-end;">
+    <i class="material-icons cursor_pointer" (click)="closeDialog()">
+        close
+    </i>
+</div>
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header" style="background-color: #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">You Have Entered Current Hours Less Than Previous Hours . Please
+                Correct It Or Proceed With Meter Change </p>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" [style.fontSize.px]="10">
+                    <div class="col-12" [style.fontSize.px]="10">
+                        <form [formGroup]="hourPopUpForm">
+                            <div class="d-flex">
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Change Meter Value</mat-label>
+                                        <input matInput placeholder="Change Meter Value"
+                                            formControlName="meterChangeValue">
+                                        <mat-error *ngIf="!hourPopUpForm.get('meterChangeValue').hasError('required')">
+                                            Should be less than privious Value
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-info" (click)="submit()">Proceed To Meter Change</button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

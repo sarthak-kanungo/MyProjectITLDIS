@@ -1,0 +1,53 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Customer Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="customerDetailsForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Customer Type</mat-label>
+                            <mat-select placeholder="customerType" formControlName="customerType" required>
+                                <mat-option *ngFor="let cus of customerType" [value]="cus.lookupval"
+                                    (click)="onClick(cus.lookupval)">
+                                    {{cus.lookupval}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Name" formControlName="contactPersonName" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput placeholder="Mobile No." required minlength="10" maxlength="10"
+                                formControlName="contactPersonMobile">
+                            <mat-icon matSuffix>search</mat-icon>
+                            <!-- <mat-error *ngIf="customerDetailsForm.get('contactPersonMobile').hasError('required')">
+                                Mobile No. is Required</mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Relation with Customer</mat-label>
+                            <mat-select placeholder="relationType" formControlName="relationWithCustomer" required>
+                                <mat-option *ngFor="let cus of relationType" [value]="cus.lookupval">
+                                    {{cus.lookupval}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- </div> -->

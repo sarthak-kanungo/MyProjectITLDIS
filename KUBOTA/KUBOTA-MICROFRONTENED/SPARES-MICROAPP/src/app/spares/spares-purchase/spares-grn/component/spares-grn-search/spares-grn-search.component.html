@@ -1,0 +1,265 @@
+    <div class="container-fluid mt-4">
+        <div class="card-from ">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <p class="mb-0"> Search Spares GRN</p>
+                    <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                        New
+                    </button>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="spareGrnSearchForm" [style.fontSize.px]="10">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>DMS GRN No.</mat-label>
+                                    <input matInput placeholder="DMS GRN No." formControlName="dmsGrnNumber"
+                                        [matAutocomplete]="autoDmsGrnNo">
+                                    <mat-autocomplete #autoDmsGrnNo="matAutocomplete" [panelWidth]="500">
+                                        <mat-option *ngFor="let option of dmsGrnNumberList$ |async" [value]="option.value">
+                                            {{option.value}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+        
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>GRN Type</mat-label>
+                                    <mat-select formControlName="grnType" (selectionChange)="getSuppilerType($event)">
+                                        <mat-option value="">All</mat-option>
+                                        <mat-option *ngFor="let grnType of grnTypeList$ | async" [value]="grnType.value">
+                                            {{grnType.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+        
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>GRN Status</mat-label>
+                                    <mat-select formControlName="grnStatus">
+                                        <!-- <mat-option value="">All</mat-option> -->
+                                        <mat-option *ngFor="let status of grnStatusList$ | async" [value]="status.value">
+                                            {{status.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+        
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Invoice No.</mat-label>
+                                    <input matInput placeholder="Invoice No." formControlName="invoiceNumber"
+                                        [matAutocomplete]="autoInvoiceNo">
+                                    <mat-autocomplete #autoInvoiceNo="matAutocomplete" [panelWidth]="250">
+                                        <mat-option *ngFor="let option of invoiceNumberList$ | async" [value]="option.value">
+                                            {{option.value}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+        
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Supplier Type</mat-label>
+                                    <mat-select formControlName="supplierType" (selectionChange)="getSupplierName($event)">
+                                        <mat-option *ngFor="let supplierType of supplierTypeList$ | async"
+                                            [value]="supplierType.value">{{supplierType.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="spareGrnSearchForm.get('supplierName').hasError('required')">
+                                        Select GRN Type First
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Supplier Name</mat-label>
+                                    <mat-select formControlName="supplierName">
+                                        <mat-option *ngFor="let supplierName of supplierNameList$ | async"
+                                            [value]="supplierName.id">{{supplierName.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="spareGrnSearchForm.get('supplierName').hasError('required')">
+                                        Select Supplier Type First
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+        
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker" placeholder="GRN From Date"
+                                        formControlName="fromDate" (dateChange)="fromDateSelected($event)" [max]="today" (click)="picker.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+        
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker1" placeholder="GRN To Date" formControlName="toDate"
+                                        [max]="maxDate" [min]="minDate" 
+                                        [readonly]="!spareGrnSearchForm.get('fromDate').value" (click)="picker1.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1 [disabled]="!spareGrnSearchForm.get('fromDate').value">
+                                    </mat-datepicker>
+                                </mat-form-field>
+                            </div>
+        
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="mx-auto text-center">
+                                <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchSparesGrn()"
+                                    [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)"
+                                    (onUrlChange)="onUrlChange($event)" title="Search"> Search
+                                </button>
+                                <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary" title="Clear" (click)="resetSearchForm()">
+                                    Clear
+                                </button>
+                                <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary" style="height:35px" title="Download Report" (click)="generateReport()">
+                                    <mat-icon>cloud_download</mat-icon></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+        [page]="spareGrnSearchForm.get('page').value"
+        [size]="spareGrnSearchForm.get('size').value" [totalElements]="totalTableElements"
+        [searchValue]="searchValue" [clickOnTableFields]="clickOnTableFields"
+        (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)" [clearSearchRow]="clearSearchRow" >
+        
+        <td></td>
+        <td [ngsw-searchField]="grnNumber" [searchColumnName]="'grnNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #grnNumber [(ngModel)] ="grnNumberNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="grnDate" [searchColumnName]="'grnDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="grnDate" #grnDateInput
+                    (dateInput)="etSearchDateValueChange(grnDateInput.value,'grnDate')" [(ngModel)] ="grnDateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="grnDate"></mat-datepicker-toggle>
+                <mat-datepicker #grnDate></mat-datepicker>
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="grnType" [searchColumnName]="'grnType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #grnType [(ngModel)] ="grnTypeNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="grnStatus" [searchColumnName]="'grnStatus'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #grnStatus [(ngModel)] ="grnStatusNgModel">
+            </mat-form-field>
+        </td>
+        
+        <td [ngsw-searchField]="invoiceNumber" [searchColumnName]="'invoiceNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #invoiceNumber [(ngModel)] ="invoiceNumberNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="invoiceDate" [searchColumnName]="'invoiceDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="invoiceDate" #invoiceDateInput
+                    (dateInput)="etSearchDateValueChange(invoiceDateInput.value,'invoiceDate')" [(ngModel)] ="invoiceDateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="invoiceDate"></mat-datepicker-toggle>
+                <mat-datepicker #invoiceDate></mat-datepicker>
+            </mat-form-field>
+        </td>
+        
+        <td [ngsw-searchField]="supplierName" [searchColumnName]="'supplierName'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierName [(ngModel)] ="supplierNameNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="supplierType" [searchColumnName]="'supplierType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierType [(ngModel)] ="supplierTypeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="supplierGstNo" [searchColumnName]="'supplierGstNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierGstNo [(ngModel)] ="supplierGstNoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="modeOfTransport" [searchColumnName]="'modeOfTransport'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #modeOfTransport [(ngModel)] ="modeOfTransportNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="supplierAddress1" [searchColumnName]="'supplierAddress1'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierAddress1 [(ngModel)] ="supplierAddress1NgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="supplierAddress2" [searchColumnName]="'supplierAddress2'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierAddress2 [(ngModel)] ="supplierAddress2NgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="supplierAddress3" [searchColumnName]="'supplierAddress3'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierAddress3 [(ngModel)] ="supplierAddress3NgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="supplierState" [searchColumnName]="'supplierState'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #supplierState [(ngModel)] ="supplierStateNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="transporter" [searchColumnName]="'transporter'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #transporter [(ngModel)] ="transporterNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="invoiceValue" [searchColumnName]="'invoiceValue'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #invoiceValue [(ngModel)] ="invoiceValueNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="grnDoneBy" [searchColumnName]="'grnDoneBy'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #grnDoneBy [(ngModel)] ="grnDoneByNgModel">
+            </mat-form-field>
+        </td>
+        <!-- <td [ngsw-searchField]="receiptValue" [searchColumnName]="'receiptValue'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #receiptValue [(ngModel)] ="receiptValueNgModel">
+            </mat-form-field>
+        </td> -->
+        <!-- <td [ngsw-searchField]="goodsReceiptDate" [searchColumnName]="'goodsReceiptDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #goodsReceiptDate [(ngModel)] ="goodsReceiptDateNgModel">
+            </mat-form-field>
+        </td> -->
+        <td [ngsw-searchField]="stores" [searchColumnName]="'stores'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #stores [(ngModel)] ="storesNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="basicAmount" [searchColumnName]="'basicAmount'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #basicAmount [(ngModel)] ="basicAmountNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="gstAmount" [searchColumnName]="'gstAmount'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #gstAmount [(ngModel)] ="gstAmountNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="totalGrnAmount" [searchColumnName]="'totalGrnAmount'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #totalGrnAmount [(ngModel)] ="totalGrnAmountNgModel">
+            </mat-form-field>
+        </td>
+        <!-- <td colspan="1"></td> -->
+    </ngsw-search-table>
+</div>

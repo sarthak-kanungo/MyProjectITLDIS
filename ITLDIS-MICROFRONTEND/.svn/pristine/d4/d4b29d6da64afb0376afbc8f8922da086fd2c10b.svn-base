@@ -1,0 +1,58 @@
+<div class="col-12" [style.fontSize.px]="12">
+
+    <div class="d-flex bd-highlight">
+        <div class="flex-fill bd-highlight">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" (change)="fileSelectionChanges($event, documentName)" class="custom-file-input"
+                        accept="image/x-png,image/jpeg,application/pdf" [disabled]="disabled">
+
+                    <input type="hidden" [formControl]="documentFormControl" /><!-- Hidden input -->
+
+                    <label class="custom-file-label">Choose {{documentName}} File</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2 text-center" *ngIf="(isEdit ||disabled || selectedFile) && previewUrl">
+        <div class=" mx-auto card file-preview-card">
+            <label class="p-1 custom-preview-label text-secondary">{{previewUrl && selectedFile ?
+                previewTitle:previewUrl }}</label>
+
+            <div class=" p-1 border-top mx-auto" *ngIf="fileSelectUPload==false">
+                
+                <img src="assets/pdfImage.jpg" height="120" width="185" *ngIf="extension=='pdf' && documentName=='Cheque Leaf'" />
+                <img [src]="previewUrl && !selectedFile? imageBaseUrl + previewUrl:previewUrl" height="120" width="185"
+                *ngIf="extension!='pdf' && documentName=='Cheque Leaf'" />
+
+                <img src="assets/pdfImage.jpg" height="120" width="185" *ngIf="extension=='pdf' && documentName=='Covering Letter'" />
+                <img [src]="previewUrl && !selectedFile? imageBaseUrl + previewUrl:previewUrl" height="120" width="185"
+                *ngIf="extension!='pdf' && documentName=='Covering Letter'" />
+
+                <img src="assets/pdfImage.jpg" height="120" width="185" *ngIf="extension=='pdf' && documentName=='Credit Application'" />
+                <img [src]="previewUrl && !selectedFile? imageBaseUrl + previewUrl:previewUrl" height="120" width="185"
+                *ngIf="extension!='pdf' && documentName=='Credit Application'" />
+
+
+            </div>
+
+            <div class=" p-1 border-top mx-auto" *ngIf="fileSelectUPload==true && tpyeFlag==false">
+                <img [src]="localCompressedURl" height="120" width="185" />
+            </div>
+
+            <div class=" p-1 border-top mx-auto" *ngIf="fileSelectUPload==true && tpyeFlag==true">
+                <img src="assets/pdfImage.jpg" height="120" width="185" />
+            </div>
+
+            <div class="p-1 border-top card-body" >
+                <i style="color: #45afaf;" class="material-icons" *ngIf="selectedFile && !disabled"
+                    (click)="deleteImage(documentName)">delete</i>
+                <a href="{{imageBaseUrl +previewUrl}}" download *ngIf="!selectedFile && previewUrl">
+                    <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,196 @@
+<div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between header">
+                                    <p class="mb-0 label">Monthly Failure Code Summary Report</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" [formGroup]="reportSearchForm" [style.fontSize.px]="11">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>From Year</mat-label>
+                                    <input matInput formControlName="fromYear" maxlength="4" required>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>To Year</mat-label>
+                                    <input matInput formControlName="toYear"  maxlength="4" required>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Product</mat-label>
+                                    <mat-select formControlName="product"
+                                        (selectionChange)="selectProduct($event.value)">
+                                        <mat-option *ngFor="let option of products" [value]="option.product">
+                                            {{option?.product}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Series</mat-label>
+                                    <mat-select formControlName="series"
+                                        (selectionChange)="selectSeries($event.value)">
+                                        <mat-option *ngFor="let option of seriesByProduct"
+                                            [value]="option.series">{{option?.series}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Model</mat-label>
+                                    <mat-select formControlName="machineModel"
+                                        (selectionChange)="selectModel($event.value)">
+                                        <mat-option *ngFor="let option of modelBySeries"
+                                            [value]="option.model">
+                                            {{option?.model}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Sub Model</mat-label>
+                                    <mat-select formControlName="subModel" 
+                                        (selectionChange)="selectSubModel($event.value)">
+                                        <mat-option *ngFor="let option of subModelByModel"
+                                            [value]="option.subModel">
+                                            {{option?.subModel}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Variant</mat-label>
+                                    <mat-select formControlName="variant">
+                                        <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                            {{option?.variant}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Complaint Code</mat-label>
+                                    <mat-select formControlName="complaintCode">
+                                        <!-- <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                            {{option?.variant}}
+                                        </mat-option> -->
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="text-center  mt-2 mb-2">
+                        <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                            Search
+                        </button>
+                        <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+           (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="clickExportToExcel()">
+            <td  [ngsw-searchField]="failureCode" [searchColumnName]="'failureCode'" >
+                <input class="w-100 borderRadius" #failureCode />
+            </td> 
+            <td  [ngsw-searchField]="complaintDescription" [searchColumnName]="'complaintDescription'" >
+                <input class="w-100 borderRadius" #complaintDescription />
+            </td> 
+            <td  [ngsw-searchField]="model" [searchColumnName]="'model'" >
+                <input class="w-100 borderRadius" #model />
+            </td> 
+            <td  [ngsw-searchField]="year" [searchColumnName]="'year'" >
+                <input class="w-100 borderRadius" #year />
+            </td> 
+            <td  [ngsw-searchField]="jan" [searchColumnName]="'jan'" >
+                <input class="w-100 borderRadius" #jan />
+            </td> 
+            <td  [ngsw-searchField]="feb" [searchColumnName]="'feb'" >
+                <input class="w-100 borderRadius" #feb />
+            </td> 
+            <td  [ngsw-searchField]="mar" [searchColumnName]="'mar'" >
+                <input class="w-100 borderRadius" #mar />
+            </td> 
+            <td  [ngsw-searchField]="apr" [searchColumnName]="'apr'" >
+                <input class="w-100 borderRadius" #apr />
+            </td> 
+            <td  [ngsw-searchField]="may" [searchColumnName]="'may'" >
+                <input class="w-100 borderRadius" #may />
+            </td> 
+            <td  [ngsw-searchField]="jun" [searchColumnName]="'jun'" >
+                <input class="w-100 borderRadius" #jun />
+            </td> 
+            <td  [ngsw-searchField]="jul" [searchColumnName]="'jul'" >
+                <input class="w-100 borderRadius" #jul />
+            </td> 
+            <td  [ngsw-searchField]="aug" [searchColumnName]="'aug'" >
+                <input class="w-100 borderRadius" #aug />
+            </td> 
+            <td  [ngsw-searchField]="sep" [searchColumnName]="'sep'" >
+                <input class="w-100 borderRadius" #sep />
+            </td> 
+            <td  [ngsw-searchField]="oct" [searchColumnName]="'oct'" >
+                <input class="w-100 borderRadius" #oct />
+            </td> 
+            <td  [ngsw-searchField]="nov" [searchColumnName]="'nov'" >
+                <input class="w-100 borderRadius" #nov />
+            </td> 
+            <td  [ngsw-searchField]="dec" [searchColumnName]="'dec'" >
+                <input class="w-100 borderRadius" #dec />
+            </td> 
+            <td  [ngsw-searchField]="rejected" [searchColumnName]="'rejected'" >
+                <input class="w-100 borderRadius" #rejected />
+            </td> 
+            <td  [ngsw-searchField]="grandTotal" [searchColumnName]="'grandTotal'" >
+                <input class="w-100 borderRadius" #grandTotal />
+            </td> 
+            <td  [ngsw-searchField]="averageYear" [searchColumnName]="'averageYear'" >
+                <input class="w-100 borderRadius" #averageYear />
+            </td> 
+            <td  [ngsw-searchField]="total" [searchColumnName]="'total'" >
+                <input class="w-100 borderRadius" #total />
+            </td> 
+            <td  [ngsw-searchField]="averageTotalPerc" [searchColumnName]="'averageTotalPerc'" >
+                <input class="w-100 borderRadius" #averageTotalPerc />
+            </td> 
+            <td  [ngsw-searchField]="occurrencePercentage" [searchColumnName]="'occurrencePercentage'" >
+                <input class="w-100 borderRadius" #occurrencePercentage />
+            </td> 
+            <td  [ngsw-searchField]="score" [searchColumnName]="'score'" >
+                <input class="w-100 borderRadius" #score />
+            </td> 
+            <td  [ngsw-searchField]="severityScore" [searchColumnName]="'severityScore'" >
+                <input class="w-100 borderRadius" #severityScore />
+            </td>  
+            <td  [ngsw-searchField]="detectablity" [searchColumnName]="'detectablity'" >
+                <input class="w-100 borderRadius" #detectablity />
+            </td> 
+            <td  [ngsw-searchField]="rpn" [searchColumnName]="'rpn'" >
+                <input class="w-100 borderRadius" #rpn />
+            </td> 
+            <td  [ngsw-searchField]="priority" [searchColumnName]="'priority'" >
+                <input class="w-100 borderRadius" #priority />
+            </td> 
+        </ngsw-search-table>
+    </div>      
+</div>                    

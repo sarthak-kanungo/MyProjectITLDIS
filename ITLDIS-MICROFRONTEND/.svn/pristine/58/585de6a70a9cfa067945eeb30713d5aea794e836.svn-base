@@ -1,0 +1,508 @@
+<div class="card-from" style="overflow-y: auto;overflow-x: hidden;">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0">PCR History</p>
+            <button class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">Close</button>
+        </div>
+        <mat-dialog-content>
+            <table *ngIf="view" class=" table-sm" style="margin-left: 3%;">
+                <tbody>
+                    <tr *ngFor='let pcr of pcrHeader' class="row" [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>PCR No.</mat-label>
+                                <input matInput placeholder="PCR No" [value]='pcr.pcrNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>PCR Date</mat-label>
+                                <input matInput placeholder="PCR Date" [value]='pcr.pcrDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <input matInput placeholder="Status" [value]='pcr.status' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Job Card No.</mat-label>
+                                <input matInput placeholder="Job Card No." [value]='pcr.serviceJobCard.jobCardNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Job Card Date</mat-label>
+                                <input matInput placeholder="Job Card Date" [value]='pcr.serviceJobCard.jobCardDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Date Of Installation</mat-label>
+                                <input matInput placeholder="Date Of Installation" [value]='pcr.serviceJobCard.machineInventory.dateOfInstallation' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Name</mat-label>
+                                <input matInput placeholder="Customer Name" [value]='pcr.serviceJobCard.customerMaster.customerName' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Machine Model</mat-label>
+                                <input matInput placeholder="Machine Model" [value]='pcr.serviceJobCard.machineInventory.machineMaster.model' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Date Of Failure</mat-label>
+                                <input matInput placeholder="Date Of Failure" [value]='pcr.serviceJobCard.dateOfFailure' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Address</mat-label>
+                                <input matInput placeholder="Customer Address" [value]='pcr.serviceJobCard.customerMaster.address' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Cell Number</mat-label>
+                                <input matInput placeholder="Customer Cell Number" [value]='pcr.serviceJobCard.customerMaster.mobileNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Registration Number</mat-label>
+                                <input matInput placeholder="Registration Number" [value]='pcr.serviceJobCard.registrationNumber' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Chassis Number</mat-label>
+                                <input matInput placeholder="Chassis Number" [value]='pcr.serviceJobCard.machineInventory.chassisNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Engine Number</mat-label>
+                                <input matInput placeholder="Engine Number" [value]='pcr.serviceJobCard.machineInventory.engineNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Hours</mat-label>
+                                <input matInput placeholder="Hours" [value]='pcr.serviceJobCard.totalHour' disabled>
+                            </mat-form-field>
+                        </td>'
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Sold To Dealer</mat-label>
+                                <input matInput placeholder="Sold To Dealer" [value]='pcr.serviceJobCard.soldToDealer' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Service Dealer</mat-label>
+                                <input matInput placeholder="Service Dealer" [value]='pcr.serviceDealer' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Service Dealer City</mat-label>
+                                <input matInput placeholder="Service Dealer City" [value]='pcr.serviceDealerAddress' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Crop</mat-label>
+                                <input matInput placeholder="Crop" [value]='pcr.crop' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Crop Condition</mat-label>
+                                <input matInput placeholder="Crop Condition" [value]='pcr.cropCondition' disabled>
+                            </mat-form-field>
+                        </td><td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Failure Type</mat-label>
+                                <input matInput placeholder="Failure Type" [value]='pcr.failureType' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Soil Type</mat-label>
+                                <input matInput placeholder="Soil Type" [value]='pcr.soilType' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Field Condition</mat-label>
+                                <input matInput placeholder="Field Condition" [value]='pcr.fieldCondition' disabled>
+                            </mat-form-field>
+                        </td>'
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Implements</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="text-left" >Category</th>
+                                    <th scope="col" >Implement</th>
+                                    <th scope="col" >Implement Make</th>
+                                    <th scope="col" >Serial Number</th>
+                                    <th scope="col" >Gear Ratio</th>
+                                    <th scope="col" >Engine RPM</th>
+                                    <th scope="col" >% Of Usage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let imp of partImplement' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement Category</mat-label>
+                                            <input matInput placeholder="Implement Category" [value]='imp.implementCategory' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement</mat-label>
+                                            <input matInput placeholder="Implement" [value]='imp.implement' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement Make</mat-label>
+                                            <input matInput placeholder="Implement Make" [value]='imp.implementMake' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement Serial Number</mat-label>
+                                            <input matInput placeholder="Implement Serial Number" [value]='imp.implementSerialNumber' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Gear Ratio</mat-label>
+                                            <input matInput placeholder="Gear Ratio" [value]='imp.gearRatio' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Engine RPM</mat-label>
+                                            <input matInput placeholder="Engine RPM" [value]='imp.engineRpm' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>% Of Usage</mat-label>
+                                            <input matInput placeholder="% Of Usage" [value]='imp.percentOfUsage' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Service History</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 100px">Date In</th>
+                                    <th scope="col" style="width: 100px">Type Of Service</th>
+                                    <th scope="col" style="width: 100px">Hours</th>
+                                    <th scope="col" style="width: 100px">Job Card No.</th>
+                                    <th scope="col" style="width: 100px"> Job Card Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let history of serviceHistory' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Date In</mat-label>
+                                            <input matInput placeholder="Date In" [value]='history.dateIn' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Type Of Service</mat-label>
+                                            <input matInput placeholder="Type Of Service" [value]='history.serviceType' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Hours</mat-label>
+                                            <input matInput placeholder="Hours" [value]='history.hours' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Card No</mat-label>
+                                            <input matInput placeholder="Job Card No" [value]='history.jobCardNo' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Card Date</mat-label>
+                                            <input matInput placeholder="Job Card Date" [value]='history.jobCardDate' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Concern</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr *ngFor='let concern of pcrHeader' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Customer Concern</mat-label>
+                                            <input matInput placeholder="Customer Concern" [value]='concern.serviceJobCard.customerConcern' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Mechanic Observation</mat-label>
+                                            <input matInput placeholder="Mechanic Observation" [value]='concern.serviceJobCard.mechanicObservation' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Dealer Observation</mat-label>
+                                            <input matInput placeholder="Dealer Observation" [value]='concern.dealerObservation' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Action Taken</mat-label>
+                                            <input matInput placeholder="Action Taken" [value]='concern.actionTaken' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Failure Parts</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px">Sr No.</th>
+                                    <th scope="col" style="width: 100px">Part No.</th>
+                                    <th scope="col" style="width: 100px">Description</th>
+                                    <th scope="col" style="width: 100px">Claim Quantity</th>
+                                    <th scope="col" style="width: 100px">Approved Quantity</th>
+                                    <th scope="col" style="width: 100px">Failure Code</th>
+                                    <th scope="col" style="width: 100px">Failure Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let failure of failureParts; let i=index' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Part Number</mat-label>
+                                            <input matInput placeholder="Part Number" [value]='failure.partNo' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Description</mat-label>
+                                            <input matInput placeholder="Description" [value]='failure.description' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claim Quantity</mat-label>
+                                            <input matInput placeholder="Claim Quantity" [value]='failure.claimQuantity' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Approved Quantity</mat-label>
+                                            <input matInput placeholder="Approved Quantity" [value]='failure.approvedQuantity' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Failure Code</mat-label>
+                                            <input matInput placeholder="Failure Code" [value]='failure.code' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Failure Description</mat-label>
+                                            <input matInput placeholder="Failure Description" [value]='failure.complaintDescription' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">Sr No.</th>
+                                    <th scope="col" class="text-left">Job Code(FRS)</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Hours</th>
+                                    <th scope="col">Claim Amount</th>
+                                    <th scope="col">Approved Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let labour of labourCharge; let i=index' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Code(FRS)</mat-label>
+                                            <input matInput placeholder="Job Code(FRS)" [value]='labour.labourCode' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Description</mat-label>
+                                            <input matInput placeholder="Description" [value]='labour.labourDesc' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Hours</mat-label>
+                                            <input matInput placeholder="Hours" [value]='labour.labourHour' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claim Amount</mat-label>
+                                            <input matInput placeholder="Claim Amount" [value]='labour.claimAmount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Approved Amount</mat-label>
+                                            <input matInput placeholder="Approved Amount" [value]='labour.approvedAmount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Outside Labour Charges</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">Sr No.</th>
+                                    <th scope="col" class="text-left">Job Code(FRS)</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Claim Amount</th>
+                                    <th scope="col">Approved Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let out of outSidlabourCharge; let i=index' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Code(FRS)</mat-label>
+                                            <input matInput placeholder="Job Code(FRS)" [value]='out.labourCode' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Description</mat-label>
+                                            <input matInput placeholder="Description" [value]='out.labourDesc' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claim Amount</mat-label>
+                                            <input matInput placeholder="Claim Amount" [value]='out.claimAmount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Approved Amount</mat-label>
+                                            <input matInput placeholder="Approved Amount" [value]='out.approvedAmount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-1">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr *ngFor='let remarks of pcrHeader; let i=index' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Dealer Remarks</mat-label>
+                                    <input matInput placeholder="Dealer Remarks" [value]='remarks.dealerRemarks' disabled>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </mat-dialog-content>
+    </div>
+</div>

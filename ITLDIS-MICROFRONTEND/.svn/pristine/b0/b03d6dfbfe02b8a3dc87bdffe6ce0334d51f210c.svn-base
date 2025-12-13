@@ -1,0 +1,74 @@
+<div class="card-from mt-2" *ngIf="isActivityType">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Heads</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div [formGroup]="headTableForm">
+          <table class="table table-bordered table-sm" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 50px;">Select</th>
+                <th scope="col" class="text-left">Heads</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of headTableForm.get('dataTable')['controls'];index as i" [formGroupName]="i">
+                <td>
+                  <mat-checkbox color="basic" class="form-control form-control-sm" formControlName="isSelected"
+                    [checked]></mat-checkbox>
+                </td>
+                <td class="text-left">
+                  <mat-form-field appearance="outline" [style.fontSize.px]="11">
+                    <mat-label>Select</mat-label>
+                    <mat-select formControlName="heads" [compareWith]="compareFnHeads">
+                      <mat-option *ngFor="let option of heads" [value]="option">
+                        {{option.head}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" [style.fontSize.px]="11">
+                    <input type="text" matInput formControlName="amount">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="border-0"></td>
+                <th class="text-left">Total</th>
+                <td>{{total ? total : 0}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+        <div class="text-center">
+          <div>
+            <button type="button" class="btn btn-sm btn_primary px-3 " *ngIf="isCreate || isEdit" (click)="addRow()"> Add Row
+            </button>
+            <button type="button" class="btn btn-sm btn_secondary px-3 ml-3" *ngIf="isCreate || isEdit" (click)="deleteRow()"> Delete Row
+            </button>
+          </div>
+          <!-- <div [style.fontSize.px]="12">
+            <div class="d-flex bd-highlight">
+                  <form [formGroup]="headsTotalForm" class="d-flex justify-content-end ">
+                      <table>
+                          <tr>
+                              <td>
+                                  <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                      <mat-label>Total Amount</mat-label>
+                                      <input matInput placeholder="Total Amount" formControlName="totalAmount">
+                                  </mat-form-field>
+                              </td>
+                          </tr>
+                      </table>
+                  </form>
+             
+            </div>
+          </div> -->
+
+      </div>

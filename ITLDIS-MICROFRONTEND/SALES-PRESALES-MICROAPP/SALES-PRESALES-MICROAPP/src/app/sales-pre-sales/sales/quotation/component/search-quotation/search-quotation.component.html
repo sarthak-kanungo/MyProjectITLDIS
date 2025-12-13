@@ -1,0 +1,308 @@
+<div class="card-from mt-3 mb-3">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <p class="mb-0"> Search Quotation</p>
+      <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+        New
+      </button>
+    </div>
+    <div class="card-body">
+
+      <form [formGroup]="searchQuotation" [style.fontSize.px]="10">
+        <div class="row">
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Quotation No.</mat-label>
+              <input matInput placeholder="Quotation No." formControlName="quotationCode"
+                [matAutocomplete]="autoQuotationCode">
+              <mat-autocomplete #autoQuotationCode="matAutocomplete" [panelWidth]="500">
+                <mat-option *ngFor="let option of quotationCodeList" [value]="option.quotationNumber">
+                  {{option.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Source</mat-label>
+              <mat-select formControlName="sources">
+                <mat-option *ngFor="let source of searchSourceTypeList?.result" [value]="source?.sourceName">
+                  {{source?.sourceName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Enquiry Status</mat-label>
+              <mat-select formControlName="enquiryStatus">
+                <mat-option *ngFor="let option of enquiryStatusList" [value]="option.enquiryStatus">
+                  {{option.enquiryStatus}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Sales Person</mat-label>
+              <mat-select formControlName="salesPerson">
+                <mat-option *ngFor="let option of salesPersonList" [value]="option.salesPerson">{{option.salesPerson}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Product</mat-label>
+              <mat-select formControlName="products" (selectionChange)="productSelected($event)">
+                <mat-option *ngFor="let product of searchProductTypeList?.result" [value]="product?.product">
+                  {{product?.product}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Series</mat-label>
+              <mat-select formControlName="series" (selectionChange)="seriesSelected($event)">
+                <mat-option *ngFor="let item of searchSeariesTypeList?.result" [value]="item?.series">{{item?.series}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model</mat-label>
+              <mat-select formControlName="model" (selectionChange)="modelSelected($event)">
+                <mat-option *ngFor="let model of searchModelTypeList?.result" [value]="model?.model">{{model?.model}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Sub Model</mat-label>
+              <mat-select formControlName="submodel" (selectionChange)="subModelSelected($event)">
+                <mat-option *ngFor="let submodel of searchSubModelTypeList?.result" [value]="submodel?.subModel">
+                  {{submodel?.subModel}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Variant</mat-label>
+              <mat-select formControlName="variant">
+                <mat-option *ngFor="let variant of searchVariantTypeList?.result" [value]="variant?.variant">
+                  {{variant?.variant}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Item No.</mat-label>
+              <input matInput placeholder="Item No." formControlName="itemNo" [matAutocomplete]="autoItemNo">
+              <mat-autocomplete #autoItemNo="matAutocomplete" [panelWidth]="700"  >
+                <mat-option *ngFor="let option of getItemNo?.result" [value]="option.code">
+                  {{option.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <input matInput [matDatepicker]="picker" placeholder="Quotation From Date"
+                formControlName="quotationFromDate" (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <input matInput [matDatepicker]="picker1" placeholder="Quotation To Date"
+                formControlName="quotationToDate" [max]="maxDate" [min]="minDate"
+                [readonly]="!searchQuotation.get('quotationFromDate').value"
+                (click)="picker1.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 [disabled]="!searchQuotation.get('quotationFromDate').value"></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="col-lg-12">
+          <div class="mx-auto text-center">
+            <button type="button" class="btn pl-3 pr-3 btn_primary"
+              [insertQueryParams]="searchFilter"
+              (initialQueryParams)="initialQueryParams($event)"
+              (onUrlChange)="onUrlChange($event)"
+              (click)="setQuotationSearchResult()">Search
+            </button>
+            <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary"
+              (click)="clear()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ngsw-search-table
+  [tableTitle]="'Search Result'"
+  [dataTable]="dataTable"
+  [page]="page"
+  [size]="size"
+  [actionButtons]="actionButtons"
+  [totalElements]="totalTableRecords"
+  [searchValue]="searchValue"
+  [clickOnTableFields]="clickOnTableFields"
+  (actionOnTableRecord)="actionOnTableRecord($event)"
+  (pageChange)="pageChangeOfSearchTable($event)"
+  [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" >
+  <td [ngsw-searchField]="quotationCode" [searchColumnName]="'quotationCode'">
+    <input class="w-100 borderRadius" #quotationCode [(ngModel)] ="quotationCodeNgModel">
+  </td>
+  <!-- <td [ngsw-searchField]="quotationDate" [searchColumnName]="'quotationDate'">
+    <input class="w-100 borderRadius" type="date" #quotationDate
+    (dateInput)="etSearchDateValueChange(quotationDate.value,'quotationDate')"
+                        [max]="tomorrow" [(ngModel)] ="quotationDateNgModel">
+  </td> -->
+
+  <td [ngsw-searchField]="quotationDate" [searchColumnName]="'quotationDate'" >
+    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [max]="tomorrow" [matDatepicker]="quotationDate" #quotationDateInput
+        (dateInput)="etSearchDateValueChange(quotationDateInput.value,'quotationDate')" [(ngModel)] ="quotationDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="quotationDate"></mat-datepicker-toggle>
+        <mat-datepicker #quotationDate></mat-datepicker>
+    </mat-form-field>
+</td>
+
+  <td [ngsw-searchField]="enquiryNumber" [searchColumnName]="'enquiryNumber'">
+    <input class="w-100 borderRadius" #enquiryNumber [(ngModel)] ="enquiryNumberNgModel">
+  </td>
+  <td [ngsw-searchField]="salesPerson" [searchColumnName]="'salesPerson'">
+    <input class="w-100 borderRadius" #salesPerson [(ngModel)] ="salesPersonNgModel">
+  </td>
+  <td [ngsw-searchField]="enquiryStatus" [searchColumnName]="'enquiryStatus'">
+    <input class="w-100 borderRadius" #enquiryStatus [(ngModel)] ="enquiryStatusNgModel">
+  </td>
+  <td [ngsw-searchField]="source" [searchColumnName]="'source'">
+    <input class="w-100 borderRadius" #source [(ngModel)] ="sourceNgModel">
+  </td>
+  <td [ngsw-searchField]="purposeOfPurchase" [searchColumnName]="'purposeOfPurchase'">
+    <input class="w-100 borderRadius" #purposeOfPurchase [(ngModel)] ="purposeOfPurchaseNgModel">
+  </td>
+  <td [ngsw-searchField]="tentativePurchaseDate" [searchColumnName]="'tentativePurchaseDate'">
+    <input class="w-100 borderRadius" type="date" #tentativePurchaseDate
+                        (change)="etSearchDateValueChange(tentativePurchaseDate.value,'tentativePurchaseDate')" [(ngModel)] ="tentativePurchaseDateNgModel">
+  </td>
+  <td [ngsw-searchField]="itemNumber" [searchColumnName]="'itemNumber'">
+    <input class="w-100 borderRadius" #itemNumber [(ngModel)] ="itemNumberNgModel">
+  </td>
+  <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'">
+    <input class="w-100 borderRadius" #itemDescription [(ngModel)] ="itemDescriptionNgModel">
+  </td>
+  <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+    <input class="w-100 borderRadius" #model [(ngModel)] ="modelNgModel">
+  </td>
+  <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'">
+    <input class="w-100 borderRadius" #subModel [(ngModel)] ="subModelNgModel">
+  </td>
+  <td [ngsw-searchField]="variant" [searchColumnName]="'variant'">
+    <input class="w-100 borderRadius" #variant [(ngModel)] ="variantNgModel">
+  </td>
+  <td [ngsw-searchField]="series" [searchColumnName]="'series'">
+    <input class="w-100 borderRadius" #series [(ngModel)] ="seriesNgModel">
+  </td>
+  <td [ngsw-searchField]="product" [searchColumnName]="'product'">
+    <input class="w-100 borderRadius" #product [(ngModel)] ="productNgModel">
+  </td>
+  <td [ngsw-searchField]="prospectCode" [searchColumnName]="'prospectCode'">
+    <input class="w-100 borderRadius" #prospectCode [(ngModel)] ="prospectCodeNgModel">
+  </td>
+  <td [ngsw-searchField]="prospectType" [searchColumnName]="'prospectType'">
+    <input class="w-100 borderRadius" #prospectType [(ngModel)] ="prospectTypeNgModel">
+  </td>
+  <td [ngsw-searchField]="companyName" [searchColumnName]="'companyName'">
+    <input class="w-100 borderRadius" #companyName [(ngModel)] ="companyNameNgModel">
+  </td>
+  <td [ngsw-searchField]="firstName" [searchColumnName]="'firstName'">
+    <input class="w-100 borderRadius" #firstName [(ngModel)] ="firstNameNgModel">
+  </td>
+  <td [ngsw-searchField]="middleName" [searchColumnName]="'middleName'">
+    <input class="w-100 borderRadius" #middleName [(ngModel)] ="middleNameNgModel">
+  </td>
+  <td [ngsw-searchField]="lastName" [searchColumnName]="'lastName'">
+    <input class="w-100 borderRadius" #lastName [(ngModel)] ="lastNameNgModel">
+  </td>
+  <td [ngsw-searchField]="fatherName" [searchColumnName]="'fatherName'">
+    <input class="w-100 borderRadius" #fatherName [(ngModel)] ="fatherNameNgModel">
+  </td>
+  <td [ngsw-searchField]="whatsAppNumber" [searchColumnName]="'whatsAppNumber'">
+    <input class="w-100 borderRadius" #whatsAppNumber [(ngModel)] ="whatsAppNumberNgModel">
+  </td>
+  <td [ngsw-searchField]="alternateMobileNumber" [searchColumnName]="'alternateMobileNumber'">
+    <input class="w-100 borderRadius" #alternateMobileNumber [(ngModel)] ="alternateMobileNumberNgModel">
+  </td>
+  <td [ngsw-searchField]="telephoneNumber" [searchColumnName]="'telephoneNumber'">
+    <input class="w-100 borderRadius" #telephoneNumber [(ngModel)] ="telephoneNumberNgModel">
+  </td>
+  <td [ngsw-searchField]="emailId" [searchColumnName]="'emailId'">
+    <input class="w-100 borderRadius" #emailId [(ngModel)] ="emailIdNgModel">
+  </td>
+  <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+    <input class="w-100 borderRadius" #address1 [(ngModel)] ="address1NgModel">
+  </td>
+  <td [ngsw-searchField]="address2" [searchColumnName]="'address2'">
+    <input class="w-100 borderRadius" #address2 [(ngModel)] ="address2NgModel">
+  </td>
+  <td [ngsw-searchField]="address3" [searchColumnName]="'address3'">
+    <input class="w-100 borderRadius" #address3 [(ngModel)] ="address3NgModel">
+  </td>
+  <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+    <input class="w-100 borderRadius" #pinCode [(ngModel)] ="pinCodeNgModel">
+  </td>
+  <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+    <input class="w-100 borderRadius" #postOffice [(ngModel)] ="postOfficeNgModel">
+  </td>
+  <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+    <input class="w-100 borderRadius" #city [(ngModel)] ="cityNgModel"> 
+  </td>
+  <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+    <input class="w-100 borderRadius" #state [(ngModel)] ="stateNgModel">
+  </td>
+  <td [ngsw-searchField]="country" [searchColumnName]="'country'">
+    <input class="w-100 borderRadius" #country [(ngModel)] ="countryNgModel">
+  </td>
+  <td [ngsw-searchField]="language" [searchColumnName]="'language'">
+    <input class="w-100 borderRadius" #language [(ngModel)] ="languageNgModel">
+  </td>
+  <td [ngsw-searchField]="dob" [searchColumnName]="'dob'">
+    <input class="w-100 borderRadius" #dob [(ngModel)] ="dobNgModel"> 
+  </td>
+  <td [ngsw-searchField]="anniversaryDate" [searchColumnName]="'anniversaryDate'">
+    <input class="w-100 borderRadius" #anniversaryDate [(ngModel)] ="anniversaryDateNgModel">
+  </td>
+  <td [ngsw-searchField]="gstNumber" [searchColumnName]="'gstNumber'">
+    <input class="w-100 borderRadius" #gstNumber [(ngModel)] ="gstNumberNgModel">
+  </td>
+  <td [ngsw-searchField]="panNumber" [searchColumnName]="'panNumber'">
+    <input class="w-100 borderRadius" #panNumber [(ngModel)] ="panNumberNgModel5">
+  </td>
+  <!-- <td></td> -->
+</ngsw-search-table>

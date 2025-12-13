@@ -1,0 +1,127 @@
+<form [style.fontSize.px]="10" [formGroup]="partReturnForm">
+  <div class="row">
+
+    <div class="col-lg-2" *ngIf="partReturnForm.get('returnNo').value">
+      <mat-form-field appearance="outline">
+        <mat-label>Return No.</mat-label>
+        <input matInput placeholder="Return No." formControlName="returnNo">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="partReturnForm.get('returnDate').value">
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="picker1" placeholder="Return Date" formControlName="returnDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+	<div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label> Requisition Type </mat-label>
+        <!-- <input matInput placeholder="Requisition Type" formControlName="requisitionType"> -->
+        <mat-select formControlName="requisitionType">
+            <mat-option *ngFor="let issue of issueTypeList$ | async" [value]="issue.value">
+                {{issue.value}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Requisition No.</mat-label>
+        <input type="text" matInput
+          [required]="partReturnForm.get('serviceJobCard') && !(partReturnForm.get('serviceJobCard').value)"
+          placeholder="Requisition No." formControlName="sparePartRequisition"
+          [matAutocomplete]="autoSparePartRequisition">
+        <mat-autocomplete #autoSparePartRequisition="matAutocomplete" [displayWith]="displayCodeFn" [panelWidth]="500"
+          (optionSelected)="sparePartRequisitionOptionSelected($event)">
+          <mat-option *ngFor="let option of sparePartRequisitionList$ | async" [value]="option">
+            {{option?.value}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="partReturnForm.get('sparePartRequisition').hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-error *ngIf="partReturnForm.get('sparePartRequisition').hasError('selectFromList')">
+          {{partReturnForm.get('sparePartRequisition').getError('selectFromList')}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Job Card No</mat-label>
+        <input type="text" matInput
+          [required]="partReturnForm.get('sparePartRequisition') && !(partReturnForm.get('sparePartRequisition').value)"
+          placeholder="Job Card No" formControlName="serviceJobCard" [matAutocomplete]="autoServiceJobCard">
+        <mat-autocomplete #autoServiceJobCard="matAutocomplete" [displayWith]="displayFn" [panelWidth]="250"
+          (optionSelected)="serviceJobCardOptionSelected($event)">
+          <mat-option *ngFor="let option of serviceJobCardList$ | async" [value]="option">
+            {{option?.value}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="partReturnForm.get('serviceJobCard').hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-error *ngIf="partReturnForm.get('serviceJobCard').hasError('selectFromList')">
+          {{partReturnForm.get('serviceJobCard').getError('selectFromList')}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Requisition Date</mat-label>
+        <input matInput [matDatepicker]="picker2" placeholder="Requisition Date" formControlName="requisitionDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Job Card Date</mat-label>
+        <input matInput [matDatepicker]="picker3" placeholder="Job Card Date" formControlName="jobCardDate">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label> Requisition Purpose </mat-label>
+        <input matInput placeholder="Requisition Purpose" formControlName="requisitionPurpose">
+      </mat-form-field>
+    </div>
+
+	<div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Reason for Return</mat-label>
+        <mat-select formControlName="reasonForReturn">
+          <mat-option *ngFor="let reason of reasonForReturn$ | async" [value]="reason.value">{{reason.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Return Request by</mat-label>
+        <input matInput placeholder="Return Request by" formControlName="returnRequestBy">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label> Parts Received by </mat-label>
+        <input matInput placeholder="Parts Received by" formControlName="partsReceivedBy">
+      </mat-form-field>
+    </div>
+
+  </div>
+</form>

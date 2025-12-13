@@ -1,0 +1,8 @@
+
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="heading">
+        <p class="font-weight-bold">Delivery Challan</p>
+    </div>
+    <app-spare-delivery-challan></app-spare-delivery-challan>
+
+    </div>

@@ -1,0 +1,406 @@
+<div class="card-body">
+  <form [formGroup]="activityClaimForm" [style.fontSize.px]="10">
+    <div class="row">
+
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker" placeholder="Activity Claim Date" formControlName="claimDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline">
+          <mat-label>Activity Claim No.</mat-label>
+          <input matInput placeholder="Activity Claim No." formControlName="claimNumber">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Activity No.</mat-label>
+          <input matInput placeholder="Activity No." formControlName="activityNumber"
+            [matAutocomplete]="autoActivityNumber" >
+          <mat-autocomplete #autoActivityNumber="matAutocomplete"
+            (optionSelected)="optionSelectedActivityNumber($event)" [displayWith]="displayActivityNoFn"  [panelWidth]="500">
+            <mat-option *ngFor="let option of searchActivityNumber?.result" [value]="option">
+              {{option?.activityNumber}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-error *ngIf="activityClaimForm.get('activityNumber').hasError('selectFromList')">
+            Please select from list</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="Activity Creation Date"
+            formControlName="activityCreationDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Activity Type</mat-label>
+          <input matInput placeholder="Activity Type" formControlName="activityType">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Activity Claim Status</mat-label>
+          <input matInput placeholder="Activity Claim Status" formControlName="claimStatus">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>No. Of Days</mat-label>
+          <input matInput placeholder="No. Of Days" required formControlName="numberOfDays">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker2" placeholder="From Date" required formControlName="fromDate" readonly
+            (click)="picker2.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker3" placeholder="To Date" required formControlName="toDate" readonly
+            (click)="picker3.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker4" placeholder="Actual From Date" required
+            formControlName="actualFromDate" readonly (click)="picker4.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker5" placeholder="Actual To Date" required formControlName="actualToDate"
+            readonly (click)="picker5.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+          <mat-datepicker #picker5></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput placeholder="Location" formControlName="location">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Enquiries</mat-label>
+          <input matInput placeholder="Total Enquiries" formControlName="totalEnquiries">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Hot Enquiry</mat-label>
+          <input matInput placeholder="Hot Enquiry" formControlName="hotEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Warm Enquiry</mat-label>
+          <input matInput placeholder="Warm Enquiry" formControlName="warmEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cold Enquiry</mat-label>
+          <input matInput placeholder="Cold Enquiry" formControlName="coldEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost per Enquiry</mat-label>
+          <input matInput placeholder="Cost per Enquiries" formControlName="costPerEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost Per Hot Enquiry</mat-label>
+          <input matInput placeholder="Cost Per Hot Enquiry" formControlName="costPerHotEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Bookings</mat-label>
+          <input matInput placeholder="Total Bookings" formControlName="totalBookings">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost Per Booking</mat-label>
+          <input matInput placeholder="Cost Per Booking" formControlName="costPerBooking">
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Retails</mat-label>
+          <input matInput placeholder="Total Retails" formControlName="totalRetails">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost Per Retail</mat-label>
+          <input matInput placeholder="Cost Per Retail" formControlName="costPerRetail">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Activity Effectiveness</mat-label>
+          <mat-select required formControlName="activityEffectiveness" [compareWith]="compareFnActivityEffectiveness">
+            <mat-option *ngFor="let option of dropdownActivityEffectiveness?.result" [value]="option">
+              {{option?.effectiveness}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col-lg-2" *ngIf="isApprovedAmount">
+        <mat-form-field appearance="outline">
+          <mat-label> Proposal Approved Amount</mat-label>
+          <input matInput placeholder="Proposal Apporved Amount" formControlName="proposalApprovedAmount">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="isApprovedAmount">
+        <mat-form-field appearance="outline">
+          <mat-label>Approved Amount</mat-label>
+          <input matInput placeholder="Approved Amount" (keyup)="validation($event)" autocomplete="off" formControlName="approvedAmount">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="isView && approvalDetails">
+      <app-claim-approval-dealer-info [dealerInfo]='dealerInfo'></app-claim-approval-dealer-info>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="areHeadsAvailable">
+
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                           border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Heads</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 10px;">Sr No.</th>
+                  <th scope="col" style="width: 60px;">Heads </th>
+                  <th scope="col" style="width: 60px;">KAI Approved Amount </th>
+                  <th scope="col" style="width: 60px;">Actual Claim Amount</th>  
+                  <th scope="col" style="width: 60px;">Total</th>
+                   <th scope="col" style="width: 60px;">Vendor Name</th>
+                   <th scope="col" style="width: 60px;">Bill No</th>
+                   <th scope="col" style="width: 80px;">Bill Date</th>
+                  <th scope="col" style="width: 60px;" *ngIf="!isView">Document</th>
+                  <th scope="col" style="width: 60px;">Preview</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let head of activityClaimHeads; let sr=index;">
+                  <td>{{sr+1}}</td>
+                  <td>{{head.headName}}</td>
+                  <td>{{head.amount}}</td>
+                  <td>
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                      <input matInput type="number" [value]="head.actualClaimAmount ? head.actualClaimAmount : 0"
+                      (change)="onChangeInputActivityActualAmount($event.target.value, head);"
+                      (keypress)=keyNumbersOnly($event) [disabled]="isView || isEdit">
+                    </mat-form-field>
+                  </td>
+
+                  <td>{{head.total ? head.total : 0 }}</td>
+                  <!-- Vendor Name -->
+                  <td>
+                    <mat-form-field appearance="outline"  [style.fontSize.px]="10">
+                      <input matInput placeholder="Vendor Name" [formControl]="vendorName" (keypress)="keypressValidateVendorName($event)"  [value]="head.vendorName?head.vendorName:''" required="true"  (change)="onChangeVendorName($event.target.value, head);"  autocomplete="off" [disabled]="isView || isApprove">
+                    </mat-form-field>
+                    <mat-error *ngIf="head.vendorName==''"><span>Vendor Name is Required</span></mat-error>
+                   
+                  </td>
+                  <!-- Bill No -->
+                  <td>
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                      <input matInput placeholder="Bill No" [formControl]="billNo" (keypress)="validateBillNo($event)" [value]="head.billNo?head.billNo:'' " (change)="onChangeBillNo($event.target.value, head);"   required autocomplete="off" [disabled]="isView">
+                    </mat-form-field>
+                    <mat-error *ngIf="head.billNo==''"><span>Bill No is Required</span></mat-error>
+                  </td>
+                  <!-- <td>{{head.amount}}</td> -->
+                  <!-- Bill Date -->
+                  <td>
+
+                    <mat-form-field appearance="outline" [style.fontSize.px]="10" class="w-100">
+                      <input matInput placeholder="Bill Date" [required]="true" [formControl]="billDates" [value]="head.billDate" (dateChange)="onChangeBillDate($event.target.value, head);" [disabled]="isView" [matDatepicker]="picker1"
+                          (click)="picker1.open()">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                  <mat-error *ngIf="head.billdate==''"><span>Bill Date is Required</span></mat-error>
+                  </td>
+
+                 
+
+
+                  <td *ngIf="!isView">
+                    <input type="file" (change)="onClaimImageClick(head, $event, img)" required>
+                  </td>
+                  
+                  <td>
+                    <img [src]="head?.image" [alt]="head?.headName" height="30px" width="30px" #img>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th colspan="3" class="border_none"></th>
+                  <th>Total Amount</th>
+                  <!-- <th class="border_none"></th>
+                  <th class="border_none"></th> -->
+                  <th class="border_none"> {{totalActualMainClaimAmt}}</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="card-from mt-2" *ngIf="!isView">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                               border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Upload GST Invoice</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="file" (change)="fileSelctionChanges($event)">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div> -->
+
+    <div class="card-from mt-2" *ngIf="areReportImagesAvailable">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                             border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Uploaded Document</p>
+        </div>
+        <div class="card-body">
+          <div class="row" style="align-items: center;">
+            <div class="col-md-2 d-flex justify-content-around " *ngFor="let file of fileNamelist">
+              <div class="card " [style.width.rem]="13" style="align-items: center;">
+                <img src="{{staticPath}}/{{file.fileName}}" height="140" width="185" />
+                <div class="card-body">
+                  <a href="{{staticPath}}/{{file.fileName}}" download>
+                    <hr>
+                    <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-from mt-2" *ngIf="isApprove || isView">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                             border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Report Uploaded Document</p>
+        </div>
+        <div class="card-body">
+          <div class="row" style="align-items: center;">
+            <div class="col-md-2 d-flex justify-content-around " *ngFor="let file of reportFileListApprove">
+              <div class="card " [style.width.rem]="13" style="align-items: center;">
+                <img src="{{staticPath}}/{{file.fileName}}" height="140" width="185" />
+                <div class="card-body">
+                  <a href="{{staticPath}}/{{file.fileName}}" download>
+                    <hr>
+                    <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+
+    <div *ngIf="isView && approvalDetails">
+      <app-claim-approval-details [approvalDetails]='approvalDetails'></app-claim-approval-details>
+  </div>
+    <div class="card-body">
+      <div class=" text-center mt-2 ">
+        <button type="button" class="btn btn_primary pl-3 pr-3 " *ngIf="!isView && !isEdit" (click)="validateForm()" [disabled]="isSubmitDisable"> Submit
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 " *ngIf="isEdit" (click)="updateForm()" [disabled]="isSubmitDisable"> Update
+        </button>
+        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " *ngIf="isView" disabled> View PDF
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3 " *ngIf="isApprove" (click)="approveRejectClaim('Approve')" [disabled]="isSubmitDisable"> Approve
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3  ml-3" *ngIf="isApprove" (click)="approveRejectClaim('Reject')" [disabled]="isSubmitDisable"> Reject
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3  ml-3" *ngIf="isApprove" (click)="approveRejectClaim('Hold')" [disabled]="isSubmitDisable"> Hold
+        </button> 
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="!isView && !isEdit" (click)="clearAll()"> Clear
+
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="!isView" (click)="navigateToMain()"> Exit
+        </button>
+        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="back()"> Back
+        </button>
+      </div>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,35 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Employee Master</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="employeeMaster">
+                    <app-employee-master [employeeMasterDetails]="employeeMasterDetails" [employeeId]="employeeId"></app-employee-master>                    
+                    <app-employee [employeeForm]="employeeForm"></app-employee>
+                    <app-employment ></app-employment>
+                    <app-employee-address [employeeAddressForm]="employeeAddressForm"></app-employee-address>
+                    <!-- <app-family-details [employeeFamilyDetailsForm]="employeeFamilyDetailsForm"></app-family-details>
+                    <app-work-experience [employeeWorkExperienceForm]="employeeWorkExperienceForm"></app-work-experience>  -->
+
+                    <div class=" text-center mt-2 " >
+                        <button type="button" *ngIf="isCreate" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()" > Submit</button>
+                        <button type="button" *ngIf="isEdit" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()" > Update</button>
+                        <button type="button" *ngIf="isCreate" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="resetForm()"> Clear
+                        </button>
+                        <button type="button" *ngIf="isView || isEdit" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+

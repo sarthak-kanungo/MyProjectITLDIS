@@ -1,0 +1,182 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">New Delear Customer Care Executive Calls</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="delearCustomerCareExCallCreateDetailsFrom" [style.fontSize.px]="10">
+                    <div class="row">
+                        <div class="col-lg-2" *ngIf="!isCreate">
+                            <mat-form-field appearance="outline" title="{{delearCustomerCareExCallCreateDetailsFrom.get('callNo').value}}">
+                                <mat-label>Call No.</mat-label>
+                                <input matInput placeholder="Call No." formControlName="callNo">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" title="{{delearCustomerCareExCallCreateDetailsFrom.get('callDate').value}}">
+                                <mat-label>Call Date</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="Call Date" formControlName="callDate" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Caller Name</mat-label>
+                                <input matInput type='text' formControlName="callerName" placeholder="Caller Name" >
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Caller Mobile No.</mat-label>
+                                <input matInput type='text' formControlName="callerMobile" placeholder="Caller Mobile No." >
+                            </mat-form-field>
+                        </div> -->
+
+                        <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline" title="{{delearCustomerCareExCallCreateDetailsFrom.get('dealerName').value}}">
+                                <mat-label>Dealer Name</mat-label>
+                                <input matInput placeholder="Delear Name" formControlName="dealerName"
+                                     readonly >
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <mat-form-field appearance="outline" title="{{delearCustomerCareExCallCreateDetailsFrom.get('dealerLocation').value}}">
+                                <mat-label>Dealer Location</mat-label>
+                                <input matInput placeholder="Delear Location" formControlName="dealerLocation" readonly>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <mat-form-field appearance="outline" title="{{delearCustomerCareExCallCreateDetailsFrom.get('dealerContact').value}}">
+                                <mat-label>Dealer Contact No.</mat-label>
+                                <input matInput placeholder="Delear Contact No." formControlName="dealerContact" readonly>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3" *ngIf="isCreate">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Type of Call</mat-label>
+                                <mat-select  placeholder="Type of Call" required  (selectionChange)="selectedTypeOfCall($event)" formControlName="callType">
+                                    <mat-option *ngFor="let tc of callList" [value]="tc">
+                                        {{tc.typeOfCall}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error
+                                *ngIf="delearCustomerCareExCallCreateDetailsFrom.get('callType').hasError('required')">
+                                Type of Call is required.
+                            </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3" *ngIf="isView">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Type of Call</mat-label>
+                                <input matInput placeholder="Type of Call" formControlName="callType" readonly>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3" *ngIf="isCreate">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Call Status</mat-label>
+                                <mat-select  placeholder="Call Status" required formControlName="crmCallStatus" (selectionChange)="selectCallStatus($event)">
+                                    <mat-option *ngFor="let cs of callStatusList" [value]="cs">
+                                       {{cs.callStatus}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error
+                                *ngIf="delearCustomerCareExCallCreateDetailsFrom.get('crmCallStatus').hasError('required')">
+                                 Call Status is required.
+                            </mat-error>
+                            </mat-form-field>
+                        </div>   
+                        
+                        <div class="col-lg-3" *ngIf="isView">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Call Status</mat-label>
+                                <input matInput placeholder="Call Status" formControlName="crmCallStatus" readonly>
+                            </mat-form-field>
+                        </div>
+                        
+                        <!-- <div class="col-lg-3" *ngIf="!isCreate">
+                            <mat-form-field appearance="outline" title="{{delearCustomerCareExCallCreateDetailsFrom.get('status').value}}">
+                                <mat-label>Status</mat-label>
+                                <input matInput placeholder="Status" formControlName="status" readonly>
+
+                            </mat-form-field>
+                        </div>                         -->
+
+                        <div class="col-lg-4">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Details of the Call</mat-label>
+                                <textarea matInput type='text'   formControlName="callDetails" placeholder="Details of the Call" ></textarea>
+                                <mat-error *ngIf="delearCustomerCareExCallCreateDetailsFrom.get('callDetails').hasError('required')">
+                                    Details of the call is Required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Start Time</mat-label>
+                                <input type="text" matInput placeholder="Start Time" formControlName="startTime" >
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="isView">
+                            <mat-form-field appearance="outline">
+                                <mat-label>End Time</mat-label>
+                                <input type="text" matInput placeholder="End Time" formControlName="endTime" >
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+                    <!-- <app-customer-detail *ngIf="postServiceFeedBackFlag "[customerDetailsForm]="delearCustomerCareExCallCreateDetailsFrom" (customerSelecction)="onclick($event)"></app-customer-detail> -->
+                    <app-enquiry-details *ngIf="salesEnquiryFlag  || viewSalesEnquiry" [viewSalesEnquiry]="viewSalesEnquiry" [createEnquiryForm]="createEnquiryForm"></app-enquiry-details>
+                   
+                    <!-- Post Service feedBack -->
+                    
+                    <app-service-jobcard-details *ngIf="postServiceFeedBackFlag" [serviceJobCardId]="serviceJobCardId" (serviceMachineDetails)="getServiceDetailsData($event)" (serviceCustomerDetails)="getServiceCustomerDetails($event)" (historyData)="getHistoryData($event)"  (jcId)="getJcId($event)" [typeOfCallId]="typeOfCallId" (showAllForm)="showAllForm($event)" (notifyTicketBook)="notifyTicketBook($event)"></app-service-jobcard-details>
+                    <!-- code commited by Ankit Rai for cusmtomer details -->
+                    <app-existing-customer-detail *ngIf="postServiceFeedBackFlag || viewPostServicefeedback" [viewPostServicefeedback]="viewPostServicefeedback"   [showAllServiceFeedbackForm]="showAllServiceFeedbackForm" [viewPostSalesfeedback]="viewPostSalesfeedback"[showSalesFormData]="showSalesFormData"    [customerDetailsForm]="customerDetailsForm" [isView]="isView" ></app-existing-customer-detail> 
+                    <app-machine-detail *ngIf="postServiceFeedBackFlag || viewPostServicefeedback"  [viewPostServicefeedback]="viewPostServicefeedback" [showAllServiceFeedbackForm]="showAllServiceFeedbackForm"  [viewPostSalesfeedback]="viewPostSalesfeedback"  [showSalesFormData]="showSalesFormData" [machineDetailsForm]="machineDetailsForm" [isView]="isView"></app-machine-detail> 
+                    <app-post-service-feedback *ngIf="postServiceFeedBackFlag || viewPostServicefeedback" [serviceJobCardId]="serviceJobCardId" [callHistoryData]="callHistoryData"[serviceFeedBackDetails]="serviceFeedBackDetails"  [viewPostServicefeedback]="viewPostServicefeedback" [typeOfCallId]="typeOfCallId" [showAllServiceFeedbackForm]="showAllServiceFeedbackForm" (startRatingData)="startRatingData($event)"></app-post-service-feedback>
+               
+                    <!-- Post Sales FeedBack -->
+                    
+                    <app-service-job-card-post-sales *ngIf="postSalesFeedBackFlag" [salesJobCardId]="salesJobCardId" (customerDetails)="getCustomerDetails($event)" (machineDetails)="getMachineDetails($event)" (dcId)="getDcId($event)" (historyDataforSales)="getHistoryDataforSales($event)" [typeOfCallId]="typeOfCallId" (showSalesForm)="showSalesForm($event)"></app-service-job-card-post-sales>
+                    <app-existing-customer-detail *ngIf="postSalesFeedBackFlag || viewPostSalesfeedback" [viewPostSalesfeedback]="viewPostSalesfeedback"[showSalesFormData]="showSalesFormData"    [customerDetailsForm]="customerDetailsForm" [isView]="isView" ></app-existing-customer-detail> 
+                   <app-machine-detail *ngIf="postSalesFeedBackFlag || viewPostSalesfeedback"  [viewPostSalesfeedback]="viewPostSalesfeedback"  [showSalesFormData]="showSalesFormData" [machineDetailsForm]="machineDetailsForm" [isView]="isView"></app-machine-detail> 
+
+                    <app-post-sales-feedback *ngIf="postSalesFeedBackFlag || viewPostSalesfeedback"[showSalesFormData]="showSalesFormData" [typeOfCallId]="typeOfCallId" [viewSalesCallHistory]="viewSalesCallHistory" [showSalesFormData]="showSalesFormData" [salesFeedBakDetails]="salesFeedBakDetails" [viewPostSalesfeedback]="viewPostSalesfeedback"></app-post-sales-feedback>
+                
+                    <!--  -->
+                    <app-service-booking-details *ngIf="serviceBookingFlag || viewServiceBooking"(checkingServiceBookingDoneOrNotFlag)="getcheckingServiceBookingDoneOrNotFlag($event)" [hideSubmitButton]="hideSubmitButton" [showServiceBookingForm]="showServiceBookingForm" [serviceBookingId]="serviceBookingId" (serviceBookingShowHide)="serviceBookingShowHide($event)"  [viewServiceBooking]="viewServiceBooking" (customerId)="getCustomerId($event)" (vinId)="getVin($event)"  [bookingDetailsBasicForm]="bookingDetailsBasicForm" [bookingSearchForm]="bookingSearchForm" [typeOfCallId]="typeOfCallId" [typeOfCall]="serviceBooking"></app-service-booking-details>
+                    <app-enquiry [enquiryDetailsForm]="enquiryDetailsForm" [isView]="isView" [districtId]="districtId"  *ngIf="enquiryFlag"></app-enquiry> 
+                    
+                    <!-- <app-machine-detail  [machineDetailsForm]="machineDetailsForm" [isView]="isView" *ngIf="customerType=='Existing Customer'"></app-machine-detail> -->
+                    <app-free-service-history  [callHistoryForm]="callHistoryForm" [freeServiceHistoryForm]="freeServiceHistoryForm" *ngIf="customerType=='Existing Customer'"></app-free-service-history>
+                    <app-complaint [complaintDetailsForm]="complaintDetailsForm" [isView]="isView" [isEdit]="isEdit" [isCreate]="isCreate" *ngIf="customerType=='Existing Customer'"></app-complaint>
+                    
+                    <div class=" text-center mt-2 ">
+                        <button  *ngIf="(!isView && !hideSubmitButton)" type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()" >
+                            Submit
+                        </button>
+                        <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPrint()"  *ngIf="!isCreate">
+                            Print </button> -->
+                        <button type="button" class="btn btn_primary px-3  ml-3" (click)="exitForm()">
+                            Exit
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" (click)="clearForm()" *ngIf="isCreate"> Clear
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

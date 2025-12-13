@@ -1,0 +1,99 @@
+<div class="card-from mt-2 k-quic-details" [formGroup]="kQuickForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf; border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">K-QUIC DETAILS</p>
+        </div>
+        <div class="card-body">
+            <div class="row mb-1">
+                <div class="col-lg-4">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Failure Mode</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Failure Mode</mat-label>
+                                <mat-select [compareWith]="dropDownCompareFn" formControlName="failureMode">
+                                    <mat-option *ngFor="let value of failureMode" [value]="value">{{value.code}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Failure Unit</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Failure Unit</mat-label>
+                                <mat-select [compareWith]="dropDownCompareFn" formControlName="failureUnit">
+                                    <mat-option *ngFor="let value of failureUnit" [value]="value">{{value.code}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Type of Use</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Type of Use</mat-label>
+                                <mat-select [compareWith]="dropDownCompareFn" formControlName="typeOfUse">
+                                    <mat-option *ngFor="let value of typeOfUse" [value]="value">{{value.code}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Symptom</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Symptom</mat-label>
+                                <input  matInput placeholder="Symptom" formControlName="symptom">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Defect</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Defect</mat-label>
+                                <input  matInput placeholder="Defect" formControlName="defect">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Remedy</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Remedy</mat-label>
+                                <input  matInput placeholder="Remedy" formControlName="remedy">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipe/camel-case-to-regular-string.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Pipe } from '@angular/core';
+var CamelCaseToRegularStringPipe = /** @class */ (function () {
+    function CamelCaseToRegularStringPipe() {
+    }
+    /**
+     * @param {?} value
+     * @param {?=} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    CamelCaseToRegularStringPipe.prototype.transform = /**
+     * @param {?} value
+     * @param {?=} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    function (value, tableName, tableType) {
+        /** @type {?} */
+        var regularString = '';
+        value.split('').map((/**
+         * @param {?} char
+         * @return {?}
+         */
+        function (char) {
+            if (/[A-Z]/.test(char)) {
+                regularString += ' ';
+            }
+            regularString += char;
+        }));
+        regularString = regularString.charAt(0).toUpperCase() + regularString.slice(1);
+        return regularString;
+    };
+    // changeKey
+    // changeKey
+    /**
+     * @private
+     * @param {?} key
+     * @param {?} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    CamelCaseToRegularStringPipe.prototype.transformEnterBy = 
+    // changeKey
+    /**
+     * @private
+     * @param {?} key
+     * @param {?} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    function (key, tableName, tableType) {
+        /** @type {?} */
+        var serachIndex = tableName.toLowerCase().search('voucher');
+        /**
+         * @return {?}
+         */
+        function isTransformKey() {
+            if (serachIndex >= 0) {
+                return true;
+            }
+            return false;
+        }
+        if (isTransformKey()) {
+            return 'Staff';
+        }
+        return 'AddedBy';
+    };
+    CamelCaseToRegularStringPipe.decorators = [
+        { type: Pipe, args: [{
+                    name: 'camelCaseToRegularString'
+                },] }
+    ];
+    return CamelCaseToRegularStringPipe;
+}());
+export { CamelCaseToRegularStringPipe };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FtZWwtY2FzZS10by1yZWd1bGFyLXN0cmluZy5waXBlLmpzIiwic291cmNlUm9vdCI6Im5nOi8vbmdzdy1zZWFyY2gtdGFibGUvIiwic291cmNlcyI6WyJsaWIvcGlwZS9jYW1lbC1jYXNlLXRvLXJlZ3VsYXItc3RyaW5nLnBpcGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxPQUFPLEVBQUUsSUFBSSxFQUFpQixNQUFNLGVBQWUsQ0FBQztBQUVwRDtJQUFBO0lBOEJBLENBQUM7Ozs7Ozs7SUExQkMsZ0RBQVM7Ozs7OztJQUFULFVBQVUsS0FBYSxFQUFFLFNBQWtCLEVBQUUsU0FBa0I7O1lBQ3pELGFBQWEsR0FBRyxFQUFFO1FBQ3RCLEtBQUssQ0FBQyxLQUFLLENBQUMsRUFBRSxDQUFDLENBQUMsR0FBRzs7OztRQUFDLFVBQUEsSUFBSTtZQUN0QixJQUFJLE9BQU8sQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEVBQUU7Z0JBQ3RCLGFBQWEsSUFBSSxHQUFHLENBQUM7YUFDdEI7WUFDRCxhQUFhLElBQUksSUFBSSxDQUFDO1FBQ3hCLENBQUMsRUFBQyxDQUFDO1FBQ0gsYUFBYSxHQUFHLGFBQWEsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUMsV0FBVyxFQUFFLEdBQUcsYUFBYSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQztRQUUvRSxPQUFPLGFBQWEsQ0FBQztJQUN2QixDQUFDO0lBQ0QsWUFBWTs7Ozs7Ozs7O0lBQ0osdURBQWdCOzs7Ozs7Ozs7SUFBeEIsVUFBeUIsR0FBRyxFQUFFLFNBQWlCLEVBQUUsU0FBa0I7O1lBQzNELFdBQVcsR0FBVyxTQUFTLENBQUMsV0FBVyxFQUFFLENBQUMsTUFBTSxDQUFDLFNBQVMsQ0FBQzs7OztRQUNyRSxTQUFTLGNBQWM7WUFDckIsSUFBSSxXQUFXLElBQUksQ0FBQyxFQUFFO2dCQUNwQixPQUFPLElBQUksQ0FBQzthQUNiO1lBQ0QsT0FBTyxLQUFLLENBQUM7UUFDZixDQUFDO1FBQ0QsSUFBSSxjQUFjLEVBQUUsRUFBRTtZQUNwQixPQUFPLE9BQU8sQ0FBQztTQUNoQjtRQUNELE9BQU8sU0FBUyxDQUFDO0lBQ25CLENBQUM7O2dCQTdCRixJQUFJLFNBQUM7b0JBQ0osSUFBSSxFQUFFLDBCQUEwQjtpQkFDakM7O0lBNEJELG1DQUFDO0NBQUEsQUE5QkQsSUE4QkM7U0EzQlksNEJBQTRCIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgUGlwZSwgUGlwZVRyYW5zZm9ybSB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG5AUGlwZSh7XG4gIG5hbWU6ICdjYW1lbENhc2VUb1JlZ3VsYXJTdHJpbmcnXG59KVxuZXhwb3J0IGNsYXNzIENhbWVsQ2FzZVRvUmVndWxhclN0cmluZ1BpcGUgaW1wbGVtZW50cyBQaXBlVHJhbnNmb3JtIHtcbiAgdHJhbnNmb3JtKHZhbHVlOiBzdHJpbmcsIHRhYmxlTmFtZT86IHN0cmluZywgdGFibGVUeXBlPzogc3RyaW5nKTogYW55IHtcbiAgICBsZXQgcmVndWxhclN0cmluZyA9ICcnO1xuICAgIHZhbHVlLnNwbGl0KCcnKS5tYXAoY2hhciA9PiB7XG4gICAgICBpZiAoL1tBLVpdLy50ZXN0KGNoYXIpKSB7XG4gICAgICAgIHJlZ3VsYXJTdHJpbmcgKz0gJyAnO1xuICAgICAgfVxuICAgICAgcmVndWxhclN0cmluZyArPSBjaGFyO1xuICAgIH0pO1xuICAgIHJlZ3VsYXJTdHJpbmcgPSByZWd1bGFyU3RyaW5nLmNoYXJBdCgwKS50b1VwcGVyQ2FzZSgpICsgcmVndWxhclN0cmluZy5zbGljZSgxKTtcblxuICAgIHJldHVybiByZWd1bGFyU3RyaW5nO1xuICB9XG4gIC8vIGNoYW5nZUtleVxuICBwcml2YXRlIHRyYW5zZm9ybUVudGVyQnkoa2V5LCB0YWJsZU5hbWU6IHN0cmluZywgdGFibGVUeXBlPzogc3RyaW5nKTogc3RyaW5nIHtcbiAgICBjb25zdCBzZXJhY2hJbmRleDogbnVtYmVyID0gdGFibGVOYW1lLnRvTG93ZXJDYXNlKCkuc2VhcmNoKCd2b3VjaGVyJyk7XG4gICAgZnVuY3Rpb24gaXNUcmFuc2Zvcm1LZXkoKSB7XG4gICAgICBpZiAoc2VyYWNoSW5kZXggPj0gMCkge1xuICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgIH1cbiAgICAgIHJldHVybiBmYWxzZTtcbiAgICB9XG4gICAgaWYgKGlzVHJhbnNmb3JtS2V5KCkpIHtcbiAgICAgIHJldHVybiAnU3RhZmYnO1xuICAgIH1cbiAgICByZXR1cm4gJ0FkZGVkQnknO1xuICB9XG59XG4iXX0=

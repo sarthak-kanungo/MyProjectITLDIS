@@ -1,0 +1,14 @@
+{
+	"campaignName": "campaign",
+	"startDate": "2020-01-01",
+	"endDate": "202-01-30",
+	"warrantyRetrofitmentCampaignItemList": [{
+		"sparePartMaster": {
+			"id": 12126,
+			"itemNo": "6C310-13650"
+		},
+		"quantity": 4
+	}]
+
+
+}

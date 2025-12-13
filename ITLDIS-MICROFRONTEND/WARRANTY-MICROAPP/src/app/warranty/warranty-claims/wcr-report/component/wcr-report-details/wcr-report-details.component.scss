@@ -1,0 +1,17 @@
+.wcr-report-details {
+    a:hover  {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .chkBox {
+        vertical-align: bottom;
+        mat-checkbox {
+            display: inline-flex;
+        }
+    }
+    .selectAll {
+        ::ng-deep label {
+            margin-bottom: 0rem !important;
+        }
+    }
+}

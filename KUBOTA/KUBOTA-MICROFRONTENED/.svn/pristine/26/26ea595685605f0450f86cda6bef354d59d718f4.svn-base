@@ -1,0 +1,43 @@
+<div class="card-body">
+
+  <form [formGroup]="sourceSearchForm" [style.fontSize.px]="10">
+    <div class="row">
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Source Code</mat-label>
+          <input matInput placeholder="Source Code" formControlName="sourceCode" [matAutocomplete]="autoSourceCode">
+          <mat-autocomplete #autoSourceCode="matAutocomplete" [panelWidth]="500" [displayWith]="displayFnSourceCode">
+            <mat-option *ngFor="let option of (sourceCode$ | async)" [value]="option">
+              {{option?.sourceCode}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Source Name</mat-label>
+          <input matInput placeholder="Source Name" formControlName="sourceName" [matAutocomplete]="autoSourceName">
+          <mat-autocomplete #autoSourceName="matAutocomplete" [panelWidth]="500" [displayWith]="displayFnSourceName">
+            <mat-option *ngFor="let option of (sourceName$ | async)" [value]="option">
+              {{option?.source}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Purpose</mat-label>
+          <mat-select formControlName="purpose">
+            <mat-option *ngFor="let option of purposes" [value]="option">
+              {{option.purpose}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>

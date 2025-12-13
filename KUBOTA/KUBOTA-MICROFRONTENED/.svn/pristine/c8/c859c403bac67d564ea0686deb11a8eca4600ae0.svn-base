@@ -1,0 +1,26 @@
+<div class="card-from mt-3">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Booking Cancellation</p>
+        </div>
+        <div class="card-body">
+            <div class="row" [formGroup]="bookingCancellationForm" [style.fontSize.px]="11">
+
+                <div class="col-lg-2 text-center">
+                    <div class="form-check pt-1">
+                        <mat-checkbox color="basic" style="font-size: 12px"
+                            formControlName="cancelBookingFlag" (change)="onChangeOk($event)">
+                            Cancel Booking</mat-checkbox>
+                    </div>
+                </div>
+                <div class="col-lg-10" *ngIf="isCancelBookingFlag">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Reason for Cancellation</mat-label>
+                        <input matInput placeholder="Reason for Cancellation" formControlName="reasonForCancellation">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

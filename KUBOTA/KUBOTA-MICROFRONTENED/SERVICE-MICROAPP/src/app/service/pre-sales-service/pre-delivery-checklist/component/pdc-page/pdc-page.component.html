@@ -1,0 +1,31 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Pre-Delivery Checklist</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="pdcForm">
+          <app-pre-delivery-check [pdcDetailsForm]=pdcDetailsForm  (checkPoint)="getCheckPoint($event)">
+          </app-pre-delivery-check>
+          <div *ngIf="isChassisNoForCheckPoint">
+            <app-pdc-checklist [pdcCheckPointListTable]=pdcCheckPointListTable [pdcStaticTable]=pdcStaticTable
+            [pdcCheckPoint]="pdcCheckPoint" [viewPdcCheckPoint]="viewPdcCheckPoint" [editPdcCheckPoint]="editPdcCheckPoint"></app-pdc-checklist>
+          </div>
+
+          <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary px-3" *ngIf="isChassisNo" 
+            (click)="saveAndSubmitForm(true)" [disabled]="isSubmitDisable">
+              Save
+            </button>
+            <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isChassisNo"
+              (click)="saveAndSubmitForm(false)" [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="isView" (click)="viewPdcPrint('true')"> Print
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

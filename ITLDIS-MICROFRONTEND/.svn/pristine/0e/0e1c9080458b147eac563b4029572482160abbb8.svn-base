@@ -1,0 +1,196 @@
+<div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between header">
+                                    <p class="mb-0 label">Customer Satisfaction Score Report</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" [formGroup]="reportSearchForm" [style.fontSize.px]="11">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>From Survey Due Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" placeholder="From Survey Due Date"  formControlName="fromDate"
+                                        [max]="newdate" (dateChange)="setToDate($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>To Survey Due Date</mat-label>
+                                    <input matInput [matDatepicker]="picker1" placeholder="To Survey Due Date" formControlName="toDate"
+                                        [max]="maxDate" [min]="minDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2" *ngIf='isKai'>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Dealer Code</mat-label>
+                                    <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                        [matAutocomplete]="autoDealercode">
+                                    <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn">
+                                        <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                            {{option?.displayString}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Product</mat-label>
+                                    <mat-select formControlName="product"
+                                        (selectionChange)="selectProduct($event.value)">
+                                        <mat-option *ngFor="let option of products" [value]="option.product">
+                                            {{option?.product}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Series</mat-label>
+                                    <mat-select formControlName="series"
+                                        (selectionChange)="selectSeries($event.value)">
+                                        <mat-option *ngFor="let option of seriesByProduct"
+                                            [value]="option.series">{{option?.series}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Model</mat-label>
+                                    <mat-select formControlName="machineModel"
+                                        (selectionChange)="selectModel($event.value)">
+                                        <mat-option *ngFor="let option of modelBySeries"
+                                            [value]="option.model">
+                                            {{option?.model}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Sub Model</mat-label>
+                                    <mat-select formControlName="subModel" 
+                                        (selectionChange)="selectSubModel($event.value)">
+                                        <mat-option *ngFor="let option of subModelByModel"
+                                            [value]="option.subModel">
+                                            {{option?.subModel}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Variant</mat-label>
+                                    <mat-select formControlName="variant">
+                                        <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                            {{option?.variant}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                    <mat-select placeholder="Department"
+                                    formControlName="department">
+                                        <mat-option *ngFor="let dept of departmentList" [value]="dept.lookupval">
+                                            {{dept.lookupval}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                    <mat-select placeholder="Report Type"
+                                    formControlName="reportType">
+                                        <mat-option [value]="option.code" *ngFor="let option of reportTypes">
+                                            {{option.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>    
+                        <div class="row" *ngIf='isKai'>
+                            <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                                    <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                        <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                            {{option.hierarchy_desc}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center  mt-2 mb-2">
+                        <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                            Search
+                        </button>
+                        <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+           (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="clickExportToExcel()">
+          
+           <td  *ngIf="reportType == 'Month'" [ngsw-searchField]="month" [searchColumnName]="'month'" >
+                <input class="w-100 borderRadius" #month />
+            </td> 
+            <td *ngIf="reportType != 'State'" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" >
+                <input class="w-100 borderRadius" #dealerCode />
+            </td> 
+            <td *ngIf="reportType != 'State'" [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" >
+                <input class="w-100 borderRadius" #dealerName />
+            </td> 
+            <td *ngIf="reportType != 'State'" [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'" >
+                <input class="w-100 borderRadius" #dealerState />
+            </td> 
+            <td *ngIf="reportType == 'State'" [ngsw-searchField]="state" [searchColumnName]="'state'" >
+                <input class="w-100 borderRadius" #state />
+            </td> 
+            <td  [ngsw-searchField]="totalDue" [searchColumnName]="'totalDue'" >
+                <input class="w-100 borderRadius" #totalDue />
+            </td> 
+            <td  [ngsw-searchField]="totalSurveyDone" [searchColumnName]="'totalSurveyDone'" >
+                <input class="w-100 borderRadius" #totalSurveyDone />
+            </td> 
+            <td  [ngsw-searchField]="totalComplaints" [searchColumnName]="'totalComplaints'" >
+                <input class="w-100 borderRadius" #totalComplaints />
+            </td> 
+            <td *ngIf="reportType == 'Dept'"  [ngsw-searchField]="deparment" [searchColumnName]="'deparment'" >
+                <input class="w-100 borderRadius" #deparment />
+            </td> 
+            <td  [ngsw-searchField]="totalSatisifed" [searchColumnName]="'totalSatisifed'" >
+                <input class="w-100 borderRadius" #totalSatisifed />
+            </td> 
+            <td  [ngsw-searchField]="ssScore" [searchColumnName]="'ssScore'" >
+                <input class="w-100 borderRadius" #ssScore />
+            </td> 
+            <td  [ngsw-searchField]="rnr" [searchColumnName]="'rnr'" >
+                <input class="w-100 borderRadius" #rnr />
+            </td> 
+            <td  [ngsw-searchField]="incorectData" [searchColumnName]="'incorectData'" >
+                <input class="w-100 borderRadius" #incorectData />
+            </td> 
+        </ngsw-search-table>
+    </div>      
+</div>                    

@@ -1,0 +1,162 @@
+<div class="container-fluid">
+<div class="card-from">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-between header">
+                        <p class="mb-0 label"> Search Machine Transport</p>
+                        <div>
+                            <!-- <button type="button" class="btn btn-xs ml-2 bg-white " (click)="createActivityClaim()">
+                                <b class="btnName">New</b>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body">
+
+            <form [formGroup]="searchmachineTransport" [style.fontSize.px]="10">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Purchase Order No.</mat-label>
+                            <input matInput placeholder="Purchase Order No." formControlName="poNumber"
+                                [matAutocomplete]="poNumberAuto">
+                            <mat-autocomplete #poNumberAuto="matAutocomplete"
+                                [displayWith]="displayPoNumberFn" [panelWidth]="500">
+                                <!-- <mat-option *ngFor="let option of poNumberAutoList | async"
+                                    [value]="option.poNumber">
+                                    {{option['suggestion']}}
+                                </mat-option> -->
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <!-- <mat-error
+                                    *ngIf="searchPoForm.get('poNumber').hasError('required')">
+                                    Allows only dropdown values</mat-error> -->
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Purchase Status</mat-label> 
+                            <mat-select formControlName="requestStatus">
+                             
+                            </mat-select>
+                         </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker" placeholder="Purchase Order From Date"
+                                formControlName="fromDate" (click)="picker.open()" 
+                                (dateChange)="fromDateChange($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker1" placeholder="Purchase Order To Date"
+                                formControlName="toDate" (click)="picker1.open()"
+                                >
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+
+                  
+
+                </div>
+                <div class="col-lg-12 text-center">
+                    <div>
+                        <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchData()"
+                            [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)"
+                            (onUrlChange)="onUrlChange($event)"> Search </button>
+
+                        <button type="button" class="btn pl-3 pr-3 ml-2 btn_primary" (click)="clear()"> Clear </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+    [actionButtons]="actionButtons" (actionOnTableRecord)="tableActionClick($event)" [searchValue]="searchValue"
+    [page]="page" [size]="size" [clickOnTableFields]="[{'title':'requestNumber','isClickable':true},{'title':'action','isClickable':true}]"
+    (pageChange)="pageChange($event)" [clearSearchRow]="clearSearchRow" >
+    
+    <td></td>
+
+    <td [ngsw-searchField]="requestNumber" [searchColumnName]="'requestNumber'">
+        <input #requestNumber [(ngModel)] ="requestNumberNgModel">
+    </td>
+    
+    <td [ngsw-searchField]="requestDate" [searchColumnName]="'requestDate'" class="requestDate">
+        <input class="w-100 borderRadius" type="date" #requestDate
+            (change)="etSearchDateValueChange(requestDate.value,'requestDate')" [(ngModel)] ="requestDateNgModel">
+    </td>
+    
+    <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+        <input #status [(ngModel)] ="statusNgModel">
+    </td>  
+
+    <td [ngsw-searchField]="coDealerCode" [searchColumnName]="'coDealerCode'">
+        <input #coDealerCode [(ngModel)] ="coDealerCodeNgModel">
+    </td>  
+
+    <td [ngsw-searchField]="coDealerName" [searchColumnName]="'coDealerName'">
+        <input #coDealerName [(ngModel)] ="coDealerNameNgModel">
+    </td>
+
+    <td [ngsw-searchField]="itemNumber" [searchColumnName]="'itemNumber'">
+        <input #itemNumber [(ngModel)] ="itemNumberNgModel">
+    </td>
+
+    <td [ngsw-searchField]="product" [searchColumnName]="'product'">
+        <input #product [(ngModel)] ="productNgModel">
+    </td>
+
+
+    <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+        <input #model [(ngModel)] ="modelNgModel">
+    </td>
+    <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'">
+        <input type="text" #subModel>
+    </td>
+    <td [ngsw-searchField]="variant" [searchColumnName]="'variant'">
+        <input #variant [(ngModel)] ="variantNgModel">
+    </td>
+    
+    <td [ngsw-searchField]="series" [searchColumnName]="'series'">
+        <input #series [(ngModel)] ="seriesNgModel">
+    </td> -->
+    <!-- <td [ngsw-searchField]="itemDesc" [searchColumnName]="'itemDesc'">
+        <input #itemDesc [(ngModel)] ="itemDescNgModel">
+    </td> -->
+
+
+    <!-- 
+    <td [ngsw-searchField]="baseAmount" [searchColumnName]="'baseAmount'">
+        <input type="text" #baseAmount>
+    </td>
+    <td [ngsw-searchField]="gstPercentage" [searchColumnName]="'gstPercentage'">
+        <input type="text" #gstPercentage>
+    </td>
+    <td [ngsw-searchField]="gstAmount" [searchColumnName]="'gstAmount'">
+        <input type="text" #gstAmount>
+    </td>
+    <td [ngsw-searchField]="totalAmount" [searchColumnName]="'totalAmount'">
+        <input type="text" #totalAmount>
+    </td> -->
+    <!-- <td></td> -->
+<!-- </ngsw-search-table> -->
+</div>

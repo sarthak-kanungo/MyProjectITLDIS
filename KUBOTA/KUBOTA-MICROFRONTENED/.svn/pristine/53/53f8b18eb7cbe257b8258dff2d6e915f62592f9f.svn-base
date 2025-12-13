@@ -1,0 +1,48 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipe/get-key-value-from-object.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Pipe } from '@angular/core';
+export class GetKeyValueFromObjectPipe {
+    /**
+     * @param {?} value
+     * @param {?} keyName
+     * @return {?}
+     */
+    transform(value, keyName) {
+        if (typeof value === 'object' && value !== null) {
+            /** @type {?} */
+            const val = this.hasProperty(value, keyName);
+            return val;
+        }
+        return value;
+    }
+    /**
+     * @private
+     * @param {?} valueObj
+     * @param {?} key
+     * @return {?}
+     */
+    hasProperty(valueObj, key) {
+        /** @type {?} */
+        let valueOfKey = null;
+        key.forEach((/**
+         * @param {?} keyName
+         * @return {?}
+         */
+        keyName => {
+            if (valueObj.hasOwnProperty(keyName)) {
+                valueOfKey = valueObj[keyName];
+                return;
+            }
+        }));
+        return valueOfKey;
+    }
+}
+GetKeyValueFromObjectPipe.decorators = [
+    { type: Pipe, args: [{
+                name: 'getKeyValueFromObject'
+            },] }
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ2V0LWtleS12YWx1ZS1mcm9tLW9iamVjdC5waXBlLmpzIiwic291cmNlUm9vdCI6Im5nOi8vbmdzdy1zZWFyY2gtdGFibGUvIiwic291cmNlcyI6WyJsaWIvcGlwZS9nZXQta2V5LXZhbHVlLWZyb20tb2JqZWN0LnBpcGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxPQUFPLEVBQUUsSUFBSSxFQUFpQixNQUFNLGVBQWUsQ0FBQztBQUtwRCxNQUFNLE9BQU8seUJBQXlCOzs7Ozs7SUFDcEMsU0FBUyxDQUFDLEtBQVUsRUFBRSxPQUFzQjtRQUMxQyxJQUFJLE9BQU8sS0FBSyxLQUFLLFFBQVEsSUFBSSxLQUFLLEtBQUssSUFBSSxFQUFFOztrQkFDekMsR0FBRyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUMsS0FBSyxFQUFFLE9BQU8sQ0FBQztZQUM1QyxPQUFPLEdBQUcsQ0FBQztTQUNaO1FBQ0QsT0FBTyxLQUFLLENBQUM7SUFDZixDQUFDOzs7Ozs7O0lBQ08sV0FBVyxDQUFDLFFBQWdCLEVBQUUsR0FBa0I7O1lBQ2xELFVBQVUsR0FBRyxJQUFJO1FBQ3JCLEdBQUcsQ0FBQyxPQUFPOzs7O1FBQUMsT0FBTyxDQUFDLEVBQUU7WUFDcEIsSUFBSSxRQUFRLENBQUMsY0FBYyxDQUFDLE9BQU8sQ0FBQyxFQUFFO2dCQUNwQyxVQUFVLEdBQUcsUUFBUSxDQUFDLE9BQU8sQ0FBQyxDQUFDO2dCQUMvQixPQUFPO2FBQ1I7UUFDSCxDQUFDLEVBQUMsQ0FBQztRQUNILE9BQU8sVUFBVSxDQUFDO0lBQ3BCLENBQUM7OztZQXBCRixJQUFJLFNBQUM7Z0JBQ0osSUFBSSxFQUFFLHVCQUF1QjthQUM5QiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IFBpcGUsIFBpcGVUcmFuc2Zvcm0gfSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuQFBpcGUoe1xuICBuYW1lOiAnZ2V0S2V5VmFsdWVGcm9tT2JqZWN0J1xufSlcbmV4cG9ydCBjbGFzcyBHZXRLZXlWYWx1ZUZyb21PYmplY3RQaXBlIGltcGxlbWVudHMgUGlwZVRyYW5zZm9ybSB7XG4gIHRyYW5zZm9ybSh2YWx1ZTogYW55LCBrZXlOYW1lOiBBcnJheTxzdHJpbmc+KTogYW55IHtcbiAgICBpZiAodHlwZW9mIHZhbHVlID09PSAnb2JqZWN0JyAmJiB2YWx1ZSAhPT0gbnVsbCkge1xuICAgICAgY29uc3QgdmFsID0gdGhpcy5oYXNQcm9wZXJ0eSh2YWx1ZSwga2V5TmFtZSk7XG4gICAgICByZXR1cm4gdmFsO1xuICAgIH1cbiAgICByZXR1cm4gdmFsdWU7XG4gIH1cbiAgcHJpdmF0ZSBoYXNQcm9wZXJ0eSh2YWx1ZU9iajogT2JqZWN0LCBrZXk6IEFycmF5PHN0cmluZz4pIHtcbiAgICBsZXQgdmFsdWVPZktleSA9IG51bGw7XG4gICAga2V5LmZvckVhY2goa2V5TmFtZSA9PiB7XG4gICAgICBpZiAodmFsdWVPYmouaGFzT3duUHJvcGVydHkoa2V5TmFtZSkpIHtcbiAgICAgICAgdmFsdWVPZktleSA9IHZhbHVlT2JqW2tleU5hbWVdO1xuICAgICAgICByZXR1cm47XG4gICAgICB9XG4gICAgfSk7XG4gICAgcmV0dXJuIHZhbHVlT2ZLZXk7XG4gIH1cbn1cbiJdfQ==

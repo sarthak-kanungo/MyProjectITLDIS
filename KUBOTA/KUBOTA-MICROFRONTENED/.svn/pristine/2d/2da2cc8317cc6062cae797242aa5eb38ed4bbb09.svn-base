@@ -1,0 +1,72 @@
+<div class="row" [formGroup]="searchPaymentReceiptForm">
+
+  <div class="col-lg-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Receipt No.</mat-label>
+      <input matInput placeholder="Receipt No." formControlName="receiptNumber" [matAutocomplete]="autoReceiptNumber">
+      <mat-autocomplete #autoReceiptNumber="matAutocomplete" [panelWidth]="500">
+        <mat-option *ngFor="let option of receiptNumberList|async" [value]="option.receiptNumber">
+          {{option?.receiptNumber}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2 ">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Receipt Mode</mat-label>
+      <mat-select formControlName="receiptMode">
+        <mat-option *ngFor="let mode of receiptModeList" [value]="mode.receiptMode">
+          {{mode.receiptMode}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="col-lg-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Customer Name</mat-label>
+      <input matInput placeholder="Customer Name" formControlName="customerName" [matAutocomplete]="autoCustomerName">
+      <mat-autocomplete #autoCustomerName="matAutocomplete" [panelWidth]="300">
+        <mat-option *ngFor="let option of customerNameList |async" [value]="option.customerName">
+          {{option?.customerName}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div> -->
+
+  <!-- <div class="col-lg-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Customer Mobile No.</mat-label>
+      <input matInput placeholder="Customer Mobile No." formControlName="customerContactNumber"
+        [matAutocomplete]="autoCustomerMobile">
+      <mat-autocomplete #autoCustomerMobile="matAutocomplete"
+        [panelWidth]="300">
+        <mat-option *ngFor="let option of customerMobileList |async" [value]="option.mobileNumber">
+          {{option?.mobileNumber}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div> -->
+
+  <div class="col-lg-2">
+    <mat-form-field class="w-100">
+      <input matInput [matDatepicker]="fromPicker" placeholder="Receipt From Date" formControlName="fromDate"
+      (dateChange)="fromDateSelected($event)" [max]="today" readonly (click)="fromPicker.open()">
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2">
+    <mat-form-field class="w-100">
+      <input matInput [matDatepicker]="toPicker" placeholder="Receipt To Date" formControlName="toDate"
+      [max]="maxDate" [min]="minDate" readonly (click)="toPicker.open()">
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+</div>

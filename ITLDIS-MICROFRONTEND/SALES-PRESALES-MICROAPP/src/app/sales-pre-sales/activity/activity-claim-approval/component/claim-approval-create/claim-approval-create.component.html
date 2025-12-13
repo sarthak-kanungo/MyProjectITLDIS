@@ -1,0 +1,197 @@
+<div class="card-body">
+  <form [formGroup]="activityClaimForm" [style.fontSize.px]="10">
+    <div class="row">
+
+      <div class="col-lg-2">
+        <mat-form-field  class="w-100">
+          <input matInput [matDatepicker]="picker" placeholder="Activity Claim Date"
+            formControlName="claimDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" >
+        <mat-form-field appearance="outline">
+          <mat-label>Activity Claim No.</mat-label>
+          <input matInput placeholder="Activity Claim No." formControlName="claimNumber">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Activity No.</mat-label>
+          <input matInput placeholder="Activity No." formControlName="activityNumber"
+            [matAutocomplete]="autoActivityNumber" >
+          <mat-autocomplete #autoActivityNumber="matAutocomplete">
+            <mat-option *ngFor="let option of searchActivityNumber?.result" [value]="option">
+              {{option?.activityNumber}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="Activity Creation Date"
+            formControlName="activityCreationDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Activity Type</mat-label>
+          <input matInput placeholder="Activity Type" formControlName="activityType">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Activity Claim Status</mat-label>
+            <input matInput placeholder="Activity Claim Status" formControlName="claimStatus">
+          </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>No. Of Days</mat-label>
+          <input matInput placeholder="No. Of Days" required formControlName="numberOfDays">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker2" placeholder="From Date" required formControlName="fromDate" readonly
+            (click)="picker2.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker3" placeholder="To Date" required formControlName="toDate" readonly
+            (click)="picker3.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker4" placeholder="Actual From Date" required
+            formControlName="actualFromDate" readonly (click)="picker4.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100">
+          <input matInput [matDatepicker]="picker5" placeholder="Actual To Date" required formControlName="actualToDate"
+            readonly (click)="picker5.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+          <mat-datepicker #picker5></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput placeholder="Location" formControlName="location">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Enquiries</mat-label>
+          <input matInput placeholder="Total Enquiries" formControlName="totalEnquiries">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Hot Enquiry</mat-label>
+          <input matInput placeholder="Hot Enquiry" formControlName="hotEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Warm Enquiry</mat-label>
+          <input matInput placeholder="Warm Enquiry" formControlName="warmEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cold Enquiry</mat-label>
+          <input matInput placeholder="Cold Enquiry" formControlName="coldEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost per Enquiry</mat-label>
+          <input matInput placeholder="Cost per Enquiries" formControlName="costPerEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost Per Hot Enquiry</mat-label>
+          <input matInput placeholder="Cost Per Hot Enquiry" formControlName="costPerHotEnquiry">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Bookings</mat-label>
+          <input matInput placeholder="Total Bookings" formControlName="totalBookings">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost Per Booking</mat-label>
+          <input matInput placeholder="Cost Per Booking" formControlName="costPerBooking">
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Total Retails</mat-label>
+          <input matInput placeholder="Total Retails" formControlName="totalRetails">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Cost Per Retail</mat-label>
+          <input matInput placeholder="Cost Per Retail" formControlName="costPerRetail">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Activity Effectiveness</mat-label>
+          <mat-select required formControlName="activityEffectiveness" [compareWith]="compareFnActivityEffectiveness">
+            <mat-option *ngFor="let option of dropdownActivityEffectiveness?.result" [value]="option">
+              {{option?.effectiveness}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Approved Amount</mat-label>
+          <input matInput placeholder="Approved Amount" formControlName="approvedAmount">
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>

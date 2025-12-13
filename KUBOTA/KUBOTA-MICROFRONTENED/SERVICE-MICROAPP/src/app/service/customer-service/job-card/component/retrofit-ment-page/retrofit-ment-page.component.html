@@ -1,0 +1,96 @@
+<div *ngIf="!patchRetroCheckbox" class="card-from mt-3 mb-3">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Retrofitment Compaign </p>
+
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <div>
+                    
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 10px">Select </th>
+                                <th scope="col" style="width: 150px;">Sr No</th>
+                                <th scope="col" style="width: 150px;">Compaign Name</th>
+                                <th scope="col" style="width: 150px;">Compaign No</th>
+                                <th scope="col" style="width: 150px;">Start Date</th>
+                                <th scope="col" style="width: 150px;">End Date</th>
+                                <th scope="col" style="width:150px">Status</th>
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody *ngFor="let compaignHeaderData of data;index as i ">
+
+                            <td> <mat-checkbox color="basic" (change)="getRetroDetails($event,compaignHeaderData.id,compaignHeaderData,i)"
+                                    ></mat-checkbox></td>
+                                    
+                            <td>{{i+1}}</td>
+                            <td>{{compaignHeaderData.campaignName}}</td>
+                            <td>{{compaignHeaderData.retrofitmentNo}}</td>
+                            <td>{{compaignHeaderData.startDate| date: 'dd/MM/yyyy'}}</td>
+                            <td>{{compaignHeaderData.endDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{compaignHeaderData.status}}</td>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        
+
+
+    </div>
+</div>
+
+
+<div *ngIf="patchRetroCheckbox" class="card-from mt-3 mb-3">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Retrofitment Compaign </p>
+
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <div>
+                    
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <!-- <th scope="col" style="width: 10px">Select </th> -->
+                                <th scope="col" style="width: 150px;">Sr No</th>
+                                <th scope="col" style="width: 150px;">Compaign Name</th>
+                                <th scope="col" style="width: 150px;">Compaign No</th>
+                                <th scope="col" style="width: 150px;">Start Date</th>
+                                <th scope="col" style="width: 150px;">End Date</th>
+                                <!-- <th scope="col" style="width:150px">Status</th> -->
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody *ngFor="let se of warrantydata;index as i ">
+
+                        <td> {{i+1}}</td>
+                          <td>{{se.warrantyRetrofitmentCampaign.campaignName}}</td>
+                          <td>{{se.warrantyRetrofitmentCampaign.retrofitmentNo}}</td>
+                          <td>{{se.warrantyRetrofitmentCampaign.startDate}}</td>
+                          <td>{{se.warrantyRetrofitmentCampaign.endDate}}</td>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        
+
+
+    </div>
+</div>

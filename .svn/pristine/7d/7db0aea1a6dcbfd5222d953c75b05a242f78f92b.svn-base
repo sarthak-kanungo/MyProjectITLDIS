@@ -1,0 +1,26 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Product Storage Check Sheet</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="pscForm">
+          <app-psc [pscDetailsForm]=pscDetailsForm></app-psc>
+          <div *ngIf="isChassisNoForCheckList">
+            <app-checklist [pscCheckListTableForm]=pscCheckListTableForm></app-checklist>
+          </div>
+          <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary px-3" *ngIf="isChassisNo" 
+            (click)="saveAndSubmitForm(true)"  [disabled]="isSubmitDisable"> Save
+            </button>
+            <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isChassisNo" 
+            (click)="saveAndSubmitForm(false)"  [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button type="button" *ngIf="isView" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPscPrint('true')"> Print</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

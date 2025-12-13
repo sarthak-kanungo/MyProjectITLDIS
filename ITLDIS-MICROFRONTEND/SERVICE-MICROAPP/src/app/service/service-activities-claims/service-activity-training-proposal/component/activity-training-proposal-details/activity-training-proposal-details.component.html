@@ -1,0 +1,154 @@
+<form [formGroup]="activityProposalDetailsForm" [style.fontSize.px]="11">
+    <div class="row">
+
+        <div class="col-lg-2" *ngIf="isView || isEdit || isApproval">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Activity No.</mat-label>
+                <input matInput placeholder="Activity No." formControlName="activityNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isView || isEdit || isApproval">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Name</mat-label>
+                <input matInput placeholder="Dealer Name" formControlName="dealerName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Type</mat-label>
+                <mat-select required formControlName="activityType" (selectionChange)="selectionActivityType($event)" 
+                [compareWith]="compareFnActivityType">
+                    <mat-option *ngFor="let option of activityType" [value]="option">
+                        {{option?.activityType}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="activityProposalDetailsForm.get('activityType').hasError('required')">
+                    Activity Type is Required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Creation Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Activity Creation Date"
+                    formControlName="activityCreationDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isView || isEdit || isApproval">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Status</mat-label>
+                <input matInput placeholder="Status" formControlName="status">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="Location" formControlName="location">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [min]="minFromDate" [matDatepicker]="picker1" placeholder="From Date"
+                    formControlName="fromDate" (dateChange)="fromDateSelected($event)" readonly
+                    (click)="picker1.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [min]="minToDate" [max]="maxToDate" [matDatepicker]="picker2" placeholder="To Date"
+                    formControlName="toDate" readonly (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>No. of Days</mat-label>
+                <input matInput placeholder="No. of Days" formControlName="noOfDays">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isActivityTypeFdflAndUss">
+            <mat-form-field appearance="outline">
+                <mat-label>Proposed Budget</mat-label>
+                <input matInput placeholder="Proposed Budget" formControlName="proposedBudget">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Max Allowed Budget</mat-label>
+                <input matInput placeholder="Max Allowed Budget" formControlName="maxAllowedBudget">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isSelectedActivityType">
+            <mat-form-field appearance="outline">
+                <mat-label>Targeted No.</mat-label>
+                <input matInput placeholder="Targeted No." formControlName="targetedNumbers">
+                <mat-error *ngIf="activityProposalDetailsForm.get('targetedNumbers').hasError('MinimumMachineount')">{{activityProposalDetailsForm.get('targetedNumbers').getError('MinimumMachineount')}}</mat-error>
+
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isActivityTypeUss">
+            <mat-form-field appearance="outline">
+                <mat-label>Number of Person</mat-label>
+                <input matInput placeholder="Number of Person" formControlName="numberOfPerson">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Targeted Products</mat-label>
+                <mat-select formControlName="targetedProduct" multiple [compareWith]="compareFnTargetedProduct">
+                    <mat-option *ngFor="let option of targetedProduct" [value]="option">
+                        {{option?.product}}
+                    </mat-option>
+                </mat-select>
+                
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-8">
+            <mat-form-field appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <input matInput placeholder="Remarks" formControlName="remarks" required>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isApproval">
+            <mat-form-field appearance="outline">
+                <mat-label>Approved Amount</mat-label>
+                <input matInput placeholder="Approved Amount" formControlName="approvedAmount">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-5" *ngIf="isActivityType">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label> Main Activity</mat-label>
+                <mat-chip-list aria-label="option selection" formControlName="subActivity">
+                    <mat-chip *ngFor="let option of subActivity" [value]="option.subActivity">
+                        {{option.subActivity}}
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+                <mat-label>KAI Remark</mat-label>
+                <input matInput placeholder="KAI Remark" formControlName="kaiRemark">
+            </mat-form-field>
+        </div>        
+    </div>
+</form>

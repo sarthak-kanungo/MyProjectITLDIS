@@ -1,0 +1,91 @@
+<div id="divshow">
+  <form [formGroup]="editableTableForm">
+    <div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm" formArrayName="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 10px;" *ngFor="let config of tableConfig">{{config.title}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let rowFormGroup of editableTableForm['controls'].table['controls']; let i = index"
+              [formGroupName]="i">
+              <tr>
+                <ng-container *ngFor="let config of tableConfig">
+                  <td *ngIf="config.inputField !== 'contenteditable'">
+                    <mat-checkbox *ngIf="config.inputField === 'checkbox'" color="basic"
+                      class="form-control form-control-sm" [formControlName]="config.formControlName" [checked]="false">
+                    </mat-checkbox>
+                    <mat-form-field class="example-full-width" *ngIf="config.inputField === 'input'"
+                      appearance="outline" [ngClass]="{pb_0:!rowFormGroup.get(config.formControlName).errors}">
+                      <input matInput [placeholder]="config.title" [formControlName]="config.formControlName">
+                      <mat-error
+                        *ngIf="rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required">
+                        {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>
+                      <mat-error
+                        *ngIf="rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required">
+                        This field is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="config.inputField === 'autocomplete'" class="w-100"
+                      [ngClass]="{pb_0:!rowFormGroup.get(config.formControlName).errors}"
+                      appearance="outline">
+                      <input matInput [formControlName]="config.formControlName" [matAutocomplete]="autoAmcNumber"
+                        (focus)="autocompleteClicked(config, rowFormGroup)"
+                        (keyup.enter)="$event.preventDefault();">
+                      <!-- (blur)="resetFormControlNotHavingObject(searchAMCForm.controls.amcNumber, 'amcNumber')" -->
+                      <mat-autocomplete #autoAmcNumber="matAutocomplete"
+                        [displayWith]="matAutocompleteDisplayFn | async"
+                        (optionSelected)="valueSelectedFromAutocomplete($event, i, rowFormGroup, config)"
+                        [panelWidth]="500"
+                        >
+                        <mat-option *ngFor="let option of filteredOptions[config.formControlName]" [value]="option">
+                          <!-- (click)="valueSelectedFromAutocomplete(option)" -->
+                          {{option[config.displayKey]? option[config.displayKey] : option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                      <mat-error
+                        *ngIf="rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required">
+                        {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>
+                      <mat-error
+                        *ngIf="rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required">
+                        This field is required</mat-error>
+                    </mat-form-field>
+                    <!-- <span *ngIf="config.inputField === 'autocomplete'">
+                      {{matAutocompleteDisplayFn | async}}
+                    </span> -->
+                    <mat-form-field *ngIf="config.inputField === 'select'" appearance="outline" class="pb_0">
+                      <mat-label>Select {{config.title}}</mat-label>
+                      <mat-select [formControlName]="config.formControlName"
+                        (selectionChange)="selectionChanged($event)">
+                        <mat-option *ngFor="let option of selectOptions[config.formControlName]" [value]="option">
+                          {{option[config.displayKey]? option[config.displayKey] : option}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td
+                    *ngIf="config.inputField === 'contenteditable'"
+                    [attr.contenteditable]="config.inputField !== 'contenteditable' || config.isNeedValueChanges"
+                    [textContent]="rowFormGroup.controls[config.formControlName].value"
+                    (input)="contenteditableValuechange($event.target.textContent,rowFormGroup,config.formControlName)"
+                    #contenteditableRef></td>
+                </ng-container>
+              </tr>
+              <!-- <ng-content select="tr"></ng-content> -->
+            </ng-container>
+          </tbody>
+          <tfoot>
+            <ng-content select="ng-container.table_footer"></ng-content>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </form>
+  <div class=" text-center mt-2" *ngIf="!hideActionBtn && !viewOnly ">
+    <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add
+      Row</button>
+    <button type="button" class="btn btn-sm btn_secondary ml-2 " (click)="deleteRow()"> Delete Row </button>
+  </div>
+</div>

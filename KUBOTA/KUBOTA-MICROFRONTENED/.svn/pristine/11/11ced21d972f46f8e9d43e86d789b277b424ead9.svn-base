@@ -1,0 +1,100 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Machine Details</p>
+    </div>
+    <form>
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 50px;padding-bottom: 11px"></th>
+                <th scope="col" style="width: 50px;padding-bottom: 11px">SRN</th>
+                <th scope="col" style="width: 200px;padding-bottom: 11px">Item No</th>
+                <th scope="col" style="width: 300px;padding-bottom: 11px">Item Description</th>
+                <th scope="col" style="width: 150px;padding-bottom: 11px">Product</th>
+                <th scope="col" style="width: 150px;padding-bottom: 11px">Series</th>
+                <th scope="col" style="width: 150px">Model</th>
+                <th scope="col" style="width: 150px">Variant</th>
+                <!-- <th scope="col" style="width: 150px;">Qty</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of transferItemDetailsForm['controls']; let i = index">
+                <td >
+                  <mat-checkbox color="basic" class="form-control form-control-sm" 
+                    [formControl]="row.get('isSelected')"
+                    [checked]></mat-checkbox>
+
+                </td>
+                <td >
+                  {{i+1}}
+                </td>
+                <td >
+                  <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                    <mat-label>Item Number</mat-label>
+                    <input matInput placeholder="Item Number" [formControl]="row.get('itemNo')"
+                        [matAutocomplete]="autoItemNo">
+                    <mat-autocomplete #autoItemNo="matAutocomplete"
+                        (optionSelected)="optionSelectedItem($event, row)"
+                        [displayWith]="displayFnItemNo" [panelWidth]="300">
+                        <mat-option *ngFor="let option of itemNoList"
+                            [value]="option">
+                            {{option?.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="row.get('itemNo').hasError('selectFromList')">
+                      Please select from list</mat-error>
+                </mat-form-field>
+                </td>
+                <td >
+                  <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                       <mat-label>Item Description</mat-label>
+                       <input matInput placeholder="Item Description"
+                       [formControl]="row.get('itemDescription')">
+                   </mat-form-field>
+                </td>
+                <td >
+                   <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                      <mat-label>Product</mat-label>   
+                      <input matInput placeholder="Product" [formControl]="row.get('product')" readonly>
+                   </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Series</mat-label>
+                    <input matInput placeholder="Series" [formControl]="row.get('series')" readonly>
+                </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" [style.fontSize.px]="10" class="w-100">
+                    <mat-label>Model</mat-label>
+                    <input matInput placeholder="Model" [formControl]="row.get('model')" readonly>
+                  </mat-form-field>
+                </td>
+                <td >
+                  <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                    <mat-label>Variant</mat-label>
+                    <input matInput placeholder="Variant" [formControl]="row.get('variant')" readonly>
+                   </mat-form-field>
+                </td>
+                <!-- <td >
+                  <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput placeholder="Quantity" [formControl]="row.get('quantity')">
+                   </mat-form-field>
+                </td> -->
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+    </form>
+    <!-- <div class=" text-center ">
+      <button type="button" class="btn btn-sm btn_primary " (click)="addRow()" *ngIf="!isView"> Add Row</button>
+      <button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()" *ngIf="!isView">Delete Row </button>
+    </div> -->
+  </div>
+</div>

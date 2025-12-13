@@ -1,0 +1,41 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Enquiry Information</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 53px;">Sr No. </th>
+                <th scope="col" style="width: 212px;">Enquiry No. </th>
+                <th scope="col" style="width: 150px;">Customer Name </th>
+                <th scope="col" style="width: 150px;">Mobile No. </th>
+                <th scope="col"style="width: 150px;">Village</th>
+                <th scope="col" style="width: 150px;">Tehsil</th>
+                <th scope="col" style="width: 150px;">Model</th>
+                <th scope="col" style="width: 100px;">Enquiry Type</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let enquiry of enquiries;let ind = index;">
+                <td>{{ind+1}}</td>
+                <td>{{enquiry?.enquiryNumber}}</td>
+                <td>{{enquiry?.firstName}}</td>
+                <td>{{enquiry?.mobileNumber}}</td>
+                <td>{{enquiry?.city}}</td>
+                <td>{{enquiry?.tehsil}}</td>
+                <td>{{enquiry?.model}}</td>
+                <td>{{enquiry?.enquiryType}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

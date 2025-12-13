@@ -1,0 +1,162 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Retail Finance And Subsidy Details</p>
+    </div>
+    <div class="card-body">
+      <div class="row" [formGroup]="retailFinanceForm">
+
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline">
+            <mat-label> Assest value including Implement</mat-label>
+            <input type="number" required class="quantity" matInput placeholder=" Assest value including Implement"
+              formControlName="assetValue" onKeyPress="if(this.value.length==10) return false;" (keypress)="onKeyPressAlphaNumericsOnly($event)" >
+              <mat-error *ngIf="retailFinanceForm.get('assetValue').hasError('required')">
+                Asset Value is Required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Cash/Loan</mat-label>
+            <mat-select required formControlName="cashLoan" [compareWith]="compareFnCashLoan" (selectionChange)="selectionCashLoan($event.value)">
+              <mat-option *ngFor="let cash of cashLoan" [value]="cash">
+                {{cash?.cashLoan}}</mat-option>
+            </mat-select> 
+            <mat-error *ngIf="retailFinanceForm.get('cashLoan').hasError('required')">
+              Cash/Loan is Required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!enquiryPresenter.isCashSelected">
+          <mat-form-field appearance="outline">
+            <mat-label>Financier</mat-label>
+            <input matInput maxlength="20" placeholder="Financier Code/Name/Location" formControlName="financier" [matAutocomplete]="autoFinancierList" >
+             <mat-autocomplete #autoFinancierList="matAutocomplete" (optionSelected)="optionSelectedFinancier($event)"
+              [displayWith]="displayFnForFinancier" [panelWidth]="500" >
+              <mat-option *ngFor="let option of financierList" [value]="option">
+                {{option?.value}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+             <!-- <mat-error
+              *ngIf="retailFinanceForm.get('financier').hasError('error')">
+              Select Financier from List</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!enquiryPresenter.isCashSelected">
+          <mat-form-field class="w-100">
+              <mat-label>Finance Logged Date</mat-label>
+            <input matInput [max]="tomorrow" [matDatepicker]="picker7" placeholder="Finance Logged Date"
+              formControlName="financeLoggedInDate" readonly (click)="picker7.open()" >
+            <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+            <mat-datepicker #picker7></mat-datepicker>
+             <!-- <mat-error
+              *ngIf="retailFinanceForm.get('financeLoggedInDate').hasError('error')">
+              Select Finance Logged Date</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!enquiryPresenter.isCashSelected">
+          <mat-form-field appearance="outline">
+            <mat-label>Estimated Finance Amount</mat-label>
+            <input type="number" class="quantity" matInput placeholder="Estimated Finance Amount"
+              formControlName="estimatedFinanceAmount" onKeyPress="if(this.value.length==10) return false;" (keypress)="onKeyPressAlphaNumericsOnly($event)"  (change)="checkEstimatedFinanceAmount($event.target.value)" >
+              <mat-error
+              *ngIf="retailFinanceForm.get('estimatedFinanceAmount').hasError('error')">
+              Amount exceeds Asset Value</mat-error>
+              <mat-error
+              *ngIf="retailFinanceForm.get('estimatedFinanceAmount').hasError('estimatedFinanceAmtError')">
+              Amount exceeds Asset Value</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!enquiryPresenter.isCashSelected">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Finance Status</mat-label>
+            <mat-select formControlName="financeStatus" [compareWith]="compareFnFinanceStatus" (selectionChange)="selectionFinanceStatus($event.value)" >
+              <mat-option *ngFor="let financeStatus of finalStatus" [value]="financeStatus">
+                {{financeStatus?.financeStatus}}</mat-option>
+            </mat-select>
+             <!-- <mat-error
+              *ngIf="retailFinanceForm.get('financeStatus').hasError('error')">
+              Select Finance Status</mat-error> -->
+          </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2" *ngIf="enquiryByEnquiryNumber && enquiryPresenter.isFinanceStatus">
+          <mat-form-field class="w-100">
+              <mat-label>Disbursed Date</mat-label>
+            <input matInput [matDatepicker]="picker8" placeholder="Disbursed Date" formControlName="disbursedDate"
+              readonly (click)="picker8.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
+            <mat-datepicker #picker8></mat-datepicker>
+             <!-- <mat-error
+              *ngIf="retailFinanceForm.get('disbursedDate').hasError('error')">
+              Select Disbursed Date</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="enquiryByEnquiryNumber && enquiryPresenter.isFinanceStatus">
+          <mat-form-field appearance="outline">
+            <mat-label>Disbursed Finance Amount</mat-label>
+            <input matInput placeholder="Disbursed Finance Amount" formControlName="disbursedFinanceAmount" readonly="readonly">
+           <!--  <mat-error
+              *ngIf="retailFinanceForm.get('disbursedFinanceAmount').hasError('error')">
+              Enter Disbursed Amount</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="enquiryPresenter.isExchangerequired">
+          <mat-form-field appearance="outline">
+            <mat-label>Actual exchange amount</mat-label>
+            <input class="quantity" type="number" matInput placeholder="Actual exchange amount"
+              formControlName="finalExchangePrice">
+          </mat-form-field>
+        </div>
+    
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Subsidy</mat-label>
+            <mat-select required formControlName="subsidy" (selectionChange)="selectionSubsidy($event.value)">
+              <mat-option *ngFor="let subsidy of subsidies" [value]="subsidy">{{subsidy.subsidy}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="retailFinanceForm.get('subsidy').hasError('required')">
+              Subsidy is Required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="enquiryPresenter.isSubSidySelect">
+          <mat-form-field appearance="outline">
+            <mat-label>Subsidy Amount</mat-label>
+            <input class="quantity" type="number" matInput maxlength="10" placeholder="Subsidy Amount"
+              formControlName="subsidyAmount" onKeyPress="if(this.value.length==10) return false;" (keypress)="onKeyPressAlphaNumericsOnly($event)" (change)="  checkSubsidyAmount($event.target.value)">
+            <mat-error
+              *ngIf="retailFinanceForm.get('subsidyAmount').hasError('error')">
+              Amount exceeds Asset Value</mat-error>
+              <mat-error *ngIf="retailFinanceForm.get('subsidyAmount').hasError('subSidyError')">
+                Invalid Subsidy Amount
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Margin Amount</mat-label>
+            <input class="quantity" type="number" matInput placeholder="Margin Amount" formControlName="marginAmount">
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="enquiryByEnquiryNumber">
+          <mat-form-field appearance="outline">
+            <mat-label>Total Amount Received</mat-label>
+            <input class="quantity" type="number" readonly="readonly" matInput placeholder="Total Amount Received" formControlName="totalReceived">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

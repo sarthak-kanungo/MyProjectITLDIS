@@ -1,0 +1,36 @@
+<div class="card-body" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>PCR No.</mat-label>
+                <input matInput placeholder="PCR No.">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Status</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let value of status" [value]="value">{{value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>PCR From Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="PCR From Date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>PCR To Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="PCR To Date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

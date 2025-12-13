@@ -1,0 +1,7 @@
+import { DataTable, ActionButton } from './ngsw-search-table-dto';
+export declare class NgswSearchTableService {
+    constructor();
+    initDataTable(): DataTable;
+    convertIntoDataTable(tableDataList: Array<object>, responseHeader?: any, clickOnTableFields?: any): DataTable | null;
+    addActionButton(title: string, matIcon?: string, toolTipText?: string): ActionButton;
+}

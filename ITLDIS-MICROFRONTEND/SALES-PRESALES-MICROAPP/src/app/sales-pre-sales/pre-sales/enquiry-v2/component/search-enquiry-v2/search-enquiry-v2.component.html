@@ -1,0 +1,697 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from mt-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between header">
+                            <p class="mb-0 label" style="padding: 2px;"> Search Enquiry</p>
+                            <div>
+                                <button type="button" [routerLink]="[ './transfer' ]" class="btn btn-xs bg-white "
+                                    *ngIf="isAllowTransferEnquiry">
+                                    <b class="btnName">Transfer</b>
+                                </button>
+                                <button type="button" [routerLink]="[ './create' ]" class="btn btn-xs ml-2 bg-white "
+                                    *ngIf="loginUserType!=='itldis'">
+                                    <b class="btnName">New</b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="searchEnquiry" [style.fontSize.px]="10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Enquiry No.</mat-label>
+                                        <input matInput placeholder="Enquiry No./Mobile No./Name /Tehsil"
+                                            formControlName="enquiryNumber" [matAutocomplete]="autoEnquiryNo">
+                                        <mat-autocomplete #autoEnquiryNo="matAutocomplete"
+                                             [panelWidth]="500">
+                                            <mat-option *ngFor="let option of enquiryNumber$?.result"
+                                                [value]="option.enquiryNumber">
+                                                {{option?.value}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [max]="tomorrow" [matDatepicker]="picker"
+                                            placeholder="Enquiry From Date" formControlName="fromDate" readonly
+                                            (click)="picker.open()"  [max]="today" (dateChange)="setToDate($event)">
+                                        <mat-datepicker-toggle matSuffix [for]="picker">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [min]="searchEnquiry.controls.fromDate.value" [max]="maxDate" [min]="minDate"
+                                            [matDatepicker]="picker1" placeholder="Enquiry To Date"
+                                            formControlName="toDate" readonly (click)="picker1.open()">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Enquiry Type</mat-label>
+                                        <mat-select formControlName="enquiryType">
+                                            <mat-option *ngFor="let enqyuiryType of enqyuiryTypes"
+                                                [value]="enqyuiryType">{{enqyuiryType}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Sales Person</mat-label>
+                                        <mat-select formControlName="salesPerson">
+                                            <mat-option *ngFor="let option of salePerson" [value]="option.salesPerson">
+                                                {{option?.salesPerson}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                               <div class="col-lg-4">
+                                     <mat-form-field class="w-100" appearance="outline">
+                                         <mat-label>Item No.</mat-label>
+                                         <input matInput placeholder="Item No." formControlName="itemNo"
+                                             [matAutocomplete]="autoItemNo"
+                                             (keydown)="onKeyDownItemNo($event)">
+                                         <mat-autocomplete [panelWidth]="500"
+                                             (optionSelected)="selectItemNumber($event)"
+                                             #autoItemNo="matAutocomplete">
+                                             <mat-option *ngFor="let option of (itemNumber$ | async)"
+                                                 [value]="option.itemNo">
+                                                 {{option.value}}
+                                             </mat-option>
+                                         </mat-autocomplete>
+                                         <mat-icon matSuffix>search</mat-icon>
+                                     </mat-form-field>
+                                 </div>
+                                <div class="col-lg-4" *ngIf='isKai'>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Dealer Code</mat-label>
+                                        <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                            [matAutocomplete]="autoDealercode">
+                                        <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" (optionSelected)="getDealerName($event)" [displayWith]="displayDealerCodeFn">
+                                            <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                                {{option?.displayString}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+								
+								<div class="col-lg-2" *ngIf='isKai'>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Dealer Name</mat-label>
+                                        <input matInput placeholder="Dealer Name" formControlName="dealerName" disabled="disabled">
+                                    </mat-form-field>
+                                </div>                          
+                               
+                                 
+                            </div>
+                            <div class="card-from mt-2" *ngIf="searchform">
+                                <div class="card" style="border: 1px solid #45afaf;">
+                                    <div class="card-header" style="background-color: #45afaf;
+                                            border: 1px solid #45afaf;">
+                                        <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Source</mat-label>
+                                                    <mat-select formControlName="source">
+                                                        <mat-option *ngFor="let option of sources" [value]="option.source">
+                                                            {{option?.source}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Enquiry Status</mat-label>
+                                                    <mat-select formControlName="enquiryStatus">
+                                                    	<mat-option value=''>ALL</mat-option>
+                                                        <mat-option *ngFor="let enquiry of enquriesStatus" [value]="enquiry.status">
+                                                            {{enquiry.status}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Product</mat-label>
+                                                    <mat-select formControlName="product"
+                                                        (selectionChange)="selectProduct($event.value)">
+                                                        <mat-option *ngFor="let option of products" [value]="option.product">
+                                                            {{option?.product}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Series</mat-label>
+                                                    <mat-select formControlName="series"
+                                                        (selectionChange)="selectSeries($event.value)" [compareWith]="compareFnSeries">
+                                                        <mat-option *ngFor="let option of seriesByProduct"
+                                                            [value]="option.series">{{option?.series}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Model</mat-label>
+                                                    <mat-select formControlName="model"
+                                                        (selectionChange)="selectModel($event.value)" [compareWith]="compareFnModel">
+                                                        <mat-option *ngFor="let option of modelBySeries"
+                                                            [value]="option.model">
+                                                            {{option?.model}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Sub Model</mat-label>
+                                                    <mat-select formControlName="subModel" (selectionChange)="selectSubModel($event.value)"
+                                                        [compareWith]="compareFnSubModel">
+                                                        <mat-option *ngFor="let option of subModelByModel"
+                                                            [value]="option.subModel">
+                                                            {{option?.subModel}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Variant</mat-label>
+                                                    <mat-select formControlName="variant">
+                                                        <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                                            {{option?.variant}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Finance</mat-label>
+                                                    <mat-select formControlName="finance">
+                                                        <mat-option *ngFor="let finance of selectOptions"
+                                                            [value]="finance">
+                                                            {{finance}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Auto Close</mat-label>
+                                                    <mat-select formControlName="autoClose">
+                                                        <mat-option *ngFor="let autoClose of selectOptions"
+                                                            [value]="autoClose">
+                                                            {{autoClose}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Subsidy</mat-label>
+                                                    <mat-select formControlName="subsidy">
+                                                        <mat-option *ngFor="let subsidy of selectOptions"
+                                                            [value]="subsidy">
+                                                            {{subsidy}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Exchange</mat-label>
+                                                    <mat-select formControlName="exchange">
+                                                        <mat-option *ngFor="let exchange of selectOptions"
+                                                            [value]="exchange">
+                                                            {{exchange}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput [matDatepicker]="picker2"
+                                                        placeholder="Next Follow Up From Date"
+                                                        formControlName="nextfollowUpFromDate" readonly
+                                                        (click)="picker2.open()">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker2">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker2></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput
+                                                        [min]="searchEnquiry.controls.nextfollowUpFromDate.value"
+                                                        [matDatepicker]="picker3" placeholder="Next Follow Up To Date"
+                                                        formControlName="nextFollowUpToDate" readonly
+                                                        (click)="picker3.open()">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker3">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput [matDatepicker]="picker4"
+                                                        placeholder="Tentative Purchase From Date"
+                                                        formControlName="tentativePurchaseFromDate" readonly
+                                                        (click)="picker4.open()">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker4">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker4></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput
+                                                        [min]="searchEnquiry.controls.tentativePurchaseFromDate.value"
+                                                        [matDatepicker]="picker5"
+                                                        placeholder="Tentative Purchase To Date"
+                                                        formControlName="tentativePurchaseToDate" readonly
+                                                        (click)="picker5.open()">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker5">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker5></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            
+			                                <div class="col-lg-2">
+			                                    <mat-form-field class="w-100" appearance="outline">
+			                                        <mat-label>State</mat-label>
+			                                        <mat-select formControlName="state">
+			                                        	<!-- <mat-option value=''>ALL</mat-option> -->
+                                                        <mat-option *ngFor="let option of states"
+                                                            [value]="option">{{option['stateName']}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <!-- <mat-error *ngIf="searchEnquiry.get('state').hasError('required')">
+                                                        Select Village First
+                                                       </mat-error> -->
+			                                    </mat-form-field>
+			                                </div>
+                                            <div class="col-lg-2">
+			                                    <mat-form-field class="w-100" appearance="outline">
+			                                        <mat-label>Village</mat-label>
+			                                        <input matInput placeholder="Village/Tehsil/District"
+			                                            formControlName="village" [matAutocomplete]="autoVillageName">
+			                                        <mat-autocomplete #autoVillageName="matAutocomplete" [panelWidth]="500" [displayWith]="displayVillageFn" >
+			                                            <mat-option *ngFor="let option of (villages | async)" [value]="option" > 
+			                                            	{{option?.value}}
+			                                            </mat-option>
+			                                        </mat-autocomplete>
+			                                        <mat-icon matSuffix>search</mat-icon>
+			                                    </mat-form-field>
+			                                </div>
+			                                
+                                        </div>
+                                        
+                                            <div class="row" *ngIf="isKai">
+	                                            <div class="col-lg-2" *ngFor="let level of orgLevels">
+								                    <mat-form-field appearance="outline" class="w-100">
+								                      <mat-label>{{level['LEVEL_DESC']}}</mat-label>
+								                      <mat-select formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+								                      	<mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+								                        <mat-option *ngFor="let hier of orgHierLevels1" [value]="hier" (click)="getOrgLevelHier2(hier)" >{{hier['hierarchy_desc']}}</mat-option>
+								                      </mat-select>
+								                      <mat-select formControlName="orgHierLevel2" *ngIf="level['SEQ_NO'] == 2">
+								                      	<mat-option value='all' (click)="getOrgLevelHier3('all')">ALL</mat-option>
+								                      	<mat-option *ngFor="let hier of orgHierLevels2" [value]="hier" (click)='getOrgLevelHier3(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+								                      </mat-select>
+								                      <mat-select formControlName="orgHierLevel3" *ngIf="level['SEQ_NO'] == 3">
+								                        <mat-option value='all' (click)="getOrgLevelHier4('all')">ALL</mat-option>
+								                      	<mat-option *ngFor="let hier of orgHierLevels3" [value]="hier" (click)='getOrgLevelHier4(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+								                      </mat-select>
+								                      <mat-select formControlName="orgHierLevel4" *ngIf="level['SEQ_NO'] == 4">
+								                        <mat-option value='all' (click)="getOrgLevelHier5('all')">ALL</mat-option>
+								                      	<mat-option *ngFor="let hier of orgHierLevels4" [value]="hier" (click)='getOrgLevelHier5(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+								                      </mat-select>
+								                      <mat-select formControlName="orgHierLevel5" *ngIf="level['SEQ_NO'] == 5">
+								                      	<mat-option value='all' (click)="getOrgLevelHier6('all')">ALL</mat-option>
+								                      	<mat-option *ngFor="let hier of orgHierLevels5" [value]="hier" >{{hier['hierarchy_desc']}}</mat-option>
+								                      </mat-select>
+								                    </mat-form-field>
+	                                            </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-lg-12">
+                            <div class="mx-auto d-flex justify-content-between">
+                                <div></div>
+                                <div>
+                                    <button type="button" class="btn pl-3 pr-3 mt-3 btn_primary"
+                                        (click)="onClickSearch()" [insertQueryParams]="filterData"
+                                        (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+                                        Search </button>
+                                    <button type="button" class="btn px-3 mt-3 ml-2 btn_primary"
+                                        (click)="clearEnquirySearch()">
+                                        Clear </button>
+                                </div>
+                                <a class=" font-weight-bold mt-3" style="color: #007bff;cursor: pointer;"
+                                    (click)="searchform = !searchform">
+                                    <u> {{searchform ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" [totalElements]="totalTableRecords" (actionOnTableRecord)="actionOnTableRecord($event)"
+            (pageChange)="pageChange($event)" (columnLengthChanges)="columnLengthChanges($event)"
+            [clickOnTableFields]="clickOnTableFields" [showPartial]="true" [isExcelImport]="true" (exportToExcel)="downloadExcel($event)"
+            [clearSearchRow]="clearSearchRow">
+			
+            <td [ngsw-searchField]="action" [searchColumnName]="'action'" *ngIf="dataTable && dataTable.titleMap.get('action')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #action  [(ngModel)] ="actionNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="enquiryStatus" [searchColumnName]="'enquiryStatus'" *ngIf="dataTable && dataTable.titleMap.get('enquiryStatus')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #enquiryStatus [(ngModel)] ="enquiryStatusNgModel">
+                </mat-form-field>
+            </td>
+			
+            <td [ngsw-searchField]="enquiryType" [searchColumnName]="'enquiryType'" *ngIf="dataTable && dataTable.titleMap.get('enquiryType')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #enquiryType [(ngModel)] ="enquiryTypeNgModel">
+                </mat-form-field>
+            </td>
+			
+            <td [ngsw-searchField]="enquiryNumber" [searchColumnName]="'enquiryNumber'" *ngIf="dataTable && dataTable.titleMap.get('enquiryNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #enquiryNumber [(ngModel)] ="enquiryNumberNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="enquiryDate" [searchColumnName]="'enquiryDate'" *ngIf="dataTable && dataTable.titleMap.get('enquiryDate')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [max]="tomorrow" [matDatepicker]="enquiryDate" #enquiryDateInput
+                        (dateInput)="enqyuiryDateChanges(enquiryDateInput.value, 'enquiryDate')" [(ngModel)] ="enquiryDateNgModel">
+                    <mat-datepicker-toggle matSuffix [for]="enquiryDate"></mat-datepicker-toggle>
+                    <mat-datepicker #enquiryDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="salesPerson" [searchColumnName]="'salesPerson'" *ngIf="dataTable && dataTable.titleMap.get('salesPerson')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #salesPerson [(ngModel)] ="salesPersonNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="appEnquiryFlag" [searchColumnName]="'appEnquiryFlag'" *ngIf="dataTable && dataTable.titleMap.get('appEnquiryFlag')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #appEnquiryFlag [(ngModel)] ="appEnquiryFlagNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="validationDate" [searchColumnName]="'validationDate'" *ngIf="dataTable && dataTable.titleMap.get('validationDate')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="validationDate" #validationDateInput
+                        (dateInput)="enqyuiryDateChanges(validationDateInput.value, 'validationDate')" [(ngModel)] ="validationDateNgModel">
+                    <mat-datepicker-toggle matSuffix [for]="validationDate"></mat-datepicker-toggle>
+                    <mat-datepicker #validationDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+ 
+            <td [ngsw-searchField]="source" [searchColumnName]="'source'" *ngIf="dataTable && dataTable.titleMap.get('source')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #source [(ngModel)] ="sourceNgModel">
+                </mat-form-field>
+            </td>
+            
+ 			<td [ngsw-searchField]="currentFollowUpDate" [searchColumnName]="'currentFollowUpDate'" *ngIf="dataTable && dataTable.titleMap.get('currentFollowUpDate')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="currentFollowUpDate" #currentFollowUpDateInput
+                        (dateInput)="enqyuiryDateChanges(currentFollowUpDateInput.value, 'currentFollowUpDate')" [(ngModel)] ="currentFollowUpDateNgModel">
+                    <mat-datepicker-toggle matSuffix [for]="currentFollowUpDate"></mat-datepicker-toggle>
+                    <mat-datepicker #currentFollowUpDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="nextFollowUpDate" [searchColumnName]="'nextFollowUpDate'" *ngIf="dataTable && dataTable.titleMap.get('nextFollowUpDate')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="nextFollowUpDate" #nextFollowUpDateInput
+                        (dateInput)="enqyuiryDateChanges(nextFollowUpDateInput.value, 'nextFollowUpDate')" [(ngModel)] ="nextFollowUpDateNgModel">
+                    <mat-datepicker-toggle matSuffix [for]="nextFollowUpDate"></mat-datepicker-toggle>
+                    <mat-datepicker #nextFollowUpDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="tentativePurchaseDate" [searchColumnName]="'tentativePurchaseDate'" *ngIf="dataTable && dataTable.titleMap.get('tentativePurchaseDate')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="tentativePurchaseDate" #tentativePurchaseDateInput
+                        (dateInput)="enqyuiryDateChanges(tentativePurchaseDateInput.value, 'tentativePurchaseDate')" [(ngModel)] ="tentativePurchaseDateNgModel">
+                    <mat-datepicker-toggle matSuffix [for]="tentativePurchaseDate"></mat-datepicker-toggle>
+                    <mat-datepicker #tentativePurchaseDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+
+			<td [ngsw-searchField]="prospectCode" [searchColumnName]="'prospectCode'" *ngIf="dataTable && dataTable.titleMap.get('prospectCode')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #prospectCode [(ngModel)] ="prospectCodeNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="prospectType" [searchColumnName]="'prospectType'" *ngIf="dataTable && dataTable.titleMap.get('prospectType')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #prospectType [(ngModel)] ="prospectTypeNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="companyName" [searchColumnName]="'companyName'" *ngIf="dataTable && dataTable.titleMap.get('companyName')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #companyName [(ngModel)] ="companyNameNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="firstName" [searchColumnName]="'firstName'" *ngIf="dataTable && dataTable.titleMap.get('firstName')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #firstName [(ngModel)] ="firstNameNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="middleName" [searchColumnName]="'middleName'" *ngIf="dataTable && dataTable.titleMap.get('middleName')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #middleName [(ngModel)] ="middleNameNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="lastName" [searchColumnName]="'lastName'" *ngIf="dataTable && dataTable.titleMap.get('lastName')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #lastName [(ngModel)] ="lastNameNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="fatherName" [searchColumnName]="'fatherName'" *ngIf="dataTable && dataTable.titleMap.get('fatherName')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #fatherName [(ngModel)] ="fatherNameNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'" *ngIf="dataTable && dataTable.titleMap.get('mobileNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #mobileNumber [(ngModel)] ="mobileNumberNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="telephoneNumber" [searchColumnName]="'telephoneNumber'" *ngIf="dataTable && dataTable.titleMap.get('telephoneNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #telephoneNumber [(ngModel)] ="telephoneNumberNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="whatsAppNumber" [searchColumnName]="'whatsAppNumber'" *ngIf="dataTable && dataTable.titleMap.get('whatsAppNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #whatsAppNumber [(ngModel)] ="whatsAppNumberNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="emailId" [searchColumnName]="'emailId'" *ngIf="dataTable && dataTable.titleMap.get('emailId')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #emailId [(ngModel)] ="emailIdNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="address1" [searchColumnName]="'address1'" *ngIf="dataTable && dataTable.titleMap.get('address1')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #address1 [(ngModel)] ="address1NgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="address2" [searchColumnName]="'address2'" *ngIf="dataTable && dataTable.titleMap.get('address2')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #address2 [(ngModel)] ="address2NgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="address3" [searchColumnName]="'address3'" *ngIf="dataTable && dataTable.titleMap.get('address3')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #address3 [(ngModel)] ="address3NgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'" *ngIf="dataTable && dataTable.titleMap.get('pinCode')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #pinCode [(ngModel)] ="pinCodeNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'" *ngIf="dataTable && dataTable.titleMap.get('postOffice')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #postOffice [(ngModel)] ="postOfficeNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'" *ngIf="dataTable && dataTable.titleMap.get('tehsil')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #tehsil [(ngModel)] ="tehsilNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="district" [searchColumnName]="'district'" *ngIf="dataTable && dataTable.titleMap.get('district')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #district [(ngModel)] ="districtNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="city" [searchColumnName]="'city'" *ngIf="dataTable && dataTable.titleMap.get('city')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #city [(ngModel)] ="cityNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="state" [searchColumnName]="'state'" *ngIf="dataTable && dataTable.titleMap.get('state')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #state [(ngModel)] ="stateNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="country" [searchColumnName]="'country'" *ngIf="dataTable && dataTable.titleMap.get('country')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #country [(ngModel)] ="countryNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="itemNumber" [searchColumnName]="'itemNumber'" *ngIf="dataTable && dataTable.titleMap.get('itemNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #itemNumber [(ngModel)] ="itemNumberNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'" *ngIf="dataTable && dataTable.titleMap.get('itemDescription')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #itemDescription [(ngModel)] ="itemDescriptionNgModel">
+                </mat-form-field>
+            </td>
+
+			<td [ngsw-searchField]="product" [searchColumnName]="'product'" *ngIf="dataTable && dataTable.titleMap.get('product')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #product [(ngModel)] ="productNgModel">
+                </mat-form-field>
+            </td>
+
+			<td [ngsw-searchField]="model" [searchColumnName]="'model'" *ngIf="dataTable && dataTable.titleMap.get('model')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #model [(ngModel)] ="modelModelNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'" *ngIf="dataTable && dataTable.titleMap.get('subModel')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #subModel [(ngModel)] ="subModelNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="variant" [searchColumnName]="'variant'" *ngIf="dataTable && dataTable.titleMap.get('variant')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #variant [(ngModel)] ="variantNgModel">
+                </mat-form-field>
+            </td>
+			
+			<td [ngsw-searchField]="cashLoan" [searchColumnName]="'cashLoan'" *ngIf="dataTable && dataTable.titleMap.get('cashLoan')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #cashLoan [(ngModel)] ="cashLoanNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="financier" [searchColumnName]="'financier'" *ngIf="dataTable && dataTable.titleMap.get('financier')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #financier [(ngModel)] ="financierNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="subsidy" [searchColumnName]="'subsidy'" *ngIf="dataTable && dataTable.titleMap.get('subsidy')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #subsidy [(ngModel)] ="subsidyNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="exchangeRequired" [searchColumnName]="'exchangeRequired'" *ngIf="dataTable && dataTable.titleMap.get('exchangeRequired')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #exchangeRequired [(ngModel)] ="exchangeRequiredNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="generationActivityNumber" [searchColumnName]="'generationActivityNumber'" *ngIf="dataTable && dataTable.titleMap.get('generationActivityNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #generationActivityNumber [(ngModel)] ="generationActivityNumberNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="conversionActivityNumber" [searchColumnName]="'conversionActivityNumber'" *ngIf="dataTable && dataTable.titleMap.get('conversionActivityNumber')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #conversionActivityNumber [(ngModel)] ="conversionActivityNumberNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'" *ngIf="dataTable && dataTable.titleMap.get('remarks')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #remarks [(ngModel)] ="remarksNgModel">
+                </mat-form-field>
+            </td>
+            
+            <td [ngsw-searchField]="assetValue" [searchColumnName]="'assetValue'" *ngIf="dataTable && dataTable.titleMap.get('assetValue')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #assetValue [(ngModel)] ="assetValueNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="autoClose" [searchColumnName]="'autoClose'" *ngIf="dataTable && dataTable.titleMap.get('autoClose')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #autoClose [(ngModel)] ="autoCloseNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" *ngIf="dataTable && dataTable.titleMap.get('dealerName')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerName [(ngModel)] ="dealerNameNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" *ngIf="dataTable && dataTable.titleMap.get('dealerCode')">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerCode [(ngModel)] ="dealerCodeNgModel">
+                </mat-form-field>
+            </td>
+        </ngsw-search-table>
+    </div>
+</div>

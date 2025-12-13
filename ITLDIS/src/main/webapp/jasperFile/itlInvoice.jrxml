@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-10-16T14:41:44 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlInvoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="b016e404-d337-49ec-b2fa-4d8d684d2f29">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<parameter name="imgPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_showTaxInvoiceHeaderDetail $P{invoiceNo}]]>
+	</queryString>
+	<field name="invoice_no" class="java.lang.String"/>
+	<field name="Invoice_Date" class="java.sql.Timestamp"/>
+	<field name="Customer_Name" class="java.lang.String"/>
+	<field name="Contact_no" class="java.lang.String"/>
+	<field name="Type_Ref_no" class="java.lang.String"/>
+	<field name="createdOn" class="java.sql.Timestamp"/>
+	<field name="dealerCode" class="java.lang.String"/>
+	<field name="locationCode" class="java.lang.String"/>
+	<field name="location" class="java.lang.String"/>
+	<field name="Parts_Value" class="java.lang.Double"/>
+	<field name="Lubes_Value" class="java.lang.Double"/>
+	<field name="Other_Value" class="java.lang.Double"/>
+	<field name="Invoice_Value" class="java.lang.Double"/>
+	<field name="Discount_Other" class="java.lang.Double"/>
+	<field name="Invoice_type" class="java.lang.String"/>
+	<field name="Credit_Value" class="java.lang.Double"/>
+	<field name="customerName" class="java.lang.String"/>
+	<field name="TIN_NO" class="java.lang.String"/>
+	<field name="GST_NO" class="java.lang.String"/>
+	<field name="customerTehsil" class="java.lang.String"/>
+	<field name="customerDistrict" class="java.lang.String"/>
+	<field name="customerLocation" class="java.lang.String"/>
+	<field name="dealerName" class="java.lang.String"/>
+	<field name="NetworkCategory" class="java.lang.String"/>
+	<field name="dealerAddress" class="java.lang.String"/>
+	<field name="dealerContactNo" class="java.lang.String"/>
+	<field name="dealerTinNo" class="java.lang.String"/>
+	<field name="DealerGSTNO" class="java.lang.String"/>
+	<field name="IsLabour" class="java.lang.String"/>
+	<field name="IsPart" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="26">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="0" width="550" height="10" isRemoveLineWhenBlank="true" uuid="19fae81f-1da6-407a-8be2-513bc7eeb742"/>
+				<subreportParameter name="invoiceNo">
+					<subreportParameterExpression><![CDATA[$P{invoiceNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgPath">
+					<subreportParameterExpression><![CDATA[$P{imgPath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["itlSubReportForDetails.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="17" width="550" height="9" isRemoveLineWhenBlank="true" uuid="2c51782a-a939-4bab-bf8f-e28982b57b0c"/>
+				<subreportParameter name="invoiceNo">
+					<subreportParameterExpression><![CDATA[$P{invoiceNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgPath">
+					<subreportParameterExpression><![CDATA[$P{imgPath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["itlSubReportForLabour.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement positionType="Float" x="0" y="13" width="550" height="1" isRemoveLineWhenBlank="true" uuid="d4724670-33dc-484c-bc12-4a9d56867e23">
+					<printWhenExpression><![CDATA[$F{IsLabour}.equalsIgnoreCase("y") && $F{IsPart}.equalsIgnoreCase("y")]]></printWhenExpression>
+				</reportElement>
+			</break>
+		</band>
+	</summary>
+</jasperReport>

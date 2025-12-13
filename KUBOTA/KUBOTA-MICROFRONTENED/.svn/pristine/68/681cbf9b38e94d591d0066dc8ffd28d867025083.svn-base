@@ -1,0 +1,49 @@
+<div class="container-fluid create-form mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Spares Purchase Order</p>
+            </div>
+
+            <app-purchase-order [purchaseOrderCreate]="partOrderingForm" [poTotalForm]="poTotalForm"
+                [markAllAsTouchedObserv]="markAllAsTouchedObserv" [isView]="isView" [isEdit]="isEdit" [isApprove]="isApprove" [editRecordId]="editRecordId" (showAddrowDeleteRowandUploadExcel)="showaddRowandupload($event)">
+            </app-purchase-order>
+
+            <app-item-details [poItemDetailForm]="itemDetailsForm" [poTotalForm]="poTotalForm" [tcsPerc]="tcsPerc"
+                [markAllAsTouchedObserv]="markAllAsTouchedObserv" [isView]="isView" [isEdit]="isEdit"  [isApprove]="isApprove" [hideAddrowandUploadExcel]="hideAddrowandUploadExcel">
+            </app-item-details>
+			
+			<app-approval-details [approvalHierDetails]="approvalHierDetails" *ngIf="showApproval"></app-approval-details>
+			
+            <div class=" text-center my-2" *ngIf="!isView">
+                <button type="button" class="btn btn_primary pl-3 pr-3 mr-3" (click)="validateForm(true)" *ngIf="isDraft"  [disabled]="isSubmitDisable"> 
+                    Save
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm(false)" *ngIf="!isApprove"  [disabled]="isSubmitDisable">
+                    {{isEdit?'Update':'Submit'}}
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3" (click)="approvalForm('Approved')" *ngIf="isApprove"  [disabled]="isSubmitDisable">
+                    Approve
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="approvalForm('Reject')" *ngIf="isApprove"  [disabled]="isSubmitDisable">
+                    Reject
+                </button>
+                <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " disabled> Export to Excel
+                </button> -->
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()" *ngIf="!isEdit">
+                    Clear
+                </button>
+
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="goBack()"> Exit
+                </button>
+            </div>
+            <div class=" text-center my-2" *ngIf="isView">
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " (click)="viewPrint('true')"> View PDF
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="goBack()"> Exit
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

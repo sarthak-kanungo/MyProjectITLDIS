@@ -1,0 +1,23 @@
+::ng-deep mat-form-field {
+    width: 100%;
+  }
+ 
+  ::ng-deep .mat-calendar-body-cell.selected > .mat-calendar-body-cell-content,
+  ::ng-deep .mat-calendar-body-cell.selected:hover > .mat-calendar-body-cell-content,
+  ::ng-deep .mat-calendar-body-cell.selected > .mat-calendar-body-cell-content:hover {
+    background-color: #673ab7 !important;
+    color: #fff !important;
+  }
+  td {
+    white-space:nowrap !important;
+    max-width: 350px !important;
+    overflow-y:hidden !important;
+ }
+ .long{
+    white-space: normal !important;
+    min-width: 190px !important;
+ }
+ .long1{
+  white-space: normal !important;
+  min-width: 250px !important;
+}

@@ -1,0 +1,15 @@
+.btn_primary {
+    border: 1px solid transparent !important;
+    color: #ffffff !important;
+    background-color: #028383 !important;
+  }
+  .btn_secondary {
+    border: 1px solid #6295b6 !important;
+    color: #028383 !important;
+    padding: 10 
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }

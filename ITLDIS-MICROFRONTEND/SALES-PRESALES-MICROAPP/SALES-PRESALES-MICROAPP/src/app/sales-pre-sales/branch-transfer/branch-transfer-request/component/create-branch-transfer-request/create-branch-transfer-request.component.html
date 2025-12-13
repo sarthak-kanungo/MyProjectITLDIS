@@ -1,0 +1,49 @@
+<form [formGroup]="branchTransferForm" [style.fontSize.px]="10">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Request From Branch</mat-label>
+                <input matInput placeholder="Request From Branch" formControlName="requestfrombranch">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Request To Branch</mat-label>
+                <mat-select formControlName="requesttobranch">
+                    <mat-option *ngFor="let branch of branches" [value]="branch">{{branch}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Request No.</mat-label>
+                <input matInput placeholder="Request No." formControlName="requestno">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Request Date" formControlName="requestdate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Request By</mat-label>
+                <input matInput placeholder="Request By" formControlName="requestedby">
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="col-lg-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <textarea matInput placeholder="Remarks" formControlName="remark"></textarea>
+            </mat-form-field>
+        </div>
+
+    </div>
+</form>

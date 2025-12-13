@@ -1,0 +1,332 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Allotment/De-Allotment</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="deallotmentForm" [style.fontSize.px]="10">
+                <div class="row">
+
+                    <div class="col-lg-2 d-flex align-items-center">
+                        <mat-checkbox color="basic" labelPosition="after" style="font-size: 12px"
+                            (change)="checkBoxChange($event)" formControlName="onlyImplementFlag" [checked]="onlyImplementsSelected">
+                            Only Implements</mat-checkbox>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Allotment Type</mat-label>
+                            <mat-select formControlName="allotmentType">
+                                <mat-option value="Enquiry">Enquiry</mat-option>
+                                <mat-option value="Dealer_Transfer">Dealer Transfer</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Allotment No.</mat-label>
+                            <input matInput placeholder="Allotment No." formControlName="allotmentNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected && allotmentType=='Enquiry'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Enquiry No.</mat-label>
+                            <input matInput placeholder="Enquiry No." formControlName="enquiryNumber"
+                                [matAutocomplete]="autoEnquiryCode">
+                            <mat-autocomplete #autoEnquiryCode="matAutocomplete" [displayWith]="displayFn"
+                                (optionSelected)="enquiryNumberSelected($event)" [panelWidth]="600">
+                                <mat-option *ngFor="let option of searchEnquiryNumberList" [value]="option">
+                                    {{option.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected && allotmentType=='Dealer_Transfer' && !isView">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Request No.</mat-label>
+                            <input matInput placeholder="Request No." formControlName="requestNo"
+                                [matAutocomplete]="autoRequestNumber">
+                            <mat-autocomplete #autoRequestNumber="matAutocomplete" [displayWith]="displayFnAutoRequest"
+                                (optionSelected)="requestNumberSelected($event)" [panelWidth]="600">
+                                <mat-option *ngFor="let option of requestNumberAutoList" [value]="option">
+                                    {{option.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                        <mat-error *ngIf="deallotmentForm.get('requestNo').hasError('selectFromList')">Select From List</mat-error>
+                    </div>
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected && allotmentType=='Dealer_Transfer' && isView">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Request No.</mat-label>
+                            <input matInput placeholder="Request No." formControlName="requestNo">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput [matDatepicker]="picker" placeholder="Allotment Date"
+                                formControlName="allotmentDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="onlyImplementsSelected">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput placeholder="Mobile No." formControlName="mobileNumber"
+                                [matAutocomplete]="autoMobileNumber" minlength="10" maxlength="10" required>
+                            <mat-autocomplete #autoMobileNumber="matAutocomplete" [displayWith]="displayMobileFn"
+                                [panelWidth]="600" (optionSelected)="mobileNumberSelected($event)">
+                                <mat-option *ngFor="let option of mobileNumberList" [value]="option">
+                                    {{option.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="deallotmentForm.get('mobileNumber').errors">Require valid mobile no.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput placeholder="Customer Name " formControlName="customerName">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected">
+                        <mat-form-field appearance="outline">
+                            <mat-label> Mobile</mat-label>
+                            <input matInput placeholder="Mobile " formControlName="mobileNumber">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <input matInput placeholder="Country" formControlName="country">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="State" formControlName="state">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!isView">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>District</mat-label>
+                            <mat-select required formControlName="district">
+                                <mat-option *ngFor="let option of districtList" [value]="option">
+                                    {{option.district}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>District</mat-label>
+                            <input matInput placeholder="District" formControlName="district">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Pin Code</mat-label>
+                            <input matInput placeholder="Pin Code" required formControlName="pincode"
+                                [matAutocomplete]="autoPincode" minlength="6" maxlength="6">
+                            <mat-autocomplete #autoPincode="matAutocomplete" [displayWith]="displayFnForPinCode"
+                                [panelWidth]="500" (optionSelected)="pinCodeChanged($event)">
+                                <mat-option *ngFor="let option of pinCodeList" [value]="option">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Post Office</mat-label>
+                            <input matInput placeholder="Post Office" required formControlName="postOffice"
+                                [matAutocomplete]="autoPostOffice">
+                            <mat-autocomplete #autoPostOffice="matAutocomplete" [displayWith]="displayFnForPostOffice">
+                                <mat-option *ngFor="let option of postOfficeList" [value]="option">
+                                    {{option.postOffice}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div> -->
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Post Office </mat-label>
+                            <input matInput placeholder="Post Office " formControlName="postOffice">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City </mat-label>
+                            <input matInput placeholder="City " formControlName="city">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Taluka/Tehsil/Mandal </mat-label>
+                            <input matInput placeholder="Taluka/Tehsil/Mandal " formControlName="tehsil">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <input matInput placeholder="Address" formControlName="address">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected">
+                        <mat-form-field appearance="outline">
+                            <mat-label> Model</mat-label>
+                            <input matInput placeholder="Model " formControlName="model">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Item No. </mat-label>
+                            <input matInput placeholder="Item No. " formControlName="itemNumber">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Item Desc. </mat-label>
+                            <input matInput placeholder="Item Desc. " formControlName="itemDescription">
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="col-lg-2" *ngIf="!onlyImplementsSelected">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Allotment Quantity</mat-label>
+                            <input matInput placeholder="Transfer Quantity" formControlName="quantity">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isDeallot">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Reason </mat-label>
+                            <input matInput placeholder="Reason " formControlName="deAllotReason">
+                            <mat-error *ngIf="deallotmentForm.get('deAllotReason').hasError('required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="deAllotFlag">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Reason </mat-label>
+                            <input matInput placeholder="Reason " formControlName="deAllotReason" disabled>
+                        </mat-form-field>
+                    </div>
+                    
+                </div>
+            </form>
+
+            <div class="card-from mt-2" *ngIf="!onlyImplementsSelected">
+                <div class="card" style="border: 1px solid #45afaf;">
+                    <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+                        <p class="mb-0" style="font-size: 13px;">Machine Details</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive mt-1">
+                            <table class="table table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" style="width: 100px" *ngIf="isAllot">Select</th>
+                                        <!-- <th scope="col" style="width: 150px" *ngIf="allotmentType=='Dealer_Transfer'">Model</th>
+                                        <th scope="col" style="width: 150px" *ngIf="allotmentType=='Dealer_Transfer'">Item No</th>
+                                        <th scope="col" style="width: 150px" *ngIf="allotmentType=='Dealer_Transfer'">Item Desc</th> -->
+                                        <th scope="col" style="width: 150px">Stock Type</th>
+                                        <th scope="col" style="width: 150px">Chassis No.</th>
+                                        <th scope="col" style="width: 150px">Engine No.</th>
+                                        <th scope="col" style="width: 130px">Color</th>
+                                        <th scope="col" style="width: 212px">GRN No.</th>
+                                        <th scope="col" style="width: 212px">Invoice No.</th>
+                                        <th scope="col" style="width: 100px">Invoice Date</th>
+                                        <th scope="col" style="width: 100px">Age in days </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let machineDetail of machineDetailList">
+                                        <td *ngIf="isAllot">
+                                            <mat-checkbox color="basic"
+                                                (change)="machineDetailChecked($event, machineDetail.id)">
+                                            </mat-checkbox>
+                                            <!-- [checked]="selectedMachineDetailId === machineDetail.id" -->
+                                        </td>
+                                        <!-- <td *ngIf="allotmentType=='Dealer_Transfer'">{{machineDetail.model}}</td>
+                                        <td *ngIf="allotmentType=='Dealer_Transfer'">{{machineDetail.itemNo}}</td>
+                                        <td *ngIf="allotmentType=='Dealer_Transfer'">{{machineDetail.itemDescription}}</td> -->
+                                        <td>{{machineDetail.stockType}}</td>
+                                        <td>{{machineDetail.chassisNo}}</td>
+                                        <td>{{machineDetail.engineNo}}</td>
+                                        <td>{{machineDetail.color}}</td>
+                                        <td>{{machineDetail.grnNo}}</td>
+                                        <td>{{machineDetail.invoiceNo}}</td>
+                                        <td>{{machineDetail.invoiceDate}}</td>
+                                        <td>{{machineDetail.ageInDays}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2"
+                *ngIf="(isDeallot && implementAndAccessoryList.length > 0) || isAllot ||  (isView && implementAndAccessoryList.length > 0)">
+                <div class="card" style="border: 1px solid #45afaf;">
+                    <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+                        <p class="mb-0" style="font-size: 13px;">Implements</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive mt-1">
+                            <editable-table [formControl]="deallotmentForm.get('implements')"
+                                [tableConfig]="isAllot ? tableConfig : tableConfigForDeAllot"
+                                [hideActionBtn]="isDeallot || isView" [tableData]="implementAndAccessoryList"
+                                [formGroupForTableRow]="etFormGroupForTableRow" [assignListToAutocomplete]="assignTo"
+                                [patchValue]="patchValue" [getFormData]="getFormData"
+                                [assignListToSelect]="assignListToSelect" [patchValueToSelect]="selectPatchValue"
+                                [validationError]="eTValidationError" (searchValueChanges)="searchValueChanges($event)"
+                                (tableValueChanges)="tableValueChange($event)"
+                                (getTableRecordChange)="getTableRecordChange($event)"
+                                (optionSelected)="etOptionSelected($event)"
+                                (deletedTableRecords)="deletedTableRecords($event)">
+                            </editable-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" text-center mt-2 ">
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3 " (click)="validateForm()" *ngIf="isAllot">
+                    Allot
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()" *ngIf="isDeallot">
+                    De-Allot
+                </button>
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isAllot" (click)="clearForm()">
+                    Clear
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="redirectToSearchPage()"> Exit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

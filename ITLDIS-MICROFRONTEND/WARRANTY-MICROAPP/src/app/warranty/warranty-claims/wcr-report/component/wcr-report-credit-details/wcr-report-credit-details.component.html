@@ -1,0 +1,33 @@
+<div class="card-from mt-2 wcr-details" [formGroup]="wcrReportCreditDetailForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">WCR CREDIT DETAILS</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th class="p-2" *ngFor="let tableHeading of installationDetailsHeading">{{tableHeading}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of wcrReportCreditDetailForm.controls; let i=index" [formGroupName]="i">
+                  <td>{{list.controls.installationDate.value}}</td>
+                  <td>{{list.controls.failureDate.value}}</td>
+                  <td>{{list.controls.invoiceNo.value}}</td>
+                  <td>{{list.controls.creditNoteNo.value}}</td>
+                  <td>{{list.controls.creditNotedate.value}}</td>
+                  <td>{{list.controls.creditNoteReqNo.value}}</td>
+                  <td>{{list.controls.status.value}}</td>
+                  <td>{{list.controls.serviceDealerName.value}}</td>
+                  <td>{{list.controls.amount.value}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+
+    </div>
+  </div>

@@ -1,0 +1,34 @@
+<div class="card-from mt-2" *ngIf="loginUserType!=='dealer'">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                              border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Approval Details</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Approver Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">is Final Approver?</th>
+                            <th scope="col">Approval Date</th>
+                            <th scope="col">Approved Amount</th>
+                            <th scope="col">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let approvalDetail of approvalDetails">
+                            <td >{{approvalDetail.approvedBy}}</td>
+                            <td >{{approvalDetail.approvalStatus}}</td>
+                            <td >{{approvalDetail.isFinalApprover}}</td>
+                            <td >{{approvalDetail.approvalDate}}</td>
+                            <td >{{approvalDetail.approvedAmount}}</td>
+                            <td >{{approvalDetail.approverRemarks}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="container-fluid mt-4 ">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Pre-Delivery Checklist</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-pdc-search [pdcSearchForm]=pdcSearchForm></app-pdc-search>
+
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="onClickSearchPdcDetails()"
+                                [insertQueryParams]="filterData" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="onClickClearPdcDetails()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)"
+            [clickOnTableFields]="[{ 'title': 'pdcNo', 'isClickable': true }, { 'title': 'edit', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+
+            <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+
+                <input class="w-100 borderRadius" #edit [(ngModel)] ="editModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="pdcNo" [searchColumnName]="'pdcNo'">
+
+                <input class="w-100 borderRadius" #pdcNo [(ngModel)] ="pdcNoNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="pdcDate" [searchColumnName]="'pdcDate'" class="pdcDate">
+                <input class="w-100 borderRadius" type="date" #pdcDate [(ngModel)] ="pdcDateNgModel" [ngModelOptions]="{standalone: true}">
+                    <!-- (change)="etSearchDateValueChange(pdcDate.value,'pdcDate')" -->
+            </td>
+            <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+
+                <input class="w-100 borderRadius" #chassisNo [(ngModel)] ="chassisNoNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+
+                <input class="w-100 borderRadius" #engineNo [(ngModel)] ="engineNoNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+
+                <input class="w-100 borderRadius" #model [(ngModel)] ="modelNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="name" [searchColumnName]="'name'">
+
+                <input class="w-100 borderRadius" #name [(ngModel)] ="nameNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+
+        </ngsw-search-table>
+    </div>
+
+</div>

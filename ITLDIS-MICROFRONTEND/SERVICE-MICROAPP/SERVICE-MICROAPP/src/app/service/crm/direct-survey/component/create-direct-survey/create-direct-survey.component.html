@@ -1,0 +1,180 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p *ngIf="!forButton" class="mb-0">Direct Survey</p>
+                <p *ngIf="forButton" class="mb-0">Telephonic Survey</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="directSurveyCreateDetailsFrom" [style.fontSize.px]="10">
+                    <div class="row">
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Survey Type</mat-label>
+                                <mat-select placeholder="Survey Type" formControlName="surveyType"
+                                    (selectionChange)="showAndViewSurveyType($event.value)">
+                                    <mat-option *ngFor="let type of surveyType" [value]="type">
+                                        {{type.Survey_type_desc}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Survey Type</mat-label>
+                                <input matInput placeholder="Survey Type" formControlName="surveyType">
+                            </mat-form-field> -->
+                        </div>
+
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Direct Survey No.</mat-label>
+                                <input matInput placeholder="Direct Survey No." formControlName="directSurveyNo"
+                                    [matAutocomplete]="autoDirectSurveyNo">
+                                <mat-autocomplete #autoDirectSurveyNo="matAutocomplete" [panelWidth]="500"
+                                    (optionSelected)="selectedDirectSurveyNo($event)"
+                                    [displayWith]="displayFnDirectSurveyNo">
+                                    <mat-option *ngFor="let option of (directSurveyNoList$ | async)" [value]="option">
+                                        {{option?.directSurveyNo}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error
+                                    *ngIf="directSurveyCreateDetailsFrom.get('directSurveyNo').hasError('selectFromList')">
+                                    Please select from list</mat-error>
+                            </mat-form-field>
+                        </div> -->
+                        <div class="col-lg-2" *ngIf="isView">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Survey No.</mat-label>
+                                <input matInput placeholder="Survey No." formControlName="directSurveyNo">
+
+                                <mat-error
+                                    *ngIf="directSurveyCreateDetailsFrom.get('directSurveyNo').hasError('surveyNoError')">
+                                    Survey No. is Mandatory</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Direct Survey Date</mat-label>
+                                <input matInput placeholder="Direct Survey Date" [matDatepicker]="picker1"
+                                    formControlName="directSurveyDate" (click)="picker1.open()">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select  placeholder="Status" formControlName="status">
+                                    <mat-option *ngFor="let status of surveyStatus" [value]="status">
+                                        {{status.lookupval}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <input matInput placeholder="Status" formControlName="status">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="surveyTypeSelection==='TELEPHONIC'">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Done By</mat-label>
+                                <input matInput placeholder="Done By" formControlName="surveyDoneBye">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Sold to Dealer</mat-label>
+                                <input matInput placeholder="Sold to Dealer" formControlName="soldToDealer"
+                                    [matAutocomplete]="autoSoldDealer" (ngModelChange)="autoSoldToDealer($event)" required>
+                                <mat-autocomplete #autoSoldDealer="matAutocomplete" [panelWidth]="400"
+                                    (optionSelected)="selectSoldToDealer($event)"
+                                    [displayWith]="displayFnSoldToDealer">
+                                    <mat-option *ngFor="let option of dealerList" [value]="option">
+                                        {{option.displayString}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error
+                                    *ngIf="directSurveyCreateDetailsFrom.get('soldToDealer').hasError('selectFromList')">
+                                    Please select from list</mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+
+                    <app-direct-survey-customer-detail [dataFromSummery]="dataFromSummery"></app-direct-survey-customer-detail>
+                    <app-direct-survey-machine-detail></app-direct-survey-machine-detail>
+                    <div class="mt-2">
+                        <button mat-button *ngIf="forButton && !isCallAttempt && isCreate" type="button" class="btn btn_primary" style="line-height: 2 !important;margin-right: 5px;" (click)="showCallAttempt()">
+                            <mat-icon>history</mat-icon> Call Attempt
+                        </button>
+                        <button mat-button *ngIf="forButton && isCallAttempt && isCreate" type="button" class="btn btn_primary" (click)="showCallAttempt()"
+                            style="background-color: #495057 !important;line-height: 2 !important; margin-right: 5px;">
+                            <mat-icon>highlight_off</mat-icon> Call Attempt
+                        </button>
+
+                        <button mat-button *ngIf="forButton && !isCallHistory" type="button" class="btn btn_primary" style="line-height: 2 !important;margin-right: 5px;" (click)="showCallHistory()">
+                            <mat-icon>history</mat-icon> Call Attempt History
+                        </button>
+                        <button mat-button *ngIf="forButton && isCallHistory" type="button" class="btn btn_primary" (click)="showCallHistory()"
+                            style="background-color: #495057 !important;line-height: 2 !important; margin-right: 5px;">
+                            <mat-icon>highlight_off</mat-icon> Call Attempt History
+                        </button>
+
+                        <button mat-button *ngIf="!isCurrentSurvey  && isCreate" type="button" class="btn btn_primary" style="line-height: 2 !important;margin-right: 5px;" (click)="showCurrnet()">
+                            <mat-icon>history</mat-icon> Current Survey
+                        </button>
+                        <button mat-button *ngIf="isCurrentSurvey  && isCreate" type="button" class="btn btn_primary" (click)="showCurrnet()" style="background-color: #495057 !important;line-height: 2 !important;margin-right: 5px;">
+                            <mat-icon>highlight_off</mat-icon> Current Survey
+                        </button>
+
+                        <button mat-button *ngIf="!isServiceHistory && !isDialogView" type="button" class="btn btn_primary" style="line-height: 2 !important" (click)="showServiceHistory()">
+                            <mat-icon>history</mat-icon> Service/Survey History
+                        </button>
+                        <button mat-button *ngIf="isServiceHistory  && !isDialogView" type="button" class="btn btn_primary"(click)="showServiceHistory()" style="background-color: #495057 !important;line-height: 2 !important">
+                            <mat-icon>highlight_off</mat-icon> Service/Survey History
+                        </button>
+                    </div>
+                    <br />
+                    <app-call-attempt-details *ngIf="isCallAttempt && surveyTypeSelection==='TELEPHONIC' && isCreate" ></app-call-attempt-details>
+                    <app-current-survey *ngIf="isCurrentSurvey" [surveyTypeSelection]="surveyTypeSelection" [quesAnsListForView]="quesAnsListForView"></app-current-survey>
+                    <app-current-survey *ngIf="!isCreate" [surveyTypeSelection]="surveyTypeSelection" [quesAnsListForView]="quesAnsListForView"></app-current-survey>
+
+                    <app-complain *ngIf="surveyTypeSelection==='TELEPHONIC' && isCurrentSurvey"></app-complain>
+                    <app-complain *ngIf="surveyTypeSelection==='TELEPHONIC' && !isCurrentSurvey && !isCreate"></app-complain>
+                    <app-contact-machine-implement-crop *ngIf="surveyTypeSelection==='DIRECT'"></app-contact-machine-implement-crop>
+                    
+                    <app-direct-survey-service-history *ngIf="isServiceHistory && !isDialogView" [surveyTypeSelection]="surveyTypeSelection"></app-direct-survey-service-history>
+                    <app-other-machine-details *ngIf="surveyTypeSelection==='DIRECT'"></app-other-machine-details>
+
+                    <app-call-attempt-history *ngIf="isCallHistory && surveyTypeSelection==='TELEPHONIC'" [dataFromSummery]="dataFromSummery"></app-call-attempt-history>
+
+
+
+
+
+
+                    <div class=" text-center mt-2 " *ngIf="!isDialogView">
+                        <button *ngIf="isCreate" type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()">
+                            Submit
+                        </button>
+                        <!-- <button type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()">
+                            Update
+                        </button> -->
+                        <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPrint()">
+                            Print </button>
+                        <button *ngIf="isView" type="button" class="btn btn_primary px-3  ml-3" (click)="exitForm()">
+                            Exit
+                        </button> 
+                        <button *ngIf="isCreate || isEdit" type="button" class="btn btn_secondary px-3 ml-3" (click)="reset()"> Clear </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

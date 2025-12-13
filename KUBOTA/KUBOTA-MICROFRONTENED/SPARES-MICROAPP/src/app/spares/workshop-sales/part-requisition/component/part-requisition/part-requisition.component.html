@@ -1,0 +1,58 @@
+<ng-container [formGroup]="partRequisitionForm" [style.fontSize.px]="11">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Requisition Purpose</mat-label>
+                <mat-select formControlName="requisitionPurpose" [compareWith]="compareFn">
+                    <mat-option *ngFor="let requisitionPurpose of requisitionPurposeList$ | async"
+                        [value]="requisitionPurpose">
+                        {{requisitionPurpose.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Requested by</mat-label>
+                <input matInput placeholder="Requested by" formControlName="requestedBy">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="partRequisitionForm.get('requisitionNo').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Requisition No.</mat-label>
+                <input matInput placeholder="Requisition No." formControlName="requisitionNo">
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Requisition Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Requisition Date"
+                    formControlName="requisitionDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="partRequisitionForm.get('jobCardNo').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Job Card No.</mat-label>
+                <input matInput placeholder="Job Card No." formControlName="jobCardNo">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="partRequisitionForm.get('jobCardDate').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Job Card Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Job Card Date" formControlName="jobCardDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+    </div>
+</ng-container>

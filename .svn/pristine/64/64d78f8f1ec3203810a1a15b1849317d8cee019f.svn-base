@@ -1,0 +1,43 @@
+<div class="card-from mt-2 concern" [formGroup]="concernForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">CONCERNS</p>
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-lg-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Customer Concern</mat-label>
+            <textarea matInput placeholder="Customer Concern" maxlength="499" formControlName="customerConcern"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Mechanic Observation</mat-label>
+            <textarea matInput placeholder="Mechanic Observation" maxlength="499" formControlName="mechanicObservation"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Dealer Observation</mat-label>
+            <textarea matInput placeholder="Dealer Observation" maxlength="499" formControlName="dealerObservation"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Action Taken</mat-label>
+            <textarea matInput placeholder="Action Taken" maxlength="499" formControlName="actionTaken"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Reason for Requesting Goodwill</mat-label>
+            <textarea matInput placeholder="Reason for Requesting Goodwill" maxlength="499" formControlName="goodwillReason"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

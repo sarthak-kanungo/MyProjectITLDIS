@@ -1,0 +1,129 @@
+
+<div class = "card-from mt-4" >
+    <div class = "card">
+        <div class="card-header">
+            <p class="mb-0">All Dealer Auction Part Details</p>
+        </div>
+        <div class = "class-body">
+            <div class="mt-2">
+
+                <div class="card-body" [formGroup]="allDealerAuctionPart" [style.fontSize.px]="11">
+                    <div class="row">
+
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Item No.</mat-label>
+                                <input matInput placeholder="Chassis No." [matAutocomplete]="auto2" formControlName="chassisNo">
+                                <mat-icon matSuffix>search</mat-icon>
+                                
+                                <mat-autocomplete [panelWidth]="200" #auto2="matAutocomplete">
+                                    <mat-option *ngFor="let option of chassisData" [value]="option.chassisNumber">
+                                        {{option.chassisNumber}}
+                                        </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>   -->
+                        
+                        <!-- <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Mobile No.</mat-label>
+                                <input matInput placeholder="Customer Mobile No." formControlName="mobileNo" inputmode="numeric" 
+                                 [matAutocomplete]="automobileNo" minlength="10" maxlength="10">
+                                <mat-autocomplete #automobileNo="matAutocomplete" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of customerMobileList " [value]="option.mobileNumber">
+                                        {{option?.mobileNumber}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div> -->
+
+                        
+                       
+
+                        <!-- <div class="text-center ml-5 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchTable()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearSearchFields()">
+                                Clear
+                            </button>
+                        </div> -->
+
+                    </div>
+                </div>
+
+                
+              
+
+        <div class="container-fluid">
+            <ngsw-search-table [tableTitle]="'All Dealer Part Auction'" [dataTable]="dataTable"
+                [totalElements]="totalTableElements" 
+                 (actionOnTableRecord)="tableAction($event)"
+                (pageChange)="pageChange($event)" [page]="page" [size]="size">
+                <!-- <td></td> -->
+                <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" class="dealerCode">
+                    <input class="w-100 borderRadius" #dealerCode>
+                </td>
+
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName">
+                    <input class="w-100 borderRadius" #dealerName>
+                </td>
+               
+                <td [ngsw-searchField]="itemNumber" [searchColumnName]="'itemNumber'" class="itemNumber">
+                    <input class="w-100 borderRadius" #itemNumber>
+                </td>
+                <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'" class="itemDescription">
+                    <input class="w-100 borderRadius" #itemDescription>
+                </td>
+                <td [ngsw-searchField]="aging" [searchColumnName]="'aging'" class="aging">
+                    <input class="w-100 borderRadius" #aging>
+                </td>
+                <td [ngsw-searchField]="avlQty" [searchColumnName]="'avlQty'" class="avlQty">
+                    <input class="w-100 borderRadius" #avlQty>
+                </td>
+                
+                <td [ngsw-searchField]="isOEMPart" [searchColumnName]="'isOEMPart'" class="isOEMPart">
+                    <input class="w-100 borderRadius"  #isOEMPart>
+                </td>
+                <td [ngsw-searchField]="isOilSupplierPart" [searchColumnName]="'isOilSupplierPart'" class="isOilSupplierPart" style='width:250px'>
+                    <input class="w-100 borderRadius" #isOilSupplierPart>
+                </td>
+                <td [ngsw-searchField]="isLocalPart" [searchColumnName]="'isLocalPart'" class="isLocalPart">
+                    <input class="w-100 borderRadius" #isLocalPart>
+                </td>
+                <td [ngsw-searchField]="spegst" [searchColumnName]="'spegst'" class="spegst">
+                    <input class="w-100 borderRadius" #spegst>
+                </td>
+                <td [ngsw-searchField]="spmgst" [searchColumnName]="'spmgst'" class="spmgst">
+                    <input class="w-100 borderRadius" #spmgst>
+                </td>
+                <td [ngsw-searchField]="spmrp" [searchColumnName]="'spmrp'" class="spmrp">
+                    <input class="w-100 borderRadius" #spmrp>
+                </td>
+
+                <!--  -->
+                <td [ngsw-searchField]="localPurchasePrice" [searchColumnName]="'localPurchasePrice'" class="localPurchasePrice">
+                    <input class="w-100 borderRadius" #localPurchasePrice>
+                </td>
+                <td [ngsw-searchField]="alternatePartNo" [searchColumnName]="'alternatePartNo'" class="alternatePartNo">
+                    <input class="w-100 borderRadius" #alternatePartNo>
+                </td>
+                <td [ngsw-searchField]="igstPercent" [searchColumnName]="'igstPercent'" class="igstPercent">
+                    <input class="w-100 borderRadius" #igstPercent>
+                </td>
+                <td [ngsw-searchField]="uom" [searchColumnName]="'uom'" class="uom">
+                    <input class="w-100 borderRadius" #uom>
+                </td>
+                <td [ngsw-searchField]="hsCode8Digit" [searchColumnName]="'hsCode8Digit'" class="hsCode8Digit">
+                    <input class="w-100 borderRadius" #hsCode8Digit>
+                </td>
+
+
+            </ngsw-search-table>
+        </div>              
+
+            </div>
+        </div>
+    </div>
+</div>

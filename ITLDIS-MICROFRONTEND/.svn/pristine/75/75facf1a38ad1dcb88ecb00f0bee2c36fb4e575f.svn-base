@@ -1,0 +1,53 @@
+export interface TableConfig {
+    title: string;
+    formControlName: string;
+    key?: string;
+    inputField: string;
+    isNeedValueChanges?: boolean;
+    displayKey?: string;
+    patchKey?: string;
+}
+export interface PatchValue {
+    rowIndex: number;
+    patchValue: object;
+    tableRowId?: string;
+}
+export interface AssignListToSelect {
+    formControlName: string;
+    list: Array<object>;
+}
+export interface AssignListToAutocomplete {
+    config: TableConfig;
+    list: Array<object>;
+    searchKey?: string;
+}
+export interface ControlsConfig {
+    [key: string]: any;
+}
+export interface ColumnRecord {
+    recordList: Array<string>;
+    formControlName: string;
+}
+export interface EtTableValueChangeEvent<T> {
+    key: any;
+    config: TableConfig;
+    tableRow: T;
+}
+export interface EtAutocompleteSelectedEvent<T> {
+    option: any;
+    rowIndex: number;
+    config: TableConfig;
+    tableRow: T;
+}
+export declare class ETValidationError {
+    readonly formControlName: string;
+    readonly tableRowId: string;
+    readonly msg?: string;
+    readonly type?: {
+        [key: string]: any;
+    };
+    readonly isRemove: boolean;
+    constructor(formControlName: string, tableRowId: string, msg?: string, type?: {
+        [key: string]: any;
+    });
+}

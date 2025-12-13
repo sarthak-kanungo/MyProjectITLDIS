@@ -1,0 +1,68 @@
+<div [formGroup]="itldisUserForm" [style.fontSize.px]="10">
+    <div class="row">
+
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Employee Id</mat-label>
+                <input matInput placeholder="Employee Id" formControlName="employeeCode">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Employee Code</mat-label>
+                <input matInput placeholder="Employee Code" formControlName="employeeCode"
+                    [matAutocomplete]="autoEmployeeCode">
+                <mat-autocomplete #autoEmployeeCode="matAutocomplete"
+                   [displayWith]="displayFnForEmployeeCode"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of employeeList$?.result" [value]="option">
+                        {{option?.displayValue}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Employee Name</mat-label>
+                <input matInput placeholder="Employee Name" formControlName="employeeName"
+                    [matAutocomplete]="autoEmployeeName">
+                <mat-autocomplete #autoEmployeeName="matAutocomplete"
+                   [displayWith]="displayFnForEmployeeName"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of employeeList$?.result" [value]="option">
+                        {{option?.displayValue}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Employee Name</mat-label>
+                <input matInput placeholder="Employee Name" formControlName="employeeName">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+        <div class="col-lg-2">
+            <div>
+                <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="onClickSearch()" 
+                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"> Search </button>
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearUserSearch()"> Clear </button>
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+</div>
+
+
+

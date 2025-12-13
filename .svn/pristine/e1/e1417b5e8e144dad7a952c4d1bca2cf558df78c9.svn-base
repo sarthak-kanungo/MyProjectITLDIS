@@ -1,0 +1,118 @@
+<div class="card-from mb-0 mt-2" [formGroup]="kaiRepresentativeForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">KAI Representatives</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-left" scope="col" style="width: 150px;">Department</th>
+                <th scope="col" style="width: 150px;">Sales</th>
+                <th scope="col" style="width: 150px;">Marketing</th>
+                <th scope="col" style="width: 150px;">Service</th>
+                <th scope="col" style="width: 150px;">Warranty</th>
+                <th scope="col" style="width: 150px;">Spare Parts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left">Employee Code</td>
+                <td>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Proprietor/Partner</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let employeecode of employeecodes" [value]="employeecode">{{employeecode}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                 
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Proprietor/Partner</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let employeecode of employeecodes" [value]="employeecode">{{employeecode}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                 <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Proprietor/Partner</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let employeecode of employeecodes" [value]="employeecode">{{employeecode}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                 <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Proprietor/Partner</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let employeecode of employeecodes" [value]="employeecode">{{employeecode}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                 <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Proprietor/Partner</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let employeecode of employeecodes" [value]="employeecode">{{employeecode}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-left">Employee Name</td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Designation</td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Dealer Code</td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+                <td class="tablerow"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Dealer Credit Limits</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="text-left">Depot</td>
+                <td>
+                  <select class="form-control form-control-sm">
+                      <option value="null" disabled>Select</option>
+                    <option *ngFor="let depot of depots" [value]="depot">{{depot}}</option>
+                  </select>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>

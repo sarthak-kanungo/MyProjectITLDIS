@@ -1,0 +1,3 @@
+<div class="container-fluid mt-4">
+    <app-search-machine-descripancy-claim></app-search-machine-descripancy-claim>
+</div>

@@ -1,0 +1,53 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Job card Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 50px;">Sr.No.</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Customer Code</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Customer Name</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Job Card No.</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Date In</th>
+              <th scope="col" style="width: 100px;">Job Card Closed Date</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Chassis No.</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Model</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Type Of Service</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Labour Charges</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Spare Parts Sale</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Lubricants</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Mechanic Name</th>
+              <th scope="col" style="width: 200px;padding-bottom: 11px">Machine In Date</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let table of headsTable;index as i">
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{table.customerCode}}</td>
+              <td>{{table.customerName}}</td>
+              <td>{{table.jobCardNo}}
+                <!-- <a href="service/customerService/job-card"><u>{{table.jobCardNo}}</u></a> -->
+              </td>
+              <td>{{table.jobCardDate}}</td>
+              <td>{{table.closedDate}}</td>
+              <td>{{table.chassisNo}}</td>
+              <td>{{table.model}}</td>
+              <td>{{table.serviceType}}</td>
+              <td>{{table.labourCharges}}</td>
+              <td>{{table.sparePartSale}}</td>
+              <td>{{table.lubricants}}</td>
+              <td>{{table.mechanicName}}</td>
+              <td>{{table.machineInDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

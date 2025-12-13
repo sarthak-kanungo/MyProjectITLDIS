@@ -1,0 +1,48 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Activity Claim</p>
+            </div>
+            <form [formGroup]="activityClaimForm">
+                <div class="card-body">
+                    <app-service-activity-claim-details [activityClaimDetailsForm]="activityClaimDetailsForm">
+                    </app-service-activity-claim-details>
+                    <app-service-activity-claim-sub-activity
+                        [activitySubActivityDetailsForm]="activitySubActivityDetailsForm" [viewActivityClaim]="viewActivityClaim">
+                    </app-service-activity-claim-sub-activity>
+                    <app-service-activity-claim-heads [activityHeadsDetailsForm]="activityHeadsDetailsForm"
+                        [viewActivityClaim]="viewActivityClaim"></app-service-activity-claim-heads>
+                    <app-service-activity-claim-photo [reportPhoto]="reportPhoto"[viewActivityClaim]="viewActivityClaim"></app-service-activity-claim-photo>
+                    <app-claim-approval-details [approvalDetails]="approvalDetails"></app-claim-approval-details>
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isButtonsShow"
+                            (click)="saveAndSubmitActivityClaim()" [disabled]="isSubmitDisable"> Submit
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isEdit"
+                            (click)="updateSubmitActivityClaim()" [disabled]="isSubmitDisable"> Update
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="!isButtonsShow"> Print
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isApproval"
+                            (click)="approveServiceActivityClaim('Approve')" [disabled]="isSubmitDisable"> Approve
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isApproval"
+                            (click)="approveServiceActivityClaim('Hold')" [disabled]="isSubmitDisable"> Hold
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isApproval"
+                            (click)="approveServiceActivityClaim('Reject')" [disabled]="isSubmitDisable"> Reject
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="isButtonsShow"> Clear
+                        </button>
+                        <button type="button" class="btn btn_primary px-3 ml-3" (click)="onClickExit()"> Exit
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

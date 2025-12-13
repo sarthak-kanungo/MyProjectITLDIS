@@ -1,0 +1,92 @@
+<div class="card-from mt-2" [formGroup]="itemForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+                  border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Item Details</p>
+      </div>
+      <div class="card-body">
+              <div>
+                  <div class="table-responsive mt-1">
+                      <table class="table table-bordered table-sm">
+                          <thead class="thead-light">
+                              <tr>
+                                  <th scope="col">Sr.No.</th>
+                                  <th scope="col" class="text-left" >Item No</th>
+                                  <th scope="col" >Item Description</th>
+                                  <th scope="col" >Request Qty</th>
+                                  <th scope="col" >Issue Qty</th>
+                                  <th scope="col" >Pending Qty</th>
+                                  <th scope="col" >MRP</th>
+                                  <th scope="col" >Value</th>
+                                  
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let list of itemForm.controls; let i=index" [formGroupName]="i">
+                                 <td>{{i+1}}</td>
+                                  <td>
+                                      <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                              <mat-label>Item Number</mat-label>
+                                         <input matInput placeholder="Item Number" formControlName="itemNo">
+                                         <mat-icon matSuffix>search</mat-icon>
+                                         <!-- <mat-error *ngIf="itemForm.controls('itemNo').hasError('required')"><b>Request No is Required</b></mat-error> -->
+                                      </mat-form-field>
+                                     
+                                      
+                                  </td>
+                                  <td>
+                                      <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                              <mat-label>Item Description</mat-label>
+                                          <input matInput placeholder="Item Description" formControlName="itemDesc" required>
+                                      </mat-form-field>
+                                  </td>
+                                  <td>
+                                      <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                              <mat-label>Request Quantity</mat-label>
+                                          <input matInput placeholder="Request Quantity" formControlName="reqQty" required>
+                                      </mat-form-field>
+                                  </td>
+                                  <td>
+                                      <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                              <mat-label>Issue Quantity</mat-label>
+                                          <input matInput placeholder="Issue Quantity" formControlName="issueQty">
+                                          <!-- <mat-error *ngIf="list.get('implementSerialNumber').errors?.validSerialNo">Please enter alphanumeric number.</mat-error> -->
+                                      </mat-form-field>
+                                  </td>
+                                  <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Pending Quantity</mat-label>
+                                        <input matInput placeholder="Pending Quantity" formControlName="pendingQty">
+                                        <!-- <mat-error *ngIf="list.get('implementSerialNumber').errors?.validSerialNo">Please enter alphanumeric number.</mat-error> -->
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>MRP</mat-label>
+                                        <input matInput placeholder="MRP" formControlName="mrp">
+                                        <!-- <mat-error *ngIf="list.get('implementSerialNumber').errors?.validSerialNo">Please enter alphanumeric number.</mat-error> -->
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Value</mat-label>
+                                        <input matInput placeholder="Value" formControlName="Value">
+                                        <!-- <mat-error *ngIf="list.get('implementSerialNumber').errors?.validSerialNo">Please enter alphanumeric number.</mat-error> -->
+                                    </mat-form-field>
+                                </td>
+                                
+                                   
+
+                              </tr>
+                          </tbody>
+                      </table>
+
+                  </div>
+              </div>
+          <!-- <div class=" text-center" style="margin-top: 6px">
+              <button (click)="addItem()" type="button" class="btn btn-sm btn_primary"> Add Row</button>
+              <button (click)="deleteRow()" type="button" class="btn btn-sm btn_secondary ml-2" >Delete Row </button>
+          </div> -->
+      </div>
+  </div>
+</div>

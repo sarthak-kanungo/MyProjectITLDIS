@@ -1,0 +1,58 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <!-- <div class="heading">
+    <p class="font-weight-bold">Machine Receipt Checking</p>
+  </div> -->
+
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">MRC Details</p>
+      </div>
+      <form [formGroup]="mrcDetailsForm" [style.fontSize.px]="11">
+        <div class="card-body">
+
+          <app-basic-mrc-details [basicMrcDetails]="basicMrcDetails" (chassisSelectEvent)="getChassisEvent($event)">
+          </app-basic-mrc-details>
+
+          <app-check-point [checkPointTableForm]=checkPointTableForm [sendCheckPointListData]="sendCheckPointListData"
+            [viewCheckPointListData]="viewCheckPointListData" [editCheckPointListData]="editCheckPointListData">
+          </app-check-point>
+
+          <app-photos [photoUploadFileForm]=photoUploadFileForm (selectedPhotos)=getSelectedPhotos($event)></app-photos>
+
+          <!-- <app-defect-shortage-and-damage [defectShortageDamageForm]="defectShortageFormControl"
+            [viewEditData]="viewEditData">
+          </app-defect-shortage-and-damage> -->
+
+
+          <app-defect-shortage-damage-table [defectShortageDamageFormTable]="defectShortageDamageFormTable"
+            [defectShortageDamageList]="defectShortageDamageList">
+          </app-defect-shortage-damage-table>
+
+          <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="isButtonsShow"
+              (click)="saveAndSubmitForm(true)" [disabled]="isSubmitDisable"> Save
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 mr-3" *ngIf="isShowFormF"
+              (click)="ShowFormF('FormF')"> Form F
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="isShowForm22"
+              (click)="ShowFormF('Form22')"> Form 22
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isButtonsShow"
+              (click)="saveAndSubmitForm(false)" [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView"  (click)="viewMrcPrint('true')"> Print
+            </button>
+            <!-- <button type="button" *ngIf="isEdit" class="btn btn_primary pl-3 pr-3 ml-3" (click)="saveAndSubmitForm(false)">
+              Update
+            </button> -->
+            <!-- <button type="button" *ngIf="isView" class="btn btn_primary pl-3 pr-3 ml-3" (click)="back()">
+              Back
+            </button> -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

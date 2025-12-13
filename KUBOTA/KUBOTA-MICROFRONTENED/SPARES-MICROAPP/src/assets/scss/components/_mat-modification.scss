@@ -1,0 +1,12 @@
+// .wrap_mat {
+.mat-option {
+  height: unset;
+  padding: 5px 10px;
+  .mat-option-text {
+    word-break: break-all;
+    flex-wrap: wrap;
+    white-space: normal;
+    line-height: 1;
+  }
+}
+// }

@@ -1,0 +1,66 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+    border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Dealers</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm" >
+
+          <thead class="thead-light">
+            <tr>
+              <td class="border-0" colspan="4"></td>
+              <td class="font-weight-bold" colspan="2">Target 1</td>
+              <td class="font-weight-bold" colspan="2">Target 2</td>
+              <td class="font-weight-bold" colspan="2">Target 3</td>
+            </tr>
+            <tr>
+              <th scope="col">Dealer Code</th>
+              <th scope="col">Dealer Name</th>
+              <th scope="col">Employee Code</th>
+              <th scope="col">Employee Name</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Incentive/Qty</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Incentive/Qty</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Incentive/Qty</th>
+              <th scope="col" *ngIf="isMaximumQtySelected">Maximum Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td *ngIf="isMaximumQtySelected"></td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td *ngIf="isMaximumQtySelected"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,205 @@
+<form action="" [formGroup]="bookingDetailsBasicForm" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2" *ngIf="isView || isEdit">
+            <mat-form-field appearance="outline">
+                <mat-label>Booking No.</mat-label>
+                <input matInput placeholder="Booking No." formControlName="bookingNo">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No.</mat-label>
+                <input matInput placeholder="Chassis No." formControlName="chassisNo" [matAutocomplete]="autoChassisNo"
+                    required (keydown)="onKeyDownChassisNo($event)">
+                <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500"
+                    (optionSelected)="selectedChassisNumber($event)" [displayWith]="displayFnChassisNo">
+                    <mat-option *ngFor="let option of (chassisNoList$ | async)" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('chassisNo').hasError('required')">
+                    Chassis No. is Required</mat-error>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('chassisNo').hasError('selectFromList')">
+                    Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Booking Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Booking Date" formControlName="bookingDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isView || isEdit">
+            <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <input matInput placeholder="Status" formControlName="status">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mechanic</mat-label>
+                <mat-select formControlName="mechanic" [compareWith]="compareFnMechanic">
+                    <mat-option *ngFor="let mechanic of mechanicName" [value]="mechanic">{{mechanic.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('mechanic').hasError('required')">
+                    Mechanic is Required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Customer Name</mat-label>
+                <input matInput placeholder="Customer Name" formControlName="customerName">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Engine No.</mat-label>
+                <input matInput placeholder="Engine No." formControlName="engineNo">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Machine Model</mat-label>
+                <input matInput placeholder="Machine Model" formControlName="model">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date of Installation</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Date of Installation"
+                    formControlName="dateofInstallation">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Source of Booking</mat-label>
+                <mat-select formControlName="sourceofBooking" [compareWith]="compareFnSourceofBooking">
+                    <mat-option *ngFor="let source of sourceofBooking" [value]="source">{{source.sourceOfBooking}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Current Hours</mat-label>
+                <input matInput class="quantity" type="number" placeholder="Current Hours"
+                    formControlName="currentHours" (blur)="onBlurCurrentHours($event)" required>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('currentHours').hasError('required')">
+                    <strong> Current Hours Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Previous Hours</mat-label>
+                <input matInput class="quantity" type="number" placeholder="Previous Hours"
+                    formControlName="previousHours">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Total Hours</mat-label>
+                <input matInput class="quantity" type="number" placeholder="Total Hours" formControlName="totalHours">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Service Category</mat-label>
+                <mat-select formControlName="serviceCategory" [compareWith]="compareFnServiceCategory"
+                    (selectionChange)="selectionServiceCategory($event)">
+                    <mat-option *ngFor="let category of serviceCategory" [value]="category">
+                        {{category.category}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('serviceCategory').hasError('required')">
+                    Service Category is Required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Service Type</mat-label>
+                <mat-select formControlName="serviceType" [compareWith]="compareFnServiceType">
+                    <mat-option *ngFor="let option of serviceType" [value]="option">
+                        {{option.serviceType}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('serviceType').hasError('required')">
+                    Service Type is Required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Place of Service</mat-label>
+                <mat-select formControlName="placeofService" (selectionChange)="selectionPlaceofService($event)"
+                    [compareWith]="compareFnPlaceofService">
+                    <mat-option *ngFor="let option of placeOfService" [value]="option">
+                        {{option.placeOfService}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('placeofService').hasError('required')">
+                    Place of Service is Required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [min]="today" [matDatepicker]="picker2" placeholder="Appointment Date"
+                    formControlName="appointmentDate" readonly (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="bookingDetailsBasicForm.get('appointmentDate').hasError('required')">
+                    Appointment Date is Required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Appointment Time</mat-label>
+                <input type="time" matInput placeholder="Appointment Time" formControlName="appointmentTime">
+                <mat-error *ngIf="bookingDetailsBasicForm.get('appointmentDate').hasError('required')">
+                    Appointment Time is Required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isPlaceOfService">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity/Event Type</mat-label>
+                <mat-select formControlName="activityType" (selectionChange)="activityChanged($event)"
+                    [compareWith]="compareFnActivityType">
+                    <mat-option *ngFor="let option of activityType" [value]="option">
+                        {{option?.activityType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isPlaceOfService">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Activity No.</mat-label>
+                <input matInput placeholder="Activity No." formControlName="activityNo"
+                    [matAutocomplete]="autoActivityNo">
+                <mat-autocomplete #autoActivityNo="matAutocomplete" [panelWidth]="500"
+                    [displayWith]="displayFnActivityNo">
+                    <mat-option *ngFor="let option of (activityNoList$ | async)" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Registration No.</mat-label>
+                <input matInput placeholder="Registration No." formControlName="registrationNumber">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</form>

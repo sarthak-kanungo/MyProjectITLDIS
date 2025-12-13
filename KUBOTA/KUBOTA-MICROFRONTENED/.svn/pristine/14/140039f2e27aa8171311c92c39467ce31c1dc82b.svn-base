@@ -1,0 +1,53 @@
+<div class="card-body">
+  <div class="row" [formGroup]="partQuotationSearchForm" [style.fontSize.px]="11">
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Quotation No.</mat-label>
+        <input matInput placeholder="Quotation No." formControlName="quotationNumber"
+          [matAutocomplete]="autoQuotationNumber">
+        <mat-autocomplete #autoQuotationNumber="matAutocomplete" [panelWidth]="500"
+          [displayWith]="displayFnQuotationNumber">
+          <mat-option *ngFor="let option of (quotationNumber$ | async)" [value]="option">
+            {{option?.quotationNumber}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Customer Name</mat-label>
+        <input matInput placeholder="Customer Name" formControlName="customerName" [matAutocomplete]="autoCustomerName">
+        <mat-autocomplete #autoCustomerName="matAutocomplete" [panelWidth]="500">
+          <mat-option *ngFor="let option of (customerName$ | async)" [value]="option.customerName">
+            {{option?.customerName}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Customer Type</mat-label>
+        <mat-select formControlName="customerType">
+          <mat-option *ngFor="let type of customersType" [value]="type.customerType">{{type.customerType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field class="w-100">
+        <input matInput [matDatepicker]="picker1" placeholder="Quotation From Date" formControlName="quotationFromDate"   (dateChange)="fromDateSelected($event)" [max]="today">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+      <mat-form-field class="w-100">
+        <input matInput [matDatepicker]="picker2" placeholder="Quotation To Date" formControlName="quotationToDate"
+        [max]="maxDate" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

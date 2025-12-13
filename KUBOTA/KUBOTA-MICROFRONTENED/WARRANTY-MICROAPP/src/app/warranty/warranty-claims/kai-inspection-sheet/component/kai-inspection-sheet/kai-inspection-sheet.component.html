@@ -1,0 +1,71 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="kisForm" >
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Inspection No.</mat-label>
+            <input matInput placeholder="Inspection No." formControlName="inspectionNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Inspection Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Inspection Date" formControlName="inspectionDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+   <!-- <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Inspected By</mat-label>
+            <input matInput placeholder="Inspected By" formControlName="inspectedBy">
+        </mat-form-field>
+    </div> -->
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Delivery Challan No.</mat-label>
+            <input matInput placeholder="Delivery Challan No." formControlName="dcNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Warranty Claim No.</mat-label>
+            <input matInput placeholder="Warranty Claim No." formControlName="wcrNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Claim Date</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="Claim Date" formControlName="claimDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Dealer Code</mat-label>
+            <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Dealer Name</mat-label>
+            <input matInput placeholder="Dealer Name" formControlName="dealerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Dealer Location</mat-label>
+            <input matInput placeholder="Dealer Location" formControlName="dealerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Warranty Claim Final Remark</mat-label>
+            <input matInput placeholder="Warranty Claim Final Remark" formControlName="wcrRemark">
+        </mat-form-field>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+<div [formGroup]="searchSparesPoForm" [style.fontSize.px]="10">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Purchase Order No.</mat-label>
+                <input matInput placeholder="Purchase Order No." formControlName="poNumber"
+                    [matAutocomplete]="poNumberAuto">
+                <mat-autocomplete #poNumberAuto="matAutocomplete" [panelWidth]="500">
+                    <!-- [displayWith]="displayPoNumberFn"  -->
+                    <mat-option *ngFor="let option of poNumberAutoList | async" [value]="option.purchaseOrderNumber">
+                        {{option['purchaseOrderNumber']}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+		<div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>PO Type</mat-label>
+                <mat-select formControlName="poType">
+                	<!-- <mat-option></mat-option> -->
+                    <mat-option *ngFor="let type of poTypesList" [value]="type.poType">
+                        {{type.poType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+		<div class="col-lg-2">
+			<mat-form-field appearance="outline" class="w-100">
+			<mat-label>PO Status</mat-label> <mat-select
+				formControlName="poStatus">
+				<!-- <mat-option></mat-option> -->
+				 <mat-option
+				*ngFor="let poStatus of poStatusList"
+				[value]="poStatus.purchaseOrderStatus">
+			{{poStatus.purchaseOrderStatus}} </mat-option> </mat-select> </mat-form-field>
+		</div>
+		
+		
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Item No.</mat-label>
+                <input matInput placeholder="Item No." formControlName="partNumber" [matAutocomplete]="partNumberAuto">
+                <mat-autocomplete #partNumberAuto="matAutocomplete" [displayWith]="displayPoNumberFn"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of partNumberAutoList | async" [value]="option.item_no">
+                        {{option['displayValue']}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+		
+		<div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="PO From Date" formControlName="fromDate"
+                    (click)="picker.open()" [max]="today" (dateChange)="fromDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="PO To Date" formControlName="toDate"
+                    (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+		<div class="col-lg-2" *ngIf='isKai'>
+			<mat-form-field appearance="outline" class="w-100">
+			<mat-label>Dealer Code/Dealer Name/Location</mat-label> <input
+				matInput placeholder="Dealer Code/Dealer Name/Location"
+				formControlName="dealerCode" [matAutocomplete]="autoDealercode">
+			<mat-autocomplete #autoDealercode="matAutocomplete"
+				[panelWidth]="500" (optionSelected)="getDealerName($event)"
+				[displayWith]="displayDealerCodeFn"> <mat-option
+				*ngFor="let option of dealercodeList?.result" [value]="option">
+			{{option?.displayString}} </mat-option> </mat-autocomplete> <mat-icon matSuffix>search</mat-icon> </mat-form-field>
+		</div>
+
+		<div class="col-lg-2" *ngIf='isKai'>
+			<mat-form-field appearance="outline" class="w-100">
+			<mat-label>Dealer Name</mat-label> <input matInput
+				placeholder="Dealer Name" formControlName="dealerName"
+				disabled="disabled"> </mat-form-field>
+		</div>
+</div>
+		<div class="card-from mt-2" *ngIf="isShowAdvanceFilter">
+			<div class="card">
+				<div class="card-header">
+					<p class="mb-0">Advance Search</p>
+				</div>
+				<div class="card-body">
+					<!-- <div class="row">
+
+						<div class="col-lg-2">
+							<mat-form-field appearance="outline" class="w-100">
+							<mat-label>Product</mat-label> <mat-select
+								formControlName="product"
+								(selectionChange)="selectProduct($event.value)"> <mat-option
+								*ngFor="let product of productsList" [value]="product.product">
+							{{product.product}} </mat-option> </mat-select> </mat-form-field>
+						</div>
+
+						<div class="col-lg-2">
+							<mat-form-field appearance="outline" class="w-100">
+							<mat-label>Series</mat-label> <mat-select
+								formControlName="series"
+								(selectionChange)="selectSeries($event.value)"> <mat-option
+								*ngFor="let item of seriesList" [value]="item.series">
+							{{item.series}} </mat-option> </mat-select> </mat-form-field>
+						</div>
+
+						<div class="col-lg-2">
+							<mat-form-field appearance="outline" class="w-100">
+							<mat-label>Model</mat-label> <mat-select formControlName="model"
+								(selectionChange)="selectModel($event.value)"> <mat-option
+								*ngFor="let model of modelsList" [value]="model.model">
+							{{model.model}} </mat-option> </mat-select> </mat-form-field>
+						</div>
+
+						<div class="col-lg-2">
+							<mat-form-field appearance="outline" class="w-100">
+							<mat-label>Sub Model</mat-label> <mat-select
+								formControlName="subModel"
+								(selectionChange)="selectSubModel($event.value)"> <mat-option
+								*ngFor="let submodel of submodelsList"
+								[value]="submodel.subModel">{{submodel.subModel}} </mat-option>
+							</mat-select> </mat-form-field>
+						</div>
+
+						<div class="col-lg-2">
+							<mat-form-field appearance="outline" class="w-100">
+							<mat-label>Variant</mat-label> <mat-select
+								formControlName="variant"> <mat-option
+								*ngFor="let variant of variantsList" [value]="variant.variant">
+							{{variant.variant}} </mat-option> </mat-select> </mat-form-field>
+						</div>
+					</div> -->
+					<div class="row">
+						<div class="col-lg-2" *ngFor="let level of orgLevels">
+							<mat-form-field appearance="outline" class="w-100">
+							<mat-label>{{level['LEVEL_DESC']}}</mat-label> <mat-select
+								formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+							<mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+							<mat-option *ngFor="let hier of orgHierLevels1" [value]="hier"
+								(click)="getOrgLevelHier2(hier)">{{hier['hierarchy_desc']}}</mat-option>
+							</mat-select> <mat-select formControlName="orgHierLevel2"
+								*ngIf="level['SEQ_NO'] == 2"> <mat-option
+								value='all' (click)="getOrgLevelHier3('all')">ALL</mat-option> <mat-option
+								*ngFor="let hier of orgHierLevels2" [value]="hier"
+								(click)='getOrgLevelHier3(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+							</mat-select> <mat-select formControlName="orgHierLevel3"
+								*ngIf="level['SEQ_NO'] == 3"> <mat-option
+								value='all' (click)="getOrgLevelHier4('all')">ALL</mat-option> <mat-option
+								*ngFor="let hier of orgHierLevels3" [value]="hier"
+								(click)='getOrgLevelHier4(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+							</mat-select> <mat-select formControlName="orgHierLevel4"
+								*ngIf="level['SEQ_NO'] == 4"> <mat-option
+								value='all' (click)="getOrgLevelHier5('all')">ALL</mat-option> <mat-option
+								*ngFor="let hier of orgHierLevels4" [value]="hier"
+								(click)='getOrgLevelHier5(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+							</mat-select> <mat-select formControlName="orgHierLevel5"
+								*ngIf="level['SEQ_NO'] == 5"> <mat-option
+								*ngFor="let hier of orgHierLevels5" [value]="hier">{{hier['hierarchy_desc']}}</mat-option>
+							</mat-select> </mat-form-field>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

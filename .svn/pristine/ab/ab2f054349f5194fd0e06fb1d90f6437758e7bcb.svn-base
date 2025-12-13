@@ -1,0 +1,218 @@
+<div class="card-body" [style.fontSize.px]="11" [formGroup]="searchForm">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Goodwill No.</mat-label>
+                <input matInput placeholder="Goodwill No." formControlName="goodwillNo" [matAutocomplete]="autooo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #autooo="matAutocomplete">
+                    <mat-option *ngFor="let option of autoCompleteData" [value]="option.value">
+                        {{option.value}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Goodwill Type</mat-label>
+                <mat-select formControlName="goodwillType">
+                    <mat-option *ngFor="let value of goodwillType" [value]="value.goodwillType">
+                        {{value.goodwillType}}
+                    </mat-option>
+                </mat-select>
+              
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Goodwill Status</mat-label>
+                <mat-select formControlName="goodwillStatus">
+                    <mat-option *ngFor="let value of goodwillStatus" [value]="value.status">{{value.status}}
+                    </mat-option>
+                </mat-select>
+               
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline" >
+                
+                <mat-label>PCR No.</mat-label>
+                <input matInput placeholder="PCR No." [matAutocomplete]="auto" formControlName="pcrNo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of pcrData" [value]="option.code" [style.fontSize.px]="12">
+                      {{option.value}}
+                    </mat-option>
+                  </mat-autocomplete>
+                 
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline" >
+                
+                <mat-label>Job Card No.</mat-label>
+                <input matInput placeholder="Job Card No." [matAutocomplete]="auto1" formControlName="jobCardNo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+                    <mat-option *ngFor="let option of jobCodeData" [value]="option.code">
+                      {{option.value}}
+                    </mat-option>
+                  </mat-autocomplete>
+                 
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline" >
+                
+                <mat-label>Chassis No.</mat-label>
+                <input matInput placeholder="Chassis No." [matAutocomplete]="auto2" formControlName="chassisNo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+                    <mat-option *ngFor="let option of chassisData" [value]="option.code">
+                      {{option.value}}
+                    </mat-option>
+                  </mat-autocomplete>
+                 
+            </mat-form-field>
+
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Goodwill From Date</mat-label>
+                <input matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="Goodwill From Date" [max]="newdate" formControlName="goodwillFromDate" (dateChange)="setToDate($event, 'goodwill')">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Goodwill To Date</mat-label>
+                <input matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Goodwill To Date"  formControlName="goodwillToDate" [min]="toDate1" [max]="toDate2">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <div class="text-right" [style.fontSize.px]="12">
+        <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;" (click)="onClickAdvanceSearch()">
+            <u> {{isAdvanceSearch ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+        </a>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="isAdvanceSearch">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2" *ngIf='isKai'>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Dealer Ship</mat-label>
+                            <input matInput placeholder="Dealer Ship" formControlName="dealerShip"
+                                [matAutocomplete]="autoDealercode">
+                            <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn" (optionSelected)="dealerSelect($event)">
+                                <mat-option *ngFor="let option of dealercodeList?.result" [value]="option" >
+                                    {{option?.displayString}}
+                                </mat-option>
+                            </mat-autocomplete>
+      
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="searchForm.controls.dealerShip.errors?.selectFromList">Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="col-lg-2">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Branch</mat-label>
+                          <mat-select formControlName="branch">
+                              <mat-option>ALL</mat-option>
+                              <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                                  {{option?.branchcode}} - {{option?.BranchName}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf='isKai'>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="state">
+                                <mat-option>ALL</mat-option>
+                                <mat-option *ngFor="let option of states"
+                                    [value]="option.stateId">{{option['stateName']}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Machine Model</mat-label>
+                            <mat-select formControlName="machineModel">
+                                <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                                </mat-option>
+                            </mat-select>
+                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Failure Type</mat-label>
+                            <mat-select formControlName="failureType">
+                                <mat-option *ngFor="let value of failureType" [value]="value.failureType">
+                                    {{value.failureType}}
+                                </mat-option>
+                            </mat-select>
+                         
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Cell No.</mat-label>
+                            <input #input matInput placeholder="Customer Cell No." [matAutocomplete]="auto3"
+                                formControlName="mobileNo">
+                            <mat-icon matSuffix>search</mat-icon>
+
+                            <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+                                <mat-option *ngFor="let option of mobileData" [value]="option.code">
+                                    {{option.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Registration No.</mat-label>
+                            <input matInput placeholder="Registration No." formControlName="registrationNo">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+
+                            <mat-label>Jobcard From Date</mat-label>
+                            <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2"
+                                placeholder="From Date" formControlName="jobCardFromDate" (dateChange)="setToDate($event, 'jobcard')">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+
+                            <mat-label>Jobcard To Date</mat-label>
+                            <input readonly matInput (click)="picker3.open()" [matDatepicker]="picker3"
+                                placeholder="To Date" formControlName="jobCardToDate" [min]="toDate1">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

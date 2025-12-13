@@ -1,0 +1,191 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="wcrForm">
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>WCR No.</mat-label>
+            <input matInput placeholder="WCR No." formControlName="wcrNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>WCR Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="WCR Date" formControlName="wcrDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>WCR Type</mat-label>
+            <input matInput placeholder="WCR Type" formControlName="wcrType">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>WCR Status</mat-label>
+            <input matInput placeholder="WCR Status" formControlName="wcrStatus">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>DEALER NAME</mat-label>
+            <input matInput placeholder="DEALER NAME" formControlName="dealerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>DEALER ADDRESS</mat-label>
+            <input matInput placeholder="DEALER ADDRESS" formControlName="dealerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>DEALER EMAIL</mat-label>
+            <input matInput placeholder="DEALER EMAIL" formControlName="dealerEmail">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>DEALER CODE</mat-label>
+            <input matInput placeholder="DEALER CODE" formControlName="dealerCode">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>DEALER CELL NO.</mat-label>
+            <input matInput placeholder="DEALER CELL NO." formControlName="dealerMobNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Job Card No.</mat-label>
+            <input matInput placeholder="Job Card No." formControlName="jobCardNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Job Card Date</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="Job Card Date" formControlName="jobCardDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Retro Fitment No.</mat-label>
+            <input matInput placeholder="Reto Fitment No." formControlName="retroFitmentNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>PCR No.</mat-label>
+            <input matInput placeholder="PCR No." formControlName="pcrNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>PCR Date</mat-label>
+            <input matInput [matDatepicker]="picker2" placeholder="PCR Date" formControlName="pcrDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+    
+     <div class="col-lg-2" *ngIf="wcrForm.get('goodwillNo').value">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>GoodWill No.</mat-label>
+            <input matInput placeholder="GoodWill No." formControlName="goodwillNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="wcrForm.get('goodwillNo').value">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>GoodWill Date</mat-label>
+            <input matInput [matDatepicker]="picker2" placeholder="GoodWill Date" formControlName="goodwillDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Installation</mat-label>
+            <input matInput [matDatepicker]="picker3" placeholder="Date of Installation"
+                formControlName="dateofInstallation">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Failure</mat-label>
+            <input matInput [matDatepicker]="picker4" placeholder="Date of Failure" formControlName="dateofFailure">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Repair</mat-label>
+            <input matInput [matDatepicker]="picker5" placeholder="Date of Repair" formControlName="dateofRepair">
+            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input matInput placeholder="Customer Name" formControlName="customerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Customer Address</mat-label>
+            <input matInput placeholder="Customer Address" formControlName="customerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Customer Cell No.</mat-label>
+            <input matInput placeholder="Customer Cell No." formControlName="customerMobNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Machine Model</mat-label>
+            <input matInput placeholder="Machine Model" formControlName="machineModel">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Chassis No.</mat-label>
+            <input matInput placeholder="Chassis No." formControlName="chassisNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Engine No.</mat-label>
+            <input matInput placeholder="Engine No." formControlName="engineNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Sold To Dealers</mat-label>
+            <input matInput placeholder="Sold To Dealers" formControlName="soldToDealer">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Hours</mat-label>
+            <input matInput placeholder="Hours" formControlName="hours">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Failure Type</mat-label>
+            <input matInput placeholder="Failure Type" formControlName="failureType">
+        </mat-form-field>
+    </div>
+
+
+</div>

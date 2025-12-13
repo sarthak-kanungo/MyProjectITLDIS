@@ -1,0 +1,187 @@
+<div class="card-body">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Payment Details</p>
+        </div>
+
+        <div class="card-body">
+            <form [style.fontSize.px]="10" [formGroup]="paymentDetailForm">
+
+                <div class="row" *ngIf="showCheque">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cheque/DD No. </mat-label>
+                            <input matInput placeholder=" Cheque/DD No." formControlName="chequeDdNo" required>
+                            <mat-error *ngIf="paymentDetailForm.get('chequeDdNo').hasError('required')">
+                                Cheque/DD no. is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <mat-label>Cheque/DD Date </mat-label>
+                            <input matInput [matDatepicker]="chequeDate" placeholder="Cheque/DD Date"
+                                formControlName="chequeDdDate" required readonly (click)="chequeDate.open()">
+                            <mat-datepicker-toggle matSuffix [for]="chequeDate"></mat-datepicker-toggle>
+                            <mat-datepicker #chequeDate></mat-datepicker>
+                            <mat-error *ngIf="paymentDetailForm.get('chequeDdDate').hasError('required')">
+                                Cheque date is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2 ">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Cheque/DD Bank</mat-label>
+                            <mat-select formControlName="chequeDdBank" required>
+                                <mat-option *ngFor="let cbank of checkDdBankTypeList" [value]="cbank?.chequeDdBank">
+                                    {{cbank?.chequeDdBank}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="paymentDetailForm.get('chequeDdBank').hasError('required')">
+                                Bank is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="showRtgs">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Transaction No. </mat-label>
+                            <input matInput placeholder="Transaction No." formControlName="transactionNo" required>
+                            <mat-error *ngIf="paymentDetailForm.get('transactionNo').hasError('required')">
+                                Transaction no. is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <mat-label>Transaction Date</mat-label>
+                            <input matInput [matDatepicker]="transactionDate" placeholder="Transaction Date"
+                                formControlName="transactionDate" required readonly (click)="transactionDate.open()"
+                                [max]="todaysDate">
+                            <mat-datepicker-toggle matSuffix [for]="transactionDate"></mat-datepicker-toggle>
+                            <mat-datepicker #transactionDate></mat-datepicker>
+                            <mat-error *ngIf="paymentDetailForm.get('transactionDate').hasError('required')">
+                                Transaction date is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2 ">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Bank</mat-label>
+                            <mat-select formControlName="bank" required>
+                                <mat-option *ngFor="let banks of bankTypeList" [value]="banks?.bank">
+                                    {{banks?.bank}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="paymentDetailForm.get('bank').hasError('required')">Bank is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="showCredit">
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Transaction No. </mat-label>
+                            <input matInput placeholder=" Transaction No." formControlName="transactionNo" required>
+                            <mat-error *ngIf="paymentDetailForm.get('transactionNo').hasError('required')">
+                                Transaction no. is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <mat-label>Transaction Date</mat-label>
+                            <input matInput [matDatepicker]="transactionDateCredit" placeholder="Transaction Date"
+                                formControlName="transactionDate" required readonly
+                                (click)="transactionDateCredit.open()" [max]="todaysDate">
+                            <mat-datepicker-toggle matSuffix [for]="transactionDateCredit"></mat-datepicker-toggle>
+                            <mat-datepicker #transactionDateCredit></mat-datepicker>
+                            <mat-error *ngIf="paymentDetailForm.get('transactionDate').hasError('required')">
+                                Transaction date is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Card No. </mat-label>
+                            <input matInput placeholder=" Card No." formControlName="cardNo" required>
+                            <mat-error *ngIf="paymentDetailForm.get('cardNo').hasError('required')">
+                                Card no. is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2 ">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Card Type</mat-label>
+                            <mat-select formControlName="cardType" required>
+                                <mat-option *ngFor="let cardType of cardTypeList" [value]="cardType?.cardType">
+                                    {{cardType?.cardType}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="paymentDetailForm.get('cardType').hasError('required')">
+                                Card type is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Card Name </mat-label>
+                            <input matInput placeholder="Card Name" formControlName="cardName" required>
+                            <mat-error *ngIf="paymentDetailForm.get('cardName').hasError('required')">
+                                Card name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="showWallet">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Transaction No. </mat-label>
+                            <input matInput placeholder=" Transaction No." formControlName="transactionNo" required>
+                            <mat-error *ngIf="paymentDetailForm.get('transactionNo').hasError('required')">
+                                Transaction no. is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <mat-label>Transaction Date</mat-label>
+                            <input matInput [matDatepicker]="transactionDateEWallet" placeholder="Transaction Date"
+                                formControlName="transactionDate" required readonly
+                                (click)="transactionDateEWallet.open()" [max]="todaysDate">
+                            <mat-datepicker-toggle matSuffix [for]="transactionDateEWallet"></mat-datepicker-toggle>
+                            <mat-datepicker #transactionDateEWallet></mat-datepicker>
+                            <mat-error *ngIf="paymentDetailForm.get('transactionDate').hasError('required')">
+                                Transaction date is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Service Provider</mat-label>
+                            <input matInput placeholder="Service Provider" formControlName="serviceProvides" required>
+                            <mat-error *ngIf="paymentDetailForm.get('serviceProvides').hasError('required')">
+                                Service provider is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

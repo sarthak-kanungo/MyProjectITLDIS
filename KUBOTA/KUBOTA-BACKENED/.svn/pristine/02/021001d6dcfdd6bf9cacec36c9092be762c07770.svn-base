@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BranchTransferIssueReport" pageWidth="695" pageHeight="942" orientation="Landscape" columnWidth="655" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="01cb0927-c32c-4ca0-bb10-831a4b567af8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="kubota_uat_2"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="issueId" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_BT_ISSUE_REPORT  $P{issueId} ,'header']]>
+	</queryString>
+	<field name="issueDate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="issueDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="issueDate"/>
+	</field>
+	<field name="issueBy" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="issueBy"/>
+		<property name="com.jaspersoft.studio.field.label" value="issueBy"/>
+	</field>
+	<field name="issuedByBranchName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="issuedByBranchName"/>
+		<property name="com.jaspersoft.studio.field.label" value="issuedByBranchName"/>
+	</field>
+	<field name="issuedfromBranchName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="issuedfromBranchName"/>
+		<property name="com.jaspersoft.studio.field.label" value="issuedfromBranchName"/>
+	</field>
+	<field name="requestingNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="requestingNo"/>
+		<property name="com.jaspersoft.studio.field.label" value="requestingNo"/>
+	</field>
+	<variable name="srlno" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{COLUMN_COUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="2" width="655" height="14" uuid="b1d406ce-8151-4f85-b3d2-ac39560f4e7c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Branch Transfer Issue Report]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="120" y="51" width="200" height="14" uuid="c9f4f781-42a2-4d0b-8097-3f8c3606ad82"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issueBy}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="115" y="51" width="5" height="14" uuid="09d5f557-633d-4a71-b04c-b78fd906ed5e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="392" y="23" width="263" height="14" uuid="1bc91f9a-82f0-411d-bba6-c5df8cf50fbf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issueDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="320" y="23" width="67" height="14" uuid="20e54c18-f628-4935-ab8f-6ccf6dc37927"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Issue Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="387" y="23" width="5" height="14" uuid="1fc2eb45-4cdd-430e-a880-f52b9bf4ef5d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="320" y="37" width="67" height="14" uuid="a05ad224-c5e5-402f-832b-b44679f9756e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Issue to Branch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="387" y="37" width="5" height="14" uuid="1bcd2b8b-fa15-4493-bc6c-e905547700b3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="392" y="37" width="263" height="14" uuid="bebae7a4-8a38-45de-95de-d0149e22fb87"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issuedfromBranchName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="51" width="115" height="14" uuid="e1059dc6-7469-4eb5-b6da-7bfa0efb61d5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Issue By]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="37" width="115" height="14" uuid="fe13351c-0ff3-4ea1-bdf2-504596aa009a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Issue By Branch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="115" y="37" width="5" height="14" uuid="c4d4cb8d-bcb8-4f9b-9437-66bd2cc0b4ec"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="23" width="115" height="14" uuid="730340f3-5850-43cd-b79c-885777e0b5fc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Request No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="115" y="23" width="5" height="14" uuid="5d5e32ff-f9f6-4feb-a124-c2358578cf74"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="120" y="37" width="200" height="14" uuid="3bbcdbc4-1387-47a7-b508-ee859f3a2677"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issuedByBranchName}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="120" y="23" width="200" height="14" uuid="09d436df-8a50-4cb7-bd3e-d066db7782e7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{requestingNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="2" width="655" height="63" uuid="ddc307da-27d9-4c0f-ab16-d75eff334921">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="65" width="655" height="10" uuid="9e5faeaa-0e2c-4053-9326-6f972b77fd5b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="issueId">
+					<subreportParameterExpression><![CDATA[$P{issueId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["BranchTransferIssueDetailReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+</jasperReport>

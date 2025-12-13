@@ -1,0 +1,188 @@
+<div class="container-fluid mt-4">
+    <div class="card-from ">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Spares Payment Receipt</p>
+                <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                    <b>New </b>
+                </button>
+            </div>
+            <div class="card-body">
+                <form [style.fontSize.px]="10" [formGroup]="searchPaymentReceiptForm">
+                    <app-spare-payment-receipt-search
+                        [filterState]="filterData"
+                    ></app-spare-payment-receipt-search>
+                </form>
+
+                <div class=" text-center mt-2 pb-2">
+                    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="searchSparePaymentReceipt()">
+                        Search
+                    </button>
+                    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [clickOnTableFields]="[{'title':'receiptNumber','isClickable':true}]" (pageChange)="pageSizeChange($event)"
+        [searchValue]="searchValue" (actionOnTableRecord)="tableAction($event)" [page]="page" [size]="size" [clearSearchRow]="clearSearchRow" >
+
+        <td [ngsw-searchField]="receiptNumber" [searchColumnName]="'receiptNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #receiptNumber [(ngModel)] ="receiptNumberNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="receiptType" [searchColumnName]="'receiptType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #receiptType [(ngModel)] ="receiptTypeNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="receiptMode" [searchColumnName]="'receiptMode'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #receiptMode [(ngModel)] ="receiptModeNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="receiptDate" [searchColumnName]="'receiptDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="receiptDatePicker" #receiptDate
+                    (dateInput)="etSearchDateValueChange(receiptDate.value,'receiptDate')" [(ngModel)] ="receiptDateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="receiptDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #receiptDatePicker></mat-datepicker>
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="receiptAmount" [searchColumnName]="'receiptAmount'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #receiptAmount [(ngModel)] ="receiptAmountNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="payeeType" [searchColumnName]="'payeeType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #payeeType [(ngModel)] ="payeeTypeNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #customerName [(ngModel)] ="customerNameNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="customerAddress1" [searchColumnName]="'customerAddress1'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #customerAddress1 [(ngModel)] ="customerAddress1NgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="customerAddress2" [searchColumnName]="'customerAddress2'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #customerAddress2 [(ngModel)] ="customerAddress2NgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="country" [searchColumnName]="'country'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #country [(ngModel)] ="countryNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #state [(ngModel)] ="stateNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #district [(ngModel)] ="districtNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #tehsil [(ngModel)] ="tehsilNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="village" [searchColumnName]="'village'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #village [(ngModel)] ="villageNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #postOffice [(ngModel)] ="postOfficeNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #pinCode [(ngModel)] ="pinCodeNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="remark" [searchColumnName]="'remark'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #remark [(ngModel)] ="remarkNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="checkDDNumber" [searchColumnName]="'checkDDNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #checkDDNumber [(ngModel)] ="checkDDNumberNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="checkDDDate" [searchColumnName]="'checkDDDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="checkDDDatePicker" #checkDDDate
+                    (dateInput)="etSearchDateValueChange(checkDDDate.value,'checkDDDate')" [(ngModel)] ="checkDDDateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="checkDDDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #checkDDDatePicker></mat-datepicker>
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="checkDDBank" [searchColumnName]="'checkDDBank'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #checkDDBank [(ngModel)] ="checkDDBankNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="cardType" [searchColumnName]="'cardType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #cardType [(ngModel)] ="cardTypeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="cardNumber" [searchColumnName]="'cardNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #cardNumber [(ngModel)] ="cardNumberNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="cardName" [searchColumnName]="'cardName'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #cardName [(ngModel)] ="cardNameNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="transactionNumber" [searchColumnName]="'transactionNumber'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #transactionNumber [(ngModel)] ="transactionNumberNgModel">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="transactionDate" [searchColumnName]="'transactionDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput [matDatepicker]="transactionDatePicker" #transactionDate
+                    (dateInput)="etSearchDateValueChange(transactionDate.value,'transactionDate')" [(ngModel)] ="transactionDateNgModel">
+                <mat-datepicker-toggle matSuffix [for]="transactionDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #transactionDatePicker></mat-datepicker>
+            </mat-form-field>
+        </td>
+
+    </ngsw-search-table>
+
+</div>

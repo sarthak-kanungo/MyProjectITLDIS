@@ -1,0 +1,110 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="installationDetailsForm">
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Chassis No./Engine No./Model/Customer Name</mat-label>
+            <input matInput placeholder="Chassis No./Engine No./Model/Customer Name" formControlName="chassisNo" [matAutocomplete]="autoChassisNo"
+                required (keydown)="onKeyDownChasisNo($event)">
+            <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedChassisNumber($event)" [displayWith]="displayFnChassisNo">
+                <mat-option *ngFor="let option of (chassisNoList$ | async)" [value]="option">
+                    {{option?.value}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="installationDetailsForm.get('chassisNo').hasError('required')">
+                Chassis No. is Required</mat-error>
+            <mat-error *ngIf="installationDetailsForm.get('chassisNo').hasError('selectFromList')">
+                Please select from list</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Installation Type</mat-label>
+            <input matInput placeholder="Installation Type" formControlName="installationType">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Installation No.</mat-label>
+            <input matInput placeholder="Installation No." formControlName="installationNumber">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Installation Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Installation Date" formControlName="installationDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Engine No.</mat-label>
+            <input matInput placeholder="Engine No." formControlName="engineNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Machine Model</mat-label>
+            <input matInput placeholder="Machine Model" formControlName="model">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Service Staff Name</mat-label>
+            <input matInput placeholder="Service Staff Name" formControlName="searviceStaffName"
+                [matAutocomplete]="autoSearviceStaffName" required>
+            <mat-autocomplete #autoSearviceStaffName="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedSearviceStaffName($event)" [displayWith]="displayFnSearviceStaffName">
+                <mat-option *ngFor="let option of (searviceStaffNameList$ | async)" [value]="option">
+                    {{option?.employeeName}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="installationDetailsForm.get('searviceStaffName').hasError('required')">
+                Searvice Staff Name is Required</mat-error>
+            <mat-error *ngIf="installationDetailsForm.get('searviceStaffName').hasError('selectFromList')">
+                Please select from list</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Representative Type</mat-label>
+            <mat-select formControlName="representativeType" [compareWith]="compareFnRepresentativeType" (selectionChange)="selectionRepresentativeType($event)">
+                <mat-option *ngFor="let option of representativeTypes" [value]="option">
+                    {{option?.representativeType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Rep Name</mat-label>
+            <input matInput placeholder="Customer Rep Name" formControlName="customerRepName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input matInput placeholder="Customer Name" formControlName="customerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>CSB No.</mat-label>
+            <input matInput placeholder="CSB No." formControlName="csbNumber" [matAutocomplete]="autocsbNumber">
+            <mat-autocomplete #autocsbNumber="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedCsbNumber($event)" 
+            [displayWith]="displayFnCsbNumber">
+                <mat-option *ngFor="let option of (csbNumberList$ | async)" [value]="option">
+                    {{option?.code}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <!-- <mat-error *ngIf="installationDetailsForm.get('csbNumber').hasError('required')">
+                CSB No. is Required</mat-error>
+            <mat-error *ngIf="installationDetailsForm.get('csbNumber').hasError('selectFromList')">
+                Please select from list</mat-error> -->
+        </mat-form-field>
+
+    </div>
+</div>

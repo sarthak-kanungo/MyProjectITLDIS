@@ -1,0 +1,61 @@
+<div class="container-fluid create-form mt-3 mb-3">
+    <div class="row">
+      <!-- <div class="d-flex justify-content-between">
+        <div>
+          <p class="font-weight-bold" style="color: #354052">
+            Add Designation
+          </p>
+        </div>
+      </div> -->
+      <div class="col-lg-12">
+        <div class="card-from mt-3">
+          <div class="card">
+            <div class="card-header">
+              <p class="mb-0">Add New</p>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="newDesignationLevelForm" [style.fontSize.px]="11">
+                <div class="row">
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Designation Level Code</mat-label>
+                      <input matInput placeholder="Designation Level Code" formControlName="designationlevelcode">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Designation Level</mat-label>
+                      <input matInput placeholder="Designation Level" formControlName="designationlevel">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2 ">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Department Name</mat-label>
+                      <mat-select formControlName="departmentName" (selectionChange)="departmentNameSelectionChanged($event)">
+                        <mat-option *ngFor="let departmentName of departmentNameList?.result" [value]="departmentName">
+                          {{departmentName?.departmentName}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Remarks</mat-label>
+                      <input matInput placeholder="Remarks" formControlName="remarks">
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-lg-3">
+                    <div class="mx-auto text-left mt-1">
+                      <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="validateForm()"> Submit </button>
+                      <button type="button" class="btn btn_secondary px-3 ml-3 " (click)="clearForm()"> Clear </button>
+                      <button type="button" class="btn btn_primary px-3 ml-2" [routerLink]="['../']"> Exit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

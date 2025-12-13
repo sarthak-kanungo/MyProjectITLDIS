@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2021-03-05T16:59:42 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePrint_SubTax" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="14740f16-c4ca-440f-b4b0-9cf7fc7750ea">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="kubota_uat_2"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="InvoiceNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC [sp_invoicePrint] $P{InvoiceNo}]]>
+	</queryString>
+	<field name="PartyName" class="java.lang.String"/>
+	<field name="PartyAddress" class="java.lang.String"/>
+	<field name="Branch_State" class="java.lang.String"/>
+	<field name="Branch_PHNo" class="java.lang.String"/>
+	<field name="Branch_PANNo" class="java.lang.String"/>
+	<field name="Branch_Email" class="java.lang.String"/>
+	<field name="Branch_GSTIN" class="java.lang.String"/>
+	<field name="Branch_CIN" class="java.lang.String"/>
+	<field name="Authorised_Dealer" class="java.lang.String"/>
+	<field name="InvoiceToCustCode" class="java.lang.String"/>
+	<field name="InvoiceToCustName" class="java.lang.String"/>
+	<field name="InvoiceToCustAddress" class="java.lang.String"/>
+	<field name="InvoiceToCustPincode" class="java.lang.String"/>
+	<field name="InvoiceToCustPhoneNo" class="java.lang.String"/>
+	<field name="InvoiceToCustGSTIN" class="java.lang.String"/>
+	<field name="HypeWith" class="java.lang.String"/>
+	<field name="ShipToCustCode" class="java.lang.String"/>
+	<field name="ShipToCustName" class="java.lang.String"/>
+	<field name="ShipToCustAddress" class="java.lang.String"/>
+	<field name="ShipToPincode" class="java.lang.String"/>
+	<field name="ShipToPhoneNo" class="java.lang.String"/>
+	<field name="ShipToGSTIN" class="java.lang.String"/>
+	<field name="ShipToPan" class="java.lang.String"/>
+	<field name="InvoiceNo" class="java.lang.String"/>
+	<field name="InoiceDate" class="java.lang.String"/>
+	<field name="ChassisNo" class="java.lang.String"/>
+	<field name="EngineNo" class="java.lang.String"/>
+	<field name="Variant" class="java.lang.String"/>
+	<field name="SaleType" class="java.lang.String"/>
+	<field name="DescriptionOfGoods" class="java.lang.String"/>
+	<field name="HSNCode" class="java.lang.String"/>
+	<field name="GSTRate" class="java.math.BigDecimal"/>
+	<field name="Quantity" class="java.lang.String"/>
+	<field name="Rate" class="java.lang.String"/>
+	<field name="DiscountPer" class="java.math.BigDecimal"/>
+	<field name="gstAmount" class="java.lang.String"/>
+	<field name="AmountTotal" class="java.lang.String"/>
+	<field name="OutputCGSTAmout" class="java.lang.String"/>
+	<field name="OutputSGSTAmount" class="java.lang.String"/>
+	<field name="GrandTotal" class="java.lang.String"/>
+	<field name="AmountInWords" class="java.lang.String"/>
+	<field name="TaxableValue" class="java.lang.String"/>
+	<field name="CGSTRate" class="java.lang.String"/>
+	<field name="CGSTAmount" class="java.lang.String"/>
+	<field name="SGSTRate" class="java.lang.String"/>
+	<field name="SGSTAmount" class="java.lang.String"/>
+	<field name="TotalTaxAmount" class="java.lang.String"/>
+	<field name="TotalTaxAmountInWords" class="java.lang.String"/>
+	<field name="ForDealerName" class="java.lang.String"/>
+	<field name="Total_TaxValue" class="java.lang.String"/>
+	<field name="Total_Central_TaxAmt" class="java.lang.String"/>
+	<field name="Total_State_TaxAmt" class="java.lang.String"/>
+	<field name="Grand_Total_TaxAmt" class="java.lang.String"/>
+	<variable name="Sr.No" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{Sr.No}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="18">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="-1" y="0" width="139" height="18" uuid="375b1a57-aba6-4935-8857-c3152df02a49">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a537d6af-2d27-4d1d-8702-9e00a367173d"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HSNCode}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="220" y="0" width="60" height="18" uuid="7f4413eb-09fc-4b90-b924-6f111d9f4917">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8cad24c1-415d-4d2b-a066-b2bc0a0184ca"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CGSTRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="138" y="0" width="82" height="18" uuid="9a92399b-6956-46cc-babf-674824675d00"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TaxableValue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="341" y="0" width="40" height="18" uuid="48f39a73-0832-4e20-96a5-71dac4cfede2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6a26f6d-d5df-434e-a7b1-7924a33106d1"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SGSTRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="471" y="0" width="83" height="18" uuid="f3fc1092-93d8-4cb0-8f1e-708d48df3f9d"/>
+				<box>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalTaxAmount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="381" y="0" width="90" height="18" uuid="7a01de36-04c5-4475-aba6-9bc309c306cf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="925b3222-9292-4804-9e56-5cb4dabe1f16"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SGSTAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="61" height="18" uuid="920ec781-da50-4edb-b7f7-33c2b223cbc7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="864c6110-4408-4cfe-bd97-47ab18687366"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CGSTAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

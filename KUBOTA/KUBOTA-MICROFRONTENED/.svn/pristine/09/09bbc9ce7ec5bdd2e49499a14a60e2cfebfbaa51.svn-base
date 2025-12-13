@@ -1,0 +1,53 @@
+<div class="container-fluid create-form mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Invoice</p>
+      </div>
+      <div class="card-body">
+        <app-invoice [customerDetail]="customerDetail" [deliveryChallanDetail]="deliveryChallanDetail"
+          [invoiceDetail]="invoiceDetail"
+          [isCancelInvoice]="isCancelInvoice"
+          [isEdit]="isEdit"
+          [isView]="isView"></app-invoice>
+        <app-delivery-challans [isCancelInvoice]="isCancelInvoice" [materialDetail]="materialDetail"
+          [isEdit]="isEdit"
+          [isView]="isView">
+        </app-delivery-challans>
+        <app-material-details-charges [isCancelInvoice]="isCancelInvoice"
+          [isEdit]="isEdit"
+          [isView]="isView"></app-material-details-charges>
+        <app-invoice-accessory-detail [isCancelInvoice]="isCancelInvoice" [invoiceDetail]="invoiceDetail"
+          [isEdit]="isEdit"
+          [isView]="isView">
+        </app-invoice-accessory-detail>
+        <app-invoice-prospect-details></app-invoice-prospect-details>
+        <app-invoice-insurance-details [isCancelInvoice]="isCancelInvoice"
+          [insuranceCompanyDetail]="insuranceCompanyDetail"
+          [isEdit]="isEdit"
+          [isView]="isView"></app-invoice-insurance-details>
+
+        <app-cancel-invoice-form [isCancelInvoice]="isCancelInvoice"
+          [isEdit]="isEdit"
+          [isView]="isView" [cancelRequestDetail]="cancelRequestDetail"></app-cancel-invoice-form>
+          
+        <div class=" text-center mt-2 ">
+          <button *ngIf="!isCancelInvoice && !isView" type="button" class="btn btn_primary pl-3 pr-3"
+            (click)="validateInvoiceForm()" [disabled]="isSubmitDisable">
+            Submit
+          </button>
+          <button *ngIf="isCancelInvoice" type="button" class="btn btn_primary pl-3 pr-3"
+            (click)="validateCancelInvoiceForm()" [disabled]="isCancelDisable">
+            Cancel
+          </button>
+          <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="printPdf('true')"> Print
+          </button>
+          <button *ngIf="!isView && !isCancelInvoice && !isEdit" type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.create-form {
+    .wcr-form {
+        display: flex;
+        .wcr-report {
+            flex: auto;
+        }
+
+    }
+}

@@ -1,0 +1,70 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Current Survey</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">SL No. </th>
+                                <th scope="col">Dept.</th>
+                                <th scope="col">Question </th>
+                                <th scope="col">Answer </th>
+                                <th  *ngIf="this.surveyTypeSelection==='TELEPHONIC'" scope="col">Sub Answer </th>
+                                <th scope="col">Remarks </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr *ngFor="let viewList of quesAnsListForView; let i = index;">
+                                 
+                                    <td>{{i+1}}</td>
+
+                                    <td *ngIf="isView">{{viewList.dept}}</td>
+                                    <td *ngIf="isView">{{viewList.questionDesc}}</td>
+                                    <td *ngIf="isView">{{viewList.mainAnswer}}</td>
+                                    <td *ngIf="isView">{{viewList.subAnswer}}</td>
+                                    <td *ngIf="isView">{{viewList.remarks}}</td>
+                                </tr>
+
+                                <tr *ngFor="let option of currentSurveyForm['controls']; let i = index;">
+                                    <td *ngIf="isCreate">{{i+1}}</td>
+                                    <td *ngIf="isCreate" [textContent]="option.get('dept').value"> </td>
+                                    <td *ngIf="isCreate" [textContent]="option.get('question').value"> </td>
+                                    <td *ngIf="isCreate" style="width: 22%;">
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Answer</mat-label>
+                                            <mat-select  placeholder="Answer" [formControl]="option.get('answer')" (selectionChange)= "onSelectingAnswer($event, option)" *ngIf="answerList.get(option.get('quesId').value)?.length > 0 else anstxt" required>
+                                                <mat-option *ngFor="let ans of answerList.get(option.get('quesId').value)" [value]="ans">
+                                                    {{ans.mainAnsDesc}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <ng-template  #anstxt>
+                                            <input matInput placeholder="Answer"
+                                                [formControl]="option.get('answer')" required> </ng-template>
+                                        </mat-form-field>
+                                    </td>
+                                    <td  *ngIf="this.surveyTypeSelection==='TELEPHONIC'">
+                                            <div *ngIf="isCreate">
+                                                <tr  *ngFor="let sub of option.get('subAnswer')['controls']; let si = index;" style="display: block;">
+                                                    <td *ngIf="isCreate"style="display: flex;justify-content: flex-start;">
+                                                        <mat-checkbox color="basic" [formControl]="sub.get('subAnswer')" [checked]="sub.get('subAnswer').value" (change)='subAnswerSelection(sub,option)'>
+                                                           <small> {{sub.get('subAnswerDesc').value}}</small>   
+                                                        </mat-checkbox></td>
+                                                </tr>
+                                            </div>
+                                    </td>
+                                    <td *ngIf="isCreate">
+                                        <mat-form-field appearance="outline">
+                                            <input matInput placeholder="Remarks"
+                                                [formControl]="option.get('remarks')">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+            </div>
+          
+        </div>
+    </div>

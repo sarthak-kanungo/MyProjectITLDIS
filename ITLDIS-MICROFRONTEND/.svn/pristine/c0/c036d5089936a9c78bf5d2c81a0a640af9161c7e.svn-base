@@ -1,0 +1,67 @@
+<div class="container-fluid mt-4 mb-3">
+    <form>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-from">
+            <div class="card">
+              <div class="card-header">
+                <div class="d-flex justify-content-between header">
+                  <p class="mb-0">Search Training Nomination</p>
+                  <!-- <div>
+                    <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                      [routerLink]="['./create']" routerLinkActive="router-link-active">
+                      <b class="btnName">New</b>
+                    </button>
+                  </div> -->
+                </div>
+              </div>
+              <app-training-nomination-search-page></app-training-nomination-search-page>
+              <div class="text-center  mt-2 mb-2">
+                <button type="button" class="btn  btn_primary px-3" (click)="getNominationSearchFormsearch()"> Search
+                </button>
+                <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clear()"> Clear
+                </button>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </form>
+  </div>
+  <div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"
+      [clickOnTableFields]="[{title:'nominationNumber'}]" (actionOnTableRecord)="tableAction($event)"
+      (pageChange)="pageChange($event)" [page]="page" [size]="size">
+  
+      <!-- <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+        <input class="w-100 borderRadius" #edit>
+      </td> -->
+      <td [ngsw-searchField]="nominationNumber" [searchColumnName]="'nominationNumber'" class="nominationNumber">
+        <input class="w-100 borderRadius" #nominationNumber [(ngModel)]="nominatinNumberNgModel">
+      </td>
+      <td [ngsw-searchField]="programNumber" [searchColumnName]="'programNumber'" class="programNumber">
+        <input class="w-100 borderRadius" #programNumber [(ngModel)]="programNumberNgModel">
+      </td>
+      <td [ngsw-searchField]="employeeCode" [searchColumnName]="'employeeCode'" class="employeeCode">
+        <input class="w-100 borderRadius" #employeeCode [(ngModel)]="employeeCodeNgModel">
+      </td>
+      <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'" class="employeeName">
+        <input class="w-100 borderRadius" #employeeName [(ngModel)]="employeeNameNgModel">
+      </td>
+      <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'" class="departmentName">
+        <input class="w-100 borderRadius" #departmentName [(ngModel)]="departmentNameNgModel">
+      </td>
+      <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" class="dealerCode">
+        <input class="w-100 borderRadius" #dealerCode [(ngModel)]="dealerCodeNgModel">
+      </td>
+      <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName">
+        <input class="w-100 borderRadius" #dealerName [(ngModel)]="dealerNameNgModel">
+      </td>
+      <td [ngsw-searchField]="createdDate" [searchColumnName]="'createdDate'" class="createdDate">
+        <input class="w-100 borderRadius" #createdDate [(ngModel)]="createdDateNgModel">
+      </td>
+    </ngsw-search-table>
+  </div>

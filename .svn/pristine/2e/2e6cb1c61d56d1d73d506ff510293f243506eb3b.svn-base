@@ -1,0 +1,89 @@
+<div class="mt-2">
+    <div class="d-flex bd-highlight">
+        <div class="mr-auto pt-2 bd-highlight">
+            <p class="font-weight-bold" style="color: #354052">
+                Search Results
+            </p>
+        </div>
+        <div class="pr-3 bd-highlight">
+            <label class="mr-2" style="font-size: 0.9rem;">Items Per Page</label>
+            <mat-form-field [style.fontSize.px]="12" [style.width.px]="50">
+                <mat-select [value]="selected">
+                    <mat-option *ngFor="let size of recordPerPageList" [value]="size">
+                        {{size}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="pt-2 bd-highlight">
+            <a href="#">
+                <u>Export to Excel</u>
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Code</th>
+              <th scope="col" >Transporter Name</th>
+              <th scope="col">Title</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Transporter Location</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Middle Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Email Id</th>
+              <th scope="col">GST No.</th>
+              <th scope="col">PAN No.</th>
+              <th scope="col">Aadhar Card No.</th>
+              <th scope="col">Address 1</th>
+              <th scope="col" >Address 2</th>
+              <th scope="col">Address 3</th>
+              <th scope="col">Pin Code</th>
+              <th scope="col">Locality</th>
+              <th scope="col">Tehsil</th>
+              <th scope="col">City</th>
+              <th scope="col">State</th>
+              <th scope="col">Country</th>
+              <th scope="col">Telephone</th>
+              <th scope="col">Email Id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" class="data"></td>
+              <td><input type="text" class="data"></td>
+              <td><input type="text"></td>
+              <td><input type="text" class="data"></td>
+              <td><input type="text" class="data"></td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"></td>
+              <td><input type="text" class="data"></td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" > </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+              <td><input type="text" class="data"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <mat-paginator showFirstLastButtons hidePageSize [length]="50" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 50]">
+    </mat-paginator>
+
+</div>

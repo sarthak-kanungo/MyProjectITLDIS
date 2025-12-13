@@ -1,0 +1,123 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/et-data-handler.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Injectable, EventEmitter } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
+import * as i0 from "@angular/core";
+export class EtDataHandlerService {
+    constructor() {
+        this.sendColumnNameRecord$ = new Subject();
+        this.sendColumnRecord$ = new Subject();
+        this.validateTable$ = new EventEmitter();
+        this.getTableRecord$ = new EventEmitter();
+        this.getColumnNameToCollectColumnRecord$ = new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        subscriber => {
+            this.sendColumnNameRecord = subscriber;
+        }));
+    }
+    /**
+     * @param {?} formControlName
+     * @return {?}
+     */
+    getColumnRecord(formControlName) {
+        // console.log('formControlName', formControlName);
+        this.sendColumnNameRecord$.next(formControlName);
+        // return this.sendColumnRecord$;
+    }
+    /**
+     * @return {?}
+     */
+    getColumnNameToCollectColumnRecord() {
+        return new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        subscriber => {
+            this.sendColumnNameRecord = subscriber;
+        }));
+    }
+    /**
+     * @param {?} columnRecordList
+     * @param {?} formControlName
+     * @return {?}
+     */
+    emitColumnRecord(columnRecordList, formControlName) {
+        // console.log('columnRecordList', columnRecordList);
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this.sendColumnRecord$.next({ recordList: columnRecordList, formControlName });
+        }), 1);
+    }
+    /**
+     * @return {?}
+     */
+    validateTable() {
+        return this.validateTable$;
+    }
+    /**
+     * @return {?}
+     */
+    getValidTableRecord() {
+        this.validateTable$.emit(true);
+        return this.getTableRecord$;
+    }
+    /**
+     * @param {?} record
+     * @return {?}
+     */
+    sendTableRecord(record) {
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this.getTableRecord$.emit(record);
+        }), 100);
+    }
+}
+EtDataHandlerService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] }
+];
+/** @nocollapse */
+EtDataHandlerService.ctorParameters = () => [];
+/** @nocollapse */ EtDataHandlerService.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function EtDataHandlerService_Factory() { return new EtDataHandlerService(); }, token: EtDataHandlerService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.sendColumnNameRecord;
+    /** @type {?} */
+    EtDataHandlerService.prototype.sendColumnNameRecord$;
+    /** @type {?} */
+    EtDataHandlerService.prototype.sendColumnRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.validateTable$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.getTableRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.getColumnNameToCollectColumnRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.sendColumnRecord;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXQtZGF0YS1oYW5kbGVyLnNlcnZpY2UuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9lZGl0YWJsZS10YWJsZS8iLCJzb3VyY2VzIjpbImxpYi9ldC1kYXRhLWhhbmRsZXIuc2VydmljZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLE9BQU8sRUFBRSxVQUFVLEVBQUUsWUFBWSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBQ3pELE9BQU8sRUFBRSxPQUFPLEVBQUUsVUFBVSxFQUFjLE1BQU0sTUFBTSxDQUFDOztBQU12RCxNQUFNLE9BQU8sb0JBQW9CO0lBVy9CO1FBUk8sMEJBQXFCLEdBQUcsSUFBSSxPQUFPLEVBQVUsQ0FBQztRQUM5QyxzQkFBaUIsR0FBRyxJQUFJLE9BQU8sRUFBZ0IsQ0FBQztRQUMvQyxtQkFBYyxHQUFHLElBQUksWUFBWSxFQUFXLENBQUM7UUFDN0Msb0JBQWUsR0FBRyxJQUFJLFlBQVksRUFBVSxDQUFDO1FBQzdDLHdDQUFtQyxHQUFHLElBQUksVUFBVTs7OztRQUFTLFVBQVUsQ0FBQyxFQUFFO1lBQ2hGLElBQUksQ0FBQyxvQkFBb0IsR0FBRyxVQUFVLENBQUM7UUFDekMsQ0FBQyxFQUFDLENBQUM7SUFFYSxDQUFDOzs7OztJQUVqQixlQUFlLENBQUMsZUFBdUI7UUFDckMsbURBQW1EO1FBQ25ELElBQUksQ0FBQyxxQkFBcUIsQ0FBQyxJQUFJLENBQUMsZUFBZSxDQUFDLENBQUM7UUFDakQsaUNBQWlDO0lBQ25DLENBQUM7Ozs7SUFDRCxrQ0FBa0M7UUFDaEMsT0FBTyxJQUFJLFVBQVU7Ozs7UUFBUyxVQUFVLENBQUMsRUFBRTtZQUN6QyxJQUFJLENBQUMsb0JBQW9CLEdBQUcsVUFBVSxDQUFDO1FBQ3pDLENBQUMsRUFBQyxDQUFDO0lBQ0wsQ0FBQzs7Ozs7O0lBQ0QsZ0JBQWdCLENBQUMsZ0JBQTRCLEVBQUUsZUFBdUI7UUFDcEUscURBQXFEO1FBQ3JELFVBQVU7OztRQUFDLEdBQUcsRUFBRTtZQUNkLElBQUksQ0FBQyxpQkFBaUIsQ0FBQyxJQUFJLENBQUMsRUFBRSxVQUFVLEVBQUUsZ0JBQWdCLEVBQUUsZUFBZSxFQUFFLENBQUMsQ0FBQztRQUNqRixDQUFDLEdBQUUsQ0FBQyxDQUFDLENBQUM7SUFDUixDQUFDOzs7O0lBQ0QsYUFBYTtRQUNYLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQztJQUM3QixDQUFDOzs7O0lBQ0QsbUJBQW1CO1FBQ2pCLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO1FBQy9CLE9BQU8sSUFBSSxDQUFDLGVBQWUsQ0FBQztJQUM5QixDQUFDOzs7OztJQUNELGVBQWUsQ0FBQyxNQUFjO1FBQzVCLFVBQVU7OztRQUFDLEdBQUcsRUFBRTtZQUNkLElBQUksQ0FBQyxlQUFlLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1FBQ3BDLENBQUMsR0FBRSxHQUFHLENBQUMsQ0FBQztJQUNWLENBQUM7OztZQTNDRixVQUFVLFNBQUM7Z0JBQ1YsVUFBVSxFQUFFLE1BQU07YUFDbkI7Ozs7Ozs7Ozs7SUFHQyxvREFBaUQ7O0lBQ2pELHFEQUFxRDs7SUFDckQsaURBQXVEOzs7OztJQUN2RCw4Q0FBcUQ7Ozs7O0lBQ3JELCtDQUFxRDs7Ozs7SUFDckQsbUVBRUc7Ozs7O0lBQ0gsZ0RBQTBDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSW5qZWN0YWJsZSwgRXZlbnRFbWl0dGVyIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5pbXBvcnQgeyBTdWJqZWN0LCBPYnNlcnZhYmxlLCBTdWJzY3JpYmVyIH0gZnJvbSAncnhqcyc7XG5pbXBvcnQgeyBDb2x1bW5SZWNvcmQgfSBmcm9tICcuL2VkaXRhYmxlLXRhYmxlLWNvbmZpZyc7XG5cbkBJbmplY3RhYmxlKHtcbiAgcHJvdmlkZWRJbjogJ3Jvb3QnXG59KVxuZXhwb3J0IGNsYXNzIEV0RGF0YUhhbmRsZXJTZXJ2aWNlIHtcblxuICBwcml2YXRlIHNlbmRDb2x1bW5OYW1lUmVjb3JkOiBTdWJzY3JpYmVyPHN0cmluZz47XG4gIHB1YmxpYyBzZW5kQ29sdW1uTmFtZVJlY29yZCQgPSBuZXcgU3ViamVjdDxzdHJpbmc+KCk7XG4gIHB1YmxpYyBzZW5kQ29sdW1uUmVjb3JkJCA9IG5ldyBTdWJqZWN0PENvbHVtblJlY29yZD4oKTtcbiAgcHJpdmF0ZSB2YWxpZGF0ZVRhYmxlJCA9IG5ldyBFdmVudEVtaXR0ZXI8Ym9vbGVhbj4oKTtcbiAgcHJpdmF0ZSBnZXRUYWJsZVJlY29yZCQgPSBuZXcgRXZlbnRFbWl0dGVyPG9iamVjdD4oKTtcbiAgcHJpdmF0ZSBnZXRDb2x1bW5OYW1lVG9Db2xsZWN0Q29sdW1uUmVjb3JkJCA9IG5ldyBPYnNlcnZhYmxlPHN0cmluZz4oc3Vic2NyaWJlciA9PiB7XG4gICAgdGhpcy5zZW5kQ29sdW1uTmFtZVJlY29yZCA9IHN1YnNjcmliZXI7XG4gIH0pO1xuICBwcml2YXRlIHNlbmRDb2x1bW5SZWNvcmQ6IFN1YnNjcmliZXI8YW55PjtcbiAgY29uc3RydWN0b3IoKSB7IH1cblxuICBnZXRDb2x1bW5SZWNvcmQoZm9ybUNvbnRyb2xOYW1lOiBzdHJpbmcpIHtcbiAgICAvLyBjb25zb2xlLmxvZygnZm9ybUNvbnRyb2xOYW1lJywgZm9ybUNvbnRyb2xOYW1lKTtcbiAgICB0aGlzLnNlbmRDb2x1bW5OYW1lUmVjb3JkJC5uZXh0KGZvcm1Db250cm9sTmFtZSk7XG4gICAgLy8gcmV0dXJuIHRoaXMuc2VuZENvbHVtblJlY29yZCQ7XG4gIH1cbiAgZ2V0Q29sdW1uTmFtZVRvQ29sbGVjdENvbHVtblJlY29yZCgpIHtcbiAgICByZXR1cm4gbmV3IE9ic2VydmFibGU8c3RyaW5nPihzdWJzY3JpYmVyID0+IHtcbiAgICAgIHRoaXMuc2VuZENvbHVtbk5hbWVSZWNvcmQgPSBzdWJzY3JpYmVyO1xuICAgIH0pO1xuICB9XG4gIGVtaXRDb2x1bW5SZWNvcmQoY29sdW1uUmVjb3JkTGlzdDogQXJyYXk8YW55PiwgZm9ybUNvbnRyb2xOYW1lOiBzdHJpbmcpIHtcbiAgICAvLyBjb25zb2xlLmxvZygnY29sdW1uUmVjb3JkTGlzdCcsIGNvbHVtblJlY29yZExpc3QpO1xuICAgIHNldFRpbWVvdXQoKCkgPT4ge1xuICAgICAgdGhpcy5zZW5kQ29sdW1uUmVjb3JkJC5uZXh0KHsgcmVjb3JkTGlzdDogY29sdW1uUmVjb3JkTGlzdCwgZm9ybUNvbnRyb2xOYW1lIH0pO1xuICAgIH0sIDEpO1xuICB9XG4gIHZhbGlkYXRlVGFibGUoKSB7XG4gICAgcmV0dXJuIHRoaXMudmFsaWRhdGVUYWJsZSQ7XG4gIH1cbiAgZ2V0VmFsaWRUYWJsZVJlY29yZCgpOiBFdmVudEVtaXR0ZXI8b2JqZWN0PiB7XG4gICAgdGhpcy52YWxpZGF0ZVRhYmxlJC5lbWl0KHRydWUpO1xuICAgIHJldHVybiB0aGlzLmdldFRhYmxlUmVjb3JkJDtcbiAgfVxuICBzZW5kVGFibGVSZWNvcmQocmVjb3JkOiBvYmplY3QpIHtcbiAgICBzZXRUaW1lb3V0KCgpID0+IHtcbiAgICAgIHRoaXMuZ2V0VGFibGVSZWNvcmQkLmVtaXQocmVjb3JkKTtcbiAgICB9LCAxMDApO1xuICB9XG59XG4iXX0=

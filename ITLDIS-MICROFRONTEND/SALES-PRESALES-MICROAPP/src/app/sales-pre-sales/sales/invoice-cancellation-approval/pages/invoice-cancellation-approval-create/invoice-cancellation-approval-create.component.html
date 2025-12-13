@@ -1,0 +1,34 @@
+<div class="container-fluid create-form mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Invoice Cancellation Approval</p>
+      </div>
+      <div class="card-body">
+        <app-invoice [customerDetail]="customerDetail" [deliveryChallanDetail]="deliveryChallanDetail"
+          [invoiceDetail]="invoiceDetail"
+          [isCancelInvoice]="isCancelInvoice"></app-invoice>
+        <app-delivery-challans [isCancelInvoice]="isCancelInvoice" [materialDetail]="materialDetail">
+        </app-delivery-challans>
+        <app-material-details-charges [isCancelInvoice]="isCancelInvoice"></app-material-details-charges>
+        <app-invoice-accessory-detail [isCancelInvoice]="isCancelInvoice" [invoiceDetail]="invoiceDetail">
+        </app-invoice-accessory-detail>
+        <app-invoice-prospect-details></app-invoice-prospect-details>
+        <app-invoice-insurance-details [isCancelInvoice]="isCancelInvoice"
+          [insuranceCompanyDetail]="insuranceCompanyDetail"></app-invoice-insurance-details>
+
+        <app-cancel-invoice-form [isApprove]="isApprove" [cancelRequestDetail]="cancelRequestDetail"></app-cancel-invoice-form>
+        
+        <app-approval-details [approvalHierDetails]="approvalHierDetails" ></app-approval-details>
+        
+        <div class=" text-center mt-2 ">
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateInvoiceForm('Approve')" *ngIf="isApprove" [disabled]="isSubmitDisable"> Approve </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateInvoiceForm('Reject')" *ngIf="isApprove" [disabled]="isSubmitDisable"> Reject </button>
+           <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="printPdf('true')"> Print
+          </button>
+          <!-- <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

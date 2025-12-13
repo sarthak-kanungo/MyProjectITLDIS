@@ -1,0 +1,8 @@
+.height{
+    min-height: 0px !important;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 100%;
+}

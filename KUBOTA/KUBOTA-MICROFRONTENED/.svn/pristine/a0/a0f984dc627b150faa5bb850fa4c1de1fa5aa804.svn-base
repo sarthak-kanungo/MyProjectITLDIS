@@ -1,0 +1,79 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Free Service History </p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type of Service </th>
+              <th scope="col">Hours </th>
+              <th scope="col">Job Card No. </th>
+              <th scope="col">PCR Number </th>
+              <th scope="col">WCR Number </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let option of freeServiceHistoryForm['controls']; let i = index;">
+              <td >
+                <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                  <input matInput [formControl]="option.get('serviceDate')">
+                </mat-form-field>
+              </td>
+              <td >
+                <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                  <input matInput [formControl]="option.get('serviceType')">
+                </mat-form-field>
+              </td>
+              <td >
+                <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                  <input matInput [formControl]="option.get('totalHour')">
+                </mat-form-field>
+              </td>
+              <td >
+                <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                  <input matInput [formControl]="option.get('jobCardNo')">
+                </mat-form-field>
+              </td>
+              <td >
+                <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                  <input matInput [formControl]="option.get('pcrNo')">
+                </mat-form-field>
+              </td>
+              <td >
+                <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                  <input matInput [formControl]="option.get('wcrNo')">
+                </mat-form-field>
+              </td>
+            </tr> -->
+
+            <tr *ngFor="let option of freeServiceHistoryForm['controls']; let i = index;">
+              <td [textContent]="option.get('serviceDate').value">
+              </td>
+              <td [textContent]="option.get('serviceType').value">
+              </td>
+              <td [textContent]="option.get('totalHour').value">
+              </td>
+
+              <td >
+                <p (click)="jcModal($event)" class="jobcardno">{{option.get('jobCardNo').value}}</p>
+              </td>
+              <td >
+                  <p (click)="pcrModal($event)" class="jobcardno">{{option.get('pcrNo').value}}</p>
+              </td>
+              <td >
+                <p (click)="wcrModal($event)" class="jobcardno">{{option.get('wcrNo').value}}</p>
+              </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

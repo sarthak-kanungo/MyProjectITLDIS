@@ -1,0 +1,115 @@
+<div class="container-fluid mt-4 mb-3">
+  <form [formGroup]="pcrSearchForm">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between header">
+                <p class="mb-0">Search Product Concern Report</p>
+                <div>
+                  <!-- <button type="button" class="btn btn-xs ml-2 bg-white" [routerLink]="['./create']"
+                    routerLinkActive="router-link-active">
+                    <b class="btnName">New</b>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+
+            <app-pcr-search [pcrSearchForm]="pcrSearchForm" [isAdvanceSearch]="isAdvanceSearch"></app-pcr-search>
+
+            <div class="text-center mb-1">
+              <button (click)="search()" type="button" class="btn  btn_primary px-3"> 
+                Search
+              </button>
+              <button (click)="clearForm()" type="button" class="btn  btn_primary px-3 ml-2"> Clear
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="mt-2">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[
+        { title: 'pcrNo', isClickable: true },
+        { title: 'jobCardNo', isClickable: true },
+        { title: 'edit', isClickable: true },
+        { title: 'approve', isClickable: true }
+      ]" (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [actionButtons]="actionButtons" [clearSearchRow]="clearSearchRow" 
+      [isExcelImport]="true" (exportToExcel)="pcrExcelReport($event)">
+      
+      <td  [ngsw-searchField]="approve" [searchColumnName]="'approve'" *ngIf="dealerCode == null">
+          <input class="w-100 borderRadius" #approve />
+      </td>
+      <td  [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" *ngIf="dealerCode == null">
+        <input class="w-100 borderRadius" #dealerName />
+    </td>
+    <td  [ngsw-searchField]="branch" [searchColumnName]="'branch'" *ngIf="dealerCode == null">
+      <input class="w-100 borderRadius" #branch />
+  </td>
+      <td [ngsw-searchField]="pcrNo" [searchColumnName]="'pcrNo'">
+          <input class="w-100 borderRadius" #pcrNo />
+      </td>
+
+      <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+          <input class="w-100 borderRadius" #status />
+      </td>
+
+      <td [ngsw-searchField]="pcrDate" [searchColumnName]="'pcrDate'">
+          <input type="date" class="w-100 borderRadius" #pcrDate
+            (change)="etSearchDateValueChange(pcrDate.value, 'pcrDate')" />
+      </td>
+
+      <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'">
+          <input class="w-100 borderRadius" #jobCardNo />
+      </td>
+      <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+          <input class="w-100 borderRadius" #chassisNo />
+      </td>
+      <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+          <input class="w-100 borderRadius" #engineNo />
+      </td>
+      <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+          <input class="w-100 borderRadius" #model />
+      </td>
+      <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'">
+          <input type="date" class="w-100 borderRadius" #jobCardDate 
+            (change)="etSearchDateValueChange(jobCardDate.value, 'jobCardDate')" />
+      </td>
+      <td [ngsw-searchField]="serviceDealerCode" [searchColumnName]="'serviceDealerCode'">
+        <input class="w-100 borderRadius" #serviceDealerCode />
+      </td>
+      <td [ngsw-searchField]="serviceDealerName" [searchColumnName]="'serviceDealerName'">
+        <input class="w-100 borderRadius" #serviceDealerName />
+      </td>
+      <td [ngsw-searchField]="serviceDealerState" [searchColumnName]="'serviceDealerState'">
+        <input class="w-100 borderRadius" #serviceDealerState />
+      </td>
+      <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+        <input class="w-100 borderRadius" #customerName />
+      </td>
+      <td  [ngsw-searchField]="mobileNo" [searchColumnName]="'mobileNo'" >
+        <input class="w-100 borderRadius" #mobileNo />
+    </td>
+    <td  [ngsw-searchField]="village" [searchColumnName]="'village'" >
+      <input class="w-100 borderRadius" #village />
+  </td>
+      <td [ngsw-searchField]="serviceType" [searchColumnName]="'serviceType'">
+        <input class="w-100 borderRadius" #serviceType />
+      </td>
+      <td [ngsw-searchField]="serviceHours" [searchColumnName]="'serviceHours'">
+        <input class="w-100 borderRadius" #serviceHours />
+      </td>
+      <td [ngsw-searchField]="approvalRemark" [searchColumnName]="'approvalRemark'">
+        <input class="w-100 borderRadius" #approvalRemark />
+      </td>  
+      <td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'">
+          <input class="w-100 borderRadius" #lastApprovedBy />  
+      </td>
+    </ngsw-search-table>
+  </div>
+</div>

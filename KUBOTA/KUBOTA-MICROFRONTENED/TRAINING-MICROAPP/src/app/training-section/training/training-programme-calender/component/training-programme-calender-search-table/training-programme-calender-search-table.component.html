@@ -1,0 +1,84 @@
+<div class="container-fluid mt-4 mb-3">
+  <form>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between header">
+                <p class="mb-0">Search Training</p>
+                <div *ngIf="hoOrDealerView">
+                  <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                    [routerLink]="['./create']" routerLinkActive="router-link-active">
+                    <b class="btnName">New</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <app-training-prog-calender-search-page></app-training-prog-calender-search-page>
+            <div class="text-center  mt-2 mb-2">
+              <button type="button" class="btn  btn_primary px-3" (click)="getTpcsearch()"> Search
+              </button>
+              <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clear()"> Clear
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="container-fluid">
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+    [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"
+    [clickOnTableFields]="[{title:'edit'},{title:'approval'},{title:'programNumber'},{title:'updateNominee'}]" (actionOnTableRecord)="tableAction($event)"
+    (pageChange)="pageChange($event)" [page]="page" [size]="size" >
+
+    <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit" >
+      <input class="w-100 borderRadius" #edit>
+    </td>
+    
+
+    <td [ngsw-searchField]="approval" [searchColumnName]="'approval'" class="approval">
+      <input class="w-100 borderRadius" #approval [(ngModel)]="approvalNgModel">
+    </td>
+    <td [ngsw-searchField]="updateNominee" [searchColumnName]="'updateNominee'" class="updateNominee">
+      <input class="w-100 borderRadius" #updateNominee [(ngModel)]="updateNomineeNgModel">
+    </td>
+    <td [ngsw-searchField]="programNumber" [searchColumnName]="'programNumber'" class="programNumber">
+      <input class="w-100 borderRadius" #programNumber [(ngModel)]="programNumberNgModel">
+    </td>
+    <td [ngsw-searchField]="programDate" [searchColumnName]="'programDate'" class="programDate">
+      <input class="w-100 borderRadius" #programDate [(ngModel)]="programDateNgModel">
+    </td>
+    <td [ngsw-searchField]="trainingLocDesc" [searchColumnName]="'trainingLocDesc'" class="trainingLocDesc">
+      <input class="w-100 borderRadius" #trainingLocDesc [(ngModel)]="trainingLocDescNgModel">
+    </td>
+    <td [ngsw-searchField]="trainingModuleDesc" [searchColumnName]="'trainingModuleDesc'" class="trainingModuleDesc">
+      <input class="w-100 borderRadius" #trainingModuleDesc [(ngModel)]="trainingModuleDescNgModel">
+    </td>
+    <td [ngsw-searchField]="location" [searchColumnName]="'location'" class="location">
+      <input class="w-100 borderRadius" #location [(ngModel)]="locationNgModel">
+    </td>  
+    <td [ngsw-searchField]="startDate" [searchColumnName]="'startDate'" class="startDate">
+      <input class="w-100 borderRadius" #startDate [(ngModel)]="startDateNgModel">
+    </td>
+    <td [ngsw-searchField]="endDate" [searchColumnName]="'endDate'" class="endDate">
+      <input class="w-100 borderRadius" #endDate [(ngModel)]="endDateNgModel">
+    </td>
+    <td [ngsw-searchField]="lastNominationDate" [searchColumnName]="'lastNominationDate'" class="lastNominationDate">
+      <input class="w-100 borderRadius" #lastNominationDate [(ngModel)]="lastNominationDateNgModel">
+    </td>
+    <td [ngsw-searchField]="maxNoOfNominees" [searchColumnName]="'maxNoOfNominees'" class="maxNoOfNominees">
+      <input class="w-100 borderRadius" #maxNoOfNominees [(ngModel)]="maxNoOfNomineesNgModel">
+    </td>
+    <td [ngsw-searchField]="noOfAllowedNominees" [searchColumnName]="'noOfAllowedNominees'" class="noOfAllowedNominees">
+      <input class="w-100 borderRadius" #noOfAllowedNominees [(ngModel)]="noOfAllowedNomineesNgModel">
+    </td>
+    <td [ngsw-searchField]="createdDate" [searchColumnName]="'createdDate'" class="createdDate">
+      <input class="w-100 borderRadius" #createdDate [(ngModel)]="createdDateNgModel">
+    </td>
+  </ngsw-search-table>
+</div>

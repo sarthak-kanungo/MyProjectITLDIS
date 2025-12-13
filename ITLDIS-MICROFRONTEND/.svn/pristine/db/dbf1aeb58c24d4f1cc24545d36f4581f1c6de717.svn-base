@@ -1,0 +1,110 @@
+<div class="container-fluid create-form mt-4 pb_0">
+  <div class="row">
+    <div class="col-lg-12">
+      <form [formGroup]="claimSearchForm">
+        <div class="card-from">
+          <div class="card">
+
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="d-flex justify-content-between header">
+                    <p class="mb-0 label">
+                      {{docType}} Management Approval
+                    </p>
+                    <div>
+                      <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]" *ngIf="isKai">
+                                        <b class="btnName">New</b>
+                                    </button>
+                    </div>
+                  </div>
+                </div>
+              </div>      
+            </div>
+  
+            <div class="card-body" [style.fontSize.px]="11">
+              <div class="row">
+                
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Claim Date From</mat-label>
+                    <input matInput [matDatepicker]="picker" readonly placeholder="Claim Date From"
+                      formControlName="fromDate" (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Claim Date To</mat-label>
+                    <input matInput [matDatepicker]="picker1" readonly placeholder="Claim Date To"
+                      formControlName="toDate" (click)="picker1.open()"  [max]="maxDate" [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option *ngFor="let option of statusList" [value]="option">{{option}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>  
+                </div>
+              </div>
+            </div>  
+            <div class="text-center  mt-2 mb-2">
+              <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                Search
+              </button>
+              <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>    
+      </form>
+    </div>
+  </div>
+  <div class="mt-2">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue"
+      [clearSearchRow]="clearSearchRow"
+      [clickOnTableFields]="[{title:'documentNumber'},{title:'action'}]" (actionOnTableRecord)="tableAction($event)"
+      >  
+      <td></td>
+      <td [ngsw-searchField]="documentNumber" [searchColumnName]="'documentNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #documentNumber [(ngModel)] ="documentNumberNgModel">
+        </mat-form-field>
+      </td>
+      <td [ngsw-searchField]="documentDate" [searchColumnName]="'documentDate'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" #documentDate
+                (dateChange)="dateChanges($event, 'documentDate')" [(ngModel)] ="documentDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+    </td>
+      <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #status [(ngModel)] ="statusNgModel">
+        </mat-form-field>
+      </td>
+      <td [ngsw-searchField]="totalClaimCount" [searchColumnName]="'totalClatotalClaimCountimAmount'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #totalClaimCount [(ngModel)] ="totalClaimCountNgModel">
+        </mat-form-field>
+      </td>
+      <td [ngsw-searchField]="totalClaimAmount" [searchColumnName]="'totalClaimAmount'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #totalClaimAmount [(ngModel)] ="totalClaimAmountNgModel">
+        </mat-form-field>
+      </td>
+     </ngsw-search-table>
+  </div>
+</div>  
+  
+

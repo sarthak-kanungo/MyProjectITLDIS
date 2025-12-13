@@ -1,0 +1,157 @@
+<div class="card-from mt-2 machine-details" [formGroup]="partDetailsForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">MACHINE DETAILS</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+               <th>SR NO</th>
+               <th>SELECT</th>
+               <th>ITEM NUMBER</th>
+               <th>ITEM DESCRIPTION</th>
+               <th>INVOICE QTY</th>
+               <th>RECIEPT QTY</th>
+               <!-- <th *ngIf="(hideMrrFields && isView) && (!claimType)">SHORT QTY</th>
+              
+               <th *ngIf="(hideMrrFields && isView) && (!claimType)">DAMAGE QTY</th>
+               <th *ngIf="(hideMrrFields && isView) && (!claimType)">EXCESS QTY</th> -->
+              
+               <th *ngIf="!hideMrrFields &&(!viewhideMrrFields)">SHORT QTY</th>
+               <th *ngIf="!hideMrrFields &&(!viewhideMrrFields)">DAMAGE QTY</th>
+               <th *ngIf="!hideMrrFields &&(!viewhideMrrFields)">EXCESS QTY</th>
+               
+               <th>RETURN QTY</th>
+               <th>Selling Price</th>
+               <th>VALUE</th>
+               <th>DEALER REMARKS/REASON</th>
+               <th *ngIf="itldisUser">KAI ACCEPTED QTY</th>
+               <th *ngIf="itldisUser">KAI REMARKS/REASON</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of partDetailsForm.controls; let i=index" [formGroupName]="i">
+                <td>{{i+1}}</td>
+                <td class="chkBox">
+                  <mat-checkbox [labelPosition]="'before'" [checked] formControlName="isSelected"></mat-checkbox>
+                </td>
+                  <td>       
+                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                            <input type="text" required matInput  placeholder="Item No" 
+                                formControlName="partMaster" 
+                                [matAutocomplete]="autoItemNo" (keypress)="searchItemNumber($event)" (keyup)="keyUp($event,list)">
+                            <mat-autocomplete #autoItemNo="matAutocomplete" [displayWith]="displayItemNumber"
+                                (optionSelected)="selectItemNumber($event,list,i)"
+                                 [panelWidth]="200">
+                                <mat-option *ngFor="let item of itemList"
+                                    [value]="item">
+                                    {{item?.itemNo}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                           
+                            <mat-error *ngIf="list.get('partMaster').hasError('selectFromList')">Select from list</mat-error>
+                        </mat-form-field>
+                   
+                  </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Item Description</mat-label>
+                    <input matInput placeholder="Item Description" formControlName="itemDesc">
+                  </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Invoice Qty</mat-label>
+                      <input matInput placeholder="Invoice Qty" formControlName="invoiceQty">
+                    </mat-form-field>
+                  </td>
+
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Reciept Qty</mat-label>
+                      <input matInput placeholder="Reciept Qty" formControlName="receiptQty">
+                    </mat-form-field>
+                  </td>
+                  <td *ngIf="!hideMrrFields &&(!viewhideMrrFields)">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Short Qty</mat-label>
+                      <input matInput placeholder="Short Qty" formControlName="shortQty">
+                    </mat-form-field>
+                  </td>
+                  <td *ngIf="!hideMrrFields &&(!viewhideMrrFields)">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Damage Qty</mat-label>
+                      <input matInput placeholder="Damage Qty" formControlName="damageQty">
+                    </mat-form-field>
+                  </td>
+                  <td *ngIf="!hideMrrFields &&(!viewhideMrrFields)">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Excess Qty</mat-label>
+                      <input matInput placeholder="Excess Qty" formControlName="damageQty">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Return Qty</mat-label>
+                      <input matInput placeholder="Return Qty" required autocomplete="off" (keyup)="validation($event)"  formControlName="returnQty">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Unit Price</mat-label>
+                      <input matInput placeholder="Unit Price" autocomplete="off"  formControlName="sellingUnitePrice">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Value</mat-label>
+                      <input matInput placeholder="Value" autocomplete="off"   formControlName="value">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Dealer Remarks/Reason</mat-label>
+                      <input matInput placeholder="Dealer Remarks/Reason"  autocomplete="off"  (keypress)="onKeyPressString($event)"  formControlName="dealerRemarkReasons">
+                      <!-- <mat-error *ngIf="list.get('dealerRemarkReasons').hasError('required')">Dealer Remarks/Reason Required</mat-error> -->
+                    </mat-form-field>
+                  </td>
+                  <td *ngIf="itldisUser">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Kai Accepted Qty</mat-label>
+                      <input matInput placeholder="Kai Accepted Qty"  (keypress)="onKeyPressNumericValue($event)" (keyup)="validateAcceptedQty($event,list)"  autocomplete="off" formControlName="kaiAcceptedQty">
+                    </mat-form-field>
+                  </td>
+                  <td *ngIf="itldisUser">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Kai Remars/Reason</mat-label>
+                      <input matInput placeholder="Kai Remars/Reason" autocomplete="off" (keypress)="onKeyPressString($event)"   formControlName="kaiRemarkReason">
+                    </mat-form-field>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row" *ngIf="(!isView)">
+          <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+  
+              <div class="w-100 text-right">
+                <button *ngIf="!isApprove" (click)="addRow()" type="button" class="btn btn_primary px-2" style="font-size: 11px;"> Add Row
+                </button>
+                <button *ngIf="!isApprove" (click)="deleteRow()" type="button" class="btn btn_secondary px-2 ml-2" style="font-size: 11px;">
+                  Delete Row
+                </button>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>

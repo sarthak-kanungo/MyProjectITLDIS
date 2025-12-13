@@ -1,0 +1,36 @@
+<div class="container-fluid create-form mb-3 mt-4">
+  <div class="heading">
+    <p class="font-weight-bold">Branch Transfer Receipt</p>
+  </div>
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Branch Transfer Receipt</p>
+      </div>
+      <div class="card-body">
+
+       <app-create-branch-trans-receipt-container></app-create-branch-trans-receipt-container>
+
+     
+      <div>
+          <app-branch-transfer-receipt-item-details>
+  
+          </app-branch-transfer-receipt-item-details>
+        </div>
+  
+        <div class=" text-center mt-2 ">
+          <button type="button" class="btn btn_primary pl-3 pr-3"> Save
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()"> Submit
+          </button>
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> View PDF
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+          </button>
+        </div>
+    </div>
+  </div>
+  </div>
+</div>

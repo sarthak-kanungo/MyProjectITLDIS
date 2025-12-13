@@ -1,0 +1,84 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0" >Update Machine Transport</p>
+            </div>
+           
+            <div class="card-body">
+                <form [formGroup]="createMachineHeaderForm" [style.fontSize.px]="10">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Type of Delivery</mat-label>
+                              <mat-select required formControlName="typeOfDelivery" (optionSelect)="onCountryChanged($event)" >
+                                <mat-option *ngFor="let delivery of transportDropdown" [value]="delivery.typeOfDelivery">{{delivery.typeOfDelivery}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Po Type</mat-label>
+                                <input matInput placeholder="Po Type" formControlName="poType">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Depot</mat-label>
+                                <input matInput placeholder="Depot" formControlName="depot">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Purchase order No</mat-label>
+                                <input matInput placeholder="Purchase order No" formControlName="poNo">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Purchase order Date</mat-label>
+                                <input matInput placeholder="Purchase order Date" formControlName="poDate">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Total Quantity</mat-label>
+                                <input matInput placeholder="Total Quantity" formControlName="totalQty">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Purchase Order Status</mat-label>
+                                <input matInput placeholder="Purchase Order Status" formControlName="orderStatus">
+                            </mat-form-field>
+                        </div>
+                        <div  class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Mode Of Delivery</mat-label>
+                                <mat-select required formControlName="modeDelivery" (optionSelect)="onModeChange($event)" >
+                                    <mat-option *ngFor="let mode of modeDeliveryList" [value]="mode.name">{{mode.name}}</mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </div>
+                    
+                           
+                        
+                    </div>
+                    
+                </form>
+
+            </div>
+            <app-transport *ngIf="transportAdd" [transportForm]="transportForm"></app-transport>
+            <app-self-run *ngIf="selfRun" [selfRunForm]="selfRunForm"></app-self-run>
+             <app-self-truck *ngIf="selfTruck"[selfTruckForm]="selfTruckForm"></app-self-truck> 
+             
+        </div>
+       
+
+    </div>
+    
+</div>
+  
+  
+    
+   

@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-from">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between header">
+                        <p class="mb-0 label"> Search Incentive Scheme</p>
+                        <div>
+                            <!-- <button mat-raised-button class="btn-xs" (click)="createSchemeMaster()"><b class="btnName">Create</b></button> -->
+                            <button type="button" class="btn btn-xs ml-2 bg-white" [routerLink]="[ './create' ]" *ngIf="userType=='itldis'">
+                                <b class="btnName">New</b>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="SearchIncentiveSchemes" [style.fontSize.px]="10">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Scheme No.</mat-label>
+                                    <input matInput placeholder="Scheme No." formControlName="schemeno" [matAutocomplete]="autoComSchemeNo">
+                                    <mat-autocomplete #autoComSchemeNo="matAutocomplete" [displayWith]="displaySchemeNoFn">
+                                        <mat-option *ngFor="let option of autoComSchemes"
+                                            [value]="option">
+                                            {{option?.schemeNo}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                                <mat-error *ngIf="SearchIncentiveSchemes.get('schemeno').hasError('selectFromList')">
+                                    Please select from list
+                                </mat-error>
+                            </div>
+                            <div class="col-lg-2 ">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Status</mat-label>
+                                    <mat-select formControlName="status">
+                                        <mat-option *ngFor="let item of statusList" [value]="item">{{item}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Scheme Type</mat-label>
+                                    <mat-select formControlName="schemeType">
+                                        <mat-option *ngFor="let option of dropdownSchemeTypeDomain?.result"
+                                            [value]="option?.schemeType">
+                                            {{option?.schemeType}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker"
+                                        placeholder="Scheme From Date" formControlName="schemefromdate" (dateChange)="fromDateChange($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [min]="minDate" [matDatepicker]="picker1" placeholder="Scheme To Date"
+                                        formControlName="schemetodate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-lg-12">
+                        <div class="mx-auto d-flex justify-content-center">
+                            <button type="button" class="btn pl-3 pr-3 mr-3 btn_primary" (click)="searchIncentive()"> Search
+                            </button>
+                            <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="clearSearchForm()"> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+        [totalElements]="totalTableElements" (actionOnTableRecord)="actionOnTableRecord($event)"
+        (pageChange)="pageChange($event)"  [clickOnTableFields]="[{'title':'action','isClickable':true},{'title':'schemeNo','isClickable':true}]">
+       
+        <td [ngsw-searchField]="schemeNo" [searchColumnName]="'schemeNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #schemeNo [(ngModel)]="schemeNoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="schemeDate" [searchColumnName]="'schemeDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #schemeDate [(ngModel)]="schemeDateNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="schemeType" [searchColumnName]="'schemeType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #schemeType [(ngModel)]="schemeTypeNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #status [(ngModel)]="statusNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="referenceNo" [searchColumnName]="'referenceNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #referenceNo [(ngModel)]="referenceNoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="validFrom" [searchColumnName]="'validFrom'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #validFrom [(ngModel)]="validFromNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="validTo" [searchColumnName]="'validTo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #validTo [(ngModel)]="validToNgModel">
+            </mat-form-field>
+        </td>
+    </ngsw-search-table>
+</div>

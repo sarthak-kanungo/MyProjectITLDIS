@@ -1,0 +1,186 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Create Employee Bank Details</p>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="createBankDetailForm" [style.fontSize.px]="10">
+                    <div class="row">
+                        <div class="col-lg-2 mt-1 ml-2">
+                            <mat-checkbox class="Primary" style="height: 30px; width: 30px;" (change)="checkMobileNo($event)"><span style="font-weight: bold; font-size: 12px;margin-top: 5px;">Search with Mobile No</span></mat-checkbox>
+
+                        </div>
+                       
+                        <div class="col-lg-2" *ngIf="!searchwithMobileNo">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Employee Code</mat-label>
+                                <input matInput placeholder="Employee Code" formControlName="employeeCode"
+                                    [matAutocomplete]="autoEmployeeCode" (ngModelChange)="onKeyEmployeeeCode($event)">
+                                <mat-autocomplete #autoEmployeeCode="matAutocomplete"
+                                    (optionSelected)="getempBankDetails($event)" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of employeeCodeList" [value]="option.employeeCode">
+                                        {{option.employeeCode}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error *ngIf="createBankDetailForm.get('employeeCode').hasError('selectFromList')">
+                                    Select From List </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2" *ngIf="searchwithMobileNo">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Mobile No.</mat-label>
+                                <input matInput placeholder="Mobile No." formControlName="mobileNo"
+                                    [matAutocomplete]="autoMobileNo" (keyup)="onSearchMobileNo($event)">
+                                <mat-autocomplete #autoMobileNo="matAutocomplete"  (optionSelected)="getNumberList($event)" [panelWidth]="200">
+                                    <mat-option *ngFor="let option of employeeMobileList" [value]="option.mobilenumber">
+                                        {{option.mobilenumber}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label> First Name</mat-label>
+                                <input matInput placeholder="First Name" formControlName="firstName">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label> Middle Name</mat-label>
+                                <input matInput placeholder="Middle Name" formControlName="middleName">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label> Last Name</mat-label>
+                                <input matInput placeholder="Last Name" formControlName="lastName">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Desigation</mat-label>
+                                <input matInput placeholder="Desigation" formControlName="Desigation">
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <p class="mb-0"> Old Bank Account Details</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> Bank Account No.</mat-label>
+                                        <input matInput placeholder="Bank Account No."
+                                            formControlName="oldbankAccountNo">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> Bank Name</mat-label>
+                                        <input matInput placeholder="Bank Name" formControlName="oldbankName">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> Bank Branch</mat-label>
+                                        <input matInput placeholder="Bank Branch" formControlName="oldbankBranch">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> IFSC Code</mat-label>
+                                        <input matInput placeholder="IFSC Code" formControlName="oldifsCode">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <p class="mb-0"> New Bank Account Details</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> Bank Account No.</mat-label>
+                                        <input matInput placeholder="Bank Account No." autocomplete="off" formControlName="bankAccountNo">
+                                        <mat-error *ngIf="createBankDetailForm.get('bankAccountNo').hasError('required')">
+                                            <strong> Bank Account No Required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> Bank Name</mat-label>
+                                        <input matInput placeholder="Bank Name" autocomplete="off" formControlName="bankName">
+                                        <mat-error *ngIf="createBankDetailForm.get('bankName').hasError('required')">
+                                            <strong> Bank Name is Required</strong>
+                                        </mat-error>
+                                        
+                                    </mat-form-field>
+                                   
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> Bank Branch</mat-label>
+                                        <input matInput placeholder="Bank Branch" autocomplete="off" formControlName="bankBranch">
+                                        <mat-error *ngIf="createBankDetailForm.get('bankBranch').hasError('required')">
+                                            <strong> Bank Branch is Required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> IFSC Code</mat-label>
+                                        <input matInput placeholder="IFSC Code" autocomplete="off" formControlName="ifsCode">
+                                        <mat-error *ngIf="createBankDetailForm.get('ifsCode').hasError('required')">
+                                            <strong> IFSC is Required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="col-lg-7">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary" (click)="submitForm()">
+                                Submit </button>
+                            <button type="button" class="btn px-3 mt-3 ml-3 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                            <button type="button" class="btn px-3 mt-3 ml-3 btn_primary" (click)="exitForm()">
+                                Exit </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

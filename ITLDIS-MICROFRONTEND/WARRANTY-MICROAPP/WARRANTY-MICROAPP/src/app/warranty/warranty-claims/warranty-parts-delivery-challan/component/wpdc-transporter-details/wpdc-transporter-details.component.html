@@ -1,0 +1,71 @@
+<div class="card-from mt-2" [style.fontSize.px]="12" [formGroup]="transporterDetailForm">
+    <div class="card" style="border: 1px solid #45afaf;" >
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">TRANSPORTER DETAILS</p>
+        </div>
+        <div class="card-body">
+            <div class="row mb-1">
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Transporter Name</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Transporter Name</mat-label>
+                                <input matInput placeholder="Transporter Name" formControlName="transporterName">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Docket Number</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Docket Number</mat-label>
+                                <input matInput placeholder="Docket Number" formControlName="docketNumber">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Number of Boxes</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Number of Boxes</mat-label>
+                                <input matInput placeholder="Number of Boxes" formControlName="noOfBoxes">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Dispatch Date</label>
+                        </div>
+                        <div class="w-75 flex-fill bd-highlight">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Dispatch Date</mat-label>
+                                <input readonly matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="Dispatch Date"
+                                    formControlName="dispatchDate" [max]="today">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

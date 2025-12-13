@@ -1,0 +1,81 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="heading">
+      <p class="font-weight-bold">Assign User To Branch</p>
+    </div>
+    <div class="card-from mb-0">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Create New Assign User To Branch</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="newAssignUserToBranchForm" [style.fontSize.px]="11">
+            <div class="row">
+  
+              <!-- <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Dealership</mat-label>
+                  <input matInput placeholder="Dealership" formControlName="dealership"> 
+                </mat-form-field>
+              </div> -->
+
+              
+              <div class="col-lg-2" *ngIf="isCreate">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Dealership</mat-label>
+                  <input 
+                    matInput placeholder="Dealership" formControlName="dealership" [matAutocomplete]="autodealership"
+                    (ngModelChange)="getAutodealership($event)" >
+                    <mat-autocomplete #autodealership="matAutocomplete" [displayWith]="displayFndealership" (optionSelected)="dealershipSelect($event)" [panelWidth]="300">
+                        <mat-option *ngFor="let option of dealershipList" [value]="option">
+                          {{option.displayString}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="newAssignUserToBranchForm.get('dealership').hasError('selectFromList')"> Select From List</mat-error>
+                </mat-form-field>
+            </div>
+  
+              <!-- <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>User Id</mat-label>
+                  <input matInput placeholder="User Id" required formControlName="userId">
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div> -->
+
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>User Id</mat-label>
+                <input 
+                  matInput placeholder="User Id" formControlName="userId" [matAutocomplete]="autouserId"
+                  (ngModelChange)="getAutoUserId($event)" >
+                  <mat-autocomplete #autouserId="matAutocomplete" [displayWith]="displayFnUserIdDetailes" (optionSelected)="userIdSelect($event)" [panelWidth]="300">
+                      <mat-option *ngFor="let option of userIdList" [value]="option">
+                        {{option.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                  <mat-error *ngIf="newAssignUserToBranchForm.get('userId').hasError('selectFromList')"> Select From List</mat-error>
+              </mat-form-field>
+          </div>
+  
+            </div>
+          </form>
+        
+          <app-branch-accessible [branchAccessible]="branchAccessible" [dealerId]="dealerId" (sendBranchId)="sendBranchId($event)" [userId]="userId"
+          [userBranchListView]="userBranchListView"></app-branch-accessible>
+          <div class=" text-center mt-2 ">
+              <button type="button" *ngIf="isCreate" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit</button>
+              <button type="button" *ngIf="isEdit" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Update</button>
+            <button type="button" *ngIf="isCreate" class="btn btn_secondary pl-3 pr-3 ml-3"(click)="clearForm()"> Clear
+            </button>
+           
+            <button type="button" *ngIf="isView" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+            </button>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

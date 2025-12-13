@@ -1,0 +1,5 @@
+<app-add-enquiry-followup
+(getFormStatusAndData)="getFollowupFormStatusAndData($event)"
+(SelectForDisplayCard)="SelectForDisplayCard($event)"
+>
+</app-add-enquiry-followup>

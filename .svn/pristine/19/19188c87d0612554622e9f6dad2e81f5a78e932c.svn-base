@@ -1,0 +1,266 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Prospect Details</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="prospectDetailsForm" [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Mobile No.</mat-label>
+              <input matInput placeholder="Mobile No." required minlength="10" maxlength="10"
+                formControlName="mobileNumber" (keypress)="onKeyPressMobileNo($event)"
+                (keydown)="onKeyDownMobileNo($event)" appBlockCopyPaste [matAutocomplete]="autoMobileNo">
+              <mat-autocomplete #autoMobileNo="matAutocomplete" (optionSelected)="optionSelectedMobileNo($event)"
+                [displayWith]="displayFnForMObileNo">
+                <mat-option *ngFor="let option of autoComplateMobileNo?.result" [value]="option">
+                  {{option?.mobileNumber}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <!-- [displayWith]="displayFnForMObileNo" -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Prospect Code</mat-label>
+              <input matInput placeholder="Prospect Code" formControlName="prospectCode">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Prospect Type</mat-label>
+              <mat-select required formControlName="prospectType" (selectionChange)="selection($event.value)">
+                <mat-option *ngFor="let prospect of dropDownprospectType?.result" [value]="prospect?.prospectType">
+                  {{prospect?.prospectType}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="showbyProspectType">
+            <mat-form-field appearance="outline">
+              <mat-label>Company Name</mat-label>
+              <input matInput placeholder="Company Name" formControlName="companyName">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput placeholder="First Name" maxlength="15" required formControlName="firstName"
+                (keypress)=keyPressFirstName($event)>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Middle Name</mat-label>
+              <input matInput placeholder="Middle Name" maxlength="15" requiautocompletePinCodeed
+                formControlName="middleName" (keypress)=keyPressMiddleName($event)>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput placeholder="Last Name" maxlength="15" required formControlName="lastName"
+                (keypress)=keyPressLastName($event)>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Father Name</mat-label>
+              <input matInput placeholder="Father Name" maxlength="30" required formControlName="fatherName"
+                (keypress)=keyPressFatherName($event)>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>WhatsApp No.</mat-label>
+              <input matInput placeholder="WhatsApp No." required formControlName="whatsAppNumber" maxlength="10"
+                (keypress)=keyPresswhatsapp($event) appBlockCopyPaste>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Alternate Mobile No.</mat-label>
+              <input matInput placeholder="Alternate Mobile No." formControlName="alternateMobileNumber" maxlength="10"
+                (keypress)=keyPressalt($event) appBlockCopyPaste>
+              <mat-error *ngIf="prospectDetailsForm.get('alternateMobileNumber').hasError('required')">
+                KAI Share Percentage is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <div class="d-flex bd-highlight">
+              <div class="pr-1 w-25 flex-fill bd-highlight">
+                <mat-form-field appearance="outline">
+                  <mat-label>STD</mat-label>
+                  <input class="quantity" matInput placeholder="STD" formControlName="std" minlength="0" maxlength="5"
+                    (keypress)=keyStd($event) appBlockCopyPaste>
+                </mat-form-field>
+              </div>
+              <div class="w-75 flex-fill bd-highlight">
+                <mat-form-field appearance="outline">
+                  <mat-label>Telephone No.</mat-label>
+                  <input maxlength="10" matInput placeholder="Telephone No." formControlName="telephoneNumber"
+                    (keypress)=keytel($event) appBlockCopyPaste>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Email Id</mat-label>
+              <input matInput maxlength="50" placeholder="Email Id" formControlName="emailId">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Address 1</mat-label>
+              <input matInput maxlength="20" placeholder="Address 1" required formControlName="address1">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Address 2</mat-label>
+              <input matInput maxlength="20" placeholder="Address 2" formControlName="address2">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Address 3</mat-label>
+              <input matInput maxlength="20" placeholder="Address 3" formControlName="address3">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Pin Code</mat-label>
+              <input matInput placeholder="Pin Code" required formControlName="pinCode" [matAutocomplete]="autoPincode"
+                minlength="6" maxlength="6" (keydown)="onKeyDownPinCode($event)">
+              <mat-autocomplete #autoPincode="matAutocomplete" (optionSelected)="optionSelectedPinCode($event)"
+                [displayWith]="displayFnForPinCode" [panelWidth]="500">
+                <mat-option *ngFor="let option of pinCode?.result" [value]="option">
+                  {{option?.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Post Office</mat-label>
+              <input matInput placeholder="Post Office" required formControlName="postOffice"
+                [matAutocomplete]="autoPostOffice">
+              <mat-autocomplete #autoPostOffice="matAutocomplete" [displayWith]="displayFnForPostOffice"
+                (optionSelected)="optionSelectedpostOffice($event)">
+                <mat-option *ngFor="let option of autoComplatePostOffice?.result" [value]="option">
+                  {{option?.postOffice}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>City/Village</mat-label>
+              <input matInput placeholder="City/Village" formControlName="city">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Tehsil/Taluka/Mandal</mat-label>
+              <input matInput placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>District</mat-label>
+              <input matInput placeholder="District" formControlName="district">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>State</mat-label>
+              <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="Country" formControlName="country">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Preferred language</mat-label>
+              <mat-select formControlName="language">
+                <mat-option *ngFor="let option of languages" [value]="option.language">{{option.language}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput [max]="tomorrow" [matDatepicker]="picker5" placeholder="Date of Birth"
+                formControlName="dob" readonly (click)="picker5.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+              <mat-datepicker #picker5></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput [max]="tomorrow" [matDatepicker]="picker6" placeholder="Anniversary Date"
+                formControlName="anniversaryDate" readonly (click)="picker6.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+              <mat-datepicker #picker6></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="showbyProspectType">
+            <mat-form-field appearance="outline">
+              <mat-label>GST No.</mat-label>
+              <input matInput placeholder="GST No." minlength="15" maxlength="15" formControlName="gstNumber"
+                (blur)="getPanNumber($event)">
+              <mat-error *ngIf="prospectDetailsForm?.controls.gstNumber.invalid">Valid GSTIN Number Required
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>PAN No.</mat-label>
+              <input matInput maxlength="10" placeholder="PAN No." formControlName="panNumber"
+                (keypress)="keyPressPanNumber($event)" style="text-transform: uppercase;">
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

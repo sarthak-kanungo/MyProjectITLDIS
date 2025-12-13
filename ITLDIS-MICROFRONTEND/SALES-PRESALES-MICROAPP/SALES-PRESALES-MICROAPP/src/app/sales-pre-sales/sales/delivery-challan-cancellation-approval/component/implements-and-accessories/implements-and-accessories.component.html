@@ -1,0 +1,28 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+                          border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Accessories</p>
+    </div>
+    <div class="card-body">
+
+      <editable-table 
+      [tableConfig]="tableConfig" 
+      [tableData]="tableData" 
+      [formGroupForTableRow]="editableTableFormGroup"
+      (searchValueChanges)="editableTableSearchValueChanges($event)" 
+      [assignListToAutocomplete]="assignTo"
+      (optionSelected)="optionSelected($event)" 
+      (tableValueChanges)="tableValueChange($event)" 
+      [patchValue]="patchValue"
+      [getFormData]="getFormData"
+      [formControl]="implementsFormControl"
+      [control]="implementsFormControl"
+      [viewOnly]="isView || isCancel"
+      [validationError]="tableFieldValidationError"
+      >
+    </editable-table>
+
+    </div>
+  </div>
+</div>

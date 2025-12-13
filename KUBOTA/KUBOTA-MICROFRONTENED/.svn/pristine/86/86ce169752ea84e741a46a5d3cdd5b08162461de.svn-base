@@ -1,0 +1,8 @@
+export const environment = {
+    production: false,
+    // baseUrl: 'http://180.179.248.140:9595', ssrPort: 9000,    //Client live - SSR PORT 7000
+    baseUrl: 'http://180.179.248.140:9595', ssrPort: 9000  ,//Client live - SSR PORT 8000
+    // baseUrl: 'http://180.179.248.140:9595', ssrPort: 9000  //Client live - SSR PORT 9000
+    version: 'v0.0.1-SNAPSHOT-100120201145',
+    api: 'api',
+};

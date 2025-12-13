@@ -1,0 +1,35 @@
+import { JobCardUrl } from './job-card-url';
+
+export abstract class JobCardExcludedUrl {
+    static JobCardExcludedUrls: Array<string> = [
+        JobCardUrl.getDropDownServiceRepresentative,
+        JobCardUrl.postJobCardTableSearchUrl,
+        JobCardUrl.chassisNumberUrl,
+        JobCardUrl.jobCardNumberUrl,
+        JobCardUrl.engineNumberUrl,
+        JobCardUrl.csbNumberUrl,
+        JobCardUrl.bookingNumberUrl,
+        JobCardUrl.autoCompleteSearchcsbNumber,
+        JobCardUrl.getSystemDateUrl,
+        JobCardUrl.autoCompleteChassisNoInJobCard,
+        JobCardUrl.getChassisDetailsByChassisNoInJobCard,
+        JobCardUrl.dropDownServiceCategory,
+        JobCardUrl.dropDownPlaceOfService,
+        JobCardUrl.autoCompletePartNumber,
+        JobCardUrl.getPartDetailsByPartNumber,
+        JobCardUrl.getDropDownMechanicName,
+        JobCardUrl.getDropDownCategory,
+        JobCardUrl.dropDownServiceType,
+        JobCardUrl.dropDownActivityEvent,
+        JobCardUrl.autoCompleteBookingNoInJobCard,
+        JobCardUrl.bookingNumberData,
+        JobCardUrl.getTotalHour,
+        JobCardUrl.checkByChassisNo,
+        JobCardUrl.autoCompletefrsNumber,
+        JobCardUrl.getDataFromFrsNumberUrl,
+        JobCardUrl.autoCompletejobNumber,
+        JobCardUrl.getDataFromJobNumberUrl,
+        JobCardUrl.checkCondition,
+        JobCardUrl.getActivityNumberByActivityTypeForJobCard,
+    ]
+}

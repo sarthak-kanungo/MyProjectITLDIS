@@ -1,0 +1,69 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf; border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Model Survey Master</p>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="card" style="border: 1px solid #45afaf;"> 
+                    <div class="table-responsive mt-1">
+                        <table class="table w-100 table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Active </th>
+                                    <th scope="col">Select </th>
+                                    <th scope="col">Survey Name </th>
+                                    <th scope="col">Sub Model </th>
+                                    <th scope="col">Survey Type </th>
+                                    <th scope="col">No. Of Days </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let option of modelSurveyMasterForm['controls']; let i = index;">
+                                    <td style="vertical-align: middle;" ><mat-checkbox color="basic" [formControl]="option.get('active')"></mat-checkbox></td>
+                                    <td style="vertical-align: middle;" ><mat-checkbox color="basic" [formControl]="option.get('select')"></mat-checkbox></td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10" class="mat-form-field-wrapper-temp">
+                                            <input matInput placeholder="Survey Name"
+                                                [formControl]="option.get('surveyName')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td style="width: 22%;">
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                                <mat-select  placeholder="Sub Model" [formControl]="option.get('subModel')" multiple>
+                                                    <mat-option *ngFor="let topping of toppingList" [value]="topping">
+                                                        {{topping}}
+                                                    </mat-option>
+                                                </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10" >
+                                            <input matInput placeholder="Survey Type"
+                                                [formControl]="option.get('surveyType')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="No. of Days"
+                                                [formControl]="option.get('noOfDays')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td style="vertical-align: middle;" ><mat-icon type="button" (click) = "deleteRow(i)">delete</mat-icon></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" text-center mt-2 mb-3">
+                        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+                    </div>
+                </div>
+                <div class=" text-center mt-2 mb-3">
+                    <button type="button"  class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()"> Submit </button>
+                    <button type="button"  class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="row" [formGroup]="orderPlanningForm">
+ 
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>ORDER PLANNING SHEET NO</mat-label>
+            <input matInput placeholder="Request No." formControlName="orderPlanningSheetNo">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Order Planning Status</mat-label>
+            <input matInput placeholder="Status" formControlName="Opstatus">
+            <!-- <mat-icon matSuffix>search</mat-icon> -->
+        </mat-form-field>
+    </div>
+   
+    
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>REORDER QTY MONTHS</mat-label>
+            <mat-select formControlName="orderQtyMonth" (selectionChange)="selectedOrderQty($event)">
+                <mat-option *ngFor="let option of reOrderList" [value]="option">
+                    {{option.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>REORDER QTY MONTHS</mat-label>
+            <input matInput placeholder="REORDER QTY MONTHS" formControlName="orderQtyMonth">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>SUGGESTED ORDER QTY MONTHS</mat-label>
+            <mat-select formControlName="suggestionOrderQty" (selectionChange)="selectedSuggestionQty($event)">
+                <mat-option *ngFor="let list of suggestionList" [value]="list">
+                    {{list.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>SUGGESTED ORDER QTY MONTHS</mat-label>
+            <input matInput placeholder="SUGGESTED ORDER QTY MONTHS" formControlName="suggestionOrderQty">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>ORDER TYPE</mat-label>
+            <mat-select formControlName="orderType" (selectionChange)="selectedOrderType($event)">
+                <mat-option *ngFor="let order of orderTypeList" [value]="order">
+                    {{order.orderType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Order Type</mat-label>
+            <input matInput placeholder="Logic" formControlName="orderType">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Logic</mat-label>
+            <mat-select formControlName="logic" (selectionChange)="selectedLogic($event)">
+                <mat-option *ngFor="let logic of logicData" [value]="logic">
+                    {{logic.logic}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Logic</mat-label>
+            <input matInput placeholder="Logic" formControlName="logic">
+        </mat-form-field>
+    </div>
+  
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label> Date</mat-label>
+            <input readonly matInput [matDatepicker]="picker" placeholder="Indent Date"
+                (click)="picker.open()" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    
+
+    
+
+</div>
+

@@ -1,0 +1,34 @@
+<div class="container confirmation_card">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card_header card_header_secondary mb-2">
+          <h4 class="card_title mb-0"> ITEM UPLOAD ERROR</h4>
+          <i class="material-icons icon_close" (click)="close()">
+            close
+          </i>
+        </div>
+        <div class="container-fluid card_body">
+        	<div style='height:250px;overflow: auto;'>
+	         	<table class="table table-bordered table-sm" style="overflow-x: auto;">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 10px;">SRN.</th>
+                            <th scope="col" >Item No.</th>
+                            <th scope="col" >Error</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+			       		<tr *ngFor="let d of data; let i = index">
+			       			<td>{{i+1}}</td>
+			       			<td>{{d.itemNo}}</td>
+			       			<td>{{d.msg}}</td>
+			       		</tr>
+	         		</tbody>
+	         	</table>
+         	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

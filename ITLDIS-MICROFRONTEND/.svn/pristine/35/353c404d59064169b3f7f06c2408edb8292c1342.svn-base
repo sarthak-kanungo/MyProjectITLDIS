@@ -1,0 +1,103 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Checklist</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div [formGroup]="pdcCheckPointListTable">
+                    <table class="table table-bordered table-sm" formArrayName="dataTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Sr.No</th>
+				                <th scope="col">Aggregate Type</th>
+				                <th scope="col">Check Point</th>
+				                <th scope="col">Specification</th>
+				                <th scope="col">Ok</th>
+				                <th scope="col">Remark</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pdcCheckPointListTable.get('dataTable')['controls'];index as i"
+                                [formGroupName]="i">
+                                <td>{{i + 1}}</td>
+                                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+                                    [attr.rowspan]="getRowSpan(item.get('aggregate'), i)"
+                                    [style.display]="getRowSpan(item.get('aggregate'), i) ? '' : 'none'"
+                                    [textContent]="item.get('aggregate').value">
+                                <td style="text-align: left;" [attr.contenteditable]="false"
+                                    [textContent]="item.get('pdcCheckpoint').value"></td>
+                                    
+                                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+				                  [textContent]="item.get('observedSpecification').value"
+				                  *ngIf="!isView && item.get('fieldType').value==='CHECK BOX'">
+				                </td>
+				                <td style='vertical-align: middle' *ngIf="!isView && item.get('fieldType').value==='DROP DOWN'">
+				                	
+				                  <mat-form-field appearance="outline"
+				                      [style.fontSize.px]="11" class="w-100">
+				                      <mat-label>Select</mat-label>
+				                      <mat-select formControlName="observedSpecification"
+				                          (click)="pdcSpecificationChange($event,item.get('checkpointId').value)" required>
+				                          <mat-option *ngFor="let code of specificationDropDown"
+				                              [value]="code.observedSpecification">
+				                              {{code.observedSpecification}}</mat-option>
+				                      </mat-select>
+				                  </mat-form-field>
+				                  
+				                </td>
+				                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+				                  [textContent]="item.get('observedSpecification').value"
+				                  *ngIf="isView">
+				                </td>
+				                
+				                <td style="vertical-align: middle;" >
+				                  <mat-checkbox color="basic" [checked]="item?.defaultTick" (change)="onChangeOk($event, item)"
+				                    formControlName="defaultTick">
+				                  </mat-checkbox>
+				                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="11">
+                                        <input type="text" matInput formControlName="remarks">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-1">
+                <div [formGroup]="pdcStaticTable">
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col">Ok</th>
+                                <th scope="col">Remark</th>
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: middle;" class="text-center">PDC</td>
+                                <td style="vertical-align: middle;" class="text-center">
+                                    <mat-checkbox color="basic" formControlName="staticChecked"
+                                        (change)="onChangeStatic($event)">
+                                    </mat-checkbox>
+                                </td>
+                                <td style="vertical-align: middle;" class="text-left">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="11">
+                                        <input matInput formControlName="staticRemark">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

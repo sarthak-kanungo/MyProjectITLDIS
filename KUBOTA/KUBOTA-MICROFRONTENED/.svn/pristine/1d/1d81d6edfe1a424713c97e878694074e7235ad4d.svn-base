@@ -1,0 +1,128 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/editable-table-config.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+export function TableConfig() { }
+if (false) {
+    /** @type {?} */
+    TableConfig.prototype.title;
+    /** @type {?} */
+    TableConfig.prototype.formControlName;
+    /** @type {?|undefined} */
+    TableConfig.prototype.key;
+    /** @type {?} */
+    TableConfig.prototype.inputField;
+    /** @type {?|undefined} */
+    TableConfig.prototype.isNeedValueChanges;
+    /** @type {?|undefined} */
+    TableConfig.prototype.displayKey;
+    /** @type {?|undefined} */
+    TableConfig.prototype.patchKey;
+}
+/**
+ * @record
+ */
+export function PatchValue() { }
+if (false) {
+    /** @type {?} */
+    PatchValue.prototype.rowIndex;
+    /** @type {?} */
+    PatchValue.prototype.patchValue;
+    /** @type {?|undefined} */
+    PatchValue.prototype.tableRowId;
+}
+/**
+ * @record
+ */
+export function AssignListToSelect() { }
+if (false) {
+    /** @type {?} */
+    AssignListToSelect.prototype.formControlName;
+    /** @type {?} */
+    AssignListToSelect.prototype.list;
+}
+/**
+ * @record
+ */
+export function AssignListToAutocomplete() { }
+if (false) {
+    /** @type {?} */
+    AssignListToAutocomplete.prototype.config;
+    /** @type {?} */
+    AssignListToAutocomplete.prototype.list;
+    /** @type {?|undefined} */
+    AssignListToAutocomplete.prototype.searchKey;
+}
+/**
+ * @record
+ */
+export function ControlsConfig() { }
+/**
+ * @record
+ */
+export function ColumnRecord() { }
+if (false) {
+    /** @type {?} */
+    ColumnRecord.prototype.recordList;
+    /** @type {?} */
+    ColumnRecord.prototype.formControlName;
+}
+/**
+ * @record
+ * @template T
+ */
+export function EtTableValueChangeEvent() { }
+if (false) {
+    /** @type {?} */
+    EtTableValueChangeEvent.prototype.key;
+    /** @type {?} */
+    EtTableValueChangeEvent.prototype.config;
+    /** @type {?} */
+    EtTableValueChangeEvent.prototype.tableRow;
+}
+/**
+ * @record
+ * @template T
+ */
+export function EtAutocompleteSelectedEvent() { }
+if (false) {
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.option;
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.rowIndex;
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.config;
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.tableRow;
+}
+var ETValidationError = /** @class */ (function () {
+    function ETValidationError(formControlName, tableRowId, msg, type) {
+        this.formControlName = formControlName;
+        this.tableRowId = tableRowId;
+        this.msg = msg;
+        this.type = type;
+        if (!msg) {
+            this.isRemove = true;
+        }
+        Object.seal(this);
+    }
+    return ETValidationError;
+}());
+export { ETValidationError };
+if (false) {
+    /** @type {?} */
+    ETValidationError.prototype.isRemove;
+    /** @type {?} */
+    ETValidationError.prototype.formControlName;
+    /** @type {?} */
+    ETValidationError.prototype.tableRowId;
+    /** @type {?} */
+    ETValidationError.prototype.msg;
+    /** @type {?} */
+    ETValidationError.prototype.type;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZWRpdGFibGUtdGFibGUtY29uZmlnLmpzIiwic291cmNlUm9vdCI6Im5nOi8vZWRpdGFibGUtdGFibGUvIiwic291cmNlcyI6WyJsaWIvZWRpdGFibGUtdGFibGUtY29uZmlnLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O0FBQ0EsaUNBUUM7OztJQVBHLDRCQUFjOztJQUNkLHNDQUF3Qjs7SUFDeEIsMEJBQWE7O0lBQ2IsaUNBQW1COztJQUNuQix5Q0FBNkI7O0lBQzdCLGlDQUFvQjs7SUFDcEIsK0JBQWtCOzs7OztBQUd0QixnQ0FJQzs7O0lBSEcsOEJBQWlCOztJQUNqQixnQ0FBbUI7O0lBQ25CLGdDQUFvQjs7Ozs7QUFFeEIsd0NBR0M7OztJQUZHLDZDQUF3Qjs7SUFDeEIsa0NBQW1COzs7OztBQUV2Qiw4Q0FJQzs7O0lBSEcsMENBQW9COztJQUNwQix3Q0FBb0I7O0lBQ3BCLDZDQUFtQjs7Ozs7QUFFdkIsb0NBRUM7Ozs7QUFDRCxrQ0FHQzs7O0lBRkcsa0NBQTBCOztJQUMxQix1Q0FBd0I7Ozs7OztBQUc1Qiw2Q0FJQzs7O0lBSEcsc0NBQVM7O0lBQ1QseUNBQW9COztJQUNwQiwyQ0FBWTs7Ozs7O0FBRWhCLGlEQUtDOzs7SUFKRyw2Q0FBWTs7SUFDWiwrQ0FBaUI7O0lBQ2pCLDZDQUFvQjs7SUFDcEIsK0NBQVk7O0FBRWhCO0lBRUksMkJBQ2EsZUFBdUIsRUFDdkIsVUFBa0IsRUFDbEIsR0FBWSxFQUNaLElBQTZCO1FBSDdCLG9CQUFlLEdBQWYsZUFBZSxDQUFRO1FBQ3ZCLGVBQVUsR0FBVixVQUFVLENBQVE7UUFDbEIsUUFBRyxHQUFILEdBQUcsQ0FBUztRQUNaLFNBQUksR0FBSixJQUFJLENBQXlCO1FBRXRDLElBQUksQ0FBQyxHQUFHLEVBQUU7WUFDTixJQUFJLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQztTQUN4QjtRQUNELE1BQU0sQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7SUFDdEIsQ0FBQztJQUNMLHdCQUFDO0FBQUQsQ0FBQyxBQWJELElBYUM7Ozs7SUFaRyxxQ0FBMkI7O0lBRXZCLDRDQUFnQzs7SUFDaEMsdUNBQTJCOztJQUMzQixnQ0FBcUI7O0lBQ3JCLGlDQUFzQyIsInNvdXJjZXNDb250ZW50IjpbIlxuZXhwb3J0IGludGVyZmFjZSBUYWJsZUNvbmZpZyB7XG4gICAgdGl0bGU6IHN0cmluZztcbiAgICBmb3JtQ29udHJvbE5hbWU6IHN0cmluZztcbiAgICBrZXk/OiBzdHJpbmc7XG4gICAgaW5wdXRGaWVsZDogc3RyaW5nO1xuICAgIGlzTmVlZFZhbHVlQ2hhbmdlcz86IGJvb2xlYW47XG4gICAgZGlzcGxheUtleT86IHN0cmluZztcbiAgICBwYXRjaEtleT86IHN0cmluZztcbn1cblxuZXhwb3J0IGludGVyZmFjZSBQYXRjaFZhbHVlIHtcbiAgICByb3dJbmRleDogbnVtYmVyO1xuICAgIHBhdGNoVmFsdWU6IG9iamVjdDtcbiAgICB0YWJsZVJvd0lkPzogc3RyaW5nO1xufVxuZXhwb3J0IGludGVyZmFjZSBBc3NpZ25MaXN0VG9TZWxlY3Qge1xuICAgIGZvcm1Db250cm9sTmFtZTogc3RyaW5nO1xuICAgIGxpc3Q6IEFycmF5PG9iamVjdD5cbn1cbmV4cG9ydCBpbnRlcmZhY2UgQXNzaWduTGlzdFRvQXV0b2NvbXBsZXRlIHtcbiAgICBjb25maWc6IFRhYmxlQ29uZmlnO1xuICAgIGxpc3Q6IEFycmF5PG9iamVjdD47XG4gICAgc2VhcmNoS2V5Pzogc3RyaW5nO1xufVxuZXhwb3J0IGludGVyZmFjZSBDb250cm9sc0NvbmZpZyB7XG4gICAgW2tleTogc3RyaW5nXTogYW55O1xufVxuZXhwb3J0IGludGVyZmFjZSBDb2x1bW5SZWNvcmQge1xuICAgIHJlY29yZExpc3Q6IEFycmF5PHN0cmluZz47XG4gICAgZm9ybUNvbnRyb2xOYW1lOiBzdHJpbmc7XG59XG5cbmV4cG9ydCBpbnRlcmZhY2UgRXRUYWJsZVZhbHVlQ2hhbmdlRXZlbnQ8VD4ge1xuICAgIGtleTogYW55O1xuICAgIGNvbmZpZzogVGFibGVDb25maWc7XG4gICAgdGFibGVSb3c6IFQ7XG59XG5leHBvcnQgaW50ZXJmYWNlIEV0QXV0b2NvbXBsZXRlU2VsZWN0ZWRFdmVudDxUPiB7XG4gICAgb3B0aW9uOiBhbnk7XG4gICAgcm93SW5kZXg6IG51bWJlcjtcbiAgICBjb25maWc6IFRhYmxlQ29uZmlnO1xuICAgIHRhYmxlUm93OiBUO1xufVxuZXhwb3J0IGNsYXNzIEVUVmFsaWRhdGlvbkVycm9yIHtcbiAgICByZWFkb25seSBpc1JlbW92ZTogYm9vbGVhbjtcbiAgICBjb25zdHJ1Y3RvcihcbiAgICAgICAgcmVhZG9ubHkgZm9ybUNvbnRyb2xOYW1lOiBzdHJpbmcsXG4gICAgICAgIHJlYWRvbmx5IHRhYmxlUm93SWQ6IHN0cmluZyxcbiAgICAgICAgcmVhZG9ubHkgbXNnPzogc3RyaW5nLFxuICAgICAgICByZWFkb25seSB0eXBlPzogeyBba2V5OiBzdHJpbmddOiBhbnkgfVxuICAgICkge1xuICAgICAgICBpZiAoIW1zZykge1xuICAgICAgICAgICAgdGhpcy5pc1JlbW92ZSA9IHRydWU7XG4gICAgICAgIH1cbiAgICAgICAgT2JqZWN0LnNlYWwodGhpcyk7XG4gICAgfVxufSJdfQ==

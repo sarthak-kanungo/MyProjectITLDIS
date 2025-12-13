@@ -1,0 +1,113 @@
+<div class="card-from mt-2 mb-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                                        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Kai Additional Remarks</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="spareDescApprovalForm" [style.fontSize.px]="11">
+
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-6" style="float: left;">
+                            <div class="col-lg-5" style="float: left;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>FOR DEALER</mat-label>
+                                    <input matInput placeholder="FOR DEALER" formControlName="remarkForDealer">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-5" style="float: left;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>INTERNAL KAI</mat-label>
+                                    <input matInput placeholder="INTERNAL KAI" formControlName="internalKaiRemark">
+                                </mat-form-field>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-lg-6" style="float: left;">
+                            <div class="col-lg-4" style="float: left;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>CREDIT NOTE NO</mat-label>
+                                    <input matInput placeholder="CREDIT NOTE NO" formControlName="creditNoteNo">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-4" style="float: left;">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Date</mat-label>
+                                    <input matInput [matDatepicker]="picker5" readonly
+                                        placeholder="Date"
+                                        formControlName="creditNoteDate" (click)="picker5.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker5></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-4" style="float: left;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput placeholder="Amount" formControlName="creditNoteAmount" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container-fluid mb-2 ml-1">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-5 mt-4" style="float: left;">
+                                <div class="heading">
+                                    <h6>KAI SUBMIT ACCEPTANCE</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 mt-4" style="float: left; margin-right: -45px;">
+                                <div class="heading">
+                                    <h6>Date</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mt-2" style="float: left;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date</mat-label>
+                                    <input matInput placeholder="kaiAcceptanceDate" disabled formControlName="kaiAcceptanceDate" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" >
+                            <div class="col-lg-5 mt-4" style="float: left;">
+                                <div class="heading">
+                                    <h6>KAI SUBMIT SETTLEMENT</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 mt-4" style="float: left;">
+                                <div class="heading">
+                                    <h6>Date</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mt-2" style="float: left;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date</mat-label>
+                                    <input matInput placeholder="kaiSettlementDate" disabled formControlName="kaiSettlementDate" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+
+
+
+
+            </div>
+
+
+       
+       
+    </div>
+
+</div>

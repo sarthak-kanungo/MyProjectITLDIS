@@ -1,0 +1,175 @@
+<div class="card-from mt-2">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Address </p>
+      </div>
+      <div class="card-body">
+        <div [formGroup]="employeeAddressForm" [style.fontSize.px]="11">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Address 1</mat-label>
+                <input matInput placeholder="Address 1" required formControlName="address1">
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Address 2</mat-label>
+                <input matInput placeholder="Address 2" formControlName="address2">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Address 3</mat-label>
+                <input matInput placeholder="Address 3" formControlName="address3">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                <input matInput placeholder="Country" formControlName="country">
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="State" formControlName="state">
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="State" formControlName="state" [matAutocomplete]="autoState" (change)="stateValue($event.target.value)">
+                <mat-autocomplete #autoState="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedState($event)"
+                  [displayWith]="displayFnState">
+                  <mat-option *ngFor="let option of (stateList$ | async)" [value]="option">
+                    {{option?.state}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="employeeAddressForm.get('state').hasError('stateError')">Please select from list</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Distict</mat-label>
+                <input matInput placeholder="Distict" formControlName="distict">
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>District</mat-label>
+                <input matInput placeholder="District" formControlName="district" [matAutocomplete]="autoDistrict" (change)="districtValue($event.target.value)">
+                <mat-autocomplete #autoDistrict="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedDistrict($event)"
+                  [displayWith]="displayFnDistrict">
+                  <mat-option *ngFor="let option of (districtList$ | async)" [value]="option">
+                    {{option?.district}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="employeeAddressForm.get('district').hasError('districtError')">Please select from list
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Tehsil/Taluka/Mandal </mat-label>
+                <input matInput placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil">
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Tehsil/ Taluk/ Mandal</mat-label>
+                <input matInput placeholder="Tehsil/ Taluk/ Mandal" formControlName="tehsil" [matAutocomplete]="autoTehsil" (change)="tehsilValue($event.target.value)">
+                <mat-autocomplete #autoTehsil="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedTehsil($event)"
+                  [displayWith]="displayFnTehsil">
+                  <mat-option *ngFor="let option of (tehsilList$ | async)" [value]="option">
+                    {{option?.tehsil}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="employeeAddressForm.get('tehsil').hasError('tehsilError')">Please select from list</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Village/City</mat-label>
+                <input matInput placeholder="Village/City" formControlName="villageCity">
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Village /City</mat-label>
+                <input matInput placeholder="Village /City" formControlName="city" [matAutocomplete]="autoCity" (change)="villageValue($event.target.value)">
+                <mat-autocomplete #autoCity="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedCity($event)"
+                  [displayWith]="displayFnCity">
+                  <mat-option *ngFor="let option of (cityList$ | async)" [value]="option">
+                    {{option?.city}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="employeeAddressForm.get('city').hasError('cityError')">Please select from list</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Pin Code</mat-label>
+                <input matInput placeholder="Pin Code" formControlName="pinCode">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Pin Code</mat-label>
+                <input matInput placeholder="Pin Code" formControlName="pinCode" [matAutocomplete]="autoPin" (change)="pinCodeValue($event.target.value)">
+                <mat-autocomplete #autoPin="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedPin($event)"
+                  [displayWith]="displayFnPin">
+                  <mat-option *ngFor="let option of (pinCodeList$ | async)" [value]="option">
+                    {{option?.value}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="employeeAddressForm.get('pinCode').hasError('pinCodeError')">Please select from list</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Post Office</mat-label>
+                <mat-select required formControlName="postOffice">
+                  <mat-option *ngFor="let post of posts" [value]="post">{{post}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Post Office</mat-label>
+                <input matInput placeholder="Post Office" formControlName="postOffice" [matAutocomplete]="autoPostOffice" (change)="postOfficeValue($event.target.value)">
+                <mat-autocomplete #autoPostOffice="matAutocomplete" [panelWidth]="500"
+                  (optionSelected)="selectedPostOffice($event)" [displayWith]="displayFnPostOffice">
+                  <mat-option *ngFor="let option of (postOfficeList$ | async)" [value]="option">
+                    {{option?.postOffice}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="employeeAddressForm.get('postOffice').hasError('postOfficeError')">Please select from list</mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

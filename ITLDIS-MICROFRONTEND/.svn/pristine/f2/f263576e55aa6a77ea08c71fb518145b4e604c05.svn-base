@@ -1,0 +1,52 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Family Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div [formGroup]="employeeFamilyDetailsForm">
+          <table class="table table-bordered table-sm" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width:100px;">Select</th>
+                <th scope="col">Name</th>
+                <th scope="col" style="width:300px;">Relationship </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of employeeFamilyDetailsForm.get('dataTable')['controls']; index as i "
+                [formGroupName]="i">
+                <td class="text-center" style="padding-top: 11px">
+                  <mat-checkbox formControlName="isSelected" color="basic" [checked]></mat-checkbox>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Name" formControlName="name">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label> Relationship</mat-label>
+                    <mat-select formControlName="relationship">
+                      <mat-option *ngFor="let title of relationship" [value]="title.value">{{title.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class=" text-center" *ngIf="!isView">
+        <button type="button" class="btn btn-sm btn_primary " (click)=addRow() > Add Row</button>
+        <button type="button" class="btn btn-sm btn_secondary ml-2 " (click)=deleteRow() > Delete Row </button>
+      </div>
+    </div>
+
+  </div>
+</div>

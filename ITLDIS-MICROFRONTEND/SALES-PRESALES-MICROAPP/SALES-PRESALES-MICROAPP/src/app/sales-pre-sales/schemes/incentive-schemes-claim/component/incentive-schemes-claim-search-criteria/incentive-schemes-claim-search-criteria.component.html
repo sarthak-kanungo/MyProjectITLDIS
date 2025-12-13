@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-from">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between header">
+                        <p class="mb-0 label"> Search Incentive Claim</p>
+                        <div>
+                            <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]" *ngIf="userType=='dealer'">
+                                <b class="btnName">New</b>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <form [formGroup]="SearchIncentiveClaim" [style.fontSize.px]="10">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Claim No.</mat-label>
+                                    <input matInput placeholder="Claim No." formControlName="claimno" [matAutocomplete]="autoComClaimNo">
+                                    <mat-autocomplete #autoComClaimNo="matAutocomplete" [displayWith]="displayClaimNoFn">
+                                        <mat-option *ngFor="let option of autoComClaims"
+                                            [value]="option">
+                                            {{option?.claimNo}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                                <mat-error *ngIf="SearchIncentiveClaim.get('claimno').hasError('selectFromList')">
+                                    Please select from list
+                                </mat-error>
+                            </div>
+
+                            <div class="col-lg-2" *ngIf="userType=='itldis'">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Dealer Code</mat-label>
+                                    <input matInput placeholder="Dealer Code" formControlName="dealercode">
+                                    <mat-autocomplete #autoComClaimNo="matAutocomplete" [displayWith]="displayDealerCodeFn">
+                                        <mat-option *ngFor="let option of dealercodeList"
+                                            [value]="option">
+                                            {{option?.displayString}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                                <mat-error *ngIf="SearchIncentiveClaim.get('dealercode').hasError('selectFromList')">
+                                    Please select from list
+                                </mat-error>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker" placeholder="Claim From Date"
+                                        formControlName="claimfromdate" [max]="today" (dateChange)="fromDateChange($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker1" placeholder="Claim To Date"
+                                        formControlName="claimtodate" [max]="maxDate" [min]="minDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="col-lg-12">
+                        <div class="mx-auto d-flex justify-content-center">
+                            <button type="button" class="btn pl-3 pr-3 mr-3 btn_primary" (click)="searchIncentive()"> Search </button>
+                            <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="clearSearchForm()"> Clear </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+        [totalElements]="totalTableElements" [clickOnTableFields]="[{'title':'action','isClickable':true},{'title':'claimNo','isClickable':true}]" (actionOnTableRecord)="actionOnTableRecord($event)"
+        (pageChange)="pageChange($event)">
+        <td></td>
+        <td></td>
+        <td *ngIf="userType=='itldis'" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #dealerCode [(ngModel)]="dealerCodeNgModel">
+            </mat-form-field>
+        </td>
+        <td *ngIf="userType=='itldis'" [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #dealerName [(ngModel)]="dealerNameNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="claimNo" [searchColumnName]="'claimNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #claimNo [(ngModel)]="claimNoNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="claimDate" [searchColumnName]="'claimDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #claimDate [(ngModel)]="claimDateNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="month" [searchColumnName]="'month'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #month [(ngModel)]="monthNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #status [(ngModel)]="statusNgModel">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="claimAmount" [searchColumnName]="'claimAmount'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #claimAmount [(ngModel)]="claimAmountNgModel">
+            </mat-form-field>
+        </td>
+    </ngsw-search-table>
+</div>

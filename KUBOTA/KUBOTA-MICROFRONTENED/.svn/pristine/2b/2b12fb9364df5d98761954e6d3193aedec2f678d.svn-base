@@ -1,0 +1,92 @@
+<div class="container-fluid create-form mb-3 mt-4">
+  <div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Service Activity Training Proposal Approval</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="serviceActivityProposalApproval" [style.fontSize.px]="10">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Approver Name</mat-label>
+                    <mat-select formControlName="approverName" (selectionChange)="selectionApproverName($event)" >
+                      <mat-option *ngFor="let apName of statusList" [value]="apName">
+                        {{apName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                    
+                  <th scope="col" style="width: 50px;"> <mat-checkbox  (change)="checkAll($event)"></mat-checkbox> Sr No. </th>
+                  <th scope="col" >Activity Proposal Number</th>
+                  <th scope="col" style="width: 80px;">Date</th>
+                  <th scope="col" >Dealer Name</th>
+                  <th scope="col"  style="width: 80px;">Activity Purpose</th>
+                  <th scope="col">Activity Type</th>
+                  <th scope="col">Activity From Date</th>
+                  <th scope="col">Activity To Date</th>
+                  <th scope="col" >Proposed Budget</th>
+                  <th scope="col">Last Approver Name</th>
+                  <th scope="col"> Last Approved Amount</th>
+                  <th scope="col">Approve Amount</th>
+                  <th scope="col" >Remark</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fg of serviceActivityProposalApproval.get('activities')['controls']; let i = index;"> 
+                  <td>
+                    <mat-checkbox [formControl]="fg.get('isSelect')" [checked]="allChecked"></mat-checkbox>
+                    {{i+1}}
+                  </td>
+                  <td [style.background-color]="fg.get('trColor').value"> <p (click)="gotoActivityPage(fg.get('activityProposalNo').value)" class="alink">{{fg.get('activityProposalNo').value}}</p>
+                  <!-- <td>{{fg.get('activityProposalNo').value}}</td> -->
+                  <td>{{fg.get('activityProposalDate').value}}</td>
+                  <td>{{fg.get('dealerName').value}}</td>
+                  <td>{{fg.get('activityType').value}}</td>
+                  <td>{{fg.get('activityType').value}}</td>
+                  <td>{{fg.get('fromDate').value}}</td>
+                  <td>{{fg.get('toDate').value}}</td>
+                  <td>{{fg.get('proposedBudget').value}}</td>
+                  <td>{{fg.get('lastApproverName').value}}</td>
+                  <td>{{fg.get('approvedAmount').value}}</td> 
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Approved Amount" autocomplete="off" [formControl]="fg.get('approvedAmounts')">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Remark" autocomplete="off" [formControl]="fg.get('remark')">
+                    </mat-form-field>
+                  </td>
+                  
+                </tr> 
+              </tbody> 
+            </table>
+          </div>        
+          <div class="card-body">
+            <div class=" text-center mt-2 ">
+              <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="approve('Approve')"> Approve
+              </button>
+              <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="approve('Reject')"> Reject
+              </button>
+              
+
+
+            </div>  
+          </div>
+        </form>   
+		  </div>
+    </div>
+  </div>
+</div>

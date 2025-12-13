@@ -1,0 +1,48 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from mb-0 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0">Manage Organization Hierarchy</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="orgHierForm" [style.fontSize.px]="11">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label> Department</mat-label>
+                                        <mat-select required formControlName="department"
+                                            (selectionChange)="empMastDeptSelect($event)">
+                                            <mat-option *ngFor="let department of departmentsList" [value]="department">
+                                                {{department.departmentName}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                        <form [formGroup]="orgHierItemForm" [style.fontSize.px]="11">
+                            <ng-container *ngFor="let sale of orgHierLevelList ;let i=index">
+                                <div class="row">
+                                    <div class="col-lg-3" data-dept="">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                                            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_DESC}}">
+                                                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                                    {{option.hierarchy_desc}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button type="button" class="btn btn_primary pl-3 pr-3 mr-3" (click)="openDialog(sale.LEVEL_ID,i)"> Add </button>
+                                        <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="updateArray[i]" (click)="openUpdateDialog(sale,i)"> Update </button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

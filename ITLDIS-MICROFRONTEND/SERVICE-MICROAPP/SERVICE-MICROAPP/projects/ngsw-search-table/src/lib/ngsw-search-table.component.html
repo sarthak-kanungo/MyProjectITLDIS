@@ -1,0 +1,184 @@
+<div class="main-content mb-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 px-0">
+        <div class="ca rd">
+          <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-end table_header">
+            <div class="d-flex align-items-md-center w-100">
+              <h6 class="text-capitalize table_title font_weight_bold mb-0">{{tableTitle}} :</h6>
+              <div style="margin-left: 10px;line-height: 0.5;" *ngIf="showPartial">
+                <span style="margin-right: 5px"><input type="radio" name="showTableColumn" value="All"
+                    (change)="columnLengthChanged($event)" checked> All</span>
+                <span style="margin-right: 5px"><input type="radio" name="showTableColumn" value="Partial"
+                    (change)="columnLengthChanged($event)"> Partial</span>
+              </div>
+              <div class="table_footer pagination"
+                *ngIf="dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0">
+                <mat-paginator [length]="totalElements" [pageSize]="size" [pageIndex]="page" [pageSizeOptions]="recordPerPageList"
+                  (page)="emitPageChange($event)" showFirstLastButtons>
+                </mat-paginator>
+              </div>
+            </div>
+            <div class="toolbar">
+              <!--        Here you can write extra buttons/actions for the toolbar              -->
+              <div class="row justify-content-end">
+                <div class="col-sm-12 d-flex flex-column flex-md-row justify-content-md-end align-items-md-center">
+                  <!-- <div class="table_footer" *ngIf="dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0">
+                    <mat-paginator [length]="totalElements" [pageSize]="10" [pageSizeOptions]="recordPerPageList" (page)="emitPageChange($event)">
+                    </mat-paginator>
+                  </div> -->
+                  <div>
+                    <!-- <a *ngIf="!!downloadTempleteLink" [href]="downloadTempleteLink" target="_blank"
+                      rel="noopener noreferrer">Download Template</a>
+                    <span *ngIf="!!exportLink">/</span>
+
+                    <a *ngIf="!!exportLink" [href]="exportLink" target="_blank" rel="noopener noreferrer">Export</a>
+                     <span>/</span>
+                    <a *ngIf="isExcelImport" class="href_color" (click)="uploadFile(importFile)">Import</a>
+                    <input type="file" accept=".xlsx,.xlsm,.xls,.ods" style="display: none" #importFile
+                      (change)="handleUploadedFile($event.target.files)"> -->
+                    <div *ngIf="isExcelImport">
+                      <a (click)="clickExportToExcel()" style="cursor: pointer;color: #007bff">Export to Excel</a>
+                    </div>
+                  </div>
+                  <mat-form-field class="w-100 pb-1 pb_0 w-md-auto ml-md-2" style="max-width:250px" appearance="outline"
+                    [style.fontSize.px]="10" *ngIf="showGlobelSearch">
+                    <mat-label>Search</mat-label>
+                    <input #search matInput placeholder="Search" (keyup)="searchIntoTable(search.value, $event)"
+                      [formControl]="searchField">
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+                <!-- <div class="table_footer" *ngIf="dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0">
+                  <mat-paginator [length]="totalElements" [pageSize]="10" [pageSizeOptions]="recordPerPageList" (page)="emitPageChange($event)">
+                  </mat-paginator>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="table_body" *ngIf="dataTable">
+            <div class="material-datatables table-responsive">
+              <table id="datatables" class="table table-bordered table-hover" cellspacing="0" width="100%"
+                style="width:100%" *ngIf="dataTable.headerRow && dataTable.headerRow.length > 0">
+                <thead>
+                  <tr>
+                    <th class="text-center font-weight-normal" valign="baseline">Sr.No.</th>
+                    <th class="text-center font-weight-normal" valign="baseline"
+                      *ngFor="let headerRow of dataTable.headerRow; let i=index" (mouseenter)="enter(headerRow.title)"
+                      (mouseleave)="leave(headerRow.title)" [ngClass]="{'d-none':(headerRow.title ==='id'|| headerRow.title ==='secondId')}">
+                      <!-- (click)="sortClicked({active: headerRow,direction: 'desc'}, $event)" -->
+                      <div class="d-flex justify-content-center">
+                        <span
+                          class="nowrap sort_icon">{{ headerRow.title | camelCaseToRegularString:tableTitle | getKeyValueFromObject: retriveValue}}</span>
+                        <span style="width: 24px;height: 24px;">
+                          <i class="material-icons cursor_pointer"
+                            *ngIf="sortOrder.direction ==='desc' &&  headerRow.title ===sortOrder.active || headerRow.title ===sortOrder.hover"
+                            (click)="sortClicked({active: headerRow.title,direction: 'asc'}, $event)">
+                            keyboard_arrow_down
+                          </i>
+                          <i class="material-icons cursor_pointer"
+                            *ngIf="sortOrder.direction ==='asc' &&  headerRow.title ===sortOrder.active"
+                            (click)="sortClicked({active: headerRow.title,direction: 'desc'}, $event)">
+                            keyboard_arrow_up
+                          </i>
+                        </span>
+                      </div>
+                    </th>
+                    <!-- ====================================
+                             Action column names
+                    ======================================-->
+
+                    <!-- ================ END ================== -->
+                    <th class="disabled-sorting text-center font-weight-normal" *ngIf="showAssignButton">
+                      Assign
+                    </th>
+                    <th class="disabled-sorting text-center font-weight-normal" *ngIf="showRefuseButton">
+                      Refuse
+                    </th>
+
+                    <th [attr.colspan]="actionButtons?.length" class="disabled-sorting text-center font-weight-normal"
+                      *ngIf="actionButtons!== undefined && actionButtons?.length > 0">
+                      Actions
+                    </th>
+
+
+                    <!-- <th class="disabled-sorting text-center" *ngIf="actionButtons.length > 0" colspan="actionButtonsLength">Actions</th> -->
+                  </tr>
+                </thead>
+                <tbody *ngIf="dataTable.tableBody && dataTable.tableBody['content']">
+                  <tr>
+                    <td></td>
+                    <ng-content select="td" (keyup)="searchIntoRow(hr, $event)"></ng-content>
+                    <!-- <td *ngFor="let hr of dataTable.headerRow" [ngClass]="{'d-none':hr.title ==='id'}" class="text-center">
+                      <input type="text" (keyup)="searchIntoRow(hr, $event)">
+                    </td> -->
+                  </tr>
+                  <tr *ngFor="let row of dataTable.tableBody['content']; let recordIndex = index">
+
+                    <td class="text-left">{{row.rowno}}</td>
+
+                    <td class="text-left" *ngFor="let hr of dataTable.headerRow"
+                      [ngClass]="{'d-none':(hr.title ==='id' || hr.title ==='secondId')}">
+                      <span *ngIf="!hr.isClickable">{{row[hr['title']]}}</span>
+                      <!-- | getKeyValueFromObject: retriveValue  -->
+                      <i *ngIf="!!hr.isClickable && !!hr.iconClass && row[hr['title']]!='-'" class="cursor_pointer"
+                        [ngClass]="row[hr['title']]=='Y'? 'active '+hr.iconClass:'in_active '+hr.iconClass"
+                        (click)="emitActionOnTableRecord(row, hr['title'],recordIndex)">{{hr.icon}}</i>
+                      <i *ngIf="!!hr.isClickable && !!hr.iconClass && row[hr['title']]=='-' "
+                        (click)="emitActionOnTableRecord(row, hr['title'],recordIndex)">{{row[hr['title']]}}</i>
+
+                      <a *ngIf="!!hr.isClickable && !hr.iconClass" style="text-decoration: underline"
+                        class="cursor_pointer href_color"
+                        (click)="emitActionOnTableRecord(row, hr['title'],recordIndex)">{{row[hr['title']]}}</a>
+                      <!-- [ngClass]="row[hr['title']]=='Y'? 'active':'in_active'" -->
+
+                      <!-- <span *ngIf="isRecordDate">{{row[hr] | date: 'd/M/yy':'UTC' }}</span> -->
+                    </td>
+                    <!-- ====================================
+                             Action row data
+                  ======================================-->
+                    <td class="td-actions text-left" *ngIf="showAssignButton">
+                      <a class="action_href cursor_pointer" [ngClass]="{'disabledTd':row['assignStatus']==='N'}"
+                        (click)="emitActionOnTableRecord(row, 'assign', recordIndex)">Assign
+                      </a>
+                    </td>
+                    <td class="td-actions text-left" *ngIf="showRefuseButton">
+                      <a class="action_href cursor_pointer" [ngClass]="{'disabledTd':row['assignStatus']==='N'}"
+                        (click)="emitActionOnTableRecord(row, 'refuse', recordIndex)">Refuse
+                      </a>
+                    </td>
+
+                    <td class="td-actions text-left" *ngFor="let btn of actionButtons;let i=index">
+                      <i *ngIf="!!btn.matIcon" class="material-icons cursor_pointer" [ngClass]="btn.matIcon"
+                        [matTooltip]="btn.toolTipText"
+                        (click)="emitActionOnTableRecord(row, btn.title, recordIndex)">{{btn.matIcon}}</i>
+                      <a *ngIf="!btn.matIcon" class="action_href cursor_pointer" [ngClass]="btn.title"
+                        (click)="emitActionOnTableRecord(row, btn.title, recordIndex)">{{btn.title}}</a>
+
+                    </td>
+                    <!-- ================ END ================== -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- <div class="table_footer"
+            *ngIf="dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0">
+            <mat-paginator [length]="totalElements" [pageSize]="10" [pageSizeOptions]="recordPerPageList"
+              (page)="emitPageChange($event)">
+            </mat-paginator>
+          </div> -->
+          <!-- end content-->
+        </div>
+        <!--  end card  -->
+      </div>
+      <!-- end col-md-12 -->
+    </div>
+    <!-- end row -->
+  </div>
+</div>
+<div *ngIf="!dataTable || !dataTable.tableBody || dataTable.tableBody['content'].length <= 0"
+  class="text-center alert alert-info">
+  Table Content Not Found
+</div>
+<!-- <notifier-container></notifier-container> -->

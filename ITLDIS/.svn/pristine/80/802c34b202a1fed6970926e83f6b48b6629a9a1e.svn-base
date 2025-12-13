@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-10-13T11:52:45 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlTaxReport" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="895f96f3-a85d-4f57-b18c-9aab79cd8c1b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<parameter name="hsnCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_showTaxValuesInInvoice $P{invoiceNo},$P{hsnCode}]]>
+	</queryString>
+	<field name="CommodityCode" class="java.lang.String"/>
+	<field name="charge_branch_id" class="java.lang.Integer"/>
+	<field name="ChargeDesc" class="java.lang.String"/>
+	<field name="charge_order" class="java.lang.Integer"/>
+	<field name="chargeAmount" class="java.lang.Double"/>
+	<variable name="hsnCode" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CommodityCode}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{ChargeDesc}]]></groupExpression>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{CommodityCode}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="195" y="0" width="357" height="15" isRemoveLineWhenBlank="true" uuid="876f22dd-546e-4690-ba5f-2d835e15d4ee">
+					<printWhenExpression><![CDATA[$F{chargeAmount}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Inclusive of "+$F{ChargeDesc}+"                   "+$F{chargeAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

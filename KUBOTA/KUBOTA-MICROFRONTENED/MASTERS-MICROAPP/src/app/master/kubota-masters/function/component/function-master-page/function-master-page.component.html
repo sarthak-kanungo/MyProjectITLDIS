@@ -1,0 +1,23 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Function Master</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="functionMasterForm">
+                    <app-function [functionTableForm]="functionTableForm"></app-function>
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()" > Submit
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

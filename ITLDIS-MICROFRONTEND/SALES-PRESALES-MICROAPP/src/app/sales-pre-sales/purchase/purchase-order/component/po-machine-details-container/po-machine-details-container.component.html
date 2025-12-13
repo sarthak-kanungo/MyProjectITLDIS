@@ -1,0 +1,12 @@
+<app-po-machine-details
+    [tableTitle]="tableTitle"
+    [itemNumberAutocompleteList]="itemNumberAutoList |async"
+    [selectedItemNumberDataForPatch]="selectedItemNumberData"
+    [poDetailsFromId]="poApprovalDetails"
+    [salesPoApprovalDetailList]="salesPoApprovalDetailList$ |async"
+    (itemNumberSelected)="getSelectedItemData($event)"
+    (getFormStatusAndData)="getFormStatusAndDataWithFormName($event)"
+    
+    [finalValueMachineType]="finalValueMachineType"
+    >
+</app-po-machine-details>

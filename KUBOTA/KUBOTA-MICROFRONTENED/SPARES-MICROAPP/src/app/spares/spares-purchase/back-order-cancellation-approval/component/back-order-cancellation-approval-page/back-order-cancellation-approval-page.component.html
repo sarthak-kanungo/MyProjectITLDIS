@@ -1,0 +1,30 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Create Back Order Cancellation Approval</p>
+        </div>
+        <form  [style.fontSize.px]="10">
+           <div class="card-body">
+              <div>
+              
+              <app-create-back-order-cancellation [backOrderCancellationForm]="backOrderCancellationForm"></app-create-back-order-cancellation>
+             <app-item-details-back-order-approval></app-item-details-back-order-approval>
+              </div>
+              <div class=" text-center mt-2 ">
+            
+                  <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="Approve('Approve')"> Approve 
+                  </button>
+                  <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                  (click)="Approve('Reject')"> Reject 
+              </button>
+                
+                 
+              </div>
+           </div>
+      </form>            
+    </div>
+   </div>
+  </div>

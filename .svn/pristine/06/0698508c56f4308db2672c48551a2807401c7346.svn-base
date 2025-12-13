@@ -1,0 +1,107 @@
+<div class="container-fluid create-form mt-4 mb-3">
+  <div class="row">
+    <!-- <div class="col-lg-12">
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="font-weight-bold mt-1" style="color: #354052">
+              Machine Item Master
+            </p>
+          </div>
+        </div>
+      </div> -->
+
+    <div class="col-lg-12">
+      <div class="card-from">
+
+        <div class="card">
+          <div class="card-header">
+            <p class="mb-0">Search Approval Hierarchy</p>
+          </div>
+          <div class="card-body">
+
+            <form [formGroup]="searchApprovalHierarchy" [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-3">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Transaction Type</mat-label>
+                    <input matInput placeholder="Transaction Type" formControlName="tranType"
+                      [matAutocomplete]="autoCompleteTransType" (keyup)="autoSearchTransType()">
+                    <mat-autocomplete #autoCompleteTransType="matAutocomplete" [panelWidth]="400">
+                      <mat-option *ngFor="let tran of transList" [value]="tran.transactionName">
+                        {{tran?.transactionName}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <!-- <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Final Approval</mat-label>
+                      <mat-select formControlName="finalApproval">
+                        <mat-option *ngFor="let list of finalApprovalList" [value]="list">{{list}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div> -->
+              </div>
+
+            </form>
+
+            <div class="col-lg-12">
+              <div class="text-center">
+                <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchApproval()"> Search </button>
+                <button type="button" class="btn pl-3 pr-3 btn_primary ml-1" (click)="clearApproval()"> Clear
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+      [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"
+      (actionOnTableRecord)="actionOnTableRecord($event)"
+      [clickOnTableFields]="[{ title: 'transactionName', isClickable: true }]"
+      (pageChange)="pageChangeOfSearchTable($event)">
+
+
+      <td [ngsw-searchField]="transactionName" [searchColumnName]="'transactionName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+          <input matInput type="text" #transactionName [(ngModel)]="transactionNameNgModel">
+        </mat-form-field>
+      </td>
+
+      <!-- <td [ngsw-searchField]="designationLevel" [searchColumnName]="'designationLevel'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" #designationLevel [(ngModel)] ="designationLevelNgModel">
+            </mat-form-field>
+          </td> -->
+      <!-- 
+          <td [ngsw-searchField]="isFinalApprovalStatus" [searchColumnName]="'isFinalApprovalStatus'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" #isFinalApprovalStatus [(ngModel)] ="isFinalApprovalStatusNgModel">
+            </mat-form-field>
+          </td>
+          <td [ngsw-searchField]="grpSeqNo" [searchColumnName]="'grpSeqNo'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" #grpSeqNo [(ngModel)] ="grpSeqNoNgModel">
+            </mat-form-field>
+          </td>
+          <td [ngsw-searchField]="approverLevelSeq" [searchColumnName]="'approverLevelSeq'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+              <input matInput type="text" #approverLevelSeq [(ngModel)] ="approverLevelSeqNgModel">
+            </mat-form-field>
+          </td> -->
+
+
+    </ngsw-search-table>
+  </div>
+
+</div>

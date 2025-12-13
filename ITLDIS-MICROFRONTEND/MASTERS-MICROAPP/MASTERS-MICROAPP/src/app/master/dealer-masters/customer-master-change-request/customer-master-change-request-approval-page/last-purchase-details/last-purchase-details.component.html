@@ -1,0 +1,126 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Last Purchase Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1" class="col-lg-6" style="float:left; border-right:2px solid #00a8a9;">
+        <div [formGroup]="purchaseDetails" >
+          <table class="table table-bordered table-sm" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 25%;">Manufacturer</th>
+                <th scope="col" style="width: 25%;">Model</th>
+                <th scope="col" style="width: 25%;">Year of Purchase</th>
+                <th scope="col" style="width: 25%;">Serial No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of purchaseDetails.get('dataTable')['controls']; let i=index" [formGroupName]="i">
+                <td>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Manufacturer</mat-label>
+                    <!-- <mat-select required formControlName="brand">
+                      <mat-option *ngFor="let title of manufacturers" [value]="title.brand">{{title.brand}}
+                      </mat-option>
+                    </mat-select> -->
+                  <input matInput placeholder="Brand" formControlName="brand">
+                  </mat-form-field>
+
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Model</mat-label>
+                    <!-- <mat-select required formControlName="brand">
+                      <mat-option *ngFor="let model of models" [value]="model.model">{{model.model}}
+                      </mat-option>
+                    </mat-select> -->
+                    <input matInput placeholder="Model" formControlName="model">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Year of Purchase</mat-label>
+                    <input matInput placeholder="Year of Purchase" formControlName="yearOfPurchase">
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Serial No.</mat-label>
+                    <input matInput placeholder="Serial No." formControlName="serialno">
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+     <div class="table-responsive mt-1" class="col-lg-6" style="float:left;"> 
+      	<div [formGroup]="purchaseDetailsReq">
+          <table class="table table-bordered table-sm" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 25%;">Manufacturer</th>
+                <th scope="col" style="width: 25%;">Model</th>
+                <th scope="col" style="width: 25%;">Year of Purchase</th>
+                <th scope="col" style="width: 25%;">Serial No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of purchaseDetailsReq.get('dataTable')['controls']; let i=index" [formGroupName]="i">
+                <td>
+                  
+                  
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Manufacturer</mat-label>
+                   
+                    <!-- <mat-select required formControlName="brand">
+                      <mat-option *ngFor="let title of manufacturers" [value]="title.brand">{{title.brand}}
+                      </mat-option>
+                    </mat-select> -->
+                    <input matInput placeholder="Brand" formControlName="brand" [ngStyle]="brandColor ?  {'background-color': '#DAF7A6'}:{'background-color': ''} ">
+                    
+                  </mat-form-field>
+                     
+                </td>
+                
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Model</mat-label>
+                    <!-- <mat-select required formControlName="brand">
+                      <mat-option *ngFor="let model of models" [value]="model.model">{{model.model}}
+                      </mat-option>
+                    </mat-select> -->
+                    <input matInput placeholder="Model" formControlName="model" [ngStyle]="modelColor  ? {'background-color': '#DAF7A6'}: {'background-color': ''}">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Year of Purchase</mat-label>
+                    <input matInput placeholder="Year of Purchase" formControlName="yearOfPurchase" [ngStyle]="yearColor ?{'background-color': '#DAF7A6'}: {'background-color': ''} ">
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Serial No.</mat-label>
+                    <input matInput placeholder="Serial No." formControlName="serialno" [ngStyle]="serialColor ?{'background-color': '#DAF7A6'}: {'background-color': ''} ">
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+                </td>
+               
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

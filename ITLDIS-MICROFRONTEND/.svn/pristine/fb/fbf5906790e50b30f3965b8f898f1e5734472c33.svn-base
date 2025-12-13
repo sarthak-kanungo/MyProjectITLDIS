@@ -1,0 +1,71 @@
+<div class="card-from mt-2" *ngIf="isSelectActivityNoEvent">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Photos</p>
+      </div>
+
+      <div class="card-body">
+        <div class="row" style="align-items: center;">
+          <div class="col-md-2 d-flex justify-content-around " *ngFor="let file of fileNamelist">
+            <div class="card " [style.width.rem]="13" style="align-items: center;" *ngIf="file.fileType!='pdf'">
+              <!-- <label >{{file.fileName}}</label> -->
+              <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+              <div class="card-body">
+                <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                  <hr>
+                  <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                </a>
+              </div>
+            </div>
+            <div class="card " [style.width.rem]="13" style="align-items: center;" *ngIf="file.fileType=='pdf'">
+              <!-- <label >{{file.fileName}}</label> -->
+              <img src="{{fileStaticPath}}/pdf-256.png" height="140" width="185" />
+              <div class="card-body">
+                <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                  <hr>
+                  <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card-from mt-2" *ngIf="isApprove || isView">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Service Activity Report Photo</p>
+      </div>
+
+      <div class="card-body">
+        <div class="row" style="align-items: center;">
+          <div class="col-md-2 d-flex justify-content-around " *ngFor="let file of fileNamelist">
+            <div class="card " [style.width.rem]="13" style="align-items: center;" *ngIf="file.fileType!='pdf'">
+               
+              <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+              
+              <div class="card-body">
+                <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                  <hr>
+                  <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                </a>
+              </div>
+            </div>
+            <div class="card " [style.width.rem]="13" style="align-items: center;" *ngIf="file.fileType=='pdf'">
+         
+              <img src="{{fileStaticPath}}/pdf-256.png" height="140" width="185" />
+              <div class="card-body">
+                <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                  <hr>
+                  <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

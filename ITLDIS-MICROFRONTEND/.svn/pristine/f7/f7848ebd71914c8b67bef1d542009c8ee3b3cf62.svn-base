@@ -1,0 +1,253 @@
+<div class="card-from mb-0">
+  <div class="card">
+    <div class="card-header">
+      <p class="mb-0">Channel Finance Indent</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="channelFinanceIndentForm" [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+              <mat-label>Dealer Code</mat-label>
+              <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Bank</mat-label>
+              <mat-select formControlName="bankName" (selectionChange)="getUserDetailsFromBank($event)">
+                <mat-option *ngFor="let bank of bankNamesList" [value]="bank.bankName">
+                  {{bank.bankName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="channelFinanceIndentForm.get('bankName').hasError('required')">
+                Bank is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Flexi Account No.</mat-label>
+              <input matInput placeholder="Flexi Account No." formControlName="flexiLoanAccountNumber">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+              <mat-label>Indent No. </mat-label>
+              <input matInput placeholder=" Indent No." required formControlName="indentNumber">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field class="w-100">
+              <input matInput [matDatepicker]="indentDate" placeholder="Indent Date" formControlName="indentDate"
+                readonly (click)="indentDate.open()">
+              <mat-datepicker-toggle matSuffix [for]="indentDate"></mat-datepicker-toggle>
+              <mat-datepicker #indentDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Dealer Category</mat-label>
+              <input matInput placeholder="Dealer Category" formControlName="dealerCategory">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>No. of Days</mat-label>
+              <input matInput placeholder="No. of Days" formControlName="numberOfDays">
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="card-from mt-2">
+          <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+              <p class="mb-0" style="font-size: 13px;">Indent Details</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Indent Amount</mat-label>
+                    <input matInput placeholder="Indent Amount" maxlength="10" required formControlName="indentAmount">
+                    <mat-error
+                      *ngIf="channelFinanceIndentForm.get('indentAmount').hasError('moreThan') && !channelFinanceIndentForm.get('indentAmount').hasError('required')">
+                      Amount exceeds available amount</mat-error>
+                    <mat-error *ngIf="channelFinanceIndentForm.get('indentAmount').hasError('required')">
+                      Indent amount is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Limit</mat-label>
+                    <input matInput placeholder=" Limit" formControlName="limit">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Utilised</mat-label>
+                    <input matInput placeholder=" Utilised" formControlName="utilized">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Available Limit</mat-label>
+                    <input matInput placeholder="Available" formControlName="available" type="number">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2" *ngIf="!isView">
+                  <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="getAvailableInvoices()" [disabled]="disableInvoiceBtn"
+                    *ngIf="showInvoiceButton">Get Invoices</button>
+                </div>
+
+                <div class="col-lg-2 px-0" *ngIf="!isView" style="margin-left: -4em;">
+                  <button type="button" class="btn btn_primary ml-3" (click)="resetIndentAmount()"
+                    *ngIf="showInvoiceButton">Reset</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+
+      
+      <div *ngIf="showInvoiceButton && availableInvoicesList.length>0">
+        <div class="card-from mt-2">
+          <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+              <p class="mb-0" style="font-size: 13px;">Invoice Details</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive mt-1" *ngIf="isView"> 
+                <table class="table table-bordered table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col" style="width:212px;">Invoice No.</th>
+                      <th scope="col">Invoice Date</th>
+                      <th scope="col">Invoice Amount</th>
+                      <th scope="col">Ageing</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Utilised Amount</th>
+                      <th scope="col">Channel Finance Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let detail of availableInvoicesList">
+                      <td>{{detail.invoiceNumber}}</td>
+                      <td>{{detail.invoiceDate}}</td>
+                      <td>{{detail.invoiceAmount}}</td>
+                      <td>{{detail.ageing}}</td>
+                      <td>{{detail.status}}</td>
+                      <td>{{detail.utilisedAmount}}</td>
+                      <td>
+                          <input matInput placeholder="Channel Finance Amount" type="number" value="{{detail.channelFinanceAmount}}">                      
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+                <form [formGroup]="invoiceDetailsTable" *ngIf="!isView">
+                  <div formArrayName="invoiceDetails">          
+                    <div class="table-responsive mt-1">
+                      <table class="table table-bordered table-sm">
+                        <thead class="thead-light">
+                          <tr>                            
+                            <th scope="col" style="width:212px;">Invoice No.</th>
+                            <th scope="col">Invoice Date</th>
+                            <th scope="col">Invoice Amount</th>
+                            <th scope="col">Ageing</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Utilised Amount</th>
+                            <th scope="col">Channel Finance Amount</th>                           
+                          </tr>
+                        </thead>                        
+                        <tbody >
+                           <tr  *ngFor="let row of invoiceDetailsTable['controls'].invoiceDetails['controls']; let i = index"
+                            [formGroupName]="i" >          
+                            <td style="width: 0px">                          
+                              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                  
+                                  <input type="text" matInput placeholder="Invoice Number"  formControlName="invoiceNumber" readonly>
+                              </mat-form-field>          
+                            </td> 
+                            <td style="width: 0px">                          
+                              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                  
+                                  <input type="text" matInput placeholder="Invoice Date"  formControlName="invoiceDate" readonly>
+                              </mat-form-field>          
+                            </td> 
+                            <td style="width: 0px">                          
+                                <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                    
+                                    <input type="number" matInput placeholder="Invoice Amount"  formControlName="invoiceAmount" readonly>
+                                </mat-form-field>          
+                            </td> 
+                            <td style="width: 0px">                          
+                              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                  
+                                  <input type="number" matInput placeholder="Ageing"  formControlName="ageing" readonly>
+                              </mat-form-field>          
+                            </td> 
+                            <td style="width: 0px">                          
+                              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                  
+                                  <input type="text" matInput placeholder="Status"  formControlName="status" readonly>
+                              </mat-form-field>          
+                            </td> 
+                            <td style="width: 0px">                          
+                                <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                    
+                                    <input type="number" matInput placeholder="Utilised Amount"  formControlName="utilisedAmount" readonly>
+                                </mat-form-field>          
+                            </td> 
+                            <td style="width: 0px">                          
+                              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                  
+                                  <input type="text" matInput placeholder="Channel Finance Amount" (change)="validateFinanceAmount($event.target)" appTwoDigitDecimaNumber maxlength="10" formControlName="channelFinanceAmount">
+                              </mat-form-field>          
+                            </td>          
+
+                          </tr>                         
+                        </tbody>                                  
+                      </table>
+                    </div>
+                 </div> 
+                </form>
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class=" text-center mt-2 ">
+        <button type="button" class="btn btn_primary pl-3 pr-3  ml-3" (click)="approveRejectIndent(btn)" *ngFor="let btn of approvalButtonList" [disabled]="isSubmitDisable"> {{btn}} </button>
+        
+        <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm()" *ngIf="!isView" [disabled]="isSubmitDisable"> Submit
+        </button>
+        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView" (click)="viewPrint('true')"> Print
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clear()"
+          *ngIf="!isView"> Clear
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" [routerLink]="[isView?'../../':'../']"> Exit
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

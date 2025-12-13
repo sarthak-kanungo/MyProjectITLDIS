@@ -1,0 +1,84 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Attachments</p>
+        </div>
+        <div class="card-body">
+           
+            <div class="row" [style.fontSize.px]="14" *ngIf="operation != 'view' && !isFilesCountFive()">
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">File </label>
+                        </div>
+                        <div class="w-50 flex-fill bd-highlight">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" (change)="fileSelectionChanges($event)" class="custom-file-input" name="image" accept="image/x-png,image/jpeg">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-25"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">Video</label>
+                        </div>
+                        <div class="w-50 flex-fill bd-highlight">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" (change)="pcrVideoUpload($event)" name="files">
+                                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-25"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2 text-center">
+                <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+                  <div class="card file-preview-card">
+                    <label class="custom-preview-label"> {{file.file.name}} </label>
+                    <img [src]="file.previewUrl" height="120" width="185" />
+                    <div class="card-body">
+                      <i style="color: #45afaf;" class="material-icons" (click)="deleteImage(file.id)">delete</i>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row mt-2 text-center" *ngIf="operation == 'view'">
+                <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of warrantyLogsheetPhotosList">
+                  <div class="card file-preview-card" *ngIf="!file.videoFlag">
+                    <label> {{file.fileName}} </label>
+                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="120" width="185" />
+                    <div class="card-body">
+                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                        </a>
+                    </div>
+                  </div>
+                  <div class="card file-preview-card" *ngIf="file.videoFlag">
+                    <label> {{file.fileName}} </label>
+                    <video src="{{fileStaticPath}}/{{file.fileName}}"   height="110" controls style="width: 13rem;"></video>
+                  </div>
+                </div>
+            </div>
+            <div class="mt-2 text-center">
+                <div class="justify-content-around" *ngFor="let file of Videofiles">
+                    <div class="card file-preview-card">
+                        <label class="custom-preview-label"> {{file.file.name}} </label>
+                        <video [src]="file.previewUrl"   height="110" controls style="width: 13rem;"></video> <br/>
+                        <div class="card-body">
+                            <i style="color: #45afaf;" class="material-icons" (click)="deleteVideo(file.id)">delete</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<app-sales-purchase-order-create
+    [poTypeList]="poTypeDropdown"
+    [getTotalAndAvailableCredit]="totalAndAvailableCredit"
+    [depoList]="depoDropdown"
+    [dealerCode]="dealerCode"
+    [kaiStatusList]="kaiStatus"
+    [poDetailsFromId]="poApprovalDetails"
+    (getFormStatusAndData)="getFormStatusAndDataWithFormName($event)"
+    (isCredit)="getIsCreditValue($event)"
+    (sendTypeValue)="sendTypeValue($event)"
+    (sendShowCreditFieldEditOrView)="getsendShowCreditFieldEditOrView($event)"
+    >
+</app-sales-purchase-order-create>
+<!-- [isApproval]="isApproval" -->

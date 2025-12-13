@@ -1,0 +1,43 @@
+<div class="card-from mt-2 wcr-report-details" [formGroup]="wcrReportDetailForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">WCR DETAILS</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of wcrDetailsHeading">
+                <span *ngIf="tableHeading == 'Select'">
+                  <mat-checkbox class="selectAll" (change)="checkAll($event)"></mat-checkbox>
+                </span>
+                {{tableHeading}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of wcrReportDetailForm.controls; let i=index" [formGroupName]="i">
+              <td class="chkBox">
+                <mat-checkbox [checked]="false" formControlName="isSelect" [labelPosition]="'before'" (change)="isChecked($event, list.value)">{{i+1}}</mat-checkbox>
+              </td>
+              <td><a class="text-primary" (click)="navigateToPath(list.controls.wcrNo.value, 'wcr')">{{list.controls.wcrNo.value}}</a></td>
+              <td>{{list.controls.wcrDate.value}}</td>
+              <td><a class="text-primary" (click)="navigateToPath(list.controls.jobCardNo.value, 'jobcard')">{{list.controls.jobCardNo.value}}</a> </td>
+              <td><a class="text-primary" (click)="navigateToPath(list.controls.pcrNo.value, 'pcr')">{{list.controls.pcrNo.value}}</a> </td>
+              <td>{{list.controls.model.value}}</td>
+              <td>{{list.controls.chassisNo.value}}</td>
+              <td>{{list.controls.engineNo.value}}</td>
+              <td>{{list.controls.hour.value}}</td>
+              <td>{{list.controls.typeOfClaim.value}}</td>
+              <td>{{list.controls.noOfTime.value}}</td>
+              <td>{{list.controls.claimValue.value}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

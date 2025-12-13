@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+
+    <session-factory>
+        <property name="connection.driver_class">
+           com.microsoft.sqlserver.jdbc.SQLServerDriver
+        </property>
+        <property name="connection.url">
+           jdbc:sqlserver://192.168.17.1:1433;databaseName=ITLDIS;useUnicode=true;characterEncoding=utf8;
+        </property>
+        <property name="connection.username">itil</property>
+        <property name="connection.password">itil@hrsl#</property>
+        <property name="connection.pool_size">1</property>
+        <property name="dialect">
+            org.hibernate.dialect.SQLServerDialect
+        </property>
+        <property name="current_session_context_class">thread</property>
+        <property name="cache.provider_class">
+            org.hibernate.cache.NoCacheProvider
+        </property>
+        <property name="show_sql">true</property>
+        <!--<property name="hbm2ddl.auto">update</property>-->
+        <mapping class="HibernateMapping.ApplicationMaster" />
+         <mapping class="HibernateMapping.ViewJobCard" />
+         <mapping class="HibernateMapping.Vehicledetails" />
+         <mapping class="HibernateMapping.Productcategorymaster" />
+         <mapping class="HibernateMapping.PdiDetails" />
+         <mapping class="HibernateMapping.ItlContentMaster" />
+         <mapping class="HibernateMapping.ItlSubContentMaster" />
+         <mapping class="HibernateMapping.ItlFormContent" />
+         <mapping class="HibernateMapping.PdiChecklist" />
+         <mapping class="HibernateMapping.Dealervslocationcode" />
+
+         <mapping class="HibernateMapping.Joblocationmaster" />
+         <mapping class="HibernateMapping.Nextservicemaster" />
+         <mapping class="HibernateMapping.Jobcardstatusmaster" />
+         <mapping class="HibernateMapping.Ownerdrivenmaster" />
+         <mapping class="HibernateMapping.Servicetypemaster" />
+         <mapping class="HibernateMapping.Eventmaster" />
+         <mapping class="HibernateMapping.UserCheck" />
+         <mapping class="HibernateMapping.DmsUserCheck" />
+         <mapping class="HibernateMapping.Aggregatemaster" />
+         <mapping class="HibernateMapping.Subaggregatemaster" />
+         <mapping class="HibernateMapping.Subassemblymaster" />
+         <mapping class="HibernateMapping.Complaintcodemaster" />
+         <mapping class="HibernateMapping.Jobtypemaster" />
+         <mapping class="HibernateMapping.Jobcarddetails" />
+         <mapping class="HibernateMapping.WarrantyModel" />
+         <mapping class="HibernateMapping.Jobchecklist" />
+
+         <mapping class="HibernateMapping.Causalcodemaster" />
+         <mapping class="HibernateMapping.Consequencemaster" />
+         <mapping class="HibernateMapping.Jobcomplaintdetails" />
+         <mapping class="HibernateMapping.Jobcmpconsequences" />
+         <mapping class="HibernateMapping.Causalcodevsconsequencecode" />
+
+         <mapping class="HibernateMapping.Otherjobworkmaster" />
+         <mapping class="HibernateMapping.JobcardSparesCharges" />
+         <mapping class="HibernateMapping.HesConstants" />
+         <mapping class="HibernateMapping.Billmaster" />
+         <mapping class="HibernateMapping.Estimatelabourcharges" />
+         <mapping class="HibernateMapping.Estimateothercharges" />
+         <mapping class="HibernateMapping.Standardjobpartmaster" />
+         <mapping class="HibernateMapping.Actioncodemaster" />
+         <mapping class="HibernateMapping.Actualslabourcharges" />
+         <mapping class="HibernateMapping.Actualsothercharges" />
+        
+         <mapping class="HibernateMapping.Joblocationmaster" />
+         <mapping class="HibernateMapping.Productcategorymaster" />
+         <mapping class="HibernateMapping.FormMaster" />
+         <mapping class="HibernateMapping.Partmaster" />
+         <mapping class="HibernateMapping.Partprice" />
+         <mapping class="HibernateMapping.Baymaster" />
+         
+         <mapping class="HibernateMapping.JobcardSparesActualcharges" />
+        
+         <mapping class="HibernateMapping.Wagemaster" />
+        
+         <mapping class="HibernateMapping.SpInventory" />
+         <mapping class="HibernateMapping.SpInventoryLedger" />
+         <mapping class="HibernateMapping.SpInventoryLedgerPK" />
+         <!--<mapping class="HibernateMapping.SpInventoryPK" />-->
+         <mapping class="HibernateMapping.SpInventoryLock" />
+
+         
+         
+         <mapping class="HibernateMapping.GenLanguages" />
+         <mapping class="HibernateMapping.MSWDmechanicmaster" />
+         <mapping class="HibernateMapping.CatPart" />
+         <mapping class="HibernateMapping.SpPriceMaster" />
+         <mapping class="HibernateMapping.Insmasteraccessories" />
+         <mapping class="HibernateMapping.Insmastermajorapplication" />
+         <mapping class="HibernateMapping.InsChecklist" />
+         <mapping class="HibernateMapping.InsChecklistMaster" />
+         <mapping class="HibernateMapping.InstallationDetails" />
+         <mapping class="HibernateMapping.InsTravelcardDetails" />
+         <mapping class="HibernateMapping.FormCheckList" />
+
+         <mapping class="HibernateMapping.MSWINSPDITractorDetails" />
+
+         <mapping class="HibernateMapping.UmUserDealerMatrix" />
+         <mapping class="HibernateMapping.DealerMaster" />
+         <mapping class="HibernateMapping.Warrantyclaim" />
+         <mapping class="HibernateMapping.Warrantyclaimdetails" />
+         <mapping class="HibernateMapping.SAPRejectionCodeMaster" />
+         <mapping class="HibernateMapping.Pditravelcarddetails" />
+         <mapping class="HibernateMapping.Insenquiries" />
+
+         <mapping class="HibernateMapping.MSWwarrantytaxStatePercentage" />
+         <mapping class="HibernateMapping.MSWwarrantytaxStatePercentagePK" />
+         <mapping class="HibernateMapping.MSWwarrantytaxtypes" />
+         <mapping class="HibernateMapping.SpCurrentInventoryView" />
+         <mapping class="HibernateMapping.GENstates" />
+         <mapping class="HibernateMapping.SpInventSaleDetails" />
+         <mapping class="HibernateMapping.SpInventSaleDetailsPK" />
+         <mapping class="HibernateMapping.SpInventSaleMaster" />
+         <mapping class="HibernateMapping.SpInventOtherDealer" />
+         <mapping class="HibernateMapping.SpInventOtherDealerDetails" />
+         <mapping class="HibernateMapping.SpInventOtherDealerDetailsPK" />
+         <mapping class="HibernateMapping.SpInventSreturn" />
+         <mapping class="HibernateMapping.SpInventSreturnDetails" />
+         <mapping class="HibernateMapping.SWwarrantypackingmaster" />
+         <mapping class="HibernateMapping.SWVehicleServiceSchedule" />
+         <!--<mapping class="HibernateMapping.SWVehicleServiceSchedulePK" />-->
+         <mapping class="HibernateMapping.MSWServiceSchedule" />
+         <mapping class="HibernateMapping.SpInventReorderLevel" />
+         <mapping class="HibernateMapping.SpInventReorderLevelPK" />
+         <mapping class="HibernateMapping.MSWvendormaster" />
+        
+        <mapping class="HibernateMapping.MSWDeliveryCodeMaster" />
+        <mapping class="HibernateMapping.SpOrderMaster" />
+        <mapping class="HibernateMapping.SpOrderDetails" />
+        <mapping class="HibernateMapping.SpOrderDetailsPK" />
+        <mapping class="HibernateMapping.SpOrderTypeMaster" />
+        <mapping class="HibernateMapping.SpOrderInvoices" />
+        <mapping class="HibernateMapping.SpOrderInvGrn" />
+        <mapping class="HibernateMapping.SpOrderInvGrnDetails" />
+        <mapping class="HibernateMapping.TMSDelayReasonMaster" />
+        <mapping class="HibernateMapping.SpStockAdjDetails" />
+        <mapping class="HibernateMapping.SpStockAdjHDR" />
+        <mapping class="HibernateMapping.MSPDeliveryTermsEXPMaster" />
+        <mapping class="HibernateMapping.MSPDischargePortEXPMaster" />
+        <mapping class="HibernateMapping.MSPIncoTermsEXPMaster" />
+        <mapping class="HibernateMapping.MSPPaymentTermsEXPMaster" />
+         <mapping class="HibernateMapping.MSPCountriesEXPMaster" />
+         <mapping class="HibernateMapping.SPOrderHeaderEXP" />
+         <mapping class="HibernateMapping.SpOrderDetailsEXP" />
+        <mapping class="HibernateMapping.SpOrderDetailsEXPPK" />
+        <mapping class="HibernateMapping.UmDmsDealerMaster" />
+        <mapping class="HibernateMapping.UmDmsUserDealerMatrix" />
+        <mapping class="HibernateMapping.SWVehicleServiceFollowup" />
+        <mapping class="HibernateMapping.SP_ORD_PI_DTL_EXP" />
+        <mapping class="HibernateMapping.SP_ORD_PI_EXP" />
+        <mapping class="HibernateMapping.MspCostHeadExp" />
+        <mapping class="HibernateMapping.SpOrdPiChrgExp" />
+        <mapping class="HibernateMapping.SpPiInvoiceEXP" />
+        <mapping class="HibernateMapping.SpPiInvoiceEXPPK" />
+        <mapping class="HibernateMapping.CustomerCategoryDiscount" />
+        <mapping class="HibernateMapping.CustomerCategoryMaster" />
+        <mapping class="HibernateMapping.UmCustomerMaster" />
+        <mapping class="HibernateMapping.UMCustomerPayments" />
+        <mapping class="HibernateMapping.MSWPaymentModes" />
+        <mapping class="HibernateMapping.UmEmailMaster" />
+        <mapping class="HibernateMapping.CmTaxCharg_OEM" />
+        <mapping class="HibernateMapping.CmChargeBranch" />
+        <mapping class="HibernateMapping.CMTaxCategoryBranch" />
+        <mapping class="HibernateMapping.CMTaxCategoryBranchDetail" />
+        <mapping class="HibernateMapping.SpOrdPIInvoiceHDREXP" />
+        <mapping class="HibernateMapping.SpOrdPIInvoiceDTLEXP" />
+        <mapping class="HibernateMapping.SpOrdPIInvoiceDTLEXPPK" />
+        <mapping class="HibernateMapping.SpInventSaleDetailsChrg" />
+        <mapping class="HibernateMapping.SpInventSaleDetailsChrgPK" />
+        <mapping class="HibernateMapping.TMSGeographyMaster" />
+        <mapping class="HibernateMapping.SpOrdCancelledExp" />
+        <mapping class="HibernateMapping.CmTaxMasterDealer" />
+        <mapping class="HibernateMapping.CmTaxMasterDealerPK" />
+        <mapping class="HibernateMapping.Userpricelist" />
+        <mapping class="HibernateMapping.Pricelistcode" />
+        <mapping class="HibernateMapping.EWMLoaderDetail" />
+        <mapping class="HibernateMapping.TaxSaleTypeMaster" />
+        <mapping class="HibernateMapping.MSWLabourmaster" />
+        <mapping class="HibernateMapping.SpOrderColorMST" />
+        <mapping class="HibernateMapping.DealervslocationcodeAll" />
+        <mapping class="HibernateMapping.ITLEWMLoaderDetail" />
+        <mapping class="HibernateMapping.WarrantyClaimInvoiceUpdate" />
+    </session-factory>
+   
+</hibernate-configuration>

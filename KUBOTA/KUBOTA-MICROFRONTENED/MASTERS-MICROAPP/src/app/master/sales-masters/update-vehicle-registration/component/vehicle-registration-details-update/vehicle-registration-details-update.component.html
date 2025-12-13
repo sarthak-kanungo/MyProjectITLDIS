@@ -1,0 +1,57 @@
+<div class="container-fluid create-form  mt-4 mb-2">
+    <!-- <div class="heading">
+      <p class="font-weight-bold">Update Vehicle Registration No.</p>
+    </div>
+   -->
+    <div class="card-from">
+      <div class="card">
+        <!-- <div class="card-header">
+          <p class="mb-0">Vehicle Registration Details Update</p>
+        </div> -->
+        <div class="card-header">
+          <div class="d-flex justify-content-between header">
+              <p class="mb-0 label"> Create Vehicle Registration Details Update</p>
+              
+          </div>
+      </div>
+        <div class="card-body">
+          <form [formGroup]="vehicleRegistrationDetailsForm" [style.fontSize.px]="11">
+            <div class="row">
+  
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Chassis No.</mat-label>
+                  <input matInput placeholder="Chassis No." formControlName="chassisNo"
+                    [matAutocomplete]="autoChassisNumber">
+                  <mat-autocomplete #autoChassisNumber="matAutocomplete" (optionSelected)="optionSelectedChassisNo($event)" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of autoCompleteChassisNo?.result" [value]="option">
+                      {{option?.chassisNo}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div>
+  
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Vehicle Registration No.</mat-label>
+                  <input matInput placeholder="Vehicle Registration No." formControlName="vehicleRegistrationNo">
+                </mat-form-field>
+              </div>
+  
+            </div>
+          </form>
+          <app-vehicle-registration-customer-details [autoPopulateChassisNumber]="autoPopulateChassisNumber"></app-vehicle-registration-customer-details>
+          <app-vehicle-registration-address [autoPopulateChassisNumber]="autoPopulateChassisNumber"></app-vehicle-registration-address>
+          <div class=" text-center mt-2 ">
+              <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit
+                </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearData()"> Clear
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

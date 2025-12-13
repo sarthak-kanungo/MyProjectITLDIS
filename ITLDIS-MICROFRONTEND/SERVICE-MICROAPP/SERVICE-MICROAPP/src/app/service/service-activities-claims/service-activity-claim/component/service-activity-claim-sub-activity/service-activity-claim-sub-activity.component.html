@@ -1,0 +1,108 @@
+<div class="card-from mt-2" *ngIf="isSelectActivityNoEvent">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Sub Activity</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div [formGroup]="activitySubActivityDetailsForm">
+                    <table class="table table-bordered table-sm" formArrayName="subActivityDetailsdataTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 50px;">Sr.No.</th>
+                                <th scope="col" class="text-left" style="width: 150px;">Sub Activity</th>
+                                <th scope="col" style="width: 150px;">Proposed Amount</th>
+                                <th scope="col" style="width: 150px;">Actual Claim Amount</th>
+                                <!--  -->
+                                <th scope="col" style="width: 120px;">Vendor Name</th>
+                                <th scope="col" style="width: 120px;">Bill No</th>
+                                <th scope="col" style="width: 120px;">Bill Date</th>
+                                <!--  -->
+                                <th scope="col" style="width: 150px;" *ngIf="isApproval">Claim Approved Amount</th>
+                                <th scope="col" style="width: 150px;" *ngIf="isApproval">Remark</th>
+                                <th scope="col" style="width: 100px;" *ngIf="isCreate || isEdit">Uploaded Document</th>
+                                <th scope="col" style="width: 100px;" *ngIf="isView || isApproval">Preview</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let option of activitySubActivityDetailsForm.get('subActivityDetailsdataTable')['controls'];index as i"
+                                [formGroupName]="i">
+                                <td>{{i+1}}</td>
+                                <td class="text-left" [attr.contenteditable]="false"
+                                    [textContent]="option.get('subActivity').value"></td>
+                                <td [attr.contenteditable]="false" [textContent]="option.get('amount').value"></td>
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input type="text" matInput formControlName="actualClaimAmount">
+                                        <mat-error *ngIf="option.get('actualClaimAmount').hasError('errors')">
+                                            Actual Claim Amount is Greater Then Proposed Amount
+                                        </mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <!--  -->
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input type="text" matInput placeholder="Vendor Name" autocomplete="off" formControlName="vendorName" >
+                                    </mat-form-field>
+                                </td>
+
+                                <!--  -->
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input type="text" placeholder="Bill No" autocomplete="off" matInput formControlName="billNo" >
+                                      
+                                    </mat-form-field>
+                                </td>
+                                <!--  -->
+                                <td>
+                                
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput [matDatepicker]="picker" placeholder="Bill Date"
+                                            formControlName="billDate" readonly (click)="picker.open()">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                
+                            </td>
+
+                                <td *ngIf="isApproval">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input type="number" matInput formControlName="claimApprovedAmount" (change)="calculateTotal()" [attr.disabled]="!isApproval">
+                                        <mat-error *ngIf="option.get('claimApprovedAmount').hasError('errors')">
+                                            Claim Approved Amount should not be more than Actual Claim Amount
+                                        </mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <td *ngIf="isApproval">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input type="text" matInput formControlName="remark">
+                                    </mat-form-field>
+                                </td>
+                                <td class="text-left" *ngIf="isCreate || isEdit">
+                                    <input type="file" name="image" (change)="fileSelectionChanges(option,$event, img)"
+                                        accept="image/x-png,image/jpeg,application/pdf" #img >
+                                    
+                                    <img src="{{fileStaticPath}}/{{option.get('image').value}}" height="30" width="30"
+                                        #img >    
+                                </td>
+                                <td *ngIf="isView || isApproval">
+                                  
+                                    <a href="{{fileStaticPath}}/{{option.get('image').value}}" download>
+                                    <img src="{{fileStaticPath}}/{{option.get('image').value}}" height="30" width="30"
+                                         #img >
+                                    </a>
+                                </td>
+                                
+                        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

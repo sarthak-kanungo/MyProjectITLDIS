@@ -1,0 +1,80 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Item Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="partQuotationTableForm">
+                <div class="table-responsive">
+                    <editable-table  [tableConfig]="tableConfig"
+                        [tableData]="tableData"
+                        (searchValueChanges)="editableTableSearchValueChanges($event)"
+                        [assignListToAutocomplete]="assignTo" 
+                        (optionSelected)="optionSelected($event)" 
+                        [patchValue]="patchValue" 
+                        [viewOnly]="isView" 
+                        [formGroupForTableRow]="etControlsConfig"
+                        [formControl]="itemDetailsFormControl" 
+                        [control]="itemDetailsFormControl"
+                        (tableValueChanges)="tableValueChange($event)"  
+                        [patchValueToSelect]="selectPatchValue"
+                        >
+                        <ng-container class="table_footer">
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td class="border_none"></td>
+                          <td>Total Amount</td>
+                          <td>{{total}}</td>
+                        </ng-container>
+                    </editable-table  >
+                </div>
+            </div>
+
+            <div class="col-lg-12 mt-3">
+                <form [formGroup]="partQuotationTotalForm" class="d-flex justify-content-end ">
+                    <table class="col-4">
+                        <tr>
+                            <td>SubTotal</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="SubTotal" formControlName="subTotal">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GST Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="GST Amount" formControlName="gstAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Total Amount"
+                                        formControlName="totalInvoiceAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

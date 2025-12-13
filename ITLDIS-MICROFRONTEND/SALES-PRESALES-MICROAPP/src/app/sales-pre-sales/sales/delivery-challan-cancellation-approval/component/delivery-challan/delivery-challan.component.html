@@ -1,0 +1,213 @@
+<form [formGroup]="dcForm" [style.fontSize.px]="10">
+    <div class="row">
+
+        <div class="col-lg-2" *ngIf="(isView || isEdit || isCancel)">
+            <mat-form-field appearance="outline">
+                <mat-label>Delivery Challan No.</mat-label>
+                <input matInput required placeholder="Delivery Challan No." formControlName="deliveryChallanNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Delivery Challan Date</mat-label>
+                <input matInput required [matDatepicker]="picker" placeholder="Delivery Challan Date"
+                    formControlName="deliveryChallanDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Delivery Challan Type</mat-label>
+                <mat-select required formControlName="deliveryChallanType" (selectionChange)="dcTypeSelection($event)">
+                    <mat-option *ngFor="let type of dcTypes" [value]="type.deliveryChallanType">
+                        {{type.deliveryChallanType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-4 boundAutocomplete" *ngIf="!isDealerTransfer && !isAllotment">
+            <mat-form-field appearance="outline">
+                <mat-label>Enquiry No / Customer Name / Mobile / Tehsil</mat-label>
+                <input matInput required placeholder="Enquiry No." formControlName="enquiry"
+                    [matAutocomplete]="enquiryNumberAuto">
+                <mat-autocomplete #enquiryNumberAuto="matAutocomplete" [panelWidth]="500"
+                    [displayWith]="displayEnquiryNumberFn" (optionSelected)="enquiryNumberSelected($event)">
+                    <mat-option *ngFor="let option of enquiryNumberAutoList | async" [value]="option">
+                        {{option['value']}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-4 boundAutocomplete" *ngIf="isAllotment">
+            <mat-form-field appearance="outline">
+                <mat-label>Allotment No / Customer Name / Mobile / Tehsil</mat-label>
+                <input matInput required placeholder="Allotment No." formControlName="machineAllotment"
+                    [matAutocomplete]="allotmentNumber">
+                <mat-autocomplete #allotmentNumber="matAutocomplete" [panelWidth]="500"
+                    [displayWith]="displayAllotmentNumberFn" (optionSelected)="allotmentNumberSelected($event)">
+                    <mat-option *ngFor="let option of allotmentNumberList | async" [value]="option">
+                        {{option['value']}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-4 boundAutocomplete" *ngIf="isDealerTransfer">
+            <mat-form-field appearance="outline">
+                <mat-label>Request Number</mat-label>
+                <input matInput required placeholder="Request Number" formControlName="dealerMachineTransfer"
+                    [matAutocomplete]="requestNumberAuto">
+                <mat-autocomplete #requestNumberAuto="matAutocomplete" [displayWith]="displayRequestNumberFn"
+                    (optionSelected)="requestNumberSelected($event)">
+                    <mat-option *ngFor="let option of requestNumberAutoList | async" [value]="option">
+                        {{option['requestNumber']}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!isDealerTransfer && !isAllotment">
+            <mat-form-field appearance="outline">
+                <mat-label>Enquiry Type</mat-label>
+                <input matInput required placeholder="Enquiry Type" formControlName="enquiryType">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Delivery Challan Status</mat-label>
+                <input matInput required placeholder="Delivery Challan No." formControlName="status">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!isAllotment">
+            <mat-form-field appearance="outline">
+                <mat-label>Allotment No.</mat-label>
+                <input matInput required placeholder="Allotment No." formControlName="allotmentNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Allotment Date</mat-label>
+                <input matInput required [matDatepicker]="picker2" placeholder="Allotment Date"
+                    formControlName="allotmentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+                <mat-label>Gate Pass No.</mat-label>
+                <input matInput required placeholder="Gate Pass No." formControlName="gatePassNumber">
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Gate Pass Date</mat-label>
+                <input matInput required [matDatepicker]="picker3" placeholder="Gate Pass Date"
+                    formControlName="gatePassDate">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2"> </div>
+        <div class="col-lg-2"></div> -->
+
+        <div class="col-lg-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Remarks </mat-label>
+                <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+            </mat-form-field>
+        </div>
+
+    </div>
+</form>
+
+
+<div class="card-from mt-2" *ngIf="machineDetailsResponse && machineDetailsResponse.length>0">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Machine Details</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 10px;">Sr.No.</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Item Description</th>
+                            <th scope="col">Qty.</th>
+                            <th scope="col">Chassis No.</th>
+                            <th scope="col">Engine No.</th>
+                            <!-- <th scope="col">Color</th> -->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let machine of machineDetailsResponse;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{machine?.itemNumber}}</td>
+                            <td>{{machine?.itemDescription}}</td>
+                            <td>{{machine?.quantity}}</td>
+                            <td>{{machine?.chassisNo}}</td>
+                            <td>{{machine?.engineNumber}}</td>
+                            <!-- <td>{{machine?.color}}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="card-from mt-2" *ngIf="implementData && implementData.length>0">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Implements</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 10px;">Sr.No.</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Item Description</th>
+                            <th scope="col">Qty.</th>
+                            <th scope="col">Chassis No.</th>
+                            <th scope="col">Engine No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let implement of implementData;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{implement.itemNumber}}</td>
+                            <td>{{implement.itemDescription}}</td>
+                            <td>{{implement.quantity}}</td>
+                            <td>{{implement.chassisNo}}</td>
+                            <td>{{implement.engineNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

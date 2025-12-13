@@ -1,0 +1,249 @@
+<div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between header">
+                                    <p class="mb-0 label">CUSTOMER MACHINE MASTER REPORT</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" [formGroup]="searchForm" [style.fontSize.px]="11">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>DC from Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" placeholder="DC from Date"  formControlName="fromDate"
+                                        (dateChange)="dateSelectionChange($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>DC to  Date</mat-label>
+                                    <input matInput [matDatepicker]="picker1" placeholder="DC to  Date" formControlName="toDate"
+                                    (dateChange)="dateSelectionChange($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2" *ngIf='isKai'>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Dealer Code</mat-label>
+                                    <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                        [matAutocomplete]="autoDealercode">
+                                    <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn" (optionSelected)="dealerSelect($event)">
+                                        <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                            {{option?.displayString}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Branch</mat-label>
+                                    <mat-select formControlName="branch">
+                                        <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                                            {{option?.branchcode}} - {{option?.BranchName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Customer Mobile No.</mat-label>
+                                    <input matInput placeholder="Customer Mobile No." [matAutocomplete]="mobileNoAutoComplete" formControlName="customerId">
+                                    <mat-icon matSuffix>search</mat-icon>
+                                    
+                                    <mat-autocomplete [panelWidth]="500" #mobileNoAutoComplete="matAutocomplete" [displayWith]="displayCustomerMobileFn">
+                                        <mat-option *ngFor="let option of customerList" [value]="option">
+                                            {{option.value}}
+                                            </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="searchForm.controls.customerId.errors?.selectFromList">Please select from list</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf='isKai'>
+                            <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                                    <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                        <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                            {{option.hierarchy_desc}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center  mt-2 mb-2">
+                        <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                            Search
+                        </button>
+                        <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+           (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="clickExportToExcel()">
+          
+            <td  [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" >
+                <input class="w-100 borderRadius" #dealerCode />
+            </td> 
+            <td  [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" >
+                <input class="w-100 borderRadius" #dealerName />
+            </td> 
+            <td  [ngsw-searchField]="modelCode" [searchColumnName]="'modelCode'" >
+                <input class="w-100 borderRadius" #modelCode />
+            </td> 
+            <td  [ngsw-searchField]="status" [searchColumnName]="'status'" >
+                <input class="w-100 borderRadius" #status />
+            </td> 
+            <td  [ngsw-searchField]="machineSerialNumber" [searchColumnName]="'machineSerialNumber'" >
+                <input class="w-100 borderRadius" #machineSerialNumber />
+            </td> 
+            <td  [ngsw-searchField]="engineNumber" [searchColumnName]="'engineNumber'" >
+                <input class="w-100 borderRadius" #engineNumber />
+            </td> 
+            <td  [ngsw-searchField]="kaiInvoiceDate" [searchColumnName]="'kaiInvoiceDate'" >
+                <input class="w-100 borderRadius" #kaiInvoiceDate />
+            </td> 
+            <td  [ngsw-searchField]="customerName" [searchColumnName]="'customerName'" >
+                <input class="w-100 borderRadius" #customerName />
+            </td> 
+            <td  [ngsw-searchField]="address" [searchColumnName]="'address'" >
+                <input class="w-100 borderRadius" #address />
+            </td> 
+            <td  [ngsw-searchField]="city" [searchColumnName]="'city'" >
+                <input class="w-100 borderRadius" #city />
+            </td> 
+            <td  [ngsw-searchField]="taluka" [searchColumnName]="'taluka'" >
+                <input class="w-100 borderRadius" #taluka />
+            </td> 
+            <td  [ngsw-searchField]="district" [searchColumnName]="'district'" >
+                <input class="w-100 borderRadius" #district />
+            </td> 
+            <td  [ngsw-searchField]="customerMobileNumber" [searchColumnName]="'customerMobileNumber'" >
+                <input class="w-100 borderRadius" #customerMobileNumber />
+            </td> 
+            <td  [ngsw-searchField]="csbBookNumber" [searchColumnName]="'csbBookNumber'" >
+                <input class="w-100 borderRadius" #csbBookNumber />
+            </td> 
+            <td  [ngsw-searchField]="pdiDate" [searchColumnName]="'pdiDate'" >
+                <input class="w-100 borderRadius" #pdiDate />
+            </td> 
+            <td  [ngsw-searchField]="deliveryInstallationDate" [searchColumnName]="'deliveryInstallationDate'" >
+                <input class="w-100 borderRadius" #deliveryInstallationDate />
+            </td> 
+            <td  [ngsw-searchField]="fieldInstallationDate" [searchColumnName]="'fieldInstallationDate'" >
+                <input class="w-100 borderRadius" #fieldInstallationDate />
+            </td> 
+            <td  [ngsw-searchField]="warrantyEndDate" [searchColumnName]="'warrantyEndDate'" >
+                <input class="w-100 borderRadius" #warrantyEndDate />
+            </td> 
+            <td  [ngsw-searchField]="freeservice1Date" [searchColumnName]="'freeservice1Date'" >
+                <input class="w-100 borderRadius" #freeservice1Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice1Hour" [searchColumnName]="'freeservice1Hour'" >
+                <input class="w-100 borderRadius" #freeservice1Hour />
+            </td> 
+            <td  [ngsw-searchField]="service1By" [searchColumnName]="'service1By'" >
+                <input class="w-100 borderRadius" #service1By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice2Date" [searchColumnName]="'freeservice2Date'" >
+                <input class="w-100 borderRadius" #freeservice2Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice2Hour" [searchColumnName]="'freeservice2Hour'" >
+                <input class="w-100 borderRadius" #freeservice2Hour />
+            </td> 
+            <td  [ngsw-searchField]="service2By" [searchColumnName]="'service2By'" >
+                <input class="w-100 borderRadius" #service2By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice3Date" [searchColumnName]="'freeservice3Date'" >
+                <input class="w-100 borderRadius" #freeservice3Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice3Hour" [searchColumnName]="'freeservice3Hour'" >
+                <input class="w-100 borderRadius" #freeservice3Hour />
+            </td> 
+            <td  [ngsw-searchField]="service3By" [searchColumnName]="'service3By'" >
+                <input class="w-100 borderRadius" #service3By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice4Date" [searchColumnName]="'freeservice4Date'" >
+                <input class="w-100 borderRadius" #freeservice4Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice4Hour" [searchColumnName]="'freeservice4Hour'" >
+                <input class="w-100 borderRadius" #freeservice4Hour />
+            </td> 
+            <td  [ngsw-searchField]="service4By" [searchColumnName]="'service4By'" >
+                <input class="w-100 borderRadius" #service4By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice5Date" [searchColumnName]="'freeservice5Date'" >
+                <input class="w-100 borderRadius" #freeservice5Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice5Hour" [searchColumnName]="'freeservice5Hour'" >
+                <input class="w-100 borderRadius" #freeservice5Hour />
+            </td> 
+            <td  [ngsw-searchField]="service5By" [searchColumnName]="'service5By'" >
+                <input class="w-100 borderRadius" #service5By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice6Date" [searchColumnName]="'freeservice6Date'" >
+                <input class="w-100 borderRadius" #freeservice6Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice6Hour" [searchColumnName]="'freeservice6Hour'" >
+                <input class="w-100 borderRadius" #freeservice6Hour />
+            </td> 
+            <td  [ngsw-searchField]="service6By" [searchColumnName]="'service6By'" >
+                <input class="w-100 borderRadius" #service6By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice7Date" [searchColumnName]="'freeservice7Date'" >
+                <input class="w-100 borderRadius" #freeservice7Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice7Hour" [searchColumnName]="'freeservice7Hour'" >
+                <input class="w-100 borderRadius" #freeservice7Hour />
+            </td> 
+            <td  [ngsw-searchField]="service7By" [searchColumnName]="'service7By'" >
+                <input class="w-100 borderRadius" #service7By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice8Date" [searchColumnName]="'freeservice8Date'" >
+                <input class="w-100 borderRadius" #freeservice8Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice8Hour" [searchColumnName]="'freeservice8Hour'" >
+                <input class="w-100 borderRadius" #freeservice8Hour />
+            </td> 
+            <td  [ngsw-searchField]="service8By" [searchColumnName]="'service8By'" >
+                <input class="w-100 borderRadius" #service8By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice9Date" [searchColumnName]="'freeservice9Date'" >
+                <input class="w-100 borderRadius" #freeservice9Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice9Hour" [searchColumnName]="'freeservice9Hour'" >
+                <input class="w-100 borderRadius" #freeservice9Hour />
+            </td> 
+            <td  [ngsw-searchField]="service9By" [searchColumnName]="'service9By'" >
+                <input class="w-100 borderRadius" #service9By />
+            </td> 
+            <td  [ngsw-searchField]="freeservice10Date" [searchColumnName]="'freeservice10Date'" >
+                <input class="w-100 borderRadius" #freeservice10Date />
+            </td> 
+            <td  [ngsw-searchField]="freeservice10Hour" [searchColumnName]="'freeservice10Hour'" >
+                <input class="w-100 borderRadius" #freeservice10Hour />
+            </td> 
+            <td  [ngsw-searchField]="service10By" [searchColumnName]="'service10By'" >
+                <input class="w-100 borderRadius" #service10By />
+            </td> 
+          </ngsw-search-table>
+    </div>      
+</div>                    

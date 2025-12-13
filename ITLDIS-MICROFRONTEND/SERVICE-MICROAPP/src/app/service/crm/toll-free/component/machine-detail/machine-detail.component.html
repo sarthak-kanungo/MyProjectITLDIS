@@ -1,0 +1,100 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Machine Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="machineDetailsForm" [style.fontSize.px]="11">
+                <div class="row">
+                    
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Chassis No</mat-label>
+                            <mat-select  placeholder="Chassis No" formControlName="chassisNo" (selectionChange)="patchMachineDtl($event.value)" required>
+                                <mat-option *ngFor="let option of chassisList" [value]="option" >
+                                    {{option.chassisNo}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Sold to Dealer</mat-label>
+                            <input matInput placeholder="Sold to Dealer" formControlName="soldToDealer" required
+                                [matAutocomplete]="autoSoldDealer" (ngModelChange)="autoSoldToDealer($event)">
+                            <mat-autocomplete #autoSoldDealer="matAutocomplete" [panelWidth]="400"
+                                (optionSelected)="selectSoldToDealer($event)"
+                                [displayWith]="displayFnSoldToDealer">
+                                <mat-option *ngFor="let option of dealerList" [value]="option">
+                                    {{option.displayString}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error
+                                *ngIf="machineDetailsForm.get('soldToDealer').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Product</mat-label>
+                            <input matInput placeholder="Product" formControlName="product">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Model</mat-label>
+                            <input matInput placeholder="Model" formControlName="model">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sub Model</mat-label>
+                            <input matInput placeholder="Sub Model" formControlName="subModel">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Variant</mat-label>
+                            <input matInput placeholder="Variant" formControlName="variant">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Item</mat-label>
+                            <input matInput placeholder="Item" formControlName="item">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Date of Installation</mat-label>
+                            <input matInput placeholder="Date of Installation" formControlName="dateOfInstallation">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Engine No.</mat-label>
+                            <input matInput placeholder="Engine No." formControlName="engineNo">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Warranty Valid Till</mat-label>
+                            <input matInput placeholder="Warranty Valid Till" formControlName="warrantyValidTill">
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

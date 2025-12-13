@@ -1,0 +1,30 @@
+export enum ChildAppPort{
+  MAIN = 9000,
+  SALE_PRESALE = 9001,
+  SERVICE = 9002,
+  SPARE = 9003,
+  WARRANTY = 9004,
+  MASTER = 9005,
+  DASHBOARD = 9006,
+  CRM_TRAINING = 9008,
+  TRAINING = 9007
+}
+export enum ChildAppStartRoute{
+  WARRANTY='warranty',
+  DASHBOARD='dashboard',
+  SPARE = 'spares',
+  SERVICE = 'service',
+  SALE_PRESALE = 'sales-pre-sales',
+  MASTER='master',
+  MAIN = '',
+  CRM_TRAINING = 'crm-training',
+  TRAINING ='training'
+}
+export const environment = {
+  production: true,
+  domain:'http://180.179.248.142:',
+  version: 'v1.2.2-SNAPSHOT-110320201500',
+  //baseUrl: 'http://180.179.248.142:8383/kubota', ssrPort: 7000,    //Client live - SSR PORT 7000
+   baseUrl: 'http://180.179.248.142:9595/kubota', ssrPort: 9000,  //Client live - SSR PORT 9000
+  api: 'api',
+};

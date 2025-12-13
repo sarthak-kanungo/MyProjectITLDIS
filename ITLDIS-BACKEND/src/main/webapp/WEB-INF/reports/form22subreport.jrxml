@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="form22subreport" pageWidth="555" pageHeight="842" columnWidth="515" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="e2be9516-7f33-497d-882a-e871bdbaec7c">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Kubota Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ChassisNo" class="java.lang.String"/>
+	<parameter name="Usercode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC [SP_FORM_22_DTL] $P{ChassisNo},$P{Usercode},2]]>
+	</queryString>
+	<field name="srno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="srno"/>
+		<property name="com.jaspersoft.studio.field.label" value="srno"/>
+	</field>
+	<field name="pollutant" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pollutant"/>
+		<property name="com.jaspersoft.studio.field.label" value="pollutant"/>
+	</field>
+	<field name="units" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="units"/>
+		<property name="com.jaspersoft.studio.field.label" value="units"/>
+	</field>
+	<field name="unitValue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="unitValue"/>
+		<property name="com.jaspersoft.studio.field.label" value="unitValue"/>
+	</field>
+	<variable name="srNo" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{srNo}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="-20" y="13" width="27" height="18" uuid="528b5c71-afc3-4d0f-b755-4fad33010f5f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SR 
+NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="13" width="145" height="18" uuid="31ee1607-87fa-46a8-b5eb-80cbd53eb765"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Units (as applicable)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-20" y="0" width="555" height="13" uuid="765d5338-3a95-42fe-84f7-977307d729bb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Positive Ignition Engine or Compression Ignition Engine Vehicles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="7" y="13" width="273" height="18" uuid="588a3b2c-5bfd-4f82-97c3-2a5140d64948"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pollutant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="425" y="13" width="110" height="18" uuid="8696f874-e141-41e2-ae64-d96565d5375d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Value]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement positionType="Float" x="-20" y="0" width="27" height="13" uuid="1ee4c1ff-d7fd-4aeb-b9e5-5e3b30e9b1e3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{srno}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="7" y="0" width="273" height="13" uuid="19b63675-00e3-4896-bafb-2de46e6d1a67"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pollutant}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="280" y="0" width="145" height="13" uuid="84201a25-4646-4847-a875-2edcf9b03d3d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{units}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="425" y="0" width="110" height="13" uuid="bbdfcb1c-121f-4b49-ab60-5f2bd60013da"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitValue}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

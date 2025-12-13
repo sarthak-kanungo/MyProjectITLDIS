@@ -1,0 +1,80 @@
+<div class="card-from mt-2" [formGroup]="serviceHistoryForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Service History</p>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 100px">Date In</th>
+                            <th scope="col" style="width: 100px">Type Of Service</th>
+                            <th scope="col" style="width: 100px">Hours</th>
+                            <th scope="col" style="width: 100px">Job Card No.</th>
+                            <th scope="col" style="width: 100px">Job Card Date</th>
+                            <th scope="col" style="width: 100px">PCR No.</th>
+                            <th scope="col" style="width: 100px">PCR Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of serviceHistoryForm.controls; let i=index" [formGroupName]="i">
+                            
+                            <td [textContent]="list.get('dateIn').value"></td>
+                            <td [textContent]="list.get('serviceType').value"></td>
+                            <td [textContent]="list.get('hours').value"></td>        
+                            <td >
+                              <p (click)="jcModal(list)" class="alink">{{list.get('jobCardNo').value}}</p>
+                            </td>
+                            <td [textContent]="list.get('jobCardDate').value"></td>        
+                            <td >
+                              <p (click)="pcrModal(list)" class="alink">{{list.get('pcrNo').value}}</p>
+                            </td>
+                            <td [textContent]="list.get('pcrDate').value"></td>   
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Date In</mat-label>
+                                    <input matInput [matDatepicker]="picker" placeholder="Date In" formControlName="dateIn">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Type Of Service</mat-label>
+                                    <input matInput placeholder="Type Of Service" formControlName="serviceType">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Hours</mat-label>
+                                    <input matInput placeholder="Hours" formControlName="hours">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Job Card No.</mat-label>
+                                    <input matInput placeholder="Job Card No." formControlName="jobCardNo">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Job Card Date</mat-label>
+                                    <input matInput [matDatepicker]="picker2" placeholder="Job Card Date" formControlName="jobCardDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </td> -->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
+       
+
+    </div>
+</div>

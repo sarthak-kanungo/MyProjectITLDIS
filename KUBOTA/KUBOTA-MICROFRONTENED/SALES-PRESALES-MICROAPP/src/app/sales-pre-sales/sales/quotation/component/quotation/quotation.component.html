@@ -1,0 +1,87 @@
+<form [formGroup]="quotationFrom" [style.fontSize.px]="10">
+  <div class="row">
+    <div class="col-lg-2" *ngIf="isViewOnly">
+      <mat-form-field appearance="outline">
+        <mat-label>Quotation No.</mat-label>
+        <input matInput placeholder="Quotation No." formControlName="quotationNumber"
+          [matAutocomplete]="autoQuotationNumber">
+        <mat-autocomplete #autoQuotationNumber="matAutocomplete" [displayWith]="quotationNumberDisplayFn"
+          (optionSelected)="quotationNumberSelected($event)">
+          <mat-option *ngFor="let option of quotationNumberList" [value]="option">
+            {{option?.quotationNumber}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isViewOnly">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Quotation Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Quotation Date" formControlName="quotationDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Enquiry No.</mat-label>
+        <input matInput placeholder="Enquiry No." formControlName="enquiryNo" [matAutocomplete]="autoEnquiryNo">
+        <mat-autocomplete #autoEnquiryNo="matAutocomplete" (optionSelected)="optionSelectedEnquiryNo($event)"
+          [displayWith]="enquiryNoDisplayFn" [panelWidth]="550">
+          <mat-option *ngFor="let option of enquiryCodeDomain?.result" [value]="option">
+            {{option?.value}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Enquiry Date</mat-label>
+        <input matInput [matDatepicker]="picker1" placeholder="Enquiry Date" formControlName="enquiryDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Tentative Purchase Date</mat-label>
+        <input matInput [matDatepicker]="picker2" placeholder="Tentative Purchase Date"
+          formControlName="tentativePurchaseDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Enquiry Status</mat-label>
+        <input matInput placeholder="Enquiry Status" formControlName="enquiryStatus">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Sales Person </mat-label>
+        <input matInput placeholder="Sales Person" formControlName="salesPerson">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Source</mat-label>
+        <input matInput placeholder="Source" formControlName="source">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Purpose Of Purchase</mat-label>
+        <input matInput placeholder="Purpose Of Purchase" formControlName="purposeOfPurchase">
+      </mat-form-field>
+    </div>
+  </div>
+</form>

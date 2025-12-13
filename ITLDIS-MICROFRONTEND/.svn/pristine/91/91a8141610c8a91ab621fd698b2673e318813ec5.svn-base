@@ -1,0 +1,11 @@
+
+::ng-deep .Item.No {
+    width: 110px !important
+}
+::ng-deep .Discount {
+    width: 7px !important
+}
+
+::ng-deep .Total{
+    width: 60px !important
+}

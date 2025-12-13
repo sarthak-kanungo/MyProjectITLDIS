@@ -1,0 +1,85 @@
+<!-- <div class="container-fluid mt-2 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+               
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card-from">
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0">Search Activity Proposal</p>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="activityProposalList" [style.fontSize.px]="10">
+                            <div class="row">
+
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Activity No.</mat-label>
+                                        <input matInput placeholder="Enquiry No." formControlName="activityNo">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Activity Type</mat-label>
+                                        <mat-select formControlName="activityType">
+                                            <mat-option *ngFor="let activityType of activityTypes"
+                                                [value]="activityType">{{activityType}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Activity Status</mat-label>
+                                        <mat-select formControlName="activityStatus">
+                                            <mat-option *ngFor="let status of statuss" [value]="status">{{status}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker" placeholder="Activity From Date" formControlName="activityFromDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker1" placeholder="Activity To Date" formControlName="activityToDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mx-auto text-center">
+                                    <button type="button" class="btn pl-3 pr-3 btn_primary"> Search </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+<!-- <app-search-table></app-search-table> -->
+
+<!-- </div> -->

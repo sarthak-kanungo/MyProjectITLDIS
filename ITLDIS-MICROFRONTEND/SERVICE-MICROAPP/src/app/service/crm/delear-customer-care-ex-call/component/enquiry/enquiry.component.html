@@ -1,0 +1,90 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Enquiry</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="enquiryDetailsForm" [style.fontSize.px]="11">
+                <div class="row">
+                    
+                    <div class="col-lg-2" *ngIf="!isView">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Pincode</mat-label>
+                            <input matInput placeholder="Pincode" required minlength="10" maxlength="10"
+                                formControlName="pincode" [matAutocomplete]="autoCustomerCode" required>
+                            <mat-autocomplete #autoCustomerCode="matAutocomplete" [panelWidth]="500"
+                                [displayWith]="displayFnVillage"
+                                (optionSelected)="selectedPinCode($event)"  >
+                                <mat-option *ngFor="let option of villageList" [value]="option">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>    
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="enquiryDetailsForm.get('pincode').hasError('selectFromList')">Select From List</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Pincode</mat-label>
+                            <input matInput placeholder="Pincode" required minlength="10" maxlength="10"
+                                formControlName="pincode" />
+                        </mat-form-field>
+                    </div>            
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Post Office</mat-label>
+                            <input matInput placeholder="Post Office" formControlName="postOffice" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="City" formControlName="city" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tehsil</mat-label>
+                            <input matInput placeholder="Tehsil" formControlName="tehsil" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Distict</mat-label>
+                            <input matInput placeholder="Distict" formControlName="district" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="State" formControlName="state" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Territory Sales Manager</mat-label>
+                            <input matInput placeholder="Territory Sales Manager" formControlName="tsm" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>TSM Contact No.</mat-label>
+                            <input matInput placeholder="TSM Contact No." formControlName="tsmContactNo" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Enquiry</mat-label>
+                            <textarea matInput placeholder="Enquiry" required formControlName="enquiry" required></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+             
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- </div> -->

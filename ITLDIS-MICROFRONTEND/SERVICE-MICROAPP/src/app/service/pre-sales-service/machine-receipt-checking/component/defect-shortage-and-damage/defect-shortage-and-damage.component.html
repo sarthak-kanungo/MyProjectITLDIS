@@ -1,0 +1,23 @@
+<div [formGroup]="defectShortageDamageForm">
+  <div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Defect/ Shortage and Damage</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <editable-table [tableConfig]="tableConfig" (searchValueChanges)="editableTableSearchValueChanges($event)"
+            [assignListToAutocomplete]="assignTo" (optionSelected)="optionSelected($event)"
+            (tableValueChanges)="tableValueChange($event)" [assignListToSelect]="assignListToSelect"
+            [patchValue]="patchValue" [viewOnly]="isView" [formGroupForTableRow]="etControlsConfig"
+            [formControl]="defectShortageFormControl" [control]="defectShortageFormControl"
+            [patchValueToSelect]="selectPatchValue" [validationError]="etValidationError">
+            <ng-container class="table_footer">
+            </ng-container>
+          </editable-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

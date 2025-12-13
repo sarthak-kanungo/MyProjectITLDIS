@@ -1,0 +1,11 @@
+<div class="container-fluid mt-4">
+
+  
+    <app-search-invoice
+      [dataTable]="dataTable"
+      [totalSearchRecordCount]="totalSearchRecordCount"
+      (searchFilterChange)="getSearchResultTable($event)"></app-search-invoice>
+  </div>
+  <!-- <div class="container-fluid mt-3">
+    <app-invoice-search-table-container></app-invoice-search-table-container>
+  </div> -->

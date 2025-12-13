@@ -1,0 +1,30 @@
+<div class="row" [formGroup]="inventoryAdjustmentDetailsForm">
+
+  <div class="col-lg-2" *ngIf="isView">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Stock Adjustment No.</mat-label>
+      <input matInput placeholder="Stock Adjustment No." readonly formControlName="adjustmentNumber">
+    </mat-form-field>
+  </div>
+
+  <div class="col-lg-2"  *ngIf="isView">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Stock Adjustment Date</mat-label>
+      <input matInput placeholder="Adjustment Date" readonly formControlName="adjustmentDate">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2"  *ngIf="isView">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Stock Adjustment Status</mat-label>
+      <input matInput placeholder="Adjustment Status" readonly formControlName="adjustmentStatus">
+    </mat-form-field>
+  </div>
+  
+</div>
+
+
+
+<div class=" text-right" *ngIf="!isView">
+  <a class="pr-3 pointerTag" style="color: #00a8a9;font-size: 15px;" (click)="downloadTemplate()"><u>Download Template</u></a>
+  <a class="pr-2 pointerTag" style="color: #00a8a9;font-size: 15px;" (click)="uploadExcel()"><u>Excel Upload</u></a>
+</div>

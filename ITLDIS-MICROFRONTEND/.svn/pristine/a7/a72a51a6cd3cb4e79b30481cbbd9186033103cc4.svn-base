@@ -1,0 +1,105 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="heading">
+        <p class="font-weight-bold"> KAI Branch/ Depot Master</p>
+    </div>
+    <div class="card-from mb-0">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0"> KAI Branch/ Depot Master</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="branchDepotMasterForm" [style.fontSize.px]="11">
+                    <div class="row">
+
+
+                        <div class="col-lg-2 ">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Branch Code</mat-label>
+                                <mat-select formControlName="branchCode">
+                                    <mat-option *ngFor="let branchCode of branchCodes" [value]="branchCode">
+                                        {{branchCode}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Branch Name</mat-label>
+                                <input matInput placeholder="Branch Name" formControlName="branchName">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2 ">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Depot</mat-label>
+                                <mat-select formControlName="depot">
+                                    <mat-option *ngFor="let depot of depots" [value]="depot">{{depot}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>GST No.</mat-label>
+                                <input matInput placeholder="GST No." formControlName="gstNo">
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Fax</mat-label>
+                                <input matInput placeholder="Fax" formControlName="fax">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2 ">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <mat-select required formControlName="status">
+                                    <mat-option *ngFor="let item of status" [value]="item">{{item}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Available Storage Area</mat-label>
+                                <input matInput placeholder="Available Storage Area" required formControlName="availableStorageArea">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Contact No.</mat-label>
+                                <input matInput placeholder="Contact No." formControlName="contactNo">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Contact Email Id</mat-label>
+                                <input matInput placeholder="Contact Email Id" formControlName="contactEmail">
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                </form>
+
+                <app-branch-address></app-branch-address>
+                <app-destination-ports></app-destination-ports>
+
+                <div class=" text-center mt-2 ">
+                    <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit
+                    </button>
+                    <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+                    </button>
+                    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <form [formGroup]="jobCardForm" [style.fontSize.px]="10">
+        <div class="card-from">
+            <div class="card">
+                <div class="card-header">
+                    <p class="mb-0">Job Card</p>
+                </div>
+                <div class="card-body">
+                    <app-job-card-details (retrofitmentCreated)="retrofitmentAdd($event)" (retroList)="getRetroData($event)"    [machineIdPage]="machineIdPage"
+                        [serviceTypeDropdownRes]="serviceTypeDropdownRes" (showImplementForm)="showHideImplementForm($event)" (implementListData)="getImplementData($event)" [patchRetroCheckbox]="patchRetroCheckbox"[isPresales]="isPresales" [machineInDate]="machineInDate">
+                    </app-job-card-details>
+                    <app-retrofit-ment-page *ngIf="this.forRetrofirMent || patchRetroCheckbox " [warrantydata]="warrantydata" [patchRetroCheckbox]="patchRetroCheckbox" [vinId]="vinId" (retroDetails)="retroDetails($event)" (warrantyObjects)="warrantyObjects($event)" (retroLabourDetails)="retroLabourDetails($event)" [data]="data" ></app-retrofit-ment-page>
+                    <app-kubota-implement *ngIf="showImplementForm" [implementListForShowData]="implementListForShowData" ></app-kubota-implement>
+                    <app-customer-concern *ngIf="!isShowCustConcern" [isView]="isView" [isEdit]="isEdit" [isCreate]="isCreate"></app-customer-concern>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+    <form [formGroup]="serviceJobForm" [style.fontSize.px]="10">
+        <div class="card-from mt-2">
+            <div class="card" style="border: 1px solid #45afaf;">
+                <div class="card-header" style="background-color: #45afaf;
+                                    border: 1px solid #45afaf;">
+                    <p class="mb-0" style="font-size: 13px;">Service</p>
+                </div>
+                <div class="card-body">
+                    <app-service-job-card  [isView]="isView" [isEdit]="isEdit" [isCreate]="isCreate"></app-service-job-card>
+                    <app-part-requisition [serviceCategoryListRes]="serviceCategoryListRes"
+                        [partRequisitionForm]="partRequisitionForm" [partListData]="partListData">
+                    </app-part-requisition>
+                    <app-labour-charges  [labourChargesForm]="labourChargesForm" [labourData]="labourData">
+                    </app-labour-charges>
+                    <app-outside-job-charges [isTablesShow]="isTablesShow" [forRetrofirMent]="forRetrofirMent" [patchRetroCheckbox]="patchRetroCheckbox" [jobCodeForm]="jobCodeForm"
+                        [fileFromView]="fileFromView" [fileFromEdit]="fileFromEdit" [isFreeService]="isFreeService">
+                    </app-outside-job-charges>
+                </div>
+
+				<div class="text-center mt-2 mb-2">
+					<button (click)="printPdf('true','jobcard')" *ngIf="isView" type="button" class="btn btn_primary px-3 ml-3" >Print Job Card</button>
+					<button *ngIf="!isView && !isShowUpdateButton && !jobcardId" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="validateSaveSubmitJobCard(false)" [disabled]="isSubmitDisable">
+                        Submit
+                    </button>
+                    <button *ngIf="isShowUpdateButton && !isView" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="validateUpdateJobCard(false)" [disabled]="isSubmitDisable">
+                        Job Card Update
+                    </button>
+                    <button *ngIf="isShowPcr && !isView" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="pcrClick()">Raise PCR
+                    </button>
+                    <button *ngIf="isUpdatePcr && !isView" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="pcrUpdateClick()">Update PCR
+                    </button>
+                    <button *ngIf="isCloseJC && !isView" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="closeJobCard()" [disabled]="isSubmitDisable">Job Card Close
+                    </button>
+                    <button *ngIf="isGoowillShow && !isView" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="createGoodwill()">Create GoodWill
+                    </button>
+                    <button  *ngIf="isShowCancel && !isView" type="button" class="btn btn_primary px-3 ml-3" (click)="jobcardCancelClick()" [disabled]="isSubmitDisable">Cancel Job Card</button>
+                    <button *ngIf="isCreateInvoice && !isView" type="button" class="btn btn_primary px-3 ml-3" (click)="routeToInvoice()">Invoice</button>
+                    <button *ngIf="isReopen && !isView" type="button" class="btn btn_primary px-3 ml-3" (click)="reopenJobcard()" [disabled]="isSubmitDisable">Re-Open</button>
+                    
+                    <button *ngIf="viewPcr" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="viewPcrClick()">View PCR
+                    </button>
+                    <button *ngIf="viewGoodwill" type="button" class="btn btn_primary px-3 ml-3"
+                        (click)="viewGoodwillClick()">View GoodWill
+                    </button>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

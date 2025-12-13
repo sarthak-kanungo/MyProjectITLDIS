@@ -1,0 +1,40 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Delivery Challans</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 100px" *ngIf="!isView && !isEdit && !isCancelInvoice">Select</th>
+                            <th scope="col">DC No.</th>
+                            <th scope="col">DC Date</th>
+                            <th scope="col">Model+Variant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dc of dcByCustomerCode$ | async">
+                            <td class="text-center" *ngIf="!isView && !isEdit && !isCancelInvoice">
+                                <mat-checkbox color="basic" (change)="deliveryChallanChange($event,dc)"
+                                    [disabled]="isCancelInvoice" [checked]="isCancelInvoice"></mat-checkbox>
+                            </td>
+                            <td>
+                                {{dc.deliveryChallanNo}}
+                            </td>
+                            <td>
+                                {{dc.deliveryChallanDate}}
+                            </td>
+                            <td>
+                                {{dc.modelAndVariant}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

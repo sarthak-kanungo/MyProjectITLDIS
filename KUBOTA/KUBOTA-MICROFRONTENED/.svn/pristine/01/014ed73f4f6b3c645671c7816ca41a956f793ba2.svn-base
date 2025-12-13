@@ -1,0 +1,63 @@
+<div [formGroup]="searchForm" [style.fontSize.px]="11" class="container-fluid mt-2 pb_0">
+    <div class="row pb_0">
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Reciept No.</mat-label>
+          <input matInput placeholder="Reciept No." formControlName="recieptNo" [matAutocomplete]="autoReciept">
+          <mat-autocomplete autoActiveFirstOption #autoReciept="matAutocomplete" 
+          [displayWith]="displayRecieptNo">
+            <mat-option *ngFor="let option of recieptData" [value]="option.receiptNo">
+              {{option.receiptNo}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Issue No.</mat-label>
+          <input matInput placeholder="Issue No." formControlName="issueNo" [matAutocomplete]="autoissueNo">
+          <mat-autocomplete autoActiveFirstOption #autoissueNo="matAutocomplete" 
+          [displayWith]="displayIssueNo">
+            <mat-option *ngFor="let option of recieptData" [value]="option.receiptNo">
+              {{option.receiptNo}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+               <mat-option *ngFor="let status of StatusList" [value]="status">{{status.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <input matInput [matDatepicker]="picker" readonly placeholder="Reciept From Date"
+            formControlName="fromDate" (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <input matInput [matDatepicker]="picker1" readonly placeholder="Reciept To Date"
+            formControlName="toDate" (click)="picker1.open()"  [max]="maxDate" [min]="minDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+  
+      
+  
+      
+          </div>
+      </div>
+  

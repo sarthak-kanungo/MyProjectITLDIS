@@ -1,0 +1,15 @@
+<div class="container-fluid mt-3 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="font-weight-bold" style="color: #354052">
+                        Quotation List
+                    </p>
+                </div>
+  
+            </div>
+  
+        </div>
+    </div>
+</div>

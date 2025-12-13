@@ -1,0 +1,78 @@
+<div class="container-fluid mt-4 mb-3">
+    <form >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-from">
+            <div class="card">
+              <div class="card-header">
+                <div class="d-flex justify-content-between header">
+                  <p class="mb-0">Search Goodwill</p>
+                  <!-- <div>
+                    <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 " [routerLink]="['./create']" routerLinkActive="router-link-active" >
+                      <b class="btnName">New</b>
+                    </button>
+                  </div> -->
+                </div>
+              </div>
+
+              <app-goodwill-search [searchForm]="searchForm"></app-goodwill-search>
+              <div class="text-center  mt-2 mb-2">
+                <button type="button" class="btn  btn_primary px-3" (click)="search()"> Search
+                </button>
+                <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clear()"> Clear
+                </button>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </form>
+  
+    <div class="mt-2">
+     <!-- space for ngsw search table -->
+     <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[
+        { title: 'goodwillNo', isClickable: true },{ title: 'approve', isClickable: true }
+      ]" (pageChange)="pageSizeChange($event)" [searchValue]="searchValue" [actionButtons]="actionButtons" [clearSearchRow]="clearSearchRow" >
+
+	    <td  *ngIf="dealerCode == null">
+          
+      </td>
+      <td  *ngIf="dealerCode == null" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+        <input class="w-100 borderRadius" #dealerCode />
+      </td>
+      <td [ngsw-searchField]="goodwillNo" [searchColumnName]="'goodwillNo'">
+          <input class="w-100 borderRadius" #goodwillNo />
+      </td>
+      <td [ngsw-searchField]="pcrNo" [searchColumnName]="'pcrNo'">
+          <input class="w-100 borderRadius" #pcrNo />
+      </td>
+      <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'">
+          <input class="w-100 borderRadius" #jobCardNo />
+      </td>
+      <td [ngsw-searchField]="goodwillType" [searchColumnName]="'goodwillType'">
+          <input class="w-100 borderRadius" #goodwillType />
+      </td>
+      <td [ngsw-searchField]="goodwillDate" [searchColumnName]="'goodwillDate'">
+          <input class="w-100 borderRadius" #goodwillDate
+            type="date" (change)="etSearchDateValueChange(goodwillDate.value, 'goodwillDate')" />
+      </td>
+      <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+          <input class="w-100 borderRadius" #chassisNo />
+      </td>
+     <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+          <input class="w-100 borderRadius" #model />
+      </td>
+	  <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+          <input class="w-100 borderRadius" #status />
+      </td>
+      <td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'">
+        <input class="w-100 borderRadius" #lastApprovedBy />  
+      </td>
+     </ngsw-search-table>
+
+    </div>
+  
+  </div>

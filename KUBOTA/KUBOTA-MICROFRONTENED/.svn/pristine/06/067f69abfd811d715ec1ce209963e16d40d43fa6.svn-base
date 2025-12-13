@@ -1,0 +1,98 @@
+<div class="container confirmation_card">
+  <div class="row">
+    <div class="col-md-12">
+      <section class="card">
+        <header class="card_header card_header_secondary mb-2">
+          <h4 class="card_title mb-0"> Sale Exchange Inventory</h4>
+          <i class="material-icons icon_close" (click)="closeDialog()">
+            close
+          </i>
+        </header>
+
+        <div class="card-body">
+          <form [formGroup]="saleExchangeFrom" [style.fontSize.px]="10">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Buyer Contact No.</mat-label>
+                  <input matInput placeholder="Buyer Contact No." formControlName="buyerContactNo" [matAutocomplete]="autoMobileNo"
+                    required maxlength="10">
+                  <mat-autocomplete 
+                  (optionSelected)="autoPopulateDatabyMobileNo($event)" #autoMobileNo="matAutocomplete" [displayWith]="displayMobileNumberFn"
+                   [panelWidth]="500">
+                    <mat-option *ngFor="let option of autoComplateMobileNo?.result" [value]="option.mobileNumber" >
+                      {{option?.value}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                  <mat-error *ngIf="saleExchangeFrom.get('buyerContactNo').hasError('required')">Buyer Contact No. is required
+                              </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Buyer Name</mat-label>
+                  <input matInput placeholder="Buyer Name" maxlength="15" required formControlName="buyerName">
+                </mat-form-field>
+                <mat-error *ngIf="saleExchangeFrom.get('buyerName').hasError('required')">Buyer Name is required
+                </mat-error>
+              </div>
+            </div>
+          <!-- </form> -->
+
+          <!-- <form [formGroup]="saleExchangeFrom" [style.fontSize.px]="10"> -->
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Sele Remarks</mat-label>
+                  <input matInput placeholder="Sele Remarks" required formControlName="saleremarks">
+                </mat-form-field>
+                <mat-error *ngIf="saleExchangeFrom.get('saleremarks').hasError('required')">Sale Remarks is required
+                </mat-error>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Sellings Price</mat-label>
+                  <input matInput placeholder="Sellings Price" required formControlName="sellingprice"
+                  maxlength="8">
+                </mat-form-field>
+                <mat-error *ngIf="saleExchangeFrom.get('sellingprice').hasError('required')">Selling Price is required
+                </mat-error>
+              </div>
+
+            </div>
+
+
+            <footer class="container-fluid card_footer m-2">
+          <div class="row">
+            <div class="col-12 text-center">
+              <div style="display: flex; justify-content: center;">
+                
+            <div class=" text-center   mt-3 mb-2 ">
+              <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm()"> Submit
+              </button>
+              <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+              </button>
+              <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="closeDialog()"> Exit
+              </button>
+            </div>
+
+              </div>
+            </div>
+          </div>
+        </footer>
+
+
+
+          </form>
+
+        </div>
+
+      </section>
+    </div>
+  </div>
+</div>

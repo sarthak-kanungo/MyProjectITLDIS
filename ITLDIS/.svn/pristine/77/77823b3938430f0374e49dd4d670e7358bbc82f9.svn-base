@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-10-13T11:52:38 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlHeaderForDetail" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2be9a604-0773-4c08-a722-52569251a800">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<parameter name="imgPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_showTaxInvoiceHeaderDetail $P{invoiceNo}]]>
+	</queryString>
+	<field name="invoice_no" class="java.lang.String"/>
+	<field name="Invoice_Date" class="java.sql.Timestamp"/>
+	<field name="Customer_Name" class="java.lang.String"/>
+	<field name="Contact_no" class="java.lang.String"/>
+	<field name="Type_Ref_no" class="java.lang.String"/>
+	<field name="createdOn" class="java.sql.Timestamp"/>
+	<field name="dealerCode" class="java.lang.String"/>
+	<field name="locationCode" class="java.lang.String"/>
+	<field name="location" class="java.lang.String"/>
+	<field name="Parts_Value" class="java.lang.Double"/>
+	<field name="Lubes_Value" class="java.lang.Double"/>
+	<field name="Other_Value" class="java.lang.Double"/>
+	<field name="Invoice_Value" class="java.lang.Double"/>
+	<field name="Discount_Other" class="java.lang.Double"/>
+	<field name="Invoice_type" class="java.lang.String"/>
+	<field name="Credit_Value" class="java.lang.Double"/>
+	<field name="customerName" class="java.lang.String"/>
+	<field name="TIN_NO" class="java.lang.String"/>
+	<field name="GST_NO" class="java.lang.String"/>
+	<field name="customerTehsil" class="java.lang.String"/>
+	<field name="customerDistrict" class="java.lang.String"/>
+	<field name="customerLocation" class="java.lang.String"/>
+	<field name="dealerName" class="java.lang.String"/>
+	<field name="NetworkCategory" class="java.lang.String"/>
+	<field name="dealerAddress" class="java.lang.String"/>
+	<field name="dealerContactNo" class="java.lang.String"/>
+	<field name="dealerTinNo" class="java.lang.String"/>
+	<field name="DealerGSTNO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="263" y="85" width="10" height="15" isRemoveLineWhenBlank="true" uuid="3ad6fdac-bafd-4cda-8eb6-0d55062468fd"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="80" y="30" width="470" height="15" isRemoveLineWhenBlank="true" uuid="a939199c-ce9f-4ea4-8d37-ce46ed15783e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{dealerAddress}+$F{dealerContactNo}+$F{dealerTinNo}+$F{DealerGSTNO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="193" y="85" width="78" height="15" isRemoveLineWhenBlank="true" uuid="412d05c8-ceaa-4891-9198-3f7d682754df"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contact No.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="436" y="70" width="114" height="15" isRemoveLineWhenBlank="true" uuid="0553f557-22c9-432f-8a0b-b38283aff79e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoice_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="429" y="85" width="10" height="15" isRemoveLineWhenBlank="true" uuid="85ae7405-d3e5-4dc6-86c3-ebae972954c6"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="436" y="85" width="114" height="15" isRemoveLineWhenBlank="true" uuid="5344df58-30b2-410c-9665-b1adc9e6b179"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Invoice_Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="85" width="70" height="15" isRemoveLineWhenBlank="true" uuid="ecaa05b2-d837-4b85-b124-609025520b5a"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contact Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="193" y="100" width="78" height="15" isRemoveLineWhenBlank="true" uuid="146d2066-91a3-4fc2-a43f-549b774d589c"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="100" width="70" height="15" isRemoveLineWhenBlank="true" uuid="586dc408-8ffd-44dd-9b7a-d5d5082a4495"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="80" y="45" width="470" height="15" isRemoveLineWhenBlank="true" uuid="176a0825-f00b-4ec5-94e1-95aa310cbb7d"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tax Invoice - Spares
+]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="271" y="100" width="99" height="15" isRemoveLineWhenBlank="true" uuid="6f70dcb7-6618-43cb-a8a8-006356a87d54"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerLocation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="80" y="15" width="470" height="15" isRemoveLineWhenBlank="true" uuid="d28b39c4-42d7-4732-94e7-01144b3f2cc5"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NetworkCategory}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="374" y="100" width="62" height="15" isRemoveLineWhenBlank="true" uuid="55dd5e34-5e65-4a7f-86b5-c2aef5fe6109"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GST No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="60" width="550" height="10" isRemoveLineWhenBlank="true" uuid="e0c46d7e-1665-489f-b6d8-9de457caa10a"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="263" y="70" width="10" height="15" isRemoveLineWhenBlank="true" uuid="f0fe882f-d15d-46ac-9ec1-9fe475f67f9a"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="271" y="85" width="99" height="15" isRemoveLineWhenBlank="true" uuid="a4544dcb-2d45-4eb1-8875-761c9a549e3f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Contact_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="193" y="70" width="78" height="15" isRemoveLineWhenBlank="true" uuid="98a3df21-ef57-4ff6-9c21-4e0e68883e0a"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reference No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="374" y="85" width="62" height="15" isRemoveLineWhenBlank="true" uuid="0d123eaa-8871-4839-bf17-9a59c3f8bd0e"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="429" y="70" width="10" height="15" isRemoveLineWhenBlank="true" uuid="9bfca8a8-2084-472a-8568-28b9fb4adca8"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="436" y="100" width="114" height="15" isRemoveLineWhenBlank="true" uuid="aed19f69-c84e-4210-be5c-0cdbdb3d1379"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GST_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="271" y="70" width="99" height="15" isRemoveLineWhenBlank="true" uuid="0094dad4-df32-423a-b99c-6f1e463f4911"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Type_Ref_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="70" width="70" height="15" isRemoveLineWhenBlank="true" uuid="0698a266-69d5-48d2-8125-b230d544bdd2"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="429" y="100" width="10" height="15" isRemoveLineWhenBlank="true" uuid="201d54a0-edf9-4ab3-8b8d-3028cdee65b2"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="374" y="70" width="62" height="15" isRemoveLineWhenBlank="true" uuid="dd227547-04d8-46b2-8e45-eedb5d148bdf"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="263" y="100" width="10" height="15" isRemoveLineWhenBlank="true" uuid="5daa5608-1d35-4eb4-873a-150a0c946fe2"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="85" width="120" height="15" isRemoveLineWhenBlank="true" uuid="e4005c8f-a5aa-417e-8931-e975dd6e8c24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$F{customerName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="70" width="120" height="15" isRemoveLineWhenBlank="true" uuid="14a35942-abef-4b5b-ac1d-e50360541d0e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$F{dealerName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="100" width="120" height="15" isRemoveLineWhenBlank="true" uuid="c464f9f5-b64f-4b0d-aad7-e5da9244e1e5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$F{Customer_Name}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="80" height="60" isRemoveLineWhenBlank="true" uuid="e78938e9-ef41-402f-aa6b-8aea471a14ba"/>
+				<imageExpression><![CDATA[$P{imgPath}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="80" y="0" width="470" height="15" isRemoveLineWhenBlank="true" uuid="c2b5eab1-635c-4aa3-adff-44db5a945470"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

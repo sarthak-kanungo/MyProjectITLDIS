@@ -1,0 +1,1189 @@
+
+<!-- <app-drill-down></app-drill-down>
+
+<app-bar></app-bar> -->
+
+<div class="container-fluid create-form  mt-4 mb-3" *ngIf="dashboardType">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0"> <a class="anchor" (click)="mainDashboard()" style="text-decoration: underline; font-weight: bold;">Dashboard</a> / {{dashboardType}}</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="searchGroupForm">
+                    
+                <div class="row">
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dashboard Type</mat-label>
+                            <mat-select formControlName="dashboardType">
+                                <mat-option *ngFor="let option of typeList" [value]="option">
+                                  {{option}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-lg-2" *ngIf="dashboardType=='Sales'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Report Type</mat-label>
+                            <mat-select formControlName="salesReportType">
+                                <mat-option value="Others">Sales Others</mat-option>
+                                <mat-option value="StockReport">Machine Stock & Sales Report</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-8" *ngIf="salesReportType=='StockReport'">
+                        <mat-radio-group aria-label="Select an option" formControlName="salesReportOption">
+                            <mat-radio-button value="modelWise">Model Wise</mat-radio-button>
+                            <mat-radio-button value="dealerWise">Dealer Wise</mat-radio-button>
+                            <mat-radio-button value="regionWise">Region Wise</mat-radio-button>
+                          </mat-radio-group>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100 pb_0" appearance="outline">
+                            <mat-label>From Date</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="From Current Service Due Date"  formControlName="fromDate"
+                                [max]="newdate" (dateChange)="setToDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100 pb_0" appearance="outline">
+                            <mat-label>To Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" placeholder="To Current Service Due Date" formControlName="toDate"
+                                [max]="maxDate" [min]="minDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf='isKai'>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Dealer Code</mat-label>
+                            <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                [matAutocomplete]="autoDealercode">
+                            <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn">
+                                <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                    {{option?.displayString}}
+                                </mat-option>
+                            </mat-autocomplete>
+
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Branch</mat-label>
+                            <mat-select formControlName="branch">
+                                <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                                    {{option?.branchcode}} - {{option?.BranchName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Product</mat-label>
+                            <mat-select formControlName="product"
+                                (selectionChange)="selectProduct($event.value)">
+                                <mat-option *ngFor="let option of products" [value]="option.product">
+                                    {{option?.product}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Series</mat-label>
+                            <mat-select formControlName="series"
+                                (selectionChange)="selectSeries($event.value)">
+                                <mat-option *ngFor="let option of seriesByProduct"
+                                    [value]="option.series">{{option?.series}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Model</mat-label>
+                            <mat-select formControlName="machineModel"
+                                (selectionChange)="selectModel($event.value)">
+                                <mat-option *ngFor="let option of modelBySeries"
+                                    [value]="option.model">
+                                    {{option?.model}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Sub Model</mat-label>
+                            <mat-select formControlName="subModel" 
+                                (selectionChange)="selectSubModel($event.value)">
+                                <mat-option *ngFor="let option of subModelByModel"
+                                    [value]="option.subModel">
+                                    {{option?.subModel}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Variant</mat-label>
+                            <mat-select formControlName="variant">
+                                <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                    {{option?.variant}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Chassis No.</mat-label>
+                            <input matInput placeholder="Chassis No." [matAutocomplete]="auto2" formControlName="chassisNo">
+                            <mat-icon matSuffix>search</mat-icon>
+                            
+                            <mat-autocomplete [panelWidth]="500" #auto2="matAutocomplete">
+                                <mat-option *ngFor="let option of chassisData" [value]="option.code">
+                                    {{option.value}}
+                                    </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="searchGroupForm.controls.chassisNo.errors?.selectFromList">Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row" *ngIf='isKai'>
+                    <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                    {{option.hierarchy_desc}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="mx-auto d-flex justify-content-between">
+                            
+                            <!-- mx-auto d-flex justify-content-between -->
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn pr-3 mt-3 btn_primary" (click)="searchData()"> Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()"> Clear </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2" *ngIf="dashboardType == 'Service'">
+        <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                    <th colspan="14" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Job Card Report
+                    </th>
+                </tr>  
+                <tr>
+                    <th width="200px">Type of Service</th>
+                    <th>Due / Target</th>	
+                    <th>No. of Services Done</th>	
+                    <th>Service Ratio ( % Done )</th>	
+                    <th>Open &lt; 2 Days</th>	
+                    <th>Open &gt; 2 Days</th>	
+                    <th>Closed &lt; 2 Days</th>	
+                    <th>Closed &gt; 2 Days</th>	
+                    <th>% With in &lt; 2 Days</th>	
+                    <th>Spare Parts Amount</th>	
+                    <th>Labour Amount</th>	
+                    <th>Outside Charges</th>	
+                    <th>Warranty Amount</th>	
+                    <th>Total Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of jobcardReport">
+                    <td>{{data.serviceType}}</td>
+                    <td>{{data.dueTarget}}</td>
+                    <td>{{data.noOfServicesDone}}</td>
+                    <td>{{data.serviceRatio}}</td>
+                    <td>{{data.openLessThanTwo}}</td>
+                    <td>{{data.openGreaterThanTwo}}</td>
+                    <td>{{data.closeLessThanTwo}}</td>
+                    <td>{{data.closeGreaterThanTwo}}</td>
+                    <td>{{data.percWithinTwoDays}}</td>
+                    <td>{{data.sparePartAmt}}</td>
+                    <td>{{data.labourAmt}}</td>
+                    <td>{{data.outsideCharge}}</td>
+                    <td>{{data.warrantyAmt}}</td>
+                    <td>{{data.totalAmt}}</td>
+                </tr>
+              </tbody> 
+              
+                <!-- <tfoot>
+                    <tr>
+                        <th style="text-align: right;">Total</th>
+                        <th></th>
+                        <th>{{getTotalValueService().noOfServicesDoneTotal}}</th>
+                        <th></th>
+                        <th>{{getTotalValueService().openLessThanTwoTotal}}</th>
+                        <th>{{getTotalValueService().openGreaterThanTwoTotal}}</th>
+                        <th>{{getTotalValueService().closeLessThanTwoTotal}}</th>
+                        <th>{{getTotalValueService().closeGreaterThanTwoTotal}}</th>
+                        <th>{{getTotalValueService().percWithinTwoDaysTotal}}</th>
+                        <th>{{getTotalValueService().sparePartAmtTotal}}</th>
+                        <th>{{getTotalValueService().labourAmtTotal}}</th>
+                        <th>{{getTotalValueService().outsideChargeTotal}}</th>
+                        <th>{{getTotalValueService().warrantyAmtTotal}}</th>
+                        <th>{{getTotalValueService().totalAmtTotal}}</th>
+                    </tr>
+                </tfoot> -->
+            </table>   
+
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                      <th colspan="6" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Installation Report
+                      </th>
+                  </tr>      					
+                  <tr>
+                      <th width="200px">Installation Type</th>	
+                      <th>Due / Target</th>	
+                      <th>No. of Installation Done</th>	
+                      <th>% Achieved</th>	
+                      <th>Over Due</th>	
+                      <th>Lapse (Not Done  > 15 Days)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of installationReport">
+                        <td>{{data.installationType}}</td>
+                        <td>{{data.dueTarget}}</td>
+                        <td>{{data.noOfInstallationDone}}</td>
+                        <td>{{data.percAchieved}}</td>
+                        <td>{{data.overDue}}</td>
+                        <td>{{data.lapseNotDoneGreater15Days}}</td>
+                    </tr>
+                </tbody> 
+                <!-- <tfoot>
+                    <tr>
+                        <th style="text-align: right;">Total</th>
+                        <td></td>
+                        <td>{{getTotalValueService().noOfInstallationDoneTotal}}</td>
+                        <td>{{getTotalValueService().percAchievedTotal}}</td>
+                        <td>{{getTotalValueService().overDueTotal}}</td>
+                        <td>{{getTotalValueService().lapseNotDoneGreater15DaysTotal}}</td>
+                    </tr>
+                </tfoot> -->
+            </table>   
+    
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="5" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Complaint Report
+                        </th>
+                    </tr>        				
+                    <tr>
+                        <th width="200px">Type of Complaint</th>
+                        <th>Received</th>	
+                        <th>Open</th>    	
+                        <th>Closed with in 3 Days</th>    	
+                        <th>Closed > 3 Days</th>    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of complaintReport">
+                        <td>{{data.typeOfComplaint}}</td>
+                        <td>{{data.received}}</td>
+                        <td>{{data.open}}</td>
+                        <td>{{data.closedWithIn3Days}}</td>
+                        <td>{{data.closedGreater3Days}}</td>
+                    </tr>
+                </tbody> 
+                <!-- <tfoot>
+                    <tr>
+                        <th style="text-align: right;">Total</th>
+                        <th>{{getTotalValueService().receivedTotal}}</th>
+                        <th>{{getTotalValueService().openTotal}}</th>
+                        <th>{{getTotalValueService().closedWithIn3DaysTotal}}</th>
+                        <th>{{getTotalValueService().closedGreater3DaysTotal}}</th>
+                    </tr>
+                </tfoot> -->
+            </table>   
+            
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="12" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                            Activity Report	
+                        </th>
+                    </tr>    										
+                    <tr>
+                        <th width="200px">Type of Activity</th>	
+                        <th>No. of Activities</th>	
+                        <th>No. of Job Cards</th>	
+                        <th>Spare Parts Amount</th>	
+                        <th>Labour Amount</th>	
+                        <th>Outside Charges</th>	
+                        <th>Warranty Amount</th>	
+                        <th>Total Amount</th>	
+                        <th>Reports Generated</th>	
+                        <th>Claim Raised</th>	
+                        <th>Claim Approved</th>	
+                        <th>Claim Settled</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of activityReport">
+                        <td>{{data.typeOfActivity}}</td>
+                        <td>{{data.noOfActivities}}</td>
+                        <td>{{data.noOfJobCards}}</td>
+                        <td>{{data.sparePartsAmount}}</td>
+                        <td>{{data.labourAmount}}</td>
+                        <td>{{data.outsideCharges}}</td>
+                        <td>{{data.warrantyAmount}}</td>
+                        <td>{{data.totalAmount}}</td>
+                        <td>{{data.reportsGenerated}}</td>
+                        <td>{{data.claimRaised}}</td>
+                        <td>{{data.claimApproved}}</td>
+                        <td>{{data.claimSettled}}</td>
+                    </tr>
+                </tbody> 
+                <!-- <tfoot>
+                    <tr>
+                        <th style="text-align: right;">Total</th>
+                        <th>{{getTotalValueService().noOfActivitiesTotal}}</th>
+                        <th>{{getTotalValueService().noOfJobCardsTotal}}</th>
+                        <th>{{getTotalValueService().sparePartsAmountTotal}}</th>
+                        <th>{{getTotalValueService().labourAmountTotal}}</th>
+                        <th>{{getTotalValueService().outsideChargesTotal}}</th>
+                        <th>{{getTotalValueService().warrantyAmountTotal}}</th>
+                        <th>{{getTotalValueService().totalAmountTotal}}</th>
+                        <th>{{getTotalValueService().reportsGeneratedTotal}}</th>
+                        <th>{{getTotalValueService().claimRaisedTotal}}</th>
+                        <th>{{getTotalValueService().claimApprovedTotal}}</th>
+                        <th>{{getTotalValueService().claimSettledTotal}}</th>
+                    </tr>
+                </tfoot> -->
+            </table>   
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                <tr>
+                    <th colspan="6" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                    Pre-Sales Services
+                    </th>						
+                </tr>    										
+                <tr>
+                    <th width="200px">Service Type</th>	
+                    <th>Due	</th>
+                    <th>Done</th>	
+                    <th>% Achieved</th>    	
+                    <th>Within Due Date</th>    	
+                    <th>After Due Date</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of presaleServiceReport">
+                    <td>{{data.serviceType}}</td>
+                    <td>{{data.due}}</td>
+                    <td>{{data.done}}</td>
+                    <td>{{data.percAchieved}}</td>
+                    <td>{{data.withinDueDate}}</td>
+                    <td>{{data.afterDueDateDue}}</td>
+                </tr>
+            </tbody> 
+            <!-- <tfoot>
+                <tr>
+                    <th style="text-align: right;">Total</th>
+                    <th>{{getTotalValueService().dueTotal}}</th>
+                    <th>{{getTotalValueService().doneTotal}}</th>
+                    <th>{{getTotalValueService().percAchievedTotal}}</th>
+                    <th>{{getTotalValueService().withinDueDateTotal}}</th>
+                    <th>{{getTotalValueService().afterDueDateDueTotal}}</th>
+                </tr>
+            </tfoot> -->
+        </table>        
+    </div>
+    </div>      
+    <div class="mt-2" *ngIf="dashboardType == 'Sales' && salesReportType=='Others'">
+        <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                    <th colspan="16" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Enquiry Report
+                    </th>
+                </tr>  
+                <tr>
+                    <th width="200px">Source of Enquiry</th>
+                    <th>No. of Enquiries</th>
+                    <th>Retailed</th>	
+                    <th>Pending for Validation</th>    	
+                    <th>Hot</th>    	
+                    <th>Warm</th>    	
+                    <th>Cold</th>    	
+                    <th>Lost</th>    	
+                    <th>Drop</th>    	
+                    <th>Ageing &lt;7 Days</th>    	
+                    <th>Ageing 8-15 Days</th>    	
+                    <th>Ageing 16-30 Days</th>    	
+                    <th>Ageing 31-60 Days</th>    	
+                    <th>Ageing 61-90 Days</th>    	
+                    <th>Ageing &gt; 90 Days</th>    	
+                    <th>Not Contacted &gt; 30 Days</th>
+                </tr>
+             </thead>           
+             <tbody>
+                <tr *ngFor="let data of enquiryReport">
+                    <td>{{data.sourceOfEnquiry}}</td>
+                    <td>{{data.noOfEnquiries}}</td>
+                    <td>{{data.retailed}}</td>
+                    <td>{{data.pendingForValidation}}</td>
+                    <td>{{data.hot}}</td>
+                    <td>{{data.warm}}</td>
+                    <td>{{data.cold}}</td>
+                    <td>{{data.lost}}</td>
+                    <td>{{data.drop}}</td>
+                    <td>{{data.ageingLessSevenDays}}</td>
+                    <td>{{data.ageingLessFifteenDays}}</td>
+                    <td>{{data.ageingLessThirtyDays}}</td>
+                    <td>{{data.ageingLessSixtyDays}}</td>
+                    <td>{{data.ageingLessNintyDays}}</td>
+                    <td>{{data.ageingGreaterNintyDays}}</td>
+                    <td>{{data.notContacted}}</td>
+                </tr>
+            </tbody> 
+            <!-- <tfoot>
+                <tr>
+                    <th style="text-align: right;">Total</th>
+                    <th>{{getTotalValueSales().noOfEnquiriesTotal}}</th>
+                    <th>{{getTotalValueSales().retailedTotal}}</th>
+                    <th>{{getTotalValueSales().pendingForValidationTotal}}</th>
+                    <th>{{getTotalValueSales().hotTotal}}</th>
+                    <th>{{getTotalValueSales().warmTotal}}</th>
+                    <th>{{getTotalValueSales().coldTotal}}</th>
+                    <th>{{getTotalValueSales().lostTotal}}</th>
+                    <th>{{getTotalValueSales().dropTotal}}</th>
+                    <th>{{getTotalValueSales().ageingLessSevenDaysTotal}}</th>
+                    <th>{{getTotalValueSales().ageingLessFifteenDaysTotal}}</th>
+                    <th>{{getTotalValueSales().ageingLessThirtyDaysTotal}}</th>
+                    <th>{{getTotalValueSales().ageingLessSixtyDaysTotal}}</th>
+                    <th>{{getTotalValueSales().ageingLessNintyDaysTotal}}</th>
+                    <th>{{getTotalValueSales().ageingGreaterNintyDaysTotal}}</th>
+                    <th>{{getTotalValueSales().notContactedTotal}}</th>
+                </tr>
+            </tfoot>    -->
+        </table>    
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="5" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                    Complaint Report
+                    </th>
+                </tr>        				
+                <tr>
+                    <th width="200px">Type of Complaint</th>
+                    <th>Received</th>	
+                    <th>Open</th>    	
+                    <th>Closed with in 3 Days</th>    	
+                    <th>Closed > 3 Days</th>    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of complaintReport">
+                    <td>{{data.typeOfComplaint}}</td>
+                    <td>{{data.received}}</td>
+                    <td>{{data.open}}</td>
+                    <td>{{data.closedWithIn3Days}}</td>
+                    <td>{{data.closedGreater3Days}}</td>
+                </tr>
+            </tbody> 
+            <!-- <tfoot>
+                <tr>
+                    <th style="text-align: right;">Total</th>
+                    <th>{{getTotalValueSales().receivedTotal}}</th>
+                    <th>{{getTotalValueSales().openTotal}}</th>
+                    <th>{{getTotalValueSales().closedWithIn3DaysTotal}}</th>
+                    <th>{{getTotalValueSales().closedGreater3DaysTotal}}</th>
+                </tr>
+            </tfoot>    -->
+        </table>  
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="14" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Activity Report	/ Dealer Own
+                    </th>
+                </tr>    										
+                <tr>
+                    <th width="200px">Type of Activity</th>	
+                    <th>Activity Type</th>
+                    <th>No. of Activities</th>	
+                    <th>No. of Enquiries</th>	
+                    <th>Retailed</th>    	
+                    <th>Hot</th>    	
+                    <th>Warm</th>    	
+                    <th>Cold</th>    	
+                    <th>Lost</th>    	
+                    <th>Drop</th>    		
+                    <th>Reports Generated</th>	
+                    <th>Claim Raised</th>	
+                    <th>Claim Approved</th>	
+                    <th>Claim Settled</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of activityDealerOwnReport">
+                    <td>{{data.typeOfActivity}}</td>
+                    <td>{{data.activityType}}</td>
+                    <td>{{data.noOfActivities}}</td>
+                    <td>{{data.noOfEnquiries}}</td>
+                    <td>{{data.retailed}}</td>
+                    <td>{{data.hot}}</td>
+                    <td>{{data.warm}}</td>
+                    <td>{{data.cold}}</td>
+                    <td>{{data.lost}}</td>
+                    <td>{{data.drop}}</td>
+                    <td>{{data.reportsGenerated}}</td>
+                    <td>{{data.claimRaised}}</td>
+                    <td>{{data.claimApproved}}</td>
+                    <td>{{data.claimSettled}}</td>
+                </tr>
+            </tbody> 
+            <!-- <tfoot>
+                <tr>
+                    <th style="text-align: right;">Total</th>
+                    <th>{{getTotalValueSales().noOfActivitiesTotal}}</th>
+                    <th>{{getTotalValueSales().noOfEnquiriesTotal}}</th>
+                    <th>{{getTotalValueSales().retailedTotal}}</th>
+                    <th>{{getTotalValueSales().hotTotal}}</th>
+                    <th>{{getTotalValueSales().warmTotal}}</th>
+                    <th>{{getTotalValueSales().coldTotal}}</th>
+                    <th>{{getTotalValueSales().lostTotal}}</th>
+                    <th>{{getTotalValueSales().dropTotal}}</th>
+                    <th>{{getTotalValueSales().reportsGeneratedTotal}}</th>
+                    <th>{{getTotalValueSales().claimRaisedTotal}}</th>
+                    <th>{{getTotalValueSales().claimApprovedTotal}}</th>
+                    <th>{{getTotalValueSales().claimSettledTotal}}</th>
+                </tr>
+            </tfoot> -->
+        </table>
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="14" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Activity Report	/ Kubota Supported
+                    </th>
+                </tr>    										
+                <tr>
+                    <th width="200px">Type of Activity</th>	
+                    <th>Activity Type</th>
+                    <th>No. of Activities</th>	
+                    <th>No. of Enquiries</th>	
+                    <th>Retailed</th>    	
+                    <th>Hot</th>    	
+                    <th>Warm</th>    	
+                    <th>Cold</th>    	
+                    <th>Lost</th>    	
+                    <th>Drop</th>    		
+                    <th>Reports Generated</th>	
+                    <th>Claim Raised</th>	
+                    <th>Claim Approved</th>	
+                    <th>Claim Settled</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of activityKubotaSupportedReport">
+                    <td>{{data.typeOfActivity}}</td>
+                    <td>{{data.activityType}}</td>
+                    <td>{{data.noOfActivities}}</td>
+                    <td>{{data.noOfEnquiries}}</td>
+                    <td>{{data.retailed}}</td>
+                    <td>{{data.hot}}</td>
+                    <td>{{data.warm}}</td>
+                    <td>{{data.cold}}</td>
+                    <td>{{data.lost}}</td>
+                    <td>{{data.drop}}</td>
+                    <td>{{data.reportsGenerated}}</td>
+                    <td>{{data.claimRaised}}</td>
+                    <td>{{data.claimApproved}}</td>
+                    <td>{{data.claimSettled}}</td>
+                </tr>
+            </tbody>  
+            <!-- <tfoot>
+                <tr>
+                    <th style="text-align: right;">Total</th>
+                    <th>{{getTotalValueSales().noOfActivitiesTotal}}</th>
+                    <th>{{getTotalValueSales().noOfEnquiriesTotal}}</th>
+                    <th>{{getTotalValueSales().retailedTotal}}</th>
+                    <th>{{getTotalValueSales().hotTotal}}</th>
+                    <th>{{getTotalValueSales().warmTotal}}</th>
+                    <th>{{getTotalValueSales().coldTotal}}</th>
+                    <th>{{getTotalValueSales().lostTotal}}</th>
+                    <th>{{getTotalValueSales().dropTotal}}</th>
+                    <th>{{getTotalValueSales().reportsGeneratedTotal}}</th>
+                    <th>{{getTotalValueSales().claimRaisedTotal}}</th>
+                    <th>{{getTotalValueSales().claimApprovedTotal}}</th>
+                    <th>{{getTotalValueSales().claimSettledTotal}}</th>
+                </tr>
+            </tfoot> -->
+        </table>    
+      </div>  
+    </div>
+
+    <div class="mt-2" *ngIf="dashboardType == 'Sales' && salesReportType=='StockReport'">
+        <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                    <th colspan="16" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Stock Report
+                    </th>
+                </tr>  
+                <tr>
+                    <th width="200px">{{salesReportOption}}</th>
+                    <th>Fresh Stock</th>
+                    <th>Returned Stock</th>	
+                    <th>Transit Stock</th>    	
+                    <th>Total</th> 
+                </tr>
+             </thead>           
+             <tbody>
+                <tr *ngFor="let data of stockReport">
+                    <td>{{data.model}}</td>
+                    <td>{{data.freshStock}}</td>
+                    <td>{{data.returnedStock}}</td>
+                    <td>{{data.transitStock}}</td>
+                    <td>{{data.total}}</td>
+                </tr>
+             </tbody>
+             <!-- <tfoot>
+                 <tr>
+                     <th style="text-align: right;">Total</th>
+                     <th>0</th>
+                     <th>0</th>
+                     <th>0</th>
+                     <th>0</th>
+                 </tr>
+             </tfoot> -->
+            </table>
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                      <th colspan="16" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Retail Report
+                      </th>
+                  </tr>  
+                  <tr>
+                      <th width="200px">{{salesReportOption}}</th>
+                      <th>No. of Retails</th>
+                      <th>Total Enquiries</th>	
+                      <th>Conversion Ratio</th>    	
+                      <th>Retailed Same Day</th>
+                      <th>Retailed within 7 Days</th>
+                      <th>Retailed within 15 Days</th>
+                      <th>Retailed within 30 Days</th>
+                      <th>Retailed within 60 Days</th>
+                      <th>Retailed > 60 Days</th>
+                      <th>No. of Cash Cases</th>
+                      <th>No. of Loan Cases</th>
+                      <th>No. of Exchange</th> 
+                  </tr>
+               </thead>           
+               <tbody>
+                  <tr *ngFor="let data of retailReport">
+                    <td>{{data.model}}</td>
+                    <td>{{data.noOfRetails}}</td>
+                    <td>{{data.totalEnquiries}}</td>
+                    <td>{{data.conversionRatio}}</td>
+                    <td>{{data.retailSameDay}}</td>
+                    <td>{{data.retailWithin7Days}}</td>
+                    <td>{{data.retailWithin15Days}}</td>
+                    <td>{{data.retailWithin30Days}}</td>
+                    <td>{{data.retailWithin60Days}}</td>
+                    <td>{{data.retailMoreThan60Days}}</td>
+                    <td>{{data.noOfCashCases}}</td>
+                    <td>{{data.noOfLoanCases}}</td>
+                    <td>{{data.noOfExchange}}</td>
+                  </tr>
+               </tbody>
+               <!-- <tfoot>
+                   <tr>
+                       <th style="text-align: right;">Total</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                       <th>0</th>
+                   </tr>
+               </tfoot> -->
+              </table>
+        </div>
+    </div>
+    <div class="mt-2" *ngIf="dashboardType == 'Warranty'">
+        <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                    <th colspan="11" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        PCR Report Based on Status
+                    </th>
+                </tr>  
+                <tr>
+                    <th width="200px">PCR Status</th>
+                    <th>Total</th>
+                    <th>"Decision Ratio( % Done )"</th>	
+                    <th>&lt; 1 Day</th>    	
+                    <th>&gt; 1 Day</th>    	
+                    <th>% With in &lt; 1 Day</th>    	
+                    <th>% More than &gt; 1 Day</th>    	
+                    <th>Approved Parts Amount</th>    	
+                    <th>Approved Labour Amount</th>    	
+                    <th>Approved Outside Charges</th>    	
+                    <th>Total Approved Amount</th>
+                </tr>
+             </thead>           
+             <tbody>
+                <tr *ngFor="let data of pcrStatusReport">
+                    <td>{{data.pcrStatus}}</td>
+                    <td>{{data.total}}</td>
+                    <td>{{data.decisionRatio}}</td>
+                    <td>{{data.lessThan1}}</td>
+                    <td>{{data.moreThan1}}</td>
+                    <td>{{data.percLessThan1}}</td>
+                    <td>{{data.percMoreThan1}}</td>
+                    <td>{{data.approvedPartAmount}}</td>
+                    <td>{{data.approvedLabourAmount}}</td>
+                    <td>{{data.approvedOutsideChargeAmount}}</td>
+                    <td>{{data.totalApprovedAmount}}</td>
+                </tr>
+            </tbody> 
+        </table>    
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                  <th colspan="29" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                    WCR Report Based on Status
+                  </th>
+              </tr>  
+              <tr>
+                  <th width="200px" rowspan="2">WCR Material Status</th>
+                  <th rowspan="2">Total</th>
+                  <th rowspan="2">&lt; 45 Days</th>	
+                  <th rowspan="2">45 to 60 Days</th>    	
+                  <th rowspan="2">&gt; 60 Days</th>
+                  <th rowspan="2">% With in &lt; 45 Days</th>
+                  <th rowspan="2">% 45 to 60 Days</th>
+                  <th rowspan="2">% &gt; 60 Days</th>
+                  <th rowspan="2">Approved Parts Amount</th>
+                  <th rowspan="2">Approved Labour Amount</th>
+                  <th rowspan="2">Approved Outside Charges</th>
+                  <th rowspan="2">Total Approved Amount</th>
+                  <th colspan="4" *ngIf='isKai'>Material Not Received Status</th>
+                  <th colspan="3" *ngIf='isKai'>Claimed to vendor</th>
+                  <th colspan="3" *ngIf='isKai'>Vendor Accepted</th>			
+                  <th colspan="3" *ngIf='isKai'>Vendor Rejected</th>
+                  <th colspan="3" *ngIf='isKai'>Vendor Pending</th>
+                
+              </tr>
+              <tr *ngIf='!isKai'></tr>
+              <tr *ngIf='isKai'>
+                
+                <th>&lt; 120 Days</th>
+                <th>% &lt; 120 Days</th>	
+                <th>&gt; 120 Days</th>
+                <th>% &gt; 120 Days</th>
+
+                <th>QTY</th>	
+                <th>Value</th>	
+                <th>%</th>
+
+                <th>QTY</th>	
+                <th>Value</th>	
+                <th>%</th>
+                
+                <th>QTY</th>	
+                <th>Value</th>	
+                <th>%</th>
+                
+                <th>QTY</th>	
+                <th>Value</th>	
+                <th>%</th>
+              </tr>
+           </thead>           
+           <tbody>
+              <tr *ngFor="let data of wcrStatusReport">
+                <td>{{data.wcrStatus}}</td>
+                <td>{{data.total}}</td>
+                <td>{{data.lessThan45}}</td>
+                <td>{{data.wcrCount}}</td>
+                <td>{{data.moreThan60}}</td>
+                <td>{{data.percLessThan45}}</td>
+                <td>{{data.perc45To60}}</td>
+                <td>{{data.perMoreThan60}}</td>
+                <td>{{data.approvedPartAmount}}</td>
+                <td>{{data.approvedLabourAmount}}</td>
+                <td>{{data.approvedOutsideChargeAmount}}</td>
+                <td>{{data.totalApprovedAmount}}</td>
+                <td *ngIf="isKai">{{data.lessThan120}}</td>
+                <td *ngIf="isKai">{{data.percLessThan120}}</td>
+                <td *ngIf="isKai">{{data.moreThan120}}</td>
+                <td *ngIf="isKai">{{data.percMoreThan120}}</td>
+                <td *ngIf="isKai">{{data.q1}}</td>
+                <td *ngIf="isKai">{{data.v1}}</td>
+                <td *ngIf="isKai">{{data.p1}}</td>
+                <td *ngIf="isKai">{{data.q2}}</td>
+                <td *ngIf="isKai">{{data.v2}}</td>
+                <td *ngIf="isKai">{{data.p2}}</td>
+                <td *ngIf="isKai">{{data.q3}}</td>
+                <td *ngIf="isKai">{{data.v3}}</td>
+                <td *ngIf="isKai">{{data.p3}}</td>
+                <td *ngIf="isKai">{{data.q4}}</td>
+                <td *ngIf="isKai">{{data.v4}}</td>
+                <td *ngIf="isKai">{{data.p4}}</td>
+              </tr>
+           </tbody>
+        </table>
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="12" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Settlement Report
+                    </th>
+                </tr>        				
+                <tr>
+                    <th width="200px">Settlement Status</th>
+                    <th>Total Number of Settlements</th>	
+                    <th>Total Number of Invoices settled</th>    	
+                    <th>Approved Parts Amount</th>    	
+                    <th>Approved Labour Amount</th>   
+                    <th>Approved Outside Charges</th> 
+                    <th>Total Settlement Amount</th>
+                    <th *ngIf='isKai'>Total wholesale Sales amount-previous year</th>
+                    <th *ngIf='isKai'>Total warranty approved amount-Current Year</th>
+                    <th *ngIf='isKai'>Percentage of Warranty Expense</th>
+                    <th *ngIf='isKai'>Claim Back Value</th>	
+                    <th *ngIf='isKai'>Percentage of warranty Expense after claim back</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of settlementStatusReport">
+                    <td>{{data.settlementStatus}}</td>
+                    <td>{{data.noOfSettlement}}</td>
+                    <td>{{data.noOfInvoiceSettled}}</td>
+                    <td>{{data.approvedPartAmount}}</td>
+                    <td>{{data.approvedLabourAmount}}</td>
+                    <td>{{data.approvedOutsideChargeAmount}}</td>
+                    <td>{{data.totalSettlementAmount}}</td>
+                    <td *ngIf="isKai">{{data.totalSalesAmountPreviousY}}</td>
+                    <td *ngIf="isKai">{{data.totalSalesAmountCurrentY}}</td>
+                    <td *ngIf="isKai">{{data.percWarrantyExpense}}</td>
+                    <td *ngIf="isKai">{{data.claimBackValue}}</td>
+                    <td *ngIf="isKai">{{data.percWarrantyExpenseAfterClaimBack}}</td>
+                </tr>
+            </tbody> 
+        </table>  
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="9" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Goodwill Report Based on Status
+                    </th>
+                </tr>    										
+                <tr>
+                    <th width="200px">Goodwill Status</th>	
+                    <th>Total Number of Goodwills</th>
+                    <th>Claimed Amount</th>
+                    <th>Approved Parts Amount</th>	
+                    <th>Approved Labour Amount</th>	
+                    <th>Approved Outside Charges</th>    	
+                    <th>Total Approved Amount</th>    	
+                    <th *ngIf="isKai">Total Sales Budget</th>    	
+                    <th *ngIf="isKai">Utilized Budget current year</th>    	
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of goodwillStatusReport">
+                    <td>{{data.goodwillStatus}}</td>
+                    <td>{{data.noOfgoodwill}}</td>
+                    <td>{{data.claimedAmount}}</td>
+                    <td>{{data.approvedPartAmount}}</td>
+                    <td>{{data.approvedLabourAmount}}</td>
+                    <td>{{data.approvedOutsideChargeAmount}}</td>
+                    <td>{{data.totalApprovedAmount}}</td>
+                    <td *ngIf="isKai">{{data.totalSalesBudget}}</td>
+                    <td *ngIf="isKai">{{data.utilizedBudgetCurrentYear}}</td>
+                </tr>
+            </tbody> 
+        </table>
+      </div>  
+    </div>
+
+    <div class="mt-2" *ngIf="dashboardType == 'Marketing'">
+        
+        <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                    <th colspan="6" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        
+                                Budget status in Rupees
+                    </th>
+                </tr>  
+                <!-- <tr>
+                    <td colspan="6">
+                        <form [formGroup]="searchGroupForm">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100 np">
+                                    <mat-label>Report Type</mat-label>
+                                    <mat-select formControlName="budgetReportType">
+                                        <mat-option value="MonthWise">Month Wise</mat-option>
+                                        <mat-option value="PeriodWise">Period Wise</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        </form>
+                    </td>
+                </tr> -->
+                <tr>
+                    <th width="200px">State</th>
+                    <th>Budget Available/Budget Available Amount</th>
+                    <th>Proposal Received/Proposal Received Amount</th>	
+                    <th>Proposal Rejected/Proposal Rejected Amount</th>    
+                    <th>Proposal Approved/Proposal Approved Amount</th>	
+                    <th>Balance Budget/Balance Budget  Amount</th> 
+                </tr>
+             </thead>           
+             <tbody>
+                <tr *ngFor="let data of M_budgetStatusReport">
+                    <td>{{data.state}}</td>
+                    <td>{{data.budgetAvailable}}</td>
+                    <td>{{data.propoalReceived}}/{{data.proposalReceivedAmount}}</td>
+                    <td>{{data.proposalRejected}}/{{data.proposalRejectedAmount}}</td>
+                    <td>{{data.proposalApproved}}/{{data.proposalApprovedAmount}}</td>
+                    <td>{{data.balanceBudget}}</td>
+                </tr>
+                <tr>
+                    <td><b>Grand Total</b></td>
+                    <td></td>
+                    <!-- <td>{{budgetAvailableCount}}</td> -->
+                    <td><b>{{proRecievedCount}}/{{prosrecievedAmount}}</b></td>
+                    <td><b>{{proRejectedCount}}/{{proRejectedAmount}}</b></td>
+                    <td><b>{{proApprovedCount}}/{{proApprovedAmount}}</b></td>
+                    <!-- <td>{{balanceBudget}}</td> -->
+                    <td></td>
+                </tr>
+             </tbody> 
+            </table>
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                      <th colspan="16" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Proposal Status in Units
+                      </th>
+                  </tr>  
+                  <tr>
+                      <th width="200px">State</th>
+                      <th>Pending proposal last month/Pending For Last Amount</th>
+                       <!-- <th>Proposal Received/Proposal Recieved Amount</th>	  -->
+                      <!-- <th>Proposal Rejected/Proposal Rejected Amount</th>      -->
+                      <th>Proposal Hold/Proposal Hold Amount</th>	
+                       <!-- <th>Proposal Approved/Proposal Approved Amount</th>	 -->
+                      <th>Pending for approval/Pending For Approved Amount</th>
+                  </tr>
+               </thead>           
+               <tbody>
+                <tr *ngFor="let data of M_propoalStatusReport">
+                    <td>{{data.state}}</td>
+                     <td>{{data.pendingProposal}}/{{data.pendingProposalAmount}}</td> 
+                    <!-- <td>{{data.propoalReceived}}/{{data.proposalReceivedAmount}}</td> -->
+                    <!-- <td>{{data.proposalRejected}}/{{data.proposalRejectedAmount}}</td>  -->
+                    <td>{{data.proposalHold}}/{{data.proposalHoldAmount}}</td>
+                     <!-- <td>{{data.proposalApproved}}/{{data.proposalApprovedAmount}}</td>  -->
+                    <td>{{data.pendingForApproval}}/{{data.pendingForApprovalAmount}}</td>
+                </tr>
+                <tr>
+                    <td><b>Grand Total</b></td>
+                    <td><b>{{penLastMonthCount}}/{{penLastMonthAmount}}</b></td> 
+                   <!-- <td><b>{{prorecievedCount}}/{{prorecievedAmount}}</b></td> -->
+                     <!-- <td><b>{{newProposalRejectedCount}}/{{newProposalRejectedAmount}}</b></td> -->
+                    <td><b>{{newProposalHoldCount}}/{{newProposalHoldAmount}}</b></td>
+                     <!-- <td><b>{{newProposalApprovedCount}}/{{newProposalApprovedAmount}}</b></td>  -->
+                    <td><b>{{newPendingApprovalCount}}/{{newPendingApprovalAmount}}</b></td>
+                </tr>
+               </tbody>
+            </table>
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                      <th colspan="12" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Report Status
+                      </th>
+                  </tr>
+                   
+                <tr>
+                    <td colspan="12">
+                        <form [formGroup]="searchGroupForm">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100 np">
+                                <mat-label>Report Type</mat-label>
+                                <mat-select formControlName="mReportType">
+                                    <mat-option value="MonthWise">Month Wise</mat-option>
+                                    <mat-option value="DealerWise">Dealer Wise</mat-option>
+                                    <mat-option value="ActivityWise">Activity Wise</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            </div>
+                        </div>
+                        </form>
+                    </td>
+                </tr>  
+                  <tr>
+                      <th width="200px" rowspan="2">{{MReportType}}</th>
+                      <th rowspan="2">Approved Proposal till date/Approval Proposal Amount</th>
+                      <th rowspan="2">Report Uploaded till date</th>	
+                      <th rowspan="2">Report Pending</th>    
+                      <th colspan="8">Enquiry status</th>
+                  </tr>
+                  <tr>
+                    <th>Contact Received</th>	
+                    <th>HP Received</th>	
+                    <th>Booking Received</th>
+                    <th>Retail done</th>
+                    <th>Drop</th>
+                    <th>Lost</th>
+                    <th>Open contact</th>
+                    <th>Open HP</th>
+                  </tr>
+               </thead>           
+               <tbody>
+                <tr *ngFor="let data of M_enquiryStatuReport">
+                    <td>{{data.rtype}}</td>
+                    <td>{{data.approvedProposalTillDate}}/{{data.approvedProposalTillDateAmount?data.approvedProposalTillDateAmount:0}}</td>
+                    <td>{{data.reportUploadedTillDate}}</td>
+                    <td>{{data.reportPending}}</td>
+                    <td>{{data.contactReceived}}</td>
+                    <td>{{data.hpReceived}}</td>
+                    <td>{{data.bookingReceived}}</td>
+                    <td>{{data.retailDone}}</td>
+                    <td>{{data.drop}}</td>
+                    <td>{{data.lost}}</td>
+                    <td>{{data.openContact}}</td>
+                    <td>{{data.openHp}}</td>
+                </tr>
+                <tr>
+                    <td><b>Grand Total</b></td>
+                    <td><b>{{totalCountSum}}/{{total}}</b></td> 
+                    <td><b>{{reportUpload}}</b></td>
+                    <td><b>{{reportPending}}</b></td>
+                    <td><b>{{contactRecieve}}</b></td>
+                    <td><b>{{hpRecieve}}</b></td>
+                    <td><b>{{bookingRecieve}}</b></td>
+                    <td><b>{{retailDone}}</b></td>
+                    <td><b>{{drop}}</b></td>
+                    <td><b>{{lost}}</b></td>
+                    <td><b>{{opencontact}}</b></td>
+                    <td><b>{{openhp}}</b></td>
+                  
+                </tr>
+               </tbody>
+            </table>
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                      <th colspan="16" style="text-align: left; background-color: #00a8a9; color: #fff;">
+                        Claim Status Dealer wise (Units & Rupees)
+                      </th>
+                  </tr>  
+                  <tr>
+                      <th rowspan="2" width="200px">State</th>
+                      <th rowspan="2">Claim Uploaded</th>
+                      <th rowspan="2">Claim Approved/Claim Approved Amount</th>	
+                      <th rowspan="2">Claim Rejected/Claim Rejected Amount</th>    
+                      <th rowspan="2">Pending for approval/Claim Pending Amount</th>
+                      <th colspan="3">Ageing stage (In days)</th>			
+                      <th colspan="2">Disbursement</th>	
+                  </tr>
+                  <tr>
+                        <th>&lt;30</th>	
+                        <th>31 to 45</th>	
+                        <th>DH approval</th>	
+                        <th>Completed/Complete Amount</th>	
+                        <th>Pending/Pending Amount</th>
+                  </tr>
+               </thead>           
+               <tbody>
+
+                <tr *ngFor="let data of M_claimStatusReport">
+                    <td>{{data.state}}</td>
+                    <td>{{data.claimUploaded}}</td>
+                    <td>{{data.claimApproved}}/{{data.claimApprovedAmount}}</td>
+                    <td>{{data.claimRejected}}/{{data.claimRejectedAmount}}</td>
+                    <td>{{data.pendingForApproval}}/{{data.pendingForApprovalAmount}}</td>
+                    <td>{{data.pendingLess30}}</td>
+                    <td>{{data.pending31To45}}</td>
+                    <td>{{data.dhApproval}}</td>
+                    <td>{{data.completed}}/{{data.completedAmount}}</td>
+                    <td>{{data.pending}}/{{data.pendingAmount}}</td>
+                </tr>
+                <tr>
+                    <td><b>Grand Total</b></td>
+                     <td><b>{{claimUpload}}</b></td>
+                    <td><b>{{claimApprovedCount}}/{{claimApprovedAmount}}</b></td> 
+                    <td><b>{{claimRejectCount}}/{{claimRejectAmount}}</b></td> 
+                     <td><b>{{pendingForApprovalCount}}/{{pendingForApprovalAmount}}</b></td>
+                     <td><b>{{age}}</b></td>
+                     <td><b>{{ages}}</b></td>
+                     <td><b>{{dhApproval}}</b></td>
+                     <td><b>{{completedCount}}/{{completedAmount}}</b></td>
+                     <td><b>{{pendingCount}}/{{pendingAmount}}</b></td>
+                </tr>
+               </tbody>
+            </table>
+        </div>
+    </div>    
+</div>
+
+
+<div class="container-fluid" *ngIf="!dashboardType">
+    <div class="row">
+    	<div class="col-lg-9 col-md-9 col-sm-9 mt-2" >
+    		<!-- <img src="./assets/carousel-img1.png" class="imgsize"/> -->
+            <img src="./assets/carousel-img1.png" class="img-fluid"/>
+                     
+    	</div>
+
+        <div class="col-lg-3 col-md-3 col-sm-3 mt-2" style="float:right">
+            <div class="col-lg-12" *ngFor="let item of typeList; let i=index">
+                <div class="card text-white text-left mb-4" [style.background-color]="getColor(item)">
+                    <div class="card-body abcd anchor">
+                        <mat-icon>dashboard</mat-icon>
+                        <a  [routerLink]="item"  routerLinkActive="router-link-active" style="color:#fff" >
+                             {{item}} Dashboard
+                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

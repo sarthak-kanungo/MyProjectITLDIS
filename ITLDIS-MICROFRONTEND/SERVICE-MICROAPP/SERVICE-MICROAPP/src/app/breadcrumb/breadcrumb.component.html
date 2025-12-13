@@ -1,0 +1,28 @@
+<div class=" d-flex justify-content-between " style="background-color:#f6f7fa; ">
+  <ol class="breadcrumb main">
+    <li class="breadcrumb-item" *ngFor="let item of (breadcrumbList$ | async); let i = index"
+      [class.active]="i===breadcrumbListLength-1">
+      <a [routerLink]="item.path"
+        *ngIf="(i!==breadcrumbListLength-1 && (breadcrumbListLength-1>=1) && !isNoPath(item?.name))">
+        {{ item?.name }}
+      </a>
+      <span class="active_page"
+        *ngIf="(i===breadcrumbListLength-1 || (i!==breadcrumbListLength-1 && (breadcrumbListLength-1>=1) && isNoPath(item?.name)))">{{ item?.name }}</span>
+    </li>
+  </ol>
+  <!-- <span class="version">{{appVersion}}</span> -->
+  <!-- <ul class="breadcrumb user-date">
+    <li> {{currentDate| date:'dd MMM yyyy'}} </li>
+    <li class="ml-2 loginCountClass"> {{userName}}</li>
+    <li class="ml-2" style="font-weight:bold;">Total Sessions : {{loginCount}}</li>
+  </ul> -->
+</div>
+<!-- <mat-list-item>
+  <button mat-menu-item [matMenuTriggerFor]="billsmenu">Bills</button>
+</mat-list-item>
+<mat-menu #billsmenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item>
+    <mat-icon>home</mat-icon>
+    <span>Bill Management</span>
+  </button>
+</mat-menu> -->

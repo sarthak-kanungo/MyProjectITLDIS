@@ -1,0 +1,35 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Call Attempts History </p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 5%;">No. Of Attempts</th>
+                <th scope="col" style="width: 10%;">Call Date</th>
+                <th scope="col" style="width: 10%;">Call Time</th>
+                <th scope="col" style="width: 20%;">Done By </th>
+                <th scope="col" style="width: 25%;">Call Remarks </th>
+                <th scope="col" style="width: 30%;">Call Recording File Name </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let call of callHistoryList; let i=index">
+                <td> {{i+1}}</td>
+                <td >{{call.callDate}}</td>
+                <td >{{call.callTime}}</td>
+                <td >{{call.userName}}</td>
+                <td >{{call.callRemarks}}</td>
+                <td > <a href="{{fileStaticPath}}/{{call.callRecordingFileName}}" download>{{call.callRecordingFileName}}</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+    </div>
+  </div>

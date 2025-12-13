@@ -1,0 +1,160 @@
+<div class="container-fluid mt-4 mb-3">
+  
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="card-from">
+                  <div class="card">
+                      <div class="card-header">
+                          <div class="d-flex justify-content-between header">
+                              <p class="mb-0">Market Intelligence</p>
+                              <div *ngIf="!isKai">
+                                  <button type="button" class="btn btn-xs ml-2 bg-white "
+                                      [routerLink]="[ './create' ]">
+                                      <b class="btnName">New</b>
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                        <form [formGroup]="searchMIForm" [style.fontSize.px]="10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Feedback Category</mat-label>
+                                        <mat-select formControlName="feedbackCategory">
+                                            <mat-option *ngFor="let cat of categories" [value]="cat.lookupId">
+                                                {{cat.lookupval}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker" placeholder="MI From Date"
+                                            formControlName="fromDate" (click)="picker.open()"
+                                            (dateChange)="fromDateSelected($event)" [max]="todaysDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+            
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker1" placeholder="MI To Date"
+                                            formControlName="toDate" (click)="picker1.open()" 
+                                            [min]="minToDate" [max]="maxToDate" >
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2"  *ngIf="isKai">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Dealer</mat-label>
+                                        <input matInput placeholder="Dealer" formControlName="dealer"
+                                            [matAutocomplete]="dealerSearch">
+                                        <mat-autocomplete #dealerSearch="matAutocomplete"  [panelWidth]="500" [displayWith]="displayDealerFn">
+                                            <mat-option *ngFor="let option of dealercodeList" [value]="option">
+                                                {{option?.displayString}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <mat-error *ngIf="searchMIForm.get('dealer').hasError('selectFromList')">Select From List</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row"  *ngIf="isKai">
+                                <div class="col-lg-2" *ngFor="let level of orgLevels">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                      <mat-label>{{level['LEVEL_DESC']}}</mat-label>
+                                      <mat-select formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+                                          <mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+                                        <mat-option *ngFor="let hier of orgHierLevels1" [value]="hier" (click)="getOrgLevelHier2(hier)" >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel2" *ngIf="level['SEQ_NO'] == 2">
+                                          <mat-option value='all' (click)="getOrgLevelHier3('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels2" [value]="hier" (click)='getOrgLevelHier3(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel3" *ngIf="level['SEQ_NO'] == 3">
+                                        <mat-option value='all' (click)="getOrgLevelHier4('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels3" [value]="hier" (click)='getOrgLevelHier4(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel4" *ngIf="level['SEQ_NO'] == 4">
+                                        <mat-option value='all' (click)="getOrgLevelHier5('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels4" [value]="hier" (click)='getOrgLevelHier5(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel5" *ngIf="level['SEQ_NO'] == 5">
+                                          <mat-option value='all' (click)="getOrgLevelHier6('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels5" [value]="hier" >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+
+                      </div>
+
+                      <div class="text-center  mt-2 mb-2">
+                          <button type="button" class="btn  btn_primary px-3" (click)="searchMIData()">
+                              Search
+                          </button>
+                          <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                              Clear
+                          </button>
+                      </div>
+
+                  </div>
+              </div>
+              <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+                [clickOnTableFields]="[{}]"
+                (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"  [isExcelImport]="true" (exportToExcel)="downloadExcel($event)" >
+
+                <td [ngsw-searchField]="userName" [searchColumnName]="'userName'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #userName [(ngModel)] ="userNameNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #dealerName [(ngModel)] ="dealerNameNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #dealerCode [(ngModel)] ="dealerCodeNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="date" [searchColumnName]="'deliveryChallanDate'">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" #date
+                            (dateChange)="dateChanges($event, 'date')" [(ngModel)] ="dateNgModel">
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker></mat-datepicker>
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="feedbackCategory" [searchColumnName]="'feedbackCategory'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #feedbackCategory [(ngModel)] ="feedbackCategoryNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="product" [searchColumnName]="'product'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #product [(ngModel)] ="productNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="competitor" [searchColumnName]="'competitor'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #competitor [(ngModel)] ="competitorNgModel">
+                    </mat-form-field>
+                </td>
+                <td [ngsw-searchField]="feedback" [searchColumnName]="'feedback'">
+                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput #feedback [(ngModel)] ="feedbackNgModel">
+                    </mat-form-field>
+                </td>
+                </ngsw-search-table>
+          </div>
+      </div>
+  
+</div>

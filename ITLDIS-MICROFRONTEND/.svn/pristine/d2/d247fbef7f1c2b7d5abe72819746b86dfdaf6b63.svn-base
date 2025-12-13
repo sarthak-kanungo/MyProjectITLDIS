@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-between mb-2">
+
+    <div class="card-from mt-2 w-50">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                      border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;">Machine Details</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-left" style="width: 150px;">Series</th>
+                            <th scope="col" style="width: 150px;">No.of Machines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let table of machineDetailsTable">
+                            <td class="text-left">{{table.serviceType}}</td>
+                            <td>{{table.noOfMachine}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                            <th scope="col" style="text-align: right;">TOTAL</th>
+                            <th scope="col" style="width: 150px;">{{totalNoOfMachine}}</th>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-from mt-2 w-50 ml-1">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;">Service Details</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-left" style="width: 150px;">Type of Service</th>
+                            <th scope="col" style="width: 150px;">No.of Machines</th>
+                            <!-- <th scope="col" class="text-left" style="width: 150px;">Type of Service</th>
+                            <th scope="col" style="width: 150px;">No.of Machines</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let table of serviceDetailsTable;index as i">
+                            <td class="text-left">{{table.serviceType}}</td>
+                            <td >{{table.noOfMachine}}</td>
+                            <!-- <td class="text-left">{{table.typeofServices}}</td>
+                            <td >{{table.noOfMachines}}</td> -->
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <th scope="col" style="text-align: right;">TOTAL</th>
+                        <th scope="col" style="width: 150px;">{{totalNoOfService}}</th>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+ 
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="font-weight-bold" style="color: #354052">
+              PO Approval
+            </p>
+          </div>
+  
+        </div>
+
+        <div class="card-from">
+  
+          <div class="card">
+            <div class="card-header">
+              <p class="mb-0"> Purchase Order</p>
+            </div>
+            <div class="card-body">
+  
+              <form [formGroup]="purchaseOrderApprovalFrom" [style.fontSize.px]="10">
+                <div class="row">
+  
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Zone</mat-label>
+                      <mat-select formControlName="zone">
+                        <mat-option *ngFor="let zone of zones" [value]="zone">{{zone}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Region</mat-label>
+                      <mat-select formControlName="region">
+                        <mat-option *ngFor="let region of regions" [value]="region">{{region}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Area</mat-label>
+                      <input matInput placeholder="Area" formControlName="area">
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Territory</mat-label>
+                      <input matInput placeholder="Territory" formControlName="territory">
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Dealer</mat-label>
+                      <mat-select formControlName="dealer">
+                        <mat-option *ngFor="let dealer of dealers" [value]="dealer">{{dealer}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-lg-2">
+                    <mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker1" placeholder="From Date" formControlName="fromDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-lg-2">
+                    <mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="toDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+  
+                </div>
+                <div class="col-lg-12">
+                  <div class="mx-auto text-center">
+                    <button type="button" class="btn pl-3 pr-3 btn_primary">Search</button>
+                  </div>
+                </div>
+              </form>
+  
+            </div>
+          </div>
+  
+        </div>
+    

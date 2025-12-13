@@ -1,0 +1,119 @@
+<div class="container-fluid mt-3 mb-3">
+    <div class="row">
+        <!-- <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="font-weight-bold" style="color: #354052">
+                        Department Master
+                    </p>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-lg-12 mt-2">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <p class="mb-0"> Search Department</p>
+                        <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                            New
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="departmentForm" [style.fontSize.px]="11">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Department Code</mat-label>
+                                        <input matInput placeholder="Department Code" formControlName="departmentCode"
+                                            [matAutocomplete]="autoDepartmentCode">
+                                        <mat-autocomplete #autoDepartmentCode="matAutocomplete"
+                                            [displayWith]="displayFnDepartmentCode" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of departmentCodeList?.result"
+                                                [value]="option">
+                                                {{option?.departmentCode}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2 ">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Department Name</mat-label>
+                                        <mat-select formControlName="departmentName">
+                                            <mat-option *ngFor="let departmentName of departmentNamesList?.result"
+                                                [value]="departmentName?.departmentName">
+                                                {{departmentName?.departmentName}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="col-lg-2 ">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Linked to Dealer</mat-label>
+                                        <mat-select formControlName="linkedtoDealer">
+                                            <mat-option *ngFor="let dealer of dealersList?.result"
+                                                [value]="dealer?.linkedToDealer">
+                                                {{dealer?.linkedToDealer}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Dealer Code</mat-label>
+                                        <mat-select formControlName="dealerCode">
+                                            <mat-option *ngFor="let code of codeList?.result"
+                                                [value]="code?.dealerCode">{{code?.dealerCode}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div> -->
+                                <div class="col-lg-2">
+                                    <div class="mt-1">
+                                        <button type="button" class="btn px-3 btn_primary" (click)="searchData()">
+                                            Search </button>
+                                        <button type="button" class="btn btn_secondary px-3 ml-2" (click)="clearForm()">
+                                            Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+            [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [showPartial]="false" [clearSearchRow]="clearSearchRow"
+            (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)"
+            [clickOnTableFields]="[{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]">
+
+            <td [ngsw-searchField]="departmentCode" [searchColumnName]="'departmentCode'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #departmentCode [(ngModel)] ="departmentCodeNgModel">
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'" >
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #departmentName [(ngModel)] ="departmentNameNgModel">
+                </mat-form-field>
+            </td>
+            <!-- <td [ngsw-searchField]="linkedtoDealer" [searchColumnName]="'linkedToDealer'" >
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #linkedtoDealer>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" >
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerCode>
+                </mat-form-field>
+            </td>        -->
+            <!-- <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'" >
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #remarks>
+                </mat-form-field>
+            </td>     -->
+        </ngsw-search-table>
+    </div>
+</div>

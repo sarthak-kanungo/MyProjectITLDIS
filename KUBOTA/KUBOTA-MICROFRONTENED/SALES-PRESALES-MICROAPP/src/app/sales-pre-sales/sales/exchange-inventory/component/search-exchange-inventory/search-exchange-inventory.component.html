@@ -1,0 +1,157 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card-from mt-1">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between header">
+              <p class="mb-0 label" style="padding: 2px;"> Search Exchange Inventory</p>
+            </div>
+          </div>
+          <div class="card-body">
+
+            <form [formGroup]="searchExchangeInventoryForm" [style.fontSize.px]="10">
+              <div class="row">
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Enquiry No.</mat-label>
+                    <input matInput placeholder="Enquiry No./Mobile No./Name /Tehsil" formControlName="enquiryNumber"
+                      [matAutocomplete]="autoEnquiryNo">
+                    <mat-autocomplete #autoEnquiryNo="matAutocomplete" [panelWidth]="500">
+                      <mat-option *ngFor="let option of enquiryNumber$?.result" [value]="option.enquiryNumber">
+                        {{option?.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Exchange From Date" formControlName="fromDate"
+                    [max]="newdate" (dateChange)="setToDate($event)" readonly (click)="picker.open()">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker1" placeholder="Exchange To Date" formControlName="toDate"
+                    [max]="maxDate" [min]="minDate" readonly (click)="picker1.open()">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Vehicle Status</mat-label>
+                    <mat-select formControlName="status" (selectionChange)="getVehicleStatus()">
+                      <mat-option *ngFor="let option of soldStatusList" [value]="option?.value">
+                        {{option?.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </form>
+
+            <div class="col-lg-12">
+              <div class="mx-auto d-flex justify-content-between">
+                <div></div>
+                <div>
+                  <!-- <button type="button" class="btn pl-3 pr-3 mt-3 btn_primary"
+                    (click)="onClickSearch()" [insertQueryParams]="filterData"
+                    (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+                    Search </button> -->
+                  <button type="button" class="btn pl-3 pr-3 mt-3 btn_primary" (click)="onClickSearch()"> Search
+                  </button>
+                  <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearExchangeInventorySearch()">
+                    Clear </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mt-3">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons" [searchValue]="searchValue"
+      [clickOnTableFields]="clickOnTableFields" (pageChange)="pageChange($event)" [clearSearchRow]="clearSearchRow" >
+
+      <td [ngsw-searchField]="action" [searchColumnName]="'action'"
+        *ngIf="dataTable && dataTable.titleMap.get('action')">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+          <input matInput type="text" #action [(ngModel)]="actionNgModel">
+        </mat-form-field>
+      </td>
+
+      <td [ngsw-searchField]="enquiryNumber" [searchColumnName]="'enquiryNumber'">
+        <input type="text" #enquiryNumber [(ngModel)]="enquiryNumberNgModel">
+      </td>
+
+      <td [ngsw-searchField]="soldStatus" [searchColumnName]="soldStatus">
+        <input type="text" #soldStatus [(ngModel)]="soldStatusNgModel">
+      </td>
+
+      <td [ngsw-searchField]="brandName" [searchColumnName]="'brandName'">
+        <input type="text" #brandName [(ngModel)]="brandNameNgModel">
+      </td>
+
+      <td [ngsw-searchField]="modelName" [searchColumnName]="'modelName'">
+        <input type="text" #modelName [(ngModel)]="modelNameNgModel">
+      </td>
+
+      <td [ngsw-searchField]="modelYear" [searchColumnName]="'modelYear'">
+        <input type="text" #modelYear [(ngModel)]="modelYearNgModel">
+      </td>
+
+      <td [ngsw-searchField]="picker3" [searchColumnName]="'invInDate'">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker3" placeholder="Choose a date" #invInDate
+            (dateChange)="dateChanges($event, 'invInDate')" [(ngModel)]="invInDateNgModel">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </td>
+
+      <td [ngsw-searchField]="estimatedExchangePrice" [searchColumnName]="'estimatedExchangePrice'">
+        <input type="text" #estimatedExchangePrice [(ngModel)]="estimatedExchangePriceNgModel">
+      </td>
+
+      <!-- <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+        <input type="text" #status [(ngModel)]="statusNgModel">
+      </td> -->
+
+      <td [ngsw-searchField]="buyerName" [searchColumnName]="'buyerName'">
+        <input type="text" #buyerName [(ngModel)]="buyerNameNgModel">
+      </td>
+
+      <td [ngsw-searchField]="buyerContactNo" [searchColumnName]="'buyerContactNo'">
+        <input type="text" #buyerContactNo [(ngModel)]="buyerContactNoNgModel">
+      </td>
+
+      <td [ngsw-searchField]="picker6" [searchColumnName]="'saleDate'">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker6" placeholder="Choose a date" #saleDate
+            (dateChange)="dateChanges($event, 'saleDate')" [(ngModel)]="saleDateNgModel">
+          <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+          <mat-datepicker #picker6></mat-datepicker>
+        </mat-form-field>
+      </td>
+
+      <td [ngsw-searchField]="sellingPrice" [searchColumnName]="'sellingPrice'">
+        <input type="text" #sellingPrice [(ngModel)]="sellingPriceNgModel">
+      </td>
+
+      <td [ngsw-searchField]="saleRemarks" [searchColumnName]="'saleRemarks'">
+        <input type="text" #saleRemarks [(ngModel)]="saleRemarksNgModel">
+      </td>
+
+    </ngsw-search-table>
+  </div>
+</div>

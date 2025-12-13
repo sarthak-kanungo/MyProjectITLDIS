@@ -1,0 +1,93 @@
+<div class="card-from mt-2" [formGroup]="labourChargeForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+        </div>
+        <div class="card-body">
+            
+                <div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">Sr No.</th>
+                                    <th scope="col" class="text-left">Job Code(FRS)</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Hours</th>
+                                    <th scope="col">Original Claim Amount</th>
+                                    <th scope="col">Rejected Amount</th>
+                                    <th scope="col">Goodwill Claim Amount</th>
+                                    <th *ngIf="isKaiUser" scope="col">Goodwill Claim Accepted Amount</th>
+                                    <!-- <th *ngIf="isKaiUser" scope="col">Accepted%</th> -->
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let option of labourChargeForm.controls; let i = index" [formGroupName]="i">
+                                    <td style="vertical-align: middle;">
+                                        {{i + 1}}
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Job Code(FRS)</mat-label>
+                                            <input matInput placeholder="Job Code(FRS)" formControlName='labourCode'>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Description</mat-label>
+                                            <input matInput placeholder="Description" formControlName='labourDesc'>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>Hours</mat-label>
+                                            <input matInput placeholder="Hours" formControlName='labourHour'>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>ORIGINAL CLAIM AMOUNT</mat-label>
+                                            <input matInput placeholder="Claim Amount" formControlName='claimAmount'>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>REJECTED AMOUNT</mat-label>
+                                            <input matInput placeholder="Claim Amount" formControlName='rejectedAmount'>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>GOODWILL CLAIM AMOUNT</mat-label>
+                                            <input matInput placeholder="Claim Amount" formControlName='goodwillClaimAmount'>
+                                        </mat-form-field>
+                                         <mat-error *ngIf="option.get('goodwillClaimAmount').hasError('maxValue')">
+							                <strong>Amount should not exceed Rejected Amount</strong>
+							            </mat-error>
+                                    </td>
+                                    <td *ngIf="isKaiUser">
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>GOODWILL CLAIM ACCEPTED AMOUNT</mat-label>
+                                            <input matInput placeholder="Approved Amount" formControlName='goodwillApprovedAmount' max>
+                                        </mat-form-field>
+                                        <mat-error *ngIf="option.get('goodwillApprovedAmount').hasError('maxValue')">Amount should be either zero or equal to claim amount</mat-error>
+                                    </td>
+                                    <!-- <td *ngIf="isKaiUser">
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>ACCEPTED%</mat-label>
+                                            <input matInput placeholder="ACCEPTED%" formControlName='acceptedPercentage'>
+                                        </mat-form-field>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+      
+
+        </div>
+    </div>
+</div>

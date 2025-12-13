@@ -1,0 +1,108 @@
+<div class="container-fluid mt-4  ">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Installation</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-installation-search [installationSearchForm]=installationSearchForm>
+                        </app-installation-search>
+
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3"
+                                (click)="onClickSearchInstallationDetails()" [insertQueryParams]="filterData"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2"
+                                (click)="onClickClearInstallationDetails()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)"
+            [clickOnTableFields]="[{ 'title': 'installationNumber', 'isClickable': true }, { 'title': 'edit', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+
+            <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+                <input class="w-100 borderRadius" #edit [(ngModel)] ="editNgModel" [ngModelOptions]="{standalone: true}" >
+
+            </td>
+            <td [ngsw-searchField]="installationNumber" [searchColumnName]="'installationNumber'">
+                <input class="w-100 borderRadius" #installationNumber [(ngModel)] ="installationNumberNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="installationDate" [searchColumnName]="'installationDate'" class="installationDate">
+                <input class="w-100 borderRadius" type="date" #installationDate [(ngModel)] ="installationDateNgModel" [ngModelOptions]="{standalone: true}" >
+                    <!-- (change)="etSearchDateValueChange(installationDate.value,'installationDate')" -->
+            </td>
+            <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+
+                <input class="w-100 borderRadius" #chassisNo [(ngModel)] ="chassisNoNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="installationType" [searchColumnName]="'installationType'">
+
+                <input class="w-100 borderRadius" #installationType [(ngModel)] ="installationTypeNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+
+
+
+            <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+
+                <input class="w-100 borderRadius" #engineNo [(ngModel)] ="engineNoNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+
+                <input class="w-100 borderRadius" #model [(ngModel)] ="modelNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="serviceStaffName" [searchColumnName]="'serviceStaffName'">
+
+                <input class="w-100 borderRadius" #serviceStaffName [(ngModel)] ="serviceStaffNameNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="representativeType" [searchColumnName]="'representativeType'">
+
+                <input class="w-100 borderRadius" #representativeType [(ngModel)] ="representativeTypeNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="customerRepName" [searchColumnName]="'customerRepName'">
+
+                <input class="w-100 borderRadius" #customerRepName [(ngModel)] ="customerRepNameNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+
+                <input class="w-100 borderRadius" #customerName [(ngModel)] ="customerNameNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="csbNo" [searchColumnName]="'csbNo'">
+
+                <input class="w-100 borderRadius" #csbNo [(ngModel)] ="csbNoNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+
+        </ngsw-search-table>
+    </div>
+
+</div>

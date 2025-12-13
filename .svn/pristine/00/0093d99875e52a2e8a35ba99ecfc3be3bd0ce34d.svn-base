@@ -1,0 +1,92 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0"> Search Part Requisition</p>
+            <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                New
+            </button>
+        </div>
+        <div class="card-body">
+            <form [style.fontSize.px]="11" [formGroup]="partRequisitionSearchForm">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="pb_0">
+                            <mat-label>Requisition No.</mat-label>
+                            <input type="text" matInput placeholder="Requisition No." formControlName="requisitionNo"
+                                [matAutocomplete]="autoRequisitionNo">
+                            <mat-autocomplete #autoRequisitionNo="matAutocomplete" [panelWidth]="250"
+                                (optionSelected)="requisitionNoOptionSelected($event)">
+                                <mat-option *ngFor="let option of requisitionNoList$ | async" [value]="option.value">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error
+                                *ngIf="partRequisitionSearchForm.get('requisitionNo').hasError('selectFromList')">
+                                {{partRequisitionSearchForm.get('requisitionNo').getError('selectFromList')}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="pb_0 w-100">
+                            <mat-label>Job Card No.</mat-label>
+                            <input type="text" matInput placeholder="Job Card No." formControlName="jobCardNo"
+                                [matAutocomplete]="autoJobCardNo">
+                            <mat-autocomplete #autoJobCardNo="matAutocomplete" [panelWidth]="250"
+                                (optionSelected)="jobCardNoOptionSelected($event)">
+                                <mat-option *ngFor="let option of jobCardNoList$ | async" [value]="option.jobCardNo">
+                                    {{option?.jobCardNo}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <!-- <mat-error *ngIf="partRequisitionSearchForm.get('jobCardNo').hasError('selectFromList')">
+                                {{partRequisitionSearchForm.get('jobCardNo').getError('selectFromList')}}
+                            </mat-error> -->
+                            
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="pb_0 w-100">
+                            <mat-label>Requisition Purpose</mat-label>
+                            <mat-select formControlName="requisitionPurpose">
+                                <mat-option *ngFor="let requisitionPurpose of requisitionPurposeList$ | async"
+                                    [value]="requisitionPurpose.value">
+                                    {{requisitionPurpose.value}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="pb_0 w-100" appearance="outline">
+                            <mat-label>Requisition From Date</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="Requisition From Date"
+                                formControlName="fromDate" [max]="today" (dateChange)="fromDateSelected($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="pb_0 w-100" appearance="outline">
+                            <mat-label>Requisition To Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" placeholder="Requisition To Date"
+                                formControlName="toDate" [max]="maxDate" [min]="minDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mt-1 text-center">
+                    <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchResult()"
+                        [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)"
+                        (onUrlChange)="onUrlChange($event)"> Search </button>
+                    <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary" (click)="resetSearchForm()"> Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

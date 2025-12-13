@@ -1,0 +1,21 @@
+import { environment } from '../../../../../environments/environment'
+
+export abstract class BtBtApi {
+    private static readonly module = 'btbt'
+    private static readonly controller = 'customerMaster'
+    private static readonly masterModule = 'master'
+    private static readonly areaMasterController = 'areamaster'
+    private static readonly spareController = 'spares'
+
+    private static readonly sparePartMasterController = 'sparePartMaster'
+
+    private static readonly apiController = `${environment.baseUrl}/${environment.api}/${BtBtApi.spareController}/${BtBtApi.module}`
+
+    static readonly saveBtBtDetails = `${BtBtApi.apiController}/saveBtBtDetails`
+    static readonly getAvlQtyForStoreBin = `${BtBtApi.apiController}/getAvlQtyForStoreBin`
+    static readonly getToBinLocations = `${BtBtApi.apiController}/getToBinLocations`
+    static readonly searchBinTransfer = `${BtBtApi.apiController}/searchBinTransfer`
+    static readonly searchAutoTransferNumber = `${BtBtApi.apiController}/searchAutoTransferNumber`
+    static readonly uploadExcel = `${BtBtApi.apiController}/uploadExcel` 
+    static readonly downloadExcelReport = `${BtBtApi.apiController}/downloadBBExcelReport` 
+}

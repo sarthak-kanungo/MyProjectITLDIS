@@ -1,0 +1,160 @@
+
+<div class="card-body">
+	<form [formGroup]="machineStockSearchForm" [style.fontSize.px]="10">
+		<div class="row">
+			<div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Invoice From Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Invoice From Date" formControlName="invoiceFromDate"  (dateChange)="dateSelectionChange($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Invoice To Date</mat-label>
+                    <input matInput [matDatepicker]="picker1" placeholder="Invoice From Date" formControlName="invoiceToDate" (dateChange)="dateSelectionChange($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+        
+			<div class="col-lg-4" *ngIf='isKai'>
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Dealer Code</mat-label> <input matInput
+					placeholder="Dealer Code/Dealer Name/Location"
+					formControlName="dealerCode" [matAutocomplete]="autoDealercode">
+				<mat-autocomplete #autoDealercode="matAutocomplete"
+					[panelWidth]="500" (optionSelected)="getDealerName($event)"
+					[displayWith]="displayDealerCodeFn"> <mat-option
+					*ngFor="let option of dealercodeList?.result" [value]="option">
+				{{option?.displayString}} </mat-option> </mat-autocomplete> <mat-icon matSuffix>search</mat-icon> </mat-form-field>
+			</div>
+
+			<div class="col-lg-2" *ngIf='isKai'>
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Dealer Name</mat-label> <input matInput
+					placeholder="Dealer Name" formControlName="dealerName"
+					disabled="disabled"> </mat-form-field>
+			</div>
+
+
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Product</mat-label> <mat-select formControlName="product"
+					(selectionChange)="selectProduct($event.value)"> <mat-option
+					*ngFor="let option of products" [value]="option.product">
+				{{option?.product}} </mat-option> </mat-select> </mat-form-field>
+			</div>
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Series</mat-label> <mat-select formControlName="series"
+					(selectionChange)="selectSeries($event.value)"
+					[compareWith]="compareFnSeries"> <mat-option
+					*ngFor="let option of seriesByProduct" [value]="option.series">{{option?.series}}
+				</mat-option> </mat-select> </mat-form-field>
+			</div>
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Model</mat-label> <mat-select formControlName="model"
+					(selectionChange)="selectModel($event.value)"
+					[compareWith]="compareFnModel"> <mat-option
+					*ngFor="let option of modelBySeries" [value]="option.model">
+				{{option?.model}} </mat-option> </mat-select> </mat-form-field>
+			</div>
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Sub Model</mat-label> <mat-select
+					formControlName="subModel"
+					(selectionChange)="selectSubModel($event.value)"
+					[compareWith]="compareFnSubModel"> <mat-option
+					*ngFor="let option of subModelByModel" [value]="option.subModel">
+				{{option?.subModel}}</mat-option> </mat-select> </mat-form-field>
+			</div>
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline" class="w-100">
+				<mat-label>Variant</mat-label> <mat-select formControlName="variant">
+				<mat-option *ngFor="let option of variants" [value]="option.variant">
+				{{option?.variant}} </mat-option> </mat-select> </mat-form-field>
+			</div>
+			<div class="col-lg-2">
+				<mat-form-field class="w-100" appearance="outline">
+				<mat-label>Item No.</mat-label> <input matInput
+					placeholder="Item No." formControlName="itemNo"
+					 [matAutocomplete]="autoItemNo" >
+				<mat-autocomplete [panelWidth]="500"
+					#autoItemNo="matAutocomplete"> <mat-option
+					*ngFor="let option of partNumberAutoList"
+					[value]="option.itemNo"> {{option?.value}} </mat-option> </mat-autocomplete> <mat-icon
+					matSuffix>search</mat-icon> </mat-form-field>
+			</div>
+			<!-- add new Dropdown By Ankit Rai -->
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline">
+					<mat-label>Status</mat-label>
+					<mat-select formControlName="grnDoneFlag">
+						<mat-option>SELECT</mat-option>
+						<mat-option  *ngFor="let status of statusList" [value]="status.value"> {{status.name}} </mat-option>
+					</mat-select>
+				</mat-form-field>
+				
+			</div>
+			<!-- <div class="col-lg-2">
+				<mat-form-field class="w-100" appearance="outline">
+					<mat-label>Engine No.</mat-label> 
+					<input matInput placeholder="Engine No." formControlName="engineNo">
+					<mat-icon matSuffix>search</mat-icon> </mat-form-field>
+			</div>
+			<div class="col-lg-2">
+				<mat-form-field appearance="outline">
+					<mat-label>Chassis No.</mat-label>
+					<input
+						type="text"
+						placeholder="Chassis No."
+						matInput
+						formControlName="chassisNo"
+						[matAutocomplete]="autoChassisNumber">
+					<mat-autocomplete
+						#autoChassisNumber="matAutocomplete"
+						[panelWidth]="250">
+						<mat-option *ngFor="let option of chassisNumberList$ | async" [value]="option.value">
+							{{option?.value}}
+						</mat-option>
+					</mat-autocomplete>
+					<mat-icon matSuffix>search</mat-icon>
+				</mat-form-field>
+			</div> -->
+			
+			</div>
+			<div class="row" *ngIf="isKai">
+				<div class="col-lg-2" *ngFor="let level of orgLevels">
+					<mat-form-field appearance="outline" class="w-100">
+					<mat-label>{{level['LEVEL_DESC']}}</mat-label> <mat-select
+						formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+					<mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+					<mat-option *ngFor="let hier of orgHierLevels1" [value]="hier"
+						(click)="getOrgLevelHier2(hier)">{{hier['hierarchy_desc']}}</mat-option>
+					</mat-select> <mat-select formControlName="orgHierLevel2"
+						*ngIf="level['SEQ_NO'] == 2"> <mat-option value='all'
+						(click)="getOrgLevelHier3('all')">ALL</mat-option> <mat-option
+						*ngFor="let hier of orgHierLevels2" [value]="hier"
+						(click)='getOrgLevelHier3(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+					</mat-select> <mat-select formControlName="orgHierLevel3"
+						*ngIf="level['SEQ_NO'] == 3"> <mat-option value='all'
+						(click)="getOrgLevelHier4('all')">ALL</mat-option> <mat-option
+						*ngFor="let hier of orgHierLevels3" [value]="hier"
+						(click)='getOrgLevelHier4(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+					</mat-select> <mat-select formControlName="orgHierLevel4"
+						*ngIf="level['SEQ_NO'] == 4"> <mat-option value='all'
+						(click)="getOrgLevelHier5('all')">ALL</mat-option> <mat-option
+						*ngFor="let hier of orgHierLevels4" [value]="hier"
+						(click)='getOrgLevelHier5(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+					</mat-select> <mat-select formControlName="orgHierLevel5"
+						*ngIf="level['SEQ_NO'] == 5"> <mat-option value='all'
+						(click)="getOrgLevelHier6('all')">ALL</mat-option> <mat-option
+						*ngFor="let hier of orgHierLevels5" [value]="hier">{{hier['hierarchy_desc']}}</mat-option>
+					</mat-select> </mat-form-field>
+				</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,428 @@
+<div class="card-from" style="overflow-y: auto;overflow-x: hidden;">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0">WCR History</p>
+            <button class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">Close</button>
+        </div>
+        <mat-dialog-content>
+            <table *ngIf="view" class=" table-sm" style="margin-left: 3%;">
+                <tbody>
+                    <tr *ngFor='let wcr of wcrHeader' class="row" [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>WCR No.</mat-label>
+                                <input matInput placeholder="PCR No" [value]='wcr.wcrNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>WCR Date</mat-label>
+                                <input matInput placeholder="WCR Date" [value]='wcr.wcrDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>WCR Type</mat-label>
+                                <input matInput placeholder="WCR Type" [value]='wcr.wcrType' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>WCR Status</mat-label>
+                                <input matInput placeholder="WCR Status" [value]='wcr.wcrStatus' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Job Card No.</mat-label>
+                                <input matInput placeholder="Job Card No." [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.jobCardNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Job Card Date</mat-label>
+                                <input matInput placeholder="Job Card Date" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.jobCardDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Retro Fitment No.</mat-label>
+                                <input matInput placeholder="Retro Fitment No." [value]='' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>PCR No.</mat-label>
+                                <input matInput placeholder="PCR No." [value]='wcr.warrantyGoodwill.warrantyPcr.pcrNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>PCR Date</mat-label>
+                                <input matInput placeholder="PCR Date" [value]='wcr.warrantyGoodwill.warrantyPcr.pcrDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>GoodWill No.</mat-label>
+                                <input matInput placeholder="GoodWill No." [value]='wcr.warrantyGoodwill.goodwillNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>GoodWill Date</mat-label>
+                                <input matInput placeholder="GoodWill Date" [value]='wcr.warrantyGoodwill.goodwillDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Date of Installation</mat-label>
+                                <input matInput placeholder="Date of Installation" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.machineInventory.installationDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Date of Failure</mat-label>
+                                <input matInput placeholder="Date of Failure" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.dateOfFailure' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Date of Repair</mat-label>
+                                <input matInput placeholder="Date of Repair" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.dateOfRepair' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Name</mat-label>
+                                <input matInput placeholder="Customer Name" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.customerMaster.customerName' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Address</mat-label>
+                                <input matInput placeholder="Customer Address" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.customerMaster.address' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Customer Cell No.</mat-label>
+                                <input matInput placeholder="Customer Cell No." [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.customerMaster.mobileNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Machine Model</mat-label>
+                                <input matInput placeholder="Machine Model" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.machineInventory.machineMaster.model' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Chassis No.</mat-label>
+                                <input matInput placeholder="Chassis No." [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.machineInventory.chassisNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Engine No.</mat-label>
+                                <input matInput placeholder="Engine No." [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.machineInventory.engineNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Sold To Dealers</mat-label>
+                                <input matInput placeholder="Sold To Dealers" [value]='wcr.warrantyGoodwill.warrantyPcr.soldToDealer' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Hours</mat-label>
+                                <input matInput placeholder="Hours" [value]='wcr.warrantyGoodwill.warrantyPcr.serviceJobCard.totalHour' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Failure Type</mat-label>
+                                <input matInput placeholder="Failure Type" [value]='wcr.warrantyGoodwill.warrantyPcr.failureType' disabled>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Implements</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="text-left" >Category</th>
+                                    <th scope="col" >Implement</th>
+                                    <th scope="col" >Implement Make</th>
+                                    <th scope="col" >Serial Number</th>
+                                    <th scope="col" >Gear Ratio</th>
+                                    <th scope="col" >Engine RPM</th>
+                                    <th scope="col" >% Of Usage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let imp of wcrImplements' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement Category</mat-label>
+                                            <input matInput placeholder="Implement Category" [value]='imp.implementCategory' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement</mat-label>
+                                            <input matInput placeholder="Implement" [value]='imp.implement' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement Make</mat-label>
+                                            <input matInput placeholder="Implement Make" [value]='imp.implementMake' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Implement Serial Number</mat-label>
+                                            <input matInput placeholder="Implement Serial Number" [value]='imp.implementSerialNumber' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Gear Ratio</mat-label>
+                                            <input matInput placeholder="Gear Ratio" [value]='imp.gearRatio' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Engine RPM</mat-label>
+                                            <input matInput placeholder="Engine RPM" [value]='imp.engineRpm' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>% Of Usage</mat-label>
+                                            <input matInput placeholder="% Of Usage" [value]='imp.percentOfUsage' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Service History</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 100px">Date In</th>
+                                    <th scope="col" style="width: 100px">Type Of Service</th>
+                                    <th scope="col" style="width: 100px">Hours</th>
+                                    <th scope="col" style="width: 100px">Job Card No.</th>
+                                    <th scope="col" style="width: 100px"> Job Card Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let history of serviceHistory' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Date In</mat-label>
+                                            <input matInput placeholder="Date In" [value]='history.dateIn' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Type Of Service</mat-label>
+                                            <input matInput placeholder="Type Of Service" [value]='history.serviceType' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Hours</mat-label>
+                                            <input matInput placeholder="Hours" [value]='history.hours' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Card No</mat-label>
+                                            <input matInput placeholder="Job Card No" [value]='history.jobCardNo' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Card Date</mat-label>
+                                            <input matInput placeholder="Job Card Date" [value]='history.jobCardDate' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Concern</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr *ngFor='let concern of wcrHeader' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Customer Concern</mat-label>
+                                            <input matInput placeholder="Customer Concern" [value]='concern.warrantyGoodwill.warrantyPcr.serviceJobCard.customerConcern' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Dealer Observation</mat-label>
+                                            <input matInput placeholder="Dealer Observation" [value]='concern.warrantyGoodwill.warrantyPcr.dealerObservation' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Final Action Taken</mat-label>
+                                            <input matInput placeholder="Action Taken" [value]='concern.warrantyGoodwill.warrantyPcr.actionTaken' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view && failureParts.length>0">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Failure Parts</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px">Sr No.</th>
+                                    <th scope="col" style="width: 100px">Part No.</th>
+                                    <th scope="col" style="width: 100px">Description</th>
+                                    <th scope="col" style="width: 100px">Claim Quantity</th>
+                                    <th scope="col" style="width: 100px">Unit Price</th>
+                                    <th scope="col" style="width: 100px">Claim Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let failure of failureParts; let i=index' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Part Number</mat-label>
+                                            <input matInput placeholder="Part Number" [value]='failure.partNo' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Description</mat-label>
+                                            <input matInput placeholder="Description" [value]='failure.description' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claim Quantity</mat-label>
+                                            <input matInput placeholder="Claim Quantity" [value]='failure.approvedQuantity' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Unit Price</mat-label>
+                                            <input matInput placeholder="Failure Code" [value]='failure.unitPrice' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claim Value</mat-label>
+                                            <input matInput placeholder="Claim Value" [value]='failure.approvedQuantity*failure.unitPrice' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin-left: 1%;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">Sr No.</th>
+                                    <th scope="col" class="text-left">Job Code(FRS)</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Hours</th>
+                                    <th scope="col">Claim Amount</th>
+                                    <th scope="col">Approved Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let labour of labourCharge; let i=index' [style.fontSize.px]="11" style="margin-left: 1px;margin-right: 1px;">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Code(FRS)</mat-label>
+                                            <input matInput placeholder="Job Code(FRS)" [value]='labour.labourCode' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Description</mat-label>
+                                            <input matInput placeholder="Description" [value]='labour.labourDesc' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Hours</mat-label>
+                                            <input matInput placeholder="Hours" [value]='labour.labourHour' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claim Amount</mat-label>
+                                            <input matInput placeholder="Claim Amount" [value]='labour.claimAmount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Approved Amount</mat-label>
+                                            <input matInput placeholder="Approved Amount" [value]='labour.approvedAmount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </mat-dialog-content>
+    </div>
+</div>

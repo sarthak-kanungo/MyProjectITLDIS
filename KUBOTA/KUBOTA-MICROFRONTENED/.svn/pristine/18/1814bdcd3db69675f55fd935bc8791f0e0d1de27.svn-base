@@ -1,0 +1,60 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Item Details</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="data2" style="padding-bottom: 11px;">Sr No.</th>
+                <th scope="col" class="data2" style="padding-bottom: 11px;">Item No.</th>
+                <th scope="col" class="data2" style="padding-bottom: 11px;">Item Description</th>
+                <th scope="col" class="data2" style="padding-bottom: 11px;">QTY</th>
+                <th scope="col" class="data2" style="padding-bottom: 11px;">System Bin Location</th>
+                <th scope="col" class="data2" style="padding-bottom: 11px;">Changed Location</th>
+                <th scope="col" class="data2" style="padding-bottom: 11px; width: 300px;">Remarks</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>A</td>
+                <td></td>
+                <td>A</td>
+                <td></td>
+                <td></td>
+                <td></td>
+               
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>A</td>
+                <td></td>
+                <td>A</td>
+                <td></td>
+                <td></td>
+                <td></td>
+               
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>A</td>
+                <td></td>
+                <td>A</td>
+                <td></td>
+                <td></td>
+                <td></td>
+               
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

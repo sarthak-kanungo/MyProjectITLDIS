@@ -1,0 +1,87 @@
+<form  [formGroup]="enquiryFolloeUpsForm" [style.fontSize.px]="10">
+  <div class="row">
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Enquiry No.</mat-label>
+          <input matInput placeholder="Enquiry No." formControlName="enquiryNumber">
+      </mat-form-field>
+  </div>
+ 
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enquiry Date</mat-label>
+        <input matInput [matDatepicker]="picker1" placeholder="Enquiry Date"  formControlName="enquiryDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Enquiry Status </mat-label>
+        <input matInput placeholder=" Enquiry Status "  formControlName="enquiryStatus">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Product </mat-label>
+        <input matInput placeholder=" Product"  formControlName="product">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Series </mat-label>
+        <input matInput placeholder=" Series"  formControlName="series">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Model </mat-label>
+        <input matInput placeholder=" Model"  formControlName="model">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Sub Model </mat-label>
+        <input matInput placeholder=" Sub Model"  formControlName="subModel">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Variant </mat-label>
+        <input matInput placeholder=" Variant"  formControlName="variant">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Customer Name </mat-label>
+        <input matInput placeholder=" Customer Name"  formControlName="firstName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile No. </mat-label>
+        <input matInput placeholder=" Mobile No."  formControlName="mobileNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2 ">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Follow-up Action</mat-label>
+        <mat-select (selectionChange)="selection($event.value)" required>
+          <mat-option *ngFor="let option of selectOptions"
+          [value]="option">{{option}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+</form>

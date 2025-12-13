@@ -1,0 +1,130 @@
+<div class="card-from mt-2 failure-part" [formGroup]="failurePartsForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">FAILURE PARTS</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of failurePartHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of failurePartsForm.controls; let i=index" [formGroupName]="i">
+
+              <td>{{i+1}}</td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Part Number</mat-label>
+                  <input matInput placeholder="Part Number" formControlName="itemNo">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <input matInput placeholder="Description" formControlName="description">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Unit Price</mat-label>
+                  <input matInput placeholder="Unit Price" formControlName="unitPrice">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Claim Quantity</mat-label>
+                  <input matInput placeholder="Claim Quantity" formControlName="approvedQuantity">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Claim Value</mat-label>
+                  <input matInput placeholder="Claim " formControlName="claimValue">
+                </mat-form-field>
+              </td>
+              <td *ngIf="dealerCode == null">
+                <mat-form-field appearance="outline">
+                  <mat-label>Final Approved Quantity</mat-label>
+                  <input matInput placeholder="Final Approved Quantity" formControlName="claimApprovedQuantity">
+                </mat-form-field>
+              </td >
+              <td *ngIf="dealerCode == null">
+                <mat-form-field appearance="outline">
+                  <mat-label>Final Approved Amount</mat-label>
+                  <input matInput placeholder="Final Approved Amount" formControlName="claimApprovedAmount">
+                </mat-form-field>
+              </td>
+            </tr>
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="4" style="text-align: right;">
+                Total
+              </th>
+              <th style="text-align: left;">
+                {{totalClaimQty}}
+              </th>
+              <th style="text-align: left;">
+                {{totalValue}}
+              </th>
+              <th *ngIf="dealerCode == null" style="text-align: left;">
+                {{totalClaimApprovedQuantity}}
+              </th>
+              <th *ngIf="dealerCode == null" style="text-align: left;">
+                {{totalClaimApprovedAmount}}
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- ////////////////////////   TEMPORARILY COMMENTED CODE. DON'T DELETE  ///////////////////////// -->
+
+      <!-- <div class="table-responsive">
+        <p class="mb-0" style="font-size: 14px;"> <b>Labour Charges</b></p>
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of labourChargeHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of labourChargeList">
+              <td>{{list.val1}}</td>
+              <td>{{list.val2}}</td>
+              <td>{{list.val3}}</td>
+              <td>{{list.val4}}</td>
+              <td>{{list.val5}}</td>
+              <td>{{list.val6}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+
+      <!-- <div class="table-responsive">
+        <p class="mb-0" style="font-size: 14px;"> <b>Outside Labour Charges</b></p>
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of outsideLabourChargeHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of outsideLabourChargeList">
+              <td>{{list.val1}}</td>
+              <td>{{list.val2}}</td>
+              <td>{{list.val3}}</td>
+              <td>{{list.val4}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+
+    </div>
+  </div>
+</div>

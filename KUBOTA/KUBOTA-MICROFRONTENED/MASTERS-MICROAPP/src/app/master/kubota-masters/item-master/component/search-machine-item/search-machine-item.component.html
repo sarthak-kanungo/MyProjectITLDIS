@@ -1,0 +1,265 @@
+<div class="container-fluid create-form mt-4 mb-3">
+  <div class="row">
+    <!-- <div class="col-lg-12">
+      <div class="d-flex justify-content-between">
+        <div>
+          <p class="font-weight-bold mt-1" style="color: #354052">
+            Machine Item Master
+          </p>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-lg-12">
+      <div class="card-from">
+
+        <div class="card">
+          <div class="card-header">
+            <p class="mb-0">Search Machine Item</p>
+          </div>
+          <div class="card-body">
+
+            <form [formGroup]="machineItemForm" [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Item No.</mat-label>
+                    <input matInput placeholder="Item No." formControlName="itemNo" [matAutocomplete]="autoItemNo">
+                    <mat-autocomplete #autoItemNo="matAutocomplete" [displayWith]="displayFnItemNo" [panelWidth]="500">
+                      <mat-option *ngFor="let option of itemNumberList?.result" [value]="option">
+                        {{option?.itemNo}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Product</mat-label>
+                    <mat-select formControlName="product">
+                      <mat-option *ngFor="let product of productsList?.result" [value]="product?.product">
+                        {{product?.product}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Series</mat-label>
+                    <mat-select formControlName="series">
+                      <mat-option *ngFor="let item of seriesList?.result" [value]="item?.series">{{item?.series}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model</mat-label>
+                    <mat-select formControlName="model">
+                      <mat-option *ngFor="let model of modelsList?.result" [value]="model?.model">{{model?.model}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Sub Model</mat-label>
+                    <mat-select formControlName="subModel">
+                      <mat-option *ngFor="let submodel of subModelsList?.result" [value]="submodel?.subModel">
+                        {{submodel?.subModel}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Variant</mat-label>
+                    <mat-select formControlName="variant">
+                      <mat-option *ngFor="let variant of variantsList?.result" [value]="variant?.variant">
+                        {{variant?.variant}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+            </form>
+
+            <div class="col-lg-12">
+              <div class="text-center">
+                <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="searchMasterItemMaster()"> Search </button>
+                <button type="button" class="btn pl-3 pr-3 btn_primary ml-1" (click)="clearMachineItem()"> Clear
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+      [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+      (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)">
+
+      <td [ngsw-searchField]="itemDesciption" [searchColumnName]="'itemDesciption'">
+        <input type="text" #itemDesciption="ngModel" [(ngModel)] ="itemDesciptionNg">
+      </td>
+      <td [ngsw-searchField]="productGroup" [searchColumnName]="'productGroup'">
+        <input type="text" #productGroup [(ngModel)] ="productGroupNg">
+      </td>
+      <td [ngsw-searchField]="product" [searchColumnName]="'product'">
+        <input type="text" #product [(ngModel)] ="productNg">
+      </td>
+      <td [ngsw-searchField]="series" [searchColumnName]="'series'">
+        <input type="text" #series [(ngModel)] ="seriesNg">
+      </td>
+      <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+        <input type="text" #model [(ngModel)] ="modelNg">
+      </td>
+      <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'">
+        <input type="text" #subModel [(ngModel)] ="subModelNg">
+      </td>
+      <td [ngsw-searchField]="variant" [searchColumnName]="'variant'">
+        <input type="text" #variant [(ngModel)] ="variantNg">
+      </td>
+      <td [ngsw-searchField]="purchase" [searchColumnName]="'purchase'">
+        <input type="text" #purchase [(ngModel)] ="purchaseNg">
+      </td>
+      <td [ngsw-searchField]="isSFG" [searchColumnName]="'isSFG'">
+        <input type="text" #isSFG [(ngModel)] ="isSFGNg">
+      </td>
+      <td [ngsw-searchField]="isFG" [searchColumnName]="'isFG'">
+        <input type="text" #isFG [(ngModel)] ="isFGNg">
+      </td>
+      <td [ngsw-searchField]="isAssemblyReq" [searchColumnName]="'isAssemblyReq'">
+        <input type="text" #isAssemblyReq [(ngModel)] ="isAssemblyReqNg">
+      </td>
+      <td [ngsw-searchField]="sfgPartNo" [searchColumnName]="'sfgPartNo'">
+        <input type="text" #sfgPartNo [(ngModel)] ="sfgPartNoNg">
+      </td>
+      <td [ngsw-searchField]="isPalletReq" [searchColumnName]="'isPalletReq'">
+        <input type="text" #isPalletReq [(ngModel)] ="isPalletReqNg">
+      </td>
+      <td [ngsw-searchField]="palletItemNo" [searchColumnName]="'palletItemNo'">
+        <input type="text" #palletItemNo [(ngModel)] ="palletItemNoNg">
+      </td>
+      <td [ngsw-searchField]="noOfItemInPallet" [searchColumnName]="'noOfItemInPallet'">
+        <input type="text" #noOfItemInPallet [(ngModel)] ="noOfItemInPalletNg">
+      </td>
+      <td [ngsw-searchField]="vendorCode" [searchColumnName]="'vendorCode'">
+        <input type="text" #vendorCode [(ngModel)] ="vendorCodeNg">
+      </td>
+      <td [ngsw-searchField]="hsnCode" [searchColumnName]="'hsnCode'">
+        <input type="text" #hsnCode [(ngModel)] ="hsnCodeNg">
+      </td>
+      <td [ngsw-searchField]="bcd" [searchColumnName]="'bcd'">
+        <input type="text" #bcd [(ngModel)] ="bcdNg">
+      </td>
+      <td [ngsw-searchField]="sws" [searchColumnName]="'sws'">
+        <input type="text" #sws [(ngModel)] ="swsNg">
+      </td>
+      <td [ngsw-searchField]="igst" [searchColumnName]="'igst'">
+        <input type="text" #igst [(ngModel)] ="igstNg">
+      </td>
+      <td [ngsw-searchField]="cgst" [searchColumnName]="'cgst'">
+        <input type="text" #cgst [(ngModel)] ="cgstNg">
+      </td>
+      <td [ngsw-searchField]="sgst" [searchColumnName]="'sgst'">
+        <input type="text" #sgst [(ngModel)] ="sgstNg">
+      </td>
+      <td [ngsw-searchField]="portOfLoading" [searchColumnName]="'portOfLoading'">
+        <input type="text" #portOfLoading [(ngModel)] ="portOfLoadingNg">
+      </td>
+      <td [ngsw-searchField]="etdInDays" [searchColumnName]="'etdInDays'">
+        <input type="text" #etdInDays [(ngModel)] ="etdInDaysNg">
+      </td>
+      <td [ngsw-searchField]="etaInDays" [searchColumnName]="'etaInDays'">
+        <input type="text" #etaInDays [(ngModel)] ="etaInDaysNg">
+      </td>
+      <td [ngsw-searchField]="chassisNoReq" [searchColumnName]="'chassisNoReq'">
+        <input type="text" #chassisNoReq [(ngModel)] ="chassisNoReqNg">
+      </td>
+      <td [ngsw-searchField]="engineModel" [searchColumnName]="'engineModel'">
+        <input type="text" #engineModel [(ngModel)] ="engineModelNg">
+      </td>
+      <td [ngsw-searchField]="batteryNo" [searchColumnName]="'batteryNo'">
+        <input type="text" #batteryNo [(ngModel)] ="batteryNoNg">
+      </td>
+      <td [ngsw-searchField]="fipNo" [searchColumnName]="'fipNo'">
+        <input type="text" #fipNo [(ngModel)] ="fipNoNg">
+      </td>
+      <td [ngsw-searchField]="crawlerNoLeft" [searchColumnName]="'crawlerNoLeft'">
+        <input type="text" #crawlerNoLeft [(ngModel)] ="crawlerNoLeftNg">
+      </td>
+      <td [ngsw-searchField]="hydraulicPumpNo" [searchColumnName]="'hydraulicPumpNo'">
+        <input type="text" #hydraulicPumpNo [(ngModel)] ="hydraulicPumpNoNg">
+      </td>
+      <td [ngsw-searchField]="starterNo" [searchColumnName]="'starterNo'">
+        <input type="text" #starterNo [(ngModel)] ="starterNoNg">
+      </td>
+      <td [ngsw-searchField]="alternatorNo" [searchColumnName]="'alternatorNo'">
+        <input type="text" #alternatorNo [(ngModel)] ="alternatorNoNg">
+      </td>
+      <td [ngsw-searchField]="frontTyreLeft" [searchColumnName]="'frontTyreLeft'">
+        <input type="text" #frontTyreLeft [(ngModel)] ="frontTyreLeftNg">
+      </td>
+      <td [ngsw-searchField]="frontTyreRight" [searchColumnName]="'frontTyreRight'">
+        <input type="text" #frontTyreRight [(ngModel)] ="frontTyreRightNg">
+      </td>
+      <td [ngsw-searchField]="rearTyreLeft" [searchColumnName]="'rearTyreLeft'">
+        <input type="text" #rearTyreLeft [(ngModel)] ="rearTyreLeftNg">
+      </td>
+      <td [ngsw-searchField]="frontRimLeft" [searchColumnName]="'frontRimLeft'">
+        <input type="text" #frontRimLeft [(ngModel)] ="frontRimLeftNg">
+      </td>
+      <td [ngsw-searchField]="frontRimRight" [searchColumnName]="'frontRimRight'">
+        <input type="text" #frontRimRight [(ngModel)] ="frontRimRightNg">
+      </td>
+      <td [ngsw-searchField]="frontTyreMake" [searchColumnName]="'frontTyreMake'">
+        <input type="text" #frontTyreMake [(ngModel)] ="frontTyreMakeNg">
+      </td>
+      <td [ngsw-searchField]="transmissionNo" [searchColumnName]="'transmissionNo'">
+        <input type="text" #transmissionNo [(ngModel)] ="transmissionNoNg">
+      </td>
+      <td [ngsw-searchField]="hstNo" [searchColumnName]="'hstNo'">
+        <input type="text" #hstNo [(ngModel)] ="hstNoNg">
+      </td>
+      <td [ngsw-searchField]="swingMotorNo" [searchColumnName]="'swingMotorNo'">
+        <input type="text" #swingMotorNo [(ngModel)] ="swingMotorNoNg">
+      </td>
+      <td [ngsw-searchField]="leadTime" [searchColumnName]="'leadTime'">
+        <input type="text" #leadTime [(ngModel)] ="leadTimeNg">
+      </td>
+      <td [ngsw-searchField]="rtoRegistration" [searchColumnName]="'rtoRegistration'">
+        <input type="text" #rtoRegistration [(ngModel)] ="rtoRegistrationNg">
+      </td>
+      <td [ngsw-searchField]="realRimLeft" [searchColumnName]="'realRimLeft'">
+        <input type="text" #realRimLeft [(ngModel)] ="realRimLeftNg">
+      </td>
+      <td [ngsw-searchField]="realTyreRight" [searchColumnName]="'realTyreRight'">
+        <input type="text" #realTyreRight [(ngModel)] ="realTyreRightNg">
+      </td>
+      <td [ngsw-searchField]="realRimRight" [searchColumnName]="'realRimRight'">
+        <input type="text" #realRimRight [(ngModel)] ="realRimRightNg">
+      </td>
+      <td [ngsw-searchField]="radiatorNo" [searchColumnName]="'radiatorNo'">
+        <input type="text" #radiatorNo [(ngModel)] ="radiatorNoNg">
+      </td>
+      <td [ngsw-searchField]="crawlerNoRight" [searchColumnName]="'crawlerNoRight'">
+        <input type="text" #crawlerNoRight [(ngModel)] ="crawlerNoRightNg">
+      </td>
+
+    </ngsw-search-table>
+  </div>
+
+</div>

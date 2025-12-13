@@ -1,0 +1,264 @@
+<div [formGroup]="surveySummaryReportForm" [style.fontSize.px]="11">
+    <div class="row card-body">
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Survey No</mat-label>
+                <input matInput placeholder="Survey No" formControlName="surveyNo" [matAutocomplete]="autoSurveyNo">
+                <mat-autocomplete #autoSurveyNo="matAutocomplete" [displayWith]="displayFnForSurveyNo"
+                    [panelWidth]="200">
+                    <mat-option *ngFor="let option of surveyNo" [value]="option">
+                        {{option.Survey_No}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+         <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Survey Type </mat-label>
+                <mat-select formControlName="surveyType">
+                    <mat-option *ngFor="let st of syurveyType" [value]="st.id">
+                        {{st.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Survey Name </mat-label>
+                <input matInput placeholder="Survey Name " formControlName="surveyName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Survey Status </mat-label>
+                <mat-select formControlName="surveyStatus">
+                    <mat-option *ngFor="let surveyStatus of surveyStatusList?.result" [value]="surveyStatus?.lookupval">
+                        {{surveyStatus?.lookupval}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="surveyType=='TELEPHONIC'">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date AS On </mat-label>
+                <mat-select formControlName="asOnDate" (selectionChange)="selectionAsOnDate($event.value)">
+                    <mat-option *ngFor="let surveyDate of surveyDateList?.result" [value]="surveyDate?.lookupval">
+                        {{surveyDate?.lookupval}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="dateView">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="dateView">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" [min]="surveySummaryReportForm.get('fromDate').value" placeholder="To Date" formControlName="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" [max]="dcMaxDate"  placeholder="DC Cut Off From Date" formControlName="fromDcDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" [min]="surveySummaryReportForm.get('fromDcDate').value" [max]="dcMaxDate" placeholder="DC Cut off To Date" formControlName="toDcDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Zone</mat-label>
+                <mat-select formControlName="zone" (selectionChange)="selectionZones($event.value)">
+                    <mat-option *ngFor="let option of dropdownZoneDomain?.result" [value]="option.id">
+                        {{option.code}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Region</mat-label>
+                <mat-select formControlName="region" (selectionChange)="selectionRegions($event.value)">
+                    <mat-option *ngFor="let option of dropdownRegionDomain?.result" [value]="option.id">{{option.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Area</mat-label>
+                <mat-select formControlName="area" (selectionChange)="selectionArea($event.value)">
+                    <mat-option *ngFor="let option of dropdownAreaDomain?.result" [value]="option.id">{{option?.areaLevel}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Territory</mat-label>
+                <mat-select formControlName="territory" (selectionChange)="selectionTerritory($event.value)">
+                    <mat-option *ngFor="let option of dropdownTerritoryDomain?.result" [value]="option.id">
+                        {{option?.allocatedTerritory}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Code</mat-label>
+                <input matInput placeholder="Dealer Code" formControlName="dealer" [matAutocomplete]="autoDealerCode">
+                <mat-autocomplete #autoDealerCode="matAutocomplete" [displayWith]="displayFnForDealerCode"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of dealerList$" [value]="option">
+                        {{option?.displayString}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No</mat-label>
+                <input matInput placeholder="Chassis No" formControlName="chassisNo" [matAutocomplete]="autoChassisNo">
+                <mat-autocomplete #autoChassisNo="matAutocomplete" [displayWith]="displayFnForDealerCode" [panelWidth]="500">
+                    <mat-option *ngFor="let option of chassisNoList$" [value]="option.chassisNo">
+                        {{option?.chassisNo}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Customer Satisfaction </mat-label>
+                <mat-select formControlName="customerSatisfaction">
+                    <mat-option *ngFor="let customerSatisfaction of customerSatisfactionList?.result"
+                        [value]="customerSatisfaction">
+                        {{customerSatisfaction?.lookupval}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Question</mat-label>
+                <mat-select formControlName="question">
+                    <mat-option *ngFor="let ques of questionList"
+                        [value]="ques">
+                        {{ques?.question}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Report Type</mat-label>
+                <mat-select formControlName="reportType">
+                    <mat-option *ngFor="let rt of reportType"[value]="rt.value">
+                        {{rt.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Product</mat-label>
+                <mat-select formControlName="product"
+                    (selectionChange)="selectProduct($event.value)">
+                    <mat-option *ngFor="let option of products" [value]="option.product">
+                        {{option?.product}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+         <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Series</mat-label>
+                <mat-select formControlName="series"
+                    (selectionChange)="selectSeries($event.value)" [compareWith]="compareFnSeries">
+                    <mat-option *ngFor="let option of seriesByProduct"
+                        [value]="option.series">{{option?.series}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model</mat-label>
+                <mat-select formControlName="model"
+                    (selectionChange)="selectModel($event.value)" [compareWith]="compareFnModel">
+                    <mat-option *ngFor="let option of modelBySeries"
+                        [value]="option.model">
+                        {{option?.model}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sub Model</mat-label>
+                <mat-select formControlName="subModel" (selectionChange)="selectSubModel($event.value)"
+                    [compareWith]="compareFnSubModel">
+                    <mat-option *ngFor="let option of subModelByModel"
+                        [value]="option.subModel">
+                        {{option?.subModel}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Variant</mat-label>
+                <mat-select formControlName="variant">
+                    <mat-option *ngFor="let option of variants" [value]="option.variant">
+                        {{option?.variant}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> 
+
+
+
+    </div>
+    <div class="row card-body">
+              <div class="col-lg-2 " *ngFor="let field of guidelines; let i=index">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>{{field.LEVEL_DESC}}</mat-label>
+                  <mat-select [formControlName]="field.LEVEL_CODE" (selectionChange)="selectFieldLevel($event,i)"
+                    [compareWith]="compareFnFieldLevel">
+                    <mat-option *ngFor="let option of parentArray[i]" [value]="option" >
+                      {{option.hierarchy_desc}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+    </div>
+</div>

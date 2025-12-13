@@ -1,0 +1,71 @@
+<div [formGroup]="createNewUserForm" [style.fontSize.px]="11">
+  <div class="row">
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Id</mat-label>
+        <input matInput placeholder="Employee Id" formControlName="employeeId" [matAutocomplete]="autoReportingEmployeeCode">
+        <mat-autocomplete #autoReportingEmployeeCode="matAutocomplete" [displayWith]="displayFnReportingEmployeeCode" [panelWidth]="500"
+          (optionSelected)="selectReportingEmployeeCode($event)">
+          <mat-option *ngFor="let option of reportingEmployeeCodeList?.result" [value]="option">
+            {{option?.displayValue}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="createNewUserForm.controls.employeeId.hasError('selectFromList')"> 
+          Please select from list </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" type="password" required formControlName="password">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput placeholder="Confirm Password" type="password" required formControlName="confirmPassword">        
+      <mat-error *ngIf="createNewUserForm.controls.confirmPassword.hasError('passwordMismatch')"> 
+        Password is Not Same. </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Name</mat-label>
+        <input matInput placeholder="Employee Name" formControlName="employeeName">
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-2 ">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Assign Role</mat-label>
+        <mat-select required formControlName="assignRole">
+          <mat-option *ngFor="let role of roles" [value]="role">{{role.displayValue}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Status</mat-label>
+        <input matInput placeholder="Employee Status" formControlName="employeeStatus">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2 ">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Login Id Status</mat-label>
+        <mat-select formControlName="loginIdStatus">
+          <mat-option *ngFor="let item of status" [value]="item">{{item}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+</div>
+
+<!-- <app-assign-function></app-assign-function> -->

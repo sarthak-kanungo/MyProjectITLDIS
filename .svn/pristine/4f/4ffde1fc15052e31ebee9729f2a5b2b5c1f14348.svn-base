@@ -1,0 +1,131 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Material/Implements Details</p>
+        </div>
+        <div class="card-body mb-2">
+            <div class="table-responsive mt-1">
+                <form [formGroup]="materialTableForm">
+                    <table class="table table-bordered table-sm" style="width: 150%" formArrayName="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 53px;">Sr.No.</th>
+                                <th scope="col" style="width: 212px;">Item No.</th>
+                                <th scope="col" style="width: 212px;">Item Desc</th>
+                                <th scope="col" style="width: 150px;">HSN Code</th>
+                                <th scope="col" style="width: 150px;">Chassis No.</th>
+                                <th scope="col" style="width: 150px;">Engine No.</th>
+                                <th scope="col" style="width: 150px;">Qty</th>
+                                <th scope="col" style="width: 150px;">Rate</th>
+                                <th scope="col" style="width: 150px;">Discount</th>
+                                <th scope="col" style="width: 150px;">Basic Amount</th>
+                                <th scope="col" style="width: 53px;">GST %</th>
+                                <th scope="col" style="width: 150px;">GST Amount</th>
+                                <th scope="col" style="width: 150px;">Total Amount</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr *ngFor="let materialDetail of materialDetailList;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{materialDetail.itemNumber}}</td>
+                            <td>{{materialDetail.itemDescription}}</td>
+                            <td>{{materialDetail.hsnCode}}</td>
+                            <td>{{materialDetail.chassisNumber}}</td>
+                            <td>{{materialDetail.engineNumber}}</td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [ngModel]="materialDetail.rate"
+                                        (ngModelChange)="rateChange($event)">
+                                </mat-form-field>
+                            </td>
+                            <td>{{materialDetail.basicAmount}}</td>
+                            <td>{{materialDetail.discount}}</td>
+                            <td>{{materialDetail.gstPercent}}</td>
+                            <td>{{materialDetail.gstAmount}}</td>
+                            <td>{{materialDetail.totalAmount}}</td>
+                        </tr> -->
+
+                            <tr *ngFor="let item of materialTableForm.get('table')['controls']; let i = index;"
+                                [formGroupName]="i">
+                                <!-- <td>{{item.get('dcuuid').value}}</td> -->
+                                <td>{{i+1}}</td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('itemNumber').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'itemNumber')">
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('itemDescription').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'itemDescription')">
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('hsnCode').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'hsnCode')">
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('chassisNumber').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'chassisNumber')">
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('engineNumber').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'engineNumber')">
+                                </td>
+                                 <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('qty').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'qty')" >
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="{pb_0: removeBottomPadingOfMatFormField(item,'rate')}">
+                                        <input type="text" matInput required formControlName="rate">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="{pb_0: removeBottomPadingOfMatFormField(item,'discount')}">
+                                        <input type="text" matInput formControlName="discount">
+                                        <mat-error
+                                            *ngIf="item.get('discount').errors && (item.get('discount').errors.maxValue || item.get('discount').errors.discountExceed) &&!item.get('discount').errors.required">
+                                            {{item.get('discount').errors.msg}}</mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('basicAmount').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'basicAmount')">
+                                </td>
+                                <!-- <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('gstPercent').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'gstPercent')">
+                                </td> -->
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('gstPercent').value">
+                                    <!-- <label formControlName="gstPercent">{{item.get('gstPercent').value}}</label> -->
+                                    <!-- <mat-form-field appearance="outline">
+                                        <input type="text" matInput formControlName="gstPercent" disabled>
+                                    </mat-form-field> -->
+
+                                    <!-- <mat-form-field appearance="outline" class="w-100">
+                                        <mat-select formControlName="gstPercent">
+                                            <mat-option *ngFor="let option of gstPercentList" [value]="option">
+                                                {{option.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field> -->
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('gstAmount').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'gstAmount')">
+                                </td>
+                                <td [attr.contenteditable]="false" [textContent]="item.get('totalAmount').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'totalAmount')">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,49 @@
+.btn_primary {
+    border: 1px solid transparent !important;
+    color: #ffffff !important;
+    background-color: #028383 !important;
+  }
+  .btn_secondary {
+    border: 1px solid #6295b6 !important;
+    color: #028383 !important;
+  }
+  mat-option{
+    color: black !important;
+  }
+  table {
+    width: 100%;
+    text-align: center;
+    color:black;
+  }
+  th{
+    font-weight: bold
+  }
+  th, td{
+    font-size: 12px;
+  }  
+  table.table-sm th {
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    padding-right: .3rem;
+  }
+  ::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border-color: gray;
+  }
+  
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #00a8a9 !important;
+  }
+  .btnName {
+    color: #00a8a9;
+}
+
+.btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+}
+
+.header {
+    margin-bottom: 1px;
+}

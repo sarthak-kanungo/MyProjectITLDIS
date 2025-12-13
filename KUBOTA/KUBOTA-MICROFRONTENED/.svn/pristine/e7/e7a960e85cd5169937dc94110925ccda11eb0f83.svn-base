@@ -1,0 +1,402 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Attendance Sheet Form</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="trainingattendanceSheetForm">
+          <div class="row" [style.fontSize.px]="11">
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Program Number</mat-label>
+                <input matInput placeholder="Program Number" formControlName="programNumber"
+                  [matAutocomplete]="autoProgramNo" (ngModelChange)="getProgramNumber($event)"
+                  (change)=checkProgNo($event.target.value) required>
+                <mat-autocomplete #autoProgramNo="matAutocomplete" [displayWith]="displayFnForProgramNo"
+                  [panelWidth]="200" (optionSelected)="selectProgramNo($event)">
+                  <mat-option *ngFor="let option of programNoList$" [value]="option">
+                    {{option?.programNumber}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="trainingattendanceSheetForm.get('programNumber').hasError('progError')">
+                  Please Select From List</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Program Date</mat-label>
+                <input matInput placeholder="Program  Date" formControlName="programDate">
+                <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Type of Training</mat-label>
+                <input matInput placeholder="Type of Training" formControlName="typeofTraining">
+                <!-- <mat-select formControlName="typeofTraining">
+                  <mat-option *ngFor="let value of training" [value]="value.name">{{value.name}}
+                  </mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Training Module</mat-label>
+                <input matInput placeholder="Training Module" formControlName="trainingModule">
+                <!-- <mat-select formControlName="trainingModule">
+                  <mat-option *ngFor="let value of trainingModule" [value]="value.name">{{value.name}}
+                  </mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Trainer-1</mat-label>
+                <mat-select formControlName="trainer1" (selectionChange)="checkTrainer2($event.value)">
+                  <mat-option *ngFor="let value of trainers" [value]="value">{{value.employeeName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="trainingattendanceSheetForm.get('trainer1').hasError('required')">
+                  Please select from list </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Trainer-2</mat-label>
+                <mat-select formControlName="trainer2" (selectionChange)="checkTrainer1($event.value)">
+                  <mat-option *ngFor="let value of trainers" [value]="value">{{value.employeeName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="trainingattendanceSheetForm.get('trainer2').hasError('required')">
+                  Please select from list </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Training Location</mat-label>
+                <input matInput placeholder="Training Location" formControlName="trainingLocation">
+                <!-- <mat-select formControlName="trainingLocation" multiple>
+                  <mat-option *ngFor="let value of trainingModule" [value]="value.name">{{value.name}}
+                  </mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2" *ngIf="showLocation">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Location</mat-label>
+                <input matInput placeholder="Dealer Location" formControlName="dealerLocation">
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No</mat-label>
+                <input matInput placeholder="Chassis No" formControlName="chassisNo">
+              </mat-form-field>
+            </div> -->
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input matInput placeholder="Start Date" formControlName="startDate">
+                <!-- <input readonly matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Delivery"
+                  formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker> -->
+                <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input matInput placeholder="End Date" formControlName="endDate">
+                <!-- <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2" placeholder="Delivery"
+                  formControlName="endDate">-->
+                <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                <!-- <mat-datepicker #picker2></mat-datepicker>  -->
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        <div class="card-from mt-2" [formGroup]="implementForm">
+          <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+              <p class="mb-0" style="font-size: 13px;">Attendance</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- <div
+                    [ngClass]="{'col-md-8' : implementHeading.length>0,'col-md-12': implementHeading.length==0}"> -->
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th class="p-2">S.No</th>
+                          <th class="p-2">Dealer Name</th>
+                          <th class="p-2">State</th>
+                          <!-- <th class="p-2">Location</th> -->
+                          <!-- <th class="p-2">Designation</th> -->
+                          <th class="p-2">Emp Code</th>
+                          <th class="p-2">Name</th>
+                          <th class="p-2" *ngFor="let tableHeading of implementHeading"><span>{{tableHeading | date: 'dd
+                              MMM'
+                              }}</span></th>
+
+                          <th class="p-2" *ngIf="isCreate || (isEdit ||isView)">Pre Test</th>
+                          <th class="p-2" *ngIf="isCreate || (isEdit || isView)">Post Test</th>
+                          <th class="p-2" *ngIf="isCreate || (isEdit || isView)">Growth Index</th>
+                          <th class="p-2" *ngIf="isView">Download Certificate</th>
+                          <!-- <th class="p-2" *ngIf="isCreate || (isEdit || isView)">Average Growth Index</th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let option of implementForm['controls']; let i = index;">
+                          <td style="vertical-align: middle;">{{i+1}}</td>
+                          <td style="vertical-align: middle;"  matTooltip="{{option.get('dealerName').value}}">
+                            <input matInput placeholder="Dealer Name" readonly="isView"  [formControl]="option.get('dealerName')">
+                          </td>
+                          <td style="vertical-align: middle;"  matTooltip="{{option.get('state').value}}">
+                            <input matInput placeholder="State" readonly="isView" [formControl]="option.get('state')">
+                          </td>
+                          <!-- <td style="vertical-align: middle;">
+                            <input matInput placeholder="Dealer Location" [formControl]="option.get('location')">
+                          </td> -->
+                          <!-- <td style="vertical-align: middle;">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Designation</mat-label>
+                              <mat-select [formControl]="option.get('designation')">
+                                <mat-option *ngFor="let value of designationList" [value]="value">{{value.name}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </td> -->
+                          <td style="vertical-align: middle;" matTooltip="{{option.get('employeeCode').value}}">
+                            <input matInput placeholder="Emp Code" [formControl]="option.get('employeeCode')">
+                          </td>
+                          <td style="vertical-align: middle;" matTooltip="{{option.get('employeeName').value}}">
+                            <input matInput placeholder="Name" [formControl]="option.get('employeeName')">
+                          </td>
+                          <ng-container *ngFor="let days of implementHeading;let i = index;"> 
+                          <td style="vertical-align: middle;" >
+                            <!-- <input type="checkbox" value="={{i}}" checked="{{days==i}}"> -->
+                            <!-- <mat-checkbox color="basic" class="form-control form-control-sm" (click)="check(days)"
+                              [checked]="days.checked" *ngIf="isView"></mat-checkbox>
+                            <mat-checkbox color="basic" class="form-control form-control-sm" (click)="check(days)"
+                              *ngIf="isCreate"></mat-checkbox> -->
+                            <mat-checkbox color="basic" class="form-control form-control-sm"
+                              *ngIf="isEdit || isView" [formControl]="option.get('D_'+i)"
+                              [checked]="option.get('D_'+i).value" (change)="check(option,days)" [disabled]="isView"></mat-checkbox>
+                            <mat-checkbox color="basic" class="form-control form-control-sm"
+                              *ngIf="isCreate" [formControl]="option.get('D_'+i)" 
+                              [checked]="option.get('D_'+i).value" (change)="check(option,days)"></mat-checkbox>
+                              <!-- <input type="checkbox"[formControl]="option.get(option.get('programNominationDTLId').value+'_D'+i)"
+                              [value]="days" [checked]="option.get(option.get('programNominationDTLId').value+'_D'+i).value==='true'"
+                              (click)="check(option,days)"> -->
+                          </td>
+                          </ng-container>
+                          <td *ngIf="isEdit || isCreate"style="vertical-align: middle;">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Pre Test</mat-label>
+                              <input matInput placeholder="Pre Test" max="100" (keypress)="validInput($event)" maxlength="5" (keyup)="enterPreTest($event,option)"   matTooltip="{{option.get('preTest').value}}"  autocomplete="off" [formControl]="option.get('preTest')">
+                            </mat-form-field>
+
+                            <!-- <input matInput placeholder="Pre Test" autocomplete="off" [formControl]="option.get('preTest')"> -->
+                          </td>
+                          <td *ngIf="isView"style="vertical-align: middle;">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Pre Test</mat-label>
+                              <input matInput placeholder="Pre Test" readonly="isViews"   matTooltip="{{option.get('preTest').value}}" [disabled]="isView"  autocomplete="off" [formControl]="option.get('preTest')">
+                            </mat-form-field>
+
+                            <!-- <input matInput placeholder="Pre Test" autocomplete="off" [formControl]="option.get('preTest')"> -->
+                          </td>
+                          <td *ngIf="isEdit || isCreate" style="vertical-align: middle;">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Post Test</mat-label>
+                            <input matInput placeholder="Post Test" (keypress)="validInput($event)" maxlength="5"  (keyup)="enterPostTest($event,option)"   matTooltip="{{option.get('postTest').value}}" [disabled]="isView" autocomplete="off" [formControl]="option.get('postTest')">
+                            <mat-error *ngIf="option.get('postTest').hasError('qtyError')">
+                              Post Test Value is Not Less Than Pre Test Value!
+                          </mat-error> 
+                          <mat-error *ngIf="option.get('postTest').hasError('required')">
+                            Post value is required
+                        </mat-error>
+                          </mat-form-field>
+                          </td>
+                          <td *ngIf="isView" style="vertical-align: middle;">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Post Test</mat-label>
+                            <input matInput placeholder="Post Test" maxlength="3"  readonly="isView"  matTooltip="{{option.get('postTest').value}}" [disabled]="isView" autocomplete="off" [formControl]="option.get('postTest')">
+                          </mat-form-field>
+                          </td>
+                         
+                          <td *ngIf="isView || (isEdit || isCreate)" style="vertical-align: middle;">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Growth Index</mat-label>
+                            <input matInput placeholder="Growth Index" maxlength="3" readonly="isView"  matTooltip="{{option.get('growthIndex').value}}" autocomplete="off" [formControl]="option.get('growthIndex')">
+                            </mat-form-field>
+                          </td>
+
+
+                            <td *ngIf="isView" style="vertical-align: middle;"> <p (click)="downloadCertificate(option)" class="jobcardno">Download Certificate</p> </td>
+                            
+                       
+
+                         
+                         
+                         
+                        </tr>
+                       
+                      </tbody>
+                      
+                    </table>
+
+                  
+                  
+                    
+                  </div>
+
+
+                 
+                  
+                  
+
+             
+
+                 
+             
+                  <!-- <div class="col-md-3"> -->
+                  <!-- <div [ngClass]="{'col-md-4': implementHeading.length>0}"> 
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+
+                          <th class="p-2" *ngFor="let tableHeading of implementHeading"><span>{{tableHeading | date: 'dd
+                              MMM'
+                              }}</span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let day of newDateRange">
+                         <td style="vertical-align: middle;" *ngFor="let days of implementHeading">
+                            <mat-checkbox color="basic" class="form-control form-control-sm"
+                              (click)="check(days)" [checked]="days.checked" *ngIf="isView"></mat-checkbox>
+                              <mat-checkbox color="basic" class="form-control form-control-sm"
+                              (click)="check(days)" *ngIf="isCreate"></mat-checkbox>
+                              <mat-checkbox color="basic" class="form-control form-control-sm"
+                              (click)="check(days)" *ngIf="isEdit"  [checked]="days.checked"></mat-checkbox>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                     </div> -->
+                  <!-- <div class="col-md-12" *ngIf="implementHeading.length>2">
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+
+                          <th class="p-2" *ngFor="let tableHeading of implementHeading"><span>{{tableHeading | date: 'dd MMM'
+                              }}</span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: middle;" *ngFor="let tableHeading of implementHeading">
+                            <mat-checkbox color="basic" class="form-control form-control-sm"
+                              (click)="check(tableHeading)"></mat-checkbox>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>  -->
+                </div>
+              </div>
+
+              <div class="row  mt-2">
+                <div class="col-md-4">
+                  <div class=" input-group">
+                    <div class="custom-file" *ngIf="!(isEdit || isView)">
+                      <label class="custom-file-label" *ngIf="!isEdit || !isView">Upload Document</label>
+                      <input type="file" name="image"  required (change)="fileSelctionChanges($event)"
+                        accept="image/x-png,image/jpeg,application/pdf" class="custom-file-input"
+                        formControlName="photos" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                  <div *ngFor="let file of files, let i= index">
+                    <div class="card">
+                      <label class="card-text"> </label>
+                      <img *ngIf="file.fileName" src="{{fileStaticPath}}/{{file.fileName}}" height="120"
+                        style="width: 100%;" />
+                      <img *ngIf="file.previewUrl" [src]="file.previewUrl" height="120" style="width: 100%;" />
+                      <div class="card-body">
+                        <hr>
+                        <i style="color: #45afaf;" class="material-icons" (click)="deleteImageHour(file.id)">delete</i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 justify-content-end">
+                  <div *ngIf="implementForm.controls.length > 0">
+                    <p style="margin-left:52%;"><b>Average Growth Index</b>: {{totolAverageIndex?totolAverageIndex:editAverageIndex }}</p>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row mt-2 text-center" *ngIf="isView || isEdit">
+              <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of imageList">
+                <div class="card file-preview-card">
+                  <label> {{file.fileName}} </label>
+                  <img src="{{fileStaticPath}}/{{file.Document_Name}}" height="120" width="185" />
+                  <div class="card-body">
+                    <a href="{{fileStaticPath}}/{{file.Document_Name}}" download>
+                      <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              
+            </div>
+
+          </div>
+        </div>
+        <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+          <button *ngIf="submitButtonView && isCreate" [disabled]="buttonDisabled" (click)="validateForm()" type="button" class="btn btn_primary px-3 ml-3">
+            Submit
+          </button>
+          <!-- <button  (click)="validateForm()" type="button" class="btn btn_primary px-3 ml-3">
+            Submit
+          </button> -->
+          <button *ngIf="isEdit" type="button" class="btn btn_primary px-3  ml-3"
+            (click)="validateForm()">Update</button>
+
+            <button *ngIf="isView" type="button" class="btn btn_primary px-3  ml-3"
+            (click)="onExit()">Exit</button>
+          <!-- <button type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable">View PDF
+            </button>
+            <button type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable">Print
+            </button> -->
+        </div>
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<form [formGroup]="machineTransferFrom" [style.fontSize.px]="10">
+    <div class="row">
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Request No</mat-label>
+                <input matInput placeholder="Request No" formControlName="requestNo" readonly>
+                <!-- <input matInput placeholder="Request No" formControlName="requestNo" [matAutocomplete]="autorequestNo">
+                <mat-autocomplete #autorequestNo="matAutocomplete">
+                    <mat-option *ngFor="let option of requestNumberAutoList|async" [value]="option?.value">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon> -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Request Date" formControlName="requestDate"
+                    [value]="dateForPatch" readonly disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="machineTransferFrom.get('requestDate').hasError('required')">
+                    Request Date is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isView">
+            <mat-form-field appearance="outline">
+                <mat-label>Request Status</mat-label>
+                <input matInput placeholder="Request Status" formControlName="requestStatus" readonly>
+                <!-- <mat-error *ngIf="machineTransferFrom.get('requestStatus').hasError('required')">
+                    Request Status is required</mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Transfer To Dealer Code</mat-label>
+                <input matInput placeholder="Dealer Code" formControlName="dealerCode" readonly>
+
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Transfer To Dealer Name</mat-label>
+                <input matInput placeholder="Dealer Name" formControlName="dealerName" readonly>
+                <!-- <mat-error *ngIf="machineTransferFrom.get('dealerName').hasError('required')">
+                    Dealer Name is required</mat-error> -->
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Transfer From Dealer Code</mat-label>
+                <input matInput placeholder="Transfer From Dealer Code" formControlName="transferFromdealerCode"
+                    [matAutocomplete]="autotransferFromdealerCode" required>
+                <mat-autocomplete #autotransferFromdealerCode="matAutocomplete" (optionSelected)="getValue($event)"
+                    [panelWidth]="500" [displayWith]="selectToDealer">
+                    <mat-option *ngFor="let option of transferFromdealerCodeList|async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="machineTransferFrom.get('transferFromdealerCode').hasError('required')">
+                    Transfer From Dealer Code is required</mat-error>
+                <mat-error *ngIf="machineTransferFrom.get('transferFromdealerCode').hasError('selectFromList')">Select From List</mat-error>    
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Transfer From Dealer Name</mat-label>
+                <input matInput placeholder="Transfer From Dealer Name" formControlName="transferFromdealerName"
+                    readonly>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>GSTIN Number</mat-label>
+                <input matInput placeholder="GSTIN Number" formControlName="gstinNumber" readonly>
+                <!-- <mat-error *ngIf="machineTransferFrom.get('gstinNumber').hasError('required')">
+                    GSTIN Number is required</mat-error> -->
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Issued By</mat-label>
+                <input matInput placeholder="Issued By" formControlName="issuedBy" readonly [value]="issuedByName.name">
+
+            </mat-form-field>
+        </div>
+
+
+    </div>
+</form>

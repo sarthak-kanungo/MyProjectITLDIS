@@ -1,0 +1,35 @@
+
+  .data{
+    width: 200px;
+  }
+  .data1{
+    width: 150px;
+  }
+  .data2{
+    width: 125px;
+  }
+    a{
+      text-decoration: underline;
+    }
+    input{
+      width: 100px;
+      border-radius: 3px;
+      border: 1px solid lightgray;
+    }
+  
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px #aaaa; 
+    border-radius: 10px;
+    }
+     
+    ::-webkit-scrollbar-thumb {
+      background: #e0e2e4; 
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #e0e2e4; 
+    }

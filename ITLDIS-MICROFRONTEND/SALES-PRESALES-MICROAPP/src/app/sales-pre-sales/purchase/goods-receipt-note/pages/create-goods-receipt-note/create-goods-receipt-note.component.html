@@ -1,0 +1,58 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Goods Receipt Note</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="createGrnForm">
+                    <app-goods-receipt-note-create
+                        formControlName="goodsReceiptNote"
+                        (accPacInvoicePartDetailChange)="accPacInvoicePartDetailToEt($event)">
+                    </app-goods-receipt-note-create>
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="mb-0">Machines Detail</p>
+                        </div>
+                        <div class="card-body">
+                            <app-machine-detail-table
+                                [viewOnly]="isView"
+                                [tableData]="machineryDetail"
+                                [grossTotalValue]="machineryGrossTotalValue"
+                                [machineDetailTableFormControl]="createGrnForm.get('itemDetails')">
+                            </app-machine-detail-table>
+                        </div>
+                    </div>
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <p class="mb-0">Implements & Accessories Detail</p>
+                        </div>
+                        <div class="card-body">
+                            <app-accessory-detail-table
+                                [viewOnly]="isView"
+                                [tableData]="accessoryDetail"
+                                [grossTotalValue]="accessoryGrossTotalValue"
+                                [accessoryDetailTableFormControl]="createGrnForm.get('accessoryDetail')">
+                            </app-accessory-detail-table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class=" text-center mt-2 mb-2">
+                <!-- <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm('draft')"
+                    [disabled]="createGrnForm.invalid" *ngIf="!isView"> Save
+                </button> -->
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm('submitted')"
+                    [disabled]="createGrnForm.invalid" *ngIf="!isView" [disabled]="isSubmitDisable"> Submit
+                </button>
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " *ngIf="isView" (click)="viewPrint('true')"> View PDF
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()"
+                    *ngIf="!isView && !isEdit"> Clear
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="redirectToSearchPage()"> Exit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

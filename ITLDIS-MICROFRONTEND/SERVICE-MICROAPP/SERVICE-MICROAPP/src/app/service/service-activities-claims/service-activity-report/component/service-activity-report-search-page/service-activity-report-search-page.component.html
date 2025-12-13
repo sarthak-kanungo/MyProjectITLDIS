@@ -1,0 +1,135 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Service Activity Report</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                    [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-service-activity-report-search
+                            [searchServiceActivityReportForm]=searchServiceActivityReportForm
+                            [isAdvanceSearch]="isAdvanceSearch">
+                        </app-service-activity-report-search>
+
+                        <div class="col-lg-12 mb-2">
+                            <div class="mx-auto d-flex justify-content-between">
+                                <div></div>
+                                <div>
+                                    <button type="button" class="btn  btn_primary px-3"
+                                        (click)="onClickSearchServiceActivityReport()">
+                                        Search
+                                    </button>
+                                    <button type="button" class="btn  btn_secondary px-3 ml-2"
+                                        (click)="onClickClearServiceActivityReport()">
+                                        Clear
+                                    </button>
+                                </div>
+                                <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;"
+                                    (click)="onClickAdvanceSearch()">
+                                    <u> {{isAdvanceSearch ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)"
+            [clickOnTableFields]="[{ 'title': 'activityNumber', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+            <td *ngIf="loginUserType != 'dealer'" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerCode>
+                </mat-form-field>
+            </td>
+            <td *ngIf="loginUserType != 'dealer'" [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerName>
+                </mat-form-field>
+            </td>
+            <td *ngIf="loginUserType != 'dealer'" [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerState>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="activityNumber" [searchColumnName]="'activityNumber'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #activityNumber>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="activityCreatedDate" [searchColumnName]="'activityCreatedDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="activityCreatedDate" #activityCreatedDateInput
+                        (dateInput)="serviceActivityReportDateChanges(activityCreatedDateInput.value, 'activityCreatedDate')">
+                    <mat-datepicker-toggle matSuffix [for]="activityCreatedDate"></mat-datepicker-toggle>
+                    <mat-datepicker #activityCreatedDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="activityType" [searchColumnName]="'activityType'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #activityType>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #status>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="fromDate" [searchColumnName]="'fromDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="fromDate" #fromDateInput
+                        (dateInput)="serviceActivityReportDateChanges(fromDateInput.value, 'fromDate')">
+                    <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="toDate" [searchColumnName]="'toDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="toDate" #toDateInput
+                        (dateInput)="serviceActivityReportDateChanges(toDateInput.value, 'toDate')">
+                    <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                    <mat-datepicker #toDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="targetedNumber" [searchColumnName]="'targetedNumber'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #targetedNumber>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="activityEffectivness" [searchColumnName]="'activityEffectivness'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #activityEffectivness>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #remarks>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="location" [searchColumnName]="'location'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #location>
+                </mat-form-field>
+            </td>
+
+
+        </ngsw-search-table>
+    </div>
+
+</div>

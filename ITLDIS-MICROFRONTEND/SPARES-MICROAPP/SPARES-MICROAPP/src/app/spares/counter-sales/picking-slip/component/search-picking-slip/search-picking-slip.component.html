@@ -1,0 +1,60 @@
+<div class="card-from ">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Picking Slip</p>
+      </div>
+      <div class="card-body">
+        <form  [style.fontSize.px]="10">
+          <div class="row">
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Document No.</mat-label>
+                  <input matInput placeholder="Document No." >
+                  <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+          </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Document Type</mat-label>
+                  <mat-select>
+                      <mat-option *ngFor="let doctype of doctypes" [value]="doctype">{{doctype}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                  <input matInput [matDatepicker]="picker1" placeholder="Picking Slip from Date"
+                      >
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                  <input matInput [matDatepicker]="picker2" placeholder="Picking Slip to Date"
+                      >
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+          </div>
+  
+  
+          </div>
+        </form>
+
+       
+        <div class=" text-center mt-2 pb-2">
+            
+          
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Search
+            </button>
+          </div>
+          
+
+
+      </div>
+    </div>
+</div>        

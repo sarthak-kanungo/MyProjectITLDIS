@@ -1,0 +1,269 @@
+<ng-container [formGroup]="grnForm">
+    <div class="row">
+        
+        <div class="col-lg-2" *ngIf="grnForm.get('grnNo').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN No.</mat-label>
+                <input matInput placeholder="GRN No." formControlName="grnNo">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Grn Date</mat-label>
+                <input matInput [matDatepicker]="grnDatePicker" placeholder="GRN Date" formControlName="grnDate" [max]="currentDate">
+                <mat-datepicker-toggle matSuffix [for]="grnDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #grnDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="grnForm.get('grnStatus').value">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN Status</mat-label>
+                <input matInput placeholder="GRN Status" formControlName="grnStatus">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN Type</mat-label>
+                <mat-select formControlName="grnType" [compareWith]="compareFn"
+                    (selectionChange)="grnTypeSelectionChange($event)" required>
+                    <mat-option *ngFor="let grnType of grnTypeList$ | async" [value]="grnType">
+                        {{grnType.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supplier Type</mat-label>
+                <mat-select formControlName="supplierType"
+                    (selectionChange)="supplierTypeSelectionChange($event)" required>
+                    <mat-option *ngFor="let supplierType of supplierTypeList$ | async" [value]="supplierType.value">
+                        {{supplierType.value}}
+                    </mat-option>
+                    <mat-error *ngIf="!grnForm.get('grnType').value">
+                        Please Select GRN Type.
+                    </mat-error>  
+                </mat-select>
+                
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowSupplierName">
+            <mat-form-field appearance="outline">
+                <mat-label>Supplier Name</mat-label>
+                <input
+                    type="text"
+                    matInput
+                    required
+                    placeholder="Supplier Name"
+                    formControlName="supplierName"
+                    [matAutocomplete]="autoSupplyName">
+                <mat-autocomplete
+                    #autoSupplyName="matAutocomplete"
+                    [displayWith]="displayFn"
+                    [panelWidth]="400"
+                    (optionSelected)="supplierNameOptionSelected($event)">
+                    <mat-option *ngFor="let option of supplierNameList$ | async"
+                        [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="grnForm.get('supplierName').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="!grnForm.get('supplierName').hasError('required') && grnForm.get('supplierName').hasError('selectFromList')">
+                    {{grnForm.get('supplierName').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Store</mat-label>
+                <mat-select formControlName="store" [compareWith]="compareFn"  required>
+                    <mat-option *ngFor="let store of storeList$ | async" [value]="store">
+                        {{store.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="grnForm.get('store').hasError('required')">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isShowPoSearchField">
+            <mat-form-field appearance="outline">
+                <mat-label>Purchase Order</mat-label>
+                <input
+                    type="text"
+                    matInput
+                    required
+                    placeholder="Purchase Order"
+                    formControlName="sparePurchaseOrder"
+                    [matAutocomplete]="autoSparePurchaseOrder" (click)="getPoNumberFun($event.target.value)">
+                <mat-autocomplete
+                    #autoSparePurchaseOrder="matAutocomplete"
+                    [displayWith]="displayFn"
+                    [panelWidth]="200"
+                    (optionSelected)="sparePurchaseOrderOptionSelected($event)">
+                    <mat-option *ngFor="let option of sparePurchaseOrderList$ | async"
+                        [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="grnForm.get('store').hasError('required')">
+                    Please Select Store
+                </mat-error>
+                <mat-error *ngIf="grnForm.get('sparePurchaseOrder').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="!grnForm.get('sparePurchaseOrder').hasError('required') && grnForm.get('sparePurchaseOrder').hasError('selectFromList')">
+                    {{grnForm.get('sparePurchaseOrder').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowSupplierDetail">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supplier GST NO.</mat-label>
+                <input matInput placeholder="Supplier GST NO." formControlName="supplierGstNo">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowSupplierDetail">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supplier Address 1</mat-label>
+                <input matInput placeholder="Supplier Address 1" formControlName="supplierAddress1">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowSupplierDetail">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supplier Address 2</mat-label>
+                <input matInput placeholder="Supplier Address 2" formControlName="supplierAddress2">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowSupplierDetail">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supplier State</mat-label>
+                <input matInput placeholder="Supplier State" formControlName="supplierState">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Number</mat-label>
+                <!-- <input
+                    type="text"
+                    matInput
+                    required
+                    placeholder="Invoice Number"
+                    formControlName="invoiceNumber"
+                    [matAutocomplete]="autoInvoiceNumber" (click)="getInvoiceNumberFun($event)"> -->
+                    <!-- Commented by vinay to prevent object type -->
+                <input  type="text"  matInput required placeholder="Invoice Number" formControlName="invoiceNumber"
+                 [matAutocomplete]="autoInvoiceNumber" (ngModelChange)="getInvoiceNumberFun($event)">
+                <mat-autocomplete
+                    #autoInvoiceNumber="matAutocomplete"
+                    [displayWith]="displayFn"
+                    [panelWidth]="200"
+                    (optionSelected)="invoiceNumberOptionSelected($event)">
+                    <mat-option *ngFor="let option of invoiceNumberList$ | async"
+                        [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon *ngIf="isShowInvoiceNumberSearchIcon" matSuffix>search</mat-icon>
+                <mat-error *ngIf="grnForm.get('invoiceNumber').hasError('required')">
+                    This field is required
+                </mat-error>
+                <mat-error *ngIf="!grnForm.get('invoiceNumber').hasError('required') && grnForm.get('invoiceNumber').hasError('selectFromList')">
+                    {{grnForm.get('invoiceNumber').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Invoice Date"
+                    formControlName="invoiceDate" [max]="currentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Value</mat-label>
+                <input matInput placeholder="Invoice Value" formControlName="invoiceValue">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supply Type</mat-label>
+                <input matInput placeholder="Supply Type" formControlName="supplyType">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mode of Transport</mat-label>
+                <input matInput placeholder="Mode of Transport" formControlName="transportMode">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Transporter</mat-label>
+                <input matInput placeholder="Transporter" formControlName="transporter">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Goods Receipt Date</mat-label>
+                <input matInput [matDatepicker]="picker2" placeholder="Goods Receipt Date" required
+                    formControlName="goodsReceiptDate" [max]="currentDate" [min]="invoiceDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="grnForm.get('goodsReceiptDate').hasError('required')">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN Done By</mat-label>
+                <input matInput placeholder="GRN Done By" formControlName="grnDoneBy">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>No. of Boxes Sent</mat-label>
+                <input matInput placeholder="No. of Boxes Sent" formControlName="noOfBoxesSent">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>No. of Boxes Received</mat-label>
+                <input matInput placeholder="No. of Boxes Received" required formControlName="noOfBoxesReceived">
+                <mat-error *ngIf="grnForm.get('noOfBoxesReceived').hasError('required')">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Receipt Value</mat-label>
+                <input matInput placeholder="Receipt Value" formControlName="receiptValue">
+            </mat-form-field>
+        </div>
+
+    </div>
+</ng-container>

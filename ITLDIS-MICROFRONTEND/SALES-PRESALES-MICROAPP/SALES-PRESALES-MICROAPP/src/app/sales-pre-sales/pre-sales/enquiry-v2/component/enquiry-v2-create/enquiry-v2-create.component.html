@@ -1,0 +1,38 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">New Enquiry</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="enquiryForm" [style.fontSize.px]="10">
+                    <app-general-info [enquiryByEnquiryNumber]="enquiryByEnquiryNumber" ></app-general-info>
+                    <app-product-interested-v2 [enquiryByEnquiryNumber]="enquiryByEnquiryNumber" ></app-product-interested-v2>
+                    <app-prospect-details-v2 (dataAutoPopulateByMobileNo)="dataAutoPopulateByMobileNo($event)" [enquiryByEnquiryNumber]="enquiryByEnquiryNumber"></app-prospect-details-v2>
+                    <app-prospect-background-v2 [autoPopulateByMobileNo]="autoPopulateByMobileNo" [enquiryByEnquiryNumber]="enquiryByEnquiryNumber" ></app-prospect-background-v2>
+                    <app-current-machinery-details-v2 [enquiryByEnquiryNumber]="enquiryByEnquiryNumber" ></app-current-machinery-details-v2>
+                    <app-retail-finance-details-v2 [enquiryByEnquiryNumber]="enquiryByEnquiryNumber" ></app-retail-finance-details-v2>
+                    <app-enquiry-attachments></app-enquiry-attachments>
+<!-- [enquiryByEnquiryNumber]="enquiryByEnquiryNumber" -->
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary px-3  ml-3" *ngIf="isShowSubmitBtn" (click)="validateForm()" [disabled]="isSubmitDisable">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn_primary px-3  ml-3" *ngIf="isView" (click)="validateForm()">
+                            Update
+                        </button>
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView"  (click)="viewPrint('true')"> Print </button>
+                        <button type="button" class="btn btn_primary px-3  ml-3" *ngIf="isExit" (click)="exitForm()">
+                            Exit
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="isShowClearBtn" (click)="reset()"> Clear
+                        </button>
+                        <button type="button" class="btn btn_primary px-3  ml-3" *ngIf="isView1" (click)="onClickViewFollowupHistory()">
+                            View Follow up History
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

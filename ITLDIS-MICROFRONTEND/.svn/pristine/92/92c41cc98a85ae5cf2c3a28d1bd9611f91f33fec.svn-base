@@ -1,0 +1,1064 @@
+import { EventEmitter, Injectable, ɵɵdefineInjectable, Component, forwardRef, ChangeDetectorRef, Input, Output, NgModule } from '@angular/core';
+import { Subject, Observable, Subscription } from 'rxjs';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { v4 } from 'uuid';
+import { CommonModule } from '@angular/common';
+import { MatCheckboxModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/et-data-handler.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class EtDataHandlerService {
+    constructor() {
+        this.sendColumnNameRecord$ = new Subject();
+        this.sendColumnRecord$ = new Subject();
+        this.validateTable$ = new EventEmitter();
+        this.getTableRecord$ = new EventEmitter();
+        this.getColumnNameToCollectColumnRecord$ = new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        subscriber => {
+            this.sendColumnNameRecord = subscriber;
+        }));
+    }
+    /**
+     * @param {?} formControlName
+     * @return {?}
+     */
+    getColumnRecord(formControlName) {
+        // console.log('formControlName', formControlName);
+        this.sendColumnNameRecord$.next(formControlName);
+        // return this.sendColumnRecord$;
+    }
+    /**
+     * @return {?}
+     */
+    getColumnNameToCollectColumnRecord() {
+        return new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        subscriber => {
+            this.sendColumnNameRecord = subscriber;
+        }));
+    }
+    /**
+     * @param {?} columnRecordList
+     * @param {?} formControlName
+     * @return {?}
+     */
+    emitColumnRecord(columnRecordList, formControlName) {
+        // console.log('columnRecordList', columnRecordList);
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this.sendColumnRecord$.next({ recordList: columnRecordList, formControlName });
+        }), 1);
+    }
+    /**
+     * @return {?}
+     */
+    validateTable() {
+        return this.validateTable$;
+    }
+    /**
+     * @return {?}
+     */
+    getValidTableRecord() {
+        this.validateTable$.emit(true);
+        return this.getTableRecord$;
+    }
+    /**
+     * @param {?} record
+     * @return {?}
+     */
+    sendTableRecord(record) {
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this.getTableRecord$.emit(record);
+        }), 100);
+    }
+}
+EtDataHandlerService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] }
+];
+/** @nocollapse */
+EtDataHandlerService.ctorParameters = () => [];
+/** @nocollapse */ EtDataHandlerService.ngInjectableDef = ɵɵdefineInjectable({ factory: function EtDataHandlerService_Factory() { return new EtDataHandlerService(); }, token: EtDataHandlerService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.sendColumnNameRecord;
+    /** @type {?} */
+    EtDataHandlerService.prototype.sendColumnNameRecord$;
+    /** @type {?} */
+    EtDataHandlerService.prototype.sendColumnRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.validateTable$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.getTableRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.getColumnNameToCollectColumnRecord$;
+    /**
+     * @type {?}
+     * @private
+     */
+    EtDataHandlerService.prototype.sendColumnRecord;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/et-form-handler.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class EtFormHandlerService {
+    constructor() { }
+    /**
+     * @param {?} validateFn
+     * @return {?}
+     */
+    setValidators(validateFn) {
+    }
+}
+EtFormHandlerService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] }
+];
+/** @nocollapse */
+EtFormHandlerService.ctorParameters = () => [];
+/** @nocollapse */ EtFormHandlerService.ngInjectableDef = ɵɵdefineInjectable({ factory: function EtFormHandlerService_Factory() { return new EtFormHandlerService(); }, token: EtFormHandlerService, providedIn: "root" });
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/editable-table-config.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function TableConfig() { }
+if (false) {
+    /** @type {?} */
+    TableConfig.prototype.title;
+    /** @type {?} */
+    TableConfig.prototype.formControlName;
+    /** @type {?|undefined} */
+    TableConfig.prototype.key;
+    /** @type {?} */
+    TableConfig.prototype.inputField;
+    /** @type {?|undefined} */
+    TableConfig.prototype.isNeedValueChanges;
+    /** @type {?|undefined} */
+    TableConfig.prototype.displayKey;
+    /** @type {?|undefined} */
+    TableConfig.prototype.patchKey;
+}
+/**
+ * @record
+ */
+function PatchValue() { }
+if (false) {
+    /** @type {?} */
+    PatchValue.prototype.rowIndex;
+    /** @type {?} */
+    PatchValue.prototype.patchValue;
+    /** @type {?|undefined} */
+    PatchValue.prototype.tableRowId;
+}
+/**
+ * @record
+ */
+function AssignListToSelect() { }
+if (false) {
+    /** @type {?} */
+    AssignListToSelect.prototype.formControlName;
+    /** @type {?} */
+    AssignListToSelect.prototype.list;
+}
+/**
+ * @record
+ */
+function AssignListToAutocomplete() { }
+if (false) {
+    /** @type {?} */
+    AssignListToAutocomplete.prototype.config;
+    /** @type {?} */
+    AssignListToAutocomplete.prototype.list;
+    /** @type {?|undefined} */
+    AssignListToAutocomplete.prototype.searchKey;
+}
+/**
+ * @record
+ */
+function ControlsConfig() { }
+/**
+ * @record
+ */
+function ColumnRecord() { }
+if (false) {
+    /** @type {?} */
+    ColumnRecord.prototype.recordList;
+    /** @type {?} */
+    ColumnRecord.prototype.formControlName;
+}
+/**
+ * @record
+ * @template T
+ */
+function EtTableValueChangeEvent() { }
+if (false) {
+    /** @type {?} */
+    EtTableValueChangeEvent.prototype.key;
+    /** @type {?} */
+    EtTableValueChangeEvent.prototype.config;
+    /** @type {?} */
+    EtTableValueChangeEvent.prototype.tableRow;
+}
+/**
+ * @record
+ * @template T
+ */
+function EtAutocompleteSelectedEvent() { }
+if (false) {
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.option;
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.rowIndex;
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.config;
+    /** @type {?} */
+    EtAutocompleteSelectedEvent.prototype.tableRow;
+}
+class ETValidationError {
+    /**
+     * @param {?} formControlName
+     * @param {?} tableRowId
+     * @param {?=} msg
+     * @param {?=} type
+     */
+    constructor(formControlName, tableRowId, msg, type) {
+        this.formControlName = formControlName;
+        this.tableRowId = tableRowId;
+        this.msg = msg;
+        this.type = type;
+        if (!msg) {
+            this.isRemove = true;
+        }
+        Object.seal(this);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ETValidationError.prototype.isRemove;
+    /** @type {?} */
+    ETValidationError.prototype.formControlName;
+    /** @type {?} */
+    ETValidationError.prototype.tableRowId;
+    /** @type {?} */
+    ETValidationError.prototype.msg;
+    /** @type {?} */
+    ETValidationError.prototype.type;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/editable-table.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class EditableTableComponent {
+    /**
+     * @param {?} fb
+     * @param {?} etDataHandlerService
+     * @param {?} _changeDetectorRef
+     */
+    constructor(fb, etDataHandlerService, _changeDetectorRef) {
+        this.fb = fb;
+        this.etDataHandlerService = etDataHandlerService;
+        this._changeDetectorRef = _changeDetectorRef;
+        this.filteredOptions = {};
+        this.selectOptions = {};
+        this.subscription = new Subscription();
+        this.viewOnly = false;
+        this.hideActionBtn = false;
+        this.hideDefaultRow = false;
+        this.tableConfig = (/** @type {?} */ ([]));
+        this.getTableRecordChange = new EventEmitter();
+        this.optionSelected = new EventEmitter();
+        this.searchValueChanges = new EventEmitter();
+        this.tableValueChanges = new EventEmitter();
+        this.deletedTableRecords = new EventEmitter();
+        this.matAutocompleteDisplayFn = new Subject();
+        /* ================  NG_VALUE_ACCESSOR && NG_VALIDATORS ===============*/
+        this.onTouched = (/**
+         * @return {?}
+         */
+        () => {
+            this.editableTableForm.markAllAsTouched();
+        });
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set assignListToSelect(v) {
+        if (!!v) {
+            v.forEach((/**
+             * @param {?} ele
+             * @return {?}
+             */
+            ele => {
+                this.selectOptions[ele.formControlName] = ele.list;
+            }));
+        }
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set getFormData(v) {
+        v.subscribe((/**
+         * @param {?} res
+         * @return {?}
+         */
+        res => {
+            if (!!res) {
+                this.getTableRecordChange.emit(((/** @type {?} */ (this.editableTableForm.controls.table))).getRawValue());
+            }
+        }));
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set assignListToAutocomplete(v) {
+        if (v && v.config.inputField === 'autocomplete') {
+            this.filteredOptions[v.config.formControlName] = this._filter(v.searchKey, v.list, v.config.displayKey);
+        }
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set patchValue(v) {
+        this._patchValue = v;
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set patchValueToSelect(v) {
+        if (!!v && this.editableTableForm) {
+            /** @type {?} */
+            let form = ((/** @type {?} */ (this.editableTableForm.controls.table)));
+            v.forEach((/**
+             * @param {?} ele
+             * @return {?}
+             */
+            ele => {
+                if (form.controls[ele.rowIndex]) {
+                    form.controls[ele.rowIndex].patchValue(ele.patchValue);
+                }
+            }));
+        }
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set tableData(v) {
+        {
+            if (!!v && v.length > 0) {
+                this._tableData = v;
+                this.createTableWithData(v);
+            }
+        }
+    }
+    /**
+     * @param {?} fb
+     * @return {?}
+     */
+    set formGroupForTableRow(fb) {
+        this._formGroupForTableRow = Object.assign({}, fb);
+    }
+    /**
+     * bind instaceof \@param ETValidationError
+     *
+     * @param {?} ve
+     * @return {?}
+     */
+    set validationError(ve) {
+        if (ve) {
+            this._validationError = ve;
+            this.setError(ve);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.createTableForm();
+        this.subscribeToSendColumnNameRecord();
+        this.subscribeToValidateTable();
+        this.assignMarkAsTouchedFnToControl(this.control);
+        // this.setQuotationListToTable();
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        if (!!changes.patchValue && !!changes.patchValue.currentValue) {
+            this._patchValue = changes.patchValue.currentValue;
+            this.patchValueToTable(this._patchValue);
+        }
+        if (!!changes.control && !!changes.control.currentValue) {
+            this.assignMarkAsTouchedFnToControl(this.control);
+        }
+    }
+    /**
+     * @param {?} control
+     * @return {?}
+     */
+    assignMarkAsTouchedFnToControl(control) {
+        if (control) {
+            control.markAsTouched = (/**
+             * @return {?}
+             */
+            () => {
+                this.editableTableForm.markAllAsTouched();
+            });
+        }
+    }
+    /**
+     * @private
+     * @param {?} v
+     * @return {?}
+     */
+    patchValueToTable(v) {
+        if (!!v && v.length > 0) {
+            if (!this.editableTableForm) {
+                this.createTableForm();
+            }
+            /** @type {?} */
+            let form = ((/** @type {?} */ (this.editableTableForm.controls.table)));
+            /** @type {?} */
+            let rowIndex;
+            v.forEach((/**
+             * @param {?} ele
+             * @return {?}
+             */
+            ele => {
+                if (ele.tableRowId) {
+                    for (const key in form.value) {
+                        if (form.value.hasOwnProperty(key)) {
+                            /** @type {?} */
+                            const tableRow = form.value[key];
+                            if (tableRow['tableRowId'] === ele.tableRowId) {
+                                rowIndex = key;
+                            }
+                        }
+                    }
+                }
+                rowIndex = (!rowIndex && ele.rowIndex) ? ele.rowIndex : rowIndex;
+                rowIndex ? form.controls[rowIndex].patchValue(ele.patchValue) : console.error('patch row undefined');
+            }));
+        }
+    }
+    /**
+     * @private
+     * @param {?} tableData
+     * @return {?}
+     */
+    createTableWithData(tableData) {
+        if (!this.editableTableForm) {
+            return;
+        }
+        /** @type {?} */
+        const table = (/** @type {?} */ (this.editableTableForm.get('table')));
+        if (table.length > 1) {
+            table.clear();
+        }
+        tableData.forEach((/**
+         * @param {?} element
+         * @param {?} index
+         * @return {?}
+         */
+        (element, index) => {
+            if (index === 0 && table.length > 0) {
+                this.patchValueToTable([{ rowIndex: '0', patchValue: element }]);
+                return;
+            }
+            this.addRow(element);
+        }));
+    }
+    // @Input() private tableData;
+    /**
+     * @private
+     * @return {?}
+     */
+    subscribeToSendColumnNameRecord() {
+        this.etDataHandlerService.sendColumnNameRecord$.subscribe((/**
+         * @param {?} formControlName
+         * @return {?}
+         */
+        (formControlName) => {
+            if (this.viewOnly) {
+                return;
+            }
+            /** @type {?} */
+            let form = ((/** @type {?} */ (this.editableTableForm.controls.table)));
+            /** @type {?} */
+            let columnValues = [];
+            /** @type {?} */
+            const tableRecord = form.getRawValue();
+            if (formControlName.toLowerCase() === 'all') {
+                /** @type {?} */
+                let sortedConfigList = this.tableConfig.filter((/**
+                 * @param {?} config
+                 * @return {?}
+                 */
+                config => config.isNeedValueChanges));
+                sortedConfigList.forEach((/**
+                 * @param {?} config
+                 * @return {?}
+                 */
+                (config) => {
+                    columnValues = this.collectColumnRecord(tableRecord, config.formControlName);
+                    this.etDataHandlerService.emitColumnRecord(columnValues, config.formControlName);
+                }));
+                return;
+            }
+            columnValues = this.collectColumnRecord(tableRecord, formControlName);
+            this.etDataHandlerService.emitColumnRecord(columnValues, formControlName);
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tableRecord
+     * @param {?} tableRowKey
+     * @return {?}
+     */
+    collectColumnRecord(tableRecord, tableRowKey) {
+        /** @type {?} */
+        let columnValues = [];
+        for (const key in tableRecord) {
+            if (tableRecord.hasOwnProperty(key)) {
+                /** @type {?} */
+                const tableRow = tableRecord[key];
+                columnValues.push(tableRow[tableRowKey]);
+            }
+        }
+        return columnValues;
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    subscribeToValidateTable() {
+        /** @type {?} */
+        const validateSbscrb = this.etDataHandlerService.validateTable().subscribe((/**
+         * @param {?} status
+         * @return {?}
+         */
+        status => {
+            if (status) {
+                this.editableTableForm.markAllAsTouched();
+                if (this.editableTableForm.status === 'VALID' || this.editableTableForm.status === 'DISABLED') {
+                    this.etDataHandlerService.sendTableRecord({
+                        data: ((/** @type {?} */ (this.editableTableForm.controls.table))).getRawValue(),
+                        valid: true
+                    });
+                    return;
+                }
+                this.etDataHandlerService.sendTableRecord({
+                    data: [],
+                    valid: false
+                });
+            }
+        }));
+        this.subscription.add(validateSbscrb);
+    }
+    /**
+     * @return {?}
+     */
+    createTableForm() {
+        if (this.editableTableForm) {
+            return;
+        }
+        if (this.etFormArray) {
+            this.editableTableForm = this.fb.group({
+                table: this.etFormArray
+            });
+        }
+        else {
+            this.editableTableForm = this.fb.group({
+                table: this.fb.array([])
+            });
+        }
+        if (!this.hideDefaultRow
+            && ((/** @type {?} */ (this.editableTableForm.controls.table))).length === 0
+            && (this.tableConfig.length > 0 || this.etFormArray.length > 0)) {
+            this.addRow();
+        }
+        this.tableValueChanges.emit(this.editableTableForm.valueChanges);
+        if (this._tableData) {
+            this.createTableWithData(this._tableData);
+        }
+    }
+    /**
+     * @param {?=} data
+     * @return {?}
+     */
+    implementsDetailsRow(data) {
+        /** @type {?} */
+        const fg = this.fb.group(this._formGroupForTableRow);
+        console.log('this._formGroupForTableRow: ', this._formGroupForTableRow);
+        if (!!data && !this.viewOnly) {
+            fg.patchValue(data);
+        }
+        if (this.viewOnly) {
+            fg.disable();
+            !!data ? fg.patchValue(data, { onlySelf: true, emitEvent: false }) : null;
+        }
+        fg.addControl('tableRowId', this.fb.control(v4()));
+        console.log('fg: ', fg);
+        this.tableConfig.forEach((/**
+         * @param {?} ele
+         * @return {?}
+         */
+        (ele) => {
+            // fg.valueCha nges
+            if (ele.inputField === 'autocomplete' || ele.isNeedValueChanges) {
+                fg.controls[ele.formControlName].valueChanges.subscribe((/**
+                 * @param {?} searchValue
+                 * @return {?}
+                 */
+                searchValue => {
+                    this.searchValueChanges.emit({ key: searchValue, config: ele, tableRow: fg.getRawValue() });
+                    this.dirtyAutocompleteColumn = Object.assign({}, ele);
+                }));
+            }
+        }));
+        return fg;
+    }
+    /**
+     * @private
+     * @param {?} value
+     * @param {?} options
+     * @param {?} key
+     * @return {?}
+     */
+    _filter(value, options, key) {
+        /** @type {?} */
+        let filterValue;
+        if (!!value || value === "") {
+            return options;
+        }
+        if (typeof value === 'string') {
+            filterValue = value.toLowerCase();
+        }
+        if (typeof value === 'object') {
+            filterValue = value[key].toLowerCase();
+        }
+        return options.filter((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => option[key].toLowerCase().indexOf(filterValue) === 0));
+    }
+    /**
+     * @return {?}
+     */
+    submitData() {
+    }
+    /**
+     * @param {?=} row
+     * @return {?}
+     */
+    addRow(row) {
+        if (this.etFormArray) {
+            this.editableTableForm.controls.table = this.etFormArray;
+            return;
+        }
+        /** @type {?} */
+        let implementsDetails = (/** @type {?} */ (this.editableTableForm.controls.table));
+        implementsDetails.markAllAsTouched();
+        if (implementsDetails.valid) {
+            implementsDetails.push(this.implementsDetailsRow(row));
+        }
+    }
+    /**
+     * @param {?=} row
+     * @return {?}
+     */
+    resetTable(row) {
+        /** @type {?} */
+        let implementsDetails = (/** @type {?} */ (this.editableTableForm.controls.table));
+        implementsDetails.clear();
+        implementsDetails.push(this.implementsDetailsRow(row));
+    }
+    /**
+     * @return {?}
+     */
+    deleteRow() {
+        /** @type {?} */
+        let implementsDetails = (/** @type {?} */ (this.editableTableForm.controls.table));
+        /** @type {?} */
+        let deleteRecordList = [];
+        /** @type {?} */
+        let nonSelected = implementsDetails.controls.filter((/**
+         * @param {?} machinery
+         * @return {?}
+         */
+        (machinery) => {
+            if (machinery.value.isSelected) {
+                deleteRecordList.push(machinery.getRawValue());
+            }
+            return !machinery.value.isSelected;
+        }));
+        this.deletedTableRecords.emit(deleteRecordList);
+        implementsDetails.clear();
+        nonSelected.forEach((/**
+         * @param {?} el
+         * @return {?}
+         */
+        el => implementsDetails.push(el)));
+    }
+    /**
+     * @private
+     * @param {?} config
+     * @return {?}
+     */
+    generateAutocompleteDisplayFn(config) {
+        /** @type {?} */
+        const key = config.patchKey || config.displayKey;
+        /** @type {?} */
+        const displayWith = (/**
+         * @param {?} user
+         * @return {?}
+         */
+        (user) => {
+            return (user && typeof user === 'object') ? user[key] : user;
+        })
+        // return of(displayWith);
+        ;
+        // return of(displayWith);
+        this.matAutocompleteDisplayFn.next(displayWith);
+        this._changeDetectorRef.detectChanges();
+    }
+    /**
+     * @param {?} config
+     * @param {?} formGroup
+     * @return {?}
+     */
+    autocompleteClicked(config, formGroup) {
+        this.filteredOptions[config.formControlName] = [];
+        this.generateAutocompleteDisplayFn(config);
+        if (formGroup.controls[config.formControlName].value) {
+            this.searchValueChanges.emit({ key: formGroup.controls[config.formControlName].value, config: config, tableRow: formGroup.getRawValue() });
+            this.dirtyAutocompleteColumn = Object.assign({}, config);
+        }
+    }
+    /**
+     * @param {?} event
+     * @param {?} rowIndex
+     * @param {?} rowFormGroup
+     * @param {?} config
+     * @return {?}
+     */
+    valueSelectedFromAutocomplete(event, rowIndex, rowFormGroup, config) {
+        /** @type {?} */
+        let option = (event && typeof event.option.value === 'object') ? Object.assign({}, event.option.value) : event.option.value || '';
+        this.optionSelected.emit(Object.assign({ option }, { rowIndex, tableRow: rowFormGroup.getRawValue(), config }));
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    selectionChanged(event) {
+    }
+    /**
+     * @param {?} value
+     * @param {?} rowFormGroup
+     * @param {?} formControlName
+     * @return {?}
+     */
+    contenteditableValuechange(value, rowFormGroup, formControlName) {
+        rowFormGroup.controls[formControlName].patchValue(value);
+    }
+    /**
+     * @private
+     * @param {?} ve
+     * @return {?}
+     */
+    setError(ve) {
+        /** @type {?} */
+        const formArray = ((/** @type {?} */ (this.editableTableForm.get('table'))));
+        /** @type {?} */
+        const formIndex = formArray.getRawValue().findIndex((/**
+         * @param {?} formValue
+         * @return {?}
+         */
+        (formValue) => {
+            if (formValue.tableRowId === ve.tableRowId) {
+                return true;
+            }
+        }));
+        /** @type {?} */
+        const tableRowFG = formArray.at(formIndex);
+        if (tableRowFG) {
+            if (ve.isRemove) {
+                tableRowFG.get(ve.formControlName).setErrors(null);
+                return;
+            }
+            tableRowFG.get(ve.formControlName).setErrors(Object.assign({ msg: ve.msg }, ve.type));
+        }
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    writeValue(val) {
+        if (val && val.resetForm) {
+            this.editableTableForm.reset();
+            this.resetTable();
+            return;
+        }
+        val && val.length > 0 && (this.tableData = val);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    registerOnChange(fn) {
+        fn && this.editableTableForm.controls.table.valueChanges.pipe(map((/**
+         * @param {?} value
+         * @return {?}
+         */
+        (value) => ((/** @type {?} */ (this.editableTableForm.controls.table))).getRawValue()))).subscribe(fn);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    registerOnTouched(fn) {
+        fn && (this.onTouched = fn);
+    }
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    setDisabledState(isDisabled) {
+        isDisabled ? this.editableTableForm.controls.table.disable() : this.editableTableForm.controls.table.enable();
+        // throw new Error("Method not implemented.");
+    }
+    /**
+     * @param {?} control
+     * @return {?}
+     */
+    validate(control) {
+        return this.editableTableForm.controls.table.valid ? null : { invalidForm: { valid: false, message: "editableTableForm fields are invalid" } };
+    }
+    /* ==================================================================== */
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+}
+EditableTableComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'editable-table',
+                template: "<div id=\"divshow\">\n  <form [formGroup]=\"editableTableForm\">\n    <div>\n      <div class=\"table-responsive\">\n        <table class=\"table table-bordered table-sm\" formArrayName=\"table\">\n          <thead class=\"thead-light\">\n            <tr>\n              <th scope=\"col\" style=\"width: 10px;\" *ngFor=\"let config of tableConfig\" [class]=\"config.title\">{{config.title}}</th>\n            </tr>\n          </thead>\n          <tbody>\n            <ng-container *ngFor=\"let rowFormGroup of editableTableForm['controls'].table['controls']; let i = index\"\n              [formGroupName]=\"i\">\n              <tr>\n                <ng-container *ngFor=\"let config of tableConfig\">\n                  <td *ngIf=\"config.inputField !== 'contenteditable'\">\n                    <mat-checkbox *ngIf=\"config.inputField === 'checkbox'\" color=\"basic\"\n                      class=\"form-control form-control-sm\" [formControlName]=\"config.formControlName\" [checked]=\"false\">\n                    </mat-checkbox>\n                    <mat-form-field class=\"example-full-width\" *ngIf=\"config.inputField === 'input'\"\n                      appearance=\"outline\" [ngClass]=\"{pb_0:!rowFormGroup.get(config.formControlName).errors}\">\n                      <input matInput [placeholder]=\"config.title\" [formControlName]=\"config.formControlName\">\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required\">\n                        {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required\">\n                        This field is required</mat-error>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"config.inputField === 'autocomplete'\" class=\"w-100\"\n                      [ngClass]=\"{pb_0:!rowFormGroup.get(config.formControlName).errors}\" appearance=\"outline\">\n                      <input matInput [formControlName]=\"config.formControlName\" [matAutocomplete]=\"autoAmcNumber\"\n                        (focus)=\"autocompleteClicked(config, rowFormGroup)\" (keyup.enter)=\"$event.preventDefault();\">\n                      <!-- (blur)=\"resetFormControlNotHavingObject(searchAMCForm.controls.amcNumber, 'amcNumber')\" -->\n                      <mat-autocomplete #autoAmcNumber=\"matAutocomplete\"\n                        [displayWith]=\"matAutocompleteDisplayFn | async\"\n                        (optionSelected)=\"valueSelectedFromAutocomplete($event, i, rowFormGroup, config)\" [panelWidth]=\"500\">\n                        <mat-option *ngFor=\"let option of filteredOptions[config.formControlName]\" [value]=\"option\">\n                          <!-- (click)=\"valueSelectedFromAutocomplete(option)\" -->\n                          {{option[config.displayKey]? option[config.displayKey] : option}}\n                        </mat-option>\n                      </mat-autocomplete>\n                      <mat-icon matSuffix>search</mat-icon>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required\">\n                        {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required\">\n                        This field is required</mat-error>\n                    </mat-form-field>\n                    <!-- <span *ngIf=\"config.inputField === 'autocomplete'\">\n                      {{matAutocompleteDisplayFn | async}}\n                    </span> -->\n                    <mat-form-field *ngIf=\"config.inputField === 'select'\" appearance=\"outline\" class=\"pb_0\">\n                      <mat-label>Select {{config.title}}</mat-label>\n                      <mat-select [formControlName]=\"config.formControlName\"\n                        (selectionChange)=\"selectionChanged($event)\">\n                        <mat-option *ngFor=\"let option of selectOptions[config.formControlName]\" [value]=\"option\">\n                          {{option[config.displayKey]? option[config.displayKey] : option}}\n                        </mat-option>\n                      </mat-select>\n                      <mat-error\n                      *ngIf=\"rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required\">\n                      {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required\">\n                        This field is required</mat-error>\n                    </mat-form-field>\n                  </td>\n                  <td *ngIf=\"config.inputField === 'contenteditable'\"\n                    [attr.contenteditable]=\"config.inputField !== 'contenteditable' || config.isNeedValueChanges\"\n                    [textContent]=\"rowFormGroup.controls[config.formControlName].value\"\n                    (input)=\"contenteditableValuechange($event.target.textContent,rowFormGroup,config.formControlName)\"\n                    #contenteditableRef></td>\n                </ng-container>\n              </tr>\n              <!-- <ng-content select=\"tr\"></ng-content> -->\n            </ng-container>\n          </tbody>\n          <tfoot>\n            <ng-content select=\"ng-container.table_footer\"></ng-content>\n          </tfoot>\n        </table>\n      </div>\n    </div>\n  </form>\n  <div class=\" text-center mt-2\" *ngIf=\"!hideActionBtn && !viewOnly \">\n    <button type=\"button\" class=\"btn btn-sm btn_primary \" (click)=\"addRow()\"> Add\n      Row</button>\n    <button type=\"button\" class=\"btn btn-sm btn_secondary ml-2 \" (click)=\"deleteRow()\"> Delete Row </button>\n  </div>\n</div>",
+                providers: [
+                    {
+                        provide: NG_VALUE_ACCESSOR,
+                        useExisting: forwardRef((/**
+                         * @return {?}
+                         */
+                        () => EditableTableComponent)),
+                        multi: true
+                    },
+                    {
+                        provide: NG_VALIDATORS,
+                        useExisting: forwardRef((/**
+                         * @return {?}
+                         */
+                        () => EditableTableComponent)),
+                        multi: true
+                    }
+                ],
+                styles: [""]
+            }] }
+];
+/** @nocollapse */
+EditableTableComponent.ctorParameters = () => [
+    { type: FormBuilder },
+    { type: EtDataHandlerService },
+    { type: ChangeDetectorRef }
+];
+EditableTableComponent.propDecorators = {
+    viewOnly: [{ type: Input }],
+    hideActionBtn: [{ type: Input }],
+    hideDefaultRow: [{ type: Input }],
+    assignListToSelect: [{ type: Input }],
+    tableConfig: [{ type: Input }],
+    getFormData: [{ type: Input }],
+    getTableRecordChange: [{ type: Output }],
+    optionSelected: [{ type: Output }],
+    assignListToAutocomplete: [{ type: Input }],
+    patchValue: [{ type: Input }],
+    patchValueToSelect: [{ type: Input }],
+    tableData: [{ type: Input, args: ['tableData',] }],
+    searchValueChanges: [{ type: Output }],
+    tableValueChanges: [{ type: Output }],
+    formGroupForTableRow: [{ type: Input }],
+    deletedTableRecords: [{ type: Output }],
+    matAutocompleteDisplayFn: [{ type: Input }],
+    etFormArray: [{ type: Input }],
+    control: [{ type: Input }],
+    validationError: [{ type: Input }]
+};
+if (false) {
+    /** @type {?} */
+    EditableTableComponent.prototype.editableTableForm;
+    /** @type {?} */
+    EditableTableComponent.prototype.isEdit;
+    /** @type {?} */
+    EditableTableComponent.prototype.isView;
+    /** @type {?} */
+    EditableTableComponent.prototype.filteredOptions;
+    /** @type {?} */
+    EditableTableComponent.prototype.selectOptions;
+    /** @type {?} */
+    EditableTableComponent.prototype.subscription;
+    /** @type {?} */
+    EditableTableComponent.prototype.viewOnly;
+    /** @type {?} */
+    EditableTableComponent.prototype.hideActionBtn;
+    /** @type {?} */
+    EditableTableComponent.prototype.hideDefaultRow;
+    /** @type {?} */
+    EditableTableComponent.prototype.tableConfig;
+    /** @type {?} */
+    EditableTableComponent.prototype.getTableRecordChange;
+    /** @type {?} */
+    EditableTableComponent.prototype.optionSelected;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._patchValue;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype.dirtyAutocompleteColumn;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._tableData;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._formGroupForTableRow;
+    /** @type {?} */
+    EditableTableComponent.prototype.searchValueChanges;
+    /** @type {?} */
+    EditableTableComponent.prototype.tableValueChanges;
+    /** @type {?} */
+    EditableTableComponent.prototype.deletedTableRecords;
+    /** @type {?} */
+    EditableTableComponent.prototype.matAutocompleteDisplayFn;
+    /** @type {?} */
+    EditableTableComponent.prototype.etFormArray;
+    /** @type {?} */
+    EditableTableComponent.prototype.control;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._validationError;
+    /** @type {?} */
+    EditableTableComponent.prototype.onTouched;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype.fb;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype.etDataHandlerService;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._changeDetectorRef;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/editable-table.module.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class EditableTableModule {
+}
+EditableTableModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [EditableTableComponent],
+                imports: [
+                    CommonModule,
+                    FormsModule,
+                    ReactiveFormsModule,
+                    MatCheckboxModule,
+                    MatAutocompleteModule,
+                    MatFormFieldModule,
+                    MatInputModule,
+                    MatIconModule,
+                    MatSelectModule
+                ],
+                exports: [EditableTableComponent]
+            },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: public-api.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: editable-table.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { ETValidationError, EditableTableComponent, EditableTableModule, EtDataHandlerService, EtFormHandlerService };
+//# sourceMappingURL=editable-table.js.map

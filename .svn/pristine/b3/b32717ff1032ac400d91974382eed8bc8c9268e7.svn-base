@@ -1,0 +1,125 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Branch Transfer Indent</p>
+                <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                    <b>New </b>
+                </button>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searchBranchTransfer" [style.fontSize.px]="10">
+                    <div class="row">
+                        
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Indent Number</mat-label>
+                                <input matInput placeholder="Indent Number" formControlName="indentNo" [matAutocomplete]="auto" 
+                                >
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of indentData" [value]="option.requestNo">
+                                      {{option.value}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <mat-select  formControlName="status">
+                                    <mat-option *ngFor="let dataStatus of allStatus" [value]="dataStatus.status">
+                                        {{dataStatus.status}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+
+                        <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Indent From Date</mat-label>
+                              <input matInput [matDatepicker]="issueFromDatePicker" placeholder="Indent From Date" formControlName="fromDate" (dateChange)="fromDateSelected1($event)" [max]="today">
+                              <mat-datepicker-toggle matSuffix [for]="issueFromDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker #issueFromDatePicker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                      
+                          <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Indent To Date</mat-label>
+                              <input matInput [matDatepicker]="issueToDatePicker" placeholder="Indent To Date" formControlName="toDate" [max]="maxDate" [min]="minDate">
+                              <mat-datepicker-toggle matSuffix [for]="issueToDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker #issueToDatePicker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+
+
+
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"
+                                (click)="searchData()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        (actionOnTableRecord)="actionOnTableRecord($event)"  [clickOnTableFields]="[
+        { title: 'indentNo', isClickable: true },{ title: 'action', isClickable: true }]"
+        (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+
+
+        <td></td>
+        <td [ngsw-searchField]="hotlineReportNo" [searchColumnName]="'hotlineReportNo'">
+            <input class="w-100 borderRadius" #hotlineReportNo />
+        </td>
+        <td [ngsw-searchField]="hotlineReportNo" [searchColumnName]="'hotlineReportNo'">
+            <input class="w-100 borderRadius" #hotlineReportNo />
+        </td>
+        <td [ngsw-searchField]="hotlineReportNo" [searchColumnName]="'hotlineReportNo'">
+            <input class="w-100 borderRadius" #hotlineReportNo />
+        </td>
+        <td [ngsw-searchField]="hotlineReportNo" [searchColumnName]="'hotlineReportNo'">
+            <input class="w-100 borderRadius" #hotlineReportNo />
+        </td>
+        <td [ngsw-searchField]="hotlineReportNo" [searchColumnName]="'hotlineReportNo'">
+            <input class="w-100 borderRadius" #hotlineReportNo />
+        </td>
+        <td [ngsw-searchField]="hotlineReportNo" [searchColumnName]="'hotlineReportNo'">
+            <input class="w-100 borderRadius" #hotlineReportNo />
+        </td>
+
+    
+
+
+
+
+
+
+    </ngsw-search-table>
+</div>

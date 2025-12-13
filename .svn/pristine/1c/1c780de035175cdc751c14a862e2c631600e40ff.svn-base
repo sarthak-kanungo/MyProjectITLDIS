@@ -1,0 +1,112 @@
+<div class="card-from mt-2" [formGroup]="implementForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Implements</p>
+        </div>
+        <div class="card-body">
+                <div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Sr.No.</th>
+                                    <th scope="col" class="text-left" >Implement Category</th>
+                                    <th scope="col" >Implement</th>
+                                    <th scope="col" >Implement Make</th>
+                                    <th scope="col" >Implement Serial Number</th>
+                                    <th scope="col" >Gear Ratio</th>
+                                    <th scope="col" >Engine RPM</th>
+                                    <th scope="col" >% Of Usage</th>
+                                    <th scope="col" >Usage during failure</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let list of implementForm.controls; let i=index" [formGroupName]="i">
+                                    <td style="vertical-align: middle;">
+                                        <mat-checkbox formControlName="isSelected" [checked]></mat-checkbox>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                                <mat-label>Implement Category</mat-label>
+                                            <!-- <input matInput placeholder="Implement Category" formControlName="implementCategory" required> -->
+                                             <mat-select formControlName="implementCategory" required>
+								                <mat-option *ngFor="let value of catgList" [value]="value.lookupval">{{value.lookupval}}
+								                </mat-option>
+								            </mat-select>
+                                        </mat-form-field>
+                                        
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                                <mat-label>Implement</mat-label>
+                                            <input matInput placeholder="Implement" formControlName="implement" required>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                                <mat-label>Implement Make</mat-label>
+                                            <input matInput placeholder="Implement Make" formControlName="implementMake" required>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                                <mat-label>Implement Serial Number</mat-label>
+                                            <input matInput placeholder="Implement Serial Number" formControlName="implementSerialNumber">
+                                            <mat-error *ngIf="list.get('implementSerialNumber').errors?.validSerialNo">Please enter alphanumeric number.</mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                                <mat-label>Gear Ratio</mat-label>
+                                                <mat-select formControlName='gearRatio'>
+                                                    <mat-option *ngFor="let lookup of gearRatioList" [value]="lookup.lookupval">
+                                                        {{lookup.lookupval}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                
+                                            <!-- <input matInput placeholder="Gear Ratio" formControlName="gearRatio" (change)="checkGearRatio(list)"> -->
+                                            <!-- <mat-error *ngIf="list.get('gearRatio').errors?.pattern">
+                                                Enter a valid ratio  <b>for eg. 3:4</b>
+                                            </mat-error> -->
+                                            <!-- <mat-error *ngIf="list.get('gearRatio').errors?.gearRatioError">
+                                                Please enter value in ratio form  <b> e.g. a:b</b>
+                                            </mat-error>
+                                            <mat-error *ngIf="list.get('gearRatio').errors?.gearRatioError1">
+                                                Please enter value in ratio form  <b> e.g. a:b</b>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                                <mat-label>Engine RPM</mat-label>
+                                            <input matInput placeholder="Engine RPM" formControlName="engineRpm">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <mat-label>% Of Usage</mat-label>
+                                            <input matInput placeholder="% Of Usage" formControlName="percentOfUsage">
+                                            <mat-error *ngIf="list.get('percentOfUsage').errors?.min">Please enter value between 1 to 100.</mat-error>
+                                            <mat-error *ngIf="list.get('percentOfUsage').errors?.max">Total usage should not exceed above 100.</mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <div class="form-check mt-2">
+                                            <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;" formControlName="usageFailure"></mat-checkbox>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            <div class=" text-center" style="margin-top: 6px" *ngIf="viewName == undefined">
+                <button (click)="addRow()" type="button" class="btn btn-sm btn_primary"> Add Row</button>
+                <button (click)="deleteRow()" type="button" class="btn btn-sm btn_secondary ml-2" >Delete Row </button>
+            </div>
+        </div>
+    </div>
+</div>

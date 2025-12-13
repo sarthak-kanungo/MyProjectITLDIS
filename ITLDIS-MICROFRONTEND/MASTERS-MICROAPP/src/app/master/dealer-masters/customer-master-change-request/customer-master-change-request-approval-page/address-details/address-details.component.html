@@ -1,0 +1,179 @@
+<div class="card-from mt-2 mb-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Address Details</p>
+    </div>
+    <div class="card-body">
+
+      <div [formGroup]="customerMasterAddressDetailsForm" [style.fontSize.px]="11" class="col-lg-6" style="float:left; border-right:2px solid #00a8a9;">
+           <div class="row">
+             <div class="col-lg-4" >
+               <mat-form-field appearance="outline">
+                 <mat-label>Address 1</mat-label>
+                 <input matInput placeholder="Address 1" required formControlName="address1">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline">
+                 <mat-label>Address 2</mat-label>
+                 <input matInput placeholder="Address 2" formControlName="address2">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline">
+                 <mat-label>Address 3</mat-label>
+                 <input matInput placeholder="Address 3" formControlName="address3">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4" *ngIf="isView">
+               <mat-form-field appearance="outline" class="w-100">
+                 <mat-label>District</mat-label>
+                 <mat-select  formControlName="district" required>
+                   <mat-option *ngFor="let option of dealerInformation" [value]="option">
+                     {{option?.district}}</mat-option>
+                 </mat-select>
+               </mat-form-field>
+             </div>
+             <div class="col-lg-4" *ngIf="!isView">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>District</mat-label>
+                <input matInput placeholder="District" formControlName="district">
+              </mat-form-field>
+            </div>
+   
+             <div class="col-lg-4">
+               <mat-form-field class="w-100" appearance="outline">
+                 <mat-label>Pin Code</mat-label>
+                 <input matInput placeholder="Pin Code" required formControlName="pinCode"
+                   minlength="6" maxlength="6">
+               </mat-form-field>
+             </div>
+
+              <div class="col-lg-4">
+               <mat-form-field class="w-100" appearance="outline">
+                 <mat-label>Post Office</mat-label>
+                 <input matInput placeholder="Post Office" required formControlName="postOffice">
+               </mat-form-field>
+             </div>
+   
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline" class="w-100">
+                 <mat-label>City/Village</mat-label>
+                 <input matInput placeholder="City/Village" formControlName="city">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4">
+               <mat-form-field class="w-100" appearance="outline">
+                 <mat-label>Tehsil/Taluka/Mandal</mat-label>
+                 <input matInput placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil" >
+               </mat-form-field>
+             </div>
+   
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline">
+                 <mat-label>State</mat-label>
+                 <input matInput placeholder="State" formControlName="state">
+               </mat-form-field>
+             </div>
+   
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline">
+                 <mat-label>Country</mat-label>
+                 <input matInput placeholder="Country" formControlName="country">
+               </mat-form-field>
+             </div>
+           </div>
+      </div>
+      
+      
+      <div [formGroup]="customerMasterAddressDetailsFormReq" [style.fontSize.px]="11" class="col-lg-6" style="float:left;">
+           <div class="row">
+             <div class="col-lg-4" >
+               <mat-form-field appearance="outline">
+                 <mat-label>Address 1</mat-label>
+                 <input matInput placeholder="Address 1" required formControlName="address1" [ngStyle]="customerMasterAddressDetailsFormReq.get('address1').value!==customerMasterAddressDetailsForm.get('address1').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline">
+                 <mat-label>Address 2</mat-label>
+                 <input matInput placeholder="Address 2" formControlName="address2" [ngStyle]="customerMasterAddressDetailsFormReq.get('address2').value!==customerMasterAddressDetailsForm.get('address2').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline">
+                 <mat-label>Address 3</mat-label>
+                 <input matInput placeholder="Address 3" formControlName="address3" [ngStyle]="customerMasterAddressDetailsFormReq.get('address3').value!==customerMasterAddressDetailsForm.get('address3').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4" *ngIf="isView">
+               <mat-form-field appearance="outline" class="w-100">
+                 <mat-label>District</mat-label>
+                 <mat-select  formControlName="district" required [ngStyle]="customerMasterAddressDetailsFormReq.get('district').value!==customerMasterAddressDetailsForm.get('district').value?{'background-color': '#DAF7A6	'} : {'background-color': ''} ">
+                   <mat-option *ngFor="let option of dealerInformation" [value]="option" >
+                     {{option?.district}}</mat-option>
+                 </mat-select>
+               </mat-form-field>
+             </div>
+             <div class="col-lg-4" *ngIf="!isView">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>District</mat-label>
+                <input matInput placeholder="District" formControlName="district">
+              </mat-form-field>
+            </div>
+   
+             <div class="col-lg-4" >
+               <mat-form-field class="w-100" appearance="outline">
+                 <mat-label>Pin Code</mat-label>
+                 <input matInput placeholder="Pin Code" required formControlName="pinCode"
+                   minlength="6" maxlength="6" [ngStyle]="customerMasterAddressDetailsFormReq.get('pinCode').value!==customerMasterAddressDetailsForm.get('pinCode').value?{'background-color': '#DAF7A6'} : {'background-color': ''} " >
+               </mat-form-field>
+             </div>
+
+              <div class="col-lg-4">
+               <mat-form-field class="w-100" appearance="outline">
+                 <mat-label>Post Office</mat-label>
+                 <input matInput placeholder="Post Office" required formControlName="postOffice" [ngStyle]="customerMasterAddressDetailsFormReq.get('postOffice').value!==customerMasterAddressDetailsForm.get('postOffice').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+               </mat-form-field>
+             </div>
+   
+             <div class="col-lg-4">
+               <mat-form-field appearance="outline" class="w-100">
+                 <mat-label>City/Village</mat-label>
+                 <input matInput placeholder="City/Village" formControlName="city" [ngStyle]="customerMasterAddressDetailsFormReq.get('city').value!==customerMasterAddressDetailsForm.get('city').value?{'background-color': '#DAF7A6'} : {'background-color': ''} " >
+               </mat-form-field>
+             </div>
+
+             <div class="col-lg-4" >
+               <mat-form-field class="w-100" appearance="outline">
+                 <mat-label>Tehsil/Taluka/Mandal</mat-label>
+                 <input matInput placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil"[ngStyle]="customerMasterAddressDetailsFormReq.get('tehsil').value!==customerMasterAddressDetailsForm.get('tehsil').value?{'background-color': '#DAF7A6'} : {'background-color': ''} " >
+               </mat-form-field>
+             </div>
+   
+             <div class="col-lg-4" >
+               <mat-form-field appearance="outline">
+                 <mat-label>State</mat-label>
+                 <input matInput placeholder="State" formControlName="state" [ngStyle]="customerMasterAddressDetailsFormReq.get('state').value!==customerMasterAddressDetailsForm.get('state').value?{'background-color': '#DAF7A6'} : {'background-color': ''} " >
+               </mat-form-field>
+             </div>
+   
+             <div class="col-lg-4"  >
+               <mat-form-field appearance="outline">
+                 <mat-label>Country</mat-label>
+                 <input matInput placeholder="Country" formControlName="country" [ngStyle]="customerMasterAddressDetailsFormReq.get('country').value!==customerMasterAddressDetailsForm.get('country').value?{'background-color': '#DAF7A6'} : {'background-color': ''} ">
+               </mat-form-field>
+             </div>
+           </div>
+      </div>
+    </div>
+  </div>
+</div>

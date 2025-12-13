@@ -1,0 +1,5 @@
+import { PipeTransform } from '@angular/core';
+export declare class GetKeyValueFromObjectPipe implements PipeTransform {
+    transform(value: any, keyName: Array<string>): any;
+    private hasProperty;
+}

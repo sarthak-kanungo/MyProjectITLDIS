@@ -1,0 +1,227 @@
+<div class="container-fluid create-form mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Search Dealer-Auction</p>
+            </div>
+            <form [style.fontSize.px]="10">
+
+
+
+                <!-- Code for dealer Login -->
+                <div class="card-body">
+                    <div class="row" [formGroup]="searchNonMoveMentForm">
+                        <div class="col-lg-3" *ngIf="loginType=='dealer'">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Part No</mat-label>
+                                <input matInput placeholder="Part No" formControlName="partNo"
+                                    [matAutocomplete]="autoPartNo" (keyup)="autoSearchPartNumber($event)" />
+                                <mat-autocomplete #autoPartNo="matAutocomplete"
+                                    (optionSelected)="selectedPartNo($event)" [displayWith]="displayPartNo"
+                                    [panelWidth]="300">
+                                    <mat-option *ngFor="let item of itemList" [value]="item.value">
+                                        {{ item.value }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2" *ngIf="loginType=='dealer'">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Aging</mat-label>
+                                <mat-select placeholder="agin" formControlName="aging">
+                                    <mat-option *ngFor="let agin of aginList" [value]="agin">{{
+                                        agin
+                                        }}</mat-option>
+                                </mat-select>
+                                <!-- <input matInput placeholder="Aging" formControlName="aging"> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2" *ngIf="loginType=='itldis'">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Action</mat-label>
+                                <mat-select placeholder="action" (selectionChange)="selectIsAuction($event)"
+                                    formControlName="auction">
+                                    <mat-option *ngFor="let action of auctionList" [value]="action">{{
+                                        action.name
+                                        }}</mat-option>
+                                </mat-select>
+                                <!-- <input matInput placeholder="Aging" formControlName="aging"> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button *ngIf="loginType=='dealer'" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                            (click)="search()">
+                            Search
+                        </button>
+                        <button *ngIf="loginType=='itldis'" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                            (click)="searchAuctionListForKAi()">
+                            Search
+                        </button>
+                        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clear()">
+                            Clear
+                        </button>
+                    </div>
+
+                    <div *ngIf="loginType=='dealer'" class="card-from mt-2 machine-details"
+                        [formGroup]="partDetailsForm">
+                        <div class="card" style="border: 1px solid #45afaf; overflow: auto">
+                            <div class="card-header" style="background-color: #45afaf; border: 1px solid #45afaf">
+                                <p class="mb-0" style="font-size: 13px">
+                                    Dealer-Auction Item Selection Screen
+                                </p>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive" style="max-height: 350px; overflow: auto">
+                                    <table class="table table-bordered table-sm"
+                                        style="white-space: nowrap; overflow-x: auto">
+                                        <thead class="thead-light" style="
+                        position: sticky;
+                        top: 0;
+                        background-color: #45afaf;
+                        z-index: 1;
+                      ">
+                                            <tr>
+                                                <th>Auction Item</th>
+                                                <th>Sr No</th>
+                                                <th style="width: 100px">Item Number</th>
+                                                <th style="width: 100px">Item Description</th>
+
+                                                <th>Aging (In Year)</th>
+                                                <th>OEM PART</th>
+                                                <th>OIL SUPPLIER PART</th>
+                                                <th>LOCAL PART</th>
+                                                <th>SPEGST</th>
+                                                <th>spmgst</th>
+                                                <th>spmrp</th>
+                                                <th>local purchase price</th>
+                                                <th>alternate part no</th>
+                                                <th>igst percent</th>
+                                                <th>uom</th>
+                                                <th>HSN Code</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="
+                        let option of partDetailsForm.controls;
+                        let i = index
+                      ">
+
+                                            <td>
+                                                <mat-checkbox color="basic" class="form-control form-control-sm"
+                                                    [formControl]="$any(option.get('isNonMoving'))"></mat-checkbox>
+                                            </td>
+                                            <td>
+                                                {{ i + 1 }}
+                                            </td>
+
+                                            <td>{{ option.get("itemNo").value }}</td>
+                                            <td>{{ option.get("itemDesc").value }}</td>
+                                            <td>{{ option.get("aging").value }}</td>
+                                            <td>{{ option.get("isOemPart").value }}</td>
+                                            <td>{{ option.get("isoilSupplierPart").value }}</td>
+                                            <td>{{ option.get("islocalPart").value }}</td>
+                                            <td>{{ option.get("spegst").value }}</td>
+                                            <td>{{ option.get("spmgst").value }}</td>
+                                            <td>{{ option.get("spmrp").value }}</td>
+                                            <td>{{ option.get("localpurchaseprice").value }}</td>
+                                            <td>{{ option.get("alternatepartno").value }}</td>
+                                            <td>{{ option.get("igstpercent").value }}</td>
+                                            <td>{{ option.get("uom").value }}</td>
+                                            <td>{{ option.get("hsncode").value }}</td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- code for Kai User -->
+                <mat-paginator *ngIf="loginType=='itldis'" [length]="count" [pageSize]="pageSize"
+                    [pageSizeOptions]="recordPerPageList" [pageIndex]="pageIndex" (page)="handlePageChange($event)"
+                    showFirstLastButtons>
+                </mat-paginator>
+
+                <div class="card-body" *ngIf="loginType=='itldis'">
+                    <div class="table-responsive" style="max-height: 350px; overflow: auto">
+                        <table class="table table-bordered table-sm" style="white-space: nowrap; overflow-x: auto">
+                            <thead class="thead-light" style="
+            position: sticky;
+            top: 0;
+            background-color: #45afaf;
+            z-index: 1;
+          ">
+                                <tr>
+                                    <th>Auction Item</th>
+                                    <th>Sr No</th>
+                                    <th style="width: 100px">Item Number</th>
+                                    <th style="width: 100px">Item Description</th>
+
+                                    <th>Aging (In Year)</th>
+                                    <th>OEM PART</th>
+                                    <th>OIL SUPPLIER PART</th>
+                                    <th>LOCAL PART</th>
+                                    <th>SPEGST</th>
+                                    <th>spmgst</th>
+                                    <th>spmrp</th>
+                                    <th>local purchase price</th>
+                                    <th>alternate part no</th>
+                                    <th>igst percent</th>
+                                    <th>uom</th>
+                                    <th>HSN Code</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="
+            let option of partDetailsForm.controls;
+            let i = index
+          ">
+
+                                <td>
+                                    <mat-checkbox color="basic" class="form-control form-control-sm" [disabled]="true"
+                                        [formControl]="$any(option.get('isNonMoving'))"></mat-checkbox>
+                                </td>
+                                <td>
+                                    {{ calculateSerialNumber(i) }}
+                                    <!-- {{ a }} -->
+                                </td>
+
+                                <td>{{ option.get("itemNo").value }}</td>
+                                <td>{{ option.get("itemDesc").value }}</td>
+                                <td>{{ option.get("aging").value }}</td>
+                                <td>{{ option.get("isOemPart").value }}</td>
+                                <td>{{ option.get("isoilSupplierPart").value }}</td>
+                                <td>{{ option.get("islocalPart").value }}</td>
+                                <td>{{ option.get("spegst").value }}</td>
+                                <td>{{ option.get("spmgst").value }}</td>
+                                <td>{{ option.get("spmrp").value }}</td>
+                                <td>{{ option.get("localpurchaseprice").value }}</td>
+                                <td>{{ option.get("alternatepartno").value }}</td>
+                                <td>{{ option.get("igstpercent").value }}</td>
+                                <td>{{ option.get("uom").value }}</td>
+                                <td>{{ option.get("hsncode").value }}</td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="text-center">
+                <button *ngIf="loginType=='dealer'" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                    (click)="submit()" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    {{ loading ? "Submitting..." : "Submit" }}
+                </button>
+
+                <button *ngIf="loginType=='itldis'" type="button" class="btn btn_primary pl-3 pr-3 ml-3 mb-3"
+                    (click)="downloadPartNo()"> Download Dealer Part No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex justify-content-between header">
+            <p class="mb-0 label" style="padding: 2px;"> Search Machine Descripancy Claim</p>
+            <div *ngIf="userType != 'kubota'">
+              <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                <b class="btnName">New</b>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="machineDescripancyClaimListForm" [style.fontSize.px]="10">
+            <div class="row">
+
+              <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Claim No.</mat-label>
+                  <input matInput placeholder="Claim No." formControlName="claimNumber" [matAutocomplete]="autoClaimNo">
+                  <mat-autocomplete #autoClaimNo="matAutocomplete" [displayWith]="displayFnClaimNo" [panelWidth]="500">
+                    <mat-option *ngFor="let option of autoComplateClaimNoDomain?.result" [value]="option">
+                      {{option?.claimNumber}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Claim Status</mat-label>
+                  <mat-select formControlName="claimStatus">
+                    <mat-option *ngFor="let option of dropDownClaimStatus?.result" [value]="option?.claimStatus">
+                      {{option?.claimStatus}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field class="w-100">
+                  <input matInput [matDatepicker]="picker" placeholder="Claim From Date"
+                    formControlName="claimFromDate" readonly (click)="picker.open()"  (dateChange)="fromDateSelected($event)" [max]="today">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field class="w-100">
+                  <input matInput [matDatepicker]="picker1" placeholder="Claim To Date" formControlName="claimToDate" readonly
+                    (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="mx-auto text-center">
+                <button type="button" class="btn px-3 btn_primary" (click)="onSearchDescripancyClaimList()"> Search
+                </button>
+                <button type="button" class="btn px-3 ml-2 btn_primary" (click)="clearDescripancyClaimSearch()"> Clear
+                </button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="mt-3">
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+    [totalElements]="totalTableElements" (actionOnTableRecord)="actionOnTableRecord($event)"
+    (pageChange)="pageChange($event)" [clickOnTableFields]="[{'title':'claimNumber','isClickable':true},{'title':'action','isClickable':true}]" [searchValue]="searchValue"
+    [clearSearchRow]="clearSearchRow" >
+
+    <td></td>
+
+    <td [ngsw-searchField]="claimNumber" [searchColumnName]="'claimNumber'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #claimNumber [(ngModel)] ="claimNumberNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="picker7" [searchColumnName]="'claimDate'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [matDatepicker]="picker7" #claimDate (dateChange)="test($event, 'claimDate')" [(ngModel)] ="claimDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+        <mat-datepicker #picker7></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="claimStatus" [searchColumnName]="'claimStatus'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #claimStatus [(ngModel)] ="claimStatusNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="totalClaimQuantity" [searchColumnName]="'totalClaimQuantity'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #totalClaimQuantity [(ngModel)] ="totalClaimQuantityNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="totalApprovedQuantity" [searchColumnName]="'totalApprovedQuantity'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #totalApprovedQuantity [(ngModel)] ="totalApprovedQuantityNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput type="text" #remarks [(ngModel)] ="remarksNgModel">
+      </mat-form-field>
+    </td>
+
+  </ngsw-search-table>
+</div>

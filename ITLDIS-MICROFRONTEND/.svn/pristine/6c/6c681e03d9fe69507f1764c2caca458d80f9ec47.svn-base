@@ -1,0 +1,118 @@
+<!-- <div class="container-fluid create-form  mt-3 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">MRC Details</p>
+      </div>
+      <form [formGroup]="mrcSearchResultForm" [style.fontSize.px]="11">
+        <div class="card-body">
+          <app-mrc-search></app-mrc-search>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<form [formGroup]="mrcSearchResultForm">
+  <div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="d-flex justify-content-between header">
+                    <p class="mb-0 label">Search MRC Details</p>
+                    <div>
+                      <button type="button" [routerLink]="[ './create' ]"
+                        class="font-weight-bold btn btn_header bg_white">
+                        New
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <app-mrc-search [mrcSearchForm]="mrcSearchResultForm"></app-mrc-search>
+            <div class="text-center  mt-2 mb-2">
+              <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                <!-- (initialQueryParams)="initialQueryParams($event)" [insertQueryParams]="filterData" 
+                (onUrlChange)="onUrlChange($event)" -->
+                Search
+              </button>
+              <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                Clear
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form>
+    <div class="container-fluid icon_class">
+      <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+        [totalElements]="totalSearchRecordCount" [searchValue]="searchValue" [page]="page" [size]="size"
+        [showPartial]="false" (actionOnTableRecord)="actionOnTableRecord($event)"
+        (pageChange)="pageChangeOfSearchTable($event)"
+        [clickOnTableFields]="[{ 'title': 'MRC_Number', 'isClickable': true },{ 'title': 'edit', 'isClickable': true }]"
+        [clearSearchRow]="clearSearchRow">
+
+        <td></td>
+
+        <td [ngsw-searchField]="MRC_Number" [searchColumnName]="'MRC_Number'">
+          <input class="w-100 borderRadius" #MRC_Number [(ngModel)]="MRC_NumberNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="KAI_Invoice_Number" [searchColumnName]="'KAI_Invoice_Number'">
+          <input class="w-100 borderRadius" #KAI_Invoice_Number [(ngModel)]="KAI_Invoice_NumberNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="Total_Item_In_Invoice" [searchColumnName]="'Total_Item_In_Invoice'">
+          <input class="w-100 borderRadius" #Total_Item_In_Invoice [(ngModel)]="Total_Item_In_InvoiceNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="MRC_Pending" [searchColumnName]="'MRC_Pending'">
+          <input class="w-100 borderRadius" #MRC_Pending [(ngModel)]="MRC_PendingNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+
+        <td [ngsw-searchField]="Chassis_Number" [searchColumnName]="'Chassis_Number'">
+          <input class="w-100 borderRadius" #Chassis_Number [(ngModel)]="Chassis_NumberNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="MRC_Date" [searchColumnName]="'MRC_Date'">
+          <input class="w-100 borderRadius" type="date" #MRC_Date
+            (change)="etSearchDateValueChange(MRC_Date.value,'MRC_Date')" [(ngModel)]="MRC_DateNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="LR_Date" [searchColumnName]="'LR_Date'">
+          <input class="w-100 borderRadius" type="date" #LR_Date
+            (change)="etSearchDateValueChange(LR_Date.value,'LR_Date')" [(ngModel)]="LR_DateNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="LR_Number" [searchColumnName]="'LR_Number'">
+          <input class="w-100 borderRadius" #LR_Number [(ngModel)]="LR_NumberNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+        <td [ngsw-searchField]="Engine_Number" [searchColumnName]="'Engine_Number'">
+          <input class="w-100 borderRadius" #Engine_Number [(ngModel)]="Engine_NumberNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+        <td [ngsw-searchField]="invoiceDate" [searchColumnName]="'invoiceDate'">
+          <input class="w-100 borderRadius" #invoiceDate [(ngModel)]="invoiceDateNgModel"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+
+      </ngsw-search-table>
+    </div>

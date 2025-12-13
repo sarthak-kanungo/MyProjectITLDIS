@@ -1,0 +1,5 @@
+import { PipeTransform } from '@angular/core';
+export declare class CamelCaseToRegularStringPipe implements PipeTransform {
+    transform(value: string, tableName?: string, tableType?: string): any;
+    private transformEnterBy;
+}

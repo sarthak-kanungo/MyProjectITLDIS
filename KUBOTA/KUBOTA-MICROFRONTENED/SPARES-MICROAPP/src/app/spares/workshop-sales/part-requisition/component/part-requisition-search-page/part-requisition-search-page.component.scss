@@ -1,0 +1,14 @@
+:host {
+  ::ng-deep ngsw-search-table {
+    td,
+    th {
+      width: 200px;
+    }
+    .sr_no {
+      width: 55px;
+    }
+    .edit {
+      width: 100px;
+    }
+  }
+}

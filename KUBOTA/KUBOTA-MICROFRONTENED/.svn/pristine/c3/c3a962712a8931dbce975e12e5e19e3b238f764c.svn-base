@@ -1,0 +1,167 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="heading">
+        <p class="font-weight-bold">Assign Org Hierarchy To Dealer</p>
+    </div>
+    <div class="card-from mb-0">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Create New Assign Org Hierarchy To Dealer</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="createNewAssignOrgHierarchyToDealerForm">
+                    <div class="row">
+
+                        <div class="col-lg-2" *ngIf="isView==false && isEdit==false">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Dealer</mat-label>
+                                <input matInput placeholder="Dealer" formControlName="dealer"
+                                    [matAutocomplete]="autodealer">
+                                <mat-autocomplete #autodealer="matAutocomplete" [displayWith]="displayFnDealer"
+                                    (optionSelected)="newDealerSelect($event)" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of newDealerList" [value]="option">
+                                        {{option.displayString}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error
+                                    *ngIf="createNewAssignOrgHierarchyToDealerForm.get('dealer').hasError('selectFromList')">
+                                    Select From List</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="isView==true || isEdit==true">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Dealer</mat-label>
+                                <input matInput placeholder="Dealer" formControlName="dealer">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2 ">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Department</mat-label>
+                                <mat-select formControlName="hoDepartment" (selectionChange)="selectDepartment($event)"
+                                    [compareWith]="compareFnDepartmentName">
+                                    <mat-option *ngFor="let department of departmentsList" [value]="department">
+                                        {{department.departmentName}}
+                                    </mat-option>
+                                </mat-select>
+                                <!-- <mat-error>
+                                    <span
+                                        *ngIf="createNewAssignOrgHierarchyToDealerForm.get('hoDepartment').hasError('required')">
+                                        Department is Required
+                                    </span>
+                                </mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="container-fluid create-form  mt-3 mb-3" *ngIf="tableShowFlag">
+                    <div class="card-from mb-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <p class="mb-0">Assign Org Hierarchy To Dealer Table</p>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm"
+                                        *ngFor="let field1 of tableShowListAnother; let i=index">
+
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col" style="width:100px;">Action</th>
+                                                <th scope="col" style="width:100px;">Dealer</th>
+                                                <th scope="col" style="width:100px;">HoDepartment</th>
+                                                <th *ngFor="let field of field1;">
+                                                    {{field.key}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" style="padding-top: 11px">
+                                                    <button type="button" class="btn btn_primary pl-3 pr-3 "
+                                                        (click)="deleteRowFromTable(i)"> Delete
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    {{field1[0].dealerName}}
+                                                </td>
+                                                <td>
+                                                    {{field1[0].departmentName}}
+                                                </td>
+                                                <td *ngFor="let field of field1;">
+                                                    {{field.value}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container-fluid create-form  mt-3 mb-3" *ngIf="isView">
+                    <div class="card-from mb-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <p class="mb-0">Assign Org Hierarchy To Dealer Table</p>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm"
+                                        *ngFor="let field1 of tableShowListAnother; let i=index">
+
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col" style="width:100px;">Seq No.</th>
+                                                <th scope="col" style="width:100px;">Dealer</th>
+                                                <th scope="col" style="width:100px;">HoDepartment</th>
+                                                <th scope="col" style="width:100px;">Hierarchy Level</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    {{i+1}}
+                                                </td>
+                                                <td>
+                                                    {{field1.dealerName}}
+                                                </td>
+                                                <td>
+                                                    {{field1.departmentName}}
+                                                </td>
+                                                <td>
+                                                    {{field1.hierarchyDesc}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" text-center mt-2 ">
+                    <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit
+                    </button>
+                    <button *ngIf="isView==false && isEdit==false" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="resetForm()"> Clear
+                    </button>
+                    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exitForm()"> Exit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

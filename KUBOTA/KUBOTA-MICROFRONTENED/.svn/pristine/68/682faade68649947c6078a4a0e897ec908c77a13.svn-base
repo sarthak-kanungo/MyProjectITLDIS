@@ -1,0 +1,140 @@
+
+<div class="container-fluid create-form mb-3 mt-4">
+    <div class="card-from mb-0">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Bank Detail Approval</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="bankApprovalForm" [style.fontSize.px]="10">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-2">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Employee Code</mat-label>
+                        <input 
+                          matInput placeholder="Employee Code" formControlName="employeeCode" [matAutocomplete]="autoEmployeeCode"
+                          (ngModelChange)="onKeyEmployeeeCode($event)" >
+                          <mat-autocomplete #autoEmployeeCode="matAutocomplete"  [panelWidth]="300">
+                              <mat-option *ngFor="let option of employeeCodeList" [value]="option.employeeCode">
+                                {{option.employeeCode}}
+                              </mat-option>
+                            </mat-autocomplete>
+                          <mat-icon matSuffix>search</mat-icon>
+                          
+                      </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Employee Name</mat-label>
+                      <input 
+                        matInput placeholder="Employee Name" formControlName="employeeName" [matAutocomplete]="autoEmployeeName"
+                        (ngModelChange)="getEmployeename($event)" >
+                        <mat-autocomplete #autoEmployeeName="matAutocomplete"[displayWith]="displayFnEmployeeName"  [panelWidth]="300">
+                            <mat-option *ngFor="let option of employeeNameList" [value]="option">
+                              {{option.employeeName}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        <mat-icon matSuffix>search</mat-icon>
+                     
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Dealer code/ Dealer Name/Location</mat-label>
+                    <input 
+                      matInput placeholder="Dealer Details" formControlName="dealerDetails" [matAutocomplete]="autodealerDetails"
+                      (ngModelChange)="autoDealerDetails($event)" >
+                      <mat-autocomplete #autodealerDetails="matAutocomplete" [displayWith]="displayFnDealerDetailes" (optionSelected)="dealerDetailsSelect($event)" [panelWidth]="300">
+                          <mat-option *ngFor="let option of dealerdetailsList" [value]="option">
+                            {{option.displayString}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      <mat-icon matSuffix>search</mat-icon>
+                      <mat-error *ngIf="bankApprovalForm.get('dealerDetails').hasError('selectFromList')"> Select From List</mat-error>
+                  </mat-form-field>
+              </div>
+              
+                
+                  <div class="col-lg-2">
+                    <mat-form-field class="w-100">
+                        <input matInput [matDatepicker]="picker" placeholder="From Date"
+                            formControlName="fromDate" readonly (click)="picker.open()"  (dateChange)="setToDate($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+        
+                <div class="col-lg-2">
+                    <mat-form-field class="w-100">
+                        <input matInput [matDatepicker]="picker1" placeholder="To Date"
+                            formControlName="toDate" readonly (click)="picker1.open()" >
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="text-center  col-lg-12">
+                  <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                    Search
+                  </button>
+                  <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                    Clear
+                  </button>
+              </div>
+                </div>
+              </div>  
+            </div>
+            <div class="table-responsive mt-1" >
+              <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <!-- <input type="checkbox" (change)="toggleSelection($event.target.checked)"> Select All -->
+                    <th scope="col" style="width: 50px;"> <mat-checkbox (change)="checkAll($event)" type="checkbox"></mat-checkbox> Sr No. </th>
+                    <!-- <th scope="col" style="width: 50px;"><input color="basic" (change)="checkAll($event)" type="checkbox"> Select</th> -->
+                    <th scope="col" >Dealer Name</th>
+                    <th scope="col" >Dealer Code</th>
+                    <th scope="col">Employee Code</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Bank Name</th>
+                    <th scope="col">Bank Account Number</th>
+                    <th scope="col">Bank IFSC Number</th>
+                    <th scope="col">Pan card Number</th>
+                    <th scope="col">Approval Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fg of bankApprovalForm.get('details')?.controls; let i = index;">
+                    <td>
+                    
+                      <mat-checkbox [formControl]="fg.get('isSelect')"  [checked]="allChecked" >{{i+1}}</mat-checkbox>
+                    </td>
+                    <td>{{fg.get('dealerName').value}}</td>
+                    <td>{{fg.get('dealerCode').value}}</td>
+                    <td>{{fg.get('employeeCode').value}}</td>
+                    <td>{{fg.get('employeeName').value}}</td>
+                    <td>{{fg.get('bankName').value}}</td>
+                    <td>{{fg.get('bankAccountNo').value}}</td>
+                    <td>{{fg.get('ifsCode').value}}</td>
+                    <td>{{fg.get('panCardNo').value}}</td>
+                    <!-- <td>{{fg.get('panCardNo').value}}</td> -->
+                     <td>{{fg.get('approvalStatus').value}}</td> 
+                </tr>
+                </tbody>
+              </table>
+            </div>        
+            <div class="card-body" *ngIf="userType=='kai'">
+              <div class=" text-center mt-2 ">
+                <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 "(click)="bankApprove('Approved')"> Approve
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="bankApprove('Hold')"> Hold
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 "(click)="bankApprove('Rejected')" > Reject
+                </button>
+              </div>  
+            </div>
+          </form>   
+            </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,122 @@
+<form [style.fontSize.px]="10" [formGroup]="partReturnSearchForm">
+  <div class="row">
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Return No.</mat-label>
+        <input type="text" matInput placeholder="Return No." formControlName="partReturnNo"
+          [matAutocomplete]="autopartReturnNo">
+        <mat-autocomplete #autopartReturnNo="matAutocomplete" [panelWidth]="250"
+          (optionSelected)="partReturnNoOptionSelected($event)">
+          <mat-option *ngFor="let option of partReturnNoList$ | async" [value]="option.value">
+            {{option?.value}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="partReturnSearchForm.get('partReturnNo').hasError('selectFromList')">
+          {{partReturnSearchForm.get('partReturnNo').getError('selectFromList')}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Requisition No.</mat-label>
+        <input type="text" matInput placeholder="Requisition No." formControlName="requisitionNo"
+          [matAutocomplete]="autoRequisitionNo">
+        <mat-autocomplete #autoRequisitionNo="matAutocomplete" [panelWidth]="250"
+          (optionSelected)="requisitionNoOptionSelected($event)">
+          <mat-option *ngFor="let option of requisitionNoList$ | async" [value]="option.value">
+            {{option?.value}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="partReturnSearchForm.get('requisitionNo').hasError('selectFromList')">
+          {{partReturnSearchForm.get('requisitionNo').getError('selectFromList')}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Job Card No.</mat-label>
+        <input type="text" matInput placeholder="Job Card No." formControlName="jobCardNo"
+          [matAutocomplete]="autoJobCardNo">
+        <mat-autocomplete #autoJobCardNo="matAutocomplete" [panelWidth]="300"
+          (optionSelected)="jobCardNoOptionSelected($event)">
+          <mat-option *ngFor="let option of jobCardNoList$ | async" [value]="option.value">
+            {{option?.value}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="partReturnSearchForm.get('jobCardNo').hasError('selectFromList')">
+          {{partReturnSearchForm.get('jobCardNo').getError('selectFromList')}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Requisition Type</mat-label>
+        <mat-select formControlName="requisitionType">
+          <mat-option *ngFor="let type of requisitionTypeList$ | async" [value]="type">{{type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Requisition Purpose</mat-label>
+        <mat-select formControlName="requisitionPurpose">
+          <mat-option *ngFor="let purpose of requisitionPurposeList$ | async" [value]="purpose.value">{{purpose.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Reason For Return</mat-label>
+        <mat-select formControlName="reasonForReturn">
+          <mat-option *ngFor="let return of reasonForReturnList$ | async" [value]="return.value">{{return.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Requisition From Date</mat-label>
+        <input matInput [matDatepicker]="requisitionFromDatePicker" placeholder="Requisition From Date" formControlName="requisitionFromDate" (dateChange)="fromDateSelected($event)" [max]="today">
+        <mat-datepicker-toggle matSuffix [for]="requisitionFromDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #requisitionFromDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Requisition To Date</mat-label>
+        <input matInput [matDatepicker]="requisitionToDatePicker" placeholder="Requisition To Date" formControlName="requisitionToDate" [max]="maxDate" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="requisitionToDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #requisitionToDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Job Card From Date</mat-label>
+        <input matInput [matDatepicker]="issueFromDatePicker" placeholder="Job Card From Date" formControlName="issueFromDate" (dateChange)="fromDateSelected1($event)" [max]="today">
+        <mat-datepicker-toggle matSuffix [for]="issueFromDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #issueFromDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Job Card To Date</mat-label>
+        <input matInput [matDatepicker]="issueToDatePicker" placeholder="Job Card To Date" formControlName="issueToDate" [max]="maxDate" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="issueToDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #issueToDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+  </div>
+</form>

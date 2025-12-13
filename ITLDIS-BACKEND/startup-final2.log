@@ -1,0 +1,640 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.i4o.dms:itldis >-------------------------
+[INFO] Building itldis 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:2.3.3.RELEASE:run (default-cli) > test-compile @ itldis >>>
+[INFO] 
+[INFO] --- resources:3.1.0:resources (default-resources) @ itldis ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ itldis ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 1600 source files with javac [debug deprecation target 1.8] to target\classes
+[INFO] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/createdealeruser/controller/CreateDealerUserController.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/createdealeruser/controller/CreateDealerUserController.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[8,43] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/spares/purchase/sparepurchaseorder/dto/HeaderResponse.java:[20,41] com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion in com.fasterxml.jackson.databind.annotation.JsonSerialize has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[25,6] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[32,6] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[WARNING] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/dealermaster/customermaster/domain/CustomerVehicleDetail.java:[36,6] org.hibernate.validator.constraints.NotBlank in org.hibernate.validator.constraints has been deprecated
+[INFO] 5 warnings 
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/reports/repository/ReportRepository.java:[6,1] a type with the same simple name is already defined by the single-type-import of org.springframework.data.repository.Repository
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/reports/repository/ReportRepository.java:[16,2] incompatible types: org.springframework.data.repository.Repository cannot be converted to java.lang.annotation.Annotation
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[24,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[25,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[32,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[33,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[34,20] cannot find symbol
+  symbol:   method setResult(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[25,17] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[26,17] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[27,17] cannot find symbol
+  symbol:   method setResult(T)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[33,17] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[34,17] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[35,17] cannot find symbol
+  symbol:   method setResult(T)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[41,17] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[42,17] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[48,17] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[49,17] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[51,25] cannot find symbol
+  symbol:   method setIsLoggedIn(boolean)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[52,25] cannot find symbol
+  symbol:   method setLastModifiedDate(java.util.Date)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[66,25] cannot find symbol
+  symbol:   method setIsLoggedIn(boolean)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[67,25] cannot find symbol
+  symbol:   method setLastModifiedDate(java.util.Date)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[83,37] cannot find symbol
+  symbol:   method getIsLoggedIn()
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[91,117] cannot find symbol
+  symbol:   method getIsLoggedIn()
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[100,37] cannot find symbol
+  symbol:   method setUserName(java.lang.String)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[101,37] cannot find symbol
+  symbol:   method setToken(java.lang.String)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[102,37] cannot find symbol
+  symbol:   method setIsLoggedIn(boolean)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[103,37] cannot find symbol
+  symbol:   method setCreatedDate(java.util.Date)
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[112,23] cannot find symbol
+  symbol:   method setLoginId(java.lang.Long)
+  location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[113,23] cannot find symbol
+  symbol:   method setBranchId(java.lang.Long)
+  location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[114,23] cannot find symbol
+  symbol:   method setDealerId(java.lang.Long)
+  location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[115,23] cannot find symbol
+  symbol:   method setUsername(java.lang.String)
+  location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[116,23] cannot find symbol
+  symbol:   method setKubotaEmployeeId(java.lang.Long)
+  location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[117,23] cannot find symbol
+  symbol:   method setDealerEmployeeId(java.lang.Long)
+  location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[150,79] cannot find symbol
+  symbol:   method getToken()
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[156,48] cannot find symbol
+  symbol:   method getIsLoggedIn()
+  location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[161,38] cannot find symbol
+  symbol:   method getUsername()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[162,41] cannot find symbol
+  symbol:   method getLoginIdStatus()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[163,50] cannot find symbol
+  symbol:   method getDealerEmployeeId()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[164,50] cannot find symbol
+  symbol:   method getKubotaEmployeeId()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[165,42] cannot find symbol
+  symbol:   method getDealerId()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[166,36] cannot find symbol
+  symbol:   method getId()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[167,43] cannot find symbol
+  symbol:   method getBranchId()
+  location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[102,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[103,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[104,20] cannot find symbol
+  symbol:   method setResult(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[141,32] cannot find symbol
+  symbol:   method setCustomerDetails(java.util.Map<java.lang.String,java.lang.Object>)
+  location: variable dcAndCustomerDetailsDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.DcAndCustomerDetailsDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[142,32] cannot find symbol
+  symbol:   method setDcDetails(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+  location: variable dcAndCustomerDetailsDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.DcAndCustomerDetailsDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[196,21] cannot find symbol
+  symbol:   method setDealerEmployeeMaster(com.i4o.dms.itldis.masters.usermanagement.dealerusers.domain.DealerEmployeeMaster)
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[197,21] cannot find symbol
+  symbol:   method setBranchId(java.lang.Long)
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[198,21] cannot find symbol
+  symbol:   method setCreatedBy(java.lang.Long)
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[199,21] cannot find symbol
+  symbol:   method setInvoiceDate(java.util.Date)
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[200,21] cannot find symbol
+  symbol:   method setCreatedDate(java.util.Date)
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[203,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[204,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[206,24] cannot find symbol
+  symbol:   method getInvoiceType()
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[207,63] cannot find symbol
+  symbol:   method getId()
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[209,36] cannot find symbol
+  symbol:   method getId()
+  location: variable invoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[211,65] cannot find symbol
+  symbol:   method getId()
+  location: variable invoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[216,43] cannot find symbol
+  symbol:   method getInvoiceNumber()
+  location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[224,94] cannot find symbol
+  symbol:   method getInvoiceNumber()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[224,130] cannot find symbol
+  symbol:   method getChassisNo()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[224,162] cannot find symbol
+  symbol:   method getCustomerName()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,33] cannot find symbol
+  symbol:   method getMobileNo()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,64] cannot find symbol
+  symbol:   method getFromDate()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,95] cannot find symbol
+  symbol:   method getToDate()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,124] cannot find symbol
+  symbol:   method getEnquiryNumber()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,160] cannot find symbol
+  symbol:   method getEnquiryType()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,33] cannot find symbol
+  symbol:   method getInvoiceStatus()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,69] cannot find symbol
+  symbol:   method getInvoiceType()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,103] cannot find symbol
+  symbol:   method getProduct()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,133] cannot find symbol
+  symbol:   method getModel()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,33] cannot find symbol
+  symbol:   method getSeries()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,62] cannot find symbol
+  symbol:   method getVariant()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,92] cannot find symbol
+  symbol:   method getItemNo()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,121] cannot find symbol
+  symbol:   method getEngineNo()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[229,33] cannot find symbol
+  symbol:   method getPage()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[229,60] cannot find symbol
+  symbol:   method getSize()
+  location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[234,20] cannot find symbol
+  symbol:   method setCount(java.lang.Long)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[235,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[236,20] cannot find symbol
+  symbol:   method setResult(java.util.List<com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceResponse>)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[237,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[249,20] cannot find symbol
+  symbol:   method setCount(java.lang.Long)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[250,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[251,20] cannot find symbol
+  symbol:   method setResult(java.util.List<com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceApprovalResponse>)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[252,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[260,19] cannot find symbol
+  symbol:   method setInvoice(java.util.Map<java.lang.String,java.lang.Object>)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[261,19] cannot find symbol
+  symbol:   method setDeliveryChallanDetails(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[262,19] cannot find symbol
+  symbol:   method setMaterialDetails(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[263,19] cannot find symbol
+  symbol:   method setCustomerDetails(java.util.Map<java.lang.String,java.lang.Object>)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[264,19] cannot find symbol
+  symbol:   method setInsuranceCompanyDetails(java.util.Map<java.lang.String,java.lang.Object>)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[265,19] cannot find symbol
+  symbol:   method setApprovalHier(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[266,19] cannot find symbol
+  symbol:   method setInvoiceCancelRequest(com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoiceCancelRequest)
+  location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[267,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[268,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[269,20] cannot find symbol
+  symbol:   method setResult(com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[276,20] cannot find symbol
+  symbol:   method setResult(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[277,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[278,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[289,20] cannot find symbol
+  symbol:   method setStatus(int)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[290,20] cannot find symbol
+  symbol:   method setMessage(java.lang.String)
+  location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  52.331 s
+[INFO] Finished at: 2025-12-13T12:48:46+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project itldis: Compilation failure: Compilation failure: 
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/reports/repository/ReportRepository.java:[6,1] a type with the same simple name is already defined by the single-type-import of org.springframework.data.repository.Repository
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/reports/repository/ReportRepository.java:[16,2] incompatible types: org.springframework.data.repository.Repository cannot be converted to java.lang.annotation.Annotation
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[24,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[25,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[32,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[33,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/masters/postatus/controller/PurchaseOrderStatusController.java:[34,20] cannot find symbol
+[ERROR]   symbol:   method setResult(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[25,17] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[26,17] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[27,17] cannot find symbol
+[ERROR]   symbol:   method setResult(T)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[33,17] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[34,17] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[35,17] cannot find symbol
+[ERROR]   symbol:   method setResult(T)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[41,17] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[42,17] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[48,17] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/utils/ApiResponse.java:[49,17] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable response of type com.i4o.dms.itldis.utils.ApiResponse<T>
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[51,25] cannot find symbol
+[ERROR]   symbol:   method setIsLoggedIn(boolean)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[52,25] cannot find symbol
+[ERROR]   symbol:   method setLastModifiedDate(java.util.Date)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[66,25] cannot find symbol
+[ERROR]   symbol:   method setIsLoggedIn(boolean)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[67,25] cannot find symbol
+[ERROR]   symbol:   method setLastModifiedDate(java.util.Date)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[83,37] cannot find symbol
+[ERROR]   symbol:   method getIsLoggedIn()
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[91,117] cannot find symbol
+[ERROR]   symbol:   method getIsLoggedIn()
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[100,37] cannot find symbol
+[ERROR]   symbol:   method setUserName(java.lang.String)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[101,37] cannot find symbol
+[ERROR]   symbol:   method setToken(java.lang.String)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[102,37] cannot find symbol
+[ERROR]   symbol:   method setIsLoggedIn(boolean)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[103,37] cannot find symbol
+[ERROR]   symbol:   method setCreatedDate(java.util.Date)
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[112,23] cannot find symbol
+[ERROR]   symbol:   method setLoginId(java.lang.Long)
+[ERROR]   location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[113,23] cannot find symbol
+[ERROR]   symbol:   method setBranchId(java.lang.Long)
+[ERROR]   location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[114,23] cannot find symbol
+[ERROR]   symbol:   method setDealerId(java.lang.Long)
+[ERROR]   location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[115,23] cannot find symbol
+[ERROR]   symbol:   method setUsername(java.lang.String)
+[ERROR]   location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[116,23] cannot find symbol
+[ERROR]   symbol:   method setKubotaEmployeeId(java.lang.Long)
+[ERROR]   location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[117,23] cannot find symbol
+[ERROR]   symbol:   method setDealerEmployeeId(java.lang.Long)
+[ERROR]   location: variable resDto of type com.i4o.dms.itldis.security.dto.LoggedInUserDetailsResDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[150,79] cannot find symbol
+[ERROR]   symbol:   method getToken()
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/service/UserTokenServiceImpl.java:[156,48] cannot find symbol
+[ERROR]   symbol:   method getIsLoggedIn()
+[ERROR]   location: variable sysUserToken of type com.i4o.dms.itldis.security.domain.SysUserToken
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[161,38] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[162,41] cannot find symbol
+[ERROR]   symbol:   method getLoginIdStatus()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[163,50] cannot find symbol
+[ERROR]   symbol:   method getDealerEmployeeId()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[164,50] cannot find symbol
+[ERROR]   symbol:   method getKubotaEmployeeId()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[165,42] cannot find symbol
+[ERROR]   symbol:   method getDealerId()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[166,36] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/security/jwt/JwtProvider.java:[167,43] cannot find symbol
+[ERROR]   symbol:   method getBranchId()
+[ERROR]   location: variable userDetails of type com.i4o.dms.itldis.security.model.AuthenticatedUser
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[102,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[103,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[104,20] cannot find symbol
+[ERROR]   symbol:   method setResult(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[141,32] cannot find symbol
+[ERROR]   symbol:   method setCustomerDetails(java.util.Map<java.lang.String,java.lang.Object>)
+[ERROR]   location: variable dcAndCustomerDetailsDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.DcAndCustomerDetailsDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[142,32] cannot find symbol
+[ERROR]   symbol:   method setDcDetails(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+[ERROR]   location: variable dcAndCustomerDetailsDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.DcAndCustomerDetailsDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[196,21] cannot find symbol
+[ERROR]   symbol:   method setDealerEmployeeMaster(com.i4o.dms.itldis.masters.usermanagement.dealerusers.domain.DealerEmployeeMaster)
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[197,21] cannot find symbol
+[ERROR]   symbol:   method setBranchId(java.lang.Long)
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[198,21] cannot find symbol
+[ERROR]   symbol:   method setCreatedBy(java.lang.Long)
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[199,21] cannot find symbol
+[ERROR]   symbol:   method setInvoiceDate(java.util.Date)
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[200,21] cannot find symbol
+[ERROR]   symbol:   method setCreatedDate(java.util.Date)
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[203,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[204,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[206,24] cannot find symbol
+[ERROR]   symbol:   method getInvoiceType()
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[207,63] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[209,36] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable invoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[211,65] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable invoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[216,43] cannot find symbol
+[ERROR]   symbol:   method getInvoiceNumber()
+[ERROR]   location: variable salesInvoice of type com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoice
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[224,94] cannot find symbol
+[ERROR]   symbol:   method getInvoiceNumber()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[224,130] cannot find symbol
+[ERROR]   symbol:   method getChassisNo()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[224,162] cannot find symbol
+[ERROR]   symbol:   method getCustomerName()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,33] cannot find symbol
+[ERROR]   symbol:   method getMobileNo()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,64] cannot find symbol
+[ERROR]   symbol:   method getFromDate()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,95] cannot find symbol
+[ERROR]   symbol:   method getToDate()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,124] cannot find symbol
+[ERROR]   symbol:   method getEnquiryNumber()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[225,160] cannot find symbol
+[ERROR]   symbol:   method getEnquiryType()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,33] cannot find symbol
+[ERROR]   symbol:   method getInvoiceStatus()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,69] cannot find symbol
+[ERROR]   symbol:   method getInvoiceType()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,103] cannot find symbol
+[ERROR]   symbol:   method getProduct()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[226,133] cannot find symbol
+[ERROR]   symbol:   method getModel()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,33] cannot find symbol
+[ERROR]   symbol:   method getSeries()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,62] cannot find symbol
+[ERROR]   symbol:   method getVariant()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,92] cannot find symbol
+[ERROR]   symbol:   method getItemNo()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[227,121] cannot find symbol
+[ERROR]   symbol:   method getEngineNo()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[229,33] cannot find symbol
+[ERROR]   symbol:   method getPage()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[229,60] cannot find symbol
+[ERROR]   symbol:   method getSize()
+[ERROR]   location: variable searchInvoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[234,20] cannot find symbol
+[ERROR]   symbol:   method setCount(java.lang.Long)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[235,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[236,20] cannot find symbol
+[ERROR]   symbol:   method setResult(java.util.List<com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceResponse>)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[237,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[249,20] cannot find symbol
+[ERROR]   symbol:   method setCount(java.lang.Long)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[250,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[251,20] cannot find symbol
+[ERROR]   symbol:   method setResult(java.util.List<com.i4o.dms.itldis.salesandpresales.sales.invoice.dto.SearchInvoiceApprovalResponse>)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[252,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[260,19] cannot find symbol
+[ERROR]   symbol:   method setInvoice(java.util.Map<java.lang.String,java.lang.Object>)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[261,19] cannot find symbol
+[ERROR]   symbol:   method setDeliveryChallanDetails(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[262,19] cannot find symbol
+[ERROR]   symbol:   method setMaterialDetails(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[263,19] cannot find symbol
+[ERROR]   symbol:   method setCustomerDetails(java.util.Map<java.lang.String,java.lang.Object>)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[264,19] cannot find symbol
+[ERROR]   symbol:   method setInsuranceCompanyDetails(java.util.Map<java.lang.String,java.lang.Object>)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[265,19] cannot find symbol
+[ERROR]   symbol:   method setApprovalHier(java.util.List<java.util.Map<java.lang.String,java.lang.Object>>)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[266,19] cannot find symbol
+[ERROR]   symbol:   method setInvoiceCancelRequest(com.i4o.dms.itldis.salesandpresales.sales.invoice.domain.SalesInvoiceCancelRequest)
+[ERROR]   location: variable invoiceDto of type com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[267,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[268,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[269,20] cannot find symbol
+[ERROR]   symbol:   method setResult(com.i4o.dms.itldis.salesandpresales.sales.deliverychallan.dto.SalesInvoiceDto)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[276,20] cannot find symbol
+[ERROR]   symbol:   method setResult(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[277,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[278,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[289,20] cannot find symbol
+[ERROR]   symbol:   method setStatus(int)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] /C:/MyProjectITLDIS/ITLDIS-BACKEND/src/main/java/com/i4o/dms/itldis/salesandpresales/sales/invoice/controller/InvoiceController.java:[290,20] cannot find symbol
+[ERROR]   symbol:   method setMessage(java.lang.String)
+[ERROR]   location: variable apiResponse of type com.i4o.dms.itldis.utils.ApiResponse
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

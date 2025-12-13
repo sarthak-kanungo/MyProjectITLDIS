@@ -1,0 +1,57 @@
+<div class="container-fluid mt-3 mb-3">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+              <div>
+                <p class="font-weight-bold" style="color: #354052">
+                  Bay Master
+                </p>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-lg-12">
+            <div class="card-from">
+      
+              <div class="card">
+                <div class="card-header">
+                  <p class="mb-0"> Search Bay</p>
+                </div>
+                <div class="card-body">
+      
+                  <form [formGroup]="bayForm" [style.fontSize.px]="11">
+                    <div class="row">
+      
+                      <div class="col-lg-2 ">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Bay Type</mat-label>
+                            <mat-select formControlName="bayType">
+                              <mat-option *ngFor="let bayType of bayTypes" [value]="bayType">{{bayType}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Bay Code</mat-label>
+                              <input matInput placeholder="Bay Code" formControlName="bayCode">
+                              <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                          </div>
+                      <div class="col-lg-2">
+                          <div>
+                              <button type="button" class="btn pl-3 pr-3 btn_primary" > Search </button>
+                          </div>
+                      </div>
+      
+                    </div>
+                   
+                  </form>
+      
+                </div>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      
+      </div>

@@ -1,0 +1,30 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+ 
+  <div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Create New User</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="createUserMasterMainForm">
+
+          <app-create-new-user (getFunctionData) = "functionDetail($event)"></app-create-new-user>
+          <app-assign-function [functionTableForm]="functionTableForm" [getFunctionData]="getFunctionData"
+                               [viewId]="viewId"></app-assign-function>
+          <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="isCreate" (click)="validateForm()"> Submit
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="isEdit" (click)="validateForm()"> Update
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"  *ngIf="!isView" (click)="resetForm()"> Clear
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="exitForm()"> Exit
+            </button>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

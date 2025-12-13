@@ -1,0 +1,34 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Log Sheet</p>
+        </div>
+        <div class="card-body">
+          <form>
+              <app-log-sheet [logForm]="logSheetForm" (machineInventory)="updateVinId($event)"></app-log-sheet>
+              <app-log-sheet-implement *ngIf="implementForm && implementFormLength" [implementForm]="implementForm"></app-log-sheet-implement>
+              <app-log-sheet-service-history *ngIf="serviceHistoryForm && serviceHistoryForm.length > 0" [serviceHistoryForm]="serviceHistoryForm"></app-log-sheet-service-history>
+              <app-log-sheet-concern [concernForm]="logSheetForm"></app-log-sheet-concern>
+              <app-log-sheet-failure-parts *ngIf="failurePartForm && failurePartForm.length > 0" [failurePartForm]="failurePartForm"></app-log-sheet-failure-parts>
+              <app-log-sheet-uploadfile [warrantyLogsheetPhotosList] = "warrantyLogsheetPhotosList"></app-log-sheet-uploadfile>
+              <!-- <app-log-sheet-dealer [remarkForm]="logSheetForm.get('remark')"></app-log-sheet-dealer> -->
+  
+            <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;" >
+              <!-- <button *ngIf="!isView" type="button" class="btn btn_primary px-3"> Save
+              </button> -->
+              <button *ngIf="!isView" type="button" class="btn btn_primary px-3 ml-3" (click)="formValid('draft')"> Save
+              </button>
+              <button *ngIf="!isView" type="button" class="btn btn_primary px-3 ml-3" (click)="formValid('submit')"> Submit
+              </button>
+              <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> Print
+              </button>
+              <!-- <button *ngIf="!isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> Close Log Sheet
+              </button> -->
+             
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

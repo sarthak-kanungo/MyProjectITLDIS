@@ -1,0 +1,313 @@
+<div class="card-from">
+  <div class="card">
+    <div class="card-header">
+      <p class="mb-0">Address</p>
+    </div>
+    <div class="card-body">
+      <div [formGroup]="partyMasterAddressForm" [style.fontSize.px]="11">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Address 1</mat-label>
+              <input matInput placeholder="Address 1" required formControlName="address1">
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Address 2</mat-label>
+              <input matInput placeholder="Address 2" formControlName="address2">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label> Address 3</mat-label>
+              <input matInput placeholder="Address 3" formControlName="address3">
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Pin Code</mat-label>
+              <input matInput placeholder="Pin Code" formControlName="pinCode">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div> -->
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>District</mat-label>
+              <input matInput placeholder="District" formControlName="district">
+            </mat-form-field>
+          </div> -->
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>District</mat-label>
+              <mat-select  formControlName="district" required (selectionChange)="selectionDistrict($event)" [compareWith]="compareFnDistrict">
+                <mat-option *ngFor="let option of dealerInformation" [value]="option">
+                  {{option?.district}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="partyMasterAddressForm.get('district').hasError('required')">
+                District is Required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Pin Code</mat-label>
+              <input matInput placeholder="Pin Code" required formControlName="pinCode" [matAutocomplete]="autoPincode"
+              (keydown)="onKeyDownPinCode($event)"
+                minlength="6" maxlength="6">
+              <mat-autocomplete #autoPincode="matAutocomplete" 
+              (optionSelected)="optionSelectedPinCode($event)"
+                [displayWith]="displayFnForPinCode" [panelWidth]="500">
+                <mat-option *ngFor="let option of (pinCode$ | async)" [value]="option">
+                  {{option?.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+              <mat-error *ngIf="partyMasterAddressForm.get('pinCode').hasError('required')">
+                Pin Code is Required</mat-error>
+              <mat-error *ngIf="partyMasterAddressForm.get('pinCode').hasError('selectFromList')">
+                Please select from list</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Post Office</mat-label>
+              <input matInput placeholder="Post Office" required formControlName="postOffice">
+            </mat-form-field>
+          </div>
+
+          
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label> Locality</mat-label>
+              <mat-select required formControlName="locality">
+                <mat-option *ngFor="let locality of localities" [value]="locality">{{locality}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label> Tehsil </mat-label>
+              <input matInput placeholder="Tehsil" formControlName="tehsil">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <input matInput placeholder="City" formControlName="city">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>State</mat-label>
+              <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="Country" formControlName="country">
+            </mat-form-field>
+          </div> -->
+
+
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="Country" formControlName="country">
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>State</mat-label>
+              <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>State</mat-label>
+              <input matInput placeholder="State" formControlName="state" [matAutocomplete]="autoState">
+              <mat-autocomplete #autoState="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedState($event)"
+                [displayWith]="displayFnState">
+                <mat-option *ngFor="let option of (stateList$ | async)" [value]="option">
+                  {{option?.state}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('state').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Distict</mat-label>
+              <input matInput placeholder="Distict" formControlName="distict">
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>District</mat-label>
+              <input matInput placeholder="District" formControlName="district" [matAutocomplete]="autoDistrict">
+              <mat-autocomplete #autoDistrict="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedDistrict($event)"
+                [displayWith]="displayFnDistrict">
+                <mat-option *ngFor="let option of (districtList$ | async)" [value]="option">
+                  {{option?.district}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('district').hasError('selectFromList')">Please select from list
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label> Tehsil/Taluka/Mandal </mat-label>
+              <input matInput placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil">
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Tehsil/ Taluk/ Mandal</mat-label>
+              <input matInput placeholder="Tehsil/ Taluk/ Mandal" formControlName="tehsil" [matAutocomplete]="autoTehsil">
+              <mat-autocomplete #autoTehsil="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedTehsil($event)"
+                [displayWith]="displayFnTehsil">
+                <mat-option *ngFor="let option of (tehsilList$ | async)" [value]="option">
+                  {{option?.tehsil}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('tehsil').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Village/City</mat-label>
+              <input matInput placeholder="Village/City" formControlName="villageCity">
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Village /City</mat-label>
+              <input matInput placeholder="Village /City" formControlName="city" [matAutocomplete]="autoCity">
+              <mat-autocomplete #autoCity="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedCity($event)"
+                [displayWith]="displayFnCity">
+                <mat-option *ngFor="let option of (cityList$ | async)" [value]="option">
+                  {{option?.city}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('city').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Pin Code</mat-label>
+              <input matInput placeholder="Pin Code" formControlName="pinCode">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Pin Code</mat-label>
+              <input matInput placeholder="Pin Code" formControlName="pinCode" [matAutocomplete]="autoPin">
+              <mat-autocomplete #autoPin="matAutocomplete" [panelWidth]="500" (optionSelected)="selectedPin($event)"
+                [displayWith]="displayFnPin">
+                <mat-option *ngFor="let option of (pinCodeList$ | async)" [value]="option">
+                  {{option?.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('pinCode').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label> Post Office</mat-label>
+              <mat-select required formControlName="postOffice">
+                <mat-option *ngFor="let post of posts" [value]="post">{{post}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Post Office</mat-label>
+              <input matInput placeholder="Post Office" formControlName="postOffice" [matAutocomplete]="autoPostOffice">
+              <mat-autocomplete #autoPostOffice="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedPostOffice($event)" [displayWith]="displayFnPostOffice">
+                <mat-option *ngFor="let option of (postOfficeList$ | async)" [value]="option">
+                  {{option?.postOffice}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('pinCode').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Locality</mat-label>
+              <input matInput placeholder="Locality" formControlName="locality" [matAutocomplete]="autoLocality">
+              <mat-autocomplete #autoLocality="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedLocality($event)" [displayWith]="displayFnLocality">
+                <mat-option *ngFor="let option of (localityList$ | async)" [value]="option">
+                  {{option?.locality}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="partyMasterAddressForm.get('locality').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <div class="d-flex bd-highlight">
+              <div class="pr-1 w-25 flex-fill bd-highlight">
+                <mat-form-field appearance="outline">
+                  <mat-label>STD</mat-label>
+                  <input class="quantity" matInput placeholder="STD" formControlName="std" minlength="0" maxlength="5"
+                    (keypress)=keyStd($event) appBlockCopyPaste>
+                </mat-form-field>
+              </div>
+
+              <div class="w-75 flex-fill bd-highlight">
+                <mat-form-field appearance="outline">
+                  <mat-label>Telephone No.</mat-label>
+                  <input maxlength="10" matInput placeholder="Telephone No." formControlName="telephone"
+                    (keypress)=keytel($event) appBlockCopyPaste>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Email Id</mat-label>
+              <input matInput placeholder="Email Id" formControlName="email">
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

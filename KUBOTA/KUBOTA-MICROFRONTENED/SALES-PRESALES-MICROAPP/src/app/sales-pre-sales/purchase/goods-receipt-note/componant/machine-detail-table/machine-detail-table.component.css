@@ -1,0 +1,7 @@
+:host ::ng-deep .Item.No {
+    min-width: 120px;
+    max-width: 120px;
+}
+:host ::ng-deep .Receipt.Qty {
+    width: 100px !important;
+}

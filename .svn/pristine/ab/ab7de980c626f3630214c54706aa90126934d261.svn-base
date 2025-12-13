@@ -1,0 +1,39 @@
+<div class="card-from mt-2" >
+    <div class="card" style="border: 1px solid #45afaf;"  *ngIf="!isKaiUser && approvalHierDetails.length>0">
+        <div class="card-header" style="background-color: #45afaf;
+                              border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Inspection Remarks</p>
+        </div>
+        <div class="card-body">
+         {{approvalHierDetails[0]['approverRemarks']}}
+         </div>
+    </div>
+    <div class="card" style="border: 1px solid #45afaf;" *ngIf="isKaiUser">
+        <div class="card-header" style="background-color: #45afaf;
+                              border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Inspection Details</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Inspection By</th>
+                            <th scope="col">Inspection Date</th>
+                            <th scope="col">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let approval of approvalHierDetails">
+                        	<ng-container *ngIf="approval['approvedBy']">
+	                            <td >{{approval['approvedBy']}}</td>
+	                            <td >{{approval['approvalDate']}}</td>
+	                            <td >{{approval['approverRemarks']}}</td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

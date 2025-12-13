@@ -1,0 +1,100 @@
+<div class="container-fluid create-form mt-2 mb-3">
+  <div class="row ">
+    <!-- <div class="d-flex justify-content-between">
+        <div>
+          <p class="font-weight-bold" style="color: #354052">
+            Add Department
+          </p>
+        </div>
+      </div> -->
+    <div class="col-lg-12">
+      <div class="card-from mt-3">
+
+        <div class="card">
+          <div class="card-header">
+            <p class="mb-0">Add New</p>
+          </div>
+          <div class="card-body">
+
+            <form [formGroup]="newdepartmentForm" [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Department Code</mat-label>
+                    <input matInput placeholder="Department Code" formControlName="departmentCode" maxlength="2" (change)="checkDuplicateKaiDepartmentCode($event.target.value)">
+                    <mat-error *ngIf="newdepartmentForm.get('departmentCode').hasError('departmentCodeErroe')">
+                      Department Code Already Exist
+                     </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Department Name</mat-label>
+                    <input matInput placeholder="Department Name" formControlName="departmentName" (change)="checkDuplicateKaiDepartmentName($event.target.value)">
+                    <mat-error *ngIf="newdepartmentForm.get('departmentName').hasError('departmentNameErroe')">
+                      Department Name Already Exist
+                     </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- <div class="col-lg-2 ">
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Department Name</mat-label>
+                      <mat-select formControlName="departmentName">
+                          <mat-option *ngFor="let departmentName of departmentNamesList?.result"
+                              [value]="departmentName?.departmentName">
+                              {{departmentName?.departmentName}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div> -->
+
+
+              <!-- <div class="col-lg-2 ">
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Linked to Dealer</mat-label>
+                      <mat-select formControlName="linkedtoDealer">
+                          <mat-option *ngFor="let dealer of dealersList?.result" [value]="dealer?.linkedToDealer">
+                              {{dealer?.linkedToDealer}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Dealer Code</mat-label>
+                      <mat-select formControlName="dealerCode">
+                          <mat-option *ngFor="let code of codeList?.result" [value]="code?.dealerCode">{{code?.dealerCode}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div> -->
+
+                <!-- <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput placeholder="Remarks" formControlName="remarks">
+                  </mat-form-field>
+                </div> -->
+
+              </div>
+
+            </form>
+
+            <div class="text-center">
+              <button type="button" class="btn px-3 btn_primary" (click)="validateForm()"> Submit </button>
+              <button type="button" class="btn btn_secondary px-3 ml-2" (click)="clearForm()"> Clear
+              </button>
+              <button type="button" class="btn btn_primary px-3 ml-2" [routerLink]="['../']"> Exit
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

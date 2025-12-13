@@ -1,0 +1,19 @@
+<div [formGroup]="assignOrgHierarchyToDealerForm" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Dealer Code</mat-label>
+              <input matInput placeholder="Dealer Code" formControlName="dealerId"
+                  [matAutocomplete]="autoDealerCode">
+              <mat-autocomplete #autoDealerCode="matAutocomplete"
+                 [displayWith]="displayFnForDealerCode"
+                  [panelWidth]="500">
+                  <mat-option *ngFor="let option of dealerList$" [value]="option">
+                      {{option?.displayString}}
+                  </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+      </div>
+    </div>
+</div>

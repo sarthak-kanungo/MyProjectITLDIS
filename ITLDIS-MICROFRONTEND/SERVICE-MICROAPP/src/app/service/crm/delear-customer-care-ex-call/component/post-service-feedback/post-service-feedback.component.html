@@ -1,0 +1,183 @@
+<div class="card-from mt-2" id="serviceJobCardId" *ngIf="showAllServiceFeedbackForm || viewPostServicefeedback">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Post Service Feedback</p>
+        </div>
+        <div class="card-body">
+
+            <div class="card-from">
+                <div class="card">
+
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-sm">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th class="p-2">SR NO.</th>
+                                                <th class="p-2">Quesionnaire</th>
+                                                <th class="p-2">Star Rating</th>
+                                                <th class="p-2">Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="isCreate">
+
+
+                                            <tr
+                                                *ngFor="let option of postServiceFeedBackForm['controls']; let i = index;">
+                                                <td>{{i+1}}</td>
+
+                                                <td [textContent]="option.get('Quesionnaire').value"> </td>
+                                                <td style="vertical-align: middle;" *ngIf="isCreate">
+                                                    <mat-form-field class="w-100" appearance="outline"
+                                                        [style.fontSize.px]="10">
+
+                                                        <mat-select placeholder="Star Rating"
+                                                            [formControl]="option.get('rating')">
+                                                            <mat-option *ngFor="let star of startList"
+                                                                [value]="star.startData"
+                                                                (click)="getStartRating(star.startData)">
+                                                                {{star.startData}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td *ngIf="isView">
+                                                    <mat-form-field class="w-100" appearance="outline"
+                                                        [style.fontSize.px]="10">
+                                                        <input matInput placeholder="Remarks" readonly
+                                                            [formControl]="option.get('rating')">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td style="vertical-align: middle; font-size: 13px">
+                                                    <mat-form-field class="w-100" appearance="outline"
+                                                        [style.fontSize.px]="10">
+                                                        <input matInput placeholder="Remarks"
+                                                            [formControl]="option.get('remarks')">
+                                                    </mat-form-field>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+
+                                        <tbody *ngIf="isView">
+                                            <tr *ngFor="let viewList of serviceFeedBackDetails; let i = index;">
+
+                                                <td>{{i+1}}</td>
+
+                                                <td *ngIf="isView">{{viewList.callQuesionnaire.quesionnaire}}</td>
+
+                                                <td *ngIf="isView">{{viewList.rating}}</td>
+                                                <td *ngIf="isView">{{viewList.remarks}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="card-from mt-2" *ngIf="showAllServiceFeedbackForm">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Call History</p>
+        </div>
+        <div class="card-body">
+
+            <div class="card-from">
+                <div class="card">
+
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-sm">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <!-- <th class="p-2">SR NO.</th> -->
+
+                                                <th class="p-2">Call Status</th>
+
+                                                <th class="p-2">Call Type</th>
+                                                <th class="p-2">Last Contacted Date
+                                                </th>
+                                                <th class="p-2">Attended CCE Employee Code
+                                                </th>
+                                                <th class="p-2">Attended CCE Employee Name
+
+                                                </th>
+                                                <th class="p-2">Customer Name
+
+                                                </th>
+                                                <th class="p-2">Customer Phone Number
+
+                                                </th>
+                                                <th class="p-2">Customer Address
+
+                                                </th>
+                                                <th class="p-2">Model
+
+                                                </th>
+                                                <th class="p-2">Final Call Status
+
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <tr *ngFor="let option of callHistoryData; let i = index;">
+                                                <!-- <td>{{i+1}}</td> -->
+
+                                                <td>{{option.callStatus}}</td>
+                                                <td>{{option.typeOfCall}}</td>
+
+                                                <td>{{option.lastContactedDate | date:"MM/dd/yy"}}</td>
+                                                <td>{{option.empCode}}</td>
+                                                <td>{{option.attendedCCEEmpName}}</td>
+                                                <td>{{option.customerName}}</td>
+                                                <td>{{option.mobileNo}}</td>
+                                                <td>{{option.custAddress}}</td>
+                                                <td>{{option.model}}
+                                                <td>{{option.finalStatus}}</td>
+                                        </tbody>
+
+                                        <!-- <tbody *ngIf="isView">
+                                            <tr *ngFor="let viewList of serviceFeedBackDetails; let i = index;">
+
+                                                <td>{{i+1}}</td>
+
+                                                <td *ngIf="isView">{{viewList.callQuesionnaire.quesionnaire}}</td>
+
+                                                <td *ngIf="isView">{{viewList.rating}}</td>
+                                                <td *ngIf="isView">{{viewList.remarks}}</td>
+                                            </tr>
+                                        </tbody> -->
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="row" [formGroup]="storeDetailsForm" [style.fontSize.px]="11">
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Branch</mat-label>
+                <mat-select formControlName="Branch">
+                    <mat-option *ngFor="let branche of branches" [value]="branche">{{branche}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Store Code</mat-label>
+                <input matInput placeholder="Store Code" formControlName="storeCode">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Store Name</mat-label>
+                <input matInput placeholder="Store Name" formControlName="storeName">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+                <div class="form-check mt-2">
+                    <mat-checkbox formControlName="active" color="basic" style="font-size: 12px"
+                        [labelPosition]="labelPosition">Active</mat-checkbox>
+                </div>
+            </div>
+    </div>

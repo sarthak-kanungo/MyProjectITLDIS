@@ -1,0 +1,455 @@
+<div class="card-from" style="overflow-y: auto;overflow-x: hidden;">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0">Job Card History</p>
+            <button class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">Close</button>
+        </div>
+        <!-- </div>
+</div> -->
+        <!-- <div class="card-body">
+            <iframe [src]="safeUrl" class="iframeStyle" frameBorder="0" allowfullscreen id="IFRAME_ID"  width="1080" height="420" ></iframe>
+        </div> -->
+
+        <!-- <div class="card-body"> -->
+        <mat-dialog-content>
+            <!-- <div class="card-from">
+        <div class="card"> -->
+            <table *ngIf="view" class=" table-sm" style="margin-left: 3%;">
+                <tbody>
+                    <tr *ngFor='let jc of jcHealer' class="row" [style.fontSize.px]="11"
+                        style="margin-left: 1px;margin-right: 1px;">
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Chassis No.</mat-label>
+                                <input matInput placeholder="Chassis No." [value]='jc.machineInventory.chassisNo'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Engine No.</mat-label>
+                                <input matInput placeholder="Engine No." [value]='jc.machineInventory.engineNo'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Booking No.</mat-label>
+                                <input matInput placeholder="Booking No." [value]='' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Booking Date</mat-label>
+                                <input matInput placeholder="Booking Date" [value]='' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Job card No.</mat-label>
+                                <input matInput placeholder="Job card No." [value]='jc.jobCardNo' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <input matInput placeholder="Status" [value]='jc.status' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Date of Installation</mat-label>
+                                <input matInput placeholder="Date of Installation" [value]='jc.installationDate'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Job Card Date</mat-label>
+                                <input matInput placeholder="Job Card Date" [value]='jc.jobCardDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Customer Name</mat-label>
+                                <input matInput placeholder="Customer Name" [value]='jc.customerName' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Machine Model</mat-label>
+                                <input matInput placeholder="Machine Model" [value]='jc.customerName' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Registration No.</mat-label>
+                                <input matInput placeholder="Registration No." [value]='jc.registrationNumber' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Customer Address</mat-label>
+                                <input matInput placeholder="Customer Address" [value]='jc.address' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Customer Cell No.</mat-label>
+                                <input matInput placeholder="Customer Cell No." [value]='jc.mobileNumber' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Alternate Customer Cell No.</mat-label>
+                                <input matInput placeholder="Alternate Customer Cell No." [value]='jc.alternateNumber'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Sold Dealer</mat-label>
+                                <input matInput placeholder="Sold Dealer" [value]='jc.soldDealer' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Current Hours</mat-label>
+                                <input matInput placeholder="Current Hours" [value]='jc.currentHour' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Previous Hours</mat-label>
+                                <input matInput placeholder="Previous Hours" [value]='jc.previousHour' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Total Hours</mat-label>
+                                <input matInput placeholder="Total Hours" [value]='jc.totalHour' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Service Category</mat-label>
+                                <input matInput placeholder="Service Category" [value]='jc.serviceCategory.category'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Service Type</mat-label>
+                                <input matInput placeholder="Service Type" [value]='jc.serviceType.serviceType'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Place of Service</mat-label>
+                                <input matInput placeholder="Place of Service" [value]='jc.placeOfService' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Activity/Event Type</mat-label>
+                                <input matInput placeholder="Activity/Event Type" [value]='jc.serviceMtActivityType'
+                                    disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Activity No</mat-label>
+                                <input matInput placeholder="Activity No" [value]='jc' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Date of Failure</mat-label>
+                                <input matInput placeholder="Date of Failure" [value]='jc.dateOfFailure' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Machine in Date</mat-label>
+                                <input matInput placeholder="Machine in Date" [value]='jc.taskDate' disabled>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Time In</mat-label>
+                                <input matInput placeholder="Time In" [value]='jc.taskTime' disabled>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+
+
+
+
+            <div class="card-from mt-2 mb-2" style="margin: 2px;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Customer Concerns</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr *ngFor='let jc of jcHealer' class="row" [style.fontSize.px]="11"
+                                    style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Customer Concern</mat-label>
+                                            <input matInput placeholder="Customer Concern" [value]='jc.customerConcern'
+                                                disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Service Representative</mat-label>
+                                            <input matInput placeholder="Service Representative"
+                                                [value]='jc.serviceRepresentative.name' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Estimated Completion Date</mat-label>
+                                            <input matInput placeholder="Estimated Completion Date"
+                                                [value]='jc.estimatedCompletionDate' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Estimated Amount</mat-label>
+                                            <input matInput placeholder="Estimated Amount" [value]='jc.estimatedAmount'
+                                                disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-from mt-2 mb-2" style="margin: 2px;" *ngIf="view">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0" style="font-size: 13px;">Part Requisition</p>
+                    </div>
+                    <div class="table-responsive mt-1">
+                        <table class="table w-100 table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 116px;">Category</th>
+                                    <th>Part Number</th>
+                                    <th>Item Description</th>
+                                    <th style="width: 76px;">Quantity</th>
+                                    <th>Utilized Quantity</th>
+                                    <th style="width: 76px;">Mrp</th>
+                                    <th style="width: 76px;">Amount</th>
+                                    <th>Approve Quantity</th>
+                                </tr>
+                                <tr></tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let part of partRequisition' [style.fontSize.px]="11"
+                                    style="margin-left: 1px;margin-right: 1px;">
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Category</mat-label>
+                                            <input matInput placeholder="Customer Concern"
+                                                [value]='part.category.category' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Part Number</mat-label>
+                                            <input matInput placeholder="Part Number"
+                                                [value]='part.sparePartMaster.partNumber' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Item Description</mat-label>
+                                            <input matInput placeholder="Item Description"
+                                                [value]='part.sparePartMaster.itemDescription' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Quantity</mat-label>
+                                            <input matInput placeholder="Quantity" [value]='part.quantity' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Utilized Quantity</mat-label>
+                                            <input matInput placeholder="Utilized Quantity"
+                                                [value]='part.utilisedQuantity' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Mrp</mat-label>
+                                            <input matInput placeholder="Mrp" [value]='part.mrp' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Amount</mat-label>
+                                            <input matInput placeholder="Amount" [value]='part.amount' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Approve Quantity</mat-label>
+                                            <input matInput placeholder="Approve Quantity"
+                                                [value]='part.approveQuantity' disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="card-from mt-2 mb-2" style="margin: 2px;" *ngIf="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+                        </div>
+                        <div class="table-responsive mt-1">
+                            <table class="table w-100 table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" style="width: 150px;">Category</th>
+                                        <th scope="col" style="width: 150px;">FRS Code</th>
+                                        <th scope="col" style="width: 150px;">Description</th>
+                                        <th scope="col" style="width: 150px;">Hour</th>
+                                        <th scope="col" style="width: 150px;">Amount</th>
+                                        <th scope="col" style="width: 150px;">Approve Amount</th>
+                                    </tr>
+                                    <tr></tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor='let labour of labourCharge'>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Category</mat-label>
+                                                <input matInput placeholder="Category"
+                                                    [value]='labour.category.category' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>FRS Code</mat-label>
+                                                <input matInput placeholder="FRS Code"
+                                                    [value]='labour.serviceMtFrsCode.jobCodeNo' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Description</mat-label>
+                                                <input matInput placeholder="Description"
+                                                    [value]='labour.serviceMtFrsCode.description' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Hour</mat-label>
+                                                <input matInput placeholder="Hour" [value]='labour.hour' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Amount</mat-label>
+                                                <input matInput placeholder="Amount" [value]='labour.amount' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Approve Amount</mat-label>
+                                                <input matInput placeholder="Approve Amount"
+                                                    [value]='labour.approvedAmount' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-from mt-2 mb-2" style="margin: 2px;" *ngIf="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+                        </div>
+                        <div class="table-responsive mt-1">
+                            <table class="table w-100 table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Job Code</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Approve Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor='let out of outsideJobCharge'>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Category</mat-label>
+                                                <input matInput placeholder="Category" [value]='out.category.category'
+                                                    disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Job Code</mat-label>
+                                                <input matInput placeholder="Job Code"
+                                                    [value]='out.serviceMtJobcode.jobcode' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Description</mat-label>
+                                                <input matInput placeholder="Description"
+                                                    [value]='out.serviceMtJobcode.description' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Amount</mat-label>
+                                                <input matInput placeholder="Amount" [value]='out.amount' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Approve Amount</mat-label>
+                                                <input matInput placeholder="Approve Amount"
+                                                    [value]='out.approvedAmount' disabled>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!-- </div>
+    </div> -->
+        </mat-dialog-content>
+    </div>
+</div>

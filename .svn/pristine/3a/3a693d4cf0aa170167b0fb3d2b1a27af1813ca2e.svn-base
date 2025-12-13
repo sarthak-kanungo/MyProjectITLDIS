@@ -1,0 +1,298 @@
+<div class="card-from mt-2">
+        <div class="card" style="border: 1px solid #45afaf;">
+          <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Prospect Details</p>
+          </div>
+          <div class="card-body">
+              <div class="row" [formGroup]="prospectDetailsForm">
+      
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Mobile No.</mat-label>
+                    <!-- <input matInput placeholder="Mobile No." required minlength="10" maxlength="10"
+                      formControlName="mobileNumber" (keypress)="onKeyPressAllowNumbersOnly($event)" (copy)="blockCopyPaste($event)" (paste)="blockCopyPaste($event)"
+                      (keydown)="onKeyDownMobileNo($event)" [matAutocomplete]="autoMobileNo" (blur)="onBlurMethodForMobileNo($event)"> -->
+                      <input matInput placeholder="Mobile No." required minlength="10" maxlength="10"
+                      formControlName="mobileNumber" (keypress)="onKeyPressAllowNumbersOnly($event)" (copy)="blockCopyPaste($event)" (paste)="blockCopyPaste($event)"
+                      (keydown)="onKeyDownMobileNo($event)" [matAutocomplete]="autoMobileNo">
+                    <mat-autocomplete #autoMobileNo="matAutocomplete" (optionSelected)="onBlurMethodForMobileNo($event)"
+                      [displayWith]="displayFnForMObileNo" [panelWidth]="500">
+                      <mat-option *ngFor="let option of (mobileNo$ | async)" [value]="option">
+                        {{option?.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="prospectDetailsForm.get('mobileNumber').hasError('required')">
+                      Mobile No. is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Prospect Code</mat-label>
+                    <input matInput placeholder="Prospect Code" formControlName="prospectCode">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Prospect Type</mat-label>
+                    <mat-select required formControlName="prospectType"  (selectionChange)="selectionProspectType($event.value)">
+                      <mat-option *ngFor="let prospect of prospectType" [value]="prospect">
+                        {{prospect?.prospectType}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="prospectDetailsForm.get('prospectType').hasError('required')">
+                      Prospect Type is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2" *ngIf="isShowByProspectType">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput placeholder="Company Name" formControlName="companyName">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Title</mat-label>
+                    <mat-select formControlName="title" required [compareWith]="compareFnTitle">
+                      <mat-option *ngFor="let option of title" [value]="option.title">
+                        {{option?.title}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" maxlength="15" required formControlName="firstName"
+                      (keypress)=onKeyPressAllowCharsOnly($event)>
+                      <mat-error *ngIf="prospectDetailsForm.get('firstName').hasError('required')">
+                        First Name is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput placeholder="Middle Name" maxlength="15" requiautocompletePinCodeed
+                      formControlName="middleName" (keypress)=onKeyPressAllowCharsOnly($event)>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" maxlength="15" required formControlName="lastName"
+                      (keypress)=onKeyPressAllowCharsOnly($event)>
+                      <mat-error *ngIf="prospectDetailsForm.get('lastName').hasError('required')">
+                        Last Name is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Father Name/Spouse</mat-label>
+                    <input matInput placeholder="Father Name/Spouse" maxlength="30" required formControlName="fatherName"
+                      (keypress)=onKeyPressAllowCharsWithSpace($event)>
+                      <mat-error *ngIf="prospectDetailsForm.get('fatherName').hasError('required')">
+                        Father Name/Spouse is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>WhatsApp No.</mat-label>
+                    <input matInput placeholder="WhatsApp No." required formControlName="whatsAppNumber" minlength="10" maxlength="10" 
+                      (keypress)=onKeyPressAllowNumbersOnly($event) (copy)="blockCopyPaste($event)" (paste)="blockCopyPaste($event)">
+                      <mat-error *ngIf="prospectDetailsForm.get('whatsAppNumber').hasError('required')">
+                        WhatsApp No. is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Alternate Mobile No.</mat-label>
+                    <input matInput placeholder="Alternate Mobile No." formControlName="alternateMobileNumber" minlength="10" maxlength="10"
+                      (keypress)=onKeyPressAllowNumbersOnly($event) (copy)="blockCopyPaste($event)" (paste)="blockCopyPaste($event)" (change)="checkAlternateMobileNo($event)">
+                      <mat-error *ngIf="prospectDetailsForm.get('alternateMobileNumber').hasError('duplicateAlterMobNoError')">
+                        Please Enter Different Mobile Number
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <div class="d-flex bd-highlight">
+                    <div class="pr-1 w-25 flex-fill bd-highlight">
+                      <mat-form-field appearance="outline">
+                        <mat-label>STD</mat-label>
+                        <input class="quantity" matInput placeholder="STD" formControlName="std" minlength="1" maxlength="4" required
+                          (keypress)=onKeyPressAllowNumbersOnly($event) (copy)="blockCopyPaste($event)" (paste)="blockCopyPaste($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="w-75 flex-fill bd-highlight">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Telephone No.</mat-label>
+                        <input maxlength="10" matInput placeholder="Telephone No." formControlName="telephoneNumber"
+                          (keypress)=onKeyPressAllowNumbersOnly($event) (copy)="blockCopyPaste($event)" (paste)="blockCopyPaste($event)" (change)="checkStdCode()">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email Id</mat-label>
+                    <input matInput maxlength="50" placeholder="Email Id" formControlName="emailId">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Address 1</mat-label>
+                    <input matInput maxlength="100" placeholder="Address 1" required formControlName="address1">
+                    <mat-error *ngIf="prospectDetailsForm.get('address1').hasError('required')">
+                      Address 1 is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Address 2</mat-label>
+                    <input matInput maxlength="100" placeholder="Address 2" formControlName="address2">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Address 3</mat-label>
+                    <input matInput maxlength="100" placeholder="Address 3" formControlName="address3">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>District</mat-label>
+                    <mat-select  formControlName="district" required (selectionChange)="selectionDistrict($event)" [compareWith]="compareFnDistrict">
+                      <!-- [compareWith]="compareFnProspectType"  -->
+                      <mat-option *ngFor="let option of dealerInformation" [value]="option">
+                        {{option?.district}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="prospectDetailsForm.get('district').hasError('required')">
+                      District is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Pin Code</mat-label>
+                    <input matInput placeholder="Pin Code" required formControlName="pinCode" [matAutocomplete]="autoPincode"
+                    (keydown)="onKeyDownPinCode($event)"
+                      minlength="6" maxlength="6">
+                    <mat-autocomplete #autoPincode="matAutocomplete" 
+                    (optionSelected)="optionSelectedPinCode($event)"
+                      [displayWith]="displayFnForPinCode" [panelWidth]="500">
+                      <mat-option *ngFor="let option of (pinCode$ | async)" [value]="option">
+                        {{option?.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="prospectDetailsForm.get('pinCode').hasError('required')">
+                      Pin Code is Required</mat-error>
+                    <mat-error *ngIf="prospectDetailsForm.get('pinCode').hasError('selectFromList')">
+                      Please select from list</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Post Office</mat-label>
+                    <input matInput placeholder="Post Office" required formControlName="postOffice">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>City/Village</mat-label>
+                    <input matInput placeholder="City/Village" formControlName="city">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Tehsil/Taluka/Mandal</mat-label>
+                    <input matInput placeholder="Tehsil/Taluka/Mandal" formControlName="tehsil" >
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input matInput placeholder="State" formControlName="state">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Country</mat-label>
+                    <input matInput placeholder="Country" formControlName="country">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Preferred language</mat-label>
+                    <mat-select formControlName="language">
+                      <mat-option *ngFor="let option of languages" [value]="option.lookupval">{{option.lookupval}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100">
+                      <mat-label>Date of Birth</mat-label>
+                    <input matInput [max]="tomorrow" [matDatepicker]="picker5" placeholder="Date of Birth"
+                      formControlName="dob" readonly (click)="picker5.open()" (dateChange)="dobDateSelected($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                    <mat-datepicker #picker5></mat-datepicker>
+                    <mat-error *ngIf="prospectDetailsForm.get('dob').hasError('invalidBirthDate')">Age Should be more than 18 yrs.</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2" *ngIf="isDateOfBirth">
+                  <mat-form-field class="w-100">
+                      <mat-label>Anniversary Date</mat-label>
+                    <input matInput [max]="tomorrow" [matDatepicker]="picker6" placeholder="Anniversary Date"
+                      formControlName="anniversaryDate" readonly (click)="picker6.open()" (dateChange)="anniversayDateSelected($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                    <mat-datepicker #picker6></mat-datepicker>
+                    <mat-error *ngIf="prospectDetailsForm.get('anniversaryDate').hasError('invalidDate')">Anniversary Date should be more that 18 yrs from date of Birth</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2" *ngIf="isShowByProspectType">
+                  <mat-form-field appearance="outline">
+                    <mat-label>GST No.</mat-label>
+                    <input matInput placeholder="GST No." minlength="15" maxlength="15" formControlName="gstNumber"
+                    (blur)="getPanNumber($event)" >
+                    <mat-error *ngIf="prospectDetailsForm?.get('gstNumber').invalid">Valid GSTIN Number Required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>PAN No.</mat-label>
+                    <input matInput maxlength="10" placeholder="PAN No." formControlName="panNumber"
+                      (keypress)="onKeyPressAlphaNumericsOnly($event)" >
+                    <mat-error *ngIf="prospectDetailsForm?.get('panNumber').invalid">Enter Valid PAN No.</mat-error>  
+                  </mat-form-field>
+                </div>
+      
+              </div>
+          </div>      
+        </div>
+      </div>

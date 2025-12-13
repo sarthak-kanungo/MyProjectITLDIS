@@ -1,0 +1,96 @@
+<div class="container confirmation_card">
+  <div class="row">
+    <div class="col-md-12">
+      <section class="card">
+        <header class="card_header card_header_secondary mb-2">
+          <h4 class="card_title mb-0"> Issue Parts</h4>
+          <i class="material-icons icon_close" (click)="closeDialog()">
+            close
+          </i>
+        </header>
+        <section *ngIf="itemNumberAvailableStockList && itemNumberAvailableStockList.length > 0">
+          <section class="part-detail">
+            <div class="row mt-1 ml-1 mr-1">
+              <div class="col-md-4 ">
+                <label for="item-number" class="font-weight-bold">Item Number : </label>
+                <span id="item-number" style='padding-left:5px;vertical-align: middle;'>{{data.itemNumber.itemNo || data.itemNumber}}</span>
+              </div>
+              <div class="col-md-4 ">
+                <label for="item-description" class="font-weight-bold">Item Description : </label>
+                <span id="item-description" style='padding-left:5px;vertical-align: middle;'>{{data.itemDescription}}</span>
+              </div>
+              <div class="col-md-4 "></div>
+              <div class="col-md-4 ">
+                <label for="quantity" class="font-weight-bold">Req. Quantity : </label>
+                <span id="quantity" style='padding-left:5px;vertical-align: middle;'>{{data.quantity}}</span>
+              </div>
+              <div class="col-md-4 ">
+                <label for="quantity" class="font-weight-bold">Balance Quantity : </label>
+                <span id="balanceQuantity" style='padding-left:5px;vertical-align: middle;'>{{data.balanceQuantity}}</span>
+              </div>
+              <div class="col-md-4 ">
+                <label for="available-stock" class="font-weight-bold">Total Available Stock : </label>
+                <span id="available-stock" style='padding-left:5px;vertical-align: middle;'>{{data.availableStock}}</span>
+              </div>
+            </div>
+          </section>
+          <section class="container-fluid card_body">
+            <!-- <p> Selected Parts : - </p> -->
+            <div class="table-responsive mt-1">
+              <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <!-- <th scope="col" style="width: 10px">Select</th> -->
+                    <th scope="col" style="width: 150px;">Store Name</th>
+                    <th scope="col" style="width: 150px;">Bin Location</th>
+                    <th scope="col" style="width: 150px;">Available Stock</th>
+                    <th scope="col" style="width: 150px;">Unit Price</th>
+                    <th scope="col" style="width: 150px;">Issue Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let detail of itemNumberAvailableStockList; let i = index">
+                    <td>
+                      {{detail.store}}
+                    </td>
+                    <td>
+                      {{detail.binLocation}}
+                    </td>
+                    <td>
+                      {{detail.availableQuantity}}
+                    </td>
+                    <td>
+                      {{detail.unitPrice}}
+                    </td>
+                    <td>
+                      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                        <input matInput placeholder="Issue Quantity" [max]="20" [(ngModel)]="detail['issueQuantity']"
+                          (change)="issueQuantityValueChanged(detail)" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                      <span class="mat-error">{{detail['error'] && detail['error'].msg}}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+        <footer class="container-fluid card_footer m-2"
+          *ngIf="itemNumberAvailableStockList && itemNumberAvailableStockList.length > 0">
+          <div class="row">
+            <div class="col-12 text-center">
+              <div style="display: flex; justify-content: center;">
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="save()">Save</button>
+                <!-- <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                  (click)="clearIssueQuantity()">Clear</button> -->
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- <section *ngIf="!itemNumberAvailableStockList || itemNumberAvailableStockList.length == 0">
+          <h4 class="p-4 text-center" >Data not found</h4>
+        </section> -->
+      </section>
+    </div>
+  </div>
+</div>

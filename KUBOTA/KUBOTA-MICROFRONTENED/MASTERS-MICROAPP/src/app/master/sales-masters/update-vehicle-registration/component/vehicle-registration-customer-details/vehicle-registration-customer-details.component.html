@@ -1,0 +1,74 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Customer Details</p>
+      </div>
+      <div class="card-body mb-2">
+
+        <form [formGroup]="customerDetailsForm" [style.fontSize.px]="11">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Customer Code</mat-label>
+                <input matInput placeholder="Customer Code" formControlName="customerCode">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput placeholder="Title" formControlName="title">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" formControlName="firstName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Middle Name</mat-label>
+                <input matInput placeholder="Middle Name" formControlName="middleName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Mobile No.</mat-label>
+                <input matInput placeholder="Mobile No." formControlName="mobilenumber">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>PAN No.</mat-label>
+                <input matInput placeholder="PAN No." formControlName="pancardNo">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>GSTIN No.</mat-label>
+                <input matInput placeholder="GSTIN No." formControlName="gstNo">
+              </mat-form-field>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>

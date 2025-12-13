@@ -1,0 +1,37 @@
+<div class="table-responsive">
+  <div [formGroup]="functionTableForm">
+     
+    <table class="table table-bordered table-sm" formArrayName="tableData">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" style="width:100px;">Sr No.</th>
+          <th scope="col" style="width:50rem;">Function</th>
+          <th scope="col" >itldis </th>
+          <th scope="col">Dealer</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let option of functionTableForm.get('tableData')['controls']; index as i "
+        [formGroupName]="i">
+         
+          <td class="text-center" style="padding-top: 11px">
+            {{i + 1}}
+          </td>
+          <td [attr.contenteditable]= "false" [textContent]="option.get('function').value">
+          
+          </td>
+         
+            <td class="text-center" style="padding-top: 11px">
+              <mat-checkbox formcontrolName="itldis" color="basic" [checked]="option?.get('itldis')"></mat-checkbox>
+            </td>
+            <td class="text-center" style="padding-top: 11px">
+              <mat-checkbox formcontrolName="dealer" color="basic" [checked]="option?.get('dealer')"></mat-checkbox>
+            </td>
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

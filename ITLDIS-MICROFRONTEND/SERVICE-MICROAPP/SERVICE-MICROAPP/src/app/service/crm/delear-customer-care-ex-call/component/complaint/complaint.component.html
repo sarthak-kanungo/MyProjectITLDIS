@@ -1,0 +1,93 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf; border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Complaint</p>
+        </div>
+        <div class="card-body">
+            <form>
+                    <div class="table-responsive mt-1">
+                        <table class="table w-100 table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">S.No </th>
+                                    <th scope="col" *ngIf="isView">Complaint No </th>
+                                    <th scope="col">Department </th>
+                                    <th scope="col">Designated Person</th>
+                                    <th scope="col">Type of Complaint</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col" *ngIf="isView">Action Taken</th>
+                                    <th scope="col" *ngIf="!isView"></th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let option of complaintDetailsForm['controls']; let i = index;">
+                                    <!-- <td style="vertical-align: middle;" ><mat-checkbox color="basic" [formControl]="option.get('active')"></mat-checkbox></td> -->
+                                    <!-- <td style="vertical-align: middle;" ><mat-checkbox color="basic" [formControl]="option.get('select')"></mat-checkbox></td> -->
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td *ngIf="isView">
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Complaint No"
+                                                [formControl]="option.get('complaintNumber')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <mat-select placeholder="Department"
+                                                [formControl]="option.get('department')">
+                                                <mat-option *ngFor="let dept of departmentList" [value]="dept.lookupval" (click)="openComplaintAssignPopup(option)">
+                                                    {{dept.lookupval}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Designated Person"
+                                                [formControl]="option.get('assignTo')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <mat-select placeholder="Type of Complaint"
+                                                [formControl]="option.get('complaintType')" (selectionChange)="validateDepartment(option,'complaintType')">
+                                                <mat-option *ngFor="let complaint of complaintType" [value]="complaint">
+                                                    {{complaint}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <!-- Blank -->
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Description"
+                                                [formControl]="option.get('description')">
+                                        </mat-form-field>
+                                        <!-- Blank -->
+                                    </td>
+                                    <td *ngIf="isView">
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Action Taken"
+                                                [formControl]="option.get('actionTaken')">
+                                        </mat-form-field>
+                                        <!-- Blank -->
+                                    </td>
+                                    <td style="vertical-align: middle;" *ngIf="!isView">
+                                        <mat-icon type="button" (click)="deleteRow(i)">delete</mat-icon>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" text-center mt-2 mb-3" *ngIf="!isView">
+                        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+                        <!-- <button type="button" class="btn btn-sm btn_primary " (click)="deleteRow(i)" style="margin-left: 5px;"> Delete Row</button> -->
+                    </div>
+                <!-- <div class=" text-center mt-2 mb-3">
+                    <button type="button"  class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()"> Submit </button>
+                    <button type="button"  class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear </button>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>

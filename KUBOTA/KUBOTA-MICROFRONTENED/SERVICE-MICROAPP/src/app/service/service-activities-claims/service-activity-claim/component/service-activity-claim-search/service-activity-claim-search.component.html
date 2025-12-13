@@ -1,0 +1,119 @@
+<div class="card-body" [formGroup]="searchServiceActivityClaimForm" [style.fontSize.px]="10">
+    <div class="row">
+        <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Activity Claim No.</mat-label>
+                    <input matInput placeholder="Activity Claim No." formControlName="activityClaimNumber"
+                        [matAutocomplete]="autoActivityClaimNo">
+                    <mat-autocomplete #autoActivityClaimNo="matAutocomplete" [panelWidth]="500">
+                        <mat-option *ngFor="let option of (activityClaimNoList$ | async)" [value]="option.claimNumber">
+                            {{option?.claimNumber}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Claim Status</mat-label>
+                <mat-select formControlName="activityClaimStatus">
+                    <mat-option *ngFor="let status of Claimstatus" [value]="status.statusName">{{status.statusName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Activity No.</mat-label>
+                <input matInput placeholder="Activity No." formControlName="activityNumber"
+                    [matAutocomplete]="autoActivityNo">
+                <mat-autocomplete #autoActivityNo="matAutocomplete" [panelWidth]="500">
+                    <mat-option *ngFor="let option of (activityNoList$ | async)" [value]="option.activityNumber">
+                        {{option?.activityNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Activity Claim Date From"
+                    formControlName="fromDate" readonly (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Activity Claim Date To"
+                    formControlName="toDate" readonly (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="card-from mt-2" *ngIf="isAdvanceSearch">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                                border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Activity Type</mat-label>
+                            <mat-select formControlName="activityType">
+                                <mat-option *ngFor="let option of activityTypes" [value]="option.activityType">
+                                    {{option?.activityType}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Activity Effectiveness</mat-label>
+                            <mat-select formControlName="activityEffectiveness">
+                                <mat-option *ngFor="let option of activityEffectiveness" [value]="option.effectiveness">
+                                    {{option.effectiveness}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="loginUser.userType!='dealer'">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Dealer Code</mat-label>
+                            <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                [matAutocomplete]="autoDealercode">
+                            <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn" >
+                                <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                    {{option?.displayString}}
+                                </mat-option>
+                            </mat-autocomplete>
+
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="searchServiceActivityClaimForm.controls.dealerCode.hasError('selectFromList')">
+                                Select From List
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                    {{option.hierarchy_desc}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

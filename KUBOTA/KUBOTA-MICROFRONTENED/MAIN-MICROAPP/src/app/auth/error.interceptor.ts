@@ -1,0 +1,51 @@
+import { Injectable } from "@angular/core";
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpResponse,
+} from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { AuthService } from "./auth.service";
+import { ToastrService } from "ngx-toastr";
+
+@Injectable()
+export class ErrorInterceptor implements HttpInterceptor {
+  constructor(
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {}
+
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(request).pipe(
+      catchError((err) => {
+        console.log(err, "Error Inercebto");
+        // console.log('err ===>', err)
+        // this.toastr.error('Something went wrong!', 'Error');
+        if (err.status === 0) {
+          // auto logout if 401 response returned from api
+          //   this.authService.logout();
+          window.location.reload();
+        }
+
+        const error = err.error.message || err.statusText;
+        console.log(error, "Erro From Main");
+        return throwError(error);
+      }),
+      tap((evt) => {
+        if (evt instanceof HttpResponse) {
+          // console.log('evet-->>>?', evt.headers.get('filename'));
+        }
+      })
+    );
+  }
+
+  // getResponse(httpResponse:HttpResponse<any>) {
+
+  // }
+}

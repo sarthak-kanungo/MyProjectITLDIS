@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2018-11-16T18:19:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlDeliverySubReport" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="78177fc1-4056-483e-afe0-faba7864557e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="warrantyClaimNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec [Sp_WCPrintInvDTLview] $P{warrantyClaimNo},0]]>
+	</queryString>
+	<field name="CMP_NO" class="java.lang.String"/>
+	<field name="WarrantyClaimNo" class="java.lang.String"/>
+	<field name="COMPDESC" class="java.lang.String"/>
+	<field name="DEFECTCODE" class="java.lang.String"/>
+	<field name="CAUSALORCONSEQ" class="java.lang.String"/>
+	<field name="PART_NO" class="java.lang.String"/>
+	<field name="PART_DESC" class="java.lang.String"/>
+	<field name="QTY" class="java.lang.Double"/>
+	<field name="UNIT_PRICE" class="java.math.BigDecimal"/>
+	<field name="VENDORCODE" class="java.lang.String"/>
+	<field name="CLAIMAMOUNT" class="java.lang.Double"/>
+	<field name="QTYAPPROVED" class="java.lang.Double"/>
+	<field name="APPROVEDAMOUNT" class="java.lang.Double"/>
+	<field name="REJECTIONDESC" class="java.lang.String"/>
+	<field name="REJECTIONREMARKS" class="java.lang.String"/>
+	<field name="PACKINGNO" class="java.lang.String"/>
+	<field name="BOXNO" class="java.lang.String"/>
+	<field name="QTYRECEIVED" class="java.lang.Double"/>
+	<field name="DISPATCHEDQTY" class="java.lang.Double"/>
+	<field name="DISPATCH_STATUS" class="java.lang.String"/>
+	<field name="HSNCODE" class="java.lang.String"/>
+	<field name="DEALERDISCPERCENTAGE" class="java.math.BigDecimal"/>
+	<field name="CLAIMTAXABLEVALUE" class="java.math.BigDecimal"/>
+	<field name="CLAIMCGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMCGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMSGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMSGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMUGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMUGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMIGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMIGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDTAXABLEVALUE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDCGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDCGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDSGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDSGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDUGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDUGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDIGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDIGSTAMT" class="java.math.BigDecimal"/>
+	<field name="TotalClaimValue" class="java.math.BigDecimal"/>
+	<field name="UOM" class="java.lang.String"/>
+	<variable name="srlNo" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{srlNo}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="0" width="68" height="15" uuid="f9426f3e-84dc-4864-bf79-98515758a6da"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WarrantyClaimNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="90" y="0" width="80" height="15" uuid="ca8bfff6-a419-41fb-9aa5-09fb6329a88a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PART_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="90" y="15" width="475" height="15" uuid="b9faf4b9-53ee-412c-b616-04df1a7b61df"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PART_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="230" y="0" width="20" height="15" uuid="09f0808a-15cb-4b6f-bcfb-a20434b69ba7"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTYAPPROVED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="272" y="0" width="45" height="15" uuid="33cfa75c-b138-4c29-99dc-cebb2b003fc1"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UNIT_PRICE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="170" y="0" width="60" height="15" uuid="3bd28d8b-a33c-416b-b0e7-5145c1eb5bd7"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HSNCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="367" y="0" width="50" height="15" uuid="72d26c01-77de-4319-8c19-86c0d663a137"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEALERDISCPERCENTAGE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="417" y="0" width="37" height="15" uuid="2c708e75-d7e0-40ad-b80f-d60de5f97c2c"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDTAXABLEVALUE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="454" y="0" width="37" height="15" uuid="0362d8f4-4549-4ea6-bf07-65cdf6922720"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDCGSTRATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="491" y="0" width="37" height="15" uuid="7579e399-c302-4c98-88b0-4b861e970cc6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDCGSTAMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="528" y="0" width="37" height="15" uuid="a04b8634-32b4-49c2-88b6-cf778ac31368"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDSGSTRATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="565" y="0" width="37" height="15" uuid="83887b1d-9793-49b2-88dc-5882b60a1584"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDSGSTAMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="602" y="0" width="37" height="15" uuid="a1918e33-ce05-4f4d-949e-85bde2a72204"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDIGSTRATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="639" y="0" width="37" height="15" uuid="6782b5d8-d457-463c-bc13-8213649a4454"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDIGSTAMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="676" y="0" width="37" height="15" uuid="4086000c-930d-43da-895f-b081ff536d71"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDUGSTRATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="713" y="0" width="57" height="15" uuid="d33af2bf-0816-4f62-b626-d074e3b6abc5"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDUGSTAMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="317" y="0" width="50" height="15" uuid="d35c8155-961e-40c9-bd14-673ff5115ce9"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APPROVEDAMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="22" height="15" uuid="fb04ca1b-c3bc-4fe9-89e9-4b3b69807a76"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{srlNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="250" y="0" width="22" height="15" uuid="213e0a8e-38d2-4e96-b96a-b758b2e06054"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UOM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

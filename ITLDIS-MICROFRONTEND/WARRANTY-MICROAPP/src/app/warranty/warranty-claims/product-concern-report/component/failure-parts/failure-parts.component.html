@@ -1,0 +1,83 @@
+<div class="card-from mt-2" [formGroup]="failurePartForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Failure Parts</p>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 50px">Sr No.</th>
+                            <th scope="col" style="width: 100px">Part No.</th>
+                            <th scope="col" style="width: 100px">Description</th>
+                            <th scope="col" style="width: 100px">Claim Quantity</th>
+                            <th *ngIf="pcrNo" scope="col" style="width: 100px">Approved Quantity</th>
+                            <th scope="col" style="width: 100px">Failure Code</th>
+                            <th scope="col" style="width: 100px">Failure Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of failurePartForm.controls; let i=index" [formGroupName]="i">
+                            
+                            <td>{{i+1}}</td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Part Number</mat-label>
+                                    <input matInput placeholder="Part Number" formControlName="partNo">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Description</mat-label>
+                                    <input matInput placeholder="Description" formControlName="description">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Claim Quantity</mat-label>
+                                    <input matInput placeholder="Claim Quantity" formControlName="claimQuantity">
+                                </mat-form-field>
+                            </td>
+                            <td *ngIf="pcrNo">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Approved Quantity</mat-label>
+                                    <input matInput placeholder="Approved Quantity" formControlName="approvedQuantity">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Failure Code</mat-label>
+                                    <input #input matInput placeholder="Failure Code" formControlName="failureCode" [matAutocomplete]="auto" required>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                    
+                                    <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedOption($event, list)">
+                                        <mat-option *ngFor="let option of failureCode" [value]="option">
+                                          {{option.value}}
+                                        </mat-option>
+                                      </mat-autocomplete>
+                                      <mat-error *ngIf="list.controls.failureCode.hasError('selectFromList')">Please select from list</mat-error>
+                                </mat-form-field>
+                                <!-- <mat-form-field appearance="outline" *ngIf="operation == 'view'">
+                                    <mat-label>Failure Code</mat-label>
+                                    <input #input matInput placeholder="Failure Code" formControlName="failureCode">
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field> -->
+                            </td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Failure Description</mat-label>
+                                    <input matInput placeholder="Failure Description" formControlName="failureDescription">
+                                </mat-form-field>
+                            </td>
+                           
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

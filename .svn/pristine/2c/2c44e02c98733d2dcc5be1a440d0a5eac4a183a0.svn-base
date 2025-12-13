@@ -1,0 +1,32 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/et-form-handler.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Injectable } from '@angular/core';
+import * as i0 from "@angular/core";
+var EtFormHandlerService = /** @class */ (function () {
+    function EtFormHandlerService() {
+    }
+    /**
+     * @param {?} validateFn
+     * @return {?}
+     */
+    EtFormHandlerService.prototype.setValidators = /**
+     * @param {?} validateFn
+     * @return {?}
+     */
+    function (validateFn) {
+    };
+    EtFormHandlerService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    EtFormHandlerService.ctorParameters = function () { return []; };
+    /** @nocollapse */ EtFormHandlerService.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function EtFormHandlerService_Factory() { return new EtFormHandlerService(); }, token: EtFormHandlerService, providedIn: "root" });
+    return EtFormHandlerService;
+}());
+export { EtFormHandlerService };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXQtZm9ybS1oYW5kbGVyLnNlcnZpY2UuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9lZGl0YWJsZS10YWJsZS8iLCJzb3VyY2VzIjpbImxpYi9ldC1mb3JtLWhhbmRsZXIuc2VydmljZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLE9BQU8sRUFBRSxVQUFVLEVBQUUsTUFBTSxlQUFlLENBQUM7O0FBRTNDO0lBS0U7SUFBZ0IsQ0FBQzs7Ozs7SUFFakIsNENBQWE7Ozs7SUFBYixVQUFjLFVBQVU7SUFFeEIsQ0FBQzs7Z0JBVEYsVUFBVSxTQUFDO29CQUNWLFVBQVUsRUFBRSxNQUFNO2lCQUNuQjs7Ozs7K0JBSkQ7Q0FZQyxBQVZELElBVUM7U0FQWSxvQkFBb0IiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBJbmplY3RhYmxlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbkBJbmplY3RhYmxlKHtcbiAgcHJvdmlkZWRJbjogJ3Jvb3QnXG59KVxuZXhwb3J0IGNsYXNzIEV0Rm9ybUhhbmRsZXJTZXJ2aWNlIHtcblxuICBjb25zdHJ1Y3RvcigpIHsgfVxuXG4gIHNldFZhbGlkYXRvcnModmFsaWRhdGVGbikge1xuXG4gIH1cbn1cbiJdfQ==

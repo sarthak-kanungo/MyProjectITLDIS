@@ -1,0 +1,3 @@
+<div class="container-fluid mb-3">
+    <app-search-activity-budget></app-search-activity-budget>
+</div>

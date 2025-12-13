@@ -1,0 +1,363 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0"> Search Invoice</p>
+            <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                New
+            </button>
+        </div>
+        <div class="card-body">
+
+            <form [formGroup]="searchInvoiceForm" [style.fontSize.px]="10">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Invoice No.</mat-label>
+                            <input
+                                type="text"
+                                placeholder="Invoice No."
+                                matInput
+                                formControlName="invoiceNumber"
+                                [matAutocomplete]="autoInvoiceNumber">
+                            <mat-autocomplete
+                                #autoInvoiceNumber="matAutocomplete"
+                                [panelWidth]="200">
+                                <mat-option *ngFor="let option of invoiceNumberList$ | async" [value]="option.value">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Chassis No.</mat-label>
+                            <input
+                                type="text"
+                                placeholder="Chassis No."
+                                matInput
+                                formControlName="chassisNo"
+                                [matAutocomplete]="autoChassisNumber">
+                            <mat-autocomplete
+                                #autoChassisNumber="matAutocomplete"
+                                [panelWidth]="250">
+                                <mat-option *ngFor="let option of chassisNumberList$ | async" [value]="option.value">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input
+                                type="text"
+                                placeholder="Customer Name"
+                                matInput
+                                formControlName="customerName"
+                                [matAutocomplete]="autoCustomerName">
+                            <mat-autocomplete
+                                #autoCustomerName="matAutocomplete"
+                                [panelWidth]="200">
+                                <mat-option *ngFor="let option of customerNameList$ | async" [value]="option.value">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input
+                                type="text"
+                                placeholder="Mobile No."
+                                matInput
+                                formControlName="mobileNo"
+                                [matAutocomplete]="autoMobileNo">
+                            <mat-autocomplete
+                                #autoMobileNo="matAutocomplete"
+                                [panelWidth]="200">
+                                <mat-option *ngFor="let option of mobileNumberList$ | async" [value]="option.value">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput [matDatepicker]="picker" placeholder="Invoice From Date"
+                                formControlName="fromDate"  [max]="newdate" (dateChange)="setToDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput [matDatepicker]="picker1" placeholder="Invoice To Date"
+                                formControlName="toDate" [max]="maxDate" [min]="minDate"  [readonly]="searchInvoiceForm.get('fromDate').value">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle >
+                            <mat-datepicker #picker1 [disabled]="!searchInvoiceForm.get('fromDate').value"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+                <div class="card-from mt-2" *ngIf="searchform">
+                    <div class="card" style="border: 1px solid #45afaf;">
+                        <div class="card-header" style="background-color: #45afaf;
+                                                border: 1px solid #45afaf;">
+                            <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- <form [formGroup]="advancesearchfrom" [style.fontSize.px]="10"> -->
+                            <div class="row">
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Enquiry No.</mat-label>
+                                        <input
+                                            type="text"
+                                            placeholder="Enquiry No."
+                                            matInput
+                                            formControlName="enquiryNumber"
+                                            [matAutocomplete]="autoEnquiryNumber">
+                                        <mat-autocomplete
+                                            #autoEnquiryNumber="matAutocomplete"
+                                            [panelWidth]="400">
+                                            <mat-option *ngFor="let option of enquiryNumberList$ | async"
+                                                [value]="option.enquiryNumber">
+                                                {{option?.value}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Enquiry Type</mat-label>
+                                        <mat-select formControlName="enquiryType">
+                                            <mat-option *ngFor="let enquiryType of enquiryTypeList$ | async"
+                                                [value]="enquiryType.value">
+                                                {{enquiryType.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Invoice Status</mat-label>
+                                        <mat-select formControlName="invoiceStatus">
+                                            <mat-option *ngFor="let status of invoiceStatusList$ | async"
+                                                [value]="status.value">
+                                                {{status.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Invoice Type</mat-label>
+                                        <mat-select formControlName="invoiceType">
+                                            <mat-option *ngFor="let invoiceType of invoiceTypeList$ | async"
+                                                [value]="invoiceType.value">
+                                                {{invoiceType.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Product</mat-label>
+                                        <mat-select formControlName="product">
+                                            <mat-option *ngFor="let product of productList$ | async"
+                                                [value]="product.value">{{product.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Series</mat-label>
+                                        <mat-select formControlName="series" (selectionChange)="getAllModel($event)">
+                                            <mat-option *ngFor="let option of seriesList$ | async"
+                                                [value]="option?.value">
+                                                {{option?.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Model</mat-label>
+                                        <mat-select formControlName="model" (selectionChange)="getAllSubModel($event)">
+                                            <mat-option *ngFor="let option of modelList$ | async"
+                                                [value]="option?.value">
+                                                {{option?.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Sub Model</mat-label>
+                                        <mat-select formControlName="subModel"
+                                            (selectionChange)="getAllVariant($event)">
+                                            <mat-option *ngFor="let option of subModelList$ | async"
+                                                [value]="option.value">{{option.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Variant</mat-label>
+                                        <mat-select formControlName="variant">
+                                            <mat-option *ngFor="let option of variantList$ | async"
+                                                [value]="option.value">{{option.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Item No.</mat-label>
+                                        <input matInput [matAutocomplete]="autoItemNo" placeholder="Item No."
+                                            formControlName="itemNo">
+                                        <mat-autocomplete #autoItemNo="matAutocomplete" [panelWidth]="400">
+                                            <mat-option *ngFor="let option of itemNoList$ | async" [value]="option.code">
+                                                {{option.value}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <!-- <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Engine No.</mat-label>
+                                        <input matInput placeholder="Engine No." formControlName="engineNo">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div> -->
+
+                            </div>
+                            <!-- </form> -->
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-lg-12">
+                <!-- <div class="mx-auto d-flex justify-content-between">
+                    <div>
+                        <button type="button" class="btn pl-3 pr-3 mt-3 btn_primary"
+                            [insertQueryParams]="searchFilter"
+                            (initialQueryParams)="initialQueryParams($event)"
+                            (onUrlChange)="onUrlChange($event)"
+                            (click)="searchInvoiceRecord()"> Search
+                        </button>
+                        <button type="button" class="btn mt-3 pl-3 pr-3 btn_primary"
+                            (click)="clear()">
+                            Clear
+                        </button>
+                    </div>
+                    <a class=" font-weight-bold mt-3 cursor_pointer" style="color: #007bff;"
+                        (click)="searchform = !searchform">
+                        <u> {{searchform ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                    </a>
+                </div> -->
+                <div class="mx-auto text-center mt-2">
+                    <button type="button" class="btn pl-3 pr-3 btn_primary"
+                        [insertQueryParams]="searchFilter"
+                        (initialQueryParams)="initialQueryParams($event)"
+                        (onUrlChange)="onUrlChange($event)"
+                        (click)="searchInvoiceRecord()"> Search
+                    </button>
+                    <button type="button" class="btn ml-2 pl-3 pr-3 btn_primary"
+                        (click)="clear()">
+                        Clear
+                    </button>
+                    <div style="text-align: end;">
+                        <a class="ml-auto font-weight-bold mt-3 cursor_pointer" style="color: #007bff;"
+                            (click)="searchform = !searchform">
+                            <u> {{searchform ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+            <ngsw-search-table
+                [tableTitle]="'Search Result'"
+                [dataTable]="dataTable"
+                [page]="page"
+                [size]="size"
+                [actionButtons]="actionButtons"
+                [totalElements]="totalSearchRecordCount"
+                [searchValue]="searchValue"
+                [clickOnTableFields]="clickOnTableFields"
+                (columnLengthChanges)="searchTableColumnChanged($event)"
+                (actionOnTableRecord)="actionOnTableRecord($event)"
+                (pageChange)="pageChangeOfSearchTable($event)" [clearSearchRow]="clearSearchRow" >
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td [ngsw-searchField]="invoiceNumber" [searchColumnName]="'invoiceNumber'">
+                    <input class="w-100 borderRadius" #invoiceNumber [(ngModel)] ="invoiceNumberNgModel">
+                </td>
+
+                <td [ngsw-searchField]="invoiceType" [searchColumnName]="'invoiceType'">
+                    <input class="w-100 borderRadius" #invoiceType [(ngModel)] ="invoiceTypeNgModel">
+                </td>
+
+                <td [ngsw-searchField]="deliveryChallanType" [searchColumnName]="'deliveryChallanType'">
+                    <input class="w-100 borderRadius" #deliveryChallanType [(ngModel)] ="deliveryChallanTypeNgModel">
+                </td>
+
+                <td [ngsw-searchField]="invoiceDate" [searchColumnName]="'invoiceDate'">
+                    <input class="w-100 borderRadius" type="date" #invoiceDate
+                    (change)="etSearchDateValueChange(invoiceDate.value,'invoiceDate')"
+                    [max]="serverCurrentDate" [(ngModel)] ="invoiceDateNgModel">
+                </td>
+                <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'">
+                    <input class="w-100 borderRadius" #customerCode [(ngModel)] ="customerCodeNgModel">
+                </td>
+                <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+                    <input class="w-100 borderRadius" #customerName [(ngModel)] ="customerNameNgModel">
+                </td>
+                <td [ngsw-searchField]="invoiceStatus" [searchColumnName]="'invoiceStatus'">
+                    <input class="w-100 borderRadius" #invoiceStatus [(ngModel)] ="invoiceStatusNgModel">
+                </td>
+                <td [ngsw-searchField]="hypothecation" [searchColumnName]="'hypothecation'">
+                    <input class="w-100 borderRadius" #hypothecation [(ngModel)] ="hypothecationNgModel">
+                </td>
+                <td [ngsw-searchField]="customerType" [searchColumnName]="'customerType'">
+                    <input class="w-100 borderRadius" #customerType [(ngModel)] ="customerTypeNgModel">
+                </td>
+                <td [ngsw-searchField]="companyName" [searchColumnName]="'companyName'">
+                    <input class="w-100 borderRadius" #companyName [(ngModel)] ="companyNameNgModel">
+                </td>
+                <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+                    <input class="w-100 borderRadius" #chassisNo [(ngModel)] ="chassisNoNgModel">
+                </td>
+                <!--  -->
+            </ngsw-search-table>
+      

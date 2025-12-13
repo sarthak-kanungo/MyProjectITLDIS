@@ -1,0 +1,234 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="pcrForm">
+    <div class="col-lg-2" *ngIf="operation != 'jobCard'">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>PCR No.</mat-label>
+            <input matInput placeholder="PCR No." formControlName="pcrNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>PCR Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="PCR Date" formControlName="pcrDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="operation != 'jobCard'">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <input matInput placeholder="Status" formControlName="status">
+            <!-- <mat-select formControlName="status"> 
+                <mat-option *ngFor="let value of status" [value]="value" >{{value}}
+                </mat-option>
+            </mat-select> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Job Card No.</mat-label>
+            <input matInput placeholder="Job Card No." formControlName="jobCardNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Job Card Date</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="Job Card Date" formControlName="jobCardDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date Of Installation</mat-label>
+            <input matInput [matDatepicker]="picker2" placeholder="Date Of Installation" formControlName="dateOfInstallation">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input matInput placeholder="Customer Name" formControlName="customerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Machine Model</mat-label>
+            <input matInput placeholder="Machine Model" formControlName="model">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date Of Failure</mat-label>
+            <input matInput [matDatepicker]="picker3" placeholder="Date Of Failure" formControlName="dateOfFailure">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Address</mat-label>
+            <input matInput placeholder="Customer Address" formControlName="address">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Cell Number</mat-label>
+            <input matInput placeholder="Customer Cell Number" formControlName="mobileNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Registration Number</mat-label>
+            <input matInput placeholder="Registration Number" formControlName="registrationNumber">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Chassis Number</mat-label>
+            <input matInput placeholder="Chassis Number" formControlName="chassisNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Engine Number</mat-label>
+            <input matInput placeholder="Engine Number" formControlName="engineNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline">
+            <mat-label>Hours</mat-label>
+            <input matInput placeholder="Hours" formControlName="totalHour">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Sold To Dealer</mat-label>
+            <input matInput placeholder="Sold To Dealer" formControlName="soldToDealer">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Service Dealer</mat-label>
+            <input matInput placeholder="Service Dealer" formControlName="serviceDealer">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Service Dealer City</mat-label>
+            <input matInput placeholder="Service Dealer City" formControlName="serviceDealerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Crop</mat-label>
+            <mat-select formControlName="crop" required>
+                <mat-option *ngFor="let value of majorCropGrown" [value]="value.cropGrown">{{value.cropGrown}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Crop Condition</mat-label>
+            <mat-select formControlName="cropCondition" required>
+                <mat-option *ngFor="let value of cropCondition" [value]="value.fieldCondition">{{value.fieldCondition}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Failure Type</mat-label>
+            <mat-select formControlName="failureType" required>
+                <mat-option *ngFor="let value of failureType" [value]="value.failureType">{{value.failureType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Soil Type</mat-label>
+            <mat-select formControlName="soilType" required>
+                <mat-option *ngFor="let value of soilType" [value]="value.soilType">{{value.soilType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Field Condition</mat-label>
+            <mat-select formControlName="fieldCondition" required>
+                <mat-option *ngFor="let value of fieldCondition" [value]="value.fieldCondition">{{value.fieldCondition}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2 text-left" *ngIf="pcrForm.controls.customerName.value != null && pcrForm.controls.customerName.value != ''">
+        <div class="form-check mt-2">
+            <mat-checkbox color="basic" style="font-size: 12px;" (change)="selectFailure($event)" formControlName="repeatFailureFlag">
+                Repeat Failure</mat-checkbox>
+        </div>
+    </div>
+    <div class="col-lg-2" *ngIf="pcrForm.get('repeatFailureFlag').value == true">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>No. Of Times</mat-label>
+            <input matInput placeholder="No. Of Times" formControlName="failureCount">
+            <mat-error *ngIf="pcrForm.get('failureCount').errors?.min">Number should be greater than 1.</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2 text-left" *ngIf="isKai">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Warranty Type</mat-label>
+            <input matInput placeholder="Warranty Type" formControlName="warrantyType">
+            <!-- <mat-select formControlName="warrantyType">
+                <mat-option *ngFor="let value of warrantyTypeList" [value]="value.lookupval">{{value.lookupval}}
+                </mat-option>
+            </mat-select> -->
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Warranty End Date</mat-label>
+            <input matInput [matDatepicker]="picker_wd" [ngClass]="btnName" placeholder="Warranty End Date" formControlName="warrantyEndDate">
+            <mat-datepicker-toggle matSuffix [for]="picker_wd"></mat-datepicker-toggle>
+            <mat-datepicker #picker_wd></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Total Warranty Hour</mat-label>
+            <input matInput placeholder="Total Warranty Hour" formControlName="totalWarrantyHour">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isKai && isShowReason">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Reason for Delay</mat-label>
+            <mat-select formControlName="delayReasonSelect">
+                <mat-option>-Select-</mat-option>
+                <mat-option *ngFor="let value of reasons" [value]="value.lookupval">{{value.lookupval}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isKai">    
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Reason for Delay</mat-label>
+            <input matInput placeholder="Reason For Delay" formControlName="delayReason">
+        </mat-form-field>
+    
+    </div>
+</div>

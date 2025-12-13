@@ -1,0 +1,28 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="createForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        
+                        <div class="card-body">
+                            <app-customer-details></app-customer-details>
+                            <app-address-details [dealerInformation]=dealerInformation></app-address-details>
+                            <app-land-details [soiltypes]="soiltypes" [crops]="crops" [colorCheckCrop]="colorCheckCrop" [colorCheck]="colorCheck"></app-land-details>
+                            <app-last-purchase-details [brandColor]="brandColor" [modelColor]="modelColor" [yearColor]="yearColor" [serialColor]="serialColor"></app-last-purchase-details>
+                            <!-- <app-vehicle-details></app-vehicle-details> -->
+                        </div>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="submitCustomerChangeRequestForm('approve')">
+                                Approve
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3  ml-3" (click)="submitCustomerChangeRequestForm('reject')">
+                                Reject
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

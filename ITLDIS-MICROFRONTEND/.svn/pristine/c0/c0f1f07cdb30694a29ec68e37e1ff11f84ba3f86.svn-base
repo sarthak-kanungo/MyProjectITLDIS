@@ -1,0 +1,45 @@
+<!------------------------------Survey History--------------------------------------->
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Survey History </p>
+    </div>
+    <div class="card-body">
+      <!-- <form [formGroup]="freeServiceHistoryForm" [style.fontSize.px]="11"> -->
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Survey Code</th>
+              <th scope="col">Date</th>
+              <th scope="col">Type of Survey</th>
+              <th scope="col">Done By</th>
+              <th scope="col">Satisfied</th>
+              <th scope="col">Additional Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let option of surveyHistoryForm['controls']; let i = index;">
+              
+              <td >
+                <p (click)="surveyModal(option.get('surveyCode').value)" class="jobcardno">{{option.get('surveyCode').value}}</p>
+              </td>
+              <td [textContent]="option.get('date').value">
+              </td>
+              <td [textContent]="option.get('typeOfSurvey').value">
+              </td>
+              <td [textContent]="option.get('doneBy').value">
+              </td>
+              <td [textContent]="option.get('satisfied').value">
+              </td>
+              <td [textContent]="option.get('additionalComment').value">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,362 @@
+<div class="row" [formGroup]="jobCardDetailsForm" [style.fontSize.px]="11">
+    <div class="col-lg-2">
+
+        <mat-checkbox color="basic" [checked]="checked" (change)="checkBoxActionChange($event)"
+            formControlName="checkBox">Pre Sales
+        </mat-checkbox>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Chassis No.</mat-label>
+            <input matInput placeholder="Chassis No." formControlName="chassisNo" [matAutocomplete]="autoChassisNo"
+                (keydown)="onKeyDownChassisNo($event)">
+            <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="700" [displayWith]="displayFnChassisNo"
+                (optionSelected)="selectedChassisNumber($event)">
+                <mat-option *ngFor="let option of kaiChassisNoList " [value]="option">
+                    {{option?.value}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="jobCardDetailsForm.get('chassisNo').hasError('selectFromList')">
+                Select From List </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Engine No.</mat-label>
+            <input matInput placeholder="Engine No." formControlName="engineNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>CSB No.</mat-label>
+            <input matInput placeholder="CSB No." formControlName="csbNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Booking No.</mat-label>
+            <input matInput placeholder="Booking No." formControlName="bookingNo" [matAutocomplete]="autobookingNo"
+                (keydown)="onKeyDownBookingNo($event)">
+            <mat-autocomplete #autobookingNo="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedbookingNo($event)" [displayWith]="displayFnBookingNo">
+                <mat-option *ngFor="let option of kaibookingNoList " [value]="option">
+                    {{option?.value}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="jobCardDetailsForm.get('bookingNo').hasError('selectFromList')">
+                Select From List </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Booking Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Booking Date" formControlName="bookingDate"
+                (click)="picker.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isCreate">
+        <mat-form-field appearance="outline">
+            <mat-label>Job card No.</mat-label>
+            <input matInput placeholder="Job card No." formControlName="jobCardNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isCreate">
+        <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <input matInput placeholder="Status" formControlName="status">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Installation</mat-label>
+            <input matInput [matDatepicker]="picker1" readonly placeholder="Date of Installation"
+                formControlName="dateofInstallation" (click)="picker1.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Job Card Date</mat-label>
+            <input matInput [matDatepicker]="picker3" readonly placeholder="Job Card Date" formControlName="jobCardDate"
+                (click)="picker3.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input matInput placeholder="Customer Name" formControlName="customerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Machine Model</mat-label>
+            <input matInput placeholder="Machine Model" formControlName="machineModel">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Registration No.</mat-label>
+            <input matInput placeholder="Registration No." formControlName="registrationNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-4" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Address</mat-label>
+            <input matInput placeholder="Customer Address" formControlName="customerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Cell No.</mat-label>
+            <input matInput placeholder="Customer Cell No." formControlName="customerCellNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Alternate Cell No.</mat-label>
+            <input matInput placeholder="Alternate Customer Cell No." (blur)="onBlurAlternateMobileNo($event)"
+                minlength="10" maxlength="10" formControlName="alternateCustomerCellNo">
+            <mat-error>
+                <span
+                    *ngIf="!jobCardDetailsForm.controls.alternateCustomerCellNo?.valid && jobCardDetailsForm.get('alternateCustomerCellNo').hasError('pattern')">
+                    It is not a valid mobile number.</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Sold Dealer</mat-label>
+            <input matInput placeholder="Sold Dealer" formControlName="solddealer">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Current Hours</mat-label>
+            <input matInput class="quantity" placeholder="Current Hours" formControlName="currentHours"
+                required (blur)="onBlurCurrentHours($event)" (change)="resetFieldsOncurrentHoursChanges()">
+            <mat-error *ngIf="jobCardDetailsForm.get('currentHours').hasError('required')">
+                <strong> Current Hours Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Previous Hours</mat-label>
+            <input matInput class="quantity" type="number" placeholder="Previous Hours" formControlName="previousHours">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Meter Change Hours</mat-label>
+            <input matInput class="quantity" type="number" placeholder="Meter Change Hours" formControlName="meterChangeHour">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline">
+            <mat-label>Total Hours</mat-label>
+            <input matInput class="quantity" type="number" placeholder="Total Hours" formControlName="totalHours">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Service Category</mat-label>
+            <mat-select [compareWith]="serviceCategoryCompareFn" required formControlName="serviceCategory"
+                (selectionChange)="selectionChangedServiceCategory($event)" >
+                <mat-option *ngFor="let serviceCategory of serviceCategories" [value]="serviceCategory">
+                    {{serviceCategory.category}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="jobCardDetailsForm.get('serviceCategory').hasError('required')">
+                <strong> Service Category Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Service Category</mat-label>
+            <input matInput placeholder="Customer Cell No." formControlName="serviceCategory">
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Service Type</mat-label>
+            <mat-select [compareWith]="serviceTypeCompareFn" required formControlName="serviceType"
+                (click)="checkCondition()">
+                <mat-option *ngFor="let servicetype of servicetypes" [value]="servicetype">
+                    {{servicetype.serviceType}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="jobCardDetailsForm.get('serviceType').hasError('required')">
+                <strong> Service Type Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Place of Service</mat-label>
+            <mat-select [compareWith]="placecompareFn" required formControlName="placeofService"
+                (selectionChange)="placeChanged($event)">
+                <mat-option *ngFor="let palceofservice of placeOfServices" [value]="palceofservice">
+                    {{palceofservice.placeOfService}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="jobCardDetailsForm.get('placeofService').hasError('required')">
+                <strong> Place Of Service Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <ng-container *ngIf="isShowEvent">
+        <div class="col-lg-2" *ngIf="!isHideForPresales">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity/Event Type</mat-label>
+                <mat-select formControlName="activityType" (selectionChange)="activityChanged($event)"
+                    [compareWith]="activityTypeFn">
+                    <mat-option *ngFor="let activityEventType of activityEventTypes" [value]="activityEventType">
+                        {{activityEventType.activityType}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="jobCardDetailsForm.get('activityType').hasError('required')">
+                    <strong> Activity Type Required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="isShowEvent">
+        <div class="col-lg-2" *ngIf="!isHideForPresales">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Activity No.</mat-label>
+                <input matInput placeholder="Activity No." formControlName="activityNo"
+                    [matAutocomplete]="autoActivityNo">
+                <mat-autocomplete #autoActivityNo="matAutocomplete" [panelWidth]="500"
+                    [displayWith]="displayFnActivityNo" (optionSelected)="selectedActivityNumber($event)">
+                    <mat-option *ngFor="let option of activityNoList " [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="jobCardDetailsForm.get('activityNo').hasError('required')">
+                    <strong> Activity Number Required</strong>
+                </mat-error>
+                <mat-error *ngIf="jobCardDetailsForm.get('activityNo').hasError('selectFromList')">
+                    <strong> Select From List</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </ng-container>
+
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Failure</mat-label>
+            <input matInput [matDatepicker]="picker2" readonly placeholder="Date of Failure"
+                formControlName="dateofFailure" [min]="lastTrnsDate" [max]="today" required (click)="picker2.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="jobCardDetailsForm.get('dateofFailure').hasError('required')">
+                <strong> Date of Failure Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Machine in Date</mat-label>
+            <input matInput [matDatepicker]="picker4" readonly placeholder="Machine in Date" required formControlName="date"
+                [max]="today" (click)="picker4.open()" [min]="machineDate">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+            <mat-error *ngIf="jobCardDetailsForm.get('date').hasError('required')">
+                <strong> Machine in Date is Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Time In</mat-label>
+            <input type="time" matInput placeholder="Time In" required formControlName="timein"
+                matTooltip="Time in 24 hrs">
+            <mat-error *ngIf="jobCardDetailsForm.get('timein').hasError('required')">
+                <strong>Time In Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Machine Out Date</mat-label>
+            <input matInput [matDatepicker]="picker5" readonly placeholder="Machine Out Date" formControlName="machineOutDate"
+                [max]="today" (click)="picker5.open()" [min]="machineInDate">
+            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+            <mat-error *ngIf="jobCardDetailsForm.get('machineOutDate').hasError('required')">
+                <strong> Machine Out Date is Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Time Out</mat-label>
+            <input type="time" matInput placeholder="Time Out" formControlName="timeout"
+                matTooltip="Time in 24 hrs">
+            <mat-error *ngIf="jobCardDetailsForm.get('timeout').hasError('required')">
+                <strong>Time Out Required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="jobCardDetailsForm.get('closedDate').value!=null">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Close Date</mat-label>
+            <input matInput placeholder="Close Date" required formControlName="closedDate" readonly>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Close Delay Reason</mat-label>
+            <mat-select formControlName="closeDelayReason" >
+                <mat-option *ngFor="let option of delayReasons" [value]="option.lookupval">
+                        {{option.lookupval}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isHideForPresales">
+
+        <mat-checkbox color="basic" [checked]="patchRetroCheckbox"formControlName="retroFitment" [disabled]="buttonDisabled" (change)="changeRetroFitment($event)" (click)="getretroFitmentList($event)">Retro Fitment
+        </mat-checkbox>
+    </div>
+    
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Warranty End Date</mat-label>
+            <input matInput [matDatepicker]="picker_wd" placeholder="Warranty End Date" formControlName="warrantyEndDate">
+            <mat-datepicker-toggle matSuffix [for]="picker_wd"></mat-datepicker-toggle>
+            <mat-datepicker #picker_wd></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Total Warranty Hour</mat-label>
+            <input matInput placeholder="Total Warranty Hour" formControlName="totalWarrantyHour">
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Close Remark</mat-label>
+            <input matInput placeholder="Close Remark" formControlName="closeRemark">
+        </mat-form-field>
+    </div>
+
+</div>
+			
+
+

@@ -1,0 +1,92 @@
+<div class="mt-2 dealer" [style.fontSize.px]="12" [formGroup]="remarkForm">
+
+    <div class="row mb-1">
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">KAI Remarks</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>KAI Remarks</mat-label>
+                        <input  matInput placeholder="KAI Remarks" formControlName="kaiRemark" maxlength="499" >
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Inspection Remarks</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Inspection Remarks</mat-label>
+                        <input  matInput placeholder="Inspection Remarks" formControlName="inspectionRemark" maxlength="499" >
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Inspected By</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Inspected By</mat-label>
+                        <input  matInput placeholder="Inspected By" formControlName="inspectedBy">
+                    </mat-form-field>
+                </div>
+               
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Inspected Date</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Inspected Date</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Inspected Date" formControlName="inspectedDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row mb-1">
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Employee Name</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Employee Name</mat-label>
+                        <input  matInput placeholder="Employee Name" formControlName="empName">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-flex bd-highlight">
+                <div class="pr-1 w-25 flex-fill bd-highlight">
+                    <label class="col-form-label">Employee Designation</label>
+                </div>
+                <div class="w-75 flex-fill bd-highlight">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Employee Designation</mat-label>
+                        <input  matInput placeholder="Employee Designation" formControlName="empDesignation">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>

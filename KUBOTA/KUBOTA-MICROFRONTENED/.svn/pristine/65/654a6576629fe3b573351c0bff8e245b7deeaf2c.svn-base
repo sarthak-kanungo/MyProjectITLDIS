@@ -1,0 +1,174 @@
+<div class="container-fluid mt-3 mb-3">
+  <div class="row">
+    <div class="col-lg-12">
+     
+
+    </div>
+
+    <div class="col-lg-12">
+      <div class="card-from">
+
+        <div class="card mt-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between header">
+              <p class="mb-0">Search Vehicle Registration No.</p>
+
+
+              <div>
+                <button type="button" class="btn btn-xs ml-2 bg-white "[routerLink]="['./create']" >
+                  <b class="btnName">Create</b>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+
+            <form [formGroup]="vehicleRegistrationNoForm" [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Chassis No.</mat-label>
+                    <input matInput placeholder="Chassis No." formControlName="chassisNo"
+                      [matAutocomplete]="autoChassisNumber">
+                    <mat-autocomplete #autoChassisNumber="matAutocomplete">
+                      <mat-option *ngFor="let option of autoCompleteChassisNo?.result" [value]="option?.chassisNo">
+                        {{option?.chassisNo}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Customer Code</mat-label>
+                    <input matInput placeholder="Chassis No." formControlName="customerCode"
+                      [matAutocomplete]="autoCustomerCode">
+                    <mat-autocomplete #autoCustomerCode="matAutocomplete">
+                      <mat-option *ngFor="let option of autoCompleteCustomerCode?.result"
+                        [value]="option?.customerCode">
+                        {{option?.customerCode}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <!-- <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Customer Code</mat-label>
+                                      <input matInput placeholder="Customer Code" formControlName="customerCode">
+                                      <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                  </div> -->
+
+                <div class="col-lg-2">
+                  <div class="mt-1">
+                    <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="onSearchVehicleRegistration()">
+                      Search </button>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- <app-update-vehicle-registration-search-result></app-update-vehicle-registration-search-result> -->
+
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+    [totalElements]="totalTableElements" (FilterSearchVehicleRegistration)="FilterSearchVehicleRegistration($event)"
+    (pageChange)="pageChange($event)">
+
+    <td [ngsw-searchField]="lastName" [searchColumnName]="'lastName'">
+      <input type="text" #lastName>
+    </td>
+
+    <td [ngsw-searchField]="country" [searchColumnName]="'country'">
+      <input type="text" #country>
+    </td>
+
+    <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+      <input type="text" #pinCode>
+    </td>
+
+    <td [ngsw-searchField]="address3" [searchColumnName]="'address3'">
+      <input type="text" #address3>
+    </td>
+
+    <td [ngsw-searchField]="address2" [searchColumnName]="'address2'">
+      <input type="text" #address2>
+    </td>
+
+    <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+      <input type="text" #city>
+    </td>
+
+    <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+      <input type="text" #address1>
+    </td>
+
+    <td [ngsw-searchField]="locality" [searchColumnName]="'locality'">
+      <input type="text" #locality>
+    </td>
+
+    <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'">
+      <input type="text" #customerCode>
+    </td>
+
+    <td [ngsw-searchField]="panNumber" [searchColumnName]="'panNumber'">
+      <input type="text" #panNumber>
+    </td>
+
+    <td [ngsw-searchField]="title" [searchColumnName]="'title'">
+      <input type="text" #title>
+    </td>
+
+    <td [ngsw-searchField]="gstNumber" [searchColumnName]="'gstNumber'">
+      <input type="text" #gstNumber>
+    </td>
+
+    <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+      <input type="text" #mobileNumber>
+    </td>
+
+    <td [ngsw-searchField]="vehicleRegistrationNo" [searchColumnName]="'vehicleRegistrationNo'">
+      <input type="text" #vehicleRegistrationNo>
+    </td>
+
+    <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+      <input type="text" #chassisNo>
+    </td>
+
+    <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+      <input type="text" #district>
+    </td>
+
+    <td [ngsw-searchField]="middleName" [searchColumnName]="'middleName'">
+      <input type="text" #middleName>
+    </td>
+
+    <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+      <input type="text" #state>
+    </td>
+
+    <td [ngsw-searchField]="village" [searchColumnName]="'village'">
+      <input type="text" #village>
+    </td>
+
+    <td [ngsw-searchField]="firstName" [searchColumnName]="'firstName'">
+      <input type="text" #firstName>
+    </td>
+
+  </ngsw-search-table>
+
+
+
+</div>

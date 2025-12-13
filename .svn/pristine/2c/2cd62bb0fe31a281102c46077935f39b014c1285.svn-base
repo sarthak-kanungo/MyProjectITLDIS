@@ -1,0 +1,179 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Training Program Report</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="TrainingattendanceTrainingReportForm">
+          <div class="row" [style.fontSize.px]="11">
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Zone</mat-label>
+                <mat-select formControlName="zone" (selectionChange)="getRegionFortraining($event.value)">
+                  <mat-option *ngFor="let option of zoneList" [value]="option">
+                    {{option.hierarchy_code}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Region</mat-label>
+                <mat-select formControlName="region">
+                  <mat-option *ngFor="let value of regionList" [value]="value">{{value.hierarchy_code}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>States</mat-label>
+                <mat-select formControlName="state">
+                  <mat-option *ngFor="let value of statesList" [value]="value">{{value.state}}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>TSM Name</mat-label>
+                <mat-select formControlName="tsmName">
+                  <mat-option *ngFor="let value of tsmName" [value]="value">{{value.employeeName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Delear Name</mat-label>
+                <mat-select formControlName="delearName">
+                  <mat-option *ngFor="let value of trainingModule" [value]="value.name">{{value.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Emp State</mat-label>
+                <mat-select formControlName="empState">
+                  <mat-option *ngFor="let value of trainingModule" [value]="value.name">{{value.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                <mat-label>Employee Status</mat-label>
+                <mat-select placeholder="Employee Status" formControlName="employeeStatus">
+                  <mat-option *ngFor="let status of empStatus" [value]="status.value">
+                    {{status.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Type of Training</mat-label>
+                <mat-select formControlName="typeofTraining" (selectionChange)="getTrainingModule($event.value)">
+                  <mat-option *ngFor="let value of trainingList" [value]="value">{{value.Training_Type_desc}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Training Module</mat-label>
+                <mat-select formControlName="trainingModule">
+                  <mat-option *ngFor="let value of trainingModuleList" [value]="value">{{value.Training_Module_desc}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Employee Designation</mat-label>
+                <mat-select formControlName="delearEmpDesignation">
+                  <mat-option *ngFor="let value of dealerDesignationList" [value]="value">{{value.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input readonly matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Delivery"
+                  formControlName="trainingstartDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2" placeholder="Delivery"
+                  formControlName="trainingendDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input readonly matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Start Date"
+                  formControlName="trainingstartDate" [max]="todaysDate" (dateChange)="getStartDate($event.value)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2" placeholder="End Date"
+                  formControlName="trainingendDate" (dateChange)="getEndDate($event.value)" [max]="maxDate"
+                  [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+
+          </div>
+
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+            <button (click)="getTrainingReport()" type="button" class="btn btn_primary px-3 ml-3"> Search</button>
+            <button type="button" class="btn  btn_primary px-3 ml-2" (click)="clear()"> Clear
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+     [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"(actionOnTableRecord)="tableAction($event)"
+    (pageChange)="pageChange($event)" [page]="page" [size]="size" [isExcelImport]="true" (exportToExcel)="downloadExcelReport($event)">
+    
+    <!-- <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName">
+      <input class="w-100 borderRadius" #nominee [(ngModel)]="dealerNameNgModel">
+    </td>
+    <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'" class="employeeName">
+      <input class="w-100 borderRadius" #nominee [(ngModel)]="employeeNameNgModel">
+    </td>
+    <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'" class="remarks">
+      <input class="w-100 borderRadius" #nominee [(ngModel)]="isactiveNgModel"> -->
+  </ngsw-search-table>
+</div>

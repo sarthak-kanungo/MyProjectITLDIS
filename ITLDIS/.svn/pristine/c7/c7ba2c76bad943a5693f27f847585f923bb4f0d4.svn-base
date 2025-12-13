@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-04-13T14:43:42 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportPI_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" uuid="065f178f-9ee3-4162-82d9-1112467f5416">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL_Report"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="piNo" class="java.lang.String"/>
+	<parameter name="amountParam" class="java.math.BigDecimal"/>
+	<parameter name="currencyParam" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select  spi.PI_NO,spid.ORD_PART_NO, spid.AVL_PART_NO,spid.LEAD_TIME,
+(select cp.p1 from cat_part cp where cp.part_no=spid.ORD_PART_NO) as partDesc,
+spid.FINAL_PI_QTY, round(spid.PRICE,2) as price,
+--(SELECT CURRENCY_TYPE FROM SP_PRICELIST_CODE SPC JOIN UM_USER_PRICELIST UMP ON 
+--SPC.PRICELIST_CODE=UMP.PRICELIST_CODE
+--where ump.USER_ID =(SELECT SOHE.Created_By FROM SP_ORD_HDR_EXP SOHE 
+--WHERE SOHE.CUST_PO_NO =spo.CUST_PO_NO )) as currencyType , 
+spi.PI_CURRENCY
+from SP_ORD_PI_DTL_EXP spid,SP_ORD_PI_EXP spi, SP_ORD_DTL_EXP spo
+where spi.PI_NO=spid.PI_NO 
+and spo.PO_DTL_ID=spid.PO_DTL_ID
+and spi.PI_NO=$P{piNo}]]>
+	</queryString>
+	<field name="PI_NO" class="java.lang.String"/>
+	<field name="ORD_PART_NO" class="java.lang.String"/>
+	<field name="AVL_PART_NO" class="java.lang.String"/>
+	<field name="LEAD_TIME" class="java.lang.String"/>
+	<field name="partDesc" class="java.lang.String"/>
+	<field name="FINAL_PI_QTY" class="java.lang.Integer"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="PI_CURRENCY" class="java.lang.String"/>
+	<variable name="count_Qty" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{FINAL_PI_QTY}]]></variableExpression>
+	</variable>
+	<variable name="count_Amount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{price}*$F{FINAL_PI_QTY}]]></variableExpression>
+	</variable>
+	<variable name="unit_Rate" class="java.math.BigDecimal"/>
+	<variable name="amount" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{FINAL_PI_QTY}*$F{price}]]></variableExpression>
+	</variable>
+	<variable name="count_Total" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal($V{amount}).setScale(2, java.math.RoundingMode.HALF_UP)]]></variableExpression>
+	</variable>
+	<variable name="aa" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{price}*$F{FINAL_PI_QTY}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="26" uuid="0f24682d-dca9-40a6-a2da-cf81fd7c4ca3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Part Code Ordered
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="68" height="26" uuid="e212accf-1a08-49cc-bfea-dad618a8b84d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Part Code Available
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="0" width="59" height="26" uuid="d7845832-1b00-449a-aa27-ed26df8944ed">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Lead Time Required
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="0" width="193" height="26" uuid="8d97e7db-a372-42ca-b2cf-5f5a70ee9284">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Description of Goods]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="40" height="26" uuid="7d157876-6e5a-42f4-8962-927f3f10c16a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="0" width="60" height="14" uuid="1cb13157-b589-4fe4-8901-a79a131764d6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<text><![CDATA[Unit Rate
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="65" height="14" uuid="96ccc145-df8c-4f36-a206-6b21cd00369b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph rightIndent="0"/>
+				</textElement>
+				<text><![CDATA[Amount
+]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="430" y="14" width="60" height="12" uuid="1ecd0d18-aaa1-4043-860f-d59b756da2f6"/>
+				<box>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$F{PI_CURRENCY}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="490" y="14" width="65" height="12" uuid="5cc38eae-d25c-4a2c-a99d-5fd5514b31c6"/>
+				<box>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$F{PI_CURRENCY}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="70" height="20" uuid="347aa42e-1e74-4f57-99e0-aca73e889b06"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ORD_PART_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="68" height="20" uuid="85200466-a5c0-4f59-9947-b8b84fd8b888"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AVL_PART_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="59" height="20" uuid="83ebc935-3376-42cc-ba98-8b1303b68dae"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LEAD_TIME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="40" height="20" uuid="b38dbdc2-42b0-4473-add5-b01a4c3a64c8"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FINAL_PI_QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="0" width="193" height="20" uuid="93e14246-6356-4fbe-aa16-5637acecdbd1"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="65" height="20" uuid="a1522a5e-1a4b-4261-848e-748723c55c14"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="0" rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{count_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="60" height="20" uuid="10664a13-4afc-475c-82e0-435a241b58d4"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.3"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="300" y="0" width="90" height="16" uuid="c03f54b2-6e28-4c00-9c29-cf1b98d9a3b2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Material Value
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="300" height="16" uuid="650c8783-ecb3-403d-bb5d-2334648d2e2c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.4"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isUnderline="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Amount Chargeable:
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="390" y="0" width="40" height="16" uuid="029a4be8-cbd3-43c9-862c-67d0232fe52c"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{count_Qty}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="-20" y="16" width="575" height="26" uuid="8258ffb4-d531-4fd8-93d2-b9c997478dea"/>
+				<subreportParameter name="piNo">
+					<subreportParameterExpression><![CDATA[$P{piNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="amountParam">
+					<subreportParameterExpression><![CDATA[$V{count_Amount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="currencyParam">
+					<subreportParameterExpression><![CDATA[$F{PI_CURRENCY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["subReport_Charge.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="430" y="0" width="125" height="16" uuid="98dc9716-de71-408a-a029-d94b9823363d"/>
+				<box>
+					<topPen lineWidth="0.3"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{count_Amount}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

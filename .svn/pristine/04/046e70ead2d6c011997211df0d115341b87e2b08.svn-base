@@ -1,0 +1,38 @@
+<div class="card-body">
+
+    <form [formGroup]="sourceDetailsForm" [style.fontSize.px]="10">
+        <div class="row">
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Source Code</mat-label>
+                    <input matInput placeholder="Source Code" required formControlName="sourceCode">
+                    <mat-error *ngIf="sourceDetailsForm.get('sourceCode').hasError('required')">
+                        Source Code is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Source Name</mat-label>
+                    <input matInput placeholder="Source Name" required formControlName="sourceName">
+                    <mat-error *ngIf="sourceDetailsForm.get('sourceName').hasError('required')">
+                        Source Name is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Purpose</mat-label>
+                    <mat-select required formControlName="purpose">
+                        <mat-option *ngFor="let option of purposes" [value]="option">
+                            {{option.purpose}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="sourceDetailsForm.get('purpose').hasError('required')">
+                        Purpose is required</mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </form>
+</div>

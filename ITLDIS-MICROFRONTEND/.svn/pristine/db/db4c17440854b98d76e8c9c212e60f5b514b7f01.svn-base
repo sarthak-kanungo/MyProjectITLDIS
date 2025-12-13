@@ -1,0 +1,24 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Transporter Details</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="transporterCreateForm">
+                    <app-transporter-details [transporterDetailsForm]="transporterDetailsForm">
+                    </app-transporter-details>
+                    <app-transporter-address-details [addressDetailsForm]="addressDetailsForm">
+                    </app-transporter-address-details>
+                    <div class="text-center mt-2 ">
+                        <button type="button" class="btn btn_primary pl-3 pr-3"
+                            (click)="submitTransporter()">Submit</button>
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"
+                            (click)=" clearTransporterForm()"> Clear</button>
+                        <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Exit</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

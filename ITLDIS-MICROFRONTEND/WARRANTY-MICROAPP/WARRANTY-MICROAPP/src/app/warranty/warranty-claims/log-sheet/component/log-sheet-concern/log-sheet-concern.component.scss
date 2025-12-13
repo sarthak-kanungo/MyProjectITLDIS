@@ -1,0 +1,15 @@
+.concern {
+    textarea {
+        resize: none;
+    }
+    mat-form-field {
+        ::ng-deep .mat-form-field-underline {
+             display: none;
+         }
+     }
+}
+
+element.style {
+    border: 1px solid #45afaf;
+    margin-top: 10px;
+}

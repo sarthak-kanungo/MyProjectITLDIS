@@ -1,0 +1,106 @@
+import { OnInit, AfterViewInit, AfterContentInit, OnChanges, EventEmitter, QueryList, Renderer2, SimpleChanges, ElementRef } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material';
+import { TableHeading, DataTable, ActionButton, TableSort, InfoForGetPagination, ColumnSearchInterface } from './ngsw-search-table-dto';
+import { SearchFieldDirective } from './directives/search-field.directive';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+export declare class ColumnSearch implements ColumnSearchInterface {
+    searchValue: string;
+    searchColumnName: string;
+    constructor(searchValue: string, searchColumnName: string);
+}
+export declare class NgswSearchTableComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit {
+    private httpClient;
+    private matPaginatorIntl;
+    private renderer;
+    clearSearchRow: BehaviorSubject<string>;
+    downloadTempleteLink: string;
+    exportLink: string;
+    isExcelImport: boolean;
+    totalElements: number;
+    hideCheckbox: boolean;
+    clickOnTableFields: Array<TableHeading>;
+    dataTable: DataTable;
+    recordPerPageList: Array<number>;
+    private dataTableCopy;
+    loginUser: object;
+    showPartial: boolean;
+    page: number;
+    size: number;
+    showAction: boolean;
+    actionButtons: Array<ActionButton>;
+    userRole: string;
+    tableTitle: string;
+    retriveValue: Array<string>;
+    reportUrl: string;
+    excelBtnStatus: boolean;
+    showAssignButton: boolean;
+    showRefuseButton: boolean;
+    showGlobelSearch: boolean;
+    searchValue: ColumnSearch;
+    uploadedFiles: EventEmitter<File[]>;
+    sortBy: EventEmitter<object>;
+    pageChange: EventEmitter<InfoForGetPagination>;
+    actionOnTableRecord: EventEmitter<object>;
+    excel: EventEmitter<object>;
+    searchKey: EventEmitter<string>;
+    exportToExcel: EventEmitter<any>;
+    columnLengthChanges: EventEmitter<string>;
+    downloadExcel: ElementRef;
+    fileDownloadUrl: string;
+    searchFieldChildren: QueryList<SearchFieldDirective>;
+    isPreviewActionBtn: boolean;
+    isAccountActionBtn: boolean;
+    isEditActionBtn: boolean;
+    isRecordDate: boolean;
+    checked: boolean;
+    sortOrder: TableSort;
+    selectedTableRecordList: object[];
+    sortedData: object[];
+    searchField: FormControl;
+    selected: any;
+    actionButtonsLength: number;
+    filesToUpload: any[];
+    private columnFilterMap;
+    pageIndexValue: any;
+    constructor(httpClient: HttpClient, matPaginatorIntl: MatPaginatorIntl, renderer: Renderer2);
+    ngOnChanges(changes: SimpleChanges): void;
+    ngOnInit(): void;
+    ngAfterViewInit(): void;
+    ngAfterContentInit(): void;
+    private initDataTable;
+    private initActionButtons;
+    compare(a: number | string, b: number | string, isAsc: boolean): number;
+    enter(hoverField: string): void;
+    leave(hoverField: string): void;
+    searchIntoTable(searchText: string, event?: any): void;
+    searchIntoRow(searchColumn: string, searchText: string): void;
+    sortClicked(orderField: TableSort, startSortOrder?: {
+        stopPropagation: () => void;
+    }): void;
+    emitPageChange(event: {
+        pageIndex: number;
+        pageSize: number;
+    }): void;
+    isActiveSortBtn(property: any, direction: any): boolean;
+    emitActionOnTableRecord(record: object, btnAction: string, recordIndex: number): void;
+    private getDownloadFileType;
+    emitDownloadExcel(excelTitel: string): void;
+    emitSearchKey(event: {
+        [x: string]: number;
+    }, key: string): void;
+    checkIsDate(key: string, tableRecord?: object): boolean;
+    allTableRecordSelectionChanges(event: {
+        checked: any;
+    }): void;
+    tableRecordSelectionChanges(event: {
+        checked: any;
+    }, selectedTableRecord: object, recordIndex: any): void;
+    removeUnselectedTableRecord(removableRecord: object, originalRecordList: Array<object>): object[];
+    uploadFile(importFileRef: HTMLInputElement): void;
+    handleUploadedFile(files: FileList): void;
+    downloadExport(): void;
+    clickExportToExcel(): void;
+    columnLengthChanged(event: any): void;
+}

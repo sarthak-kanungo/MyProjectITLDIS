@@ -1,0 +1,144 @@
+<div class="card-from ">
+  <div class="card">
+    <div class="card-header">
+      <p class="mb-0">Picking Slip</p>
+    </div>
+    <div class="card-body">
+      <form [style.fontSize.px]="10">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Document Type</mat-label>
+              <input matInput placeholder="Document Type" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Document No.</mat-label>
+              <input matInput placeholder="Document No.">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <input matInput [matDatepicker]="picker" placeholder="Document Date" disabled>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Customer Name</mat-label>
+              <input matInput placeholder="Customer Name" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Village</mat-label>
+              <input matInput placeholder="Village" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Tehsil/ Taluk/ Mandal</mat-label>
+              <input matInput placeholder="Tehsil/ Taluk/ Mandal" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>District</mat-label>
+              <input matInput placeholder="District" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>State</mat-label>
+              <input matInput placeholder="State" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Pin code</mat-label>
+              <input matInput placeholder="Pin code" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Mobile No.</mat-label>
+              <input matInput placeholder="Mobile No." disabled>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
+      <app-item-details-table></app-item-details-table>
+      <div class="card-from mt-2">
+        <div class="card" style="border: 1px solid #45afaf;">
+          <!-- <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+                  <p class="mb-0" style="font-size: 13px;">Item Details</p>
+                </div> -->
+          <div class="card-body">
+            <form [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Picked By</mat-label>
+                    <input matInput placeholder="Picked By" disabled>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Signature</mat-label>
+                    <input matInput placeholder="Signature" disabled>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput [matDatepicker]="picker3" placeholder="Picking Date" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker3">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class=" text-center mt-2 pb-2">
+
+        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> View PDF
+        </button>
+        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> Print
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Clear
+        </button>
+        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

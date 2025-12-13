@@ -1,0 +1,38 @@
+<form>
+<div [formGroup]="dealerForm" class="container-fluid create-form  mt-4  pb_0">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Employee Code</mat-label>
+              <input 
+                matInput placeholder="Employee Code" formControlName="employeeCode" [matAutocomplete]="autoEmployeeCode"
+                (ngModelChange)="onKeyEmployeeeCode($event)" >
+                <mat-autocomplete #autoEmployeeCode="matAutocomplete"  [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeCodeList" [value]="option.employeeCode">
+                      {{option.employeeCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <!-- <mat-error *ngIf="dealerForm.get('employeeCode').hasError('selectFromList')"> Select From List</mat-error> -->
+            </mat-form-field>
+        </div>
+        
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Employee Name</mat-label>
+            <input 
+              matInput placeholder="Employee Name" formControlName="employeeName" [matAutocomplete]="autoEmployeeName"
+              (ngModelChange)="getEmployeename($event)" >
+              <mat-autocomplete #autoEmployeeName="matAutocomplete"  [panelWidth]="300">
+                  <mat-option *ngFor="let option of employeeNameList" [value]="option.employeeName">
+                    {{option.employeeName}}
+                  </mat-option>
+                </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+              <!-- <mat-error *ngIf="dealerForm.get('employeeName').hasError('selectFromList')"> Select From List</mat-error> -->
+          </mat-form-field>
+      </div>
+
+    </div>
+</div>
+</form>

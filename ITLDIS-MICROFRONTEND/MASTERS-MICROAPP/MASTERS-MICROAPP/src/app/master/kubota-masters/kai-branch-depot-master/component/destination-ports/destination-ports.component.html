@@ -1,0 +1,54 @@
+<div class="card-from mb-0 mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Destination Ports</p>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive mt-1">
+              <table class="table w-25 table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" style="width: 10px;">Sr.No.</th>
+                    <th scope="col">Ports Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                        <select class="form-control form-control-sm">
+                            <option *ngFor="let port of ports" [value]="port">{{port}}</option>
+                          </select>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>
+                          <select class="form-control form-control-sm">
+                              <option *ngFor="let port of ports" [value]="port">{{port}}</option>
+                            </select>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>
+                            <select class="form-control form-control-sm">
+                                <option *ngFor="let port of ports" [value]="port">{{port}}</option>
+                              </select>
+                        </td>
+                      </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class=" text-center ">
+                <button type="button" class="btn btn-sm btn_primary "> Add Row</button>
+                <button type="button" class="btn btn-sm btn_secondary ml-2 "> Delete Row
+                </button>
+              </div>
+
+      </div>
+
+    </div>
+  </div>

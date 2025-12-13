@@ -1,0 +1,188 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Accessories Detail</p>
+        </div>
+        <div class="card-body mb-2">
+            <div class="table-responsive mt-1">
+                <form [formGroup]="accessoryTableForm">
+                    <table class="table table-bordered table-sm" style="width: 150%" formArrayName="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 53px;">Sr.No.</th>
+                                <th scope="col" style="width: 212px;">Item No.</th>
+                                <th scope="col" style="width: 212px;">Item Desc</th>
+                                <th scope="col" style="width: 150px;">HSN Code</th>
+                                <th scope="col" style="width: 150px;">Qty</th>
+                                <th scope="col" style="width: 150px;">Rate</th>
+                                <th scope="col" style="width: 150px;">Discount</th>
+                                <th scope="col" style="width: 150px;">Basic Amount</th>
+                                <th scope="col" style="width: 53px;">GST %</th>
+                                <th scope="col" style="width: 150px;">GST Amount</th>
+                                <th scope="col" style="width: 150px;">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of accessoryTableForm.get('table').controls; let i = index;"
+                                [formGroupName]="i">
+                                <!-- <td>{{item.get('dcuuid').value}}</td> -->
+                                <td>{{i+1}}</td>
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('itemNumber').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'itemNumber')">
+                                </td>
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('itemDescription').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'itemDescription')">
+                                </td>
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('hsnCode').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'hsnCode')">
+                                </td>
+                                
+                                    <!-- <mat-form-field appearance="outline">
+                                        <input
+                                            type="text"
+                                            matInput
+                                            formControlName="qty">
+                                    </mat-form-field> -->
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('qty').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'qty')" >
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline">
+                                        <input
+                                            type="text"
+                                            matInput
+                                            required
+                                            formControlName="rate">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline">
+                                        <input
+                                            type="text"
+                                            matInput
+                                            formControlName="discount">
+                                        <mat-error
+                                            *ngIf="item.get('discount').errors && (item.get('discount').errors.maxValue || item.get('discount').errors.discountExceed) &&!item.get('discount').errors.required">
+                                            {{item.get('discount').errors.msg}}</mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('basicAmount').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'basicAmount')">
+                                </td>
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('gstPercent').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'gstPercent')">
+                                </td>
+                                <!-- <td>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-select formControlName="gstPercent">
+                                            <mat-option *ngFor="let option of gstPercentList" [value]="option">
+                                                {{option.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td> -->
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('gstAmount').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'gstAmount')">
+                                </td>
+                                <td
+                                    [attr.contenteditable]="false"
+                                    [textContent]="item.get('totalAmount').value"
+                                    (input)="contenteditableValuechange($event.target.textContent,item,'totalAmount')">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="invoice-total-container">
+    <div class="child">
+        <p>{{totalInvoiceAmountInWords$ | async}}</p>
+        <h5>AMOUNT IN WORDS</h5>
+    </div>
+    <div class="child">
+        <form id="total-invoice-calc-form" [formGroup]="totalInvoiceCalcForm">
+            <div class="d-flex">
+                <label for="baseAmount">Base Amount</label>
+                <mat-form-field id="baseAmount" class="pb_0" appearance="outline">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="baseAmount">
+                </mat-form-field>
+            </div>
+            <div class="d-flex">
+                <label for="totalGSTAmount">Total GST Amount</label>
+                <mat-form-field id="totalGSTAmount" class="pb_0" appearance="outline">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="totalGSTAmount">
+                </mat-form-field>
+            </div>
+            <div class="d-flex">
+                <label for="rtoCharges">RTO Charges</label>
+                <mat-form-field id="rtoCharges" appearance="outline"
+                    [ngClass]="{pb_0: removeBottomPadingOfMatFormField('rtoCharges')}">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="rtoCharges">
+                    <mat-error
+                        *ngIf="!totalInvoiceCalcForm.get('rtoCharges').hasError('maxValue') && totalInvoiceCalcForm.get('rtoCharges').hasError('required')">
+                        This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="d-flex">
+                <label for="insuranceCharges">Insurance Charges</label>
+                <mat-form-field id="insuranceCharges" appearance="outline"
+                    [ngClass]="{pb_0: removeBottomPadingOfMatFormField('insuranceCharges')}">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="insuranceCharges">
+                    <mat-error
+                        *ngIf="!totalInvoiceCalcForm.get('insuranceCharges').hasError('maxValue') && totalInvoiceCalcForm.get('insuranceCharges').hasError('required')">
+                        This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="d-flex">
+                <label for="others">Others</label>
+                <mat-form-field id="others" class="pb_0" appearance="outline">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="others">
+                </mat-form-field>
+            </div>
+            <div class="d-flex">
+                <label for="totalInvoiceAmount">Total Invoice Amount</label>
+                <mat-form-field id="totalInvoiceAmount" class="pb_0" appearance="outline">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="totalInvoiceAmount">
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+</div>

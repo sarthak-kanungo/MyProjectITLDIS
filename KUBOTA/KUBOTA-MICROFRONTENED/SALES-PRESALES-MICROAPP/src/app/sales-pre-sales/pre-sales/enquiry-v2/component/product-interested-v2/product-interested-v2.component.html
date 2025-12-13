@@ -1,0 +1,169 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Product Interested</p>
+    </div>
+    <div class="card-body">
+      <div class="row" [formGroup]="productIntrested">
+
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Item No.</mat-label>
+            <input matInput placeholder="Item No." formControlName="itemNo" [matAutocomplete]="autoItemNo"
+              (keydown)="onKeyDownItemNo($event)">
+            <mat-autocomplete #autoItemNo="matAutocomplete" (optionSelected)="optionSelectedItemNo($event)"
+              [displayWith]="displayFnItemNo" [panelWidth]="500">
+              <mat-option *ngFor="let option of (itemNumber$ | async)" [value]="option">
+                {{option.value}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="productIntrested.get('itemNo').hasError('selectFromList')">
+              Please select from list</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Model</mat-label>
+            <input matInput placeholder="Model" required formControlName="model" [matAutocomplete]="autoModel"
+              (keydown)="onKeyDownModel($event)">
+            <mat-autocomplete #autoModel="matAutocomplete" (optionSelected)="optionSelectedModel($event)"
+              [displayWith]="displayFnModel">
+              <mat-option *ngFor="let option of (model$ | async)" [value]="option">
+                {{option?.model}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="productIntrested.get('model').hasError('required')">
+              Model is Required </mat-error>
+            <mat-error *ngIf="productIntrested.get('model').hasError('selectFromList')">
+              Please select from list</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Item Description</mat-label>
+            <input matInput placeholder="Item Description" formControlName="itemDescription">
+          </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Sub Model</mat-label>
+            <input matInput placeholder="Sub Model" required formControlName="subModel" [matAutocomplete]="autoSubModel"
+              (keydown)="onKeyDownSubModel($event)">
+            <mat-autocomplete #autoSubModel="matAutocomplete" (optionSelected)="optionSelectedSubModel($event)"
+              [displayWith]="displayFnSubModel">
+              <mat-option *ngFor="let option of subModels" [value]="option">
+                {{option?.subModel}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="productIntrested.get('subModel').hasError('required')">
+              Sub Model is Required</mat-error>
+            <mat-error *ngIf="productIntrested.get('subModel').hasError('selectFromList')">
+              Please select from list</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Variant</mat-label>
+            <input matInput placeholder="Variant" required formControlName="variant" [matAutocomplete]="autoVariant"
+              (keydown)="onKeyDownVariant($event)">
+            <mat-autocomplete #autoVariant="matAutocomplete" (optionSelected)="optionSelectedVariant($event)"
+              [displayWith]="displayFnvariant">
+              <mat-option *ngFor="let option of (variant$ | async)" [value]="option">
+                {{option?.variant}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="productIntrested.get('variant').hasError('required')">
+              Variant is Required</mat-error>
+            <mat-error *ngIf="productIntrested.get('variant').hasError('selectFromList')">
+              Please select from list</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Series</mat-label>
+            <input matInput placeholder="Series" formControlName="series">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Product</mat-label>
+            <input matInput placeholder="Product" formControlName="product">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+          <div class="d-flex bd-highlight">
+            <div class="pr-1 flex-fill bd-highlight" style="width: 30px">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Exchange(Y/N)</mat-label>
+                <mat-select required formControlName="exchangeRequired"
+                  (selectionChange)="selectionExchangeRequired($event.value)">
+                  <mat-option *ngFor="let option of exchanges" [value]="option">
+                    {{option.exchangeRequired}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="productIntrested.get('exchangeRequired').hasError('required')">
+                  Exchange Required is Required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="flex-fill bd-highlight" *ngIf="isShowByExchangeRequiredValue" style="width: 70px">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Exchange Brand</mat-label>
+                <mat-select formControlName="exchangeBrand" [compareWith]="compareFnExchangeBrand">
+                  <mat-option *ngFor="let brand of exchangeBrand" [value]="brand">
+                    {{brand?.exchangeBrand}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isShowByExchangeRequiredValue">
+          <mat-form-field appearance="outline">
+            <mat-label>Exchange Model</mat-label>
+            <input matInput maxlength="20" placeholder="Exchange Model" formControlName="exchangeModel">
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowByExchangeRequiredValue">
+          <mat-form-field appearance="outline">
+            <mat-label>Exchange Model Year</mat-label>
+            <input matInput maxlength="4" placeholder="Exchange Model Year" formControlName="exchangeModelYear"
+              (keypress)=onKeyPressAllowNumbersOnly($event)>
+              <mat-error *ngIf="productIntrested.get('exchangeModelYear').hasError('invalidYear')">
+                Please Enter Valid Year</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowByExchangeRequiredValue">
+          <mat-form-field appearance="outline">
+            <mat-label>Estimated exchange amount</mat-label>
+            <input class="quantity" type="number" onKeyPress="if(this.value.length==10) return false;" matInput
+              placeholder="Estimated exchange amount" formControlName="estimatedExchangePrice"
+              (keypress)=onKeyPressAlphaNumericsOnly($event)>
+            <mat-error *ngIf="productIntrested.get('estimatedExchangePrice').hasError('error')">
+              Amount exceeds Asset Value</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="isShowByExchangeRequiredValue">
+          <div class="form-check mt-2" *ngIf="isExchangeModel">
+          	
+            <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;" formControlName="exchangeReceived" [checked]="exchangeReceived"  
+              [labelPosition]="labelPosition">Machine Received
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

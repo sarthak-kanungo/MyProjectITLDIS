@@ -1,0 +1,69 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Self Truck Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="selfTruckForm" [style.fontSize.px]="11">
+                <div class="row">
+                   
+
+
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Truck Number</mat-label>
+                            <input matInput placeholder="Truck number" required
+                                formControlName="truckNumber" />
+                        </mat-form-field>
+                    </div>  
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Driver Name</mat-label>
+                            <input matInput placeholder="Driver Name"
+                                formControlName="driverName">
+                   
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Driver Mobile Number</mat-label>
+                            <input matInput placeholder="Driver Mobile Numbersss" minlength="10" maxlength="10"formControlName="driverMobNumber" >
+                        </mat-form-field>
+                    </div>
+                   
+                   
+                </div>
+            </div>
+        </div>
+        <div class="card" style="border: 1px solid #45afaf; margin-top: 10px;">
+            <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+              <p class="mb-0" style="font-size: 13px;">Attachment Details</p>
+            </div>
+            <div class="card-body">
+      
+              <div class="row">
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">File </label>
+                        </div>
+                        <div class="w-50 flex-fill bd-highlight">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" (change)="fileSelectionChanges($event)" class="custom-file-input" name="image" accept="pdf">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-25"></div>
+                    </div>
+                </div>
+            </div>
+      
+          </div>
+      
+          </div>
+    </div>
+</div>

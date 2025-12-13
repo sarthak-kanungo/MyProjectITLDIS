@@ -1,0 +1,26 @@
+<editable-table
+    [formControl]="machineDetailTableFormControl"
+    [control]="machineDetailTableFormControl"
+    [hideActionBtn]="etHideActionBtn"
+    [tableConfig]="tableConfig"
+    [patchValue]="patchValueToEditableTable"
+    [tableData]="tableData"
+    [viewOnly]="viewOnly"
+    [formGroupForTableRow]="etControlsConfig"
+    (searchValueChanges)="editableTableSearchValueChanges($event)">
+    <ng-container class="table_footer">
+        <tr>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+            <td>Total Value</td>
+            <td>{{grossTotalValue}}</td>
+            <td class="border_none"></td>
+            <td class="border_none"></td>
+        </tr>
+    </ng-container>
+</editable-table>

@@ -1,0 +1,177 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Spare Parts Sales Return Invoice</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="deliveryChallanReturnForm" [style.fontSize.px]="10">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Return Delivery Challan No.</mat-label>
+                            <input matInput placeholder="Return Delivery Challan No." formControlName="retDelChallanNo">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput [matDatepicker]="picker1" placeholder="Date" formControlName="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Delivery Challan No.</mat-label>
+                            <input matInput placeholder="Delivery Challan No." formControlName="delChallanNo">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput [matDatepicker]="picker2" placeholder="DC Date" formControlName="invDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                    <mat-label>Customer Type</mat-label>
+                                    <input matInput placeholder="Customer Type" formControlName="cusType" >
+                                </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Type</mat-label>
+                            <input matInput placeholder="Customer Type" formControlName="cusType">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Reference Document</mat-label>
+                            <input matInput placeholder="Reference Document" formControlName="refDocument">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sales Type</mat-label>
+                            <input matInput placeholder="Sales Type" formControlName="salesType">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Code</mat-label>
+                            <input matInput placeholder="Customer Code" formControlName="custCode">
+                        </mat-form-field>
+                    </div>
+
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput placeholder="Customer Name" formControlName="custName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Address 1</mat-label>
+                            <input matInput placeholder="Customer Address 1" formControlName="custAddr1">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Address 2</mat-label>
+                            <input matInput placeholder="Customer Address 2" formControlName="custAddr1">
+                        </mat-form-field>
+                    </div>
+                    <!--<div class="col-lg-2">
+                            <mat-form-field class="w-100"> 
+                                    <input matInput [matDatepicker]="picker3" placeholder="Reference Document Date" formControlName="refDocDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker3></mat-datepicker>
+                                </mat-form-field>
+                    </div>-->
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City/Village</mat-label>
+                            <input matInput placeholder="City/Village" formControlName="cityvillage">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tehsil/ Taluka/ Mandal</mat-label>
+                            <input matInput placeholder="Tehsil/ Taluka/ Mandal" formControlName="tahsilTalMandal">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>District</mat-label>
+                            <input matInput placeholder="District" formControlName="district">
+                        </mat-form-field>
+                    </div>
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="State" formControlName="state">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pin code</mat-label>
+                            <input matInput placeholder="Pin code" formControlName="pinCode">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput placeholder="Mobile No." required formControlName="mob">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pricing</mat-label>
+                            <input matInput placeholder="Pricing" formControlName="pricing">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mode of Transport</mat-label>
+                            <input matInput placeholder="Mode of Transport" formControlName="modeOfTRansport">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Transporter</mat-label>
+                            <input matInput placeholder="Transporter" formControlName="transporter">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>L R No.</mat-label>
+                            <input matInput placeholder="L R No." formControlName="lrNo">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <app-delivery-challan-return-item-details></app-delivery-challan-return-item-details>
+            <div class=" text-center mt-2 pb-2">
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Save
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()"> Submit
+                </button>
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> View Pdf
+                </button>
+                <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled> Print
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Clear
+                </button>
+                <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

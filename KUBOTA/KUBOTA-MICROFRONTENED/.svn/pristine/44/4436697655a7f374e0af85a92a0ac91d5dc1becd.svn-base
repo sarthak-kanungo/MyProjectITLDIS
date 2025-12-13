@@ -1,0 +1,79 @@
+import { environment } from '../../../../../environments/environment';
+
+export abstract class EnquiryApi {
+    private static readonly module = 'salesandpresales'
+    private static readonly moduleForDealerEmployeeMaster = 'dealerEmployeeMaster'
+    private static readonly moduleForMaster = 'master'
+    private static readonly moduleForCustomerMaster = 'customerMaster'
+    private static readonly controller = 'enquiry'
+    private static readonly controllerPath = 'enquirySource'
+    private static readonly controllerPathForProduct = 'product'
+    private static readonly controllerPathForAreaMaster = 'areamaster'
+    private static readonly moduleForDealerMaster = 'dealerMaster'
+    private static readonly exchangeInventroyController="exchangeInventory"
+    static readonly apiController = `${environment.baseUrl}/${environment.api}/${EnquiryApi.module}/${EnquiryApi.controller}`
+    static readonly apiControllerPath = `${environment.baseUrl}/${environment.api}/${EnquiryApi.module}/${EnquiryApi.controllerPath}`
+    static readonly apiControllerPathForDealerEmployeeMaster = `${environment.baseUrl}/${environment.api}/${EnquiryApi.moduleForDealerEmployeeMaster}`
+    static readonly apiControllerPathForMaster = `${environment.baseUrl}/${environment.api}/${EnquiryApi.moduleForMaster}/${EnquiryApi.controllerPathForProduct}`
+    static readonly apiControllerPathForArearMaster = `${environment.baseUrl}/${environment.api}/${EnquiryApi.moduleForMaster}/${EnquiryApi.controllerPathForAreaMaster}`
+    static readonly apiControllerPathForCustomerMaster = `${environment.baseUrl}/${environment.api}/${EnquiryApi.moduleForCustomerMaster}`
+    static readonly apiControllerPathForDealerMaster = `${environment.baseUrl}/${environment.api}/${EnquiryApi.moduleForDealerMaster}`
+    static readonly reopenEnquiryUrl = `${EnquiryApi.apiController}/reopenEnquiry`
+            
+    static readonly getFollowUpType = `${EnquiryApi.apiController}/getFollowUpType`
+    static readonly getSource = `${EnquiryApi.apiControllerPath}/getSource`;
+    // `${EnquiryApi.apiControllerPath}/getSource`
+    static readonly getRetailConversionActivityType = `${EnquiryApi.apiController}/getRetailConversionActivityType`
+    static readonly getPurposeOfPurchase = `${EnquiryApi.apiController}/getPurposeOfPurchase`
+    static readonly getGenerationActivityType = `${EnquiryApi.apiController}/getGenerationActivityType`
+    static readonly getConversionActivityType = `${EnquiryApi.apiController}/getConversionActivityType`
+    static readonly getSalesPerson = `${EnquiryApi.apiControllerPathForDealerEmployeeMaster}/getSalesPerson`
+    static readonly getExchangeBrand = `${EnquiryApi.apiControllerPathForMaster}/getExchangeBrand`
+    static readonly getProspectType = `${EnquiryApi.apiController}/getProspectType`
+    static readonly getOccupation = `${EnquiryApi.apiController}/getOccupation`
+    static readonly getSoilType = `${EnquiryApi.apiController}/getSoilType`
+    static readonly getMajorCropGrown = `${EnquiryApi.apiController}/getMajorCropGrown`
+    static readonly getBrands = `${EnquiryApi.apiController}/getBrands`
+    static readonly getCashLoan = `${EnquiryApi.apiController}/getCashLoan`
+    static readonly getFinalStatus = `${EnquiryApi.apiController}/getFinalStatus`
+    static readonly getFinancier = `${EnquiryApi.apiController}/getFinancier`    
+    static readonly setEnquiryType = `${EnquiryApi.apiController}/setEnquiryType`
+    static readonly searchMarketingActivityNumber = `${EnquiryApi.apiController}/searchMarketingActivityNumber`
+    static readonly getItemNumberModelProductSeries = `${EnquiryApi.apiControllerPathForMaster}/getItemNumberModelProductSeries`
+    static readonly getByItemNo = `${EnquiryApi.apiControllerPathForMaster}/getByItemNo`
+    static readonly getModel = `${EnquiryApi.apiControllerPathForMaster}/getModel`
+    static readonly getSeriesAndProductByModel = `${EnquiryApi.apiControllerPathForMaster}/getSeriesAndProductByModel`
+    static readonly getSubModel = `${EnquiryApi.apiControllerPathForMaster}/getSubModel`
+    static readonly getVariant = `${EnquiryApi.apiControllerPathForMaster}/getVariant`
+    static readonly getItemByModelSubModelVariant = `${EnquiryApi.apiControllerPathForMaster}/getItemByModelSubModelVariant`
+    static readonly getMobileNumber = `${EnquiryApi.apiController}/getMobileNumber`
+    static readonly getDataByMobileNo = `${EnquiryApi.apiController}/getDataByMobileNo`
+    static readonly getPinCode = `${EnquiryApi.apiControllerPathForArearMaster}/getPinCode`
+    static readonly getByPinCode = `${EnquiryApi.apiControllerPathForArearMaster}/getByPinCode`
+    static readonly getPostOffice = `${EnquiryApi.apiControllerPathForArearMaster}/getPostOffice`
+    static readonly addEnquiry = `${EnquiryApi.apiController}/addEnquiry`
+    static readonly getEnquirySearch = `${EnquiryApi.apiController}/getEnquirySearch`
+    static readonly downloadEnquiryReportExcelUrl = `${EnquiryApi.apiController}/downloadEnquiryReportExcel`
+    static readonly getEnquiryNumberNameMobileNoTehsil = `${EnquiryApi.apiController}/getEnquiryNumberNameMobileNoTehsil`
+    static readonly getStatesEnuiry = `${EnquiryApi.apiController}/getStatesEnuiry`
+    static readonly getAllProduct = `${EnquiryApi.apiControllerPathForMaster}/getAllProduct`
+    static readonly getProductByGroup = `${EnquiryApi.apiControllerPathForMaster}/getProductByGroup`
+    static readonly getSeriesByProduct = `${EnquiryApi.apiControllerPathForMaster}/getSeriesByProduct`
+    static readonly getModelBySeries = `${EnquiryApi.apiControllerPathForMaster}/getModelBySeries`
+    static readonly getAllVariant = `${EnquiryApi.apiControllerPathForMaster}/getAllVariant`
+    static readonly getEnquiryByEnquiryNumber = `${EnquiryApi.apiController}/getEnquiryByEnquiryNumber/enquiryNumber`
+    static readonly checkItemNumberModelInEnquiry = `${EnquiryApi.apiController}/checkItemNumberModelInEnquiry`
+    static readonly getItemByModel = `${EnquiryApi.apiController}/getItemByModel`
+    static readonly updateEnquiry = `${EnquiryApi.apiController}/updateEnquiry`
+    static readonly dropDownEnquiryStatus = `${EnquiryApi.apiController}/dropDownEnquiryStatus`
+    static readonly villageTehsilDistrictSearch = `${EnquiryApi.apiController}/villageTehsilDistrictSearch`
+    static readonly getSystemGeneratedDate = `${environment.baseUrl}/${environment.api}/getSystemGeneratedDate`
+    static readonly dropDownTitle = `${EnquiryApi.apiController}/dropDownTitle`
+    static readonly getDealerRegionInfo = `${EnquiryApi.apiControllerPathForDealerMaster}/getDealerRegionInfo`
+    static readonly autoCompleteTehsilCityPincode = `${EnquiryApi.apiControllerPathForDealerMaster}/autoCompleteTehsilCityPincode`
+    static readonly getPincodeDetail = `${EnquiryApi.apiControllerPathForDealerMaster}/getPincodeDetail`
+    static readonly deleteAttachment = `${EnquiryApi.apiController}/deleteAttachment`
+    static readonly exchangeInventoryController = `${environment.baseUrl}/${environment.api}/${EnquiryApi.module}/${EnquiryApi.exchangeInventroyController}/getExchangeInventorySearch`
+    static readonly getLanguages = `${EnquiryApi.apiController}/getLanguages`
+
+}

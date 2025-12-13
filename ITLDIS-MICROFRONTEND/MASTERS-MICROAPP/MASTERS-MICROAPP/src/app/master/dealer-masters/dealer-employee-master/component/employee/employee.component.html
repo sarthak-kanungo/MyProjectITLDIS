@@ -1,0 +1,102 @@
+<div class="card-from mt-2">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Employee</p>
+      </div>
+      <div class="card-body">
+        <div [formGroup]="employeeForm" [style.fontSize.px]="11">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Birthday" required formControlName="birthday" [min]="minDate" [max]="maxDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+<!-- 
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="Anniversary Date" formControlName="anniversaryDate"> 
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Anniversary Date</mat-label>
+                  <input matInput [matDatepicker]="picker2" placeholder="Anniversary Date" formControlName="anniversaryDate"
+                   (click)="picker2.open()"  [max]="today">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+          </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Highest Qualification</mat-label>
+                <mat-select required formControlName="highestQualification">
+                  <mat-option *ngFor="let qualification of qualifications" [value]="qualification.highsetQualification">
+                    {{qualification.highsetQualification}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Marital Status </mat-label>
+                <mat-select formControlName="maritalStatus">
+                  <mat-option *ngFor="let marital of maritals" [value]="marital.maritalStatus">{{marital.maritalStatus}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Blood Group </mat-label>
+                <mat-select formControlName="bloodGroup">
+                  <mat-option *ngFor="let blood of bloods" [value]="blood.bloodGroup">{{blood.bloodGroup}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Sex </mat-label>
+                <mat-select formControlName="sex">
+                  <mat-option *ngFor="let gen of gender" [value]="gen.value">{{gen.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Sex </mat-label>
+                <mat-select formControlName="sex">
+                  <mat-option *ngFor="let gen of gender" [value]="gen">{{gen}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Emergency Contact Name</mat-label>
+                <input matInput placeholder="Emergency Contact Name" formControlName="emergencyContactName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Emergency Contact No.</mat-label>
+                <input matInput placeholder="Emergency Contact No." formControlName="emergencyContactNo">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

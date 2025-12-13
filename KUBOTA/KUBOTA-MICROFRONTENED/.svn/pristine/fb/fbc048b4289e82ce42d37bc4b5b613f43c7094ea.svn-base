@@ -1,0 +1,86 @@
+<mat-toolbar class="navbar fixed-top">
+  <button mat-icon-button id="menu" (click)="minimizeSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span><a routerLink="/dashboard" (click)="dashboard()"><img src="../../assets/brand-icon.svg" width="140" height="30"
+        style="margin-left: 16px" alt="" class="img-size"></a></span>
+  <span class="spacer"></span>
+
+  <div class="border-right px-2">
+    <small class="text-white" style="font-size: 13px;">{{todayDate | date : 'dd MMMM, yyyy, h:mm a' }}</small>
+  </div>
+
+  <div class="border-right px-2">
+    <a class="text-white " style="font-size: 13px;">{{user?.dealerCode}}</a>
+  </div>
+  <div class="border-right px-2">
+    <a class="text-white " style="font-size: 13px;">{{user?.name}}</a>
+  </div>
+
+  <div class="border-right">
+    <button mat-button [matMenuTriggerFor]="menu" class="pt-1" style="font-weight: normal">{{userCode}}</button>
+    <mat-menu #menu="matMenu">
+      <div class="d-flex justify-content-between p-3">
+        <!-- <div>
+          <div class="account">A</div>
+        </div> -->
+        <div style=" width: 100%; font-size: 13px;">
+          <p class="mb-0 text-black">{{userCode}}</p>
+          <span class="text-black-50;" style="overflow-wrap: break-word;word-wrap: break-word;">{{emailId}}</span>
+          <br>
+          <!-- <button class="btn btn-sm btn-primary text-white">Google Account</button>  -->
+          <a style="font-size:13px;color: #007bff;" (click)="changePasswordPopup()"><u>Change
+              password</u> </a>
+        </div>
+
+      </div>
+
+      <!-- <hr>
+     <button class="btn btn-sm bg-white mb-2 ml-1" style="float: left;
+            border: 1px solid #aaa;
+            color: #aaa">Add Account</button>
+      <button class="btn btn-sm bg-white mb-2 mr-1" style="float: right;
+            border: 1px solid #aaa;
+            color: #aaa">Sign Out</button> -->
+
+
+    </mat-menu>
+  </div>
+  <button mat-button [matMenuTriggerFor]="billsmenu"
+    class="material-icons text-white mobile-icon"><mat-icon>keyboard_arrow_down</mat-icon></button>
+  <mat-menu #billsmenu="matMenu" [overlapTrigger]="false">
+    <button mat-button>
+      <mat-icon>event</mat-icon>
+      <span> <small style="font-size: 13px;">{{todayDate | date : 'dd MMMM, yyyy, h:mm a' }}</small></span>
+    </button>
+    <button mat-button *ngIf="user.dealerCode">
+      <mat-icon>check_circle</mat-icon>
+      <span> <a style="font-size: 13px;">{{user?.dealerCode}}</a></span>
+    </button>
+    <button mat-button>
+      <mat-icon>perm_identity</mat-icon>
+      <span> <a style="font-size: 13px;">{{user?.name}}</a></span>
+    </button>
+    <button mat-button *ngIf="user.username">
+      <mat-icon>verified_user</mat-icon>
+      <span> <a style="font-size: 13px;">{{userCode}}</a></span>
+    </button>
+    <button mat-button>
+      <mat-icon> phone</mat-icon>
+      <span> <a style="font-size: 13px;">{{mobileNo}}</a></span>
+    </button>
+    <button mat-button>
+      <mat-icon> email</mat-icon>
+      <span> <a style="font-size: 13px;">{{emailId}}</a></span>
+    </button>
+    <button mat-button>
+      <mat-icon> vpn_key</mat-icon>
+      <span> <a style="font-size:13px;color: #007bff;" (click)="changePasswordPopup()"><u>Change
+            password</u> </a></span>
+    </button>
+  </mat-menu>
+
+
+  <button mat-button placement="bottom" matTooltip="Logout" (click)="logout()"><i
+      class="material-icons text-white">power_settings_new</i></button>
+</mat-toolbar>

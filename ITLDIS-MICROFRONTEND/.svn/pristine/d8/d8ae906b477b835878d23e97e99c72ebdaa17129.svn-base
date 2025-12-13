@@ -1,0 +1,27 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/directives/search-field.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { Directive, Input } from '@angular/core';
+export class SearchFieldDirective {
+    constructor() { }
+}
+SearchFieldDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[ngsw-searchField]'
+            },] }
+];
+/** @nocollapse */
+SearchFieldDirective.ctorParameters = () => [];
+SearchFieldDirective.propDecorators = {
+    searchFieldRef: [{ type: Input, args: ['ngsw-searchField',] }],
+    searchColumnName: [{ type: Input, args: ['searchColumnName',] }]
+};
+if (false) {
+    /** @type {?} */
+    SearchFieldDirective.prototype.searchFieldRef;
+    /** @type {?} */
+    SearchFieldDirective.prototype.searchColumnName;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VhcmNoLWZpZWxkLmRpcmVjdGl2ZS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nc3ctc2VhcmNoLXRhYmxlLyIsInNvdXJjZXMiOlsibGliL2RpcmVjdGl2ZXMvc2VhcmNoLWZpZWxkLmRpcmVjdGl2ZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLE9BQU8sRUFBRSxTQUFTLEVBQUUsS0FBSyxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBS2pELE1BQU0sT0FBTyxvQkFBb0I7SUFLL0IsZ0JBQWdCLENBQUM7OztZQVJsQixTQUFTLFNBQUM7Z0JBQ1QsUUFBUSxFQUFFLG9CQUFvQjthQUMvQjs7Ozs7NkJBR0UsS0FBSyxTQUFDLGtCQUFrQjsrQkFFeEIsS0FBSyxTQUFDLGtCQUFrQjs7OztJQUZ6Qiw4Q0FBdUQ7O0lBRXZELGdEQUFvRCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IERpcmVjdGl2ZSwgSW5wdXQgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuQERpcmVjdGl2ZSh7XG4gIHNlbGVjdG9yOiAnW25nc3ctc2VhcmNoRmllbGRdJ1xufSlcbmV4cG9ydCBjbGFzcyBTZWFyY2hGaWVsZERpcmVjdGl2ZSB7XG5cbiAgQElucHV0KCduZ3N3LXNlYXJjaEZpZWxkJykgc2VhcmNoRmllbGRSZWY6IEhUTUxFbGVtZW50O1xuICAvLyBASW5wdXQoJ3NlYXJjaFZhbHVlJykgc2VhcmNoVmFsdWU6IHN0cmluZztcbiAgQElucHV0KCdzZWFyY2hDb2x1bW5OYW1lJykgc2VhcmNoQ29sdW1uTmFtZTogc3RyaW5nO1xuICBjb25zdHJ1Y3RvcigpIHsgfVxuXG59XG4iXX0=

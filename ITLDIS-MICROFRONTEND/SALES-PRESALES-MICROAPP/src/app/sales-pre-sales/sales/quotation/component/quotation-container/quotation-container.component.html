@@ -1,0 +1,11 @@
+<app-quotation
+    [quotationSearchDomain]="quotationSearchDomain"
+    [isViewOnly]="isViewOnly"
+    [isValidateForm]="isValidateForm"
+    [(quotationNumberList)]="quotationNumberList"
+    [enquiryCodeDomain]="enquiryCodeDomain"
+    (autoEnquiryNo)="autoEnquiryNo($event)"
+    (autoPopulateByenquiryNo)="autoPopulateBydataenquiryNo($event)"
+    (validatedFormData)="validatedFormDataFn($event)"
+    (quotationNumberOptionSelected)="routeToViewQuoatation($event)">
+</app-quotation>

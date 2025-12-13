@@ -1,0 +1,62 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Create New Role</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" [style.fontSize.px]="11">
+          <div class="row">
+            <div class="col-lg-2" *ngIf="isEdit || isView">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Role Code</mat-label>
+                <input matInput placeholder="Role Code" formControlName="roleCode">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Role Name</mat-label>
+                <input matInput placeholder="Role Name" formControlName="roleName" (blur)="onBlurRoleName($event)" required>
+              </mat-form-field>
+              <mat-error *ngIf="form.get('roleName').hasError('RoleNameError')">Same Role already exist</mat-error>
+            </div>
+
+            <div class="col-lg-2 ">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Applicable To</mat-label>
+                <mat-select required formControlName="applicableTo" (selectionChange)="onSelectApplicableTo($event)"
+                  [compareWith]="compareFnApplicableTo">
+                  <mat-option *ngFor="let applicable of applicables" [value]="applicable">{{applicable.applicable}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <div class="form-check mt-2">
+                <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;" [labelPosition]="labelPosition"
+                  formControlName="activeStatus">
+                  Is Active
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <app-assign-functionality [isView]="isView"></app-assign-functionality>
+
+        <div class=" text-center mt-2 ">
+          <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3" (click)=" validateForm()"> Submit
+          </button>
+          <button *ngIf="isView==false && isEdit==false" type="button" class="btn btn_secondary pl-3 pr-3 ml-3"
+            (click)=" resetForm()"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)=" exitForm()"> Exit
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

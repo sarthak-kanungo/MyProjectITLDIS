@@ -1,0 +1,300 @@
+<div class="mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Item Details</p>
+        </div>
+        <div class="card-body">
+            <!-- <div class="table-responsive mt-1"> -->
+            <form class="table-responsive mt-1">
+                <table class="table table-bordered table-sm" style="width: 150%">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="17" class="border-0"
+                                style="background-color: transparent"></th>
+                            <th *ngIf="(grnTypeIsOthers$ | async)" colspan="1" class="border-0"
+                                style="background-color: transparent"></th>
+
+                            <th colspan="2" style="padding-bottom: 6px;">Total Received In Good Condition</th>
+                            <th colspan="2" style="width: 230px;padding-bottom: 6px">Received short</th>
+                            <th colspan="2" style="padding-bottom: 6px">Received Damage</th>
+                            <th colspan="2" style="padding-bottom: 6px">Total Received</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" style="width: 50px;padding-bottom: 13px">Sr.No.</th>
+                            <th *ngIf="!(grnTypeIsOthers$ | async)" scope="col" style="width: 180px;padding-bottom: 13px">ACCPAC Order No.</th>
+                            <th *ngIf="(grnTypeIsOthers$ | async)" scope="col" style="width: 200px;">DMS PO No.
+                            </th>
+                            <th scope="col" style="width: 200px;padding-bottom: 13px">Item No.</th>
+                            <th scope="col" style="width: 200px;padding-bottom: 13px">Item Description</th>
+                            <th scope="col" style="width: 200px;padding-bottom: 13px">Bin Location</th>
+                            <th scope="col">HSN Code</th>
+                            <th scope="col">Unit Price</th>
+                            <th *ngIf="(grnTypeIsOthers$ | async)" scope="col" style="width: 200px;">PO Quantity
+                            </th>
+                            <th scope="col">Invoice Qty.</th>
+                            <th scope="col">Balanced Qty.</th>
+                            <th scope="col">Assessable Value</th>
+                            <th scope="col" style="padding-bottom: 13px">Discount</th>
+                            <th scope="col">CGST %</th>
+                            <th scope="col">CGST Amount</th>
+                            <th scope="col">SGST %</th>
+                            <th scope="col">SGST Amount</th>
+                            <th scope="col">IGST %</th>
+                            <th scope="col">IGST Amount</th>
+                            <th scope="col" style="padding-bottom: 13px">Qty.</th>
+                            <th scope="col" style="padding-bottom: 13px">Value</th>
+                            <th scope="col" style="width:100px;padding-bottom: 13px">Qty.</th>
+                            <th scope="col" style="width:100px;padding-bottom: 13px">Value</th>
+                            <th scope="col" style="padding-bottom: 13px">Qty.</th>
+                            <th scope="col" style="padding-bottom: 13px">Values</th>
+                            <th scope="col" style="padding-bottom: 13px">Qty.</th>
+                            <th scope="col" style="padding-bottom: 13px; width: 150px;">Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of (itemDetail | async).controls; let i = index;">
+                            <td>{{i+1}}</td>
+                            <td
+                                *ngIf="!(grnTypeIsOthers$ | async)"
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('accPacOrderNumber').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'accPacOrderNumber')">
+                            </td>
+                            <td
+                                *ngIf="(grnTypeIsOthers$ | async)"
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('dmsPoNumber').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'dmsPoNumber')">
+                            </td>
+                            <td
+                                (input)="contenteditableValuechange($event.target.textContent,item,'itemNumber')">
+                                {{item.get('itemNumber').value}}
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('itemDescription').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'itemDescription')">
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <!-- <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('binLocation')"
+                                        [matAutocomplete]="autoBinLocation">
+                                    <mat-autocomplete
+                                        #autoBinLocation="matAutocomplete"
+                                        [displayWith]="displayFn"
+                                        [panelWidth]="200"
+                                        (optionSelected)="binLocationSelected($event)">
+                                        <mat-option *ngFor="let option of binLocationList$ | async"
+                                            [value]="option">
+                                            {{option?.value}}
+                                        </mat-option>
+                                    </mat-autocomplete> -->
+                                    <!-- commented by vinay bcoz getBinOnFocus() call is written on Focus -->
+                                    <input
+                                    type="text"
+                                    matInput
+                                    [formControl]="item.get('binLocation')"
+                                    [matAutocomplete]="autoBinLocation"
+                                    (focus)="getBinOnFocus(item)">
+                                <mat-autocomplete
+                                    #autoBinLocation="matAutocomplete"
+                                    [displayWith]="displayFn"
+                                    [panelWidth]="200"
+                                    (optionSelected)="binLocationSelected($event)">
+                                    <mat-option *ngFor="let option of binList"
+                                        [value]="option">
+                                        {{option?.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                    <mat-error *ngIf="item.get('binLocation').hasError('required')">
+                                        This field is required
+                                    </mat-error>
+                                    <mat-error *ngIf="item.get('binLocation').hasError('selectFromList')">
+                                        {{item.get('binLocation').getError('selectFromList')}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('hsnCode').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'hsnCode')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'unitPrice')">
+                                {{!(grnTypeIsOthers$ | async) ? item.get('unitPrice').value: ''}}
+                                <mat-form-field *ngIf="(grnTypeIsOthers$ | async)" class="w-50px"
+                                    appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('unitPrice')">
+                                </mat-form-field>
+                            </td>
+                            <td
+                                *ngIf="(grnTypeIsOthers$ | async)"
+                                [attr.contenteditable]="false"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'poQuantity')">
+                                {{(grnTypeIsOthers$ | async) ? item.get('poQuantity').value: ''}}
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'invoiceQty')">
+                                {{!(grnTypeIsOthers$ | async) ? item.get('invoiceQty').value: ''}}
+                                <mat-form-field *ngIf="(grnTypeIsOthers$ | async)" class="w-50px"
+                                    appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('invoiceQty')">
+                                </mat-form-field>
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('balancedQty').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'balancedQty')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('assessableValue').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'assessableValue')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'discount')">
+                                {{!(grnTypeIsOthers$ | async) ? item.get('discount').value: ''}}
+                                <mat-form-field *ngIf="(grnTypeIsOthers$ | async)" class="w-50px"
+                                    appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('discount')">
+                                </mat-form-field>
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('cgstPercent').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'cgstPercent')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('cgstAmount').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'cgstAmount')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('sgstPercent').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'sgstPercent')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('sgstAmount').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'sgstAmount')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('igstPercent').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'igstPercent')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('igstAmount').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'igstAmount')">
+                            </td>
+                            <td>
+                                <mat-form-field class="w-50px" appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('totalReceivedQty')" maxlength="4">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field class="w-100px" appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('totalReceivedValue')">
+                                </mat-form-field>
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('receivedShortQty').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'receivedShortQty')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('receivedShortValue').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'receivedShortValue')">
+                            </td>
+                            <td>
+                                <mat-form-field class="w-50px" appearance="outline">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControl]="item.get('receivedDamageQty')" maxlength="4">
+                                </mat-form-field>
+                            </td>
+                            <td [attr.contenteditable]="false"
+                                [textContent]="item.get('receivedDamageValue').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'receivedDamageValue')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('netReceivedQty').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'netReceivedQty')">
+                            </td>
+                            <td
+                                [attr.contenteditable]="false"
+                                [textContent]="item.get('netReceivedValue').value"
+                                (input)="contenteditableValuechange($event.target.textContent,item,'netReceivedValue')">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <ng-container [formGroup]="itemDetailTotalForm">
+                            <tr class="boder-none">
+                                <td colspan="1" class="boder-none" *ngIf="(grnTypeIsOthers$ | async)"></td>
+                                <td colspan="22" class="boder-none"></td>
+                                <td colspan="2">Basic Amount</td>
+                                <td [attr.contenteditable]="false"
+                                    [textContent]="itemDetailTotalForm.get('basicAmount').value">
+                                </td>
+                            </tr>
+                            <tr class="boder-none">
+                                <td colspan="1" class="boder-none" *ngIf="(grnTypeIsOthers$ | async)"></td>
+                                <td class="boder-none" colspan="22"></td>
+                                <td colspan="2">Gst Amount</td>
+                                <td [attr.contenteditable]="false"
+                                    [textContent]="itemDetailTotalForm.get('gstAmount').value">
+                                </td>
+                            </tr>
+                            <tr class="boder-none">
+                                <td colspan="1" class="boder-none" *ngIf="(grnTypeIsOthers$ | async)"></td>
+                                <td class="boder-none" colspan="22"></td>
+                                <td colspan="2">Total Grn Amount</td>
+                                <td [attr.contenteditable]="false"
+                                    [textContent]="itemDetailTotalForm.get('totalGrnAmount').value">
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tfoot>
+                </table>
+
+            </form>
+            <!-- </div> -->
+            <!-- <div class=" text-center mt-2" *ngIf="(grnTypeIsOthers$ | async)">
+                <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add
+                    Row</button>
+                <button type="button" class="btn btn-sm btn_secondary ml-2 " (click)="deleteRow()"> Delete Row
+                </button>
+            </div> -->
+        </div>
+    </div>
+</div>

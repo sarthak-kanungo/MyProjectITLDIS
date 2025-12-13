@@ -1,0 +1,246 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Create Enquiry</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="createEnquiryForm" [style.fontSize.px]="11">
+                <div class="row">
+
+                   
+
+                    <div class="col-lg-2" *ngIf="isCreate">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker" placeholder="Enquiry Date"
+                                formControlName="enquiryDate" disabled (click)="picker.open()">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Enquiry Date</mat-label>
+                            <input matInput placeholder="Enquiry Date" formControlName="enquiryDate">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isCreate" >
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Source</mat-label>
+                            <input matInput placeholder="Source"  formControlName="source">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Source</mat-label>
+                            <input matInput placeholder="Source"  formControlName="source">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Model</mat-label>
+                            <input matInput placeholder="Model"  formControlName="model"
+                                [matAutocomplete]="autoModel">
+                            <mat-autocomplete #autoModel="matAutocomplete"
+                                (optionSelected)="optionSelectedModel($event)" [displayWith]="displayFnModel">
+                                <mat-option *ngFor="let option of (model$ | async)" [value]="option.model">
+                                    {{option?.model}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="createEnquiryForm.get('model').hasError('required')">
+                                Model is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Sub Model</mat-label>
+                            <input matInput placeholder="Sub Model"  formControlName="subModel"
+                                [matAutocomplete]="autoSubModel">
+                            <mat-autocomplete #autoSubModel="matAutocomplete"
+                                (optionSelected)="optionSelectedSubModel($event)" [displayWith]="displayFnSubModel">
+                                <mat-option *ngFor="let option of subModels" [value]="option.subModel">
+                                    {{option?.subModel}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="createEnquiryForm.get('subModel').hasError('required')">
+                               Sub Model is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Variant</mat-label>
+                            <input matInput placeholder="Variant"  formControlName="variant"
+                                [matAutocomplete]="autoVariant">
+                            <mat-autocomplete #autoVariant="matAutocomplete" [displayWith]="displayFnvariant">
+                                <mat-option *ngFor="let option of (variant$ | async)" [value]="option.variant">
+                                    {{option?.variant}}
+                                </mat-option>
+
+                            </mat-autocomplete>
+                            <mat-error *ngIf="createEnquiryForm.get('variant').hasError('required')">
+                                Varient is required.
+                             </mat-error>
+
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Customer Mobile No.</mat-label>
+                            <input matInput placeholder="Customer Mobile No." pattern="^[6-9]\d{9}$"  minlength="10" maxlength="10"
+                                formControlName="mobileNumber">
+                            <mat-error *ngIf="createEnquiryForm.get('mobileNumber').hasError('required')">
+                                Mobile No is required.
+                            </mat-error>
+                            <mat-error *ngIf="createEnquiryForm.get('mobileNumber').hasError('pattern')">
+                                Please Enter 10 Digit Mobile Number
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="First Name" (keypress)=onKeyPressAllowCharsOnly($event)   formControlName="firstName">
+                            <mat-error *ngIf="createEnquiryForm.get('firstName').hasError('required')">
+                                First Name is required.
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Last Name" (keypress)=onKeyPressAllowCharsOnly($event) formControlName="lastName">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isCreate">
+                        <mat-form-field class="w-100">
+                            <input matInput [min]="today" (dateChange)="pickDate($event)" [matDatepicker]="picker2" placeholder="Tentative DOP" 
+                                formControlName="tentativePurchaseDate" readonly (click)="picker2.open()">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="createEnquiryForm.get('tentativePurchaseDate').hasError('required')">
+                                Tentative DOP is required.
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Tentative Purchase Date</mat-label>
+                            <input matInput placeholder="Tentative Purchase Date" formControlName="tentativePurchaseDate">
+                           
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isCreate">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker3" [min]="today" [max]="expectedDate" placeholder="Next Followup Date" 
+                                formControlName="nextFollowUpDate" readonly (click)="picker3.open()">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                            <mat-error *ngIf="createEnquiryForm.get('nextFollowUpDate').hasError('required')">
+                                Next Followup Date is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2" *ngIf="isView">
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Next Followup Date</mat-label>
+                            <input matInput placeholder="Next Followup Date" formControlName="nextFollowUpDate">
+                           
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Remarks</mat-label>
+                            <textarea matInput type='text'  formControlName="remarks" placeholder="Remarks"></textarea>
+                            <mat-error *ngIf="createEnquiryForm.get('remarks').hasError('required')">
+                                Remarks is required.
+                            </mat-error>
+                        </mat-form-field>
+                      
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="card-from mt-2" *ngIf="viewSalesEnquiry">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Call History</p>
+        </div>
+        <div class="card-body">
+
+            <div class="card-from">
+                <div class="card">
+
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-sm">
+                                        <thead class="thead-light">
+                                            <tr>
+
+                                                <th class="p-2">Call Status</th>
+
+                                                <th class="p-2">Call Type</th>
+                                                <th class="p-2">Last Contacted Date
+                                                </th>
+                                                <th class="p-2">Attended CCE Employee Code
+                                                </th>
+                                                <th class="p-2">Attended CCE Employee Name
+
+                                                </th>
+                                                <th class="p-2">Customer Name
+
+                                                </th>
+                                                <th class="p-2">Customer Phone Number
+
+                                                </th>
+                                                <th class="p-2">Customer Address
+
+                                                </th>
+                                                <th class="p-2">Model
+
+                                                </th>
+                                                <th class="p-2">Final Status
+
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                      
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> -->

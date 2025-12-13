@@ -1,0 +1,20 @@
+package com.i4o.dms.itldis.masters.spares.dbentities.domain;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+public class SpareMtPurchaseOrderStatus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 50)
+    private String purchaseOrderStatus;
+}

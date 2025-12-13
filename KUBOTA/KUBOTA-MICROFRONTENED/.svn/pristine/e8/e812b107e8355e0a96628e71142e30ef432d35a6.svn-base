@@ -1,0 +1,8 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center alert alert-secondary" style="margin-top: 200px">
+                Data Not Found </div>
+        </div>
+    </div>
+</div>

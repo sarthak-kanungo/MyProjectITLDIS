@@ -1,0 +1,1246 @@
+import { Injectable, Directive, Input, EventEmitter, Component, Renderer2, Output, ViewChild, ContentChildren, Pipe, NgModule } from '@angular/core';
+import { MatDatepicker, MatPaginatorIntl, MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatIconModule, MatInputModule, MatPaginatorModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSortModule, MatTableModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { CommonModule } from '@angular/common';
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/ngsw-search-table.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var NgswSearchTableService = /** @class */ (function () {
+    function NgswSearchTableService() {
+    }
+    /**
+     * @return {?}
+     */
+    NgswSearchTableService.prototype.initDataTable = /**
+     * @return {?}
+     */
+    function () {
+        return (/** @type {?} */ ({ headerRow: [], tableBody: {} }));
+    };
+    /**
+     * @param {?} tableDataList
+     * @param {?=} responseHeader
+     * @param {?=} clickOnTableFields
+     * @return {?}
+     */
+    NgswSearchTableService.prototype.convertIntoDataTable = /**
+     * @param {?} tableDataList
+     * @param {?=} responseHeader
+     * @param {?=} clickOnTableFields
+     * @return {?}
+     */
+    function (tableDataList, responseHeader, clickOnTableFields) {
+        /** @type {?} */
+        var dataTable = this.initDataTable();
+        if (tableDataList) {
+            dataTable.tableBody.content = tableDataList;
+            /** @type {?} */
+            var index = 0;
+            for (var key in tableDataList[0]) {
+                if (key) {
+                    // this.arrangeTableHedings(key);
+                    dataTable.headerRow[index] = { title: key };
+                    index++;
+                }
+            }
+            if (!!clickOnTableFields && !!dataTable && clickOnTableFields.length > 0) {
+                clickOnTableFields.forEach((/**
+                 * @param {?} clickableField
+                 * @return {?}
+                 */
+                function (clickableField) {
+                    for (var index_1 = 0; index_1 < dataTable.headerRow.length; index_1++) {
+                        if (dataTable.headerRow[index_1].title === clickableField.title) {
+                            dataTable.headerRow[index_1].icon = clickableField.icon;
+                            dataTable.headerRow[index_1].isClickable = true;
+                            dataTable.headerRow[index_1].iconClass = clickableField.iconClass;
+                            break;
+                        }
+                    }
+                }));
+            }
+            return dataTable;
+        }
+        else {
+            return null;
+        }
+    };
+    /**
+     * @param {?} title
+     * @param {?=} matIcon
+     * @param {?=} toolTipText
+     * @return {?}
+     */
+    NgswSearchTableService.prototype.addActionButton = /**
+     * @param {?} title
+     * @param {?=} matIcon
+     * @param {?=} toolTipText
+     * @return {?}
+     */
+    function (title, matIcon, toolTipText) {
+        /** @type {?} */
+        var actionBtn = (/** @type {?} */ ({}));
+        actionBtn.matIcon = matIcon;
+        actionBtn.toolTipText = toolTipText;
+        actionBtn.title = title;
+        return actionBtn;
+    };
+    NgswSearchTableService.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    NgswSearchTableService.ctorParameters = function () { return []; };
+    return NgswSearchTableService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/directives/search-field.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SearchFieldDirective = /** @class */ (function () {
+    function SearchFieldDirective() {
+    }
+    SearchFieldDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[ngsw-searchField]'
+                },] }
+    ];
+    /** @nocollapse */
+    SearchFieldDirective.ctorParameters = function () { return []; };
+    SearchFieldDirective.propDecorators = {
+        searchFieldRef: [{ type: Input, args: ['ngsw-searchField',] }],
+        searchColumnName: [{ type: Input, args: ['searchColumnName',] }]
+    };
+    return SearchFieldDirective;
+}());
+if (false) {
+    /** @type {?} */
+    SearchFieldDirective.prototype.searchFieldRef;
+    /** @type {?} */
+    SearchFieldDirective.prototype.searchColumnName;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/ngsw-search-table.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ColumnSearch = /** @class */ (function () {
+    function ColumnSearch(searchValue, searchColumnName) {
+        this.searchValue = searchValue;
+        this.searchColumnName = searchColumnName;
+    }
+    return ColumnSearch;
+}());
+if (false) {
+    /** @type {?} */
+    ColumnSearch.prototype.searchValue;
+    /** @type {?} */
+    ColumnSearch.prototype.searchColumnName;
+}
+var NgswSearchTableComponent = /** @class */ (function () {
+    function NgswSearchTableComponent(httpClient, matPaginatorIntl, renderer) {
+        this.httpClient = httpClient;
+        this.matPaginatorIntl = matPaginatorIntl;
+        this.renderer = renderer;
+        this.clearSearchRow = new BehaviorSubject("");
+        this.isExcelImport = false;
+        this.totalElements = 5;
+        this.recordPerPageList = [1, 5, 10, 25, 50, 100];
+        this.showPartial = false;
+        this.page = 0;
+        this.size = 10;
+        this.showAction = true;
+        this.retriveValue = ['currencyName', 'firstName', 'hotelName', 'supplierName'];
+        this.excelBtnStatus = false;
+        this.showAssignButton = false;
+        this.showRefuseButton = false;
+        this.showGlobelSearch = false;
+        this.uploadedFiles = new EventEmitter();
+        this.sortBy = new EventEmitter();
+        this.pageChange = new EventEmitter();
+        this.actionOnTableRecord = new EventEmitter();
+        this.excel = new EventEmitter();
+        this.searchKey = new EventEmitter();
+        this.exportToExcel = new EventEmitter();
+        this.columnLengthChanges = new EventEmitter();
+        this.isPreviewActionBtn = true;
+        this.isAccountActionBtn = false;
+        this.isEditActionBtn = false;
+        this.checked = false;
+        this.sortOrder = { active: '', hover: '', direction: '' };
+        this.selectedTableRecordList = (/** @type {?} */ ([]));
+        this.searchField = new FormControl('');
+        this.filesToUpload = [];
+        this.columnFilterMap = new Map();
+        this.pageIndexValue = 1;
+        // console.log('this.actionButtons', this.actionButtons)
+        this.matPaginatorIntl.itemsPerPageLabel = '';
+    }
+    Object.defineProperty(NgswSearchTableComponent.prototype, "searchValue", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            // console.log('value', value, '--->');
+            if (!(value instanceof ColumnSearch) || !value.searchColumnName) {
+                return;
+            }
+            this.searchIntoRow(value.searchColumnName, value.searchValue);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        var _this = this;
+        this.pageIndexValue = 1;
+        if (changes.dataTable != undefined || changes.dataTable != null) {
+            if (changes.dataTable.previousValue != undefined || changes.dataTable.previousValue != null) {
+                if (changes.dataTable.previousValue.PageIndex != undefined || changes.dataTable.previousValue.PageIndex != null) {
+                    for (var i = 0; i < this.recordPerPageList.length; i++) {
+                        if (this.recordPerPageList[i] == changes.dataTable.previousValue.PageSize) {
+                            for (var j = 0; j < changes.dataTable.previousValue.PageSize; j++) {
+                                this.pageIndexValue = changes.dataTable.previousValue.PageSize * changes.dataTable.previousValue.PageIndex + 1;
+                            }
+                        }
+                    }
+                }
+                else {
+                    this.pageIndexValue = 1;
+                }
+            }
+        }
+        else {
+            this.pageIndexValue = changes["page"].currentValue + 1;
+        }
+        if (this.dataTable != undefined || this.dataTable != null) {
+            for (var i = 0; i < this.dataTable.tableBody.content.length; i++) {
+                // this.dataTable.tableBody.content.push({pageIndexValue:this.pageIndexValue});
+                this.dataTable.tableBody.content[i]['rowno'] = this.pageIndexValue;
+                this.pageIndexValue++;
+            }
+        }
+        console.log('changes', changes);
+        if (changes.hasOwnProperty('dataTable') && !!this.dataTable && this.dataTable.tableBody['number']) {
+            this.page = this.dataTable.tableBody['number'] + 1;
+            // console.log('this.page', this.page);
+        }
+        if (!!this.clickOnTableFields && !!this.dataTable && this.clickOnTableFields.length > 0) {
+            this.clickOnTableFields.forEach((/**
+             * @param {?} clickableField
+             * @return {?}
+             */
+            function (clickableField) {
+                for (var index = 0; index < _this.dataTable.headerRow.length; index++) {
+                    if (_this.dataTable.headerRow[index].title === clickableField.title) {
+                        _this.dataTable.headerRow[index].icon = clickableField.icon;
+                        _this.dataTable.headerRow[index].isClickable = true;
+                        _this.dataTable.headerRow[index].iconClass = clickableField.iconClass;
+                        break;
+                    }
+                }
+            }));
+        }
+        if (changes.hasOwnProperty('dataTable') && this.dataTable && changes.dataTable.currentValue) {
+            // if (!changes.dataTable.previousValue) {
+            this.dataTableCopy = JSON.parse(JSON.stringify(this.dataTable));
+            console.log('changes this.dataTableCopy', this.dataTableCopy);
+            // }
+        }
+        if (changes.dataTable != undefined || changes.dataTable != null) {
+            if (changes.dataTable.previousValue != null || changes.dataTable.previousValue != undefined) {
+                if (changes.dataTable.previousValue.PageIndex != null || changes.dataTable.previousValue.PageIndex != undefined) {
+                    this.dataTable['PageIndex'] = changes.dataTable.previousValue.PageIndex;
+                    this.dataTable['PageSize'] = changes.dataTable.previousValue.PageSize;
+                }
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.actionButtons !== undefined) {
+            this.actionButtonsLength = this.actionButtons.length;
+        }
+        this.clearSearchRow.subscribe((/**
+         * @param {?} res
+         * @return {?}
+         */
+        function (res) {
+            if (_this.columnFilterMap.size > 0) {
+                _this.dataTable.headerRow.forEach((/**
+                 * @param {?} heading
+                 * @return {?}
+                 */
+                function (heading) {
+                    _this.searchIntoRow(heading['title'], "");
+                }));
+            }
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this.pageChange.emit({ page: this.page, size: this.size });
+    };
+    /**
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // console.log('searchFieldChildren', this.searchFieldChildren);
+        this.searchFieldChildren.map((/**
+         * @param {?} res
+         * @return {?}
+         */
+        function (res) {
+            // console.log('res => searchFieldChildren ', res);
+            if (res && res.searchFieldRef && res.searchFieldRef.nodeName === 'INPUT') {
+                /** @type {?} */
+                var simple = _this.renderer.listen(res.searchFieldRef, 'keyup', (/**
+                 * @param {?} evt
+                 * @return {?}
+                 */
+                function (evt) {
+                    // console.log('Clicking the button', evt);
+                    _this.searchIntoRow(res.searchColumnName, evt.srcElement.value);
+                }));
+            }
+            if (res && res.searchFieldRef && res.searchFieldRef.nodeName === 'SELECT') {
+                /** @type {?} */
+                var simple = _this.renderer.listen(res.searchFieldRef, 'change', (/**
+                 * @param {?} evt
+                 * @return {?}
+                 */
+                function (evt) {
+                    // console.log('change', evt);
+                    _this.searchIntoRow(res.searchColumnName, evt.srcElement.value);
+                }));
+            }
+            if (res && res.searchFieldRef && res.searchFieldRef instanceof MatDatepicker) {
+                // console.log('MatDatepicker');
+                res[(/** @type {?} */ ('searchFieldRef'))].closedStream.subscribe((/**
+                 * @param {?} res
+                 * @return {?}
+                 */
+                function (res) {
+                    // console.log('datepicker closedStream', res);
+                }));
+            }
+        }));
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.initDataTable = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        return (/** @type {?} */ ({ headerRow: [], tableBody: {} }));
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.initActionButtons = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var actionBtns = (/** @type {?} */ ([]));
+        actionBtns.push((/** @type {?} */ ({
+            toolTipText: 'Edit',
+            matIcon: 'edit'
+        })));
+        return actionBtns;
+    };
+    /**
+     * @param {?} a
+     * @param {?} b
+     * @param {?} isAsc
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.compare = /**
+     * @param {?} a
+     * @param {?} b
+     * @param {?} isAsc
+     * @return {?}
+     */
+    function (a, b, isAsc) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    };
+    /**
+     * @param {?} hoverField
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.enter = /**
+     * @param {?} hoverField
+     * @return {?}
+     */
+    function (hoverField) {
+        if (hoverField === this.sortOrder.active) {
+            return;
+        }
+        this.sortOrder.hover = hoverField;
+    };
+    /**
+     * @param {?} hoverField
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.leave = /**
+     * @param {?} hoverField
+     * @return {?}
+     */
+    function (hoverField) {
+        this.sortOrder.hover = '';
+    };
+    /**
+     * @param {?} searchText
+     * @param {?=} event
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.searchIntoTable = /**
+     * @param {?} searchText
+     * @param {?=} event
+     * @return {?}
+     */
+    function (searchText, event) {
+        // console.log(' this.dataTableCopy', this.dataTableCopy);
+        // console.log(' this.dataTable',  this.dataTable);
+        if (!searchText) {
+            this.dataTable.tableBody.content = JSON.parse(JSON.stringify(this.dataTableCopy.tableBody.content));
+            return;
+        }
+        this.dataTable.tableBody.content = this.dataTable.tableBody.content.filter((/**
+         * @param {?} category
+         * @return {?}
+         */
+        function (category) {
+            // console.log('category', category);
+            /** @type {?} */
+            var searchResult;
+            for (var key in category) {
+                if (category.hasOwnProperty(key) && typeof category[key] === 'string') {
+                    // console.log('if');
+                    /** @type {?} */
+                    var element = category[key];
+                    // console.log('category[key]', category[key]);
+                    searchResult = category[key].toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+                    if (searchResult) {
+                        break;
+                    }
+                }
+                else {
+                    // console.log('else');
+                    if (typeof category[key] === 'number') {
+                        /** @type {?} */
+                        var element = category[key];
+                        // console.log('category[key]', category[key]);
+                        searchResult = category[key].toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+                        if (searchResult) {
+                            break;
+                        }
+                    }
+                }
+            }
+            return searchResult;
+        }));
+    };
+    /**
+     * @param {?} searchColumn
+     * @param {?} searchText
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.searchIntoRow = /**
+     * @param {?} searchColumn
+     * @param {?} searchText
+     * @return {?}
+     */
+    function (searchColumn, searchText) {
+        var _this = this;
+        console.log(' this.dataTableCopy', this.dataTableCopy);
+        // console.log('searchText, searchColumn', searchText, searchColumn, event, event.target['value']);
+        this.columnFilterMap.set(searchColumn, searchText);
+        if (!searchText) {
+            this.columnFilterMap.delete(searchColumn);
+        }
+        if (this.columnFilterMap.size === 0) {
+            this.dataTable.tableBody.content = JSON.parse(JSON.stringify(this.dataTableCopy.tableBody.content));
+            return;
+        }
+        // console.log('this.columnFilterMap', this.columnFilterMap, this.columnFilterMap.size);
+        this.dataTable.tableBody.content = this.dataTableCopy.tableBody.content.filter((/**
+         * @param {?} category
+         * @return {?}
+         */
+        function (category) {
+            // console.log('category', category);
+            /** @type {?} */
+            var validFilterCount = 0;
+            for (var key in category) {
+                /** @type {?} */
+                var searchResult = void 0;
+                // if (category.hasOwnProperty(key) && key !== searchColumn) {
+                //   return;
+                // }
+                // console.log('key', key);
+                if (category.hasOwnProperty(key) && typeof category[key] === 'string') {
+                    // console.log('if');
+                    /** @type {?} */
+                    var element = category[key];
+                    // console.log('category[key]', key, category[key]);
+                    if (_this.columnFilterMap.has(key)) {
+                        searchResult = category[key].toLowerCase().indexOf(_this.columnFilterMap.get(key).toLowerCase()) > -1;
+                        // console.log('searchResult', searchResult);
+                    }
+                    if (searchResult) {
+                        validFilterCount++;
+                        // console.log('validFilterCount, this.columnFilterMap.size', validFilterCount, this.columnFilterMap.size);
+                        // break;
+                    }
+                }
+                else {
+                    // console.log('else');
+                    if (typeof category[key] === 'number') {
+                        /** @type {?} */
+                        var element = category[key];
+                        // console.log('category[key]', category[key]);
+                        if (_this.columnFilterMap.has(key)) {
+                            searchResult = category[key].toString().toLowerCase().indexOf(_this.columnFilterMap.get(key).toLowerCase()) > -1;
+                        }
+                        if (searchResult) {
+                            validFilterCount++;
+                            // break;
+                        }
+                    }
+                }
+            }
+            return validFilterCount === _this.columnFilterMap.size;
+        }));
+    };
+    /**
+     * @param {?} orderField
+     * @param {?=} startSortOrder
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.sortClicked = /**
+     * @param {?} orderField
+     * @param {?=} startSortOrder
+     * @return {?}
+     */
+    function (orderField, startSortOrder) {
+        var _this = this;
+        // console.log('orderField', orderField);
+        startSortOrder.stopPropagation();
+        this.sortOrder = (/** @type {?} */ (orderField));
+        /** @type {?} */
+        var data = this.dataTable.tableBody.content.slice();
+        // console.log('data', data);
+        if (!orderField.active || orderField.direction === '') {
+            this.sortedData = data;
+            return;
+        }
+        this.sortedData = data.sort((/**
+         * @param {?} a
+         * @param {?} b
+         * @return {?}
+         */
+        function (a, b) {
+            /** @type {?} */
+            var isAsc = orderField.direction === 'asc';
+            return _this.compare(a[orderField.active], b[orderField.active], isAsc);
+        }));
+        // console.log(' this.sortedData', this.sortedData);
+        this.dataTable.tableBody.content = this.sortedData;
+        // if (orderField === 'DESC' || orderField === 'ASC') {
+        //   const paginator: InfoForGetPagination = {
+        //     startSortOrder,
+        //     orderField,
+        //     userId: this.loginUser['user'].userId,
+        //     page: this.dataTable.tableBody['number'],
+        //     size: this.dataTable.tableBody['size']
+        //   } as InfoForGetPagination;
+        //   this.sortBy.emit(paginator);
+        // }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.emitPageChange = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // console.log('event', event);
+        if (event) {
+            /** @type {?} */
+            var paginator = (/** @type {?} */ ({
+                page: event.pageIndex,
+                size: event.pageSize
+            }));
+            this.dataTableCopy = null;
+            this.searchField.reset();
+            this.pageChange.emit(paginator);
+        }
+    };
+    /**
+     * @param {?} property
+     * @param {?} direction
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.isActiveSortBtn = /**
+     * @param {?} property
+     * @param {?} direction
+     * @return {?}
+     */
+    function (property, direction) {
+        if (this.dataTable.tableBody['sort'][0].direction === direction &&
+            this.dataTable.tableBody['sort'][0].property === property) {
+            return true;
+        }
+        return false;
+    };
+    /**
+     * @param {?} record
+     * @param {?} btnAction
+     * @param {?} recordIndex
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.emitActionOnTableRecord = /**
+     * @param {?} record
+     * @param {?} btnAction
+     * @param {?} recordIndex
+     * @return {?}
+     */
+    function (record, btnAction, recordIndex) {
+        // console.log('emited currency edit record', record);
+        if (record) {
+            /** @type {?} */
+            var data = {
+                record: record,
+                btnAction: btnAction,
+                tableName: this.tableTitle,
+                recordIndex: recordIndex
+            };
+            this.actionOnTableRecord.emit(data);
+        }
+    };
+    /**
+     * @private
+     * @param {?} tableTitle
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.getDownloadFileType = /**
+     * @private
+     * @param {?} tableTitle
+     * @return {?}
+     */
+    function (tableTitle) {
+        /** @type {?} */
+        var splitTitel = tableTitle.split(' ');
+        splitTitel.pop();
+        splitTitel[0] = splitTitel[0].toLowerCase();
+        return splitTitel.join('');
+    };
+    /**
+     * @param {?} excelTitel
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.emitDownloadExcel = /**
+     * @param {?} excelTitel
+     * @return {?}
+     */
+    function (excelTitel) {
+        this.excel.emit({ excelTitel: excelTitel, tableData: this.selectedTableRecordList });
+    };
+    /**
+     * @param {?} event
+     * @param {?} key
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.emitSearchKey = /**
+     * @param {?} event
+     * @param {?} key
+     * @return {?}
+     */
+    function (event, key) {
+        // console.log('event', event);
+        // console.log('key', key);
+        if (key && event['keyCode'] === 13) {
+            this.searchKey.emit(key);
+        }
+    };
+    /**
+     * @param {?} key
+     * @param {?=} tableRecord
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.checkIsDate = /**
+     * @param {?} key
+     * @param {?=} tableRecord
+     * @return {?}
+     */
+    function (key, tableRecord) {
+        this.isRecordDate = false;
+        switch (key) {
+            case 'checkIn':
+                this.isRecordDate = true;
+                break;
+            case 'checkOut':
+                this.isRecordDate = true;
+                break;
+            case 'createdDate':
+                this.isRecordDate = true;
+                break;
+            case 'endDate':
+                this.isRecordDate = true;
+                break;
+            case 'pickUpDate':
+                this.isRecordDate = true;
+                break;
+            case 'startDate':
+                this.isRecordDate = true;
+                break;
+            default:
+                this.isRecordDate = false;
+                break;
+        }
+        return this.isRecordDate;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.allTableRecordSelectionChanges = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (event.checked) {
+            this.selectedTableRecordList = this.dataTable.tableBody.content;
+            // console.log('this.selectedTableRecordList', this.selectedTableRecordList);
+            return;
+        }
+        this.selectedTableRecordList = (/** @type {?} */ ([]));
+        // console.log('this.selectedTableRecordList', this.selectedTableRecordList);
+    };
+    /**
+     * @param {?} event
+     * @param {?} selectedTableRecord
+     * @param {?} recordIndex
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.tableRecordSelectionChanges = /**
+     * @param {?} event
+     * @param {?} selectedTableRecord
+     * @param {?} recordIndex
+     * @return {?}
+     */
+    function (event, selectedTableRecord, recordIndex) {
+        // console.log('event, selectedTableRecord', event, selectedTableRecord);
+        if (event.checked) {
+            this.selectedTableRecordList.push(selectedTableRecord);
+            // console.log('this.selectedTableRecordList', this.selectedTableRecordList);
+            return;
+        }
+        this.selectedTableRecordList = this.removeUnselectedTableRecord(selectedTableRecord, this.selectedTableRecordList);
+        // console.log('deleted List', this.selectedTableRecordList);
+    };
+    /**
+     * @param {?} removableRecord
+     * @param {?} originalRecordList
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.removeUnselectedTableRecord = /**
+     * @param {?} removableRecord
+     * @param {?} originalRecordList
+     * @return {?}
+     */
+    function (removableRecord, originalRecordList) {
+        return originalRecordList.filter((/**
+         * @param {?} existedRecord
+         * @return {?}
+         */
+        function (existedRecord) {
+            if (removableRecord && existedRecord) {
+                return !(existedRecord['id'] === removableRecord['id']);
+            }
+            if (removableRecord && existedRecord) {
+                return !(existedRecord['secondId'] === removableRecord['secondId']);
+            }
+            if (!removableRecord) {
+                return true;
+            }
+            return false;
+        }));
+    };
+    /**
+     * @param {?} importFileRef
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.uploadFile = /**
+     * @param {?} importFileRef
+     * @return {?}
+     */
+    function (importFileRef) {
+        // console.log('importFileRef', importFileRef);
+        if (importFileRef) {
+            importFileRef.click();
+        }
+    };
+    /**
+     * @param {?} files
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.handleUploadedFile = /**
+     * @param {?} files
+     * @return {?}
+     */
+    function (files) {
+        // console.log('files', files);
+        for (var key in files) {
+            if (files.hasOwnProperty(key) && key !== 'length') {
+                this.filesToUpload[0] = files.item(0);
+            }
+        }
+        this.uploadedFiles.emit(this.filesToUpload);
+        // console.log('this.filesToUpload', this.filesToUpload);
+    };
+    /**
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.downloadExport = /**
+     * @return {?}
+     */
+    function () {
+        // console.log('this.exportLink', this.exportLink);
+        this.httpClient.get(this.exportLink, { headers: new HttpHeaders().set('Accept', 'application/vnd.ms-excel') }).subscribe((/**
+         * @param {?} res
+         * @return {?}
+         */
+        function (res) {
+            // console.log('res', res);
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.clickExportToExcel = /**
+     * @return {?}
+     */
+    function () {
+        this.exportToExcel.emit(true);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NgswSearchTableComponent.prototype.columnLengthChanged = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // console.log('columnValueChanges', event);
+        this.columnLengthChanges.emit(event.target.value);
+    };
+    NgswSearchTableComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ngsw-search-table',
+                    template: "<div class=\"main-content mb-4\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-12 px-0\">\n        <div class=\"ca rd\">\n          <div class=\"d-flex flex-column flex-md-row justify-content-md-between align-items-md-end table_header\">\n            <div class=\"d-flex align-items-md-center w-100\">\n              <h6 class=\"text-capitalize table_title font_weight_bold mb-0\">{{tableTitle}} :</h6>\n              <div style=\"margin-left: 10px;line-height: 0.5;\" *ngIf=\"showPartial\">\n                <span style=\"margin-right: 5px\"><input type=\"radio\" name=\"showTableColumn\" value=\"All\"\n                    (change)=\"columnLengthChanged($event)\" checked> All</span>\n                <span style=\"margin-right: 5px\"><input type=\"radio\" name=\"showTableColumn\" value=\"Partial\"\n                    (change)=\"columnLengthChanged($event)\"> Partial</span>\n              </div>\n              <div class=\"table_footer pagination\"\n                *ngIf=\"dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0\">\n                <mat-paginator [length]=\"totalElements\" [pageSize]=\"size\" [pageSizeOptions]=\"recordPerPageList\"\n                  (page)=\"emitPageChange($event)\" showFirstLastButtons>\n                </mat-paginator>\n              </div>\n            </div>\n            <div class=\"toolbar\">\n              <!--        Here you can write extra buttons/actions for the toolbar              -->\n              <div class=\"row justify-content-end\">\n                <div class=\"col-sm-12 d-flex flex-column flex-md-row justify-content-md-end align-items-md-center\">\n                  <!-- <div class=\"table_footer\" *ngIf=\"dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0\">\n                    <mat-paginator [length]=\"totalElements\" [pageSize]=\"10\" [pageSizeOptions]=\"recordPerPageList\" (page)=\"emitPageChange($event)\">\n                    </mat-paginator>\n                  </div> -->\n                  <div>\n                    <!-- <a *ngIf=\"!!downloadTempleteLink\" [href]=\"downloadTempleteLink\" target=\"_blank\"\n                      rel=\"noopener noreferrer\">Download Template</a>\n                    <span *ngIf=\"!!exportLink\">/</span>\n\n                    <a *ngIf=\"!!exportLink\" [href]=\"exportLink\" target=\"_blank\" rel=\"noopener noreferrer\">Export</a>\n                     <span>/</span>\n                    <a *ngIf=\"isExcelImport\" class=\"href_color\" (click)=\"uploadFile(importFile)\">Import</a>\n                    <input type=\"file\" accept=\".xlsx,.xlsm,.xls,.ods\" style=\"display: none\" #importFile\n                      (change)=\"handleUploadedFile($event.target.files)\"> -->\n                    <div *ngIf=\"isExcelImport\">\n                      <a (click)=\"clickExportToExcel()\" style=\"cursor: pointer;color: #007bff\">Export to Excel</a>\n                    </div>\n                  </div>\n                  <mat-form-field class=\"w-100 pb-1 pb_0 w-md-auto ml-md-2\" style=\"max-width:250px\" appearance=\"outline\"\n                    [style.fontSize.px]=\"10\" *ngIf=\"showGlobelSearch\">\n                    <mat-label>Search</mat-label>\n                    <input #search matInput placeholder=\"Search\" (keyup)=\"searchIntoTable(search.value, $event)\"\n                      [formControl]=\"searchField\">\n                    <mat-icon matSuffix>search</mat-icon>\n                  </mat-form-field>\n                </div>\n                <!-- <div class=\"table_footer\" *ngIf=\"dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0\">\n                  <mat-paginator [length]=\"totalElements\" [pageSize]=\"10\" [pageSizeOptions]=\"recordPerPageList\" (page)=\"emitPageChange($event)\">\n                  </mat-paginator>\n                </div> -->\n              </div>\n            </div>\n          </div>\n          <div class=\"table_body\" *ngIf=\"dataTable\">\n            <div class=\"material-datatables table-responsive\">\n              <table id=\"datatables\" class=\"table table-bordered table-hover\" cellspacing=\"0\" width=\"100%\"\n                style=\"width:100%\" *ngIf=\"dataTable.headerRow && dataTable.headerRow.length > 0\">\n                <thead>\n                  <tr>\n                    <th class=\"text-center font-weight-normal\" valign=\"baseline\">Sr.No.</th>\n                    <th class=\"text-center font-weight-normal\" valign=\"baseline\"\n                      *ngFor=\"let headerRow of dataTable.headerRow; let i=index\" (mouseenter)=\"enter(headerRow.title)\"\n                      (mouseleave)=\"leave(headerRow.title)\" [ngClass]=\"{'d-none':(headerRow.title ==='id'|| headerRow.title ==='secondId')}\">\n                      <!-- (click)=\"sortClicked({active: headerRow,direction: 'desc'}, $event)\" -->\n                      <div class=\"d-flex justify-content-center\">\n                        <span\n                          class=\"nowrap sort_icon\">{{ headerRow.title | camelCaseToRegularString:tableTitle | getKeyValueFromObject: retriveValue}}</span>\n                        <span style=\"width: 24px;height: 24px;\">\n                          <i class=\"material-icons cursor_pointer\"\n                            *ngIf=\"sortOrder.direction ==='desc' &&  headerRow.title ===sortOrder.active || headerRow.title ===sortOrder.hover\"\n                            (click)=\"sortClicked({active: headerRow.title,direction: 'asc'}, $event)\">\n                            keyboard_arrow_down\n                          </i>\n                          <i class=\"material-icons cursor_pointer\"\n                            *ngIf=\"sortOrder.direction ==='asc' &&  headerRow.title ===sortOrder.active\"\n                            (click)=\"sortClicked({active: headerRow.title,direction: 'desc'}, $event)\">\n                            keyboard_arrow_up\n                          </i>\n                        </span>\n                      </div>\n                    </th>\n                    <!-- ====================================\n                             Action column names\n                    ======================================-->\n\n                    <!-- ================ END ================== -->\n                    <th class=\"disabled-sorting text-center font-weight-normal\" *ngIf=\"showAssignButton\">\n                      Assign\n                    </th>\n                    <th class=\"disabled-sorting text-center font-weight-normal\" *ngIf=\"showRefuseButton\">\n                      Refuse\n                    </th>\n\n                    <th [attr.colspan]=\"actionButtons?.length\" class=\"disabled-sorting text-center font-weight-normal\"\n                      *ngIf=\"actionButtons!== undefined && actionButtons?.length > 0\">\n                      Actions\n                    </th>\n\n\n                    <!-- <th class=\"disabled-sorting text-center\" *ngIf=\"actionButtons.length > 0\" colspan=\"actionButtonsLength\">Actions</th> -->\n                  </tr>\n                </thead>\n                <tbody *ngIf=\"dataTable.tableBody && dataTable.tableBody['content']\">\n                  <tr>\n                    <td></td>\n                    <ng-content select=\"td\" (keyup)=\"searchIntoRow(hr, $event)\"></ng-content>\n                    <!-- <td *ngFor=\"let hr of dataTable.headerRow\" [ngClass]=\"{'d-none':hr.title ==='id'}\" class=\"text-center\">\n                      <input type=\"text\" (keyup)=\"searchIntoRow(hr, $event)\">\n                    </td> -->\n                  </tr>\n                  <tr *ngFor=\"let row of dataTable.tableBody['content']; let recordIndex = index\">\n\n                    <td class=\"text-left\">{{row.rowno}}</td>\n\n                    <td class=\"text-left\" *ngFor=\"let hr of dataTable.headerRow\"\n                      [ngClass]=\"{'d-none':(hr.title ==='id' || hr.title ==='secondId')}\">\n                      <span *ngIf=\"!hr.isClickable\">{{row[hr['title']]}}</span>\n                      <!-- | getKeyValueFromObject: retriveValue  -->\n                      <i *ngIf=\"!!hr.isClickable && !!hr.iconClass && row[hr['title']]!='-'\" class=\"cursor_pointer\"\n                        [ngClass]=\"row[hr['title']]=='Y'? 'active '+hr.iconClass:'in_active '+hr.iconClass\"\n                        (click)=\"emitActionOnTableRecord(row, hr['title'],recordIndex)\">{{hr.icon}}</i>\n                      <i *ngIf=\"!!hr.isClickable && !!hr.iconClass && row[hr['title']]=='-' \"\n                        (click)=\"emitActionOnTableRecord(row, hr['title'],recordIndex)\">{{row[hr['title']]}}</i>\n\n                      <a *ngIf=\"!!hr.isClickable && !hr.iconClass\" style=\"text-decoration: underline\"\n                        class=\"cursor_pointer href_color\"\n                        (click)=\"emitActionOnTableRecord(row, hr['title'],recordIndex)\">{{row[hr['title']]}}</a>\n                      <!-- [ngClass]=\"row[hr['title']]=='Y'? 'active':'in_active'\" -->\n\n                      <!-- <span *ngIf=\"isRecordDate\">{{row[hr] | date: 'd/M/yy':'UTC' }}</span> -->\n                    </td>\n                    <!-- ====================================\n                             Action row data\n                  ======================================-->\n                    <td class=\"td-actions text-left\" *ngIf=\"showAssignButton\">\n                      <a class=\"action_href cursor_pointer\" [ngClass]=\"{'disabledTd':row['assignStatus']==='N'}\"\n                        (click)=\"emitActionOnTableRecord(row, 'assign', recordIndex)\">Assign\n                      </a>\n                    </td>\n                    <td class=\"td-actions text-left\" *ngIf=\"showRefuseButton\">\n                      <a class=\"action_href cursor_pointer\" [ngClass]=\"{'disabledTd':row['assignStatus']==='N'}\"\n                        (click)=\"emitActionOnTableRecord(row, 'refuse', recordIndex)\">Refuse\n                      </a>\n                    </td>\n\n                    <td class=\"td-actions text-left\" *ngFor=\"let btn of actionButtons;let i=index\">\n                      <i *ngIf=\"!!btn.matIcon\" class=\"material-icons cursor_pointer\" [ngClass]=\"btn.matIcon\"\n                        [matTooltip]=\"btn.toolTipText\"\n                        (click)=\"emitActionOnTableRecord(row, btn.title, recordIndex)\">{{btn.matIcon}}</i>\n                      <a *ngIf=\"!btn.matIcon\" class=\"action_href cursor_pointer\" [ngClass]=\"btn.title\"\n                        (click)=\"emitActionOnTableRecord(row, btn.title, recordIndex)\">{{btn.title}}</a>\n\n                    </td>\n                    <!-- ================ END ================== -->\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n          </div>\n          <!-- <div class=\"table_footer\"\n            *ngIf=\"dataTable && dataTable.tableBody && dataTable.tableBody['content'].length > 0\">\n            <mat-paginator [length]=\"totalElements\" [pageSize]=\"10\" [pageSizeOptions]=\"recordPerPageList\"\n              (page)=\"emitPageChange($event)\">\n            </mat-paginator>\n          </div> -->\n          <!-- end content-->\n        </div>\n        <!--  end card  -->\n      </div>\n      <!-- end col-md-12 -->\n    </div>\n    <!-- end row -->\n  </div>\n</div>\n<div *ngIf=\"!dataTable || !dataTable.tableBody || dataTable.tableBody['content'].length <= 0\"\n  class=\"text-center alert alert-info\">\n  Table Content Not Found\n</div>\n<!-- <notifier-container></notifier-container> -->",
+                    providers: [MatPaginatorIntl],
+                    styles: [":host ::ng-deep mat-paginator .mat-paginator-range-label{display:none}:host .main-content{font-size:14px}:host .href_color{color:#007bff;text-decoration:none;background-color:transparent}:host .href_color:hover{color:#0056b3;text-decoration:underline;cursor:pointer}:host .page_size{width:85px}:host .page_size ::ng-deep .mat-form-field-wrapper .mat-select-trigger{width:100%}:host .page_size ::ng-deep .mat-form-field-wrapper .mat-select-arrow-wrapper{display:none}:host .material-icons{font-size:16px}:host .active{color:green}:host .in_active{color:red}:host .table_header{display:flex;flex-wrap:wrap}:host .table_header .toolbar{flex:2}.btn_sort{cursor:pointer;max-height:24px}.cursor_pointer{cursor:pointer}.active_sort{background-color:rgba(0,0,0,.16)}.nowrap{white-space:nowrap}.border_all{border:1px solid silver}.material-datatables{border-top-left-radius:.5rem!important}.table{border:1px solid #d5d3d3;background-color:#fff;height:100px;overflow:scroll}.table ::ng-deep mat-checkbox label{margin-bottom:0}.table thead tr:first-child th{background-color:#e9e9e9;color:#444;padding:5px .75rem}.table thead th{font-size:14px}.table tbody tr td{padding-top:.5rem;padding-bottom:.5rem;font-size:14px}.table tbody .action_href{color:#007bff;text-decoration:underline}.table .action_btn_wrapper{max-width:60px}.font-weight-normal{font-weight:500!important}.disabledTd{cursor:not-allowed;pointer-events:none;color:gray!important}.pagination{margin-left:auto}"]
+                }] }
+    ];
+    /** @nocollapse */
+    NgswSearchTableComponent.ctorParameters = function () { return [
+        { type: HttpClient },
+        { type: MatPaginatorIntl },
+        { type: Renderer2 }
+    ]; };
+    NgswSearchTableComponent.propDecorators = {
+        clearSearchRow: [{ type: Input }],
+        downloadTempleteLink: [{ type: Input }],
+        exportLink: [{ type: Input }],
+        isExcelImport: [{ type: Input }],
+        totalElements: [{ type: Input }],
+        hideCheckbox: [{ type: Input }],
+        clickOnTableFields: [{ type: Input }],
+        dataTable: [{ type: Input }],
+        recordPerPageList: [{ type: Input }],
+        loginUser: [{ type: Input }],
+        showPartial: [{ type: Input }],
+        page: [{ type: Input }],
+        size: [{ type: Input }],
+        showAction: [{ type: Input }],
+        actionButtons: [{ type: Input }],
+        userRole: [{ type: Input }],
+        tableTitle: [{ type: Input }],
+        retriveValue: [{ type: Input }],
+        reportUrl: [{ type: Input }],
+        excelBtnStatus: [{ type: Input, args: ['excelBtnStatus',] }],
+        showAssignButton: [{ type: Input }],
+        showRefuseButton: [{ type: Input }],
+        showGlobelSearch: [{ type: Input }],
+        searchValue: [{ type: Input }],
+        uploadedFiles: [{ type: Output }],
+        sortBy: [{ type: Output }],
+        pageChange: [{ type: Output }],
+        actionOnTableRecord: [{ type: Output }],
+        excel: [{ type: Output }],
+        searchKey: [{ type: Output }],
+        exportToExcel: [{ type: Output }],
+        columnLengthChanges: [{ type: Output }],
+        downloadExcel: [{ type: ViewChild, args: ['downloadExcel', { static: false },] }],
+        searchFieldChildren: [{ type: ContentChildren, args: [SearchFieldDirective, { descendants: true },] }]
+    };
+    return NgswSearchTableComponent;
+}());
+if (false) {
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.clearSearchRow;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.downloadTempleteLink;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.exportLink;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.isExcelImport;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.totalElements;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.hideCheckbox;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.clickOnTableFields;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.dataTable;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.recordPerPageList;
+    /**
+     * @type {?}
+     * @private
+     */
+    NgswSearchTableComponent.prototype.dataTableCopy;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.loginUser;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.showPartial;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.page;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.size;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.showAction;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.actionButtons;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.userRole;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.tableTitle;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.retriveValue;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.reportUrl;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.excelBtnStatus;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.showAssignButton;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.showRefuseButton;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.showGlobelSearch;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.uploadedFiles;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.sortBy;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.pageChange;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.actionOnTableRecord;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.excel;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.searchKey;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.exportToExcel;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.columnLengthChanges;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.downloadExcel;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.fileDownloadUrl;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.searchFieldChildren;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.isPreviewActionBtn;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.isAccountActionBtn;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.isEditActionBtn;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.isRecordDate;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.checked;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.sortOrder;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.selectedTableRecordList;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.sortedData;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.searchField;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.selected;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.actionButtonsLength;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.filesToUpload;
+    /**
+     * @type {?}
+     * @private
+     */
+    NgswSearchTableComponent.prototype.columnFilterMap;
+    /** @type {?} */
+    NgswSearchTableComponent.prototype.pageIndexValue;
+    /**
+     * @type {?}
+     * @private
+     */
+    NgswSearchTableComponent.prototype.httpClient;
+    /**
+     * @type {?}
+     * @private
+     */
+    NgswSearchTableComponent.prototype.matPaginatorIntl;
+    /**
+     * @type {?}
+     * @private
+     */
+    NgswSearchTableComponent.prototype.renderer;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipe/camel-case-to-regular-string.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var CamelCaseToRegularStringPipe = /** @class */ (function () {
+    function CamelCaseToRegularStringPipe() {
+    }
+    /**
+     * @param {?} value
+     * @param {?=} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    CamelCaseToRegularStringPipe.prototype.transform = /**
+     * @param {?} value
+     * @param {?=} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    function (value, tableName, tableType) {
+        /** @type {?} */
+        var regularString = '';
+        value.split('').map((/**
+         * @param {?} char
+         * @return {?}
+         */
+        function (char) {
+            if (/[A-Z]/.test(char)) {
+                regularString += ' ';
+            }
+            regularString += char;
+        }));
+        regularString = regularString.charAt(0).toUpperCase() + regularString.slice(1);
+        return regularString;
+    };
+    // changeKey
+    // changeKey
+    /**
+     * @private
+     * @param {?} key
+     * @param {?} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    CamelCaseToRegularStringPipe.prototype.transformEnterBy = 
+    // changeKey
+    /**
+     * @private
+     * @param {?} key
+     * @param {?} tableName
+     * @param {?=} tableType
+     * @return {?}
+     */
+    function (key, tableName, tableType) {
+        /** @type {?} */
+        var serachIndex = tableName.toLowerCase().search('voucher');
+        /**
+         * @return {?}
+         */
+        function isTransformKey() {
+            if (serachIndex >= 0) {
+                return true;
+            }
+            return false;
+        }
+        if (isTransformKey()) {
+            return 'Staff';
+        }
+        return 'AddedBy';
+    };
+    CamelCaseToRegularStringPipe.decorators = [
+        { type: Pipe, args: [{
+                    name: 'camelCaseToRegularString'
+                },] }
+    ];
+    return CamelCaseToRegularStringPipe;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipe/get-key-value-from-object.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var GetKeyValueFromObjectPipe = /** @class */ (function () {
+    function GetKeyValueFromObjectPipe() {
+    }
+    /**
+     * @param {?} value
+     * @param {?} keyName
+     * @return {?}
+     */
+    GetKeyValueFromObjectPipe.prototype.transform = /**
+     * @param {?} value
+     * @param {?} keyName
+     * @return {?}
+     */
+    function (value, keyName) {
+        if (typeof value === 'object' && value !== null) {
+            /** @type {?} */
+            var val = this.hasProperty(value, keyName);
+            return val;
+        }
+        return value;
+    };
+    /**
+     * @private
+     * @param {?} valueObj
+     * @param {?} key
+     * @return {?}
+     */
+    GetKeyValueFromObjectPipe.prototype.hasProperty = /**
+     * @private
+     * @param {?} valueObj
+     * @param {?} key
+     * @return {?}
+     */
+    function (valueObj, key) {
+        /** @type {?} */
+        var valueOfKey = null;
+        key.forEach((/**
+         * @param {?} keyName
+         * @return {?}
+         */
+        function (keyName) {
+            if (valueObj.hasOwnProperty(keyName)) {
+                valueOfKey = valueObj[keyName];
+                return;
+            }
+        }));
+        return valueOfKey;
+    };
+    GetKeyValueFromObjectPipe.decorators = [
+        { type: Pipe, args: [{
+                    name: 'getKeyValueFromObject'
+                },] }
+    ];
+    return GetKeyValueFromObjectPipe;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/ngsw-search-table.module.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var NgswSearchTableModule = /** @class */ (function () {
+    function NgswSearchTableModule() {
+    }
+    NgswSearchTableModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [NgswSearchTableComponent, CamelCaseToRegularStringPipe,
+                        GetKeyValueFromObjectPipe,
+                        SearchFieldDirective],
+                    imports: [
+                        CommonModule,
+                        FormsModule,
+                        ReactiveFormsModule,
+                        MatAutocompleteModule,
+                        MatButtonModule,
+                        MatButtonToggleModule,
+                        MatCardModule,
+                        MatCheckboxModule,
+                        MatDatepickerModule,
+                        MatDialogModule,
+                        MatIconModule,
+                        MatInputModule,
+                        MatPaginatorModule,
+                        MatRadioModule,
+                        MatRippleModule,
+                        MatSelectModule,
+                        MatSortModule,
+                        MatTableModule,
+                        MatToolbarModule,
+                        MatTooltipModule
+                    ],
+                    exports: [NgswSearchTableComponent, CamelCaseToRegularStringPipe, SearchFieldDirective],
+                    providers: [NgswSearchTableService]
+                },] }
+    ];
+    return NgswSearchTableModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: public-api.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: ngsw-search-table.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { ColumnSearch, NgswSearchTableComponent, NgswSearchTableModule, NgswSearchTableService, SearchFieldDirective as ɵa, CamelCaseToRegularStringPipe as ɵb, GetKeyValueFromObjectPipe as ɵc };
+//# sourceMappingURL=ngsw-search-table.js.map

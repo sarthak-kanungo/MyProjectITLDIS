@@ -1,0 +1,134 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+        <div class="heading">
+            <p class="font-weight-bold">Transporter Master</p>
+        </div>
+    
+        <div class="card-from">
+            <div class="card">
+                <div class="card-header">
+                    <p class="mb-0">Transporter Details</p>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="transporterDeatilsForm" [style.fontSize.px]="11">
+                        <div class="row">
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Code</mat-label>
+                                    <input matInput placeholder="Code" formControlName="code">
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Transporter Name</mat-label>
+                                        <input matInput placeholder="Transporter Name" required formControlName="transporterName">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Title</mat-label>
+                                            <mat-select required formControlName="title">
+                                                <mat-option *ngFor="let title of titles" [value]="title">{{title}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Designation</mat-label>
+                                    <input matInput placeholder="Designation" formControlName="designation">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Transporter Location</mat-label>
+                                    <input matInput placeholder="Transporter Location" required formControlName="transporterLocation">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput placeholder="First Name" required formControlName="firstName">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Middle Name</mat-label>
+                                    <input matInput placeholder="Middle Name" formControlName="middleName">
+                                </mat-form-field>
+                            </div>
+    
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput placeholder="Last Name" formControlName="lastName">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Mobile</mat-label>
+                                    <input matInput placeholder="Mobile" required formControlName="mobile">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Email Id</mat-label>
+                                    <input matInput placeholder="Email Id" formControlName="emailId">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>GST No.</mat-label>
+                                    <input matInput placeholder="GST No." formControlName="gstNo">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>PAN No.</mat-label>
+                                    <input matInput placeholder="PAN No." formControlName="panNo">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Aadhar Card No.</mat-label>
+                                    <input matInput placeholder="Aadhar Card No." formControlName="aadharCardNo">
+                                </mat-form-field>
+                            </div>
+    
+                        </div>
+                    </form>
+
+                    <app-transporter-address-details></app-transporter-address-details>
+    
+        
+    
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary pl-3 pr-3 "> Submit
+                        </button>
+                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+                        </button>
+                        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+                            </button>
+                    </div>
+                    
+                </div>
+    
+            </div>
+        </div>
+    
+    
+    
+    </div>

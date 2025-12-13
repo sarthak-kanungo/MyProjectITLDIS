@@ -1,0 +1,84 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Source</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-source [sourceSearchForm]="sourceSearchForm"></app-search-source>
+
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="onClickSearchSourceDetails()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2" (click)="onClickClearSourceDetails()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)" [clearSearchRow]="clearSearchRow"
+            [clickOnTableFields]="[{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]">
+
+            <td [ngsw-searchField]="sourceCode" [searchColumnName]="'sourceCode'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #sourceCode [(ngModel)]="sourceCodeNg">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="createdDate" [searchColumnName]="'createdDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="createdDate" #createdDateInput [(ngModel)]="createdDateNg"
+                        (dateInput)="serviceSourceDateChanges(createdDateInput.value, 'createdDate')">
+                    <mat-datepicker-toggle matSuffix [for]="createdDate"></mat-datepicker-toggle>
+                    <mat-datepicker #createdDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="lastModifiedDate" [searchColumnName]="'lastModifiedDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="lastModifiedDate" #lastModifiedDateInput [(ngModel)]="lastModifiedDateNg"
+                        (dateInput)="serviceSourceDateChanges(lastModifiedDateInput.value, 'lastModifiedDate')">
+                    <mat-datepicker-toggle matSuffix [for]="lastModifiedDate"></mat-datepicker-toggle>
+                    <mat-datepicker #lastModifiedDate></mat-datepicker>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="purpose" [searchColumnName]="'purpose'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #purpose [(ngModel)]="purposeNg">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="sourceName" [searchColumnName]="'sourceName'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #sourceName [(ngModel)]="sourceNameNg">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="activeStatus" [searchColumnName]="'activeStatus'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #activeStatus [(ngModel)]="activeStatusNg">
+                </mat-form-field>
+            </td>
+        </ngsw-search-table>
+    </div>
+
+</div>

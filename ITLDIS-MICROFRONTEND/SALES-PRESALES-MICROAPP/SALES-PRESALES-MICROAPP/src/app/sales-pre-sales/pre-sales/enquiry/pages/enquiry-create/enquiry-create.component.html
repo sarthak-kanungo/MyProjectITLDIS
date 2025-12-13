@@ -1,0 +1,41 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">New Enquiry</p>
+            </div>
+            <div class="card-body">
+                <app-enquiry-creation-container (sendData)="getNewEnquiryFormData($event)">
+                </app-enquiry-creation-container>
+                <app-enquiry-product-interested-container (sendDataWithFormName)="getProductInterestedFormData($event)" (modelValue)="modelValue($event)" [getMobileNumber]="getMobileNumber"
+                    [viewPatchEnquiryData]="viewPatchEnquiryData"></app-enquiry-product-interested-container>
+                <app-prospect-details-container (autoPopulatebyMobileNo)="autoPopulatebyMobileNo($event)" [getmodelValue]="getmodelValue" (getMobileNo)="getMobileNo($event)"
+               (keyDownMobileNumber)="keyDownMobileNumber($event)" 
+                    (sendProspectDetailsForm)="getProspectDetailsFormData($event)">
+                </app-prospect-details-container>
+                <app-prospect-background-container [dataAutoPopulateByMobileNumber]="dataAutoPopulateByMobileNumber"
+             [keyDownMobileNo]="keyDownMobileNo"
+                    (submitProsprctBackgroundForm)="getProspectBacgroundFormData($event)">
+                </app-prospect-background-container>
+                <app-current-machine-details-container [dataAutoPopulateByMobileNumber]="dataAutoPopulateByMobileNumber"
+                    (submitCurrenMachineDetailsForm)="getCurrentMachineFormData($event)">
+                </app-current-machine-details-container>
+                <app-retail-finance-container (saveRetailfinanceForm)="getRetailFinanceData($event)">
+                </app-retail-finance-container>
+
+                <div class=" text-center mt-2 ">
+                    <button type="button" class="btn btn_primary px-3" *ngIf="!isView"> Save
+                    </button>
+                    <button type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm('submit')"
+                        *ngIf="!isView">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="!isView"> Clear
+                    </button>
+                    <button type="button" class="btn btn_primary px-3 ml-3" *ngIf="!isView" (click)="onClickExit()"> Exit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

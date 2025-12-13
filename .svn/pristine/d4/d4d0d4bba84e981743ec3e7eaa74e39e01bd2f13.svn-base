@@ -1,0 +1,164 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+  <!-- <div class="heading">
+      <p class="font-weight-bold">Employee Master</p>
+    </div> -->
+  <div class="row">
+
+    <div class="col-lg-12">
+
+      <div class="card-from mb-0 mt-2">
+        <div class="card">
+          <div class="card-header">
+            <p class="mb-0">Employee Details</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="employeeDetailsForm" [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Employee Code</mat-label>
+                    <input matInput placeholder="Employee Code" required formControlName="employeeCode">
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('employeeCode').hasError('required')">
+                        Employee Code is Required
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input matInput placeholder="Employee Name" required formControlName="employeeName">
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('employeeName').hasError('required')">
+                        Employee Name is Required
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 ">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Department</mat-label>
+                    <mat-select  formControlName="departmentName" required (selectionChange)="selectDepartment($event)" [compareWith]="compareFnDepartmentName">
+                      <mat-option *ngFor="let department of departmentsList" [value]="department">{{department.departmentName}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('departmentName').hasError('required')">
+                        Department is Required
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- <div class="col-lg-2 ">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>KAI Branch</mat-label>
+                    <mat-select  formControlName="branchDepotMasters"required multiple>
+                      <mat-option *ngFor="let branch of kaibranchList?.result" [value]="branch">{{branch.branchName}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('branchDepotMasters').hasError('required')">
+                        KAI Branch is Required
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div> -->
+
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Designation Level</mat-label>
+                    <input matInput placeholder="Designation Level" formControlName="designationLevel"
+                      [matAutocomplete]="autoDesignationLevel" required>
+                    <mat-autocomplete #autoDesignationLevel="matAutocomplete" [displayWith]="displayFnDesignationLevel"
+                      [panelWidth]="500" (optionSelected)="selectDesignationLevel()" >
+                      <mat-option *ngFor="let option of designationLeveList" [value]="option">
+                        {{option?.designationLevel}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('designationLevel').hasError('selectFromList')">
+                        Please select from list
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 ">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Designation Name</mat-label>
+                    <mat-select required formControlName="designation" [compareWith]="compareFnDesignation">
+                      <mat-option *ngFor="let option of designationNameList" [value]="option">{{option.designation}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('designation').hasError('required')">
+                        Designation Name is Required
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Contact No.</mat-label>
+                    <input matInput placeholder="Contact No." required formControlName="contactNo"  minlength="10" maxlength="10" (keypress)=onlyNumberValidation($event)>
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('contactNo').hasError('required')">It
+                        is Not a valid Mobile Number</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email Id</mat-label>
+                    <input matInput placeholder="Email Id" required formControlName="emailId">
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('emailId').hasError('invalidEmail')">
+                        Please enter valid mail.
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 ">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select required formControlName="status">
+                      <mat-option *ngFor="let item of status" [value]="item">{{item}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="employeeDetailsForm.get('status').hasError('required')">
+                        Status is Required
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2 col-md-3 mt-2">
+                  <mat-checkbox formControlName="managementAccess">
+                    Allow Management Access
+                  </mat-checkbox>
+                </div>
+              </div>
+            </form>
+
+            <app-reporting-employee-details></app-reporting-employee-details>
+
+            <div class=" text-center mt-2 ">
+              <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="isEdit || isCreate" (click)="validateForm()"> {{buttons}}
+              </button>
+              <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isEdit || isCreate" (click)="clearForm()"> Clear
+              </button>
+              <button type="button" class="btn btn_primary px-3 ml-2" (click)="exitForm()"> Exit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

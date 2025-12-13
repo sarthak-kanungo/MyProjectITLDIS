@@ -1,0 +1,79 @@
+<div [formGroup]="machineMasterReportForm" [style.fontSize.px]="11">
+    <div class="row card-body"> 
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Product Group</mat-label>
+                <mat-select formControlName="productGroup">
+                    <mat-option >ALL</mat-option>
+                    <mat-option value="Accessory">Accessory</mat-option>
+                    <mat-option value="Machinery">Machinery</mat-option>
+                    <mat-option value="Implements">Implements</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Product</mat-label>
+                <mat-select formControlName="product"
+                    (selectionChange)="selectProduct($event.value)">
+                    <mat-option >ALL</mat-option>
+                    <mat-option *ngFor="let option of products" [value]="option.product">
+                        {{option?.product}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+         <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Series</mat-label>
+                <mat-select formControlName="series"
+                    (selectionChange)="selectSeries($event.value)" [compareWith]="compareFnSeries">
+                    <mat-option >ALL</mat-option>
+                    <mat-option *ngFor="let option of seriesByProduct"
+                        [value]="option.series">{{option?.series}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model</mat-label>
+                <mat-select formControlName="model"
+                    (selectionChange)="selectModel($event.value)" [compareWith]="compareFnModel">
+                    <mat-option >ALL</mat-option>
+                    <mat-option *ngFor="let option of modelBySeries"
+                        [value]="option.model">
+                        {{option?.model}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sub Model</mat-label>
+                <mat-select formControlName="subModel" (selectionChange)="selectSubModel($event.value)"
+                    [compareWith]="compareFnSubModel">
+                    <mat-option >ALL</mat-option>
+                    <mat-option *ngFor="let option of subModelByModel"
+                        [value]="option.subModel">
+                        {{option?.subModel}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Variant</mat-label>
+                <mat-select formControlName="variant">
+                    <mat-option >ALL</mat-option>
+                    <mat-option *ngFor="let option of variants" [value]="option.variant">
+                        {{option?.variant}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> 
+
+    </div>
+   

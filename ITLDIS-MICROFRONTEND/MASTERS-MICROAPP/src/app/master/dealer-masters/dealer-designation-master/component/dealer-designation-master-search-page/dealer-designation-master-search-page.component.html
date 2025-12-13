@@ -1,0 +1,59 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Dealer</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-designation-master>
+                        </app-search-designation-master>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchDealerDesignation()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable"
+    [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+    [clickOnTableFields]="[{title:'edit'},{title:'designation'},{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]"  (actionOnTableRecord)="tableAction($event)"
+    (pageChange)="pageChange($event)"  [page]="page" [size]="size" [clearSearchRow]="clearSearchRow" [searchValue]="searchValue">
+
+    <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+        <input class="w-100 borderRadius" #edit >
+    </td>
+
+    <td></td>
+
+    <td [ngsw-searchField]="designation" [searchColumnName]="'designation'" class="designation">
+        <input class="w-100 borderRadius" #designation [(ngModel)] ="designationNgModel">
+    </td>
+
+    <td [ngsw-searchField]="department_name" [searchColumnName]="'department_name'" class="department_name">
+        <input class="w-100 borderRadius" #department_name [(ngModel)] ="department_nameNgModel">
+    </td>
+
+</ngsw-search-table>
+</div>
+
+<!-- <app-dealer-designation-master-search-table></app-dealer-designation-master-search-table> -->

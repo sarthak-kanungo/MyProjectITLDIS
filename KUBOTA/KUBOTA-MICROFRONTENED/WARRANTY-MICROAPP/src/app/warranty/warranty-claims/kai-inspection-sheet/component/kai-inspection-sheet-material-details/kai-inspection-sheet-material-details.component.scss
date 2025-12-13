@@ -1,0 +1,23 @@
+.material-details {
+    mat-form-field {
+       ::ng-deep .mat-form-field-wrapper{
+            padding: 0px;
+        }
+    }
+    mat-radio-button {
+        margin-top: 13px;
+        margin-bottom: 9px;
+        ::ng-deep .mat-radio-label {
+            margin: 0px;
+        }
+    }
+    
+    .chkBox {
+        // vertical-align: bottom;
+        mat-checkbox {
+            display: inline-flex;
+        }
+    }
+
+    
+}

@@ -1,0 +1,41 @@
+package com.i4o.dms.itldis.masters.service.machineinstallation.fieldInstallation.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.i4o.dms.itldis.masters.service.domain.ServiceMtAggregate;
+
+@Entity
+@Getter
+@Setter
+@Table(name="SV_MT_CHECKLIST_CHECKPOINT")
+public class ServiceMtFieldInstallationCheckpoint
+{
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long checkpointId;
+
+    @Size(max = 1)
+    @NotBlank(message = "active status cannot blank")
+    private String activeStatus;
+
+    @NotBlank(message = "checkpoints cannot blank")
+    private String checkpointDesc;
+
+    private String defaultTick;
+
+    @NotBlank(message = "fieldType cannot blank")
+    @Size(max = 20)
+    private String fieldType;
+
+    @Size(max =100)
+    private String specification;
+
+    @ManyToOne
+    @JoinColumn(name = "aggregate_id")
+    private ServiceMtAggregate serviceMrcAggregate;
+}

@@ -1,0 +1,35 @@
+<div class="card-from">
+	<div class="card" style="border: 1px solid #45afaf;">
+		<div class="card-header"
+			style="background-color: #45afaf; border: 1px solid #45afaf;">
+			<p class="mb-0" style="font-size: 13px;">Land Details</p>
+		</div>
+		<div class="card-body mb-2">
+			<div [formGroup]="customerMasterLandDetailsForm" [style.fontSize.px]="11">
+				<div class="row">
+					<div class="col-lg-2">
+						<mat-form-field appearance="outline" class="w-100">
+						<mat-label>Soil Type</mat-label> <mat-select required
+							formControlName="soilType" multiple> <mat-option
+							*ngFor="let soiltype of soiltypes" [value]="soiltype.soilType">{{soiltype.soilType}}
+						</mat-option> </mat-select> </mat-form-field>
+					</div>
+
+					<div class="col-lg-2">
+						<mat-form-field appearance="outline"> <mat-label>Land
+						in Acres</mat-label> <input matInput placeholder="Land in Acres" required
+							formControlName="landSize"> </mat-form-field>
+					</div>
+
+					<div class="col-lg-2">
+						<mat-form-field appearance="outline" class="w-100">
+						<mat-label>Major Crop Grown</mat-label> <mat-select
+							formControlName="cropName" multiple> <mat-option
+							*ngFor="let grown of  crops" [value]="grown.cropGrown">{{grown?.cropGrown}}
+						</mat-option> </mat-select> </mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

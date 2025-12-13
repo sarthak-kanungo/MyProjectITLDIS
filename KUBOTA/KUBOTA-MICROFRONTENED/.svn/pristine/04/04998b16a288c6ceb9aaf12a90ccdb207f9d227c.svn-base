@@ -1,0 +1,52 @@
+<div class="container-fluid mt-4 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0"> Part Issue</p>
+                    </div>
+                    <div class="card-body">
+                        <app-part-issue 
+	                        [isView]="isView"
+	                        [isEdit]="isEdit"
+	                        [viewData]="partRequisition">
+	                        <!-- (partRequisitionItemChange)="itemDetailList = $event" 
+	                        (advancedSparePartIssueChange)="advancedSparePartIssue = $event" -->
+	                        
+                        </app-part-issue>
+                        <app-part-issue-item
+	                        [isView]="isView"
+	                        [isEdit]="isEdit">
+                        </app-part-issue-item>
+                        <div class=" text-center mt-2 ">
+                            <!-- <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3"
+                                (click)="savePartIssue()"> Save
+                            </button> -->
+                            <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3 "
+                                (click)="submitPartIssue()" [disabled]="isSubmitDisable">
+                                Submit
+                            </button>
+                            <button *ngIf="isView" type="button" (click)="viewPdf('true')" class="btn btn_secondary pl-3 pr-3 ml-3">
+                                View Pdf
+                            </button>
+                            <!-- <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled>
+                                Print Binning Slip
+                            </button>
+                            <button *ngIf="isView" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" disabled>
+                                Raise Discrepancy
+                                Claim
+                            </button> -->
+                            <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                                (click)="clearAllSubForm()">
+                                Clear
+                            </button>
+                            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="back()"> Exit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

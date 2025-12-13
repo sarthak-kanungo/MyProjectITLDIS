@@ -1,0 +1,7 @@
+
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="text-center alert alert-secondary" style="margin-top: 100px">
+            Table Data Not Found </div>
+        </div>
+    </div>

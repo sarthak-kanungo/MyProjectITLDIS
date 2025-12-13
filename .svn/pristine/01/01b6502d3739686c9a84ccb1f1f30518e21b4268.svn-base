@@ -1,0 +1,4 @@
+.tablerow{
+    color: rgba(0,0,0,.06);
+    background-color: #f1f1f1;
+  }

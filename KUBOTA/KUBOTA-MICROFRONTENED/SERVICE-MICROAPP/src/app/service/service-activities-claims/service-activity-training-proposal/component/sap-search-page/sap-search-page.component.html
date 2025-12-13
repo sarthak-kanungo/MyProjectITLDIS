@@ -1,0 +1,162 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Service Activity /Training Proposal</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]" *ngIf="loginUserType!=='kubota'">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-sap-search [searchSapForm]=searchSapForm  [isAdvanceSearch]="isAdvanceSearch">
+                        </app-sap-search>
+
+                    
+
+                        <div class="col-lg-12 mb-2">
+                            <div class="mx-auto d-flex justify-content-between">
+                                <div></div>
+                                <div>
+                                    <button type="button" class="btn  btn_primary px-3"
+                                        (click)="onClickSearchActivityProposal()" >
+                                        Search
+                                    </button>
+                                    <button type="button" class="btn  btn_secondary px-3 ml-2"
+                                        (click)="onClickClearActivityProposal()">
+                                        Clear
+                                    </button>
+                                </div>
+                                <a   class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;"
+                                    (click)="onClickAdvanceSearch()">
+                                    <u> {{isAdvanceSearch ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)" [page]="page" [size]="size" [clickOnTableFields]="[{ 'title': 'Activity_Proposal_Number', 'isClickable': true }, { 'title': 'Edit', 'isClickable': true },
+                { 'title': 'Approve', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+
+            <td>
+                
+            </td>
+
+            <td *ngIf="loginUserType != 'dealer'">
+                
+            </td>
+            <td *ngIf="loginUserType != 'dealer'" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerCode>
+                </mat-form-field>
+            </td>
+            <td *ngIf="loginUserType != 'dealer'" [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerName>
+                </mat-form-field>
+            </td>
+            <td *ngIf="loginUserType != 'dealer'" [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #dealerState>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="Activity_Proposal_Number" [searchColumnName]="'Activity_Proposal_Number'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Activity_Proposal_Number>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="Activity_Creation_Date" [searchColumnName]="'Activity_Creation_Date'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="Activity_Creation_Date" #Activity_Creation_DateInput
+                        (dateInput)="serviceActivityDateChanges(Activity_Creation_DateInput.value, 'Activity_Creation_Date')">
+                    <mat-datepicker-toggle matSuffix [for]="Activity_Creation_Date"></mat-datepicker-toggle>
+                    <mat-datepicker #Activity_Creation_Date></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Status" [searchColumnName]="'Status'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Status>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Activity_Type" [searchColumnName]="'Activity_Type'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Activity_Type>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Location" [searchColumnName]="'Location'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Location>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="From_Date" [searchColumnName]="'From_Date'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="From_Date" #From_DateInput
+                        (dateInput)="serviceActivityDateChanges(From_DateInput.value, 'From_Date')">
+                    <mat-datepicker-toggle matSuffix [for]="From_Date"></mat-datepicker-toggle>
+                    <mat-datepicker #From_Date></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="To_Date" [searchColumnName]="'To_Date'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput [matDatepicker]="To_Date" #To_DateInput
+                        (dateInput)="serviceActivityDateChanges(To_DateInput.value, 'To_Date')">
+                    <mat-datepicker-toggle matSuffix [for]="To_Date"></mat-datepicker-toggle>
+                    <mat-datepicker #To_Date></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="No_Of_Days" [searchColumnName]="'No_Of_Days'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #No_Of_Days>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Proposed_Budget" [searchColumnName]="'Proposed_Budget'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Proposed_Budget>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Max_Allowed_Budget" [searchColumnName]="'Max_Allowed_Budget'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Max_Allowed_Budget>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Targeted_Numbers" [searchColumnName]="'Targeted_Numbers'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Targeted_Numbers>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="Remarks" [searchColumnName]="'Remarks'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Remarks>
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="Approved_Amount" [searchColumnName]="'Approved_Amount'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #Approved_Amount>
+                </mat-form-field>
+            </td>
+            <td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput #lastApprovedBy>
+                </mat-form-field>
+              </td>
+        </ngsw-search-table>
+    </div>
+
+</div>

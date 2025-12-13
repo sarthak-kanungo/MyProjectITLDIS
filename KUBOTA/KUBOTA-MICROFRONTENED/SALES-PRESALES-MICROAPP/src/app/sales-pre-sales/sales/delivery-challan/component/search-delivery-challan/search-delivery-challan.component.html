@@ -1,0 +1,671 @@
+<div class="card-from">
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0"> Search Delivery Challan</p>
+            <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white"
+                *ngIf="dealerType!=='kubota'">
+                <b>New </b>
+            </button>
+        </div>
+        <div class="card-body">
+
+            <form [formGroup]="searchDeliveryChallanForm" [style.fontSize.px]="10">
+                <div class="row">
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Delivery Challan No.</mat-label>
+                            <input matInput placeholder="Delivery Challan No." formControlName="deliveryChallanNumber"
+                                [matAutocomplete]="dcNoAuto">
+                            <mat-autocomplete #dcNoAuto="matAutocomplete" [displayWith]="displayDcNumberFn"
+                                [panelWidth]="500">
+                                <mat-option *ngFor="let option of dcNoAutoList | async" [value]="option">
+                                    {{option['value']}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Chassis No.</mat-label>
+                            <input matInput placeholder="Chassis No." formControlName="chassisNumber"
+                                [matAutocomplete]="chassisNoAuto">
+                            <mat-autocomplete #chassisNoAuto="matAutocomplete" [displayWith]="displayChassisNumberFn">
+                                <mat-option *ngFor="let option of chassisNoAutoList | async" [value]="option">
+                                    {{option['chassisNo']}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput placeholder="Customer Name" formControlName="customerName"
+                                [matAutocomplete]="customerNameAuto">
+                            <mat-autocomplete #customerNameAuto="matAutocomplete" [displayWith]="displayCustomerNameFn">
+                                <mat-option *ngFor="let option of customerNameAutoList | async" [value]="option">
+                                    {{option['customerName']}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput placeholder="Mobile No." formControlName="customerMobileNumber"
+                                [matAutocomplete]="mobileNoAuto">
+                            <mat-autocomplete #mobileNoAuto="matAutocomplete" [displayWith]="displayMobileNumberFn">
+                                <mat-option *ngFor="let option of mobileNoAutoList | async" [value]="option">
+                                    {{option['customerMobileNumber']}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker" placeholder="Delivery Challan From Date"
+                                formControlName="dcFromDate" (click)="picker.open()"
+                                (dateChange)="fromDateSelected($event)" [max]="todaysDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker1" placeholder="Delivery Challan To Date"
+                                formControlName="dcToDate" (click)="picker1.open()" [min]="minToDate" [max]="maxToDate"  [readonly]="!searchDeliveryChallanForm.get('dcFromDate').value">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 [disabled]="!searchDeliveryChallanForm.get('dcFromDate').value"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2"  *ngIf="isKai">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dealer</mat-label>
+                            <input matInput placeholder="Dealer" formControlName="dealer"
+                                [matAutocomplete]="dealerSearch">
+                            <mat-autocomplete #dealerSearch="matAutocomplete"  [panelWidth]="500" [displayWith]="displayDealerFn">
+                                <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                    {{option?.displayString}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="card-from mt-2" *ngIf="searchform">
+                    <div class="card" style="border: 1px solid #45afaf;">
+                        <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+                            <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Enquiry No.</mat-label>
+                                        <input matInput placeholder="Enquiry No." formControlName="enquiryNumber"
+                                            [matAutocomplete]="enquiryNoAuto">
+                                        <mat-autocomplete #enquiryNoAuto="matAutocomplete"
+                                            [displayWith]="displayEnquiryNoFn">
+                                            <mat-option *ngFor="let option of enquiryNoAutoList | async"
+                                                [value]="option">
+                                                {{option['enquiryNumber']}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Enquiry Type</mat-label>
+                                        <mat-select formControlName="enquiryType">
+                                            <mat-option *ngFor="let type of enquiryTypeList" [value]="type.enquiryType">
+                                                {{type.enquiryType}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Delivery Challan Status</mat-label>
+                                        <mat-select formControlName="dcStatus">
+                                            <mat-option *ngFor="let status of dcStatusList" [value]="status.status">
+                                                {{status.status}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Product</mat-label>
+                                        <mat-select formControlName="product">
+                                            <mat-option *ngFor="let product of productList" [value]="product.product">
+                                                {{product.product}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Series</mat-label>
+                                        <mat-select formControlName="series">
+                                            <mat-option *ngFor="let series of seriesList" [value]="series.series">
+                                                {{series.series}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Model</mat-label>
+                                        <mat-select formControlName="model">
+                                            <mat-option *ngFor="let model of modelList" [value]="model.model">
+                                                {{model.model}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Sub Model</mat-label>
+                                        <mat-select formControlName="subModel">
+                                            <mat-option *ngFor="let subModel of subModelList"
+                                                [value]="subModel.subModel">
+                                                {{subModel.subModel}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Variant</mat-label>
+                                        <mat-select formControlName="variant">
+                                            <mat-option *ngFor="let variant of variantList" [value]="variant.variant">
+                                                {{variant.variant}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Item No.</mat-label>
+                                        <input matInput placeholder="Item No." formControlName="itemNumber"
+                                            [matAutocomplete]="itemNoAuto">
+                                        <mat-autocomplete #itemNoAuto="matAutocomplete" [displayWith]="displayItemNoFn">
+                                            <mat-option *ngFor="let option of itemNoAutoList | async" [value]="option">
+                                                {{option['value']}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Engine No.</mat-label>
+                                        <input matInput placeholder="Engine No." formControlName="engineNumber"
+                                            [matAutocomplete]="engineNoAuto">
+                                        <mat-autocomplete #engineNoAuto="matAutocomplete"
+                                            [displayWith]="displayEngineNoFn">
+                                            <mat-option *ngFor="let option of engineNoAutoList | async"
+                                                [value]="option">
+                                                {{option['engineNumber']}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="isKai">
+                                <div class="col-lg-2" *ngFor="let level of orgLevels">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                      <mat-label>{{level['LEVEL_DESC']}}</mat-label>
+                                      <mat-select formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+                                          <mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+                                        <mat-option *ngFor="let hier of orgHierLevels1" [value]="hier" (click)="getOrgLevelHier2(hier)" >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel2" *ngIf="level['SEQ_NO'] == 2">
+                                          <mat-option value='all' (click)="getOrgLevelHier3('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels2" [value]="hier" (click)='getOrgLevelHier3(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel3" *ngIf="level['SEQ_NO'] == 3">
+                                        <mat-option value='all' (click)="getOrgLevelHier4('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels3" [value]="hier" (click)='getOrgLevelHier4(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel4" *ngIf="level['SEQ_NO'] == 4">
+                                        <mat-option value='all' (click)="getOrgLevelHier5('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels4" [value]="hier" (click)='getOrgLevelHier5(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                      <mat-select formControlName="orgHierLevel5" *ngIf="level['SEQ_NO'] == 5">
+                                          <mat-option value='all' (click)="getOrgLevelHier6('all')">ALL</mat-option>
+                                          <mat-option *ngFor="let hier of orgHierLevels5" [value]="hier" >{{hier['hierarchy_desc']}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-lg-12">
+                <div class="mx-auto d-flex justify-content-between">
+                    <div></div>
+                    <div>
+                        <button type="button" class="btn px-3 mt-3 btn_primary" 
+                        [insertQueryParams]="searchFilter"
+                        (initialQueryParams)="initialQueryParams($event)"
+                        (onUrlChange)="onUrlChange($event)"
+                        (click)="searchDeliveryChallan()">
+                            Search </button>
+                        <button type="button" class="btn px-3 mt-3 ml-2 btn_primary"
+                            (click)="clearForm()">
+                            Clear </button>
+                    </div>
+                    <a class=" font-weight-bold mt-3 cursor_pointer" style="color: #007bff; "
+                        (click)="searchform = !searchform">
+                        <u> {{searchform ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+	(actionOnTableRecord)="actionOnTableRecord($event)"
+    [clickOnTableFields]="[{'title':'deliveryChallanNumber','isClickable':true},{'title':'cancel','isClickable':true}]"
+    (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow"  [isExcelImport]="true" (exportToExcel)="downloadExcel($event)" >
+<!-- [actionButtons]="actionButtons" -->
+
+    <td></td>
+    <td [ngsw-searchField]="deliveryChallanNumber" [searchColumnName]="'deliveryChallanNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #deliveryChallanNumber [(ngModel)] ="deliveryChallanNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="picker" [searchColumnName]="'deliveryChallanDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="deliveryChallanDatePicker" placeholder="Choose a date" #deliveryChallanDate
+                (dateChange)="dateChanges($event, 'deliveryChallanDate')" [(ngModel)] ="deliveryChallanDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="deliveryChallanDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #deliveryChallanDatePicker></mat-datepicker>
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="deliveryChallantype" [searchColumnName]="'deliveryChallantype'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #deliveryChallantype [(ngModel)] ="deliveryChallantypeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dcStatus" [searchColumnName]="'dcStatus'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #dcStatus [(ngModel)] ="dcStatusNgModel">
+        </mat-form-field>
+    </td> 
+    <td [ngsw-searchField]="enquiryNumber" [searchColumnName]="'enquiryNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #enquiryNumber [(ngModel)] ="enquiryNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="enquiryDate" [searchColumnName]="'enquiryDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="enquiryDatePickerRef" placeholder="Choose a date" #enquiryDate
+                (dateChange)="dateChanges($event, 'enquiryDate')" [(ngModel)] ="enquiryDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="enquiryDatePickerRef"></mat-datepicker-toggle>
+            <mat-datepicker #enquiryDatePickerRef></mat-datepicker>
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="enquiryType" [searchColumnName]="'enquiryType'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #enquiryType [(ngModel)] ="enquiryTypeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #dealerName [(ngModel)] ="dealerNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #dealerCode [(ngModel)] ="dealerCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #dealerState [(ngModel)] ="dealerStateNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="DSEEmployeeCode" [searchColumnName]="'DSEEmployeeCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #DSEEmployeeCode [(ngModel)] ="dseCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="DSEName" [searchColumnName]="'DSEName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #DSEName [(ngModel)] ="dseNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="cashLone" [searchColumnName]="'cashLone'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #cashLone [(ngModel)] ="cashLoneNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="financier" [searchColumnName]="'financier'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #financier [(ngModel)] ="financierNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="itemNumber" [searchColumnName]="'itemNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #itemNumber [(ngModel)] ="itemNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="itemDescription" [searchColumnName]="'itemDescription'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #itemDescription [(ngModel)] ="itemDescriptionNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="quantity" [searchColumnName]="'quantity'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #quantity [(ngModel)] ="quantityNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="chassisNumber" [searchColumnName]="'chassisNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #chassisNumber [(ngModel)] ="chassisNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="engineNumber" [searchColumnName]="'engineNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #engineNumber [(ngModel)] ="engineNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="color" [searchColumnName]="'color'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #color [(ngModel)] ="colorNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="remark" [searchColumnName]="'remark'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #remark [(ngModel)] ="remarkNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerType" [searchColumnName]="'customerType'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #customerType [(ngModel)] ="customerTypeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="companyName" [searchColumnName]="'companyName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #companyName [(ngModel)] ="companyNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #customerCode [(ngModel)] ="customerCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #customerName [(ngModel)] ="customerNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="invoiceCustomerName" [searchColumnName]="'invoiceCustomerName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #invoiceCustomerName [(ngModel)] ="invoiceCustomerNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #mobileNumber [(ngModel)] ="mobileNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #address1 [(ngModel)] ="address1NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="address2" [searchColumnName]="'address2'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #address2 [(ngModel)] ="address2NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="address3" [searchColumnName]="'address3'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #address3 [(ngModel)] ="address3NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #pinCode [(ngModel)] ="pinCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #postOffice [(ngModel)] ="postOfficeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="village" [searchColumnName]="'village'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #village [(ngModel)] ="villageNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #tehsil [(ngModel)] ="tehsilNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #district [(ngModel)] ="districtNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #city [(ngModel)] ="cityNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #state [(ngModel)] ="stateNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="gstinNumber" [searchColumnName]="'gstinNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #gstinNumber [(ngModel)] ="gstinNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="panNumber" [searchColumnName]="'panNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #panNumber [(ngModel)] ="panNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceCompanyCode" [searchColumnName]="'insuranceCompanyCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceCompanyCode [(ngModel)] ="insuranceCompanyCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceCompanyName" [searchColumnName]="'insuranceCompanyName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceCompanyName [(ngModel)] ="insuranceCompanyNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceAddress1" [searchColumnName]="'insuranceAddress1'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceAddress1 [(ngModel)] ="iaddress1NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceAddress2" [searchColumnName]="'insuranceAddress2'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceAddress2 [(ngModel)] ="iaddress2NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceAddress3" [searchColumnName]="'insuranceAddress3'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceAddress3 [(ngModel)] ="iaddress3NgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insurancePinCode" [searchColumnName]="'insurancePinCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insurancePinCode [(ngModel)] ="ipinCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceLocality" [searchColumnName]="'insuranceLocality'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceLocality [(ngModel)] ="ilocalityNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceTehsil" [searchColumnName]="'insuranceTehsil'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceTehsil [(ngModel)] ="iTehsilNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceCity" [searchColumnName]="'insuranceCity'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceCity [(ngModel)] ="icityNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceState" [searchColumnName]="'insuranceState'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceState [(ngModel)] ="istateNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceCountry" [searchColumnName]="'insuranceCountry'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceCountry [(ngModel)] ="icountryNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceTelephoneNumber" [searchColumnName]="'insuranceTelephoneNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceTelephoneNumber [(ngModel)] ="itelephoneNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="insuranceEmail" [searchColumnName]="'insuranceEmail'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #insuranceEmail [(ngModel)] ="iemailNgModel">
+        </mat-form-field>
+    </td>
+     
+    <td [ngsw-searchField]="policyStartDate" [searchColumnName]="'policyStartDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="policyStartDatePickerRef" placeholder="Choose a date" #policyStartDate
+                (dateChange)="dateChanges($event, 'policyStartDate')" [(ngModel)] ="policyStartDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="policyStartDatePickerRef"></mat-datepicker-toggle>
+            <mat-datepicker #policyStartDatePickerRef></mat-datepicker>
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="policyExipryDate" [searchColumnName]="'policyExipryDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="policyExipryDatePickerRef" placeholder="Choose a date" #policyExipryDate
+                (dateChange)="dateChanges($event, 'policyExipryDate')" [(ngModel)] ="policyExipryDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="policyExipryDatePickerRef"></mat-datepicker-toggle>
+            <mat-datepicker #policyExipryDatePickerRef></mat-datepicker>
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="requestNumber" [searchColumnName]="'requestNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #requestNumber [(ngModel)] ="requestNumberNgModel">
+        </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="transferToDealerName" [searchColumnName]="'transferToDealerName'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #transferToDealerName [(ngModel)] ="TransferToDealerNameNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="transferToDealerCode" [searchColumnName]="'transferToDealerCode'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #transferToDealerCode [(ngModel)] ="TransferToDealerCodeNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="createdDate" [searchColumnName]="'createdDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="createdDatePickerRef" placeholder="Choose a date" #createdDate
+                (dateChange)="dateChanges($event, 'createdDate')" [(ngModel)] ="createdDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="createdDatePickerRef"></mat-datepicker-toggle>
+            <mat-datepicker #createdDatePickerRef></mat-datepicker>
+        </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="KAIInvoiceDate" [searchColumnName]="'KAIInvoiceDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="kaiInvoiceDatePickerRef" placeholder="Choose a date" #KAIInvoiceDate
+                (dateChange)="dateChanges($event, 'KAIInvoiceDate')" [(ngModel)] ="kaiInvoiceDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="createdDatePickerRef"></mat-datepicker-toggle>
+            <mat-datepicker #kaiInvoiceDatePickerRef></mat-datepicker>
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="KAIInvoiceNumber" [searchColumnName]="'KAIInvoiceNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #KAIInvoiceNumber [(ngModel)] ="kaiInvoiceNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="getPassNumber" [searchColumnName]="'getPassNumber'">
+        <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+            <input matInput #getPassNumber [(ngModel)] ="getPassNumberNgModel">
+        </mat-form-field>
+    </td>
+    <td [ngsw-searchField]="gatePassDate" [searchColumnName]="'gatePassDate'">
+        <mat-form-field>
+            <input matInput [matDatepicker]="gatePassDatePicker" placeholder="Choose a date" #gatePassDate
+                (dateChange)="dateChanges($event, 'gatePassDate')" [(ngModel)] ="gatePassDateNgModel">
+            <mat-datepicker-toggle matSuffix [for]="gatePassDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #gatePassDatePicker></mat-datepicker>
+        </mat-form-field>
+    </td>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+    
+</ngsw-search-table>

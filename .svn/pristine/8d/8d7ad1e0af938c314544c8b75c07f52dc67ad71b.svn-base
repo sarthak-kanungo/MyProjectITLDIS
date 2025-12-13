@@ -1,0 +1,46 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="wpdcForm">
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Name</mat-label>
+            <input matInput placeholder="Dealer Name" formControlName="dealerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Address</mat-label>
+            <input matInput placeholder="Dealer Address" formControlName="dealerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Email</mat-label>
+            <input matInput placeholder="Dealer Email" formControlName="dealerEmail">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Code</mat-label>
+            <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="dealerCode == null">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Cell Number</mat-label>
+            <input matInput placeholder="Dealer Cell Number" formControlName="dealerMobNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isCreate">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Delivery Challan No.</mat-label>
+            <input matInput placeholder="Delivery Challan No." formControlName="deliveryChallanNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Delivery</mat-label>
+            <input readonly matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="Delivery" formControlName="deliveryChallanDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>

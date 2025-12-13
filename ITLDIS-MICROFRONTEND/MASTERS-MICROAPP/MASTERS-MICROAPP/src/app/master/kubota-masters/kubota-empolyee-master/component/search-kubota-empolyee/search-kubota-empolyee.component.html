@@ -1,0 +1,127 @@
+<div class="container-fluid mt-3 mb-3">
+    <div class="row">
+        <!-- <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="font-weight-bold" style="color: #354052">
+                        Employee Master
+                    </p>
+                    
+                </div>
+            </div>
+        </div> -->
+
+        <div class="col-lg-12 mt-2 ">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <p class="mb-0">Search Employee</p>
+                        <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                            New
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="employeeForm" [style.fontSize.px]="11">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput placeholder="Employee Code" formControlName="employeeCode"
+                                            [matAutocomplete]="autoEmployeeCode">
+                                        <mat-autocomplete #autoEmployeeCode="matAutocomplete"
+                                            [displayWith]="displayFnEmployeeCode" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of employeeCodeList?.result"
+                                                [value]="option">
+                                                {{option?.employeeCode}} | {{option?.employeeName}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Employee Name</mat-label>
+                                        <input matInput placeholder="Employee Name" formControlName="employeeName"
+                                            [matAutocomplete]="autoEmployeeName">
+                                        <mat-autocomplete #autoEmployeeName="matAutocomplete"
+                                            [displayWith]="displayFnEmployeeName" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of employeeNameList?.result"
+                                                [value]="option">
+                                                {{option?.employeeName}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="mt-1">
+                                        <button type="button" class="btn px-3 btn_primary" (click)="search()" [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+                                            Search </button>
+                                        <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"
+                                            (click)="clearForm()"> Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+            [totalElements]="totalTableElements" [searchValue]="searchValue" (actionOnTableRecord)="actionOnTableRecord($event)"
+            (pageChange)="pageChangeOfSearchTable($event)" [page]="page" [size]="size"  [clearSearchRow]="clearSearchRow" 
+            [clickOnTableFields]="[{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'},
+            {'title':'action','isClickable':true}, {'title':'employeeCode','isClickable':true},{'title':'updateOrghierarchy'}]">
+
+            <td [ngsw-searchField]="action" [searchColumnName]="'action'">
+                <input class="w-100 borderRadius" type="text" #action [(ngModel)]="actionNg">
+            </td>
+
+            <td [ngsw-searchField]="activeStatus" [searchColumnName]="'activeStatus'">
+                <input class="w-100 borderRadius" type="text" #activeStatus [(ngModel)]="activeStatusNg">
+            </td>
+            <td [ngsw-searchField]="updateOrghierarchy" [searchColumnName]="'updateOrghierarchy'">
+                <input class="w-100 borderRadius" type="text" #updateOrghierarchy [(ngModel)]="updateOrghierarchyNg">
+            </td>
+
+            <td [ngsw-searchField]="employeeCode" [searchColumnName]="'employeeCode'">
+                <input class="w-100 borderRadius" type="text" #employeeCode [(ngModel)]="employeeCodeNg">
+            </td>
+            <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'">
+                <input class="w-100 borderRadius" type="text" #employeeName [(ngModel)]="employeeNameNg">
+            </td>
+            <td [ngsw-searchField]="emailId" [searchColumnName]="'emailId'">
+                <input class="w-100 borderRadius" type="text" #emailId [(ngModel)]="emailIdNg">
+            </td>
+            <td [ngsw-searchField]="contactNo" [searchColumnName]="'contactNo'">
+                <input class="w-100 borderRadius" type="text" #contactNo [(ngModel)]="contactNoNg">
+            </td>
+           
+            <td [ngsw-searchField]="reportingEmployeeCode" [searchColumnName]="'reportingEmployeeCode'">
+                <input class="w-100 borderRadius" type="text" #reportingEmployeeCode [(ngModel)]="reportingEmployeeCodeNg">
+            </td>
+            <td [ngsw-searchField]="reportingEmployeeName" [searchColumnName]="'reportingEmployeeName'">
+                <input class="w-100 borderRadius" type="text" #reportingEmployeeName [(ngModel)]="reportingEmployeeNameNg">
+            </td>
+
+            <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'">
+                <input class="w-100 borderRadius" type="text" #departmentName [(ngModel)]="departmentNameNg">
+            </td>
+            <td [ngsw-searchField]="designation" [searchColumnName]="'designation'">
+                <input class="w-100 borderRadius" type="text" #designation [(ngModel)]="designationNg">
+            </td>
+            <td [ngsw-searchField]="designationLevel" [searchColumnName]="'designationLevel'">
+                <input class="w-100 borderRadius" type="text" #designationLevel [(ngModel)]="designationLevelNg">
+            </td>
+            
+            <td [ngsw-searchField]="managementAccess" [searchColumnName]="'managementAccess'">
+                <input class="borderRadius" type="text" #managementAccess [(ngModel)]="managementAccessNg">
+            </td>
+            
+        </ngsw-search-table>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="container-fluid mt-4 mb-3">
+  <form>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-from">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between header">
+                <p class="mb-0">Search Warranty Claim Request</p>
+                <div>
+                  <!--<button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                    [routerLink]="['./create']" routerLinkActive="router-link-active">
+                    <b class="btnName">New</b>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+
+            <app-warrenty-claim-request-search [searchForm]="searchForm"></app-warrenty-claim-request-search>
+            <div class="text-center  mt-2 mb-2">
+              <button  (click)="search()" type="button" class="btn  btn_primary px-3" [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"> Search
+              </button>
+              <button (click)="clear()" type="button" class="btn  btn_primary px-3 ml-2"> Clear
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="mt-2">
+    <!-- space for ngsw search table -->
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+      (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[
+        { title: 'wcrNo', isClickable: true },{ title: 'action', isClickable: true },{ title: 'invoice', isClickable: true },{title:'kaiInvoiceUpload', isClickable: true}
+      ]" (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [actionButtons]="actionButtons" [clearSearchRow]="clearSearchRow" 
+      [isExcelImport]="true" (exportToExcel)="wcrExcelReport($event)">
+      <!-- <td *ngIf="departmentName=='QA'"></td> -->
+      <td></td>
+      <td></td>
+      <td *ngIf="usertype=='kubota'"></td>
+      <td [ngsw-searchField]="wcrNo" [searchColumnName]="'wcrNo'">
+          <input class="w-100 borderRadius" #wcrNo />
+      </td>
+      <td [ngsw-searchField]="wcrDate" [searchColumnName]="'wcrDate'">
+          <input class="w-100 borderRadius" #wcrDate
+            type="date" (change)="etSearchDateValueChange(wcrDate.value, 'wcrDate')" />
+      </td>
+      <td [ngsw-searchField]="wcrType" [searchColumnName]="'wcrType'">
+          <input class="w-100 borderRadius" #wcrType />
+      </td>
+      <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+          <input class="w-100 borderRadius" #status />
+      </td>
+      <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+          <input class="w-100 borderRadius" #dealerCode />
+      </td>
+      <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+          <input class="w-100 borderRadius" #dealerName />
+      </td>
+      <td [ngsw-searchField]="workshopAddress" [searchColumnName]="'workshopAddress'">
+          <input class="w-100 borderRadius" #workshopAddress />
+      </td>
+      <td [ngsw-searchField]="dealerMobileNo" [searchColumnName]="'dealerMobileNo'">
+          <input class="w-100 borderRadius" #dealerMobileNo />
+      </td>
+      <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'">
+          <input class="w-100 borderRadius" #jobCardNo />
+      </td>
+      <td [ngsw-searchField]="goodwillNo" [searchColumnName]="'goodwillNo'">
+        <input class="w-100 borderRadius" #goodwillNo />
+    </td>
+    <td [ngsw-searchField]="goodwillDate" [searchColumnName]="'goodwillDate'">
+        <input class="w-100 borderRadius" #goodwillDate
+          type="date" (change)="etSearchDateValueChange(goodwillDate.value, 'goodwillDate')" />
+    </td>
+      <td [ngsw-searchField]="pcrNo" [searchColumnName]="'pcrNo'">
+          <input class="w-100 borderRadius" #pcrNo />
+      </td>
+      <td [ngsw-searchField]="pcrDate" [searchColumnName]="'pcrDate'">
+          <input class="w-100 borderRadius" #pcrDate
+            type="date" (change)="etSearchDateValueChange(pcrDate.value, 'pcrDate')" />
+      </td>
+      <td [ngsw-searchField]="installationDate" [searchColumnName]="'installationDate'">
+          <input class="w-100 borderRadius" #installationDate
+            type="date" (change)="etSearchDateValueChange(installationDate.value, 'installationDate')" />
+      </td>
+      <td [ngsw-searchField]="dateOfFailure" [searchColumnName]="'dateOfFailure'">
+          <input class="w-100 borderRadius" #dateOfFailure
+            type="date" (change)="etSearchDateValueChange(dateOfFailure.value, 'dateOfFailure')" />
+      </td>
+      <td [ngsw-searchField]="dateOfRepair" [searchColumnName]="'dateOfRepair'">
+          <input class="w-100 borderRadius" #dateOfRepair
+            type="date" (change)="etSearchDateValueChange(dateOfRepair.value, 'dateOfRepair')" />
+      </td>
+      <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+          <input class="w-100 borderRadius" #customerName />
+      </td>
+      <td [ngsw-searchField]="customerAddress" [searchColumnName]="'customerAddress'">
+          <input class="w-100 borderRadius" #customerAddress />
+      </td>
+      <td [ngsw-searchField]="customerMobileNo" [searchColumnName]="'customerMobileNo'">
+          <input class="w-100 borderRadius" #customerMobileNo />
+      </td>
+      <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+          <input class="w-100 borderRadius" #model />
+      </td>
+      <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+          <input class="w-100 borderRadius" #chassisNo />
+      </td>
+      <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+          <input class="w-100 borderRadius" #engineNo />
+      </td>
+      <td [ngsw-searchField]="soldToDealer" [searchColumnName]="'soldToDealer'">
+          <input class="w-100 borderRadius" #soldToDealer />
+      </td>
+      <td [ngsw-searchField]="hour" [searchColumnName]="'hour'">
+          <input class="w-100 borderRadius" #hour />
+      </td>
+      <td [ngsw-searchField]="failureType" [searchColumnName]="'failureType'">
+          <input class="w-100 borderRadius" #failureType />
+      </td>
+
+      <td [ngsw-searchField]="rsnNumber" [searchColumnName]="'rsnNumber'">
+          <input class="w-100 borderRadius" #rsnNumber />
+      </td>
+      <td [ngsw-searchField]="rsnDate" [searchColumnName]="'rsnDate'">
+        <input class="w-100 borderRadius" #rsnDate
+          type="date" (change)="etSearchDateValueChange(rsnDate.value, 'rsnDate')" />
+      </td>
+      
+      <td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'">
+        <input class="w-100 borderRadius" #lastApprovedBy />  
+      </td>
+      <td [ngsw-searchField]="finalStatus" [searchColumnName]="'finalStatus'">
+        <input class="w-100 borderRadius" #finalStatus />  
+      </td>
+    </ngsw-search-table>
+
+  </div>
+
+</div>

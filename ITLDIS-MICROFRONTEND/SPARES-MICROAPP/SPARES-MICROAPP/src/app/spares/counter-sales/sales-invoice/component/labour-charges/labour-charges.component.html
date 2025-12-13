@@ -1,0 +1,136 @@
+<div class="card-body" *ngIf="labourDetailsArray"> <!-- *ngIf="!isSalesOrder" -->
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Labour Charges</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <div >
+                    <table class="table w-100 table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <!-- <th scope="col" style="width: 10px"> </th> -->
+                                <th scope="col" class="w_50" >SRN</th>
+                                <th scope="col" class="w_120">FRS Code</th>
+                                <th scope="col" class="w_120">Description</th>
+                                <th scope="col" class="w_120">HSN Code</th>
+                                <th scope="col" class="w_120">Hour</th>
+                                <th scope="col" class="w_120">Amount</th>
+                                <th scope="col" class="w_120">Discount%</th>
+                                <th scope="col" class="w_120">Discount Amount</th>
+                                <th scope="col" class="w_120">Net Amount</th>
+                                <th scope="col" class="w_120">CGST%</th>
+                                <th scope="col" class="w_120">CGST Amount</th>
+                                <th scope="col" class="w_120">SGST%</th>
+                                <th scope="col" class="w_120">SGST Amount</th>
+                                <th scope="col" class="w_120">IGST%</th>
+                                <th scope="col" class="w_120">IGST Amount</th>
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let option of labourDetailsArray;let i = index">
+                                <!-- <td style="vertical-align: middle;">
+                                    <mat-checkbox color="basic" class="form-control form-control-sm"
+                                        [formControl]="option.get('isSelected')" [checked]></mat-checkbox>
+                                </td> -->
+                                <td align="center">
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>FRS Code</mat-label>
+                                        <input matInput placeholder="FRS Code" [formControl]="option.get('frsCode')"/>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Description"
+                                            [formControl]="option.get('description')" />
+                                    </mat-form-field>
+                                </td>
+                                
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>HSN Code</mat-label>
+                                        <input matInput placeholder="hsnCode" [formControl]="option.get('hsnCode')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Hour" [formControl]="option.get('hour')" />
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Amount" [formControl]="option.get('amount')" />
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>Discount%</mat-label>
+                                        <input matInput placeholder="Discount%" class="numericField" [formControl]="option.get('discountPercent')">
+                                    </mat-form-field>
+                                </td>
+                                
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>Discount Amount</mat-label>
+                                        <input matInput placeholder="Discount Amount" class="numericField" [formControl]="option.get('discountAmount')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>Net Amount</mat-label>
+                                        <input matInput placeholder="Net Amount" class="numericField" [formControl]="option.get('netAmount')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>CGST%</mat-label>
+                                        <input matInput placeholder="CGST%" class="numericField" [formControl]="option.get('cgstPercent')">
+                                    </mat-form-field>
+                                </td>
+                                
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>CGST Amount</mat-label>
+                                        <input matInput placeholder="CGST Amount" class="numericField" [formControl]="option.get('cgstAmount')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>SGST%</mat-label>
+                                        <input matInput placeholder="SGST%" class="numericField" [formControl]="option.get('sgstPercent')">
+                                    </mat-form-field>
+                                </td>
+                                
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>SGST Amount</mat-label>
+                                        <input matInput placeholder="SGST Amount" class="numericField" [formControl]="option.get('sgstAmount')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>IGST%</mat-label>
+                                        <input matInput placeholder="IGST%" class="numericField" [formControl]="option.get('igstPercent')">
+                                    </mat-form-field>
+                                </td>
+                                
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>IGST Amount</mat-label>
+                                        <input matInput placeholder="IGST Amount" class="numericField" [formControl]="option.get('igstAmount')">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

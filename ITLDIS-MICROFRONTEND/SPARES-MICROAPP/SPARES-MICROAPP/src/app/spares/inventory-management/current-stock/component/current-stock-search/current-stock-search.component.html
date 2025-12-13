@@ -1,0 +1,21 @@
+<div class="card-body" [formGroup]="currentStockSearchResultForm" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Item No.</mat-label>
+                <input matInput placeholder="Item No." formControlName="itemNo"
+                    [matAutocomplete]="autoItemNumber">
+                <mat-autocomplete #autoItemNumber="matAutocomplete"
+                    [displayWith]="displayItemNoFn"  [panelWidth]="400">
+                    <mat-option *ngFor="let option of searchItemNo"
+                        [value]="option">
+                        {{option?.displayValue}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="currentStockSearchResultForm.get('itemNo').hasError('selectFromList')">
+                    Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

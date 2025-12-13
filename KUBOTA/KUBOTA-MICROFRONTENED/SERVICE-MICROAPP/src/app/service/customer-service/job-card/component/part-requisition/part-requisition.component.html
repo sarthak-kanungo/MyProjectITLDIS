@@ -1,0 +1,141 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Part Requisition</p>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive mt-1">
+                <div [formGroup]="partRequisitionForm">
+                    <table class="table w-100 table-bordered table-sm" formArrayName="partRequisitionControl">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> </th>
+                                <th style="width: 116px;">Category</th>
+                                <th>Part Number</th>
+                                <th>Item Description</th>
+                                <th style="width: 76px;">Quantity</th>
+                                <!-- *ngIf=" ishideForDraftFlag" -->
+                                <th>Utilized Quantity</th>
+                                <th style="width: 76px;">Mrp</th>
+                                <th style="width: 76px;">Amount</th>
+                                <th *ngIf="ishideForDraftFlag">Approve Quantity</th>
+                                <!-- *ngIf="ishideForDraftFlag" -->
+                                <!-- <th *ngIf="ishideForDraftFlag" style="width: 76px;">Approve Status</th> -->
+                                <!-- *ngIf="ishideForDraftFlag" -->
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of partListData">
+                                
+                                <td></td>
+                                <td>{{data.category}}</td>
+                                <td>{{data.itemNo}}</td>
+                                <td>{{data.itemDescription}}</td>
+                                <td>{{data.quantity}}</td>
+                                <td></td>
+                                <td>{{data.mrp}}</td>
+                                <td>{{data.amount}}</td>
+                            </tr>
+                            
+                            <tr *ngFor="let option of partRequisitionForm.get('partRequisitionControl')['controls']; let i = index;"
+                                [formGroupName]="i">
+
+                                <td style="vertical-align: middle;">
+                                    <mat-checkbox color="basic" class="form-control form-control-sm"
+                                        [formControl]="option.get('isSelected')" [checked]></mat-checkbox>
+                                </td>
+                                <td style="width: 116px;">
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <mat-label>Select</mat-label>
+                                        <mat-select formControlName="category" [compareWith]="serviceCategoryCompare"
+                                            (selectionChange)="selectionChangedCategory($event,option)">
+                                            <mat-option *ngFor="let code of serviceCategoryList" [value]="code">
+                                                {{code.category}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                        <mat-label>Part Number</mat-label>
+                                        <input matInput placeholder="Part Number" (keydown)="onKeyDownPartNo($event,option)"
+                                            [formControl]="option.get('partNumber')" [matAutocomplete]="autoPartNumber">
+                                        <mat-autocomplete #autoPartNumber="matAutocomplete"
+                                            (optionSelected)="partNoSelection($event,option)"
+                                            [displayWith]="displayFnPartNumber" [panelWidth]="500">
+                                            <!-- (blur)="itemNumberBlur()" -->
+                                            <mat-option *ngFor="let option of partNumberList" [value]="option">
+                                                {{option?.itemNo}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Item Description"
+                                            [formControl]="option.get('itemDescription')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Quantity" [formControl]="option.get('quantity')"
+                                            (focusout)="qtyFocusOut($event,option)">
+                                    </mat-form-field>
+                                    <mat-error *ngIf="option.get('quantity').hasError('minValue')">
+						                <strong>Quantity Should be Greater than equal to Utilized Qty</strong>
+						            </mat-error>
+                                </td>
+                                <!-- *ngIf="ishideForDraftFlag" -->
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Utilized Quantity"
+                                            [formControl]="option.get('utilizedQuantity')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Mrp" [formControl]="option.get('mrp')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Amount" [formControl]="option.get('amount')"
+                                            readonly>
+                                    </mat-form-field>
+
+                                </td>
+                                <!-- *ngIf="ishideForDraftFlag" -->
+                                <td *ngIf="ishideForDraftFlag">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Approve Quantity"
+                                            [formControl]="option.get('approveQuantity')">
+                                    </mat-form-field>
+                                </td>
+                                <!-- *ngIf="ishideForDraftFlag" -->
+                               <!--  <td *ngIf="ishideForDraftFlag">
+                                    <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Approve Status"
+                                            [formControl]="option.get('approveStatus')">
+                                    </mat-form-field>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class=" text-center " *ngIf="status == 'Open'">
+                    <button type="button" class="btn btn-sm btn_primary " *ngIf="!isView" (click)="addRow()"> Add
+                        Row</button>
+                    <button type="button" class="btn btn-sm btn_secondary ml-2" *ngIf="!isView"
+                        (click)="deleteRow()">Delete Row
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

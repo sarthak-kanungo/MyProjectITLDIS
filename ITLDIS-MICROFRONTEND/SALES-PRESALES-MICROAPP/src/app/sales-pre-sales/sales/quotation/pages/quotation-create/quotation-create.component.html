@@ -1,0 +1,69 @@
+<div class="container-fluid create-form mb-3 mt-4">
+  <!-- <div class="row">
+    <div class="col-lg-12">
+      <div class="d-flex justify-content-between">
+        <div>
+          <p class="font-weight-bold" style="color: #354052">
+            Quotation Creation
+          </p>
+        </div>
+        <div>
+          <a [routerLink]="[ '../../../../sales-pre-sales/pre-sales/enquiry/create' ]" class="font-weight-bold">
+            <u>New Enquiry</u>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="card-from ">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Quotation</p>
+      </div>
+      <div class="card-body">
+
+        <app-quotation-container (autoPopulateDatabyEnquiryNo)="autoPopulateDatabyEnquiryNo($event)"
+          [isValidateForm]="getFormStatus.quotation" (validatedFormData)="checkAllFormValid($event,'quotationForm')"
+          [isViewOnly]="isView">
+        </app-quotation-container>
+        <!-- <app-prospect-details-container [dataAutoPopulatebyEnquiryNo]="dataAutoPopulatebyEnquiryNo"></app-prospect-details-container> -->
+        <app-quoat-prospect-details-container [dataAutoPopulatebyEnquiryNo]="dataAutoPopulatebyEnquiryNo"
+          [isValidateForm]="getFormStatus.prospectDetails"
+          (validatedFormData)="checkAllFormValid($event,'prospectDetailsForm')">
+        </app-quoat-prospect-details-container>
+        <app-add-implements-container [dataAutoPopulatebyEnquiryNo]="dataAutoPopulatebyEnquiryNo"
+          [isValidateForm]="getFormStatus.addImplements"
+          (validatedFormData)="checkAllFormValid($event,'addImplementsForm')" [viewOnly]="isView">
+        </app-add-implements-container>
+
+        <div class=" text-center mt-2 pb-2">
+          <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm()"
+            *ngIf="!isView" [disabled]="isSubmitDisable"> Submit
+          </button>
+          <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " *ngIf="isView" (click)="viewPrint('false')"> View PDF
+          </button> -->
+          <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView"  (click)="viewPrint('true')"> Print 
+
+            
+          </button> -->
+          <button type="button" class="btn btn_primary " *ngIf="isView"> Print 
+            <mat-form-field style="width: 50px; height: 0px;  margin-top: -15px;">
+              <mat-select matNativeControl (selectionChange)="viewPrint('true', $event.value)" >
+                <mat-option   *ngFor="let status of gstStatuses" [value]="status.printValue"  >{{status.viewValue}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+          </button>
+          <!-- <mat-label> Status</mat-label> -->
+         
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()" *ngIf="!isView"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

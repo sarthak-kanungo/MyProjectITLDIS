@@ -1,0 +1,25 @@
+<div class="p-3" style="border-bottom: 1px solid #00a8a9;">
+  <h4 class="text-center font-weight-bold" style="color: #282828;">
+    Dealer Management System
+  </h4>
+</div>
+<div class="w-100 height">
+  <!-- <img [src]="imgPath" alt="kubota dms"> -->
+  <ngb-carousel *ngIf="carouselArray">
+    <ng-template ngbSlide *ngFor="let img of carouselArray;let i=index;">
+      <div class="picsum-img-wrapper">
+        <img [src]="carouselArray[i]" alt="Image not loaded" class="img-reponsive">
+      </div>
+    </ng-template>
+    <!-- <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img [src]="images[1]" [style.width.%]="imgWd" [style.height.px]="imgHt" alt="Random second slide" class="img-reponsive">
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img [src]="images[2]" [style.width.%]="imgWd" [style.height.px]="imgHt" alt="Random third slide" class="img-reponsive">
+      </div>
+    </ng-template> -->
+  </ngb-carousel>
+</div>

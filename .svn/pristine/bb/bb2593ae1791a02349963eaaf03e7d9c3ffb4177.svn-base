@@ -1,0 +1,199 @@
+<form [formGroup]="newEnquiryForm" [style.fontSize.px]="10">
+    <div class="row">
+
+        <div class="col-lg-2" *ngIf="display">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Enquiry No.</mat-label>
+                <input matInput placeholder="Enquiry No." formControlName="enquiryNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [max]="tomorrow" [matDatepicker]="picker" placeholder="Enquiry Date" required
+                    formControlName="enquiryDate" readonly (click)="picker.open()" (dateChange)="selectionDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" >
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sales Person</mat-label>
+                <mat-select required formControlName="salesPerson">
+                    <mat-option *ngFor="let option of dropdownSalePerson?.result" [value]="option">
+                        {{option?.salesPerson}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Validation Date</mat-label>
+                <input matInput [matDatepicker]="picker3" placeholder="Validation Date"
+                    formControlName="validationDate">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Enquiry Type</mat-label>
+                <input matInput placeholder="Enquiry Type" formControlName="enquiryType">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="display">
+            <mat-form-field appearance="outline">
+                <mat-label>Enquiry Status</mat-label>
+                <input matInput placeholder="Enquiry Status" formControlName="enquiryStatus">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="display">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker4" placeholder="Updation Date" formControlName="updationDate">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Follow Up Type</mat-label>
+                <mat-select required formControlName="followUpType">
+                    <mat-option *ngFor="let followUpType of dropDownFollowupType?.result"
+                        [value]="followUpType?.followUpType">{{followUpType?.followUpType}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Source</mat-label>
+                <mat-select required formControlName="source" (selectionChange)="selectSource($event)">
+                    <mat-option *ngFor="let source of dropDownSource?.result" [value]="source?.sourceName">
+                        {{source?.sourceName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Referral Person Name</mat-label>
+                <input matInput maxlength="30" placeholder="Referral Person Name" formControlName="referralPersonName"
+                    [required]="isReferal ? true : null " (keypress)=keyPress($event)>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Purpose Of Purchase</mat-label>
+                <mat-select required formControlName="purposeOfPurchase">
+                    <mat-option *ngFor="let purpose of dropDownPurposeOfPurchase?.result"
+                        [value]="purpose.purposeOfPurchase">{{purpose.purposeOfPurchase}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Generation Activity type</mat-label>
+                <mat-select formControlName="generationActivityType"
+                    (selectionChange)="selectionGenerationActivityType($event.value)">
+                    <mat-option *ngFor="let generation of dropDownConversationActivationType?.result"
+                        [value]="generation?.conversionActivityType">
+                        {{generation?.conversionActivityType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Generation Activity No.</mat-label>
+                <input matInput placeholder="Generation Activity No." formControlName="generationActivityNumber"
+                    [matAutocomplete]="autoComGenerationActivityNo" appBlockCopyPaste >
+                <mat-autocomplete #autoComGenerationActivityNo="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of generationActivityNumber?.result" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isDisplayField">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Conversion Activity type</mat-label>
+                <mat-select formControlName="conversionActivityType" (selectionChange)="selectionConverstionActivityType($event)">
+                    <mat-option *ngFor="let conversion of dropDownConversationActivationType?.result"
+                        [value]="conversion?.conversionActivityType">
+                        {{conversion?.conversionActivityType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isDisplayField">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Retail Conversion Activity</mat-label>
+                <mat-select formControlName="retailConversionActivity" (selectionChange)="onSelectRetailConversionActivity($event)">
+                    <mat-option *ngFor="let retailconversion of dropDownRetailConversionActivityType?.result"
+                        [value]="retailconversion?.retailConversionActivity">
+                        {{retailconversion?.retailConversionActivity}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="isDisplayField">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Conversion Activity No.</mat-label>
+                <input matInput placeholder="Conversion Activity No." formControlName="conversionActivityNumber"
+                    [matAutocomplete]="autoComConversionActivityNo">
+                <mat-autocomplete #autoComConversionActivityNo="matAutocomplete" [displayWith]="displayFnCon">
+                    <mat-option *ngFor="let option of conversionActivityNumber?.result" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <!-- (blur)="resetFormControlNotHavingObject(newEnquiryForm.controls.conversionActivityNumber,'activityNumber')"  -->
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [min]="today" [matDatepicker]="picker1" placeholder="Tentative Purchase Date" required
+                    formControlName="tentativePurchaseDate" (dateChange)="selectionDate($event)" readonly
+                    (click)="picker1.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [min]="newEnquiryForm.controls.enquiryDate.value" [max]="newEnquiryForm.controls.tentativePurchaseDate.value" [matDatepicker]="picker2" placeholder="Next Follow Up Date" required
+                    formControlName="nextFollowUpDate" readonly (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <input matInput placeholder="Remarks" maxlength="50" required formControlName="remarks">
+            </mat-form-field>
+        </div>
+        <!-- <div class="col-lg-2 pt-3" [style.fontSize.px]="12">
+            <b>Sales Person :</b> {{ salesPerson}}
+        </div> -->
+    </div>
+
+</form>

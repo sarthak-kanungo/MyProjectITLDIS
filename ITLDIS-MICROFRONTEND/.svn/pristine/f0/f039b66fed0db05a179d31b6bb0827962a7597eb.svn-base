@@ -1,0 +1,45 @@
+.btn_primary {
+    border: 1px solid transparent !important;
+    color: #ffffff !important;
+    background-color: #028383 !important;
+  }
+  .btn_secondary {
+    border: 1px solid #6295b6 !important;
+    color: #028383 !important;
+  }
+  mat-option{
+    color: black !important;
+  }
+  table {
+    width: 100%;
+    color: black;
+  }
+card .img:hover{
+  cursor: pointer;
+}
+  th{
+    font-weight: bold
+  }
+  th, td{
+    font-size: 12px;
+  }  
+  table.table-sm th {
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    padding-right: .3rem;
+  }
+  ::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border-color: gray;
+  }
+  
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #00a8a9 !important;
+  }
+i{
+  cursor: pointer;
+}
+
+.upload-err {
+  border: 2px solid #f44336;
+  border-radius: 5px;
+}

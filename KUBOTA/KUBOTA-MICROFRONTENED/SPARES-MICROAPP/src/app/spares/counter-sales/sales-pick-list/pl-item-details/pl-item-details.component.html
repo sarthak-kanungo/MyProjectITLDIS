@@ -1,0 +1,138 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+          border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Item Details</p>
+        </div>
+        <div class="card-body">
+            <form>
+                <div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                	<th class="w_50" *ngIf="!isView && !isEdit"></th>
+                                    <th scope="col" class="w_50" >SRN.</th>
+                                    <th scope="col" class="w_120">Item No.</th>
+                                    <th scope="col" class="w_250">Item Description</th>
+                                    <th scope="col" class="w_50">Order Qty</th>
+                                    <th scope="col" class="w_120">Balance Qty</th>
+                                    <th scope="col" class="w_250" *ngIf="!isView && !isEdit">Stock</th>
+                                    <th scope="col" class="w_50" *ngIf="!isView && !isEdit">Issue</th>
+                                    <th scope="col" class="w_250">Issue Qty</th>
+                                    <th scope="col" class="w_250" *ngIf="isView || isEdit">Returned Qty</th>
+                                    <th scope="col" class="w_250" *ngIf="isView || isEdit">Final Issue Qty</th>
+                                    <th scope="col" class="w_250" *ngIf="isEdit">Return Qty</th>
+                                    <th scope="col" class="w_120">Store</th>
+                                    <th scope="col" class="w_250">Bin Location</th>
+                                    <!-- <th scope="col" class="w_250">MRP</th> -->
+                                    <!-- change by vinay from MRP to Unit Price a/c to customer feedback point 151-->
+                                    <th scope="col" class="w_250">Unit Price</th>    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  *ngFor="let tableRowFg of itemDetailsArray; let i = index">
+                                    <td *ngIf="!isView && !isEdit">
+                                        <mat-checkbox color="basic" class="form-control form-control-sm"
+	                                        [formControl]="tableRowFg.get('isSelected')" [checked]="false">
+	                                    </mat-checkbox>
+                                    </td>
+                                    <td align="center">
+                                        {{i+1}}
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Item Number</mat-label>
+                                            <input matInput placeholder="Item Number"  [formControl]="tableRowFg.get('itemNumber')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Item Description</mat-label>
+                                            <input matInput placeholder="Item Description" [formControl]="tableRowFg.get('itemDescription')">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Order Qty</mat-label>
+                                            <input matInput placeholder="Order Qty" class="numberField" [formControl]="tableRowFg.get('orderQuantity')">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Balance Qty</mat-label>
+                                            <input matInput placeholder="Balance Qty" class="numberField" [formControl]="tableRowFg.get('balanceQuantity')">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td *ngIf="!isView && !isEdit">
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Stock</mat-label>
+                                            <input matInput placeholder="Stock" class="numberField" [formControl]="tableRowFg.get('currentStock')">
+                                        </mat-form-field>
+                                    </td>
+									<td style='vertical-align: middle;' *ngIf="!isView && !isEdit">
+										<mat-icon matSuffix class='pick' *ngIf="tableRowFg.get('currentStock').value != null && tableRowFg.get('currentStock').value > 0" (click)="issueFunctionCall(tableRowFg,i)">add_shopping_cart</mat-icon>
+									</td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Issue Qty</mat-label>
+                                            <input matInput placeholder="Issue Qty" class="numberField" [formControl]="tableRowFg.get('issueQuantity')">
+                                        </mat-form-field>
+                                    </td>
+									<td *ngIf="isView || isEdit">
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Returned Qty</mat-label>
+                                            <input matInput placeholder="Returned Qty" class="numberField" [formControl]="tableRowFg.get('returnedQuantity')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td *ngIf="isView || isEdit">
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Final Issue Qty</mat-label>
+                                            <input matInput placeholder="Final Issue Qty" class="numberField" [formControl]="tableRowFg.get('finalIssueQuantity')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td *ngIf="isEdit">
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Return Qty</mat-label>
+                                            <input matInput placeholder="Return Qty" class="numberField" [formControl]="tableRowFg.get('returnQuantity')">
+                                        </mat-form-field>
+                                        <mat-error *ngIf="tableRowFg.get('returnQuantity').value!=null && tableRowFg.get('returnQuantity').hasError('maxValue')">Return Quantity should not exceed Final Issue Qty</mat-error>
+                                    </td>
+                                    
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Store</mat-label>
+                                            <input matInput placeholder="Store" [formControl]="tableRowFg.get('store')">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Bin Location</mat-label>
+                                            <input matInput placeholder="Bin Location" [formControl]="tableRowFg.get('binLocation')">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Unit Price</mat-label>
+                                            <input matInput placeholder="Unit Price" class="numericField" [formControl]="tableRowFg.get('mrp')">
+                                        </mat-form-field>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" text-center" *ngIf="!isView && !isEdit">
+                    	<button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()">Delete Row</button>
+                	</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

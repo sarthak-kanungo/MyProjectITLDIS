@@ -1,0 +1,86 @@
+<div class="container-fluid mt-2 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="font-weight-bold" style="color: #354052">
+                            Service Claim Invoice List
+                        </p>
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+            <div class="col-lg-12">
+                <div class="card-from">
+    
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="mb-0">Search  Service Claim Invoice</p>
+                        </div>
+                        <div class="card-body">
+    
+                            <form [formGroup]="serviceClaimInvoiceForm" [style.fontSize.px]="11">
+                                <div class="row">
+    
+    
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Claim Covering Letter No.</mat-label>
+                                            <input matInput placeholder="Claim Covering Letter No." formControlName="claimCoveringLetterNo">
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Dealer Name</mat-label>
+                                            <mat-select formControlName="dealerName">
+                                                <mat-option *ngFor="let dealername of dealernames"
+                                                    [value]="dealername">{{dealername}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Dealer Code</mat-label>
+                                            <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-lg-2">
+                                        <mat-form-field class="w-100">
+                                            <input matInput [matDatepicker]="picker" placeholder="Claim Covering Date From" formControlName="claimCoveringdateFrom">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-lg-2">
+                                        <mat-form-field class="w-100">
+                                            <input matInput [matDatepicker]="picker1" placeholder="Claim Covering Date To" formControlName="claimCoveringdateTo">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mx-auto text-center">
+                                        <button type="button" class="btn pl-3 pr-3 btn_primary"> Search </button>
+                                    </div>
+                                </div>
+                            </form>
+    
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    
+        <app-service-claim-invoice-search-result></app-service-claim-invoice-search-result>
+    
+    </div>

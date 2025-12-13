@@ -1,0 +1,71 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Item Details</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 10px">Sr.No.</th>
+                            <th scope="col">Item No.</th>
+                            <th scope="col">Item Description</th>
+                            <th scope="col">Issue Qty.</th>
+                            <th scope="col" style="width: 150px">Receipt Qty.</th>
+                            <th scope="col">Pending Qty.</th>
+                            <th scope="col">MRP</th>
+                            <th scope="col" style="width: 120px">Receipt MRP Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td>
+                                <input class="form-control form-control-sm" type="text">
+                            </td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td>
+                                <input class="form-control form-control-sm" type="text">
+                            </td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td>
+                                <input class="form-control form-control-sm" type="text">
+                            </td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                            <td class="tablerow"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-0" colspan="6"></td>
+                            <td>Total Value</td>
+                            <td></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

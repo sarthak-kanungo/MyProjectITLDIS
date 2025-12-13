@@ -1,0 +1,19 @@
+import { EventEmitter } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
+import { ColumnRecord } from './editable-table-config';
+export declare class EtDataHandlerService {
+    private sendColumnNameRecord;
+    sendColumnNameRecord$: Subject<string>;
+    sendColumnRecord$: Subject<ColumnRecord>;
+    private validateTable$;
+    private getTableRecord$;
+    private getColumnNameToCollectColumnRecord$;
+    private sendColumnRecord;
+    constructor();
+    getColumnRecord(formControlName: string): void;
+    getColumnNameToCollectColumnRecord(): Observable<string>;
+    emitColumnRecord(columnRecordList: Array<any>, formControlName: string): void;
+    validateTable(): EventEmitter<boolean>;
+    getValidTableRecord(): EventEmitter<object>;
+    sendTableRecord(record: object): void;
+}

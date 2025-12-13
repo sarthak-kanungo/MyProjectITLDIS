@@ -1,0 +1,35 @@
+<div class="container confirmation_card">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card_header card_header_secondary mb-2">
+            <h4 class="card_title mb-0"> UPLOAD EXCEL FILE</h4>
+            <i class="material-icons icon_close" (click)="close()">
+              close
+            </i>
+          </div>
+          <div class="container-fluid card_body">          
+                <form  [style.fontSize.px]="10" class="border p-2" [formGroup]="fileUploadForm">
+                    <div class=" input-group"
+                        [ngClass]="{'upload-err': fileUploadForm.controls.excelUpload.invalid}">
+                        <div class="custom-file">
+                          <label class="custom-file-label">Upload File</label>
+                          <input type="file" name="image" required (change)="fileSelctionChanges($event)"
+                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="custom-file-input" formControlName="excelUpload" />
+                        </div>
+                        <label style='margin-top:7px'>{{fileuploadname}}</label>
+                      </div>
+              </form>
+  
+          </div>
+          <div class="container-fluid card_footer m-2">
+            <div class="row">
+              <div class="col-12 text-center">
+                <button class="btn button mr-2" [ngClass]="{'button_color_green':true}" (click)="submit()"> UPLOAD </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+<div class="card-from mt-2 material-details" [formGroup]="outsideLabourChargeForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">OUTSIDE LABOUR CHARGE</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of outsideLabourChargeHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of outsideLabourChargeForm.controls;let i=index" [formGroupName]="i">
+              <td>{{i+1}}</td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Job Code</mat-label>
+                  <input matInput placeholder="Job Code" formControlName="jobcode">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <input matInput placeholder="Description" formControlName="description">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Claim Amount</mat-label>
+                  <input matInput placeholder="Claim Amount" formControlName="claimAmount">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Final Approved Amount</mat-label>
+                  <input matInput placeholder="Final Approved Amount" formControlName="finalApprovedAmount">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Inspection Remark</mat-label>
+                  <input matInput placeholder="Inspection Remark" formControlName="inspectionRemarks">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-checkbox checked="true" formControlName="claimableFromVendor"></mat-checkbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

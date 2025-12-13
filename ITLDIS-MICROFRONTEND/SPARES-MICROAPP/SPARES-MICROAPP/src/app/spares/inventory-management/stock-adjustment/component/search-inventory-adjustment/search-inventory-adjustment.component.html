@@ -1,0 +1,101 @@
+<div class="card-body" [formGroup]="stockSearchForm" [style.fontSize.px]="11">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Stock Adjustment No.</mat-label>
+                <input matInput placeholder="Stock Adjustment No." formControlName="stockAdjustmentNo"
+                [matAutocomplete]="autoAdjustNo">
+                      <mat-autocomplete #autoAdjustNo="matAutocomplete"
+                          [displayWith]="displayFnAdjustNo" [panelWidth]="300">
+                          <mat-option *ngFor="let option of adjustmentNos$"
+                              [value]="option">
+                              {{option?.adjustmentNo}}
+                          </mat-option>
+                      </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="stockSearchForm.get('stockAdjustmentNo').hasError('selectFromList')">Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+  
+		<div class="col-lg-2">
+			<mat-form-field appearance="outline" class="w-100">
+			<mat-label>Adjustment Status</mat-label> <mat-select
+				formControlName="adjustmentStatus">
+				 <mat-option
+				*ngFor="let adjustmentStatus of adjustmentList"
+				[value]="adjustmentStatus.lookupval">
+			{{adjustmentStatus.lookupval}} </mat-option> </mat-select> </mat-form-field>
+		</div>
+        <div class="col-lg-2" *ngIf='isKai'>
+			<mat-form-field appearance="outline" class="w-100">
+			<mat-label>Dealer Code/Dealer Name/Location</mat-label> <input
+				matInput placeholder="Dealer Code/Dealer Name/Location"
+				formControlName="dealerCode" [matAutocomplete]="autoDealercode">
+			<mat-autocomplete #autoDealercode="matAutocomplete"
+				[panelWidth]="500" (optionSelected)="getDealerName($event)"
+				[displayWith]="displayDealerCodeFn"> <mat-option
+				*ngFor="let option of dealercodeList?.result" [value]="option">
+			{{option?.displayString}} </mat-option> </mat-autocomplete> <mat-icon matSuffix>search</mat-icon> </mat-form-field>
+		</div>
+	
+
+        <div class="col-lg-2" *ngIf='isKai'>
+			<mat-form-field appearance="outline" class="w-100">
+			<mat-label>Dealer Name</mat-label> <input matInput
+				placeholder="Dealer Name" formControlName="dealerName"
+				disabled="disabled"> </mat-form-field>
+		</div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Adjustment from Date"
+                    formControlName="adjustmentFromDate" (dateChange)="fromDateSelected($event)" [max]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="Adjustment to Date"
+                    formControlName="adjustmentToDate" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+  
+
+    </div>
+    <div class="row" *ngIf='isKai'>
+        <div class="col-lg-2" *ngFor="let level of orgLevels">
+            <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{level['LEVEL_DESC']}}</mat-label> <mat-select
+                formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+            <mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+            <mat-option *ngFor="let hier of orgHierLevels1" [value]="hier"
+                (click)="getOrgLevelHier2(hier)">{{hier['hierarchy_desc']}}</mat-option>
+            </mat-select> <mat-select formControlName="orgHierLevel2"
+                *ngIf="level['SEQ_NO'] == 2"> <mat-option
+                value='all' (click)="getOrgLevelHier3('all')">ALL</mat-option> <mat-option
+                *ngFor="let hier of orgHierLevels2" [value]="hier"
+                (click)='getOrgLevelHier3(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+            </mat-select> <mat-select formControlName="orgHierLevel3"
+                *ngIf="level['SEQ_NO'] == 3"> <mat-option
+                value='all' (click)="getOrgLevelHier4('all')">ALL</mat-option> <mat-option
+                *ngFor="let hier of orgHierLevels3" [value]="hier"
+                (click)='getOrgLevelHier4(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+            </mat-select> <mat-select formControlName="orgHierLevel4"
+                *ngIf="level['SEQ_NO'] == 4"> <mat-option
+                value='all' (click)="getOrgLevelHier5('all')">ALL</mat-option> <mat-option
+                *ngFor="let hier of orgHierLevels4" [value]="hier"
+                (click)='getOrgLevelHier5(hier)'>{{hier['hierarchy_desc']}}</mat-option>
+            </mat-select> <mat-select formControlName="orgHierLevel5"
+                *ngIf="level['SEQ_NO'] == 5"> <mat-option
+                *ngFor="let hier of orgHierLevels5" [value]="hier">{{hier['hierarchy_desc']}}</mat-option>
+            </mat-select> </mat-form-field>
+        </div>
+    </div>
+    
+</div>

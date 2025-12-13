@@ -1,0 +1,9 @@
+.btnName{
+    color: #00a8a9
+}
+.btn-xs{
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+}

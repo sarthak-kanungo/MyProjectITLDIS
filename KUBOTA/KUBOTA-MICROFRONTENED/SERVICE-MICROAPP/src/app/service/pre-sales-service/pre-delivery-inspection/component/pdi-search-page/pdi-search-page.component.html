@@ -1,0 +1,82 @@
+<form [formGroup]="pdiSearchPageForm">
+    <div class="container-fluid create-form  mt-4 pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0 label">Search Pre-Delivery Inspection</p>
+                                        <div>
+                                            <button type="button" class="btn btn-xs ml-2 bg-white ">
+                                                <b class="btnName" (click)="createPdi()">New</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-search-pdi [pdiDetailsSearchForm]="pdiDetailsSearchForm"></app-search-pdi>
+                        
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchPreDeliveryForm()"
+                                [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)"> Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="onClickClearPdiDetails()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form>
+        <div class="container-fluid">
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable"
+                [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+                [clickOnTableFields]="[{title:'Chassis_Number'},{title:'action'}]"
+                (actionOnTableRecord)="tableAction($event)" (pageChange)="pageChange($event)"  [clearSearchRow]="clearSearchRow" >
+                
+                <td [ngsw-searchField]="action" [searchColumnName]="'action'" class="action">
+                    <input class="w-100 borderRadius" #action [(ngModel)] ="actionNgModel" [ngModelOptions]="{standalone: true}">
+
+                </td>
+                <td [ngsw-searchField]="chassisNumber" [searchColumnName]="'Chassis_Number'" class="Chassis_Number">
+                    <input class="w-100 borderRadius" #chassisNumber [(ngModel)] ="Chassis_NumberNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+                <td [ngsw-searchField]="pdiNumber" [searchColumnName]="'PDI_Number'">
+                    <input class="w-100 borderRadius" #pdiNumber [(ngModel)] ="PDI_NumberNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+
+                <td [ngsw-searchField]="PDI_Date" [searchColumnName]="'PDI_Date'" class="PDI_Date">
+                    <input class="w-100 borderRadius" type="date" #PDI_Date
+                        (change)="etSearchDateValueChange(PDI_Date.value,'PDI_Date')" [(ngModel)] ="PDI_DateNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+                <td [ngsw-searchField]="pdiStatus" [searchColumnName]="'PDI_Status'">
+                    <input class="w-100 borderRadius" #pdiStatus [(ngModel)] ="PDI_StatusNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+                <td [ngsw-searchField]="engineNumber" [searchColumnName]="'Engine_Number'" class="Engine_Number">
+                    <input class="w-100 borderRadius" #engineNumber [(ngModel)] ="Engine_NumberNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+                <td [ngsw-searchField]="kaiInvoiceNumber" [searchColumnName]="'KAI_Invoice_Number'"
+                    class="KAI_Invoice_Number">
+                    <input class="w-100 borderRadius" #kaiInvoiceNumber [(ngModel)] ="KAI_Invoice_NumberNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+                <td [ngsw-searchField]="machineModel" [searchColumnName]="'Machine_Model'" class="Machine_Model">
+                    <input class="w-100 borderRadius" #machineModel [(ngModel)] ="Machine_ModelNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+                <td [ngsw-searchField]="dmsGRNNumber" [searchColumnName]="'DMS_GRN_Number'">
+                    <input class="w-100 borderRadius" #dmsGRNNumber [(ngModel)] ="DMS_GRN_NumberNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+
+                <td [ngsw-searchField]="dMSGRNDate" [searchColumnName]="'dMSGRNDate'">
+                    <input class="w-100 borderRadius" type="date" #dMSGRNDate
+                        (change)="etSearchDateValueChange(dMSGRNDate.value,'dMSGRNDate')" [(ngModel)] ="dMSGRNDateNgModel" [ngModelOptions]="{standalone: true}">
+                </td>
+
+            </ngsw-search-table>
+        </div>

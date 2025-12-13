@@ -1,0 +1,210 @@
+<div [formGroup]="employeeMasterDetails" [style.fontSize.px]="11">
+    <div class="row">
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Employee Code</mat-label>
+                <input matInput placeholder="Employee Code" formControlName="employeeCode">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+
+        
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Dealer Details</mat-label>
+              <input 
+                matInput placeholder="Dealer Details" formControlName="dealerDetails" [matAutocomplete]="autodealerDetails"
+                (ngModelChange)="autoDealerDetails($event)" >
+                <mat-autocomplete #autodealerDetails="matAutocomplete" [displayWith]="displayFnDealerDetailes" (optionSelected)="dealerDetailsSelect($event)" [panelWidth]="300">
+                    <mat-option *ngFor="let option of dealerdetailsList" [value]="option">
+                      {{option.displayString}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="employeeMasterDetails.get('dealerDetails').hasError('selectFromList')"> Select From List</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!isCreate">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Employee Code</mat-label>
+              <input 
+                matInput placeholder="Employee Code" formControlName="employeeCode" [matAutocomplete]="autoEmployeeCode"
+                (ngModelChange)="onKeyEmployeeeCode($event)" readonly>
+                <mat-autocomplete #autoEmployeeCode="matAutocomplete" [displayWith]="displayFnEmployeeCode" (optionSelected)="employeeCodeSelect($event)" [panelWidth]="300">
+                    <mat-option *ngFor="let option of employeeCodeList" [value]="option">
+                      {{option.employeeCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <!-- <mat-error *ngIf="employeeMasterDetails.get('employeeCode').hasError('selectFromList')"> Select From List</mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Title</mat-label>
+                <mat-select formControlName="title">
+                    <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" required formControlName="firstName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Middle Name</mat-label>
+                <input matInput placeholder="Middle Name" formControlName="middleName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label> Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2" *ngIf="!isCreate">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label> Email Id</mat-label>
+                <input matInput placeholder="Email Id" required formControlName="email">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Mobile No.</mat-label>
+                <input matInput placeholder="Mobile No." required formControlName="mobileNo">
+                <mat-error *ngIf="employeeMasterDetails.get('mobileNo').hasError('DuplicateMobileNo')">
+                    Employee with same mobile number already available
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label> Alternate Mobile No.</mat-label>
+                <input matInput placeholder="Alternate  Mobile No." formControlName="alternateMobileNo">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Division</mat-label>
+                <mat-select required formControlName="division">
+                    <mat-option *ngFor="let division of divisions" [value]="division">{{division}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Department</mat-label>
+                <mat-select required formControlName="department">
+                    <mat-option *ngFor="let department of departments" [value]="department.id">
+                        {{department.department}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Designation</mat-label>
+                <mat-select required formControlName="desidnation">
+                    <mat-option *ngFor="let designation of designations" [value]="designation.id">
+                        {{designation.designation}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Licence Type</mat-label>
+                <mat-select formControlName="licenceType">
+                    <mat-option *ngFor="let licence of licences" [value]="licence">{{licence}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Driving Licence No.</mat-label>
+                <input matInput placeholder="Driving Licence No." formControlName="drivingLicenceNo">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Expiry Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Expiry Date" formControlName="expiryDate"
+                 (click)="picker.open()" [min]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2" *ngIf="!isHideForPresales">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date of Failure</mat-label>
+                <input matInput [matDatepicker]="picker2" readonly placeholder="Date of Failure"
+                    formControlName="dateofFailure" [max]="today" required (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div> -->
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Reporting Employee Code</mat-label>
+                <input matInput placeholder="Reporting Employee Code" formControlName="reportingEmployeeCode">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Reporting Employee Code</mat-label>
+              <input 
+                matInput placeholder="Reporting Employee Code" formControlName="reportingEmployeeCode" [matAutocomplete]="autoautoReportingEmployee"
+                (ngModelChange)="autoReportingEmployeeCode($event)" >
+                <mat-autocomplete #autoautoReportingEmployee="matAutocomplete" [displayWith]="displayFnReportingEmployee" (optionSelected)="reportingEmpCodeSelect($event)" [panelWidth]="300">
+                    <mat-option *ngFor="let option of reportingEmloyeeCodeList" [value]="option">
+                      {{option.displayValue}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <!-- <mat-error *ngIf="pickListForm.get('reportingEmployeeCode').hasError('selectFromList')"> Select From List</mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Reporting Employee Name</mat-label>
+                <input matInput placeholder="Reporting Employee Name" formControlName="reportingEmployeeName">
+            </mat-form-field>
+        </div>
+
+       
+
+    </div>
+</div>

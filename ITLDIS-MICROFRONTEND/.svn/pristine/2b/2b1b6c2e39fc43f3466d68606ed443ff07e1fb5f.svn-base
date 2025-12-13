@@ -1,0 +1,120 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { BreadscrumbService } from './breadscrumb.service';
+import { Subscription, Subject, Observable } from 'rxjs';
+import { LoginService } from '../login/login.service';
+import { environment } from '../../environments/environment';
+import { filter } from 'rxjs/internal/operators/filter';
+
+@Component({
+  selector: 'app-breadcrumb',
+  templateUrl: './breadcrumb.component.html',
+  styleUrls: ['./breadcrumb.component.scss']
+})
+export class BreadcrumbComponent implements OnInit {
+  public appVersion = `${environment.version}`;
+  private subscription = new Subscription();
+  public breadcrumbList: Array<any> = [];
+  private _breadcrumbList$ = new Subject<Array<any>>();
+  public breadcrumbList$: Observable<Array<any>>;
+  public menu: Array<any> = [];
+  public currentDate: Date;
+  public isLogin: boolean;
+  public userName: string;
+  public menuList = [];
+  loginCount: string;
+  breadcrumbListLength: number = 0;
+
+  constructor(
+    private breadscrumbService: BreadscrumbService,
+    private loginService: LoginService,
+    private router: Router,
+  ) {
+    this.currentDate = new Date();
+    this.menu = this.breadscrumbService.getMenu();
+    // 
+
+    this.listenRouting();
+    this.breadcrumbList$ = this._breadcrumbList$.asObservable();
+  }
+
+  ngOnInit() {
+    this.subscription.add(this.loginService.showChangeUserLogin(data => {
+      if (data) {
+        this.loginCount = data.loginSession;
+        this.userName = data.userId;
+        this.isLogin = true
+      }
+    }));
+
+    if (this.loginService.isLogin()) {
+      const id = this.loginService.isLogin().id;
+      this.loginCount = this.loginService.isLogin().loginSession;
+      this.userName = this.loginService.isLogin().userId;
+      this.isLogin = true;
+    }
+
+    this.subscription.add(this.loginService.showChangeUserLogOut(resp => {
+      this.isLogin = false
+    }))
+  }
+
+  listenRouting() {
+    let routerUrl: string, routerList: Array<any>, target: any;
+    // this.router.events
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe((router: any) => {
+      // 
+
+      routerUrl = router.urlAfterRedirects;
+      if (routerUrl && typeof routerUrl === 'string') {
+        target = this.menu;
+        this.breadcrumbList.length = 0;
+        routerList = routerUrl.slice(1).split('/');
+        // 
+
+        routerList.forEach((router: string, index) => {
+          if (router.includes('?')) {
+            router = router.split('?').slice(0, 1).toString();
+          }
+          // 
+
+          target = (target as any[]).find(page => {
+            // 
+            // 
+            return page.path === router
+          });
+          // 
+
+          if (target) {
+            this.breadcrumbList.push({
+              name: target.name,
+              path: (index === 0) ? target.path : `${this.breadcrumbList[index - 1].path}/${target.path}`
+            });
+          }
+          if (index + 1 !== routerList.length) {
+            if (target && target.children && target.children.length > 0) {
+              target = target.children;
+            }
+          }
+        });
+        // 
+        this._breadcrumbList$.next(this.breadcrumbList);
+        this.breadcrumbListLength = this.breadcrumbList.length;
+      }
+    });
+  }
+
+  isNoPath(functionalityName: string) {
+    if (functionalityName !== undefined) {
+      let noPathPages = ['master', 'kubota masters', 'sales and presales', 'purchase', 'pre sales', 'sales', 'branch transfer', 'activity', 'schemes', 'salesmasters', 'service', 'pre sales service', 'spares', 'spares master', 'counter sales', 'service activities claims', 'customer service', 'warranty', 'warranty claims', 'workshop sales', 'training']
+      let val = noPathPages.includes(functionalityName.toLowerCase());
+      return val;
+    }
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
+}

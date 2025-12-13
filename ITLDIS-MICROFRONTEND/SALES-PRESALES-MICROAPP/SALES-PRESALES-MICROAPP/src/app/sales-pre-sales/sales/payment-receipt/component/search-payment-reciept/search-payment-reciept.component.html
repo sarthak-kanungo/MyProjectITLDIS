@@ -1,0 +1,340 @@
+<div class="card-from mt-4 mb-3">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <p class="mb-0">Search Payment Receipt</p>
+      <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white"
+        *ngIf="dealerType!=='itldis'">
+        <b>New </b>
+      </button>
+    </div>
+    <div class="card-body">
+
+      <form [formGroup]="searchPaymentReceiptForm" [style.fontSize.px]="10">
+        <div class="row">
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Receipt No.</mat-label>
+              <input matInput placeholder="Receipt No/Customer Name/Mobile/City" formControlName="receiptNo"
+                [matAutocomplete]="autoReceiptNumber">
+              <mat-autocomplete #autoReceiptNumber="matAutocomplete" [displayWith]="displayReceiptNumberFn" [panelWidth]="500">
+                <mat-option *ngFor="let option of receiptNumberDomain?.result" [value]="option">
+                  {{option?.displayValue}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2 ">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Receipt Mode</mat-label>
+              <mat-select formControlName="receiptMode">
+                <mat-option *ngFor="let mode of  dropdownReceiptModeType?.result" [value]="mode?.receiptMode">
+                  {{mode?.receiptMode}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2 ">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Receipt Type</mat-label>
+              <mat-select formControlName="receiptType">
+                <mat-option *ngFor="let receiptType of dropdownReceiptType?.result" [value]="receiptType">
+                  {{receiptType}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2" *ngIf="!hiddenField">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Customer Name</mat-label>
+              <input matInput placeholder="Customer Name" formControlName="customerName" 
+                [matAutocomplete]="autoCustomerName">
+              <mat-autocomplete #autoCustomerName="matAutocomplete" [displayWith]="displayCustomerNameFn">
+                <mat-option *ngFor="let option of customerNameList" [value]="option">
+                  {{option?.customerName}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2" *ngIf="!hiddenField">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Customer Mobile No.</mat-label>
+              <input matInput placeholder="Customer Mobile No." formControlName="customerMobileNo"
+                [matAutocomplete]="autoCustomerMobile">
+              <mat-autocomplete #autoCustomerMobile="matAutocomplete" [displayWith]="displayCustomerMobileFn" [panelWidth]="500">
+                <mat-option *ngFor="let option of customerMobileList" [value]="option">
+                  {{option?.mobileNumber}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput [matDatepicker]="picker" placeholder="Receipt From Date" formControlName="fromDate" [max]="newdate" (dateChange)="setToDate($event)"
+              readonly (click)="picker.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput [matDatepicker]="picker1" placeholder="Receipt To Date" formControlName="toDate" [max]="maxDate" [min]="minDate"
+              readonly (click)="picker1.open()" [readonly]="!searchPaymentReceiptForm.get('fromDate').value">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 [disabled]="!searchPaymentReceiptForm.get('fromDate').value"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="card-from mt-2" *ngIf="showAdvance">
+          <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                  border: 1px solid #45afaf;">
+              <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+            </div>
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Product</mat-label>
+                    <mat-select formControlName="product">
+                      <mat-option *ngFor="let prod of dropdownGetAllProductType?.result" [value]="prod?.product">
+                        {{prod?.product}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Series</mat-label>
+                    <mat-select formControlName="series">
+                      <mat-option *ngFor="let ser of dropdownGetAllSeriesType?.result" [value]="ser?.series">
+                        {{ser?.series}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model</mat-label>
+                    <mat-select formControlName="model">
+                      <mat-option *ngFor="let mod of dropdownGetAllModelType?.result" [value]="mod?.model">
+                        {{mod?.model}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Sub Model</mat-label>
+                    <mat-select formControlName="subModel">
+                      <mat-option *ngFor="let sub of dropdowngetAllSubModelType?.result" [value]="sub.subModel">
+                        {{sub.subModel}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Variant</mat-label>
+                    <mat-select formControlName="variant">
+                      <mat-option *ngFor="let vari of dropdownGetAllVariantType?.result" [value]="vari.variant">
+                        {{vari.variant}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Item No.</mat-label>
+                    <input matInput placeholder="Item No." formControlName="itemNo" [matAutocomplete]="autoItemNumber">
+                    <mat-autocomplete #autoItemNumber="matAutocomplete">
+                      <mat-option *ngFor="let option of itemNumberList" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="col-lg-12">
+        <div class="mx-auto d-flex justify-content-between">
+          <div></div>
+          <div>
+
+            <button type="button" class="btn pl-3 pr-3 mt-2 btn_primary" 
+            (click)="searchPaymentReceipt()"> Search
+            </button>
+            
+            <!-- <button type="button" class="btn pl-3 pr-3 mt-2 ml-2 btn_primary" (click)="searchPaymentReceiptForm.reset()">
+              Clear
+            </button> -->
+            
+            <button type="button" class="btn pl-3 pr-3 mt-2 ml-2 btn_primary" (click)="clearForm()">
+              Clear
+            </button>
+          </div>
+         <!--  <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;"
+            (click)="showAdvance = !showAdvance">
+            <u> {{showAdvance ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+          </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+  (actionOnTableRecord)="actionOnTableRecord($event)"
+  [clickOnTableFields]="[{'title':'receiptNumber','isClickable':true}]" (pageChange)="pageChange($event)" [clearSearchRow]="clearSearchRow" >
+
+
+
+  <td [ngsw-searchField]="receiptNumber" [searchColumnName]="'receiptNumber'">
+    <input type="text" #receiptNumber [(ngModel)] ="receiptNumberNgModel">
+  </td>
+
+  <td [ngsw-searchField]="receiptType" [searchColumnName]="'receiptType'">
+    <input type="text" #receiptType [(ngModel)] ="receiptTypeNgModel">
+  </td>
+
+  <td [ngsw-searchField]="picker7" [searchColumnName]="'receiptDate'">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker7" placeholder="Choose a date" #roleDeleteStatus
+        (dateChange)="dateChanges($event, 'receiptDate')" [(ngModel)] ="receiptDateNgModel">
+      <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+      <mat-datepicker #picker7></mat-datepicker>
+    </mat-form-field>
+  </td>
+
+  <td [ngsw-searchField]="receiptMode" [searchColumnName]="'receiptMode'">
+    <input type="text" #receiptMode [(ngModel)] ="receiptModeNgModel">
+  </td>
+
+  <td [ngsw-searchField]="receiptAmount" [searchColumnName]="'receiptAmount'">
+    <input type="text" #receiptAmount [(ngModel)] ="receiptAmountNgModel">
+  </td>
+
+  <td [ngsw-searchField]="enquiryNumber" [searchColumnName]="'enquiryNumber'">
+    <input type="text" #enquiryNumber [(ngModel)] ="enquiryNumberNgModel">
+  </td>
+
+  <td [ngsw-searchField]="picker3" [searchColumnName]="'enquiryDate'">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker3" placeholder="Choose a date" #roleDeleteStatus
+        (dateChange)="dateChanges($event, 'enquiryDate')" [(ngModel)] ="enquiryDateNgModel">
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+  </td>
+
+  <td [ngsw-searchField]="enquiryStatus" [searchColumnName]="'enquiryStatus'">
+    <input type="text" #enquiryStatus [(ngModel)] ="enquiryStatusNgModel">
+  </td>
+
+  <td [ngsw-searchField]="variant" [searchColumnName]="'variant'">
+    <input type="text" #variant [(ngModel)] ="variantNgModel">
+  </td>
+
+
+  <td [ngsw-searchField]="subModel" [searchColumnName]="'subModel'">
+    <input type="text" #subModel [(ngModel)] ="subModelNgModel">
+  </td>
+
+  <td [ngsw-searchField]="customerBalance" [searchColumnName]="'customerBalance'">
+    <input type="text" #customerBalance [(ngModel)] ="customerBalanceNgModel">
+  </td>
+
+  <td [ngsw-searchField]="firstName" [searchColumnName]="'firstName'">
+    <input type="text" #firstName [(ngModel)] ="firstNameNgModel">
+  </td>
+
+  <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+    <input type="text" #address1 [(ngModel)] ="address1NgModel">
+  </td>
+
+  <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+    <input type="text" #pinCode [(ngModel)] ="pinCodeNgModel">
+  </td>
+
+  <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+    <input type="text" #postOffice [(ngModel)] ="postOfficeNgModel">
+  </td>
+
+  <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+    <input type="text" #city [(ngModel)] ="cityNgModel">
+  </td>
+
+  <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+    <input type="text" #tehsil [(ngModel)] ="tehsilNgModel">
+  </td>
+
+
+  <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+    <input type="text" #district [(ngModel)] ="districtNgModel">
+  </td>
+
+  <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+    <input type="text" #state [(ngModel)] ="stateNgModel">
+  </td>
+
+  <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'">
+    <input type="text" #remarks [(ngModel)] ="remarksNgModel">
+  </td>
+
+  <td [ngsw-searchField]="transactionNo" [searchColumnName]="'transactionNo'">
+    <input type="text" #transactionNo [(ngModel)] ="transactionNoNgModel">
+  </td>
+
+  <td [ngsw-searchField]="picker6" [searchColumnName]="'transactionDate'">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker6" placeholder="Choose a date" #roleDeleteStatus
+        (dateChange)="dateChanges($event, 'roleName')" [(ngModel)] ="transactionDateNgModel">
+      <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+      <mat-datepicker #picker6></mat-datepicker>
+    </mat-form-field>
+  </td>
+
+  <td [ngsw-searchField]="bankName" [searchColumnName]="'bankName'">
+    <input type="text" #bankName [(ngModel)] ="bankNameNgModel">
+  </td>
+
+  <td [ngsw-searchField]="serviceProvides" [searchColumnName]="'serviceProvides'">
+    <input type="text" #serviceProvides [(ngModel)] ="serviceProvidesNgModel">
+  </td>
+
+  <!-- <td [ngsw-searchField]="picker5" [searchColumnName]="'createdDate'">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker5" placeholder="Choose a date" #roleDeleteStatus
+        (dateChange)="dateChanges($event, 'createdDate')">
+      <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+      <mat-datepicker #picker5></mat-datepicker>
+    </mat-form-field>
+  </td> -->
+
+  <td [ngsw-searchField]="cardNo" [searchColumnName]="'cardNo'">
+    <input type="text" #cardNo [(ngModel)] ="cardNoNgModel">
+  </td>
+
+  <td [ngsw-searchField]="cardType" [searchColumnName]="'cardType'">
+    <input type="text" #cardType [(ngModel)] ="cardTypeNgModel">
+  </td>
+
+  <td [ngsw-searchField]="cardName" [searchColumnName]="'cardName'">
+    <input type="text" #cardName [(ngModel)] ="cardNameNgModel">
+  </td>
+
+  <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+    <input type="text" #mobileNumber [(ngModel)] ="mobileNumberNgModel">
+  </td>
+
+</ngsw-search-table>

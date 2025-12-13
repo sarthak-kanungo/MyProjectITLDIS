@@ -1,0 +1,92 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+          border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Item Details</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="itemDetailsFrom">
+        <div formArrayName="itemDetails">
+          <div class="table-responsive mt-1">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Select</th>
+                  <th scope="col" style="width: 250px;">Item No.</th>
+                  <th scope="col"style="width: 250px;">Item Description</th>
+                  <th scope="col">Invoice Qty</th>
+                  <th scope="col">Receipt Qty</th>
+                  <th scope="col">Short Qty</th>
+                  <th scope="col"> Damage Qty</th>
+                  <th scope="col">Excess Qty</th>
+                  <th scope="col">Return Qty</th>
+                  <th scope="col">Value</th>
+                  <th scope="col"style="width: 250px;">Dealer Remarks/Reason</th>
+                  <th scope="col">KAI Accepted Qty</th>
+                  <th scope="col"style="width: 250px;">KAI Remarks/Reasons</th>
+
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of itemDetailsFrom['controls'].itemDetails['controls']; let i = index"
+                  [formGroupName]="i">
+                  <td>
+                    <mat-checkbox color="basic" class="form-control form-control-sm" formControlName="isSelected"
+                      [checked]></mat-checkbox>
+
+                  </td>
+                  <td>
+                      <input type="search" class="form-control form-control-sm" formControlName="itemNo">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="itemDesc">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="invoiceQuantity">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="receiptQuantity">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="shortQty">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="damageQty">
+                  </td>
+
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="excessQty">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="returnQty">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="value">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="remarks">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="acceptedQty">
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm" type="text" formControlName="reasons">
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+      <div class=" text-center ">
+        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+        <button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()">Delete Row </button>
+      </div>
+    </div>
+
+  </div>
+</div>

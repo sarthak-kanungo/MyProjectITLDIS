@@ -1,0 +1,17 @@
+<div class="row" [formGroup]="btBtDetailsForm" *ngIf = "isEdit || isView">
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Bin Transfer No</mat-label>
+            <input matInput placeholder="Bin Transfer No." formControlName="binTransferNo">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker" placeholder="Bin Transfer Date" formControlName="binTransferDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="card-from" [formGroup]="dealerBankForm">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Dealer Bank</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="dealerBankForm" [style.fontSize.px]="11">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Bank Name</mat-label>
+                <input matInput placeholder="Bank Name" required formControlName="bankName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Branch Name</mat-label>
+                <input matInput placeholder="Branch Name" required formControlName="BranchName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Current Account No.</mat-label>
+                <input matInput placeholder="Current Account No." required formControlName="currentAccountNo">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>IFSC Code</mat-label>
+                <input matInput placeholder="IFSC Code" required formControlName="ifscCode">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>MICR Code</mat-label>
+                <input matInput placeholder="Micr Code" required formControlName="micrCode">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>

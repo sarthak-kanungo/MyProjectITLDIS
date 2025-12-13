@@ -1,0 +1,67 @@
+<div class="container-fluid create-form mt-4 mb-3">
+    <!-- <div class="heading">
+        <p>Purchase Order Creation</p>
+    </div> -->
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">{{isEdit?'Update':isView?'View':isApproveOrReject?'Approve/Reject':'Create'}} Purchase
+                    Order</p>
+            </div>
+
+            <app-sales-purchase-order-create-container (sendTrueOrfalseForCredit)="sendTrueOrfalseForCredit($event)" (machineTypeValue)="machineTypeValue($event)" (getsendShowCreditFieldEdit)="getPhotos($event)"   (sendFormData)="getFormData($event)"
+                [poApprovalDetails]="poDetailsFromId">
+            </app-sales-purchase-order-create-container>
+
+            <div class="card-body">
+                <app-po-machine-details-container (sendFormData)="getFormData($event)"
+                    [poApprovalDetails]="poDetailsFromId" [finalValueMachineType]="finalValueMachineType" > 
+                </app-po-machine-details-container>
+            </div>
+
+            <div class="card-body">
+                <app-document-upload-container  (getsendShowCreditFieldEdit)="getPhotos($event)" [showCheckPhoto]="showCheckPhoto" [sendTrueOrFalse]="sendTrueOrFalse"(sendFormData)="getFormData($event)"
+                    [isView]="(isView||isApproveOrReject)" [isEdit]="isEdit" [bulkImageUrls]="allImagesUrl">
+                </app-document-upload-container>
+            </div>
+
+            <div class=" text-center p-3 ">
+                <button type="button" class="btn btn_primary px-3 mx-2" (click)="submitOrClearForm('submit',true,'')"
+                    *ngIf="(isEdit && draftMode)" [disabled]="isSubmitDisable">
+                    Save
+                </button>
+                <button type="button" class="btn btn_primary px-3 mx-2" (click)="submitOrClearForm('submit',true,'Approve')"
+                    *ngIf="!isView && !isEdit" [disabled]="isSubmitDisable">
+                    {{isApproveOrReject?'Approve':'Save'}}
+                </button>
+                <button type="button" class="btn btn_primary px-3 mx-2" (click)="submitOrClearForm('submit',false,'')"
+                    *ngIf="!isView && !isApproveOrReject" [disabled]="isSubmitDisable">
+                    {{isEdit && !draftMode?'Update':'Submit'}}
+                </button>
+                <button type="button" class="btn btn_primary px-3 mx-2" (click)="submitOrClearForm('submit',false,'Reject')"
+                    *ngIf="showAllButton && isApproveOrReject" [disabled]="isSubmitDisable">
+                    Reject
+                </button>
+                <button type="button" class="btn btn_primary px-3 mx-2" (click)="submitOrClearForm('submit',false,'Hold')"
+                    *ngIf="showAllButton && isApproveOrReject" [disabled]="isSubmitDisable">
+                    Hold
+                </button>
+                
+                <button type="button" class="btn btn_secondary px-3 mx-2" (click)="viewPrint('true')" *ngIf="isView">
+                    View PDF
+                </button>
+                <!-- <button type="button" class="btn btn_secondary px-3 mx-2" disabled *ngIf="!editPoId">
+                    Print
+                </button> -->
+                <button type="button" class="btn btn_primary px-3 mx-2" (click)="submitOrClearForm('clear')"
+                    *ngIf="!editPoId">
+                    Clear
+                </button>
+                <button type="button" class="btn btn_primary px-3 mx-2" [routerLink]="[editPoId?'../../':'../']">
+                    Exit
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

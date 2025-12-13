@@ -1,0 +1,72 @@
+.btnName {
+  color: #00a8a9;
+}
+
+.btn-xs {
+  padding: .25rem .4rem;
+  font-size: .875rem;
+  line-height: 1;
+  border-radius: .2rem;
+}
+
+.header {
+  margin-bottom: 1px;
+}
+
+:host {
+  ::ng-deep ngsw-search-table {
+    td,
+    th {
+      width: 200px;
+    }
+
+    .sr_no {
+      width: 55px;
+    }
+
+    .edit {
+      width: 60px;
+    }
+
+    .jobCardNo {
+      width: 162px;
+    }
+
+    .chassisNo {
+      width: 160px;
+    }
+
+    .engineNo {
+      width: 160px;
+    }
+
+    .model {
+      width: 80px;
+    }
+
+    .jobCardDate {
+      width: 160px;
+    }
+
+    .dealerName {
+      width: 160px;
+    }
+
+    .serviceCategory {
+      width: 150px;
+    }
+
+    .placeOfService {
+      width: 125px;
+    }
+
+    .taskDate {
+      width: 160px;
+    }
+
+    .taskTime {
+      width: 100px;
+    }
+
+  }
+}

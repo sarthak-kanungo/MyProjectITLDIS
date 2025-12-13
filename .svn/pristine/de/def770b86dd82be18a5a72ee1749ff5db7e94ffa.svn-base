@@ -1,0 +1,79 @@
+<form [formGroup]="addressDetailsForm" [style.fontSize.px]="11">
+    <div class="row">
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Address 1</mat-label>
+          <input matInput placeholder="Address 1" required formControlName="address1">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Address 2</mat-label>
+          <input matInput placeholder="Address 2" formControlName="address2">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Address 3</mat-label>
+          <input matInput placeholder="Address 3" formControlName="address3">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Pin Code</mat-label>
+          <input matInput placeholder="Pin Code" formControlName="pinCode">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Locality</mat-label>
+          <mat-select required formControlName="locality">
+            <mat-option *ngFor="let locality of localitys" [value]="locality">
+              {{locality}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Village</mat-label>
+          <input matInput placeholder="Village" required formControlName="village">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>District</mat-label>
+          <input matInput placeholder="District" formControlName="district">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <input matInput placeholder="Country" formControlName="country">
+        </mat-form-field>
+      </div>
+
+    </div>
+  </form>

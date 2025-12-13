@@ -1,0 +1,30 @@
+{
+    "draftFlag":true,
+   "warrantyWcr": [{
+   "id": 75,
+   "warrantyPcr": {
+   "id": 36,
+   "serviceJobCard": {
+   "id": 183,
+   "sparePartRequisitionItem": [{
+   "id": 125,
+   "sparePartMaster": {
+        "id":16899,
+   "itemNo": "KL999-42260"
+   },
+   "gstPercent": 898,
+   "gstAmount": 898,
+   "totalAmount": 889,
+   "hsnCode": "12341234"
+   }]
+   
+   }
+   }
+   
+   }],
+   "transporterName": "strint",
+   "docketNumber": "strint",
+   "numberOfBox": 3,
+   "dispatchDate": "12-02-2020"
+   
+   }

@@ -1,0 +1,195 @@
+<div class="container-fluid mt-4">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p class="mb-0"> Search Order Planning Sheet</p>
+                <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                    <b>New </b>
+                </button>
+            </div>
+            <div class="card-body">
+
+                <form [formGroup]="searchOrderPlanningSheet" [style.fontSize.px]="10">
+                    <div class="row">
+                        
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>ORDER PLANNING SHEET NO</mat-label>
+                                <input matInput placeholder="ORDER PLANNING SHEET NO" formControlName="opSheetNo" [matAutocomplete]="auto" 
+                                >
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of sheetNumberData" [value]="option.opsNo">
+                                      {{option.opsNo}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Order Type</mat-label>
+                                <mat-select  formControlName="orderType">
+                                    <mat-option *ngFor="let order of orderTypeList" [value]="order.id">
+                                        {{order.orderType}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Logic</mat-label>
+                                <mat-select  formControlName="logic">
+                                    <mat-option *ngFor="let option of logicData" [value]="option.id">
+                                        {{option.logic}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+
+                         <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Order Planning From Date</mat-label>
+                              <input matInput [matDatepicker]="issueFromDatePicker" placeholder="Order Planning From Date" formControlName="fromDate" (dateChange)="fromDateSelected1($event)" >
+                              <mat-datepicker-toggle matSuffix [for]="issueFromDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker #issueFromDatePicker></mat-datepicker>
+                            </mat-form-field>
+                          </div> 
+                      
+                          <div class="col-lg-3">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Order Planning To Date</mat-label>
+                              <input matInput [matDatepicker]="issueToDatePicker" placeholder="Order Planning To Date" formControlName="toDate" [max]="maxDate" [min]="minDate">
+                              <mat-datepicker-toggle matSuffix [for]="issueToDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker #issueToDatePicker></mat-datepicker>
+                            </mat-form-field>
+                          </div> 
+
+
+
+                    </div>
+
+                </form>
+
+                <div class="col-lg-6">
+                    <div class="mx-auto d-flex justify-content-between">
+                        <div></div>
+                        <div>
+                            <button type="button" class="btn px-3 mt-3 btn_primary"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)"
+                                (click)="searchData()">
+                                Search </button>
+                            <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                                Clear </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalSearchRecordCount"
+        (actionOnTableRecord)="actionOnTableRecord($event)"  [clickOnTableFields]="[
+        { title: 'opSheetNo', isClickable: true },{ title: 'action', isClickable: true }]"
+        (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+
+
+        <td></td>
+       
+        <td [ngsw-searchField]="opSheetNo" [searchColumnName]="'opSheetNo'">
+            <input class="w-100 borderRadius" #opSheetNo [(ngModel)]="opSheetNoNgModel">
+        </td>
+       
+        <td [ngsw-searchField]="orderDate" [searchColumnName]="'Order Date'">
+            <input class="w-100 borderRadius" #orderDate>
+        </td>
+        <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+            <input class="w-100 borderRadius" #status>
+        </td>
+       
+        <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+            <input class="w-100 borderRadius" #dealerCode>
+        </td>
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+            <input class="w-100 borderRadius" #dealerName>
+        </td>
+        <td [ngsw-searchField]="reOrderQtyMonth" [searchColumnName]="'reOrderQtyMonth'">
+            <input class="w-100 borderRadius" #reOrderQtyMonth>
+        </td>
+        <td [ngsw-searchField]="suggestedOrderQtyMonth" [searchColumnName]="'suggestedOrderQtyMonth'">
+            <input class="w-100 borderRadius" #suggestedOrderQtyMonth>
+        </td>
+        <td [ngsw-searchField]="orderType" [searchColumnName]="'orderType'">
+            <input class="w-100 borderRadius" #orderType>
+        </td>
+        <td [ngsw-searchField]="logic" [searchColumnName]="'logic'">
+            <input class="w-100 borderRadius" #logic>
+        </td>
+        <td [ngsw-searchField]="totalOrderValue" [searchColumnName]="'totalOrderValue'">
+            <input class="w-100 borderRadius" #totalOrderValue>
+        </td>
+        
+        <!-- <td [ngsw-searchField]="orderDate" [searchColumnName]="'orderDate'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #orderDate [(ngModel)] ="orderDate">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #status [(ngModel)] ="status">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #status [(ngModel)] ="status">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #dealerCode [(ngModel)] ="dealerCode">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #dealerName [(ngModel)] ="dealerName">
+            </mat-form-field>
+        </td>
+
+        <td [ngsw-searchField]="reOrderQtyMonth" [searchColumnName]="'reOrderQtyMonth'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #reOrderQtyMonth [(ngModel)] ="reOrderQtyMonth">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="suggestedOrderQtyMonth" [searchColumnName]="'suggestedOrderQtyMonth'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #suggestedOrderQtyMonth [(ngModel)] ="suggestedOrderQtyMonth">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="orderType" [searchColumnName]="'orderType'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #orderType [(ngModel)] ="orderType">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="logic" [searchColumnName]="'logic'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #logic [(ngModel)] ="logic">
+            </mat-form-field>
+        </td>
+        <td [ngsw-searchField]="totalOrderValue" [searchColumnName]="'totalOrderValue'">
+            <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                <input matInput #totalOrderValue [(ngModel)] ="totalOrderValue">
+            </mat-form-field>
+        </td> -->
+    </ngsw-search-table>
+</div>

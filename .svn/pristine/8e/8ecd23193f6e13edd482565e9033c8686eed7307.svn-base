@@ -1,0 +1,48 @@
+<div class="container-fluid create-form mb-3 mt-4">
+    <!-- <div class="heading">
+        <p class="font-weight-bold">Marketing Activity Proposal</p>
+    </div> -->
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Marketing Activity Proposal</p>
+            </div>
+            <div class="card-body">
+                <app-marketing-activity-create-container (selectActivityEvent)="selectActivityEvent($event)"
+                    (sendData)="getActivityProposalData($event)" [budget]="budget" [claimableAmount]="claimableAmount"
+                    [viewEditActivityProposal]="viewEditActivityProposal"
+                    (sendMaximumLimitEvent)="sendMaximumLimitEvent($event)">
+                </app-marketing-activity-create-container>
+                <!-- (SendPropsalType)="displayTableByProposalType($event)" -->
+
+                <app-marketing-activity-addproduct-container [selectActivityTypeEvent]="selectActivityTypeEvent" [validForm]="validForm"
+                    (senditemData)="getActivityProposalData($event)" (fianlAmount)="fianlAmount($event)" (noHeadRepeat)="noHeadRepeat($event)"
+                    [viewEditActivityProposal]="viewEditActivityProposal"></app-marketing-activity-addproduct-container>
+                <div >
+                    <app-enquiry-details-proposal 
+                        (getFormStatusandData)="getActivityProposalData($event)" [viewEditActivityProposal]="viewEditActivityProposal"></app-enquiry-details-proposal>
+                </div>
+
+                <div *ngIf="isView">
+                    <app-approval-details [approvalHierDetails]="approvalHierDetails" [isActivityCategoryKai]="isActivityCategoryKai"></app-approval-details>
+                </div>
+
+                <div class=" text-center mt-2 ">
+                    <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="!isView"
+                        (click)="validateForm('submit')"  [disabled]="isSubmitDisable">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView" (click)="viewPrint('true')"> Print
+                    </button>
+                    <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="back()"> Back
+                    </button>
+                    <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="!isView"
+                        (click)="validateForm('clear')"> Clear
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

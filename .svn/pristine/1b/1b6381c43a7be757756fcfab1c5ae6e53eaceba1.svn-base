@@ -1,0 +1,104 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Complaint Or Query Resolution</p>
+                                <!-- <div>
+                                    <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                                    [routerLink]="[ './create' ]">
+                                    <b class="btnName">New</b>
+                                  </button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <app-search-complaint-or-query-resolution [searchcomplaintOrQueryResolutionForm]="searchcomplaintOrQueryResolutionForm"></app-search-complaint-or-query-resolution>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchcomplaintOrQueryResolution()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable"
+    [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+    [clickOnTableFields]="[{title:'action'}]"  (actionOnTableRecord)="tableAction($event)"
+    (pageChange)="pageChange($event)"  [page]="page" [size]="size"  [searchValue]="searchValue">
+        <td></td>
+        <td [ngsw-searchField]="complaintType" [searchColumnName]="'complaintType'">
+            <input class="w-100 borderRadius" #complaintType>
+        </td>
+        <td [ngsw-searchField]="documentNo" [searchColumnName]="'documentNo'">
+            <input class="w-100 borderRadius" #documentNo>
+        </td>
+        <td [ngsw-searchField]="documentDate" [searchColumnName]="'documentDate'">
+            <input class="w-100 borderRadius" #documentDate>
+        </td>
+        <td [ngsw-searchField]="department" [searchColumnName]="'department'">
+            <input class="w-100 borderRadius" #department>
+        </td>
+        <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+            <input class="w-100 borderRadius" #customerName>
+        </td>
+        <td [ngsw-searchField]="mobileNo" [searchColumnName]="'mobileNo'">
+            <input class="w-100 borderRadius" #mobileNo>
+        </td>
+        <td [ngsw-searchField]="village" [searchColumnName]="'village'">
+            <input class="w-100 borderRadius" #village>
+        </td>
+        <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+            <input class="w-100 borderRadius" #tehsil>
+        </td>
+        <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+            <input class="w-100 borderRadius" #district>
+        </td>
+        <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+            <input class="w-100 borderRadius" #state>
+        </td>
+        <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+            <input class="w-100 borderRadius" #model>
+        </td>
+        <td [ngsw-searchField]="chassisNumber" [searchColumnName]="'chassisNumber'">
+            <input class="w-100 borderRadius" #chassisNumber>
+        </td>
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+            <input class="w-100 borderRadius" #dealerName>
+        </td>
+        <td [ngsw-searchField]="dealerLocation" [searchColumnName]="'dealerLocation'">
+            <input class="w-100 borderRadius" #dealerLocation>
+        </td>
+        <td [ngsw-searchField]="complaintQuery" [searchColumnName]="'complaintQuery'">
+            <input class="w-100 borderRadius" #complaintQuery>
+        </td>
+        <td [ngsw-searchField]="frtStatus" [searchColumnName]="'frtStatus'">
+            <input class="w-100 borderRadius" #frtStatus>
+        </td>
+        <td [ngsw-searchField]="reasonForDelayFrt" [searchColumnName]="'reasonForDelayFrt'">
+            <input class="w-100 borderRadius" #reasonForDelayFrt>
+        </td>
+        <td [ngsw-searchField]="isInvalid" [searchColumnName]="'isInvalid'">
+            <input class="w-100 borderRadius" #isInvalid>
+        </td>
+        <td [ngsw-searchField]="actionTaken" [searchColumnName]="'actionTaken'">
+            <input class="w-100 borderRadius" #actionTaken>
+        </td>
+        <td [ngsw-searchField]="reasonForDelayArt" [searchColumnName]="'reasonForDelayArt'">
+            <input class="w-100 borderRadius" #reasonForDelayArt>
+        </td>
+        <td [ngsw-searchField]="complaintStatus" [searchColumnName]="'complaintStatus'">
+            <input class="w-100 borderRadius" #complaintStatus>
+        </td> 
+    </ngsw-search-table>
+</div>

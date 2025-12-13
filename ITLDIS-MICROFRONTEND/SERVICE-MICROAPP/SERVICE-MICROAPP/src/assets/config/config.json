@@ -1,0 +1,7 @@
+{
+    "production": true,
+    "version": "v1.2.0 - RELEASE 16/11/2019",
+    "baseUrl": "http://180.179.248.140:8383",
+    "api": "api",
+    "ssrPort": 8000
+}

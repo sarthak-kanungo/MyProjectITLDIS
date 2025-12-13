@@ -1,0 +1,177 @@
+error.connection=Connection Failure.
+error.userid.required=Please Enter User Id.
+error.password.required=Please Enter Password.
+error.login.failed=Login Failed. Enter correct User Id and Password.
+error.login.inactive=Login Failed. User Id is InActive in the System.
+error.unknown=Unknown Error, Please contact System Admin.
+error.custom={0}
+error.required={0} is required
+
+
+sqlsDriver = com.microsoft.sqlserver.jdbc.SQLServerDriver
+db_Path = jdbc:sqlserver://192.168.17.1:1433;databaseName=ITLDIS;useUnicode=true;characterEncoding=utf8;
+db_usernm = itil
+db_password = itil@hrsl#
+dbPathAuth=SQL2008
+
+
+
+sqlsDrivernew = com.microsoft.sqlserver.jdbc.SQLServerDriver
+db_Pathnew = jdbc:sqlserver://192.168.17.1:1433;databaseName=ITLDIS;useUnicode=true;characterEncoding=utf8;
+db_usernmnew = itil
+db_passwordnew = itil@hrsl#
+
+
+Message.User.Exist=User ID Already Exist.
+field.errormsg.USER_DELETE=User Id in used
+variant.effectiveDate=1970-01-01
+############################################################
+                      #  ECAT PROPERTIES
+         ############################################################
+            ipaServername=localhost
+            servername=localhost
+            syncservername=localhost
+
+            servletURL = http://localhost:8080/ITLDIS/
+            mainURL = http://localhost/ecatalogueITLDIS/sol_dealer/
+            #SAPWebService = http://202.164.37.227:7274/sapnetws/SAPBIWS.asmx
+
+            syncPort=5006
+
+        #    ecatPATH=D:/Apache2.2/htdocs/ecatalogueITLDIS/sol_dealer/
+        #    ecatPATHAuth=D:/Apache2.2/htdocs/ecatalogueITLDIS/sol_dealer/
+        #    mainSvgPath=D:/REPOSITORY-PROJECT/ITLDIS/trunk/build/web/svg
+         #   imgPath=D:/REPOSITORY-PROJECT/ITLDIS/trunk/build/web/
+            
+            ecatPATH=C:/Apache2.2/htdocs/ecatalogueITLDIS/sol_dealer/
+            ecatPATHAuth=C:/Apache2.2/htdocs/ecatalogueITLDIS/sol_dealer/
+            mainSvgPath=C:/REPOSITORY-PROJECT/ITLDIS/trunk/build/web/svg
+            imgPath=C:/REPOSITORY-PROJECT/ITLDIS/trunk/build/web/
+                    
+
+            #  ---------- Upload File on FTP Server -----------
+
+            ftp_server =59.160.98.134
+            ftp_port = 21
+            ftp_username = general
+            ftp_password = gen@1234
+            ftp_file_path = WARRANTY_CLAIMS
+
+
+            ftp_credit_new_username = NEW
+            ftp_credit_new_password = NEW
+
+            ftp_credit_success_username = SUCCESS
+            ftp_credit_success_password = SUCCESS
+
+            ftp_credit_failure_username = FAILURE
+            ftp_credit_failure_password = FAILURE
+
+
+            credit_new_path=CREDIT_NOTE
+            credit_success_path=CREDIT_SUCCESS
+            credit_failure_path=CREDIT_FAILURE
+
+
+            #  -------------------------------------------------
+
+            userCode =
+            criteria=WEB
+
+            web_or_local = WEB
+             ORAClassName = oracle.jdbc.driver.OracleDriver
+            ORADSN = jdbc:oracle:thin:@1:1521:baan
+            ORAUser = 1
+            ORAPwd = 1
+
+
+
+            db = MSSQL2005
+	    db_ip = 192.168.17.1
+            db_port = 1433
+            db_name = ITLDIS
+            JDBCClassName = com.microsoft.sqlserver.jdbc.SQLServerDriver
+            dbUserName=itil
+            dbPwd=itil@hrsl#
+            dealerPassword = eman123
+
+	
+#user module label message
+label.user.name = Name
+label.user.applicationCode = applicationCode
+label.user.pwd = Password
+label.user.pwd2 = Confirm Password
+label.user.email = Email
+label.user.button.submit = Submit
+
+#Error message
+err.user.applicationCode.required = Please enter value in {0}.<br/>
+#err.user.applicationCode.length = Username length should be between {0} and {1}.<br/>
+#err.user.applicationCode.invalid =Username is invalid , it should be a-z, A-Z, 0-9, dash "-" or underscore "_".<br/>
+
+err.user.pwd.required = Password is required.<br/>
+err.user.pwd.length = Password length should be between {0} and {1}.<br/>
+err.user.pwd.invalid = Password is invalid , it should be a-z, A-Z, 0-9.<br/>
+err.user.pwd2.notmatch = Confirm password is not match.<br/>
+err.user.email.required = Email is required.<br/>
+err.user.email.invalid =  Email address is invalid.<br/>
+sonalikaCatalogueUrl = http://202.164.37.227:9090/sonalikaspc?applogid=
+
+#  ---------- Upload PI Genrate Order File on FTP Server -----------
+            
+sap_SO_Path = SAP_SO
+
+# - ------- Configure Send Email----------------
+
+smtpHostServer = smtpauth.hitechesoft.com
+smtp_port=25
+fromEmail       = edshelpdesk@hitechesoft.com
+email_password  = webapp4eds
+ntlm_domain = sonalika
+#mail_alert_option = OFF
+
+#---------Customer master -------------------------
+
+
+#----------- Default values for Extended Warranty-------------#
+warrBookNoDefault=NA
+sumInsuredDefault=350000
+imdCodeDefault=0
+floatTypeDefault=Customer Float
+ppIdDefault=0
+typeNameDefault=35
+deliveryDaysDiff=730
+common.packingGenDateCheck=25-09-2017
+common.warrantyClaimDateDefault=20181231
+
+# - ------- Configure RFC----------------
+RFC_CLIENT=310
+RFC_USER=BASIS
+RFC_PASSWD=Ganesha@321
+RFC_GWHOST=10.13.12.142s
+RFC_SYSNR=01
+hideDataBefore=2018-04-01
+
+
+# -------------  DIGITAL SIGNATURE ---------------
+API_KEY = CWKY0C673XC6Q8Q88CWH4LQCKAM4MH7X
+EMAIL_INITIATOR = helpdesk+sonalikatokenapiuser@truecopy.com
+FILE_UPLOAD_URL = https://dms.sonalika.com:8065/api/upload
+FILE_FETCH_URL = https://dms.sonalika.com:8065/api/fetchfile
+CALLBACK_URL = https://crm.sonalika.com:7070/ITLDIS/DigitalSignatureAction.do
+
+
+# -------------  MAIL PROPERTIES ---------------
+mail.smtp.host=smtpauth.hitechroboticsystemz.com
+mail.smtp.port=587
+mail.smtp.username=edshelpdesk@hitechroboticsystemz.com
+mail.smtp.password=H@lp72*!
+mail.smtp.from=edshelpdesk@hitechroboticsystemz.com
+mail.smtp.to=aman.khan@hitechroboticsystemz.com
+mail.smtp.cc=avinash.pandey@hitechroboticsystemz.com
+
+mail.smtp.auth=true
+mail.smtp.starttls.enable=true
+mail.enabled=true
+mail.protocol=smtp
+

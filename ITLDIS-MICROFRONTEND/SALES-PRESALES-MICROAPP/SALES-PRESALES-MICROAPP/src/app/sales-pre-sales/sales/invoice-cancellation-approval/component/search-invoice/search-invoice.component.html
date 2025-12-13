@@ -1,0 +1,103 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0"> Invoice Cancellation Approval Search</p>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <ngsw-search-table
+                [dataTable]="dataTable"
+                [page]="page"
+                [size]="size"
+                [actionButtons]="actionButtons"
+                [totalElements]="totalSearchRecordCount"
+                [searchValue]="searchValue"
+                [clickOnTableFields]="clickOnTableFields"
+                (columnLengthChanges)="searchTableColumnChanged($event)"
+                (actionOnTableRecord)="actionOnTableRecord($event)"
+                (pageChange)="pageChangeOfSearchTable($event)">
+                
+                <td colspan="1"></td>
+                <td [ngsw-searchField]="invoiceNumber" [searchColumnName]="'invoiceNumber'">
+                    <input class="w-100 borderRadius" #invoiceNumber>
+                </td>
+                <td [ngsw-searchField]="invoiceType" [searchColumnName]="'invoiceType'">
+                    <input class="w-100 borderRadius" #invoiceType>
+                </td>
+                <td [ngsw-searchField]="deliveryChallanType" [searchColumnName]="'deliveryChallanType'">
+                    <input class="w-100 borderRadius" #deliveryChallanType>
+                </td>
+                <td [ngsw-searchField]="invoiceDate" [searchColumnName]="'invoiceDate'">
+                    <input class="w-100 borderRadius" type="date" #invoiceDate
+                    (change)="etSearchDateValueChange(invoiceDate.value,'invoiceDate')"
+                    [max]="serverCurrentDate">
+                </td>
+                <td [ngsw-searchField]="customerCode" [searchColumnName]="'customerCode'">
+                    <input class="w-100 borderRadius" #customerCode>
+                </td>
+                <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+                    <input class="w-100 borderRadius" #customerName>
+                </td>
+                <td [ngsw-searchField]="invoiceStatus" [searchColumnName]="'invoiceStatus'">
+                    <input class="w-100 borderRadius" #invoiceStatus>
+                </td>
+                <td [ngsw-searchField]="hypothecation" [searchColumnName]="'hypothecation'">
+                    <input class="w-100 borderRadius" #hypothecation>
+                </td>
+                <td [ngsw-searchField]="customerType" [searchColumnName]="'customerType'">
+                    <input class="w-100 borderRadius" #customerType>
+                </td>
+                <td [ngsw-searchField]="companyName" [searchColumnName]="'companyName'">
+                    <input class="w-100 borderRadius" #companyName>
+                </td>
+                <td [ngsw-searchField]="invoiceCustomerName" [searchColumnName]="'invoiceCustomerName'">
+                    <input class="w-100 borderRadius" #invoiceCustomerName>
+                </td>
+                <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+                    <input class="w-100 borderRadius" #address1>
+                </td>
+                <td [ngsw-searchField]="address2" [searchColumnName]="'address2'">
+                    <input class="w-100 borderRadius" #address2>
+                </td>
+                <td [ngsw-searchField]="address3" [searchColumnName]="'address3'">
+                    <input class="w-100 borderRadius" #address3>
+                </td>
+                <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+                    <input class="w-100 borderRadius" #pinCode>
+                </td>
+                <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+                    <input class="w-100 borderRadius" #postOffice>
+                </td>
+                <td [ngsw-searchField]="village" [searchColumnName]="'village'">
+                    <input class="w-100 borderRadius" #village>
+                </td>
+                <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+                    <input class="w-100 borderRadius" #tehsil>
+                </td>
+                <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+                    <input class="w-100 borderRadius" #city>
+                </td>
+                <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+                    <input class="w-100 borderRadius" #district>
+                </td>
+                <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+                    <input class="w-100 borderRadius" #state>
+                </td>
+                <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+                    <input class="w-100 borderRadius" #mobileNumber>
+                </td>
+                <td [ngsw-searchField]="cancelRequestDate" [searchColumnName]="'cancelRequestDate'">
+                     <input class="w-100 borderRadius" type="date" #cancelRequestDate
+                    (change)="etSearchDateValueChange(cancelRequestDate.value,'cancelRequestDate')"
+                    [max]="serverCurrentDate">
+                </td>
+            </ngsw-search-table>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>

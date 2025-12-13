@@ -1,0 +1,4 @@
+<app-current-enquiry-followup 
+[dropDownFollowupType]="dropDownFollowupType"
+(getCurrentFollwupFormStatusAndData)="getCurrentFollwupFormStatusAndData($event)"
+></app-current-enquiry-followup>

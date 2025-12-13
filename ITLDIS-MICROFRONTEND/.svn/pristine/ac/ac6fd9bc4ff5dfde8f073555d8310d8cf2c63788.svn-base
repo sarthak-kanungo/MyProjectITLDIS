@@ -1,0 +1,53 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Search Branch Transfer Issue</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="searchbranchtransferissue" [style.fontSize.px]="10">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Branch Transfer Issue No.</mat-label>
+                            <input matInput placeholder="Branch Transfer Issue No." formControlName="branchtransferissueno">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Request No.</mat-label>
+                            <input matInput placeholder="Request Issue No." formControlName="requestissueno">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker" placeholder="Branch Transfer Issue From Date" formControlName="issuefromdate" [max]="newdate" (dateChange)="setToDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker1" placeholder="Branch Transfer Issue To Date" formControlName="issuetodate" [max]="maxDate" [min]="minDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="col-lg-12">
+                    <div class="mx-auto text-center">
+                        <button type="button" class="btn pl-3 pr-3 btn_primary" (click)="search()"> Search </button>
+                        <button type="button" class="btn pl-3 ml-4 pr-3 btn_primary" (click)="clear()"> Clear </button>
+                    </div>
+
+                </div>
+                
+            </form>
+
+        </div>
+    </div>
+</div>

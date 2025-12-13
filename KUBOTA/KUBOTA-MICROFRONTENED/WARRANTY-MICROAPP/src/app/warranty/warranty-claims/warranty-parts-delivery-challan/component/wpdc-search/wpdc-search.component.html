@@ -1,0 +1,92 @@
+<div class="card-body" [style.fontSize.px]="11" [formGroup]="searchForm">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Delivery Challan No.</mat-label>
+                <input matInput placeholder="Delivery Challan No." formControlName="dcNo">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>WCR No.</mat-label>
+                <input matInput placeholder="WCR No." formControlName="wcrNo" [matAutocomplete]="auto">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of autoCompleteData" [value]="option.code">
+                        {{option.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="searchForm.controls.wcrNo.errors?.selectFromList">Please select from list</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>DC From Date</mat-label>
+                <input matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="DC From Date"
+                    formControlName="dcFromDate" (dateChange)="setToDate($event, 'dc')" [max]="newdate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>DC To Date</mat-label>
+                <input matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="DC To Date"
+                    formControlName="dcToDate" [min]="fromDate" [max]="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <!-- ================= ADVANCE SEARCH ================ -->
+
+    <div class="text-right" [style.fontSize.px]="12">
+        <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;" (click)="onClickAdvanceSearch()">
+            <u> {{isAdvanceSearch ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+        </a>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="isAdvanceSearch">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Machine Model</mat-label>
+                            <mat-select formControlName="machineModel">
+                                <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>WCR From Date</mat-label>
+                            <input matInput (click)="picker2.open()" [matDatepicker]="picker2"
+                                placeholder="WCR From Date" formControlName="wcrFromDate"
+                                (dateChange)="setToDate($event, 'wcr')" [max]="fromDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>WCR To Date</mat-label>
+                            <input matInput (click)="picker3.open()" [matDatepicker]="picker3" placeholder="WCR To Date"
+                                formControlName="wcrToDate" [min]="toDate1" [max]="fromDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

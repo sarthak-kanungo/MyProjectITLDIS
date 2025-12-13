@@ -1,0 +1,36 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Branch Transfer Indent</p>
+        </div>
+        <form  [style.fontSize.px]="10">
+           <div class="card-body">
+              <div>
+                <app-create-branch-indent [branchTransferIndentForm]="branchTransferIndentForm"(editBranchId)="editBranchId($event)" (branchId)="branchId($event)" ></app-create-branch-indent>
+                <app-indent-item-details-page [indentItemForm]="indentItemForm" [branchID]="branchID"></app-indent-item-details-page>
+              </div>
+              <div class=" text-center mt-2 ">
+                <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="submitIndentForm('draft')" > Save
+                  </button>
+                  <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="submitIndentForm('submit')"> Submit
+                  </button>
+                  
+                  <button *ngIf="isView" type="button" class="btn btn_secondary px-3 ml-3 " (click)="downloadPdf()"> View PDF
+                  </button>
+                  <button *ngIf="!isView"type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="exitForm()"> Exit
+                  </button>
+                  <button *ngIf="!isView"type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="clearForm()"> Clear
+                  </button>
+                 
+              </div>
+           </div>
+      </form>            
+    </div>
+   </div>
+  </div>

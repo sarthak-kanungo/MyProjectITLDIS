@@ -1,0 +1,150 @@
+<div [style.fontSize.px]="10" [formGroup]="searchSparesInvoiceForm">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Sales Invoice </mat-label>
+                <input matInput placeholder="Sales Invoice" [matAutocomplete]="autoInvoiceNumber"
+                    formControlName="salesInvoice">
+                <mat-autocomplete #autoInvoiceNumber="matAutocomplete" [displayWith]="displayInvoiceNumberFn"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of invoiceNumberList |async" [value]="option">
+                        {{option.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error *ngIf="searchSparesInvoiceForm.get('salesInvoice').hasError('selectFromList')">
+                    {{searchSparesInvoiceForm.get('salesInvoice').errors['selectFromList']}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Customer Code</mat-label>
+                <input matInput placeholder="Customer Code" formControlName="customerCode">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Customer Name</mat-label>
+                <input matInput placeholder="Customer Name" formControlName="customerName">
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Reference Document</mat-label>
+                <mat-select formControlName="referenceDocument">
+                    <mat-option *ngFor="let refdoc of referenceDocList" [value]="refdoc.value">
+                        {{refdoc.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Customer Type</mat-label>
+                            <mat-select>
+                                <mat-option *ngFor="let custtype of custtypes" [value]="custtype">{{custtype}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sales Type</mat-label>
+                <mat-select formControlName="salesType">
+                    <mat-option *ngFor="let type of salesTypeList" [value]="type.salesType">
+                        {{type.salesType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-200" appearance="outline">
+                <mat-label>WCR No.</mat-label>
+                <input matInput placeholder="WCR No." [matAutocomplete]="autoWcr" formControlName="wcrNo">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete autoActiveFirstOption #autoWcr="matAutocomplete" [panelWidth]="200">
+                    <mat-option *ngFor="let option of wcrData" [value]="option.code" [style.fontSize.px]="12">
+                      {{option.value}}
+                    </mat-option>
+                  </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Job Card No.</mat-label>
+                <input matInput placeholder="Job Card No." formControlName="jobCardNumber" [matAutocomplete]="mAuto">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete   #mAuto="matAutocomplete" [panelWidth]="250">
+                    <mat-option *ngFor="let option of jobCodeData" [value]="option.code">
+                        {{option.value}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mode of Transport</mat-label>
+                <mat-select formControlName="modeOfTransport">
+                    <mat-option *ngFor="let mode of modeOfTransportList" [value]="mode.modeOfTransfer">
+                        {{mode.modeOfTransfer}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Transporter</mat-label>
+                <mat-select formControlName="transporter">
+                    <mat-option *ngFor="let transporter of transporterList" [value]="transporter.transporter">
+                        {{transporter.transporter}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2">
+            <mat-form-field class="w-100" (click)="picker1.open()">
+                <input matInput [matDatepicker]="picker1" placeholder="Invoice From Date" readonly
+                    formControlName="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" (click)="picker2.open()">
+                <input matInput [matDatepicker]="picker2" placeholder="Invoice To Date" readonly
+                    formControlName="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <input matInput  [matDatepicker]="picker" placeholder="Invoice From Date" formControlName="fromDate" 
+                (click)="picker.open()" [max]="todaysDate" (dateChange)="fromDateChange($event)" required
+                   >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <input matInput  [matDatepicker]="picker1" placeholder="Invoice To Date" formControlName="toDate"
+                (click)="picker1.open()" [max]="maxDate" [min]="minDate" required
+                   >
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+    </div>
+</div>

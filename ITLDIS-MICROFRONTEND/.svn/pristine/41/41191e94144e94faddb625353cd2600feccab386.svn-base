@@ -1,0 +1,72 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Self Run Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="selfRunForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Person Name</mat-label>
+                          <mat-select  formControlName="personName" required>
+                            <!-- <mat-option *ngFor="let option of districtList" [value]="option">
+                              {{option?.district}}</mat-option> -->
+                          </mat-select>
+                         
+                        </mat-form-field>
+                      </div>
+
+
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>License Number</mat-label>
+                            <input matInput placeholder="Truck number" required
+                                formControlName="licenseNumber" />
+                        </mat-form-field>
+                    </div>  
+                   
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Valid TRC</mat-label>
+                            <input matInput placeholder="Driver Mobile Number" formControlName="validTrc">
+                        </mat-form-field>
+                    </div>
+                    
+                   
+                </div>
+            </div>
+        </div>
+        <div class="card" style="border: 1px solid #45afaf; margin-top: 10px;">
+            <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+              <p class="mb-0" style="font-size: 13px;">Attachment Details</p>
+            </div>
+            <div class="card-body">
+      
+              <div class="row">
+                <div class="col-lg-6">
+                    <div class="d-flex bd-highlight">
+                        <div class="pr-1 w-25 flex-fill bd-highlight">
+                            <label class="col-form-label">File </label>
+                        </div>
+                        <div class="w-50 flex-fill bd-highlight">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" (change)="fileSelectionChanges($event)" class="custom-file-input" name="image" accept="image/x-png,image/jpeg">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-25"></div>
+                    </div>
+                </div>
+            </div>
+      
+          </div>
+      
+          </div>
+        
+    </div>
+</div>

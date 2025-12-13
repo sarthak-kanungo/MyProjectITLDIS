@@ -1,0 +1,75 @@
+import { OnInit, EventEmitter, OnChanges, SimpleChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ControlValueAccessor, Validator, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
+import { TableConfig, PatchValue, EtTableValueChangeEvent, EtAutocompleteSelectedEvent, ETValidationError } from './editable-table-config';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { EtDataHandlerService } from './et-data-handler.service';
+export declare class EditableTableComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
+    private fb;
+    private etDataHandlerService;
+    private _changeDetectorRef;
+    editableTableForm: FormGroup;
+    isEdit: boolean;
+    isView: boolean;
+    filteredOptions: {};
+    selectOptions: {};
+    subscription: Subscription;
+    viewOnly: boolean;
+    hideActionBtn: boolean;
+    hideDefaultRow: boolean;
+    assignListToSelect: any;
+    tableConfig: TableConfig[];
+    getFormData: any;
+    getTableRecordChange: EventEmitter<object>;
+    optionSelected: EventEmitter<EtAutocompleteSelectedEvent<object>>;
+    assignListToAutocomplete: any;
+    private _patchValue;
+    patchValue: Array<PatchValue>;
+    patchValueToSelect: Array<PatchValue>;
+    private dirtyAutocompleteColumn;
+    private _tableData;
+    tableData: any;
+    private _formGroupForTableRow;
+    searchValueChanges: EventEmitter<EtTableValueChangeEvent<object>>;
+    tableValueChanges: EventEmitter<object>;
+    formGroupForTableRow: any;
+    deletedTableRecords: EventEmitter<object[]>;
+    matAutocompleteDisplayFn: Subject<unknown>;
+    etFormArray: FormArray;
+    control: FormControl;
+    private _validationError;
+    /**
+     * bind instaceof @param ETValidationError
+     *
+    */
+    validationError: ETValidationError;
+    constructor(fb: FormBuilder, etDataHandlerService: EtDataHandlerService, _changeDetectorRef: ChangeDetectorRef);
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    assignMarkAsTouchedFnToControl(control: AbstractControl): void;
+    private patchValueToTable;
+    private createTableWithData;
+    private subscribeToSendColumnNameRecord;
+    private collectColumnRecord;
+    private subscribeToValidateTable;
+    createTableForm(): void;
+    implementsDetailsRow(data?: object): FormGroup;
+    private _filter;
+    submitData(): void;
+    addRow(row?: object): void;
+    resetTable(row?: any): void;
+    deleteRow(): void;
+    private generateAutocompleteDisplayFn;
+    autocompleteClicked(config: TableConfig, formGroup: FormArray): void;
+    valueSelectedFromAutocomplete(event: MatAutocompleteSelectedEvent, rowIndex: any, rowFormGroup: FormGroup, config: TableConfig): void;
+    selectionChanged(event: any): void;
+    contenteditableValuechange(value: any, rowFormGroup: FormGroup, formControlName: any): void;
+    private setError;
+    onTouched: () => void;
+    writeValue(val: any): void;
+    registerOnChange(fn: any): void;
+    registerOnTouched(fn: any): void;
+    setDisabledState?(isDisabled: boolean): void;
+    validate(control: AbstractControl): ValidationErrors;
+    ngOnDestroy(): void;
+}

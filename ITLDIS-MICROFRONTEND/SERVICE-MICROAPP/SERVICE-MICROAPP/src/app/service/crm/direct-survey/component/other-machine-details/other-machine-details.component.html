@@ -1,0 +1,174 @@
+<div class="card">
+        <div class="card-header">
+            <p class="mb-0">Other Machine Deatils</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="otherMachineDeatilsForm" [style.fontSize.px]="11">
+                <div class="card" style="border: 1px solid #45afaf;"> 
+                    <div class="table-responsive mt-1">
+                        <table class="table w-100 table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Manufacturer </th>
+                                    <th scope="col">Model </th>
+                                    <th scope="col">Year Of Purchage </th>
+                                    <th scope="col">Serial No. </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let option of otherMachineDeatilsForm['controls']; let i = index;">
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10" class="mat-form-field-wrapper-temp">
+                                            <mat-select  placeholder="Maufacturer" [formControl]="option.get('brand')">
+                                                <mat-option *ngFor="let brand of manuFacturerList" [value]="brand.brand">
+                                                  {{brand.brand}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <td style="width: 22%;">
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                                <input matInput placeholder="Model"
+                                                [formControl]="option.get('model')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                          <input matInput placeholder="Year of Purchase" [formControl]="option.get('yearOfPurchase')" 
+                                          (change)="checkYearOfPurchase(option)" maxlength="4">
+                                          <mat-error *ngIf="option.get('yearOfPurchase').hasError('invalidYear')">
+                                            Please Enter a Valid Year
+                                          </mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Serial No."
+                                                [formControl]="option.get('serialNo')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td *ngIf="isCreate" style="vertical-align: middle;" ><mat-icon type="button" (click) = "deleteRow(i)">delete</mat-icon></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="isCreate" class=" text-center mt-2 mb-3">
+                        <button type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div><br>
+
+<div class="card">
+    <div class="card-header">
+        <p class="mb-0">Reference Deatils</p>
+    </div>
+    <div class="card-body">
+        <div [formGroup]="referenceDetailsForm" [style.fontSize.px]="11">
+              <div class="row">
+                  <div class="col-lg-6">
+                      <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Customer Name1</mat-label>
+                          <input matInput placeholder="Customer Name1" formControlName="customerName1">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Mobile Number1</mat-label>
+                          <input matInput placeholder="Mobile Number1" formControlName="mobileNo1" maxlength="10">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Address1</mat-label>
+                          <input matInput placeholder="Address1" formControlName="address1" >
+                        </mat-form-field>
+                      </div>
+                      
+                      <!-- <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Village1</mat-label>
+                          <input matInput placeholder="Village1" formControlName="village1" >
+                        </mat-form-field>
+                      </div> -->
+
+                      <div class="col-lg-6">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Village1</mat-label>
+                            <input matInput placeholder="Village2" formControlName="village1" [matAutocomplete]="autoVillage1"  (ngModelChange)="getVillageAuto($event)"  (change)="villageValue1($event.target.value)">
+                            <mat-autocomplete #autoVillage1="matAutocomplete" [panelWidth]="400" (optionSelected)="villageSelect1($event)" [displayWith]="displayFnVillage">
+                                <mat-option *ngFor="let option of villageList" [value]="option">
+                                    {{option?.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error
+                                *ngIf="referenceDetailsForm.get('village1').hasError('selectFromList')">
+                                Please select from list</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Customer Name2</mat-label>
+                          <input matInput placeholder="Customer Name2" formControlName="customerName2">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Mobile Number2</mat-label>
+                          <input matInput placeholder="Mobile Number2" formControlName="mobileNo2" maxlength="10">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Address2</mat-label>
+                          <input matInput placeholder="Address2" formControlName="address2" >
+                        </mat-form-field>
+                      </div>
+                       <div class="col-lg-6">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Village2</mat-label>
+                                <input matInput placeholder="Village2" formControlName="village2" [matAutocomplete]="autoVillage2"  (ngModelChange)="getVillageAuto($event)"  (change)="villageValue2($event.target.value)">
+                                <mat-autocomplete #autoVillage2="matAutocomplete" [panelWidth]="400" (optionSelected)="villageSelect2($event)" [displayWith]="displayFnVillage">
+                                    <mat-option *ngFor="let option of villageList" [value]="option">
+                                        {{option?.value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error
+                                    *ngIf="referenceDetailsForm.get('village2').hasError('selectFromList')">
+                                    Please select from list</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                  </div>
+              </div>
+      </div>
+</div><br>
+
+<div class="card">
+  <div class="card-header">
+      <p class="mb-0">Additional Comments</p>
+  </div>
+  <div class="card-body">
+    <div [formGroup]="referenceDetailsForm" [style.fontSize.px]="11">
+      <div class="row">
+        <div class="col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Additional Comments</mat-label>
+              <textarea matInput placeholder="Additional Comments" formControlName="additionalComment"></textarea>
+              <mat-error
+               *ngIf="referenceDetailsForm.get('additionalComment').errors?.maxlength">
+               <b> Maximum Lenght of Additional Comment is 500</b></mat-error>
+            </mat-form-field>
+          </div>
+      </div>
+    </div>
+  </div><br>
+

@@ -1,0 +1,38 @@
+:host {
+  ::ng-deep ngsw-search-table {
+    td,th {
+      width: 200px;
+    }
+    .grnDate{
+        width: 100px;
+    }
+    .invoiceDate{
+        width: 100px;
+    }
+    // .transporterVehicleNumber{
+    //     width: 100px;
+    //     overflow-x: hidden;
+    //     text-overflow: ellipsis;
+    // }
+    // .grossTotalValue{
+    //     width: 150px;
+    //     overflow-x: hidden;
+    //     text-overflow: ellipsis;
+    // }
+    // .lrNo{
+    //     width: 100px;
+    // }
+    .driverNumber{
+        width: 110px;
+    }
+    .driverMobile{
+        width: 110px;
+    }
+    .sr_no {
+      width: 50px;
+    }
+    .edit {
+      width: 100px;
+    }
+  }
+}

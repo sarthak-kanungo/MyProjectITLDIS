@@ -1,0 +1,239 @@
+<div class="container-fluid create-form  mt-4 ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between header">
+                                    <p class="mb-0 label">INSTALLATION MONITORING BOARD - MAINTENANCE [IMB]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" [formGroup]="imbSearchForm" [style.fontSize.px]="11">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>From Field Installation Due Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" placeholder="From Field Installation Due Date"  formControlName="fromDate"
+                                        [max]="tomorrow" (dateChange)="setToDate($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100 pb_0" appearance="outline">
+                                    <mat-label>To Field Installation Due Date</mat-label>
+                                    <input matInput [matDatepicker]="picker1" placeholder="To Field Installation Due Date" formControlName="toDate"
+                                        [max]="tomorrow" [min]="minDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2" *ngIf='isKai'>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Dealer Code</mat-label>
+                                    <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                        [matAutocomplete]="autoDealercode">
+                                    <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn" (optionSelected)="dealerSelect($event)">
+                                        <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                            {{option?.displayString}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Branch</mat-label>
+                                    <mat-select formControlName="branch">
+                                        <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                                            {{option?.branchcode}} - {{option?.BranchName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Product</mat-label>
+                                    <mat-select formControlName="product"
+                                        (selectionChange)="selectProduct($event.value)">
+                                        <mat-option *ngFor="let option of products" [value]="option.product">
+                                            {{option?.product}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Series</mat-label>
+                                    <mat-select formControlName="series"
+                                        (selectionChange)="selectSeries($event.value)">
+                                        <mat-option *ngFor="let option of seriesByProduct"
+                                            [value]="option.series">{{option?.series}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Model</mat-label>
+                                    <mat-select formControlName="machineModel"
+                                        (selectionChange)="selectModel($event.value)">
+                                        <mat-option *ngFor="let option of modelBySeries"
+                                            [value]="option.model">
+                                            {{option?.model}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Sub Model</mat-label>
+                                    <mat-select formControlName="subModel" 
+                                        (selectionChange)="selectSubModel($event.value)">
+                                        <mat-option *ngFor="let option of subModelByModel"
+                                            [value]="option.subModel">
+                                            {{option?.subModel}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Variant</mat-label>
+                                    <mat-select formControlName="variant">
+                                        <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                            {{option?.variant}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Chassis No.</mat-label>
+                                    <input matInput placeholder="Chassis No." [matAutocomplete]="auto2" formControlName="chassisNo">
+                                    <mat-icon matSuffix>search</mat-icon>
+                                    
+                                    <mat-autocomplete [panelWidth]="500" #auto2="matAutocomplete">
+                                        <mat-option *ngFor="let option of chassisData" [value]="option.code">
+                                            {{option.value}}
+                                            </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="imbSearchForm.controls.chassisNo.errors?.selectFromList">Please select from list</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf='isKai'>
+                            <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                                    <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                        <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                            {{option.hierarchy_desc}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center  mt-2 mb-2">
+                        <button type="button" class="btn  btn_primary px-3" (click)="searchData()">
+                            Search
+                        </button>
+                        <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+           (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="clickExportToExcel()">
+          
+            <td  [ngsw-searchField]="zone" [searchColumnName]="'zone'" >
+                <input class="w-100 borderRadius" #zone />
+            </td> 
+            <td  [ngsw-searchField]="area" [searchColumnName]="'area'" >
+                <input class="w-100 borderRadius" #area />
+            </td> 
+            <td  [ngsw-searchField]="areaManger" [searchColumnName]="'areaManger'" >
+                <input class="w-100 borderRadius" #areaManger />
+            </td> 
+            <td  [ngsw-searchField]="territoryManager" [searchColumnName]="'territoryManager'" >
+                <input class="w-100 borderRadius" #territoryManager />
+            </td> 
+            <td  [ngsw-searchField]="soldDealerCode" [searchColumnName]="'soldDealerCode'" >
+                <input class="w-100 borderRadius" #soldDealerCode />
+            </td> 
+            <td  [ngsw-searchField]="soldDealershipName" [searchColumnName]="'soldDealershipName'" >
+                <input class="w-100 borderRadius" #soldDealershipName />
+            </td> 
+            <td  [ngsw-searchField]="productGroup" [searchColumnName]="'productGroup'" >
+                <input class="w-100 borderRadius" #productGroup />
+            </td> 
+            <td  [ngsw-searchField]="product" [searchColumnName]="'product'" >
+                <input class="w-100 borderRadius" #product />
+            </td> 
+            <td  [ngsw-searchField]="model" [searchColumnName]="'model'" >
+                <input class="w-100 borderRadius" #model />
+            </td> 
+            <td  [ngsw-searchField]="subModel" [searchColumnName]="'subModel'" >
+                <input class="w-100 borderRadius" #subModel />
+            </td> 
+            <td  [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'" >
+                <input class="w-100 borderRadius" #chassisNo />
+            </td> 
+            <td  [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'" >
+                <input class="w-100 borderRadius" #engineNo />
+            </td> 
+
+            <td  [ngsw-searchField]="deliveryChallanDate" [searchColumnName]="'deliveryChallanDate'" >
+                <input class="w-100 borderRadius" #deliveryChallanDate />
+            </td> 
+            <td  [ngsw-searchField]="deliveryInstallationDueDate" [searchColumnName]="'deliveryInstallationDueDate'" >
+                <input class="w-100 borderRadius" #deliveryInstallationDueDate />
+            </td> 
+            <td  [ngsw-searchField]="deliveryInstallationDate" [searchColumnName]="'deliveryInstallationDate'" >
+                <input class="w-100 borderRadius" #deliveryInstallationDate />
+            </td> 
+            <td  [ngsw-searchField]="deliveryInstallationNumber" [searchColumnName]="'deliveryInstallationNumber'" >
+                <input class="w-100 borderRadius" #deliveryInstallationNumber />
+            </td> 
+            <td  [ngsw-searchField]="deliveryInstallationStatus" [searchColumnName]="'deliveryInstallationStatus'" >
+                <input class="w-100 borderRadius" #deliveryInstallationStatus />
+            </td> 
+            <td  [ngsw-searchField]="fieldInstallationDueDate" [searchColumnName]="'fieldInstallationDueDate'" >
+                <input class="w-100 borderRadius" #fieldInstallationDueDate />
+            </td> 
+            <td  [ngsw-searchField]="fieldInstallationDate" [searchColumnName]="'fieldInstallationDate'" >
+                <input class="w-100 borderRadius" #fieldInstallationDate />
+            </td> 
+            <td  [ngsw-searchField]="fieldInstallationNumber" [searchColumnName]="'fieldInstallationNumber'" >
+                <input class="w-100 borderRadius" #fieldInstallationNumber />
+            </td> 
+            <td  [ngsw-searchField]="fieldInstallationStatus" [searchColumnName]="'fieldInstallationStatus'" >
+                <input class="w-100 borderRadius" #fieldInstallationStatus />
+            </td> 
+
+            <td  [ngsw-searchField]="customerName" [searchColumnName]="'customerName'" >
+                <input class="w-100 borderRadius" #customerName />
+            </td> 
+            <td  [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'" >
+                <input class="w-100 borderRadius" #mobileNumber />
+            </td> 
+            <td  [ngsw-searchField]="alternateNo" [searchColumnName]="'alternateNo'" >
+                <input class="w-100 borderRadius" #alternateNo />
+            </td> 
+            <td  [ngsw-searchField]="fullCustAddress" [searchColumnName]="'fullCustAddress'" >
+                <input class="w-100 borderRadius" #fullCustAddress />
+            </td> 
+          </ngsw-search-table>
+    </div>      
+</div>                    

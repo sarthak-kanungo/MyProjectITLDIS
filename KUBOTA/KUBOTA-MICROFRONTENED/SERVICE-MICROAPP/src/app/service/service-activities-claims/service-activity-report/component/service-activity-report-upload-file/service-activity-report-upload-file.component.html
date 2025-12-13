@@ -1,0 +1,52 @@
+<form [formGroup]="documentUplodedForm">
+  <div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Document Upload </p>
+      </div>
+      <div class="card-body" *ngIf="isCreate">
+        <div class="row">
+          <div class="col-md-2">
+            <div class=" input-group"
+            [ngClass]="{'upload-err': documentUplodedForm.controls.photos.invalid && documentUplodedForm.controls.photos.touched}">
+            <div class="custom-file">
+              <label class="custom-file-label">Upload Photo</label>
+              <input type="file" name="image" required (change)="fileSelctionChanges($event)"
+                accept="image/x-png,image/jpeg,application/pdf" class="custom-file-input" formControlName="photos" />
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row mt-2 text-center">
+          <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+            <div class="card" [style.width.rem]="13">
+              <label> {{file.file.name}} </label>
+              <img [src]="file.previewUrl" height="120" width="185" />
+              <div class="card-body">
+                <hr>
+                <i style="color: #45afaf;" class="material-icons" (click)="deleteImage(file.id)">delete</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" *ngIf="isView">
+        <div class="row" style="align-items: center;">
+          <div class="col-md-2 d-flex justify-content-around " *ngFor="let file of fileNamelist">
+            <div class="card " [style.width.rem]="13" style="align-items: center;">
+              <!-- <label >{{file.fileName}}</label> -->
+              <img src="{{fileStaticPath}}/{{file.fileName}}" height="140" width="185" />
+              <div class="card-body">
+                <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                  <hr>
+                  <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

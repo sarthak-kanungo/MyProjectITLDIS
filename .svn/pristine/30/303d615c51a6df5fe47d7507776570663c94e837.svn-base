@@ -1,0 +1,80 @@
+<div class="container-fluid mt-4 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+
+                <div class="card">
+                    <div class="card-header">
+                     <div class="d-flex justify-content-between header">
+                        <p class="mb-0">Search Dealer</p>
+                        <div>
+                            <button type="button" class="btn btn-xs ml-2 bg-white" [routerLink]="['./create']"
+                              routerLinkActive="router-link-active">
+                              <b class="btnName">New</b>
+                            </button>
+                        </div>
+                     </div>
+                       
+                    </div>
+                    
+                    <app-search-dealer ></app-search-dealer>
+                    <div class="text-center mt-2 mb-2">
+                        <button type="button" (click)="search()" class="btn  btn_primary px-3" [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">Search</button>
+                        <button type="button" (click)="clearForm()" class="btn  btn_primary px-3 ml-2">Clear</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+          (actionOnTableRecord)="tableAction($event)" [clickOnTableFields]="[
+            { title: 'dealerCode', isClickable: true }]" (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [actionButtons]="actionButtons">
+          
+          <td  class="activeStatus" [ngsw-searchField]="activeStatus" [searchColumnName]="'activeStatus'">
+            <input class="w-100 borderRadius" #activeStatus />
+          </td>
+          <td [ngsw-searchField]="creditLimit" [searchColumnName]="'creditLimit'">
+            <input class="w-100 borderRadius" #creditLimit />
+          </td>
+    
+          <td class="dealerCode" [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+            <input class="w-100 borderRadius" #dealerCode />
+          </td>
+    
+    
+          <td [ngsw-searchField]="dealerFirmType" [searchColumnName]="'dealerFirmType'">
+            <input class="w-100 borderRadius" #dealerFirmType />
+          </td>
+          <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+            <input class="w-100 borderRadius" #dealerName />
+          </td>
+          <td [ngsw-searchField]="dealerType" [searchColumnName]="'dealerType'">
+            <input class="w-100 borderRadius" #dealerType />
+          </td>
+          <td [ngsw-searchField]="emailId" [searchColumnName]="'emailId'">
+            <input class="w-100 borderRadius" #emailId />
+          </td>
+          <td [ngsw-searchField]="gstNo" [searchColumnName]="'gstNo'">
+            <input class="w-100 borderRadius" #gstNo />
+          </td>
+          <td class="mobileNo" [ngsw-searchField]="mobileNo" [searchColumnName]="'mobileNo'">
+            <input class="w-100 borderRadius" #mobileNo />
+          </td>
+          <td class="panNo" [ngsw-searchField]="panNo" [searchColumnName]="'panNo'">
+            <input class="w-100 borderRadius" #panNo />
+          </td>
+          <td class="state" [ngsw-searchField]="state" [searchColumnName]="'state'">
+            <input class="w-100 borderRadius" #state />
+          </td>
+          <td [ngsw-searchField]="subsidyDealer" [searchColumnName]="'subsidyDealer'">
+            <input class="w-100 borderRadius" #subsidyDealer />
+          </td>
+          
+          
+        </ngsw-search-table>
+    </div>
+
+</div>

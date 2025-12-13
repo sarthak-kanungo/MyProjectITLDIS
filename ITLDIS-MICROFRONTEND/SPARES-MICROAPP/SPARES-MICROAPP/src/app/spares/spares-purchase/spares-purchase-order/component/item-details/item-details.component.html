@@ -1,0 +1,194 @@
+<div class="card-body">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                  border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Item Details</p>
+        </div>
+
+        <div class="card-body">
+            <div class="float-right" style="font-size: small;" *ngIf="!isView && !isApprove && excelDownload">
+                <a class="px-2 link" (click)="uploadExcel()" *ngIf="hideAddrowandUploadExcel">Upload Excel</a> 
+                <a class="px-2 link" (click)="downloadTemplate()"*ngIf="hideAddrowandUploadExcel">Download Template</a>
+            </div>
+            <div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" style="overflow-x: auto;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 10px;" *ngFor="let title of tableTitle">{{title}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detail of (poItemDetailForm|async); let i = index">
+                                <td>
+                                    <mat-checkbox color="basic" class="form-control form-control-sm"
+                                        [formControl]="detail.get('isSelected')" [checked]="false">
+                                    </mat-checkbox>
+                                </td>
+                                <td class="item-width">
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <!-- <mat-label>Item No.</mat-label> -->
+                                        <input matInput placeholder="Item No."
+                                            [formControl]="detail.get('sparePartMaster')"
+                                            [matAutocomplete]="autoItemNo">
+                                        <mat-autocomplete #autoItemNo="matAutocomplete"
+                                            (optionSelected)="itemNumberSelection($event,i)"
+                                            [displayWith]="displayItemNumberFn" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of filteredItemNumberList |async"
+                                                [value]="option">
+                                                {{option.displayValue}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <mat-error *ngIf="detail.get('sparePartMaster').hasError('selectFromList')">Select from list</mat-error>
+                                    </mat-form-field>
+                                </td>
+                                <td class="item-width">
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Item Description"
+                                            [formControl]="detail.get('itemDescription')">
+                                    </mat-form-field>
+                                </td>
+                                <!-- <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Requisition Qty"
+                                            [formControl]="detail.get('requisitionQty')">
+                                    </mat-form-field>
+                                </td> -->
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Quantity" moq [formControl]="detail.get('quantity')">
+                                    </mat-form-field>
+                                    <mat-error *ngIf="detail.get('quantity').hasError('moqValue')">Quantity should be multiple of MOQ : {{detail.get('moq').value}}</mat-error>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Current Stock"
+                                            [formControl]="detail.get('currentStock')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Back Order At Kai"
+                                            [formControl]="detail.get('backOrderAtKai')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Transit From KAI"
+                                            [formControl]="detail.get('transitFromKai')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Unit Price"
+                                            [formControl]="detail.get('unitPrice')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Base Amount"
+                                            [formControl]="detail.get('baseAmount')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="GST Percentage"
+                                            [formControl]="detail.get('gstPercent')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="GST Amount"
+                                            [formControl]="detail.get('gstAmount')">
+                                    </mat-form-field>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="Total Amount"
+                                            [formControl]="detail.get('totalAmount')">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                        <input matInput placeholder="ACCPAC Order No"
+                                            [formControl]="detail.get('accpacOrderNumber')">
+                                    </mat-form-field>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" text-center" *ngIf="!isView && hideAddrowandUploadExcel">
+                    <button *ngIf="!hideAddButton" type="button" class="btn btn-sm btn_primary" (click)="addRow()"> Add Row</button>
+                    <button type="button" class="btn btn-sm btn_secondary ml-2" (click)="deleteRow()">
+                        Delete Row</button>
+                </div>
+            </div>
+
+            <div class="col-lg-12 mt-3">
+                <form [formGroup]="poTotalForm" class="d-flex justify-content-end ">
+                    <table class="col-4">
+                        <tr>
+                            <td>Total Base Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Base Amount" formControlName="totalBasicAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total GST Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Total GST Amount" formControlName="totalGstAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td>TCS</td>
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100">
+                                	<mat-label>TCS %</mat-label>
+				                    <mat-select formControlName="tcsPerc" (selectionChange)="calculateTcsSelection()">
+				                    	<mat-option *ngFor="let tcs of tcsPercList" [value]="tcs.tcsValue">
+				                            {{tcs.displayValue}}
+				                        </mat-option>
+				                    </mat-select>
+				                </mat-form-field>
+                            </td>
+                        </tr> -->
+
+                        <tr>
+                            <td>TCS%</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="TCS" formControlName="tcsPerc">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Total PO Amount</td>
+                            <td>
+                                <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                    <input matInput placeholder="Total PO Amount" formControlName="totalPOAmount">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="card-body">
+
+    <!-- <form [formGroup]="searchForm" [style.fontSize.px]="11">
+        <div class="row">
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Zone</mat-label>
+                    <mat-select formControlName="zone">
+                        <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Region</mat-label>
+                    <mat-select formControlName="region">
+                        <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Area</mat-label>
+                    <mat-select formControlName="area">
+                        <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer Code</mat-label>
+                    <input #input matInput placeholder="Dealer Code" [matAutocomplete]="auto" formControlName="dealerCode">
+                    <mat-icon matSuffix>search</mat-icon>
+                    
+                    <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of dealerCode" [value]="option">
+                          {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="searchForm.controls.dealerCode.errors?.selectFromList">Please select from list</mat-error>
+                </mat-form-field>
+               
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer Name</mat-label>
+                    <input #input matInput placeholder="Dealer Name" [matAutocomplete]="auto1" formControlName="dealerName">
+                    <mat-icon matSuffix>search</mat-icon>
+                    
+                    <mat-autocomplete [displayWith]="displayCodeFn" autoActiveFirstOption #auto1="matAutocomplete">
+                        <mat-option *ngFor="let option of dealerName" [value]="option">
+                          {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="searchForm.controls.dealerName.errors?.selectFromList">Please select from list</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Territory Level</mat-label>
+                    <mat-select formControlName="territoryLevel">
+                        <mat-option *ngFor="let territory of allocatedTerritory" [value]="territory.value">{{territory.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="activeStatus">
+                        <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Subsidy Type</mat-label>
+                    <mat-select formControlName="subsidyDealer">
+                        <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+           
+        </div>
+
+    </form> -->
+
+</div>

@@ -1,0 +1,95 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Document Upload</p>
+    </div>
+    <div class="card-body" *ngIf="!isView">
+      <form [formGroup]="actualReportImageForm">
+      <div class="row">
+        <div class="col-md-2" >
+          <div class=" input-group"
+          [ngClass]="{'upload-err': actualReportImageForm.controls.images.invalid && actualReportImageForm.controls.images.touched}">
+          <div class="custom-file">
+            <label class="custom-file-label">Upload Photo</label>
+            <input type="file" name="image" required (change)="fileSelctionChanges($event)"
+              accept="image/x-png,image/jpeg,application/pdf" class="custom-file-input" formControlName="images" />
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row mt-2 text-center">
+        <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+          <div class="card" [style.width.rem]="13">
+            <label> {{file.file.name}} </label>
+            <img [src]="file.previewUrl" height="120" width="185" title="Preview" (click)="showImageInPopup(file.previewUrl)"/>
+            <div class="card-body">
+              <hr>
+              <i class="material-icons" (click)="deleteImage(file.id)">delete</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="card-body" *ngIf="isView">
+      <div class="row">
+        <div class="col-md-2 d-flex justify-content-around" *ngFor="let file of files">
+          <div class="card" [style.width.rem]="13">
+            <img [src]="file.previewUrl" height="120" width="185" title="Preview" (click)="showImageInPopup(file.previewUrl)"/>
+            <div class="card-body">
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Enquiry Details</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 80px;">Sr No.</th>
+              <th scope="col" style="width: 200px;">Enquiry No.</th>
+              <th scope="col" style="width: 100px;">Enquiry Date</th>
+              <th scope="col" style="width: 150px;">Customer Name</th>
+              <th scope="col" style="width: 100px;">Mobile No.</th>
+              <th scope="col" style="width: 100px;">Model</th>
+              <th scope="col" style="width: 100px;">Variant</th>
+              <th scope="col" style="width: 100px;">Status</th>
+              <th scope="col" style="width: 100px;">Enquiry Type</th>
+              <th scope="col" style="width: 200px;">Tentative Date of Purchase</th>
+              <th scope="col" style="width: 100px;">Contacted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let enquiry of enquiryDetails;let sr = index;">
+              <td>{{sr+1}}</td>
+              <td>{{enquiry.enquiryNumber}}</td>
+              <td>{{enquiry.enquiryDate}}</td>
+              <td>{{enquiry.firstName}}&nbsp;{{enquiry.lastName}}</td>
+              <td>{{enquiry.mobileNumber}}</td>
+              <td>{{enquiry.model}}</td>
+              <td>{{enquiry.variant}}</td>
+              <td>{{enquiry.enquiryStatus}}</td>
+              <td>{{enquiry.enquiryType}}</td>
+              <td>{{enquiry.tentativePurchaseDate}}</td>
+              <td>
+                <mat-checkbox color="basic" [checked]="enquiry?.isContacted" [disabled]="true"> </mat-checkbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="card-body">
+
+    <div [formGroup]="searchDealerDepartmentForm" [style.fontSize.px]="11">
+        <div class="row">
+
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Department Code</mat-label>
+                  <input 
+                    matInput placeholder="Department Code" formControlName="departmentCode" [matAutocomplete]="deptcode"
+                    (ngModelChange)="getDepartmentCode($event)" >
+                    <mat-autocomplete #deptcode="matAutocomplete" [displayWith]="displayFnDeptCode"  [panelWidth]="300">
+                        <mat-option *ngFor="let code of departmentsCode" [value]="code">
+                            {{code.code}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="searchDealerDepartmentForm.get('departmentCode').hasError('selectFromList')"> Select From List</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Department Name</mat-label>
+                    <mat-select required formControlName="departmentname">
+                        <mat-option *ngFor="let name of departmentsCodeAndName" [value]="name">
+                            {{name.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>

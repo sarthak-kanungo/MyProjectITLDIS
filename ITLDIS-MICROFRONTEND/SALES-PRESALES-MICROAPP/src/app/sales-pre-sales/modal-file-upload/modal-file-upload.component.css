@@ -1,0 +1,9 @@
+
+.upload-err {
+  border: 2px solid #f44336;
+  border-radius: 5px;
+}
+.confirmation_card {
+    padding: 30px 15px 15px 15px;
+    background-color: transparent;
+}

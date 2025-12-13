@@ -1,0 +1,103 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="heading">
+        <p class="font-weight-bold">Dealer User</p>
+    </div>
+    <div class="card-from mb-0">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Create New User</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="createNewUserForm" [style.fontSize.px]="11">
+                    <div class="row">
+
+                        <div class="col-lg-2" *ngIf="isCreate">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Dealer</mat-label>
+                              <input 
+                                matInput placeholder="Dealer" formControlName="dealer" [matAutocomplete]="autodealer"
+                                (ngModelChange)="autoCreateDealer($event)" >
+                                <mat-autocomplete #autodealer="matAutocomplete" [displayWith]="displayFnDealer" (optionSelected)="newDealerSelect($event)" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of newDealerList" [value]="option">
+                                      {{option.displayString}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error *ngIf="createNewUserForm.get('dealer').hasError('selectFromList')"> Select From List</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Employee Code</mat-label>
+                              <input 
+                                matInput placeholder="Employee Code" formControlName="employeeCode" [matAutocomplete]="autoEmployeeCode"
+                                (ngModelChange)="autoEmployeeCodeForNewDealer($event)" >
+                                <mat-autocomplete #autoEmployeeCode="matAutocomplete" [displayWith]="displayFnEmployeeCode" (optionSelected)="employeeCodeSelect($event)" [panelWidth]="300">
+                                    <mat-option *ngFor="let option of employeeCodeForDealerList" [value]="option">
+                                      {{option.value}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <!-- <mat-error *ngIf="createNewUserForm.get('employeeCode').hasError('selectFromList')"> Select From List</mat-error> -->
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Employee Name</mat-label>
+                                <input matInput placeholder="Employee Name" formControlName="employeeName">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>User Id</mat-label>
+                                <input matInput placeholder="User Id" formControlName="userId" (change)='checkDuplicateUser()'>
+                                 <mat-error *ngIf="createNewUserForm.get('userId').hasError('select')"> User Name Is already Exist</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input type="password"  matInput placeholder="Password" required formControlName="password">
+                                 <mat-error *ngIf="createNewUserForm.get('password').hasError('required')">
+                                     Select From List
+                                    </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="!isView">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Confirm Password</mat-label>
+                                <input type="password"  matInput placeholder="Confirm Password" required formControlName="confirmPassword">
+                                <mat-error *ngIf="createNewUserForm.get('confirmPassword').hasError('confirmPasswordValidator')">
+                                    Please Condfirm The Password
+                                   </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-check mt-2">
+                                <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;"
+                                     formControlName="isactive">Is Active</mat-checkbox>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+               <app-function  [dealerFunctionList]="dealerFunctionList"  (functionForm)="functionForm($event)"></app-function>
+
+                <div class=" text-center mt-2 ">
+                    <button type="button" *ngIf="isCreate"  class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit</button>
+                    <button type="button" *ngIf="isEdit"  class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Update</button>
+                    <button type="button" *ngIf="isCreate"  class="btn btn_secondary pl-3 pr-3 ml-3" (click)="resetForm()"> Clear
+                    </button>
+                    <button type="button" *ngIf="isView"  class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

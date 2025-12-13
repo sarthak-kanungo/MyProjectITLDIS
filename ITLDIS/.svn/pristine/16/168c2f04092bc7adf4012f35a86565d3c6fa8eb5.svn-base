@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2019-01-30T16:33:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlTaxInvoiceLabourReport" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5731e467-ff27-4967-bc58-ddd4b3386529">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC SP_showTaxInvoice $P{invoiceNo},2]]>
+	</queryString>
+	<field name="invoice_no" class="java.lang.String"/>
+	<field name="part_order_seq" class="java.lang.Integer"/>
+	<field name="Part_no" class="java.lang.String"/>
+	<field name="Part_desc" class="java.lang.String"/>
+	<field name="HSNCode" class="java.lang.String"/>
+	<field name="GSTSlab" class="java.math.BigDecimal"/>
+	<field name="Qty" class="java.lang.Double"/>
+	<field name="Unit_Value" class="java.lang.Double"/>
+	<field name="Amount" class="java.lang.Double"/>
+	<field name="DiscountPercent" class="java.lang.Double"/>
+	<field name="Discount" class="java.lang.Double"/>
+	<field name="taxableValue" class="java.lang.Double"/>
+	<field name="CGSTRate" class="java.math.BigDecimal"/>
+	<field name="CGSTAmt" class="java.lang.Double"/>
+	<field name="SGSTRate" class="java.math.BigDecimal"/>
+	<field name="SGSTAmt" class="java.lang.Double"/>
+	<field name="IGSTRate" class="java.math.BigDecimal"/>
+	<field name="IGSTAmt" class="java.lang.Double"/>
+	<field name="UGSTRate" class="java.math.BigDecimal"/>
+	<field name="UGSTAmt" class="java.lang.Double"/>
+	<field name="TotalAmount" class="java.math.BigDecimal"/>
+	<field name="TotaltaxableValue" class="java.math.BigDecimal"/>
+	<field name="TotalCGST" class="java.lang.Double"/>
+	<field name="TotalSGST" class="java.lang.Double"/>
+	<field name="TotalIGST" class="java.lang.Double"/>
+	<field name="TotalUGST" class="java.lang.Double"/>
+	<field name="TotalGST" class="java.math.BigDecimal"/>
+	<field name="GrandTotal" class="java.math.BigDecimal"/>
+	<field name="GrandTotalInWord" class="java.lang.String"/>
+	<field name="final_amount" class="java.lang.Double"/>
+	<field name="SeqNo" class="java.lang.Integer"/>
+	<field name="BillDesc" class="java.lang.String"/>
+	<field name="ChargeRatePerc" class="java.math.BigDecimal"/>
+	<field name="charge_order" class="java.lang.Integer"/>
+	<field name="chargeAmount" class="java.lang.Double"/>
+	<field name="CommodityCode" class="java.lang.String"/>
+	<field name="part_category" class="java.lang.String"/>
+	<field name="DealerName" class="java.lang.String"/>
+	<field name="PartOtherDiscount" class="java.math.BigDecimal"/>
+	<field name="LabourOtherDiscount" class="java.math.BigDecimal"/>
+	<variable name="srNo." class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{srNo.}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="1" width="140" height="19" uuid="3f470940-9cf2-4188-adea-f551b7689e1c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LABOUR]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="21" height="30" isRemoveLineWhenBlank="true" uuid="dd86165a-c9ed-4c10-824d-d050b1064495"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{srNo.}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="20" y="0" width="70" height="15" isRemoveLineWhenBlank="true" uuid="31bda708-b6d2-4bd4-bc65-754fbdcdcdf9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Part_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="20" y="15" width="320" height="15" isRemoveLineWhenBlank="true" uuid="b4e587ef-245c-4c36-9a0a-31c295a2819d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Part_desc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="90" y="0" width="60" height="15" isRemoveLineWhenBlank="true" uuid="cb3be0d2-0bf5-4fcf-96ff-55e62228b6d5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HSNCode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="150" y="0" width="70" height="15" isRemoveLineWhenBlank="true" uuid="9a8b6bd1-4624-4531-8579-705489f94911"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GSTSlab}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="220" y="0" width="22" height="15" isRemoveLineWhenBlank="true" uuid="939d2c20-f639-4f0c-a6d0-117a11121ebf"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="242" y="0" width="58" height="15" isRemoveLineWhenBlank="true" uuid="a75291d5-d0ef-4a49-a310-c8dd71b12cbb"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Unit_Value}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="300" y="0" width="50" height="15" isRemoveLineWhenBlank="true" uuid="a29263fe-05b6-4667-a65e-d267ae5380a4"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="350" y="0" width="50" height="15" isRemoveLineWhenBlank="true" uuid="d5df557f-ce77-490e-a452-36ca9470736a"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DiscountPercent}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="400" y="0" width="37" height="15" isRemoveLineWhenBlank="true" uuid="dea0bb73-8de8-4455-8006-68842602d95e"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Discount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="437" y="0" width="46" height="15" isRemoveLineWhenBlank="true" uuid="b36d659c-f8b0-49ed-abf8-faf826ab7fa8"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxableValue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="483" y="0" width="45" height="15" isRemoveLineWhenBlank="true" uuid="79cd42c2-ad88-436f-8edb-293f8e11ec9f"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CGSTRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="528" y="0" width="37" height="15" isRemoveLineWhenBlank="true" uuid="92bf2c1f-cb00-4390-84ab-f44878776c0c"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CGSTAmt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="565" y="0" width="37" height="15" isRemoveLineWhenBlank="true" uuid="b595b298-7a1a-4215-aae4-ab708660fb3c"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SGSTRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="602" y="0" width="37" height="15" isRemoveLineWhenBlank="true" uuid="1ceb524d-1c79-4a08-86ce-a6ec6ffc68ce"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SGSTAmt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="639" y="0" width="37" height="15" isRemoveLineWhenBlank="true" uuid="1535c8df-4c67-4188-bc99-9f79d92e51fd"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IGSTRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="676" y="0" width="37" height="15" isRemoveLineWhenBlank="true" uuid="d50f69b3-36e9-4e80-8014-124bc892ccba"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IGSTAmt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="713" y="0" width="47" height="15" isRemoveLineWhenBlank="true" uuid="011f3967-4fce-40be-aa0d-0dda45c051b8"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UGSTRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="760" y="0" width="42" height="15" isRemoveLineWhenBlank="true" uuid="6e83ff60-0dca-46c4-bbb7-68a90d2c791e"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UGSTAmt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="195" splitType="Stretch">
+			<staticText>
+				<reportElement x="636" y="81" width="76" height="15" isRemoveLineWhenBlank="true" uuid="1b1eca5a-dc57-447e-90a4-989eab61e0bf">
+					<printWhenExpression><![CDATA[$F{TotalUGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL UGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="111" width="76" height="15" uuid="50617b3a-d8de-4122-be63-90b3086a15a5"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADDL CHARGES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="712" y="51" width="90" height="15" isRemoveLineWhenBlank="true" uuid="49223d02-fc47-4abb-b418-3189074cc9a3">
+					<printWhenExpression><![CDATA[$F{TotalSGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalSGST}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="636" y="126" width="76" height="15" uuid="106aef3e-22fa-46a5-9c60-fefca73c577e"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRAND TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="712" y="126" width="90" height="15" uuid="92d10ceb-28e7-42ce-94df-8c1566210f6c"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GrandTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="712" y="66" width="90" height="15" isRemoveLineWhenBlank="true" uuid="a0b00023-7359-4eda-ab41-d5e9766d86ec">
+					<printWhenExpression><![CDATA[$F{TotalIGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalIGST}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="636" y="51" width="76" height="15" isRemoveLineWhenBlank="true" uuid="43ce3221-121d-480c-a947-a21cb9520d72">
+					<printWhenExpression><![CDATA[$F{TotalSGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL SGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="36" width="76" height="15" isRemoveLineWhenBlank="true" uuid="fde4cba0-eb49-4a47-ac90-58f2138202b4">
+					<printWhenExpression><![CDATA[$F{TotalCGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="66" width="76" height="15" isRemoveLineWhenBlank="true" uuid="9514e9b7-3c43-4b46-8c2f-d44e24e30308">
+					<printWhenExpression><![CDATA[$F{TotalIGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL IGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="96" width="76" height="15" uuid="e7ee2d10-0bda-4bea-8131-e8c4b145a57f"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GST]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="712" y="111" width="90" height="15" uuid="e5c500db-268e-41fc-8526-de3c47e23c10"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PartOtherDiscount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="712" y="96" width="90" height="15" uuid="03ab1360-0f6f-404f-a065-93a0a79379a8"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalGST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="712" y="81" width="90" height="15" isRemoveLineWhenBlank="true" uuid="1c2cb662-7746-4a00-9f72-cf6c204671bc">
+					<printWhenExpression><![CDATA[$F{TotalUGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalUGST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="712" y="36" width="90" height="15" isRemoveLineWhenBlank="true" uuid="816579a7-b9c5-4df3-b085-a2c044a10cda">
+					<printWhenExpression><![CDATA[$F{TotalCGST}!=0.00]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalCGST}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="636" y="21" width="76" height="15" uuid="63eb8dfe-6e08-463a-80e0-6932883679c0"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL AMOUNT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="712" y="21" width="90" height="15" uuid="eb288810-dd46-499b-aa15-3cd31d71b030"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotaltaxableValue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="0" width="76" height="15" uuid="6595c0e0-ecde-42fe-a290-39375bce9274"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="150" width="610" height="30" uuid="f608dd5a-1a8a-4d96-a699-f0dde7b7cc0f"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Declaration: Certified that particulars givan above are true and correct to my knowledge and the amount indicated repeesents the price actually charged and there in no flow of additional consideration directly from the buyer.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="711" y="151" width="90" height="15" uuid="6e2a7e90-4d30-47db-bba4-566741d8affd"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["For "+$F{DealerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="650" y="180" width="150" height="15" uuid="8ddbb35f-c42d-4001-94cb-0b72fe7af118"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Authorozed Signatory]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="10" y="110" width="610" height="30" uuid="838df26c-88cb-44c9-9e3d-50078f16e802"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Amount To Words :-"+$F{GrandTotalInWord}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="300" y="0" width="50" height="14" uuid="27602653-55cb-48b6-b0c1-bf381d7652ef"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="433" y="0" width="50" height="14" uuid="bf5c9aa1-b330-4ebf-8719-513026ce1762"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotaltaxableValue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="528" y="0" width="36" height="14" uuid="c775a532-82ac-4f39-85a9-206796c057c8"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalCGST}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="603" y="0" width="36" height="14" uuid="c8877c2e-3472-4779-a7be-9e5520910551"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalSGST}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="677" y="0" width="36" height="14" uuid="ed9e9e44-bdf1-4329-a273-2dec3460f8b3"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalIGST}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="760" y="0" width="42" height="14" uuid="a818696d-97f1-44ef-b59f-014ff786be66"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalUGST}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

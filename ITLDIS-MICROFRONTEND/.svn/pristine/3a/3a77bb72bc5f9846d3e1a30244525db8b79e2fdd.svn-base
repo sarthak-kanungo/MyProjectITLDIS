@@ -1,0 +1,124 @@
+<form [formGroup]="jobCardSearchForm">
+    <div class="container-fluid create-form  mt-4  pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0 label">Job Card List</p>
+                                        <div>
+                                            <button type="button" class="btn btn-xs ml-2 bg-white ">
+                                                <b class="btnName" (click)="createJobCard()">New</b>
+                                            </button>
+                                            <button type="button" class="btn btn-xs ml-2 bg-white ">
+                                                <b class="btnName" (click)="print()">JOB CARD BLANK PRINT </b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-job-card-search></app-job-card-search>
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary" (click)="searchJobCard()"
+                                [insertQueryParams]="searchFilter" (initialQueryParams)="initialQueryParams($event)"
+                                (onUrlChange)="onUrlChange($event)" *ngIf="!showExcel"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary" (click)="jcExcelReport($event)"
+                                *ngIf="showExcel"> Excel Export
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="onClickClearJobCard()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+        <div class="container-fluid">
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable"
+                [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+                [clickOnTableFields]="[{title:'jobCardNo'},{title:'edit'}]" (actionOnTableRecord)="tableAction($event)"
+                (pageChange)="pageChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" [isExcelImport]="true" (exportToExcel)="jcExcelReport($event)" *ngIf="!showExcel">
+                <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+                    <input class="w-100 borderRadius edit" #edit>
+                </td>
+                <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'" class="jobCardNo">
+                    <input class="w-100 borderRadius" #jobCardNo>
+                </td>
+                <td [ngsw-searchField]="status" [searchColumnName]="'status'" class="status">
+                    <input class="w-100 borderRadius" #status>
+                </td>
+                <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'" class="chassisNo">
+                    <input class="w-100 borderRadius" #chassisNo>
+                </td>
+                <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'" class="engineNo">
+                    <input class="w-100 borderRadius" #engineNo>
+                </td>
+                <td [ngsw-searchField]="model" [searchColumnName]="'model'" class="model">
+                    <input class="w-100 borderRadius" #model>
+                </td>
+                <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'" class="jobCardDate">
+                    <input class="w-100 borderRadius" type="date" #jobCardDate
+                        (change)="etSearchDateValueChange(jobCardDate.value,'jobCardDate')">
+                </td>
+                <!-- <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'">
+                    <input class="w-100 borderRadius" [matDatepicker]="jobCardDatePicker" #jobCardDate readonly (click)="jobCardDatePicker.open()"
+                        (change)="etSearchDateValueChange(jobCardDate.value,'jobCardDate')">
+                    <mat-datepicker-toggle matSuffix [for]="jobCardDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #jobCardDatePicker></mat-datepicker>
+                </td> -->
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName" >
+                    <input class="w-200 borderRadius" #dealerName style="width:250px">
+                </td>
+                <td [ngsw-searchField]="serviceCategory" [searchColumnName]="'serviceCategory'" class="serviceCategory">
+                    <input class="w-100 borderRadius" #serviceCategory>
+                </td>
+                <td [ngsw-searchField]="placeOfService" [searchColumnName]="'placeOfService'" class="placeOfService">
+                    <input class="w-100 borderRadius" #placeOfService>
+                </td>
+                <td [ngsw-searchField]="taskDate" [searchColumnName]="'Machine In Date'">
+                    <input class="w-100 borderRadius" type="date" #taskDate
+                        (change)="etSearchDateValueChange(taskDate.value,'taskDate')">
+                </td>
+                <!-- <td [ngsw-searchField]="taskDate" [searchColumnName]="'taskDate'">
+                    <input class="w-100 borderRadius" [matDatepicker]="taskDatePicker" readonly #taskDate (click)="taskDatePicker.open()"
+                        (change)="etSearchDateValueChange(taskDate.value,'taskDate')">
+                    <mat-datepicker-toggle matSuffix [for]="taskDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #taskDatePicker></mat-datepicker>
+                </td> -->
+                <td [ngsw-searchField]="taskTime" [searchColumnName]="'Machine In Time'">
+                    <input class="w-100 borderRadius" #taskTime>
+                </td>
+                <td [ngsw-searchField]="closeDate" [searchColumnName]="'closeDate'" class="closeDate">
+                    <input class="w-100 borderRadius"  type="date"  #closeDate
+                    (change)="etSearchDateValueChange(closeDate.value,'closeDate')">
+                </td>
+                <td [ngsw-searchField]="currentHour" [searchColumnName]="'Current Hours'">
+                    <input class="w-100 borderRadius" #currentHour>
+                </td>
+                <td [ngsw-searchField]="meterChangeHours" [searchColumnName]="'meterChangeHours'">
+                    <input class="w-100 borderRadius" #meterChangeHours>
+                </td>
+                <td [ngsw-searchField]="meterTotalHours" [searchColumnName]="'Total Hours'" >
+                    <input class="w-100 borderRadius" #meterTotalHours>
+                </td>
+                <td [ngsw-searchField]="pcrNumber" [searchColumnName]="'PCR Number'" >
+                    <input class="w-100 borderRadius" #pcrNumber>
+                </td>
+                <td [ngsw-searchField]="pcrStatus" [searchColumnName]="'PCR Status'" >
+                    <input class="w-100 borderRadius" #pcrStatus>
+                </td>
+                <td [ngsw-searchField]="mechanicName" [searchColumnName]="'Mechanic Name'" >
+                    <input class="w-100 borderRadius" #mechanicName>
+                </td>
+                <td [ngsw-searchField]="reasonForDelay" [searchColumnName]="'Reason For Delay'" >
+                    <input class="w-100 borderRadius" #reasonForDelay>
+                </td>
+            </ngsw-search-table>
+        </div>

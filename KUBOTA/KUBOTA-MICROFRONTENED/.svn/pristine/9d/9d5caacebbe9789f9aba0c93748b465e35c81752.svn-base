@@ -1,0 +1,157 @@
+<form [formGroup]="machineGrnFrom" [style.fontSize.px]="10">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN Type</mat-label>
+                <mat-select formControlName="grnType" required (selectionChange)="grnTypeSelectionChange($event)">
+                    <mat-option
+                        *ngFor="let type of grnTypeList$ | async"
+                        [value]="type">{{type?.value}}</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="machineGrnFrom.get('grnType').hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2" *ngIf="machineGrnFrom.get('dmsGrnNumber').value !== null">
+            <mat-form-field appearance="outline">
+                <mat-label>DMS GRN No.</mat-label>
+                <input matInput placeholder="DMS GRN No." formControlName="dmsGrnNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="GRN Date" formControlName="grnDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Invoice No.</mat-label>
+                <input
+                    type="text"
+                    placeholder="Invoice No."
+                    aria-label="Number"
+                    matInput
+                    required
+                    formControlName="accPacInvoice"
+                    [matAutocomplete]="autoInvoiceNo">
+                <mat-autocomplete
+                    #autoInvoiceNo="matAutocomplete"
+                    [displayWith]="displayFn"
+                    (optionSelected)="searchAccPacInvoiceByInvoiceNumber($event)">
+                    <mat-option *ngFor="let option of invoiceNumberList | async" [value]="option">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-error
+                    *ngIf="machineGrnFrom.get('accPacInvoice').hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="!machineGrnFrom.get('accPacInvoice').hasError('required') && machineGrnFrom.get('accPacInvoice').hasError('selectFromList')">
+                    {{machineGrnFrom.get('accPacInvoice').getError('selectFromList')}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="Invoice Date" formControlName="invoiceDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-lg-2" *ngIf="machineGrnFrom.get('grnStatus').value !== null">
+            <mat-form-field appearance="outline">
+                <mat-label>GRN Status</mat-label>
+                <input matInput placeholder="GRN Status" formControlName="grnStatus">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Bill To</mat-label>
+                <input matInput placeholder="Bill to" formControlName="billTo">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Ship To</mat-label>
+                <input matInput placeholder="Ship to" formControlName="shipTo">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Transporter Name</mat-label>
+                <mat-select formControlName="transporter" required>
+                    <mat-option *ngFor="let transporter of transporterNameList$ | async" [value]="transporter">
+                        {{transporter.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="machineGrnFrom.get('transporter').hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Driver Name</mat-label>
+                <input matInput placeholder="Driver Name" formControlName="driverName">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Driver Mobile No.</mat-label>
+                <input matInput placeholder="Driver mobile No" formControlName="driverMobile" required>
+                <mat-error
+                    *ngIf="!machineGrnFrom.get('driverMobile').hasError('required') && machineGrnFrom.get('driverMobile').hasError('minLength')">
+                    Minimum length for mobile is 10 digit.
+                </mat-error>
+                <mat-error
+                    *ngIf="machineGrnFrom.get('driverMobile').hasError('required') && !machineGrnFrom.get('driverMobile').hasError('minLength')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Transporter Vehicle No.</mat-label>
+                <input matInput placeholder="Transporter Vehicle No" formControlName="transporterVehicleNumber">
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>L.R. No.</mat-label>
+                <input matInput placeholder="L.R. No." formControlName="lrNo">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>GRN by</mat-label>
+                <input matInput placeholder="GRN by" formControlName="grnBy">
+            </mat-form-field>
+        </div>
+    </div>
+</form>

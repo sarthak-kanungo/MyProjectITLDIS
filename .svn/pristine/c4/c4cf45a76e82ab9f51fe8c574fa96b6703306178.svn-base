@@ -1,0 +1,94 @@
+<div class="card-body p-0">
+    <form [formGroup]="dealerMasterForm" [style.fontSize.px]="11">
+        <div class="row">
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer Code</mat-label>
+                    <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer Name</mat-label>
+                    <input matInput placeholder="Dealer Name" formControlName="dealerName">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2 ">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Dealer Firm Type</mat-label>
+                    <mat-select formControlName="dealerFirmType">
+                        <mat-option *ngFor="let firmtype of firmtypes" [value]="firmtype">{{firmtype}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>GST No.</mat-label>
+                    <input matInput placeholder="GST No." formControlName="gstNo">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>PAN No.</mat-label>
+                    <input matInput placeholder="PAN No." formControlName="panNo">
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2 ">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let item of status" [value]="item">{{item}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input matInput placeholder="State" formControlName="state">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer E-mail Id</mat-label>
+                    <input matInput placeholder="Dealer E-mail Id" required formControlName="dealerEmailId">
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2 ">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Area Level</mat-label>
+                    <mat-select required formControlName="areaLevel">
+                        <mat-option *ngFor="let arealevel of arealevels" [value]="arealevel">{{arealevel}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2 ">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Allocation Territory</mat-label>
+                    <mat-select formControlName="allocationTerritory">
+                        <mat-option *ngFor="let allocation of allocations" [value]="allocation">
+                            {{allocation}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </form>  
+</div>

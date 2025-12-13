@@ -1,0 +1,299 @@
+<div class="container-fluid mt-4">
+  <div class="row" style="margin-bottom: -21px;">
+    <div class="col-lg-12">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card-from">
+
+        <div class="card mt-4">
+          <div class="card-header d-flex justify-content-between">
+            <p class="mb-0 ">Search Marketing Activity Report</p>
+            <div>
+              <button type="button" class="font-weight-bold btn btn_header bg_white" [routerLink]="[ './create' ]" *ngIf="loginUserType!=='itldis'">
+                New </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="searchReportListForm" [style.fontSize.px]="10">
+              <div class="row">
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity No.</mat-label>
+                    <input matInput placeholder="Activity Number/Dealer Code/Dealer Name/Activity Type" formControlName="activityNumber"
+                      [matAutocomplete]="autoActivityNumber">
+                    <mat-autocomplete #autoActivityNumber="matAutocomplete" [panelWidth]="500">
+                      <mat-option *ngFor="let option of autoActivityNo?.result" [value]="option.activityNumber">
+                        {{option?.displayString}}
+                      </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Type</mat-label>
+                    <mat-select formControlName="activityType">
+                      <mat-option *ngFor="let activityType of dropdowngetActivityType?.result"
+                        [value]="activityType.activityType">
+                        {{activityType.activityType}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+               <!--  <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Status</mat-label>
+                    <mat-select formControlName="activityStatus">
+                      <mat-option *ngFor="let status of getSearchActivityStatus?.result" [value]="status.statusName">
+                        {{status.statusName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> -->
+
+
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Activity From Date"
+                      formControlName="fromDate" readonly (click)="picker.open()" (dateChange)="fromDateSelected($event)" [max]="today">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-lg-2">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker1" placeholder="Activity To Date" formControlName="toDate" [readonly]="searchReportListForm.get('fromDate').value"
+                      (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 [disabled]="!searchReportListForm.get('fromDate').value"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                
+                <div class="col-lg-2" *ngIf="isKai">
+                  <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Dealer Ship</mat-label>
+                      <input matInput placeholder="Dealer Ship" formControlName="dealerShip"
+                          [matAutocomplete]="autoDealercode">
+                      <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn">
+                          <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                              {{option?.displayString}}
+                          </mat-option>
+                      </mat-autocomplete>
+
+                      <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+              </div>
+              
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Branch</mat-label>
+                    <mat-select formControlName="branch">
+                        <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                            {{option?.branchcode}} - {{option?.BranchName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Product</mat-label>
+                    <mat-select formControlName="product"
+                        (selectionChange)="selectProduct($event.value)">
+                        <mat-option *ngFor="let option of products" [value]="option.product">
+                            {{option?.product}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+              <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Series</mat-label>
+                    <mat-select formControlName="series"
+                        (selectionChange)="selectSeries($event.value)" [compareWith]="compareFnSeries">
+                        <mat-option *ngFor="let option of seriesByProduct"
+                            [value]="option.series">{{option?.series}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model</mat-label>
+                    <mat-select formControlName="model"
+                        (selectionChange)="selectModel($event.value)" [compareWith]="compareFnModel">
+                        <mat-option *ngFor="let option of modelBySeries"
+                            [value]="option.model">
+                            {{option?.model}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Sub Model</mat-label>
+                    <mat-select formControlName="subModel" (selectionChange)="selectSubModel($event.value)"
+                        [compareWith]="compareFnSubModel">
+                        <mat-option *ngFor="let option of subModelByModel"
+                            [value]="option.subModel">
+                            {{option?.subModel}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Variant</mat-label>
+                    <mat-select formControlName="variant">
+                        <mat-option *ngFor="let option of variants" [value]="option.variant">
+                            {{option?.variant}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+        </div>
+
+
+
+			  <div class="row">
+                 <div class="col-lg-2" *ngFor="let level of orgLevels">
+	                 <mat-form-field appearance="outline" class="w-100">
+	                   <mat-label>{{level['LEVEL_DESC']}}</mat-label>
+	                   <mat-select formControlName="orgHierLevel1" *ngIf="level['SEQ_NO'] == 1">
+	                   	<mat-option value='all' (click)="getOrgLevelHier2('all')">ALL</mat-option>
+	                     <mat-option *ngFor="let hier of orgHierLevels1" [value]="hier" (click)="getOrgLevelHier2(hier)" >{{hier['hierarchy_desc']}}</mat-option>
+	                   </mat-select>
+	                   <mat-select formControlName="orgHierLevel2" *ngIf="level['SEQ_NO'] == 2">
+	                   	<mat-option value='all' (click)="getOrgLevelHier3('all')">ALL</mat-option>
+	                   	<mat-option *ngFor="let hier of orgHierLevels2" [value]="hier" (click)='getOrgLevelHier3(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+	                   </mat-select>
+	                   <mat-select formControlName="orgHierLevel3" *ngIf="level['SEQ_NO'] == 3">
+	                     <mat-option value='all' (click)="getOrgLevelHier4('all')">ALL</mat-option>
+	                   	<mat-option *ngFor="let hier of orgHierLevels3" [value]="hier" (click)='getOrgLevelHier4(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+	                   </mat-select>
+	                   <mat-select formControlName="orgHierLevel4" *ngIf="level['SEQ_NO'] == 4">
+	                     <mat-option value='all' (click)="getOrgLevelHier5('all')">ALL</mat-option>
+	                   	<mat-option *ngFor="let hier of orgHierLevels4" [value]="hier" (click)='getOrgLevelHier5(hier)' >{{hier['hierarchy_desc']}}</mat-option>
+	                   </mat-select>
+	                   <mat-select formControlName="orgHierLevel5" *ngIf="level['SEQ_NO'] == 5">
+	                   	<mat-option *ngFor="let hier of orgHierLevels5" [value]="hier" >{{hier['hierarchy_desc']}}</mat-option>
+	                   </mat-select>
+	                 </mat-form-field>
+		         </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="mx-auto text-center">
+                    <div></div>
+                  <button type="button" class="btn px-3 btn_primary" (click)="onSearchActivityReport()" [insertQueryParams]="filterData"
+                  (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+                    Search </button>
+                  <button type="button" class="btn px-3 ml-2 btn_primary" (click)="clearActivityReportSearch()">
+                    Clear </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+    [totalElements]="totalTableElements" (actionOnTableRecord)="actionOnTableRecord($event)"
+    (pageChange)="pageChange($event)" [clickOnTableFields]="[{'title':'activityNumber','isClickable':true}]"
+    [searchValue]="searchValue">
+
+    <td [ngsw-searchField]="activityNumber" [searchColumnName]="'activityNumber'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #activityNumber [(ngModel)] ="activityNumberNgModel">
+      </mat-form-field>
+    </td>
+
+    
+    <td [ngsw-searchField]="activityCreationDate" [searchColumnName]="'activityCreationDate'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [matDatepicker]="activityCreationDate" #activityCreationDateInput
+          (dateInput)="etSearchDateValueChange(activityCreationDateInput.value,'activityCreationDate')" [(ngModel)] ="activityCreationDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="activityCreationDate"></mat-datepicker-toggle>
+        <mat-datepicker #activityCreationDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+
+    <td [ngsw-searchField]="activityType" [searchColumnName]="'activityType'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #activityType [(ngModel)] ="activityTypeNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="activityStatus" [searchColumnName]="'activityStatus'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #activityStatus [(ngModel)] ="activityStatusNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="fromDate" [searchColumnName]="'fromDate'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [matDatepicker]="fromDate" #fromDateInput
+          (dateInput)="etSearchDateValueChange(fromDateInput.value,'fromDate')" [(ngModel)] ="fromDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+        <mat-datepicker #fromDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="toDate" [searchColumnName]="'toDate'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [matDatepicker]="toDate" #toDateInput
+          (dateInput)="etSearchDateValueChange(toDateInput.value,'toDate')" [(ngModel)] ="toDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+        <mat-datepicker #toDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="actualFromDate" [searchColumnName]="'actualFromDate'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [matDatepicker]="actualFromDate" #actualFromDateInput
+          (dateInput)="etSearchDateValueChange(actualFromDateInput.value,'actualFromDate')" [(ngModel)] ="actualFromDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="actualFromDate"></mat-datepicker-toggle>
+        <mat-datepicker #actualFromDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    
+    <td [ngsw-searchField]="actualToDate" [searchColumnName]="'actualToDate'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input matInput [matDatepicker]="actualToDate" #actualToDateInput
+          (dateInput)="etSearchDateValueChange(actualToDateInput.value,'actualToDate')" [(ngModel)] ="actualToDateNgModel">
+        <mat-datepicker-toggle matSuffix [for]="actualToDate"></mat-datepicker-toggle>
+        <mat-datepicker #actualToDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="totalEnquiries" [searchColumnName]="'totalEnquiries'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #totalEnquiries [(ngModel)] ="totalEnquiriesNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="totalRetails" [searchColumnName]="'totalRetails'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #totalRetails [(ngModel)] ="totalRetailsNgModel">
+      </mat-form-field>
+    </td>
+
+    <td [ngsw-searchField]="totalBookings" [searchColumnName]="'totalBookings'">
+      <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+        <input type="text" matInput #totalBookings [(ngModel)] ="totalBookingsNgModel">
+      </mat-form-field>
+    </td>
+  </ngsw-search-table>
+</div>

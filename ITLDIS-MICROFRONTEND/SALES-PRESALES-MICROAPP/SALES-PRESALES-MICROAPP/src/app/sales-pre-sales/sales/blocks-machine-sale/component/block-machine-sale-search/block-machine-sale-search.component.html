@@ -1,0 +1,140 @@
+<div class="container-fluid mt-4">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <p class="mb-0"> Advance</p>
+
+      </div>
+      <div class="card-body">
+
+        <form [formGroup]="searchBlockMachine" [style.fontSize.px]="10">
+          <div class="row">
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Product</mat-label>
+                <mat-select formControlName="product" (selectionChange)="getAllSeries($event)">
+                  <mat-option *ngFor="let option of productTypeList" [value]="option?.value">
+                    {{option?.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Series</mat-label>
+                <mat-select formControlName="series" (selectionChange)="getAllModel($event)">
+                  <mat-option *ngFor="let option of seriesTypeList" [value]="option?.value">
+                    {{option?.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model</mat-label>
+                <mat-select formControlName="model" (selectionChange)="getAllSubModel($event)">
+                  <mat-option *ngFor="let option of modelTypeList" [value]="option?.value">
+                    {{option?.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sub Model</mat-label>
+                <mat-select formControlName="subModel" (selectionChange)="getAllVariant($event)">
+                  <mat-option *ngFor="let option of submodelList" [value]="option?.value">{{option?.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Variant</mat-label>
+                <mat-select formControlName="variant">
+                  <mat-option *ngFor="let option of variantList" [value]="option?.value">{{option?.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <mat-select formControlName="status">
+                      <mat-option>SELECT</mat-option>
+                      <mat-option  *ngFor="let status of statusList" [value]="status.value"> {{status.name}} </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              
+          </div> -->
+          </div>
+         
+
+
+        </form>
+
+        <div class="col-lg-6">
+          <div class="mx-auto d-flex justify-content-between">
+            <div></div>
+            <div>
+              <button type="button" class="btn px-3 mt-3 btn_primary" (onUrlChange)="onUrlChange($event)"
+                (click)="search()">
+                Search </button>
+              <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()">
+                Clear </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="container-fluid">
+  <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+  (actionOnTableRecord)="actionOnTableRecord($event)" [clickOnTableFields]="[{title:'activeStatus',icon:'check_circle',iconClass:'material-icons'}]"
+  (actionOnHeaderRecord)="actionOnHeaderRecord($event)" [isShowMultiDeleteButton]="true" [showMultiDeleteCheckbox]="true"
+  [isShowButton]="buttonShow" (multiRecordSelect)="multiRecordSelect($event)"
+  (pageChange)="pageChange($event)" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow">
+  <td></td>
+    <td></td>
+    
+    <td [ngsw-searchField]="product
+    " [searchColumnName]="'product
+    '">
+      <input class="w-100 borderRadius" #product [(ngModel)]="productNgModel">
+    </td>
+    <td [ngsw-searchField]="series
+  " [searchColumnName]="'series
+  '">
+      <input class="w-100 borderRadius" #series [(ngModel)]="seriesNgModel">
+    </td>
+    <td [ngsw-searchField]="model
+" [searchColumnName]="'model
+'">
+      <input class="w-100 borderRadius" #model [(ngModel)]="modelNgModel">
+    </td>
+    <td [ngsw-searchField]="subModel
+" [searchColumnName]="'subModel
+'">
+      <input class="w-100 borderRadius" #subModel [(ngModel)]="subModelNgModel">
+    </td>
+    <td [ngsw-searchField]="variant
+    " [searchColumnName]="'variant
+    '">
+          <input class="w-100 borderRadius" #variant [(ngModel)]="variantNgModel">
+        </td>
+  </ngsw-search-table>
+</div> 

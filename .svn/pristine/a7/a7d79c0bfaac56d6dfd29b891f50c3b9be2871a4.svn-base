@@ -1,0 +1,101 @@
+<div class="row" [formGroup]="basicMrcDetails">
+    <div class="col-lg-2" *ngIf="isEdit || isView">
+        <mat-form-field appearance="outline">
+            <mat-label>MRC No.</mat-label>
+            <input matInput placeholder="MRC No." formControlName="mrcNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>KAI Invoice No.</mat-label>
+            <input matInput placeholder="KAI Invoice No." formControlName="kaiInvoiceNo"
+                [matAutocomplete]="autoKaiInvoiceNo" required (keydown)="onKeyDownForKai($event)">
+            <mat-autocomplete #autoKaiInvoiceNo="matAutocomplete" [displayWith]="displayFnKaiInvoiceNo"
+                [panelWidth]="500" (optionSelected)="kaiInvoiceNoSelect($event)">
+                <mat-option *ngFor="let option of (kaiInvoiceNoList$ | async)" [value]="option">
+                    {{option?.invoiceNumber}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="basicMrcDetails.get('kaiInvoiceNo').hasError('required')">
+                KAI Invoice No. is Required</mat-error>
+            <mat-error *ngIf="basicMrcDetails.get('kaiInvoiceNo').hasError('selectFromList')"> Please select from list
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>MRC Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="MRC Date" formControlName="mrcDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Chassis No.</mat-label>
+            <input matInput placeholder="Chassis No." formControlName="chassisNo" [matAutocomplete]="autoKaiChassisNo"
+                required (keydown)="onKeyDown($event)">
+            <mat-autocomplete #autoKaiChassisNo="matAutocomplete" [displayWith]="displayFnChassisNo" [panelWidth]="500"
+                (optionSelected)="chassisNoSelect($event)">
+                <mat-option *ngFor="let option of chassisNoList" [value]="option">
+                    {{option?.chassisNumber}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="basicMrcDetails.get('chassisNo').hasError('required')">
+                Chassis No. is Required</mat-error>
+            <mat-error *ngIf="basicMrcDetails.get('chassisNo').hasError('selectFromList')">Please select from list
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Transporter Name</mat-label>
+            <input matInput placeholder="Transporter Name" formControlName="transporterName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>L.R. No.</mat-label>
+            <input matInput placeholder="L.R. No." formControlName="lrNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>L.R. Date</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="L.R. Date" formControlName="lrDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Machine Model</mat-label>
+            <input matInput placeholder="Machine Model" formControlName="machineModel">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Engine No.</mat-label>
+            <input matInput placeholder="Engine No." formControlName="engineNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline">
+            <mat-label>Pending MRC"</mat-label>
+            <input matInput placeholder="Pending MRC" formControlName="PendingMRC">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline">
+            <mat-label>Completed MRC</mat-label>
+            <input matInput placeholder="Completed MRC" formControlName="CompletedMRC">
+        </mat-form-field>
+    </div>
+</div>

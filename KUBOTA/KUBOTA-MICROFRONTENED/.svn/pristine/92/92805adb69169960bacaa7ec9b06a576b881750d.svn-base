@@ -1,0 +1,146 @@
+<div class="container-fluid mt-4  ">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Service Booking</p>
+                                <div *ngIf="userType == 'dealer'">
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-service-booking-search [serviceBookingSearchForm]="serviceBookingSearchForm"
+                            [isAdvanceSearch]=isAdvanceSearch>
+                        </app-service-booking-search>
+
+                        <div class="col-lg-12 mb-2">
+                            <div class="mx-auto d-flex justify-content-between">
+                                <div></div>
+                                <div>
+                                    <button type="button" class="btn  btn_primary px-3"
+                                        (click)="onClickSearchServiceBookingDetails()" [insertQueryParams]="filterData"
+                                        (initialQueryParams)="initialQueryParams($event)"
+                                        (onUrlChange)="onUrlChange($event)">Search </button>
+                                    <button type="button" class="btn  btn_secondary px-3 ml-2"
+                                        (click)="onClickClearServiceBookingDetails()"> Clear</button>
+                                </div>
+                                <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;"
+                                    (click)="onClickAdvanceSearch()">
+                                    <u> {{isAdvanceSearch ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)"
+            [clickOnTableFields]="[{ 'title': 'bookingNo', 'isClickable': true }, { 'title': 'edit', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+
+            <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+
+                <input class="w-100 borderRadius" #edit [(ngModel)] ="editNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+
+            <td [ngsw-searchField]="bookingNo" [searchColumnName]="'bookingNo'">
+
+                <input class="w-100 borderRadius" #bookingNo [(ngModel)] ="bookingNoNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+
+            <td [ngsw-searchField]="bookingDate" [searchColumnName]="'bookingDate'" class="bookingDate">
+                <input class="w-100 borderRadius" type="date" #bookingDate [(ngModel)] ="bookingDateNgModel" [ngModelOptions]="{standalone: true}">
+                    <!-- (change)="etSearchDateValueChange(bookingDate.value,'bookingDate')" -->
+            </td>
+            <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+
+                <input class="w-100 borderRadius" #status [(ngModel)] ="statusNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="reasonForCancellation" [searchColumnName]="'reasonForCancellation'">
+
+                <input class="w-100 borderRadius" #reasonForCancellation [(ngModel)] ="reasonForCancellationNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+
+                <input class="w-100 borderRadius" #chassisNo [(ngModel)] ="chassisNoNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="mechanicName" [searchColumnName]="'mechanicName'">
+
+                <input class="w-100 borderRadius" #mechanicName [(ngModel)] ="mechanicNameNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+
+                <input class="w-100 borderRadius" #customerName [(ngModel)] ="customerNameNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+
+                <input class="w-100 borderRadius" #engineNo [(ngModel)] ="engineNoNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+
+                <input class="w-100 borderRadius" #model [(ngModel)] ="modelNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+
+
+            <td [ngsw-searchField]="dateOfInstallation" [searchColumnName]="'dateOfInstallation'"
+                class="dateOfInstallation">
+                <input class="w-100 borderRadius" type="date" #dateOfInstallation [(ngModel)] ="dateOfInstallationNgModel" [ngModelOptions]="{standalone: true}">
+                    <!-- (change)="etSearchDateValueChange(dateOfInstallation.value,'dateOfInstallation')" -->
+            </td>
+            <td [ngsw-searchField]="hours" [searchColumnName]="'hours'">
+
+                <input class="w-100 borderRadius" #hours [(ngModel)] ="hoursNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="sourceOfBooking" [searchColumnName]="'sourceOfBooking'">
+
+                <input class="w-100 borderRadius" #sourceOfBooking [(ngModel)] ="sourceOfBookingNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="serviceCategory" [searchColumnName]="'serviceCategory'">
+
+                <input class="w-100 borderRadius" #serviceCategory [(ngModel)] ="serviceCategoryNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="placeOfService" [searchColumnName]="'placeOfService'">
+
+                <input class="w-100 borderRadius" #placeOfService [(ngModel)] ="placeOfServiceNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="serviceType" [searchColumnName]="'serviceType'">
+
+                <input class="w-100 borderRadius" #serviceType [(ngModel)] ="serviceTypeNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+
+            <td [ngsw-searchField]="appointmentDate" [searchColumnName]="'appointmentDate'" class="appointmentDate">
+                <input class="w-100 borderRadius" type="date" #appointmentDate [(ngModel)] ="appointmentDateNgModel" [ngModelOptions]="{standalone: true}">
+                    <!-- (change)="etSearchDateValueChange(appointmentDate.value,'appointmentDate')" -->
+            </td>
+            <td [ngsw-searchField]="appointmentTime" [searchColumnName]="'appointmentTime'">
+
+                <input class="w-100 borderRadius" #appointmentTime [(ngModel)] ="appointmentTimeNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="remarks" [searchColumnName]="'remarks'">
+
+                <input class="w-100 borderRadius" #remarks [(ngModel)] ="remarksNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="address" [searchColumnName]="'address'">
+
+                <input class="w-100 borderRadius" #address [(ngModel)] ="addressNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+            <td [ngsw-searchField]="mobileNo" [searchColumnName]="'mobileNo'">
+
+                <input class="w-100 borderRadius" #mobileNo [(ngModel)] ="mobileNoNgModel" [ngModelOptions]="{standalone: true}">
+            </td>
+
+        </ngsw-search-table>
+    </div>
+
+</div>

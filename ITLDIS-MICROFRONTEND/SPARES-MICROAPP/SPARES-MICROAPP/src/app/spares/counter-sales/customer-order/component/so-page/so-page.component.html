@@ -1,0 +1,45 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Customer Order</p>
+      </div>
+      <form [formGroup]="soForm" [style.fontSize.px]="11">
+        <div class="card-body">
+          <app-customer-order [customerOrderForm]="customerOrderForm" [headerData]="headerData"
+            [customerType]="customerType" [isNewExisting]="isNewExisting" [isMachine]="isMachine" (hideLinks) = "hideLinks=$event"
+            [isDealerCode]="isDealerCode" [isRetailer]="isRetailer" (machineDetailChange)="machineDetailList=$event" [isView]="isView" > 
+          </app-customer-order>
+          <app-item-details-table [itemDetailTable]="itemDetailsTable" [itemDetailTableConfig]="itemDetailTableConfig"
+            [isEdit]="isEdit" [hideLinks] = "hideLinks"
+            [isView]="isView" [partsTotalForm]="partsTotalForm" 
+            [discountRate]="discountRate" [state]="state" [itemDetailList]="machineDetailList"
+            (deletedRowIds)="deletedRowIds($event)">
+          </app-item-details-table>
+          <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="isbuttonsShow"
+              (click)="saveAndSubmitForm(true)" [disabled]="isSubmitDisable"> Save
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isbuttonsShow"
+              (click)="saveAndSubmitForm(false)" [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView" (click)="viewPrint('true')"> View PDF
+            </button>
+            <button type="button" *ngIf="!isEdit && !isView" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+            </button>
+
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" 
+              (click)="backBtn()" > Back
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="picklistGenearte()" *ngIf="picklist">
+              Generate Picklist
+            </button>
+            <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="generateInvoice()" *ngIf="showInvoice">
+              Generate Invoice
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,298 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Nomination Form</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="trainingnominationForm">
+          <div class="row" [style.fontSize.px]="11">
+            <div class="col-lg-2" *ngIf="!isCreate">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Nomination Number</mat-label>
+                <input matInput placeholder="Nomination Number" formControlName="nominationNumber">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Nomination Date</mat-label>
+                <input matInput placeholder="Nomination  Date" formControlName="nominationDate">
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Program Number</mat-label>
+                  <input matInput placeholder="Program Number" formControlName="programNumber" [matAutocomplete]="autoProgramNo" (ngModelChange)="getProgramNumber($event)" (change)=checkProgNo($event.target.value) required>
+                  <mat-autocomplete #autoProgramNo="matAutocomplete" [displayWith]="displayFnForProgramNo"
+                      [panelWidth]="200" (optionSelected)="selectProgramNo($event)" >
+                      <mat-option *ngFor="let option of programNoList$" [value]="option">
+                          {{option?.programNumber}}
+                      </mat-option>
+                  </mat-autocomplete>
+                  <mat-icon matSuffix>search</mat-icon>
+                   <mat-error *ngIf="trainingnominationForm.get('programNumber').hasError('progError')">
+                  Please Select From List</mat-error>
+              </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Program Number</mat-label>
+              <input matInput placeholder="Program Number" formControlName="programNumber">
+            </mat-form-field>
+          </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Type of Training</mat-label>
+                <input matInput placeholder="Type of Training" formControlName="typeofTraining">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Training Module</mat-label>
+                <input matInput placeholder="Training Module" formControlName="trainingModule">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Training Location</mat-label>
+                <input matInput placeholder="Location" formControlName="trainingLocation">
+              </mat-form-field>
+            </div>
+           
+            
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Dealer Code+Name</mat-label>
+                <input matInput placeholder="Location" formControlName="dealerCode_Name">
+              </mat-form-field>
+            </div>
+           
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input readonly matInput (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Delivery"
+                  formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input readonly matInput (click)="picker2.open()" [matDatepicker]="picker2" placeholder="Delivery"
+                  formControlName="endDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            
+            <div class="col-lg-6">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- <div class="card-from mt-2" [formGroup]="nomineeDetailsForm"> -->
+            <div class="card" style="border: 1px solid #45afaf;" >
+              <div class="card-header" style="background-color: #45afaf;
+                        border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;">Nomination Person Details</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                      <tr>
+                        <th class="p-2">Select</th>
+                          <th class="p-2">Designation</th>
+                          <th class="p-2">Name</th>
+                          <th class="p-2">Emp Code</th>
+                          <th *ngIf="!isCreate" class="p-2">Status</th>
+                          <th *ngIf="!isCreate" class="p-2">Attended</th>
+                          <th class="p-2">T-Shirt Size</th>
+                        <!-- <th class="p-2" *ngFor="let tableHeading of implementHeading">{{tableHeading.name}}</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <tr *ngFor="let list of nomineeDetailsForm.controls; let i=index" [formGroupName]="i">
+                        <td style="vertical-align: middle;">
+                          <mat-checkbox color="basic" class="form-control form-control-sm"
+                          [formControl]="list.get('active')" [checked]></mat-checkbox>
+                        </td>
+                       
+                        <td style="vertical-align: middle;">
+                          <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Designation</mat-label>
+                            <mat-select formControlName="designation" (selectionChange)="getDesignationId($event.value)">
+                              <mat-option *ngFor="let value of designationList" [value]="value">{{value.name}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="list.get('designation').hasError('required')">
+                              Select Designation First</mat-error>
+                          </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Nominee Name</mat-label>
+                                <input matInput placeholder="Nominee Name" formControlName="name" [matAutocomplete]="autoName" (ngModelChange)="getNomineeList($event)" (change)=checkEmployeeName(list) required>
+                                <mat-autocomplete #autoName="matAutocomplete" [displayWith]="displayFnForNominee"
+                                    [panelWidth]="200" (optionSelected)="getNomineeEmpDetails($event)" >
+                                    <mat-option *ngFor="let option of nomineeNameList" [value]="option">
+                                        {{option?.employeeName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-icon matSuffix>search</mat-icon>
+                                <mat-error *ngIf="list.get('name').hasError('empError')">
+                                  Please Select From List</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td style="vertical-align: middle;">
+                          <input matInput placeholder="empCode" formControlName="empCode">
+                        </td>
+                        <td style="vertical-align: middle;">
+                          <input matInput placeholder="state" formControlName="status">
+                        </td>
+                       
+                        <td style="vertical-align: middle;">
+                          <div class="form-check mt-2">
+                            <mat-checkbox color="basic" style="font-size: 12px;margin-left: -20px;" formControlName="attended">
+                            </mat-checkbox>
+                          </div>
+                        </td>
+                        <td style="vertical-align: middle;">
+                          <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>T-Shirt-Size</mat-label>
+                          <input matInput placeholder="T-Shirt-Size" formControlName="tShirtSize" required>
+
+                          </mat-form-field>
+                        </td>
+                      </tr> -->
+
+                      <tr *ngFor="let option of nomineeDetailsForm['controls']; let i = index;">
+                        <td style="vertical-align: middle;">
+                          <mat-checkbox color="basic" class="form-control form-control-sm"
+                          [formControl]="option.get('isSelect')" 
+                          [disabled]="isView"></mat-checkbox>
+                        </td>
+                        <td  style="width: 22%;">
+                            <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                <mat-label>Designation</mat-label>
+                                <mat-select  placeholder="Designation" [formControl]="option.get('designation')" (selectionChange)="getDesignationId($event.value)" required >
+                                  <mat-option *ngFor="let value of designationList" [value]="value">{{value.name}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="option.get('designation').hasError('required')">
+                                  Select Designation First</mat-error>
+                            </mat-form-field>
+                        </td>
+
+                        <!-- <td>
+                          <mat-form-field class="w-100" appearance="outline">
+                              <mat-label>Nominee Name</mat-label>
+                              <input  matInput placeholder="Nominee Name" [formControl]="option.get('name')"  [matAutocomplete]="autoName" (ngModelChange)="getNomineeList($event, option)" (change)=checkEmployeeName(option) required >
+                              <mat-autocomplete #autoName="matAutocomplete" [displayWith]="displayFnForNominee"
+                                  [panelWidth]="200" (optionSelected)="getNomineeEmpDetails($event,option)" >
+                                  <mat-option *ngFor="let option of nomineeNameList" [value]="option">
+                                      {{option?.employeeName}}
+                                  </mat-option>
+                              </mat-autocomplete>
+                              <mat-icon matSuffix>search</mat-icon>
+                              <mat-error *ngIf="option.get('name').hasError('empError')">
+                                Please Select From List</mat-error>
+                          </mat-form-field>
+                      </td> -->
+                      <!-- <td>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Nominee Name</mat-label>
+                            <input  matInput placeholder="Nominee Name" [formControl]="option.get('name')"  [matAutocomplete]="autoName" (ngModelChange)="getNomineeList($event, option)" (change)=checkEmployeeName(option) required >
+                            <mat-autocomplete #autoName="matAutocomplete" [displayWith]="displayFnForNominee"
+                                [panelWidth]="200" (optionSelected)="getNomineeEmpDetails($event,option)" >
+                                <mat-option *ngFor="let option of nomineeNameList" [value]="option">
+                                    {{option?.employeeName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="option.get('name').hasError('empError')">
+                              Please Select From List</mat-error>
+                        </mat-form-field>
+                    </td> -->
+                    <td>                    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nominee Name</mat-label>
+        <input matInput placeholder="Nominee Name" [formControl]="option.get('name')" [matAutocomplete]="autoName" (ngModelChange)="getNomineeList($event, option)" (change)=checkEmployeeName(option) required>
+        <mat-autocomplete #autoName="matAutocomplete" [displayWith]="displayFnForNominee" [panelWidth]="300" (optionSelected)="getNomineeEmpDetails($event,option)">
+          <mat-option *ngFor="let option of nomineeNameList" [value]="option">
+            {{option?.employeeName}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </td>
+
+
+                      <td style="vertical-align: middle;" [textContent]="option.get('employeeCode').value"> </td>
+                      <td *ngIf="!isCreate" style="vertical-align: middle;" [textContent]="option.get('status').value"> </td>
+                      <td *ngIf="!isCreate" style="vertical-align: middle;">
+                        <mat-checkbox color="basic" class="form-control form-control-sm"
+                        [formControl]="option.get('attended')" [checked]></mat-checkbox>
+                      </td>
+
+                      <td style="vertical-align: middle;" *ngIf="!disableTshirt">
+                        <mat-form-field appearance="outline">
+                          <mat-select placeholder="T-Shirt Size" [formControl]="option.get('tShirtSize')">
+                            <mat-option>Select</mat-option>
+                            <mat-option *ngFor="let size of tshirtSizeChart" [value]="size">
+                              {{size}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        
+                      </td>
+                      <td style="vertical-align: middle;" *ngIf="disableTshirt">
+                        <mat-form-field appearance="outline" style="background-color: #E9ECEF;height: 40px;">
+                            <input matInput placeholder="Select"  value="Not Applicable"[formControl]="option.get('tShirtSize')" readonly >
+                        </mat-form-field>
+                      </td>
+                  
+
+                      </tr>
+
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+        
+                 <div class="text-center mt-2 mb-3">
+                  <button type="button" class="btn btn-sm btn_primary"  style="margin: 5px;" (click)="addRow()" *ngIf="buttonView && isCreate"> Add
+                  </button>
+                  <button type="button" class="btn btn-sm btn_primary"  style="margin: 5px;" (click)="deleteRow()" *ngIf="buttonView && isCreate"> Delete
+                  </button>
+                </div>
+        
+              </div>
+        
+            </div>
+          <!-- </div> -->
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+
+            <button *ngIf="isCreate && buttonView" (click)="validateForm()" type="button" class="btn btn_primary px-3 ml-3"
+              > Submit
+            </button>
+            <button *ngIf="isEdit" type="button" class="btn btn_primary px-3  ml-3"
+            (click)="validateForm()">Update</button>
+          <button *ngIf="'isCreate || isEdit' && buttonView" type="button" class="btn btn_secondary px-3 ml-3" (click)="reset()">
+            Clear </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,34 @@
+<div class="card-from mt-2" *ngIf="deliverableCheckList && deliverableCheckList.length > 0">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Deliverable Checklist</p>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive mt-1">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" style="width: 10px">Sr.No.</th>
+                            <th scope="col">Delivery Item</th>
+                            <th scope="col" style="width: 200px;">Delivered?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of deliverableCheckList;let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{item?.deliveryItem}}</td>
+                            <td class="text-center">
+                                <mat-checkbox color="basic" class="form-control form-control-sm"
+                                [disabled]="isView"  [checked]="item.isDelivered" (change)="item.isDelivered =!item.isDelivered"></mat-checkbox>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

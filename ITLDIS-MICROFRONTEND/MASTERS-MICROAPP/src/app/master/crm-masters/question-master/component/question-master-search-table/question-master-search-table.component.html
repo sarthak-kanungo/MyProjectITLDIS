@@ -1,0 +1,55 @@
+<div class="container-fluid mt-4 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Question Master</p>
+                                <div>
+                                    <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 "
+                                    [routerLink]="[ './create' ]">
+                                    <b class="btnName">New</b>
+                                  </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-question-master-search-page></app-question-master-search-page>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchQuestionMaster()"> Search</button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+        [clickOnTableFields]="[{title:'edit'},{title:'questionCode'}]" (actionOnTableRecord)="tableAction($event)"
+        (pageChange)="pageChange($event)" [page]="page" [size]="size">
+        <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+            <input class="w-100 borderRadius" #edit>
+        </td>
+        <td [ngsw-searchField]="questionCode" [searchColumnName]="'questionCode'" class="questionCode">
+            <input class="w-100 borderRadius" #questionCode [(ngModel)] ="questionCodeNgModel">
+        </td>
+        <td [ngsw-searchField]="questionType" [searchColumnName]="'questionType'" class="questionType">
+            <input class="w-100 borderRadius" #questionType [(ngModel)] ="questionTypeNgModel">
+        </td>
+        <td [ngsw-searchField]="question" [searchColumnName]="'question'" class="question">
+            <input class="w-100 borderRadius" #question [(ngModel)] ="questionNgModel">
+        </td>
+        <td [ngsw-searchField]="mainAnswe" [searchColumnName]="'mainAnswe'" class="mainAnswe">
+            <input class="w-100 borderRadius" #mainAnswe [(ngModel)] ="mainAnsweNgModel">
+        </td>
+        <td [ngsw-searchField]="subAnswe" [searchColumnName]="'subAnswe'" class="subAnswe">
+            <input class="w-100 borderRadius" #subAnswe [(ngModel)] ="subAnsweNgModel">
+        </td>
+        <td [ngsw-searchField]="questionCreationDate" [searchColumnName]="'questionCreationDate'" class="questionCreationDate">
+            <input class="w-100 borderRadius" #questionCreationDate [(ngModel)] ="questionCreationDateNgModel">
+        </td>
+    </ngsw-search-table>
+</div>

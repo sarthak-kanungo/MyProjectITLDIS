@@ -1,0 +1,98 @@
+<div class="card-body" [formGroup]="searchSapForm" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Activity No.</mat-label>
+                <input matInput placeholder="Activity No." formControlName="activityNumber" [matAutocomplete]="autoActivityNo">
+                <mat-autocomplete #autoActivityNo="matAutocomplete" [panelWidth]="500">
+                    <mat-option *ngFor="let option of (activityNoList$ | async)" [value]="option.activityNumber">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Status</mat-label>
+                <mat-select formControlName="activityStatus">
+                    <mat-option *ngFor="let item of ActivityStatus" [value]="item.status">{{item.status}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Type</mat-label>
+                <mat-select formControlName="activityType">
+                    <mat-option *ngFor="let option of activityType" [value]="option.activityType">
+                        {{option?.activityType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Targeted Products</mat-label>
+                <mat-select formControlName="targetedProduct" multiple>
+                    <mat-option *ngFor="let option of targetedProduct" [value]="option">
+                        {{option?.product}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Activity Date From"
+                    formControlName="activityProposalFromDate" readonly (click)="picker1.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Activity Date To"
+                    formControlName="activityProposalToDate" readonly (click)="picker.open()" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        
+
+        
+    </div>
+    <div class="card-from mt-2" *ngIf="isAdvanceSearch">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+                                border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Activity Type</mat-label>
+                            <mat-select formControlName="activityType">
+                                <mat-option *ngFor="let option of activityType" [value]="option.activityType">
+                                    {{option?.activityType}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2" *ngFor="let sale of orgHierLevelList ;let i=index">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                    {{option.hierarchy_desc}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+</div>

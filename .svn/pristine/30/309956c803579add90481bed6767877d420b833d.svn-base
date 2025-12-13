@@ -1,0 +1,69 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Checklist</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div [formGroup]="pscCheckListTableForm">
+          <table class="table table-bordered table-sm" formArrayName="dataTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 10px;">Sr.No.</th>
+                <th scope="col" style="text-align: left;">Aggregate</th>
+                <th scope="col" style="text-align: left;">Check Point</th>
+		        <th scope="col">Specification</th>
+                <th scope="col" style="width: 150px;">OK</th>
+                <th scope="col">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let option of pscCheckListTableForm.get('dataTable')['controls'];index as i"
+                [formGroupName]="i">
+                <td>{{i + 1}}</td>
+                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+                  [attr.rowspan]="getRowSpan(option.get('aggregate'), i)"
+                  [style.display]="getRowSpan(option.get('aggregate'), i) ? '' : 'none'"
+                  [textContent]="option.get('aggregate').value">
+                <td style="text-align: left;" [attr.contenteditable]="false"
+                  [textContent]="option.get('pscCheckpoint').value"></td>
+                <td style="vertical-align: middle;" [attr.contenteditable]="false"
+	                [textContent]="option.get('observedSpecification').value"
+	                *ngIf="!isView && option.get('fieldType').value==='CHECK BOX'">
+	              </td>
+	              <td style='vertical-align: middle' *ngIf="!isView && option.get('fieldType').value==='DROP DOWN'">
+	                <mat-form-field appearance="outline"
+	                    [style.fontSize.px]="11" class="w-100">
+	                    <mat-label>Select</mat-label>
+	                    <mat-select formControlName="observedSpecification"
+	                        (click)="checkListChange($event,option.get('checkpointId').value)" required>
+	                        <mat-option *ngFor="let code of pscCheckListDropDown"
+	                            [value]="code.observedSpecification">
+	                            {{code.observedSpecification}}</mat-option>
+	                    </mat-select>
+	                </mat-form-field>
+	              </td>
+	              <td style="vertical-align: middle;" [attr.contenteditable]="false"
+	                [textContent]="option.get('observedSpecification').value"
+	                *ngIf="isView">
+	              </td>  
+                <td class="pt-2" style="vertical-align: middle;">
+                  <mat-checkbox *ngIf="option?.get('fieldType')?.value ==='CHECK BOX'" color="basic"
+                    [checked]="option?.defaultTick" formControlName="defaultTick" (change)="onChangeOk($event, option)">
+                  </mat-checkbox>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline" [style.fontSize.px]="11">
+                    <input type="text" matInput formControlName="remarks">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container-fluid create-form mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Stock Adjustment</p>
+            </div>
+            <div class="card-body">
+				
+				<app-inventory-adjustment [isView]='isView'></app-inventory-adjustment>
+				<ng-container *ngIf="hierDtls">
+					<div class="card-header" style="background-color: #45afaf;
+                              border: 1px solid #45afaf;">
+						<p class="mb-0" style="font-size: 13px;">Approval Details</p>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive mt-1">
+							<table class="table table-bordered table-sm">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">Approval Status</th>
+										<th scope="col">Is Final Approver?</th>
+										<th scope="col">Approved By</th>
+										<th scope="col">Approval Date</th>
+										<th scope="col">Remarks</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let approval of hierDtls">
+										<td align="left">{{approval['approvalStatus']}}</td>
+										<td >{{approval['isFinalApprover']}}</td>
+										<td >{{approval['approvedBy']}}</td>
+										<td >{{approval['approvalDate']}}</td>
+										<td >{{approval['approverRemarks']}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>	
+				</ng-container>	
+
+                <form [formGroup]="stockAdjustmentForm" [style.fontSize.px]="10" *ngIf="!isView">
+                    <div>
+                        <app-stock-adjust-item-details [isView]='isView'></app-stock-adjust-item-details>
+                        
+                    </div>
+                    <div class=" text-center mt-2 ">
+                        <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="isCreate"
+                            (click)="saveAndSubmitForm(false)" [disabled]="isSubmitDisable"> Submit
+                        </button>
+                        <button type="button" class="btn btn_secondary px-3 ml-3" *ngIf="isView"> Print
+                        </button>
+                    </div>
+                </form>
+				<div class="text-center mt-2"  *ngIf="isApprove">
+					<button type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+						(click)="approvalForm('Approve')" [disabled]="isSubmitDisable"> Approve
+					</button>
+					<button type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+						(click)="approvalForm('Reject')" [disabled]="isSubmitDisable"> Reject
+					</button>
+				</div>
+				
+					<ngsw-search-table [tableTitle]="'Item Details'"
+						[dataTable]="dataTable" [totalElements]="totalSearchRecordCount" [page]="page"
+						[size]="size"
+ 						[searchValue]="searchValue"  *ngIf="isView">
+						 <!-- <td [ngsw-searchField]="adjustmentNumber" [searchColumnName]="'adjustmentNumber'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #adjustmentNumber>
+		                    </mat-form-field>
+		                </td>
+		                <td [ngsw-searchField]="adjustmentDate" [searchColumnName]="'adjustmentDate'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #adjustmentDate>
+		                    </mat-form-field>
+		                </td> -->
+		                
+		                
+		                <td [ngsw-searchField]="adjustmentType" [searchColumnName]="'adjustmentType'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #adjustmentType>
+		                    </mat-form-field>
+		                </td>
+		                
+		                <td [ngsw-searchField]="partNo" [searchColumnName]="'partNo'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #partNo>
+		                    </mat-form-field>
+		                </td>
+		                
+		                <td [ngsw-searchField]="description" [searchColumnName]="'description'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #description>
+		                    </mat-form-field>
+		                </td>
+		                <td [ngsw-searchField]="store" [searchColumnName]="'store'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #store>
+		                    </mat-form-field>
+		                </td>
+		                
+		                <td [ngsw-searchField]="binLocation" [searchColumnName]="'binLocation'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #binLocation>
+		                    </mat-form-field>
+		                </td>
+						 <td [ngsw-searchField]="mrp" [searchColumnName]="'mrp'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #mrp>
+		                    </mat-form-field>
+		                </td>
+		                
+		                <td [ngsw-searchField]="qtyAdjusted" [searchColumnName]="'qtyAdjusted'">
+		                    <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+		                        <input matInput type="text" #qtyAdjusted>
+		                    </mat-form-field>
+		                </td>
+					</ngsw-search-table>
+				
+			</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+          border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Part Details</p>
+        </div>
+        
+        <div class="card-body">
+            <form>
+                <div>
+                    <div class="table-responsive mt-1">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="w_50">SRN.</th>
+                                    <th scope="col" class="w_120">Item No.</th>
+                                    <th scope="col" class="w_250">Item Description</th>
+                                    <th scope="col" class="w_100">DMS PO NO</th>
+                                    <th scope="col" class="w_100">ACCPAC PO NO.</th>
+                                    <th scope="col" class="w_100">PENDING ORDER QTY</th>
+                                    <th scope="col" class="w_100">CANCEL QTY</th>
+                                    
+                                    <th scope="col" class="w_100">KAI ACCEPTED QTY</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let tableRowFg of itemDetailsArray; let i = index">
+                                    <td align="center">
+                                        {{i+1}}
+                                    </td>
+
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Item Number</mat-label>
+                                            <input matInput placeholder="Item Number"
+                                                [formControl]="tableRowFg.get('itemNo')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Item Description</mat-label>
+                                            <input matInput placeholder="Item Description"
+                                                [formControl]="tableRowFg.get('itemDescription')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Purchase Order Number</mat-label>
+                                            <input matInput placeholder="DMS PO NO"  class="numberField"
+                                                 [formControl]="tableRowFg.get('purchaseOrderNumber')"
+                                                autocomplete="off">
+                                        </mat-form-field>
+                                       
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>ACCPAC PO NO.</mat-label>
+                                            <input matInput placeholder="ACCPAC PO NO."  class="numberField"
+                                                 [formControl]="tableRowFg.get('accpacPoNo')"
+                                                autocomplete="off">
+                                        </mat-form-field>
+                                      
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Pending Order Qty</mat-label>
+                                            <input matInput placeholder="Pending Order Qty" class="numericField"
+                                                [formControl]="tableRowFg.get('pendingOrderQty')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Cancel Qty</mat-label>
+                                            <input matInput placeholder="Cancel Qty" class="numberField" (keypress)="preventAlphaNumeric($event)" (keyup)="validateCancelQty($event,tableRowFg)"
+                                                [formControl]="tableRowFg.get('cancelQty')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                            <mat-label>Kai Accepted Qty</mat-label>
+                                            <input matInput placeholder="Kai Accepted Qty" required class="numberField"
+                                                [formControl]="tableRowFg.get('kaiAcceptedQty')">
+                                        </mat-form-field>
+                                    </td>
+
+
+                                </tr>
+                               
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+

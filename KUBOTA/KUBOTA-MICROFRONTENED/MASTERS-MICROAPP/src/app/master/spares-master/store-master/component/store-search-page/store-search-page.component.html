@@ -1,0 +1,62 @@
+<div class="container-fluid mt-4 mb-3">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Store</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        (click)="navigateToCreateStore()">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-store-search [searchStoreForm]=searchStoreForm></app-store-search>
+
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="onClickSearch()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2"  (click)="onClickClear()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)">
+            <td [ngsw-searchField]="branch" [searchColumnName]="'branch'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                  <input matInput type="text" #branch>
+                </mat-form-field>
+              </td>
+              <td [ngsw-searchField]="storeCode" [searchColumnName]="'storeCode'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                  <input matInput type="text" #storeCode>
+                </mat-form-field>
+              </td>
+              <td [ngsw-searchField]="storeName" [searchColumnName]="'storeName'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                  <input matInput type="text" #storeName>
+                </mat-form-field>
+              </td>
+              <td [ngsw-searchField]="active" [searchColumnName]="'active'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                  <input matInput type="text" #active>
+                </mat-form-field>
+              </td>
+        </ngsw-search-table>
+    </div>
+
+</div>

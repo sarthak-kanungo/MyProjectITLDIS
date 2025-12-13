@@ -1,0 +1,81 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Transport Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="transportForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Transporter Name</mat-label>
+                          <mat-select  formControlName="transporterName" required (selectionChange)="selectionDistrict($event)">
+                            <!-- <mat-option *ngFor="let option of districtList" [value]="option">
+                              {{option?.district}}</mat-option> -->
+                          </mat-select>
+                         
+                        </mat-form-field>
+                      </div>
+
+
+                   
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Truck Number</mat-label>
+                            <input matInput placeholder="Truck number" required
+                                formControlName="truckNumber" />
+                        </mat-form-field>
+                    </div>  
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Driver Name</mat-label>
+                            <input matInput placeholder="Driver Name"
+                                formControlName="driverName">
+                   
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Driver Mobile Number</mat-label>
+                            <input matInput placeholder="Driver Mobile Number" formControlName="driverMobNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>GST Number</mat-label>
+                            <input matInput placeholder="GST Number" formControlName="gstNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="checkbox">
+                    <mat-checkbox
+                    class="example-margin"
+                    formControlName="terms"
+                    ><span>Hereby we confirm, the nominated transporter will provide the valid LR/GR, in absence of that this shipment <br>can be cancelled and itldis will not be responsible for any monetroy losses to dealer or transporter.</span>
+                    </mat-checkbox>
+                    </div>
+                    
+                   
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=" text-center mt-2 ">
+    
+    <button type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()">
+        Save
+    </button>
+    <button  type="button" class="btn btn_primary px-3  ml-3" (click)="validateForm()">
+        Submit
+    </button>
+ <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPrint()" >
+        Print </button>
+    <button type="button" class="btn btn_primary px-3  ml-3" (click)="exitForm()">
+        Exit
+    </button>
+    <button type="button" class="btn btn_secondary px-3 ml-3" (click)="clearForm()"> Clear
+    </button> 
+</div>

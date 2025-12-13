@@ -1,0 +1,186 @@
+<div [formGroup]="customerMasterDetailsForm" [style.fontSize.px]="11">
+  <div class="row">
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Customer Code</mat-label>
+        <input matInput placeholder="Customer Code" formControlName="customerCode">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Customer Type</mat-label>
+        <mat-select required formControlName="customerType">
+          <mat-option *ngFor="let customerType of customerTypes" [value]="customerType.prospectType">
+            {{customerType.prospectType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Customer Group</mat-label>
+        <input matInput placeholder="Customer Group" required formControlName="customerGroup">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div> 
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Group Owner</mat-label>
+        <input matInput placeholder="Group Owner" formControlName="groupOwner">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <input matInput placeholder="Category" formControlName="category">
+      </mat-form-field>
+    </div>
+
+-->
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Title</mat-label>
+        <mat-select required formControlName="title">
+          <mat-option *ngFor="let title of titles" [value]="title.title">{{title.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" required formControlName="firstName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Middle Name</mat-label>
+        <input matInput placeholder="Middle Name" formControlName="middleName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" required formControlName="lastName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile No.</mat-label>
+        <input matInput placeholder="Mobile No." required formControlName="mobileNumber" required minlength="10" maxlength="10">
+      </mat-form-field>
+      <mat-error *ngIf="customerMasterDetailsForm.get('mobileNumber').hasError('invalidMobile')">
+        Invalid Mobile Number
+      </mat-error>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Alternate Mobile No.</mat-label>
+        <input matInput placeholder="Alternate Mobile No." formControlName="alternateMobileNumber" maxlength="10">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>WhatsApp No.</mat-label>
+        <input matInput placeholder="WhatsApp No." formControlName="whatsAppNumber">
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+      <div class="d-flex bd-highlight">
+        <div class="pr-1 w-25 flex-fill bd-highlight">
+          <mat-form-field appearance="outline">
+            <mat-label>STD</mat-label>
+            <input type="tel" matInput placeholder="STD" formControlName="std">
+          </mat-form-field>
+        </div>
+        <div class="w-75 flex-fill bd-highlight">
+          <mat-form-field appearance="outline">
+            <mat-label>Telephone No.</mat-label>
+            <input type="tel" matInput placeholder="Telephone No." formControlName="telephoneNumber">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>PAN No.</mat-label>
+        <input matInput placeholder="PAN Nossss." formControlName="panNumber" maxlength="10">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+      <mat-form-field appearance="outline">
+        <mat-label>Aadhar Card No.</mat-label>
+        <input matInput placeholder="Aadhar Card No." required formControlName="aadharNo" maxlength="12">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline">
+        <mat-label>GSTIN No.</mat-label>
+        <input matInput placeholder="GSTIN No." formControlName="gstNumber" (blur)="getPanNumber($event)" maxlength="15">
+        <mat-error *ngIf="customerMasterDetailsForm?.get('gstNumber').invalid">Valid GSTIN Number Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field class="w-100">
+        <input matInput [matDatepicker]="picker1" placeholder="Date of Birth" formControlName="dateofBirth"
+        	readonly (click)="picker1.open()">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Occupation</mat-label>
+        <mat-select required formControlName="occupation">
+          <mat-option *ngFor="let qualification of qualifications" [value]="qualification.occupation">{{qualification.occupation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Preferred language</mat-label>
+        <mat-select formControlName="language">
+          <mat-option *ngFor="let language of languages" [value]="language.lookuptext">{{language.lookuptext}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+</div>
+<!-- <app-address-details></app-address-details>
+       <app-land-details></app-land-details>
+       <app-last-purchase-details></app-last-purchase-details>
+       <app-vehicle-details></app-vehicle-details> -->
+<!-- <div class=" text-center mt-2 ">
+          <button type="button" class="btn btn_primary pl-3 pr-3 " (click)="validateForm()"> Submit
+          </button>
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+          </button>
+
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+          </button>
+        </div> -->

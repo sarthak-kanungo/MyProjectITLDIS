@@ -1,0 +1,17 @@
+<form [formGroup]="createPdiDetailsForm">
+    <app-pdi (sendData)="getModelSendData($event)" [pdiDetailsForm]="pdiDetailsForm"></app-pdi>
+    <app-pdi-checklist [materialTableForm]="materialTableForm" [sendCheckPointListData]="sendCheckPointListData | async"
+        [rowDataView]="rowDataView" [rowDataEdit]="rowDataEdit" [materialTableFormSecond]="materialTableFormSecond"
+        [isShownTable]="isShownTable" [isEdit]="isEdit" [isView]="isView">
+    </app-pdi-checklist>
+    <div class=" text-center mt-2 mb-3">
+        <button type="button" *ngIf="isButtonShow" class="btn btn_primary pl-3 pr-3" 
+            (click)="validateSaveForm()"  [disabled]="isSubmitDisable"> Save
+        </button>
+        <button type="button" *ngIf="isButtonShow" class="btn btn_primary pl-3 pr-3 ml-3"
+            (click)="validateSubmitForm()"  [disabled]="isSubmitDisable"> Submit
+        </button>
+        <button type="button" *ngIf="isView" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="viewPdiPrint('true')"> Print</button>
+
+    </div>
+</form>

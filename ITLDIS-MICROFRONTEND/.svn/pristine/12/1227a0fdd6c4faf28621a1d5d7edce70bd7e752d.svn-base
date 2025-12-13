@@ -1,0 +1,150 @@
+<form>
+    <div class="container-fluid create-form  mt-4  pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0">Search Delear Customer Care Executive Calls</p>
+                                        <div>
+                                            <button type="button" class="font-weight-bold btn btn_header bg_white btn-xs ml-2 " [routerLink]="[ './create' ]">
+                                                <b class="btnName">New</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div [formGroup]="callSearchForm" [style.fontSize.px]="11">
+                                <div class="row">
+                                 
+                                    <div class="col-lg-2">
+                                        <mat-form-field class="w-100" appearance="outline">
+                                            <mat-label>Customer Name</mat-label>
+                                            <input matInput placeholder="Customer Name" (keypress)="allowCharactersOnly($event)"  formControlName="customerName" 
+                                             [matAutocomplete]="autoName">
+                                            <mat-autocomplete #autoName="matAutocomplete" [panelWidth]="200">
+                                                <mat-option *ngFor="let option of customerNameList " [value]="option.customerName">
+                                                    {{option?.customerName}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <mat-form-field class="w-100" appearance="outline">
+                                            <mat-label>Customer Mobile No.</mat-label>
+                                            <input matInput placeholder="Customer Mobile No." formControlName="mobileNo" inputmode="numeric" 
+                                             [matAutocomplete]="automobileNo" minlength="10" maxlength="10">
+                                            <mat-autocomplete #automobileNo="matAutocomplete" [panelWidth]="190">
+                                                <mat-option *ngFor="let option of customerMobileList " [value]="option.mobileNumber">
+                                                    {{option?.mobileNumber}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-2" >
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>From Date</mat-label>
+                                            <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" [max]="newdate" (dateChange)="setToDate($event)">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>To Date</mat-label>
+                                            <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate" [min]="fromDate" [max]="toDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <!-- <div class="col-lg-2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>From Date</mat-label>
+                                            <input matInput placeholder="From Date" formControlName="fromDate" [matDatepicker]="picker1" readonly (click)="picker1.open()" [max]="newdate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>To Date</mat-label>
+                                            <input matInput placeholder="To Date" formControlName="toDate"  [matDatepicker]="picker2" readonly (click)="picker2.open()" [max]="maxDate" [min]="minDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div> -->
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Type of Call</mat-label>
+                                            <mat-select  placeholder="Type of Call" formControlName="callType">
+                                                <mat-option *ngFor="let cus of callList" [value]="cus.typeOfCall">
+                                                    {{cus.typeOfCall}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Call Status</mat-label>
+                                            <mat-select  placeholder="Call Status" formControlName="callStatus">
+                                                <mat-option *ngFor="let call of callStatusList" [value]="call.callStatus">
+                                                    {{call.callStatus}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3" (click)="searchForm()">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="clearForm()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+ <div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [actionButtons]="actionButtons" [searchValue]="searchValue"
+        [clickOnTableFields]="[{title:'callNo'}]" (actionOnTableRecord)="tableAction($event)"
+        (pageChange)="pageChange($event)" [page]="page" [size]="size"> 
+
+        <td [ngsw-searchField]="callNo" [searchColumnName]="'callNo'">
+            <input class="w-100 borderRadius" #callNo [(ngModel)]="callNoNgModel">
+        </td>
+       
+        <td [ngsw-searchField]="callDate" [searchColumnName]="'callDate'">
+            <input class="w-100 borderRadius" #callDate type="date" [(ngModel)]="callDateNgModel">
+        </td>
+        
+        <td [ngsw-searchField]="mobileNo" [searchColumnName]="'mobileNo'">
+            <input class="w-100 borderRadius" #mobileNo [(ngModel)]="mobileNoNgModel">
+        </td>
+
+        <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+            <input class="w-100 borderRadius" #customerName [(ngModel)]="customerNameNgModel">
+        </td>
+        <td [ngsw-searchField]="callType" [searchColumnName]="'callType'">
+            <input class="w-100 borderRadius" #callType [(ngModel)]="callTypeNgModel">
+        </td>
+        <td [ngsw-searchField]="callStatus" [searchColumnName]="'callStatus'">
+            <input class="w-100 borderRadius" #callStatus [(ngModel)]="callStatusNgModel">
+        </td>
+    </ngsw-search-table> 
+</div> 

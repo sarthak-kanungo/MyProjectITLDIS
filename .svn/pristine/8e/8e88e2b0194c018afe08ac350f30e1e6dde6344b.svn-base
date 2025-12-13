@@ -1,0 +1,914 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/editable-table.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import * as tslib_1 from "tslib";
+import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { FormArray, FormBuilder, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ETValidationError } from './editable-table-config';
+import * as uuid from 'uuid';
+import { EtDataHandlerService } from './et-data-handler.service';
+var EditableTableComponent = /** @class */ (function () {
+    function EditableTableComponent(fb, etDataHandlerService, _changeDetectorRef) {
+        var _this = this;
+        this.fb = fb;
+        this.etDataHandlerService = etDataHandlerService;
+        this._changeDetectorRef = _changeDetectorRef;
+        this.filteredOptions = {};
+        this.selectOptions = {};
+        this.subscription = new Subscription();
+        this.viewOnly = false;
+        this.hideActionBtn = false;
+        this.hideDefaultRow = false;
+        this.tableConfig = (/** @type {?} */ ([]));
+        this.getTableRecordChange = new EventEmitter();
+        this.optionSelected = new EventEmitter();
+        this.searchValueChanges = new EventEmitter();
+        this.tableValueChanges = new EventEmitter();
+        this.deletedTableRecords = new EventEmitter();
+        this.matAutocompleteDisplayFn = new Subject();
+        /* ================  NG_VALUE_ACCESSOR && NG_VALIDATORS ===============*/
+        this.onTouched = (/**
+         * @return {?}
+         */
+        function () {
+            _this.editableTableForm.markAllAsTouched();
+        });
+    }
+    Object.defineProperty(EditableTableComponent.prototype, "assignListToSelect", {
+        set: /**
+         * @param {?} v
+         * @return {?}
+         */
+        function (v) {
+            var _this = this;
+            if (!!v) {
+                v.forEach((/**
+                 * @param {?} ele
+                 * @return {?}
+                 */
+                function (ele) {
+                    _this.selectOptions[ele.formControlName] = ele.list;
+                }));
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "getFormData", {
+        set: /**
+         * @param {?} v
+         * @return {?}
+         */
+        function (v) {
+            var _this = this;
+            v.subscribe((/**
+             * @param {?} res
+             * @return {?}
+             */
+            function (res) {
+                if (!!res) {
+                    _this.getTableRecordChange.emit(((/** @type {?} */ (_this.editableTableForm.controls.table))).getRawValue());
+                }
+            }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "assignListToAutocomplete", {
+        set: /**
+         * @param {?} v
+         * @return {?}
+         */
+        function (v) {
+            if (v && v.config.inputField === 'autocomplete') {
+                this.filteredOptions[v.config.formControlName] = this._filter(v.searchKey, v.list, v.config.displayKey);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "patchValue", {
+        set: /**
+         * @param {?} v
+         * @return {?}
+         */
+        function (v) {
+            this._patchValue = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "patchValueToSelect", {
+        set: /**
+         * @param {?} v
+         * @return {?}
+         */
+        function (v) {
+            if (!!v && this.editableTableForm) {
+                /** @type {?} */
+                var form_1 = ((/** @type {?} */ (this.editableTableForm.controls.table)));
+                v.forEach((/**
+                 * @param {?} ele
+                 * @return {?}
+                 */
+                function (ele) {
+                    if (form_1.controls[ele.rowIndex]) {
+                        form_1.controls[ele.rowIndex].patchValue(ele.patchValue);
+                    }
+                }));
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "tableData", {
+        set: /**
+         * @param {?} v
+         * @return {?}
+         */
+        function (v) {
+            {
+                if (!!v && v.length > 0) {
+                    this._tableData = v;
+                    this.createTableWithData(v);
+                }
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "formGroupForTableRow", {
+        set: /**
+         * @param {?} fb
+         * @return {?}
+         */
+        function (fb) {
+            this._formGroupForTableRow = tslib_1.__assign({}, fb);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditableTableComponent.prototype, "validationError", {
+        /**
+         * bind instaceof @param ETValidationError
+         *
+        */
+        set: /**
+         * bind instaceof \@param ETValidationError
+         *
+         * @param {?} ve
+         * @return {?}
+         */
+        function (ve) {
+            if (ve) {
+                this._validationError = ve;
+                this.setError(ve);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    EditableTableComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.createTableForm();
+        this.subscribeToSendColumnNameRecord();
+        this.subscribeToValidateTable();
+        this.assignMarkAsTouchedFnToControl(this.control);
+        // this.setQuotationListToTable();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    EditableTableComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (!!changes.patchValue && !!changes.patchValue.currentValue) {
+            this._patchValue = changes.patchValue.currentValue;
+            this.patchValueToTable(this._patchValue);
+        }
+        if (!!changes.control && !!changes.control.currentValue) {
+            this.assignMarkAsTouchedFnToControl(this.control);
+        }
+    };
+    /**
+     * @param {?} control
+     * @return {?}
+     */
+    EditableTableComponent.prototype.assignMarkAsTouchedFnToControl = /**
+     * @param {?} control
+     * @return {?}
+     */
+    function (control) {
+        var _this = this;
+        if (control) {
+            control.markAsTouched = (/**
+             * @return {?}
+             */
+            function () {
+                _this.editableTableForm.markAllAsTouched();
+            });
+        }
+    };
+    /**
+     * @private
+     * @param {?} v
+     * @return {?}
+     */
+    EditableTableComponent.prototype.patchValueToTable = /**
+     * @private
+     * @param {?} v
+     * @return {?}
+     */
+    function (v) {
+        if (!!v && v.length > 0) {
+            if (!this.editableTableForm) {
+                this.createTableForm();
+            }
+            /** @type {?} */
+            var form_2 = ((/** @type {?} */ (this.editableTableForm.controls.table)));
+            /** @type {?} */
+            var rowIndex_1;
+            v.forEach((/**
+             * @param {?} ele
+             * @return {?}
+             */
+            function (ele) {
+                if (ele.tableRowId) {
+                    for (var key in form_2.value) {
+                        if (form_2.value.hasOwnProperty(key)) {
+                            /** @type {?} */
+                            var tableRow = form_2.value[key];
+                            if (tableRow['tableRowId'] === ele.tableRowId) {
+                                rowIndex_1 = key;
+                            }
+                        }
+                    }
+                }
+                rowIndex_1 = (!rowIndex_1 && ele.rowIndex) ? ele.rowIndex : rowIndex_1;
+                rowIndex_1 ? form_2.controls[rowIndex_1].patchValue(ele.patchValue) : console.error('patch row undefined');
+            }));
+        }
+    };
+    /**
+     * @private
+     * @param {?} tableData
+     * @return {?}
+     */
+    EditableTableComponent.prototype.createTableWithData = /**
+     * @private
+     * @param {?} tableData
+     * @return {?}
+     */
+    function (tableData) {
+        var _this = this;
+        if (!this.editableTableForm) {
+            return;
+        }
+        /** @type {?} */
+        var table = (/** @type {?} */ (this.editableTableForm.get('table')));
+        if (table.length > 1) {
+            table.clear();
+        }
+        tableData.forEach((/**
+         * @param {?} element
+         * @param {?} index
+         * @return {?}
+         */
+        function (element, index) {
+            if (index === 0 && table.length > 0) {
+                _this.patchValueToTable([{ rowIndex: '0', patchValue: element }]);
+                return;
+            }
+            _this.addRow(element);
+        }));
+    };
+    // @Input() private tableData;
+    // @Input() private tableData;
+    /**
+     * @private
+     * @return {?}
+     */
+    EditableTableComponent.prototype.subscribeToSendColumnNameRecord = 
+    // @Input() private tableData;
+    /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.etDataHandlerService.sendColumnNameRecord$.subscribe((/**
+         * @param {?} formControlName
+         * @return {?}
+         */
+        function (formControlName) {
+            if (_this.viewOnly) {
+                return;
+            }
+            /** @type {?} */
+            var form = ((/** @type {?} */ (_this.editableTableForm.controls.table)));
+            /** @type {?} */
+            var columnValues = [];
+            /** @type {?} */
+            var tableRecord = form.getRawValue();
+            if (formControlName.toLowerCase() === 'all') {
+                /** @type {?} */
+                var sortedConfigList = _this.tableConfig.filter((/**
+                 * @param {?} config
+                 * @return {?}
+                 */
+                function (config) { return config.isNeedValueChanges; }));
+                sortedConfigList.forEach((/**
+                 * @param {?} config
+                 * @return {?}
+                 */
+                function (config) {
+                    columnValues = _this.collectColumnRecord(tableRecord, config.formControlName);
+                    _this.etDataHandlerService.emitColumnRecord(columnValues, config.formControlName);
+                }));
+                return;
+            }
+            columnValues = _this.collectColumnRecord(tableRecord, formControlName);
+            _this.etDataHandlerService.emitColumnRecord(columnValues, formControlName);
+        }));
+    };
+    /**
+     * @private
+     * @param {?} tableRecord
+     * @param {?} tableRowKey
+     * @return {?}
+     */
+    EditableTableComponent.prototype.collectColumnRecord = /**
+     * @private
+     * @param {?} tableRecord
+     * @param {?} tableRowKey
+     * @return {?}
+     */
+    function (tableRecord, tableRowKey) {
+        /** @type {?} */
+        var columnValues = [];
+        for (var key in tableRecord) {
+            if (tableRecord.hasOwnProperty(key)) {
+                /** @type {?} */
+                var tableRow = tableRecord[key];
+                columnValues.push(tableRow[tableRowKey]);
+            }
+        }
+        return columnValues;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    EditableTableComponent.prototype.subscribeToValidateTable = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        /** @type {?} */
+        var validateSbscrb = this.etDataHandlerService.validateTable().subscribe((/**
+         * @param {?} status
+         * @return {?}
+         */
+        function (status) {
+            if (status) {
+                _this.editableTableForm.markAllAsTouched();
+                if (_this.editableTableForm.status === 'VALID' || _this.editableTableForm.status === 'DISABLED') {
+                    _this.etDataHandlerService.sendTableRecord({
+                        data: ((/** @type {?} */ (_this.editableTableForm.controls.table))).getRawValue(),
+                        valid: true
+                    });
+                    return;
+                }
+                _this.etDataHandlerService.sendTableRecord({
+                    data: [],
+                    valid: false
+                });
+            }
+        }));
+        this.subscription.add(validateSbscrb);
+    };
+    /**
+     * @return {?}
+     */
+    EditableTableComponent.prototype.createTableForm = /**
+     * @return {?}
+     */
+    function () {
+        if (this.editableTableForm) {
+            return;
+        }
+        if (this.etFormArray) {
+            this.editableTableForm = this.fb.group({
+                table: this.etFormArray
+            });
+        }
+        else {
+            this.editableTableForm = this.fb.group({
+                table: this.fb.array([])
+            });
+        }
+        if (!this.hideDefaultRow
+            && ((/** @type {?} */ (this.editableTableForm.controls.table))).length === 0
+            && (this.tableConfig.length > 0 || this.etFormArray.length > 0)) {
+            this.addRow();
+        }
+        this.tableValueChanges.emit(this.editableTableForm.valueChanges);
+        if (this._tableData) {
+            this.createTableWithData(this._tableData);
+        }
+    };
+    /**
+     * @param {?=} data
+     * @return {?}
+     */
+    EditableTableComponent.prototype.implementsDetailsRow = /**
+     * @param {?=} data
+     * @return {?}
+     */
+    function (data) {
+        var _this = this;
+        /** @type {?} */
+        var fg = this.fb.group(this._formGroupForTableRow);
+        console.log('this._formGroupForTableRow: ', this._formGroupForTableRow);
+        if (!!data && !this.viewOnly) {
+            fg.patchValue(data);
+        }
+        if (this.viewOnly) {
+            fg.disable();
+            !!data ? fg.patchValue(data, { onlySelf: true, emitEvent: false }) : null;
+        }
+        fg.addControl('tableRowId', this.fb.control(uuid.v4()));
+        console.log('fg: ', fg);
+        this.tableConfig.forEach((/**
+         * @param {?} ele
+         * @return {?}
+         */
+        function (ele) {
+            // fg.valueCha nges
+            if (ele.inputField === 'autocomplete' || ele.isNeedValueChanges) {
+                fg.controls[ele.formControlName].valueChanges.subscribe((/**
+                 * @param {?} searchValue
+                 * @return {?}
+                 */
+                function (searchValue) {
+                    _this.searchValueChanges.emit({ key: searchValue, config: ele, tableRow: fg.getRawValue() });
+                    _this.dirtyAutocompleteColumn = tslib_1.__assign({}, ele);
+                }));
+            }
+        }));
+        return fg;
+    };
+    /**
+     * @private
+     * @param {?} value
+     * @param {?} options
+     * @param {?} key
+     * @return {?}
+     */
+    EditableTableComponent.prototype._filter = /**
+     * @private
+     * @param {?} value
+     * @param {?} options
+     * @param {?} key
+     * @return {?}
+     */
+    function (value, options, key) {
+        /** @type {?} */
+        var filterValue;
+        if (!!value || value === "") {
+            return options;
+        }
+        if (typeof value === 'string') {
+            filterValue = value.toLowerCase();
+        }
+        if (typeof value === 'object') {
+            filterValue = value[key].toLowerCase();
+        }
+        return options.filter((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option[key].toLowerCase().indexOf(filterValue) === 0; }));
+    };
+    /**
+     * @return {?}
+     */
+    EditableTableComponent.prototype.submitData = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?=} row
+     * @return {?}
+     */
+    EditableTableComponent.prototype.addRow = /**
+     * @param {?=} row
+     * @return {?}
+     */
+    function (row) {
+        if (this.etFormArray) {
+            this.editableTableForm.controls.table = this.etFormArray;
+            return;
+        }
+        /** @type {?} */
+        var implementsDetails = (/** @type {?} */ (this.editableTableForm.controls.table));
+        implementsDetails.markAllAsTouched();
+        if (implementsDetails.valid) {
+            implementsDetails.push(this.implementsDetailsRow(row));
+        }
+    };
+    /**
+     * @param {?=} row
+     * @return {?}
+     */
+    EditableTableComponent.prototype.resetTable = /**
+     * @param {?=} row
+     * @return {?}
+     */
+    function (row) {
+        /** @type {?} */
+        var implementsDetails = (/** @type {?} */ (this.editableTableForm.controls.table));
+        implementsDetails.clear();
+        implementsDetails.push(this.implementsDetailsRow(row));
+    };
+    /**
+     * @return {?}
+     */
+    EditableTableComponent.prototype.deleteRow = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var implementsDetails = (/** @type {?} */ (this.editableTableForm.controls.table));
+        /** @type {?} */
+        var deleteRecordList = [];
+        /** @type {?} */
+        var nonSelected = implementsDetails.controls.filter((/**
+         * @param {?} machinery
+         * @return {?}
+         */
+        function (machinery) {
+            if (machinery.value.isSelected) {
+                deleteRecordList.push(machinery.getRawValue());
+            }
+            return !machinery.value.isSelected;
+        }));
+        this.deletedTableRecords.emit(deleteRecordList);
+        implementsDetails.clear();
+        nonSelected.forEach((/**
+         * @param {?} el
+         * @return {?}
+         */
+        function (el) { return implementsDetails.push(el); }));
+    };
+    /**
+     * @private
+     * @param {?} config
+     * @return {?}
+     */
+    EditableTableComponent.prototype.generateAutocompleteDisplayFn = /**
+     * @private
+     * @param {?} config
+     * @return {?}
+     */
+    function (config) {
+        /** @type {?} */
+        var key = config.patchKey || config.displayKey;
+        /** @type {?} */
+        var displayWith = (/**
+         * @param {?} user
+         * @return {?}
+         */
+        function (user) {
+            return (user && typeof user === 'object') ? user[key] : user;
+        })
+        // return of(displayWith);
+        ;
+        // return of(displayWith);
+        this.matAutocompleteDisplayFn.next(displayWith);
+        this._changeDetectorRef.detectChanges();
+    };
+    /**
+     * @param {?} config
+     * @param {?} formGroup
+     * @return {?}
+     */
+    EditableTableComponent.prototype.autocompleteClicked = /**
+     * @param {?} config
+     * @param {?} formGroup
+     * @return {?}
+     */
+    function (config, formGroup) {
+        this.filteredOptions[config.formControlName] = [];
+        this.generateAutocompleteDisplayFn(config);
+        if (formGroup.controls[config.formControlName].value) {
+            this.searchValueChanges.emit({ key: formGroup.controls[config.formControlName].value, config: config, tableRow: formGroup.getRawValue() });
+            this.dirtyAutocompleteColumn = tslib_1.__assign({}, config);
+        }
+    };
+    /**
+     * @param {?} event
+     * @param {?} rowIndex
+     * @param {?} rowFormGroup
+     * @param {?} config
+     * @return {?}
+     */
+    EditableTableComponent.prototype.valueSelectedFromAutocomplete = /**
+     * @param {?} event
+     * @param {?} rowIndex
+     * @param {?} rowFormGroup
+     * @param {?} config
+     * @return {?}
+     */
+    function (event, rowIndex, rowFormGroup, config) {
+        /** @type {?} */
+        var option = (event && typeof event.option.value === 'object') ? tslib_1.__assign({}, event.option.value) : event.option.value || '';
+        this.optionSelected.emit(tslib_1.__assign({ option: option }, { rowIndex: rowIndex, tableRow: rowFormGroup.getRawValue(), config: config }));
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    EditableTableComponent.prototype.selectionChanged = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+    };
+    /**
+     * @param {?} value
+     * @param {?} rowFormGroup
+     * @param {?} formControlName
+     * @return {?}
+     */
+    EditableTableComponent.prototype.contenteditableValuechange = /**
+     * @param {?} value
+     * @param {?} rowFormGroup
+     * @param {?} formControlName
+     * @return {?}
+     */
+    function (value, rowFormGroup, formControlName) {
+        rowFormGroup.controls[formControlName].patchValue(value);
+    };
+    /**
+     * @private
+     * @param {?} ve
+     * @return {?}
+     */
+    EditableTableComponent.prototype.setError = /**
+     * @private
+     * @param {?} ve
+     * @return {?}
+     */
+    function (ve) {
+        /** @type {?} */
+        var formArray = ((/** @type {?} */ (this.editableTableForm.get('table'))));
+        /** @type {?} */
+        var formIndex = formArray.getRawValue().findIndex((/**
+         * @param {?} formValue
+         * @return {?}
+         */
+        function (formValue) {
+            if (formValue.tableRowId === ve.tableRowId) {
+                return true;
+            }
+        }));
+        /** @type {?} */
+        var tableRowFG = formArray.at(formIndex);
+        if (tableRowFG) {
+            if (ve.isRemove) {
+                tableRowFG.get(ve.formControlName).setErrors(null);
+                return;
+            }
+            tableRowFG.get(ve.formControlName).setErrors(tslib_1.__assign({ msg: ve.msg }, ve.type));
+        }
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    EditableTableComponent.prototype.writeValue = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        if (val && val.resetForm) {
+            this.editableTableForm.reset();
+            this.resetTable();
+            return;
+        }
+        val && val.length > 0 && (this.tableData = val);
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    EditableTableComponent.prototype.registerOnChange = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        var _this = this;
+        fn && this.editableTableForm.controls.table.valueChanges.pipe(map((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { return ((/** @type {?} */ (_this.editableTableForm.controls.table))).getRawValue(); }))).subscribe(fn);
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    EditableTableComponent.prototype.registerOnTouched = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        fn && (this.onTouched = fn);
+    };
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    EditableTableComponent.prototype.setDisabledState = /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
+        isDisabled ? this.editableTableForm.controls.table.disable() : this.editableTableForm.controls.table.enable();
+        // throw new Error("Method not implemented.");
+    };
+    /**
+     * @param {?} control
+     * @return {?}
+     */
+    EditableTableComponent.prototype.validate = /**
+     * @param {?} control
+     * @return {?}
+     */
+    function (control) {
+        return this.editableTableForm.controls.table.valid ? null : { invalidForm: { valid: false, message: "editableTableForm fields are invalid" } };
+    };
+    /* ==================================================================== */
+    /* ==================================================================== */
+    /**
+     * @return {?}
+     */
+    EditableTableComponent.prototype.ngOnDestroy = /* ==================================================================== */
+    /**
+     * @return {?}
+     */
+    function () {
+        this.subscription.unsubscribe();
+    };
+    EditableTableComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'editable-table',
+                    template: "<div id=\"divshow\">\n  <form [formGroup]=\"editableTableForm\">\n    <div>\n      <div class=\"table-responsive\">\n        <table class=\"table table-bordered table-sm\" formArrayName=\"table\">\n          <thead class=\"thead-light\">\n            <tr>\n              <th scope=\"col\" style=\"width: 10px;\" *ngFor=\"let config of tableConfig\" [class]=\"config.title\">{{config.title}}</th>\n            </tr>\n          </thead>\n          <tbody>\n            <ng-container *ngFor=\"let rowFormGroup of editableTableForm['controls'].table['controls']; let i = index\"\n              [formGroupName]=\"i\">\n              <tr>\n                <ng-container *ngFor=\"let config of tableConfig\">\n                  <td *ngIf=\"config.inputField !== 'contenteditable'\">\n                    <mat-checkbox *ngIf=\"config.inputField === 'checkbox'\" color=\"basic\"\n                      class=\"form-control form-control-sm\" [formControlName]=\"config.formControlName\" [checked]=\"false\">\n                    </mat-checkbox>\n                    <mat-form-field class=\"example-full-width\" *ngIf=\"config.inputField === 'input'\"\n                      appearance=\"outline\" [ngClass]=\"{pb_0:!rowFormGroup.get(config.formControlName).errors}\">\n                      <input matInput [placeholder]=\"config.title\" [formControlName]=\"config.formControlName\">\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required\">\n                        {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required\">\n                        This field is required</mat-error>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"config.inputField === 'autocomplete'\" class=\"w-100\"\n                      [ngClass]=\"{pb_0:!rowFormGroup.get(config.formControlName).errors}\" appearance=\"outline\">\n                      <input matInput [formControlName]=\"config.formControlName\" [matAutocomplete]=\"autoAmcNumber\"\n                        (focus)=\"autocompleteClicked(config, rowFormGroup)\" (keyup.enter)=\"$event.preventDefault();\">\n                      <!-- (blur)=\"resetFormControlNotHavingObject(searchAMCForm.controls.amcNumber, 'amcNumber')\" -->\n                      <mat-autocomplete #autoAmcNumber=\"matAutocomplete\"\n                        [displayWith]=\"matAutocompleteDisplayFn | async\"\n                        (optionSelected)=\"valueSelectedFromAutocomplete($event, i, rowFormGroup, config)\" [panelWidth]=\"500\">\n                        <mat-option *ngFor=\"let option of filteredOptions[config.formControlName]\" [value]=\"option\">\n                          <!-- (click)=\"valueSelectedFromAutocomplete(option)\" -->\n                          {{option[config.displayKey]? option[config.displayKey] : option}}\n                        </mat-option>\n                      </mat-autocomplete>\n                      <mat-icon matSuffix>search</mat-icon>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required\">\n                        {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required\">\n                        This field is required</mat-error>\n                    </mat-form-field>\n                    <!-- <span *ngIf=\"config.inputField === 'autocomplete'\">\n                      {{matAutocompleteDisplayFn | async}}\n                    </span> -->\n                    <mat-form-field *ngIf=\"config.inputField === 'select'\" appearance=\"outline\" class=\"pb_0\">\n                      <mat-label>Select {{config.title}}</mat-label>\n                      <mat-select [formControlName]=\"config.formControlName\"\n                        (selectionChange)=\"selectionChanged($event)\">\n                        <mat-option *ngFor=\"let option of selectOptions[config.formControlName]\" [value]=\"option\">\n                          {{option[config.displayKey]? option[config.displayKey] : option}}\n                        </mat-option>\n                      </mat-select>\n                      <mat-error\n                      *ngIf=\"rowFormGroup.get(config.formControlName).errors && rowFormGroup.get(config.formControlName).errors.msg &&!rowFormGroup.get(config.formControlName).errors.required\">\n                      {{rowFormGroup.get(config.formControlName).errors.msg}}</mat-error>\n                      <mat-error\n                        *ngIf=\"rowFormGroup.get(config.formControlName).errors && !rowFormGroup.get(config.formControlName).errors.msg &&rowFormGroup.get(config.formControlName).errors.required\">\n                        This field is required</mat-error>\n                    </mat-form-field>\n                  </td>\n                  <td *ngIf=\"config.inputField === 'contenteditable'\"\n                    [attr.contenteditable]=\"config.inputField !== 'contenteditable' || config.isNeedValueChanges\"\n                    [textContent]=\"rowFormGroup.controls[config.formControlName].value\"\n                    (input)=\"contenteditableValuechange($event.target.textContent,rowFormGroup,config.formControlName)\"\n                    #contenteditableRef></td>\n                </ng-container>\n              </tr>\n              <!-- <ng-content select=\"tr\"></ng-content> -->\n            </ng-container>\n          </tbody>\n          <tfoot>\n            <ng-content select=\"ng-container.table_footer\"></ng-content>\n          </tfoot>\n        </table>\n      </div>\n    </div>\n  </form>\n  <div class=\" text-center mt-2\" *ngIf=\"!hideActionBtn && !viewOnly \">\n    <button type=\"button\" class=\"btn btn-sm btn_primary \" (click)=\"addRow()\"> Add\n      Row</button>\n    <button type=\"button\" class=\"btn btn-sm btn_secondary ml-2 \" (click)=\"deleteRow()\"> Delete Row </button>\n  </div>\n</div>",
+                    providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef((/**
+                             * @return {?}
+                             */
+                            function () { return EditableTableComponent; })),
+                            multi: true
+                        },
+                        {
+                            provide: NG_VALIDATORS,
+                            useExisting: forwardRef((/**
+                             * @return {?}
+                             */
+                            function () { return EditableTableComponent; })),
+                            multi: true
+                        }
+                    ],
+                    styles: [""]
+                }] }
+    ];
+    /** @nocollapse */
+    EditableTableComponent.ctorParameters = function () { return [
+        { type: FormBuilder },
+        { type: EtDataHandlerService },
+        { type: ChangeDetectorRef }
+    ]; };
+    EditableTableComponent.propDecorators = {
+        viewOnly: [{ type: Input }],
+        hideActionBtn: [{ type: Input }],
+        hideDefaultRow: [{ type: Input }],
+        assignListToSelect: [{ type: Input }],
+        tableConfig: [{ type: Input }],
+        getFormData: [{ type: Input }],
+        getTableRecordChange: [{ type: Output }],
+        optionSelected: [{ type: Output }],
+        assignListToAutocomplete: [{ type: Input }],
+        patchValue: [{ type: Input }],
+        patchValueToSelect: [{ type: Input }],
+        tableData: [{ type: Input, args: ['tableData',] }],
+        searchValueChanges: [{ type: Output }],
+        tableValueChanges: [{ type: Output }],
+        formGroupForTableRow: [{ type: Input }],
+        deletedTableRecords: [{ type: Output }],
+        matAutocompleteDisplayFn: [{ type: Input }],
+        etFormArray: [{ type: Input }],
+        control: [{ type: Input }],
+        validationError: [{ type: Input }]
+    };
+    return EditableTableComponent;
+}());
+export { EditableTableComponent };
+if (false) {
+    /** @type {?} */
+    EditableTableComponent.prototype.editableTableForm;
+    /** @type {?} */
+    EditableTableComponent.prototype.isEdit;
+    /** @type {?} */
+    EditableTableComponent.prototype.isView;
+    /** @type {?} */
+    EditableTableComponent.prototype.filteredOptions;
+    /** @type {?} */
+    EditableTableComponent.prototype.selectOptions;
+    /** @type {?} */
+    EditableTableComponent.prototype.subscription;
+    /** @type {?} */
+    EditableTableComponent.prototype.viewOnly;
+    /** @type {?} */
+    EditableTableComponent.prototype.hideActionBtn;
+    /** @type {?} */
+    EditableTableComponent.prototype.hideDefaultRow;
+    /** @type {?} */
+    EditableTableComponent.prototype.tableConfig;
+    /** @type {?} */
+    EditableTableComponent.prototype.getTableRecordChange;
+    /** @type {?} */
+    EditableTableComponent.prototype.optionSelected;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._patchValue;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype.dirtyAutocompleteColumn;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._tableData;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._formGroupForTableRow;
+    /** @type {?} */
+    EditableTableComponent.prototype.searchValueChanges;
+    /** @type {?} */
+    EditableTableComponent.prototype.tableValueChanges;
+    /** @type {?} */
+    EditableTableComponent.prototype.deletedTableRecords;
+    /** @type {?} */
+    EditableTableComponent.prototype.matAutocompleteDisplayFn;
+    /** @type {?} */
+    EditableTableComponent.prototype.etFormArray;
+    /** @type {?} */
+    EditableTableComponent.prototype.control;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._validationError;
+    /** @type {?} */
+    EditableTableComponent.prototype.onTouched;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype.fb;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype.etDataHandlerService;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditableTableComponent.prototype._changeDetectorRef;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZWRpdGFibGUtdGFibGUuY29tcG9uZW50LmpzIiwic291cmNlUm9vdCI6Im5nOi8vZWRpdGFibGUtdGFibGUvIiwic291cmNlcyI6WyJsaWIvZWRpdGFibGUtdGFibGUuY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLE9BQU8sRUFBRSxTQUFTLEVBQVUsS0FBSyxFQUFpQixNQUFNLEVBQUUsWUFBWSxFQUE0QixVQUFVLEVBQWEsaUJBQWlCLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFDbEssT0FBTyxFQUFFLFNBQVMsRUFBYyxXQUFXLEVBQThDLGlCQUFpQixFQUFFLGFBQWEsRUFBcUMsV0FBVyxFQUFFLE1BQU0sZ0JBQWdCLENBQUM7QUFDbE0sT0FBTyxFQUFrQixPQUFPLEVBQUUsWUFBWSxFQUFtQixNQUFNLE1BQU0sQ0FBQztBQUM5RSxPQUFPLEVBQUUsR0FBRyxFQUFhLE1BQU0sZ0JBQWdCLENBQUM7QUFDaEQsT0FBTyxFQUFpRixpQkFBaUIsRUFBRSxNQUFNLHlCQUF5QixDQUFDO0FBRTNJLE9BQU8sS0FBSyxJQUFJLE1BQU0sTUFBTSxDQUFDO0FBQzdCLE9BQU8sRUFBRSxvQkFBb0IsRUFBRSxNQUFNLDJCQUEyQixDQUFDO0FBR2pFO0lBbUdFLGdDQUNVLEVBQWUsRUFDZixvQkFBMEMsRUFDMUMsa0JBQXFDO1FBSC9DLGlCQUlLO1FBSEssT0FBRSxHQUFGLEVBQUUsQ0FBYTtRQUNmLHlCQUFvQixHQUFwQixvQkFBb0IsQ0FBc0I7UUFDMUMsdUJBQWtCLEdBQWxCLGtCQUFrQixDQUFtQjtRQWpGL0Msb0JBQWUsR0FBRyxFQUFFLENBQUM7UUFDckIsa0JBQWEsR0FBRyxFQUFFLENBQUM7UUFDbkIsaUJBQVksR0FBRyxJQUFJLFlBQVksRUFBRSxDQUFDO1FBQ3pCLGFBQVEsR0FBRyxLQUFLLENBQUM7UUFDakIsa0JBQWEsR0FBRyxLQUFLLENBQUM7UUFDdEIsbUJBQWMsR0FBWSxLQUFLLENBQUM7UUFVekMsZ0JBQVcsR0FB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LDhDQUFrQzs7SUFDbEMsMENBQTBCOztJQUMxQiwrQ0FBK0I7O0lBQy9CLGdEQUF5Qzs7SUFTekMsNkNBQ3VDOztJQVF2QyxzREFBNEQ7O0lBQzVELGdEQUFtRjs7Ozs7SUFPbkYsNkNBQXVDOzs7OztJQWN2Qyx5REFBNkM7Ozs7O0lBQzdDLDRDQUFtQjs7Ozs7SUFVbkIsdURBQThCOztJQUM5QixvREFBbUY7O0lBQ25GLG1EQUF5RDs7SUFJekQscURBQWtFOztJQUNsRSwwREFBa0Q7O0lBQ2xELDZDQUFnQzs7SUFDaEMseUNBQThCOzs7OztJQUM5QixrREFBNEM7O0lBa1I1QywyQ0FFRTs7Ozs7SUF2UUEsb0NBQXVCOzs7OztJQUN2QixzREFBa0Q7Ozs7O0lBQ2xELG9EQUE2QyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCwgT25Jbml0LCBJbnB1dCwgQWZ0ZXJWaWV3SW5pdCwgT3V0cHV0LCBFdmVudEVtaXR0ZXIsIE9uQ2hhbmdlcywgU2ltcGxlQ2hhbmdlcywgZm9yd2FyZFJlZiwgT25EZXN0cm95LCBDaGFuZ2VEZXRlY3RvclJlZiB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgRm9ybUFycmF5LCBWYWxpZGF0b3JzLCBGb3JtQnVpbGRlciwgRm9ybUdyb3VwLCBDb250cm9sVmFsdWVBY2Nlc3NvciwgVmFsaWRhdG9yLCBOR19WQUxVRV9BQ0NFU1NPUiwgTkdfVkFMSURBVE9SUywgQWJzdHJhY3RDb250cm9sLCBWYWxpZGF0aW9uRXJyb3JzLCBGb3JtQ29udHJvbCB9IGZyb20gJ0Bhbmd1bGFyL2Zvcm1zJztcbmltcG9ydCB7IG9mLCBPYnNlcnZhYmxlLCBTdWJqZWN0LCBTdWJzY3JpcHRpb24sIEJlaGF2aW9yU3ViamVjdCB9IGZyb20gJ3J4anMnO1xuaW1wb3J0IHsgbWFwLCBzdGFydFdpdGggfSBmcm9tICdyeGpzL29wZXJhdG9ycyc7XG5pbXBvcnQgeyBUYWJsZUNvbmZpZywgUGF0Y2hWYWx1ZSwgRXRUYWJsZVZhbHVlQ2hhbmdlRXZlbnQsIEV0QXV0b2NvbXBsZXRlU2VsZWN0ZWRFdmVudCwgRVRWYWxpZGF0aW9uRXJyb3IgfSBmcm9tICcuL2VkaXRhYmxlLXRhYmxlLWNvbmZpZyc7XG5pbXBvcnQgeyBNYXRBdXRvY29tcGxldGVTZWxlY3RlZEV2ZW50IH0gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvYXV0b2NvbXBsZXRlJztcbmltcG9ydCAqIGFzIHV1aWQgZnJvbSAndXVpZCc7XG5pbXBvcnQgeyBFdERhdGFIYW5kbGVyU2VydmljZSB9IGZyb20gJy4vZXQtZGF0YS1oYW5kbGVyLnNlcnZpY2UnO1xuXG5cbkBDb21wb25lbnQoe1xuICBzZWxlY3RvcjogJ2VkaXRhYmxlLXRhYmxlJyxcbiAgdGVtcGxhdGVVcmw6ICcuL2VkaXRhYmxlLXRhYmxlLmNvbXBvbmVudC5odG1sJyxcbiAgc3R5bGVVcmxzOiBbJy4vZWRpdGFibGUtdGFibGUuY29tcG9uZW50LnNjc3MnXSxcbiAgcHJvdmlkZXJzOiBbXG4gICAge1xuICAgICAgcHJvdmlkZTogTkdfVkFMVUVfQUNDRVNTT1IsXG4gICAgICB1c2VFeGlzdGluZzogZm9yd2FyZFJlZigoKSA9PiBFZGl0YWJsZVRhYmxlQ29tcG9uZW50KSxcbiAgICAgIG11bHRpOiB0cnVlXG4gICAgfSxcbiAgICB7XG4gICAgICBwcm92aWRlOiBOR19WQUxJREFUT1JTLFxuICAgICAgdXNlRXhpc3Rpbmc6IGZvcndhcmRSZWYoKCkgPT4gRWRpdGFibGVUYWJsZUNvbXBvbmVudCksXG4gICAgICBtdWx0aTogdHJ1ZVxuICAgIH1cbiAgXVxufSlcbmV4cG9ydCBjbGFzcyBFZGl0YWJsZVRhYmxlQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0LCBPbkRlc3Ryb3ksIE9uQ2hhbmdlcywgQ29udHJvbFZhbHVlQWNjZXNzb3IsIFZhbGlkYXRvciB7XG4gIGVkaXRhYmxlVGFibGVGb3JtOiBGb3JtR3JvdXBcbiAgaXNFZGl0OiBib29sZWFuO1xuICBpc1ZpZXc6IGJvb2xlYW47XG4gIGZpbHRlcmVkT3B0aW9ucyA9IHt9O1xuICBzZWxlY3RPcHRpb25zID0ge307XG4gIHN1YnNjcmlwdGlvbiA9IG5ldyBTdWJzY3JpcHRpb24oKTtcbiAgQElucHV0KCkgdmlld09ubHkgPSBmYWxzZTtcbiAgQElucHV0KCkgaGlkZUFjdGlvbkJ0biA9IGZhbHNlO1xuICBASW5wdXQoKSBoaWRlRGVmYXVsdFJvdzogYm9vbGVhbiA9IGZhbHNlO1xuICBASW5wdXQoKVxuICBzZXQgYXNzaWduTGlzdFRvU2VsZWN0KHYpIHtcbiAgICBpZiAoISF2KSB7XG4gICAgICB2LmZvckVhY2goZWxlID0+IHtcbiAgICAgICAgdGhpcy5zZWxlY3RPcHRpb25zW2VsZS5mb3JtQ29udHJvbE5hbWVdID0gZWxlLmxpc3Q7XG4gICAgICB9KTtcbiAgICB9XG4gIH1cbiAgQElucHV0KClcbiAgdGFibGVDb25maWcgPSBbXSBhcyBBcnJheTxUYWJsZUNvbmZpZz47XG4gIEBJbnB1dCgpIHNldCBnZXRGb3JtRGF0YSh2KSB7XG4gICAgdi5zdWJzY3JpYmUocmVzID0+IHtcbiAgICAgIGlmICghIXJlcykge1xuICAgICAgICB0aGlzLmdldFRhYmxlUmVjb3JkQ2hhbmdlLmVtaXQoKHRoaXMuZWRpdGFibGVUYWJsZUZvcm0uY29udHJvbHMudGFibGUgYXMgRm9ybUFycmF5KS5nZXRSYXdWYWx1ZSgpKTtcbiAgICAgIH1cbiAgICB9KTtcbiAgfVxuICBAT3V0cHV0KCkgZ2V0VGFibGVSZWNvcmRDaGFuZ2UgPSBuZXcgRXZlbnRFbWl0dGVyPG9iamVjdD4oKTtcbiAgQE91dHB1dCgpIG9wdGlvblNlbGVjdGVkID0gbmV3IEV2ZW50RW1pdHRlcjxFdEF1dG9jb21wbGV0ZVNlbGVjdGVkRXZlbnQ8b2JqZWN0Pj4oKTtcbiAgQElucHV0KClcbiAgc2V0IGFzc2lnbkxpc3RUb0F1dG9jb21wbGV0ZSh2KSB7XG4gICAgaWYgKHYgJiYgdi5jb25maWcuaW5wdXRGaWVsZCA9PT0gJ2F1dG9jb21wbGV0ZScpIHtcbiAgICAgIHRoaXMuZmlsdGVyZWRPcHRpb25zW3YuY29uZmlnLmZvcm1Db250cm9sTmFtZV0gPSB0aGlzLl9maWx0ZXIodi5zZWFyY2hLZXksIHYubGlzdCwgdi5jb25maWcuZGlzcGxheUtleSlcbiAgICB9XG4gIH1cbiAgcHJpdmF0ZSBfcGF0Y2hWYWx1ZTogQXJyYXk8UGF0Y2hWYWx1ZT47XG4gIEBJbnB1dCgpIHNldCBwYXRjaFZhbHVlKHY6IEFycmF5PFBhdGNoVmFsdWU+KSB7XG4gICAgdGhpcy5fcGF0Y2hWYWx1ZSA9IHY7XG4gIH1cbiAgQElucHV0KCkgc2V0IHBhdGNoVmFsdWVUb1NlbGVjdCh2OiBBcnJheTxQYXRjaFZhbHVlPikge1xuICAgIGlmICghIXYgJiYgdGhpcy5lZGl0YWJsZVRhYmxlRm9ybSkge1xuICAgICAgbGV0IGZvcm0gPSAodGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZSBhcyBGb3JtQXJyYXkpXG4gICAgICB2LmZvckVhY2goZWxlID0+IHtcbiAgICAgICAgaWYgKGZvcm0uY29udHJvbHNbZWxlLnJvd0luZGV4XSkge1xuICAgICAgICAgIGZvcm0uY29udHJvbHNbZWxlLnJvd0luZGV4XS5wYXRjaFZhbHVlKGVsZS5wYXRjaFZhbHVlKTtcbiAgICAgICAgfVxuICAgICAgfSk7XG4gICAgfVxuICB9XG4gIHByaXZhdGUgZGlydHlBdXRvY29tcGxldGVDb2x1bW46IFRhYmxlQ29uZmlnO1xuICBwcml2YXRlIF90YWJsZURhdGE7XG4gIEBJbnB1dCgndGFibGVEYXRhJylcbiAgcHVibGljIHNldCB0YWJsZURhdGEodikge1xuICAgIHtcbiAgICAgIGlmICghIXYgJiYgdi5sZW5ndGggPiAwKSB7XG4gICAgICAgIHRoaXMuX3RhYmxlRGF0YSA9IHY7XG4gICAgICAgIHRoaXMuY3JlYXRlVGFibGVXaXRoRGF0YSh2KVxuICAgICAgfVxuICAgIH1cbiAgfVxuICBwcml2YXRlIF9mb3JtR3JvdXBGb3JUYWJsZVJvdztcbiAgQE91dHB1dCgpIHNlYXJjaFZhbHVlQ2hhbmdlcyA9IG5ldyBFdmVudEVtaXR0ZXI8RXRUYWJsZVZhbHVlQ2hhbmdlRXZlbnQ8b2JqZWN0Pj4oKTtcbiAgQE91dHB1dCgpIHRhYmxlVmFsdWVDaGFuZ2VzID0gbmV3IEV2ZW50RW1pdHRlcjxvYmplY3Q+KCk7XG4gIEBJbnB1dCgpIHB1YmxpYyBzZXQgZm9ybUdyb3VwRm9yVGFibGVSb3coZmIpIHtcbiAgICB0aGlzLl9mb3JtR3JvdXBGb3JUYWJsZVJvdyA9IHsgLi4uZmIgfTtcbiAgfVxuICBAT3V0cHV0KCkgZGVsZXRlZFRhYmxlUmVjb3JkcyA9IG5ldyBFdmVudEVtaXR0ZXI8QXJyYXk8b2JqZWN0Pj4oKTtcbiAgQElucHV0KCkgbWF0QXV0b2NvbXBsZXRlRGlzcGxheUZuID0gbmV3IFN1YmplY3QoKTtcbiAgQElucHV0KCkgZXRGb3JtQXJyYXk6IEZvcm1BcnJheTtcbiAgQElucHV0KCkgY29udHJvbDogRm9ybUNvbnRyb2w7XG4gIHByaXZhdGUgX3ZhbGlkYXRpb25FcnJvcjogRVRWYWxpZGF0aW9uRXJyb3I7XG4gIC8qKiBcbiAgICogYmluZCBpbnN0YWNlb2YgQHBhcmFtIEVUVmFsaWRhdGlvbkVycm9yXG4gICAqIFxuICAqL1xuICBASW5wdXQoKSBwdWJsaWMgc2V0IHZhbGlkYXRpb25FcnJvcih2ZTogRVRWYWxpZGF0aW9uRXJyb3IpIHtcbiAgICBpZiAodmUpIHtcbiAgICAgIHRoaXMuX3ZhbGlkYXRpb25FcnJvciA9IHZlO1xuICAgICAgdGhpcy5zZXRFcnJvcih2ZSlcbiAgICB9XG4gIH1cblxuICBjb25zdHJ1Y3RvcihcbiAgICBwcml2YXRlIGZiOiBGb3JtQnVpbGRlcixcbiAgICBwcml2YXRlIGV0RGF0YUhhbmRsZXJTZXJ2aWNlOiBFdERhdGFIYW5kbGVyU2VydmljZSxcbiAgICBwcml2YXRlIF9jaGFuZ2VEZXRlY3RvclJlZjogQ2hhbmdlRGV0ZWN0b3JSZWYsXG4gICkgeyB9XG5cbiAgbmdPbkluaXQoKSB7XG4gICAgdGhpcy5jcmVhdGVUYWJsZUZvcm0oKTtcbiAgICB0aGlzLnN1YnNjcmliZVRvU2VuZENvbHVtbk5hbWVSZWNvcmQoKTtcbiAgICB0aGlzLnN1YnNjcmliZVRvVmFsaWRhdGVUYWJsZSgpO1xuICAgIHRoaXMuYXNzaWduTWFya0FzVG91Y2hlZEZuVG9Db250cm9sKHRoaXMuY29udHJvbCk7XG4gICAgLy8gdGhpcy5zZXRRdW90YXRpb25MaXN0VG9UYWJsZSgpO1xuICB9XG4gIG5nT25DaGFuZ2VzKGNoYW5nZXM6IFNpbXBsZUNoYW5nZXMpOiB2b2lkIHtcbiAgICBpZiAoISFjaGFuZ2VzLnBhdGNoVmFsdWUgJiYgISFjaGFuZ2VzLnBhdGNoVmFsdWUuY3VycmVudFZhbHVlKSB7XG4gICAgICB0aGlzLl9wYXRjaFZhbHVlID0gY2hhbmdlcy5wYXRjaFZhbHVlLmN1cnJlbnRWYWx1ZTtcbiAgICAgIHRoaXMucGF0Y2hWYWx1ZVRvVGFibGUodGhpcy5fcGF0Y2hWYWx1ZSk7XG4gICAgfVxuICAgIGlmICghIWNoYW5nZXMuY29udHJvbCAmJiAhIWNoYW5nZXMuY29udHJvbC5jdXJyZW50VmFsdWUpIHtcbiAgICAgIHRoaXMuYXNzaWduTWFya0FzVG91Y2hlZEZuVG9Db250cm9sKHRoaXMuY29udHJvbCk7XG4gICAgfVxuICB9XG4gIGFzc2lnbk1hcmtBc1RvdWNoZWRGblRvQ29udHJvbChjb250cm9sOiBBYnN0cmFjdENvbnRyb2wpIHtcbiAgICBpZiAoY29udHJvbCkge1xuICAgICAgY29udHJvbC5tYXJrQXNUb3VjaGVkID0gKCkgPT4ge1xuICAgICAgICB0aGlzLmVkaXRhYmxlVGFibGVGb3JtLm1hcmtBbGxBc1RvdWNoZWQoKTtcbiAgICAgIH07XG4gICAgfVxuICB9XG5cbiAgcHJpdmF0ZSBwYXRjaFZhbHVlVG9UYWJsZSh2KSB7XG4gICAgaWYgKCEhdiAmJiB2Lmxlbmd0aCA+IDApIHtcbiAgICAgIGlmICghdGhpcy5lZGl0YWJsZVRhYmxlRm9ybSkge1xuICAgICAgICB0aGlzLmNyZWF0ZVRhYmxlRm9ybSgpO1xuICAgICAgfVxuICAgICAgbGV0IGZvcm0gPSAodGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZSBhcyBGb3JtQXJyYXkpXG4gICAgICBsZXQgcm93SW5kZXg7XG4gICAgICB2LmZvckVhY2goZWxlID0+IHtcbiAgICAgICAgaWYgKGVsZS50YWJsZVJvd0lkKSB7XG4gICAgICAgICAgZm9yIChjb25zdCBrZXkgaW4gZm9ybS52YWx1ZSkge1xuICAgICAgICAgICAgaWYgKGZvcm0udmFsdWUuaGFzT3duUHJvcGVydHkoa2V5KSkge1xuICAgICAgICAgICAgICBjb25zdCB0YWJsZVJvdyA9IGZvcm0udmFsdWVba2V5XTtcbiAgICAgICAgICAgICAgaWYgKHRhYmxlUm93Wyd0YWJsZVJvd0lkJ10gPT09IGVsZS50YWJsZVJvd0lkKSB7XG4gICAgICAgICAgICAgICAgcm93SW5kZXggPSBrZXk7XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgICAgcm93SW5kZXggPSAoIXJvd0luZGV4ICYmIGVsZS5yb3dJbmRleCkgPyBlbGUucm93SW5kZXggOiByb3dJbmRleDtcbiAgICAgICAgcm93SW5kZXggPyBmb3JtLmNvbnRyb2xzW3Jvd0luZGV4XS5wYXRjaFZhbHVlKGVsZS5wYXRjaFZhbHVlKSA6IGNvbnNvbGUuZXJyb3IoJ3BhdGNoIHJvdyB1bmRlZmluZWQnKTtcbiAgICAgIH0pO1xuICAgIH1cbiAgfVxuICBwcml2YXRlIGNyZWF0ZVRhYmxlV2l0aERhdGEodGFibGVEYXRhKSB7XG4gICAgaWYgKCF0aGlzLmVkaXRhYmxlVGFibGVGb3JtKSB7XG4gICAgICByZXR1cm47XG4gICAgfVxuICAgIGNvbnN0IHRhYmxlID0gdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5nZXQoJ3RhYmxlJykgYXMgRm9ybUFycmF5O1xuICAgIGlmICh0YWJsZS5sZW5ndGggPiAxKSB7XG4gICAgICB0YWJsZS5jbGVhcigpO1xuICAgIH1cbiAgICB0YWJsZURhdGEuZm9yRWFjaCgoZWxlbWVudCwgaW5kZXgpID0+IHtcbiAgICAgIGlmIChpbmRleCA9PT0gMCAmJiB0YWJsZS5sZW5ndGggPiAwKSB7XG4gICAgICAgIHRoaXMucGF0Y2hWYWx1ZVRvVGFibGUoW3sgcm93SW5kZXg6ICcwJywgcGF0Y2hWYWx1ZTogZWxlbWVudCB9XSk7XG4gICAgICAgIHJldHVybjtcbiAgICAgIH1cbiAgICAgIHRoaXMuYWRkUm93KGVsZW1lbnQpO1xuICAgIH0pO1xuICB9XG4gIC8vIEBJbnB1dCgpIHByaXZhdGUgdGFibGVEYXRhO1xuICBwcml2YXRlIHN1YnNjcmliZVRvU2VuZENvbHVtbk5hbWVSZWNvcmQoKSB7XG4gICAgdGhpcy5ldERhdGFIYW5kbGVyU2VydmljZS5zZW5kQ29sdW1uTmFtZVJlY29yZCQuc3Vic2NyaWJlKChmb3JtQ29udHJvbE5hbWUpID0+IHtcbiAgICAgIGlmICh0aGlzLnZpZXdPbmx5KSB7XG4gICAgICAgIHJldHVybjtcbiAgICAgIH1cbiAgICAgIGxldCBmb3JtID0gKHRoaXMuZWRpdGFibGVUYWJsZUZvcm0uY29udHJvbHMudGFibGUgYXMgRm9ybUFycmF5KTtcbiAgICAgIGxldCBjb2x1bW5WYWx1ZXMgPSBbXTtcbiAgICAgIGNvbnN0IHRhYmxlUmVjb3JkID0gZm9ybS5nZXRSYXdWYWx1ZSgpO1xuICAgICAgaWYgKGZvcm1Db250cm9sTmFtZS50b0xvd2VyQ2FzZSgpID09PSAnYWxsJykge1xuICAgICAgICBsZXQgc29ydGVkQ29uZmlnTGlzdCA9IHRoaXMudGFibGVDb25maWcuZmlsdGVyKGNvbmZpZyA9PiBjb25maWcuaXNOZWVkVmFsdWVDaGFuZ2VzKTtcbiAgICAgICAgc29ydGVkQ29uZmlnTGlzdC5mb3JFYWNoKChjb25maWcpID0+IHtcbiAgICAgICAgICBjb2x1bW5WYWx1ZXMgPSB0aGlzLmNvbGxlY3RDb2x1bW5SZWNvcmQodGFibGVSZWNvcmQsIGNvbmZpZy5mb3JtQ29udHJvbE5hbWUpXG4gICAgICAgICAgdGhpcy5ldERhdGFIYW5kbGVyU2VydmljZS5lbWl0Q29sdW1uUmVjb3JkKGNvbHVtblZhbHVlcywgY29uZmlnLmZvcm1Db250cm9sTmFtZSk7XG4gICAgICAgIH0pO1xuICAgICAgICByZXR1cm47XG4gICAgICB9XG4gICAgICBjb2x1bW5WYWx1ZXMgPSB0aGlzLmNvbGxlY3RDb2x1bW5SZWNvcmQodGFibGVSZWNvcmQsIGZvcm1Db250cm9sTmFtZSlcbiAgICAgIHRoaXMuZXREYXRhSGFuZGxlclNlcnZpY2UuZW1pdENvbHVtblJlY29yZChjb2x1bW5WYWx1ZXMsIGZvcm1Db250cm9sTmFtZSk7XG4gICAgfSk7XG4gIH1cbiAgcHJpdmF0ZSBjb2xsZWN0Q29sdW1uUmVjb3JkKHRhYmxlUmVjb3JkOiBBcnJheTxvYmplY3Q+LCB0YWJsZVJvd0tleTogc3RyaW5nKSB7XG4gICAgbGV0IGNvbHVtblZhbHVlcyA9IFtdXG4gICAgZm9yIChjb25zdCBrZXkgaW4gdGFibGVSZWNvcmQpIHtcbiAgICAgIGlmICh0YWJsZVJlY29yZC5oYXNPd25Qcm9wZXJ0eShrZXkpKSB7XG4gICAgICAgIGNvbnN0IHRhYmxlUm93ID0gdGFibGVSZWNvcmRba2V5XTtcbiAgICAgICAgY29sdW1uVmFsdWVzLnB1c2godGFibGVSb3dbdGFibGVSb3dLZXldKVxuICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gY29sdW1uVmFsdWVzO1xuICB9XG4gIHByaXZhdGUgc3Vic2NyaWJlVG9WYWxpZGF0ZVRhYmxlKCkge1xuICAgIGNvbnN0IHZhbGlkYXRlU2JzY3JiID0gdGhpcy5ldERhdGFIYW5kbGVyU2VydmljZS52YWxpZGF0ZVRhYmxlKCkuc3Vic2NyaWJlKHN0YXR1cyA9PiB7XG4gICAgICBpZiAoc3RhdHVzKSB7XG4gICAgICAgIHRoaXMuZWRpdGFibGVUYWJsZUZvcm0ubWFya0FsbEFzVG91Y2hlZCgpO1xuICAgICAgICBpZiAodGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5zdGF0dXMgPT09ICdWQUxJRCcgfHwgdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5zdGF0dXMgPT09ICdESVNBQkxFRCcpIHtcbiAgICAgICAgICB0aGlzLmV0RGF0YUhhbmRsZXJTZXJ2aWNlLnNlbmRUYWJsZVJlY29yZCh7XG4gICAgICAgICAgICBkYXRhOiAodGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZSBhcyBGb3JtQXJyYXkpLmdldFJhd1ZhbHVlKCksXG4gICAgICAgICAgICB2YWxpZDogdHJ1ZVxuICAgICAgICAgIH0pO1xuICAgICAgICAgIHJldHVybjtcbiAgICAgICAgfVxuICAgICAgICB0aGlzLmV0RGF0YUhhbmRsZXJTZXJ2aWNlLnNlbmRUYWJsZVJlY29yZCh7XG4gICAgICAgICAgZGF0YTogW10sXG4gICAgICAgICAgdmFsaWQ6IGZhbHNlXG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgIH0pO1xuICAgIHRoaXMuc3Vic2NyaXB0aW9uLmFkZCh2YWxpZGF0ZVNic2NyYik7XG4gIH1cbiAgY3JlYXRlVGFibGVGb3JtKCkge1xuICAgIGlmICh0aGlzLmVkaXRhYmxlVGFibGVGb3JtKSB7XG4gICAgICByZXR1cm47XG4gICAgfVxuICAgIGlmICh0aGlzLmV0Rm9ybUFycmF5KSB7XG4gICAgICB0aGlzLmVkaXRhYmxlVGFibGVGb3JtID0gdGhpcy5mYi5ncm91cCh7XG4gICAgICAgIHRhYmxlOiB0aGlzLmV0Rm9ybUFycmF5XG4gICAgICB9KTtcbiAgICB9IGVsc2Uge1xuICAgICAgdGhpcy5lZGl0YWJsZVRhYmxlRm9ybSA9IHRoaXMuZmIuZ3JvdXAoe1xuICAgICAgICB0YWJsZTogdGhpcy5mYi5hcnJheShbXSlcbiAgICAgIH0pO1xuICAgIH1cbiAgICBpZiAoXG4gICAgICAhdGhpcy5oaWRlRGVmYXVsdFJvd1xuICAgICAgJiYgKHRoaXMuZWRpdGFibGVUYWJsZUZvcm0uY29udHJvbHMudGFibGUgYXMgRm9ybUFycmF5KS5sZW5ndGggPT09IDBcbiAgICAgICYmICh0aGlzLnRhYmxlQ29uZmlnLmxlbmd0aCA+IDAgfHwgdGhpcy5ldEZvcm1BcnJheS5sZW5ndGggPiAwKVxuICAgICkge1xuICAgICAgdGhpcy5hZGRSb3coKTtcbiAgICB9XG4gICAgdGhpcy50YWJsZVZhbHVlQ2hhbmdlcy5lbWl0KHRoaXMuZWRpdGFibGVUYWJsZUZvcm0udmFsdWVDaGFuZ2VzKTtcbiAgICBpZiAodGhpcy5fdGFibGVEYXRhKSB7XG4gICAgICB0aGlzLmNyZWF0ZVRhYmxlV2l0aERhdGEodGhpcy5fdGFibGVEYXRhKTtcbiAgICB9XG4gIH1cbiAgaW1wbGVtZW50c0RldGFpbHNSb3coZGF0YT86IG9iamVjdCkge1xuICAgIGNvbnN0IGZnID0gdGhpcy5mYi5ncm91cCh0aGlzLl9mb3JtR3JvdXBGb3JUYWJsZVJvdyk7XG4gICAgY29uc29sZS5sb2coJ3RoaXMuX2Zvcm1Hcm91cEZvclRhYmxlUm93OiAnLCB0aGlzLl9mb3JtR3JvdXBGb3JUYWJsZVJvdyk7XG5cbiAgICBpZiAoISFkYXRhICYmICF0aGlzLnZpZXdPbmx5KSB7XG4gICAgICBmZy5wYXRjaFZhbHVlKGRhdGEpO1xuICAgIH1cbiAgICBpZiAodGhpcy52aWV3T25seSkge1xuICAgICAgZmcuZGlzYWJsZSgpO1xuICAgICAgISFkYXRhID8gZmcucGF0Y2hWYWx1ZShkYXRhLCB7IG9ubHlTZWxmOiB0cnVlLCBlbWl0RXZlbnQ6IGZhbHNlIH0pIDogbnVsbDtcbiAgICB9XG4gICAgZmcuYWRkQ29udHJvbCgndGFibGVSb3dJZCcsIHRoaXMuZmIuY29udHJvbCh1dWlkLnY0KCkpKVxuICAgIGNvbnNvbGUubG9nKCdmZzogJywgZmcpO1xuICAgIHRoaXMudGFibGVDb25maWcuZm9yRWFjaCgoZWxlOiBUYWJsZUNvbmZpZykgPT4ge1xuICAgICAgLy8gZmcudmFsdWVDaGEgbmdlc1xuICAgICAgaWYgKGVsZS5pbnB1dEZpZWxkID09PSAnYXV0b2NvbXBsZXRlJyB8fCBlbGUuaXNOZWVkVmFsdWVDaGFuZ2VzKSB7XG4gICAgICAgIGZnLmNvbnRyb2xzW2VsZS5mb3JtQ29udHJvbE5hbWVdLnZhbHVlQ2hhbmdlcy5zdWJzY3JpYmUoc2VhcmNoVmFsdWUgPT4ge1xuICAgICAgICAgIHRoaXMuc2VhcmNoVmFsdWVDaGFuZ2VzLmVtaXQoeyBrZXk6IHNlYXJjaFZhbHVlLCBjb25maWc6IGVsZSwgdGFibGVSb3c6IGZnLmdldFJhd1ZhbHVlKCkgfSk7XG4gICAgICAgICAgdGhpcy5kaXJ0eUF1dG9jb21wbGV0ZUNvbHVtbiA9IHsgLi4uZWxlIH07XG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgIH0pO1xuICAgIHJldHVybiBmZztcbiAgfVxuICBwcml2YXRlIF9maWx0ZXIodmFsdWU6IHN0cmluZyB8IG9iamVjdCwgb3B0aW9uczogQXJyYXk8T2JqZWN0IHwgc3RyaW5nPiwga2V5KTogQXJyYXk8T2JqZWN0IHwgc3RyaW5nPiB7XG4gICAgbGV0IGZpbHRlclZhbHVlO1xuICAgIGlmICghIXZhbHVlIHx8IHZhbHVlID09PSBcIlwiKSB7XG4gICAgICByZXR1cm4gb3B0aW9ucztcbiAgICB9XG4gICAgaWYgKHR5cGVvZiB2YWx1ZSA9PT0gJ3N0cmluZycpIHtcbiAgICAgIGZpbHRlclZhbHVlID0gdmFsdWUudG9Mb3dlckNhc2UoKTtcbiAgICB9XG4gICAgaWYgKHR5cGVvZiB2YWx1ZSA9PT0gJ29iamVjdCcpIHtcbiAgICAgIGZpbHRlclZhbHVlID0gdmFsdWVba2V5XS50b0xvd2VyQ2FzZSgpO1xuICAgIH1cbiAgICByZXR1cm4gb3B0aW9ucy5maWx0ZXIob3B0aW9uID0+IG9wdGlvbltrZXldLnRvTG93ZXJDYXNlKCkuaW5kZXhPZihmaWx0ZXJWYWx1ZSkgPT09IDApO1xuICB9XG5cbiAgc3VibWl0RGF0YSgpIHtcbiAgfVxuICBhZGRSb3cocm93Pzogb2JqZWN0KSB7XG4gICAgaWYgKHRoaXMuZXRGb3JtQXJyYXkpIHtcbiAgICAgIHRoaXMuZWRpdGFibGVUYWJsZUZvcm0uY29udHJvbHMudGFibGUgPSB0aGlzLmV0Rm9ybUFycmF5O1xuICAgICAgcmV0dXJuO1xuICAgIH1cbiAgICBsZXQgaW1wbGVtZW50c0RldGFpbHMgPSB0aGlzLmVkaXRhYmxlVGFibGVGb3JtLmNvbnRyb2xzLnRhYmxlIGFzIEZvcm1BcnJheVxuICAgIGltcGxlbWVudHNEZXRhaWxzLm1hcmtBbGxBc1RvdWNoZWQoKTtcbiAgICBpZiAoaW1wbGVtZW50c0RldGFpbHMudmFsaWQpIHtcbiAgICAgIGltcGxlbWVudHNEZXRhaWxzLnB1c2godGhpcy5pbXBsZW1lbnRzRGV0YWlsc1Jvdyhyb3cpKTtcbiAgICB9XG4gIH1cbiAgcmVzZXRUYWJsZShyb3c/KSB7XG4gICAgbGV0IGltcGxlbWVudHNEZXRhaWxzID0gdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZSBhcyBGb3JtQXJyYXlcbiAgICBpbXBsZW1lbnRzRGV0YWlscy5jbGVhcigpO1xuICAgIGltcGxlbWVudHNEZXRhaWxzLnB1c2godGhpcy5pbXBsZW1lbnRzRGV0YWlsc1Jvdyhyb3cpKTtcbiAgfVxuICBkZWxldGVSb3coKSB7XG4gICAgbGV0IGltcGxlbWVudHNEZXRhaWxzID0gdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZSBhcyBGb3JtQXJyYXk7XG4gICAgbGV0IGRlbGV0ZVJlY29yZExpc3QgPSBbXTtcbiAgICBsZXQgbm9uU2VsZWN0ZWQgPSBpbXBsZW1lbnRzRGV0YWlscy5jb250cm9scy5maWx0ZXIoKG1hY2hpbmVyeTogRm9ybUdyb3VwKSA9PiB7XG4gICAgICBpZiAobWFjaGluZXJ5LnZhbHVlLmlzU2VsZWN0ZWQpIHtcbiAgICAgICAgZGVsZXRlUmVjb3JkTGlzdC5wdXNoKG1hY2hpbmVyeS5nZXRSYXdWYWx1ZSgpKTtcbiAgICAgIH1cbiAgICAgIHJldHVybiAhbWFjaGluZXJ5LnZhbHVlLmlzU2VsZWN0ZWRcbiAgICB9KTtcbiAgICB0aGlzLmRlbGV0ZWRUYWJsZVJlY29yZHMuZW1pdChkZWxldGVSZWNvcmRMaXN0KTtcbiAgICBpbXBsZW1lbnRzRGV0YWlscy5jbGVhcigpXG4gICAgbm9uU2VsZWN0ZWQuZm9yRWFjaChlbCA9PiBpbXBsZW1lbnRzRGV0YWlscy5wdXNoKGVsKSlcbiAgfVxuXG4gIHByaXZhdGUgZ2VuZXJhdGVBdXRvY29tcGxldGVEaXNwbGF5Rm4oY29uZmlnOiBUYWJsZUNvbmZpZykge1xuICAgIGNvbnN0IGtleSA9IGNvbmZpZy5wYXRjaEtleSB8fCBjb25maWcuZGlzcGxheUtleTtcbiAgICBjb25zdCBkaXNwbGF5V2l0aCA9ICh1c2VyKTogc3RyaW5nIHwgdW5kZWZpbmVkID0+IHtcbiAgICAgIHJldHVybiAodXNlciAmJiB0eXBlb2YgdXNlciA9PT0gJ29iamVjdCcpID8gdXNlcltrZXldIDogdXNlcjtcbiAgICB9XG4gICAgLy8gcmV0dXJuIG9mKGRpc3BsYXlXaXRoKTtcbiAgICB0aGlzLm1hdEF1dG9jb21wbGV0ZURpc3BsYXlGbi5uZXh0KGRpc3BsYXlXaXRoKTtcbiAgICB0aGlzLl9jaGFuZ2VEZXRlY3RvclJlZi5kZXRlY3RDaGFuZ2VzKCk7XG4gIH1cbiAgYXV0b2NvbXBsZXRlQ2xpY2tlZChjb25maWc6IFRhYmxlQ29uZmlnLCBmb3JtR3JvdXA6IEZvcm1BcnJheSkge1xuICAgIHRoaXMuZmlsdGVyZWRPcHRpb25zW2NvbmZpZy5mb3JtQ29udHJvbE5hbWVdID0gW107XG4gICAgdGhpcy5nZW5lcmF0ZUF1dG9jb21wbGV0ZURpc3BsYXlGbihjb25maWcpO1xuICAgIGlmIChmb3JtR3JvdXAuY29udHJvbHNbY29uZmlnLmZvcm1Db250cm9sTmFtZV0udmFsdWUpIHtcbiAgICAgIHRoaXMuc2VhcmNoVmFsdWVDaGFuZ2VzLmVtaXQoeyBrZXk6IGZvcm1Hcm91cC5jb250cm9sc1tjb25maWcuZm9ybUNvbnRyb2xOYW1lXS52YWx1ZSwgY29uZmlnOiBjb25maWcsIHRhYmxlUm93OiBmb3JtR3JvdXAuZ2V0UmF3VmFsdWUoKSB9KTtcbiAgICAgIHRoaXMuZGlydHlBdXRvY29tcGxldGVDb2x1bW4gPSB7IC4uLmNvbmZpZyB9O1xuICAgIH1cbiAgfVxuICB2YWx1ZVNlbGVjdGVkRnJvbUF1dG9jb21wbGV0ZShldmVudDogTWF0QXV0b2NvbXBsZXRlU2VsZWN0ZWRFdmVudCwgcm93SW5kZXgsIHJvd0Zvcm1Hcm91cDogRm9ybUdyb3VwLCBjb25maWc6IFRhYmxlQ29uZmlnKSB7XG4gICAgbGV0IG9wdGlvbiA9IChldmVudCAmJiB0eXBlb2YgZXZlbnQub3B0aW9uLnZhbHVlID09PSAnb2JqZWN0JykgPyB7IC4uLmV2ZW50Lm9wdGlvbi52YWx1ZSB9IDogZXZlbnQub3B0aW9uLnZhbHVlIHx8ICcnO1xuICAgIHRoaXMub3B0aW9uU2VsZWN0ZWQuZW1pdCh7IG9wdGlvbiwgLi4ueyByb3dJbmRleCwgdGFibGVSb3c6IHJvd0Zvcm1Hcm91cC5nZXRSYXdWYWx1ZSgpLCBjb25maWcgfSB9KTtcbiAgfVxuICBzZWxlY3Rpb25DaGFuZ2VkKGV2ZW50KSB7XG5cbiAgfVxuICBjb250ZW50ZWRpdGFibGVWYWx1ZWNoYW5nZSh2YWx1ZSwgcm93Rm9ybUdyb3VwOiBGb3JtR3JvdXAsIGZvcm1Db250cm9sTmFtZSkge1xuICAgIHJvd0Zvcm1Hcm91cC5jb250cm9sc1tmb3JtQ29udHJvbE5hbWVdLnBhdGNoVmFsdWUodmFsdWUpO1xuICB9XG4gIHByaXZhdGUgc2V0RXJyb3IodmU6IEVUVmFsaWRhdGlvbkVycm9yKSB7XG4gICAgY29uc3QgZm9ybUFycmF5ID0gKHRoaXMuZWRpdGFibGVUYWJsZUZvcm0uZ2V0KCd0YWJsZScpIGFzIEZvcm1BcnJheSk7XG4gICAgY29uc3QgZm9ybUluZGV4ID0gZm9ybUFycmF5LmdldFJhd1ZhbHVlKCkuZmluZEluZGV4KChmb3JtVmFsdWUpID0+IHtcbiAgICAgIGlmIChmb3JtVmFsdWUudGFibGVSb3dJZCA9PT0gdmUudGFibGVSb3dJZCkge1xuICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgIH1cbiAgICB9KTtcbiAgICBjb25zdCB0YWJsZVJvd0ZHID0gZm9ybUFycmF5LmF0KGZvcm1JbmRleCk7XG4gICAgaWYgKHRhYmxlUm93RkcpIHtcbiAgICAgIGlmICh2ZS5pc1JlbW92ZSkge1xuICAgICAgICB0YWJsZVJvd0ZHLmdldCh2ZS5mb3JtQ29udHJvbE5hbWUpLnNldEVycm9ycyhudWxsKTtcbiAgICAgICAgcmV0dXJuO1xuICAgICAgfVxuICAgICAgdGFibGVSb3dGRy5nZXQodmUuZm9ybUNvbnRyb2xOYW1lKS5zZXRFcnJvcnMoe1xuICAgICAgICBtc2c6IHZlLm1zZyxcbiAgICAgICAgLi4udmUudHlwZVxuICAgICAgfSk7XG4gICAgfVxuICB9XG5cbiAgLyogPT09PT09PT09PT09PT09PSAgTkdfVkFMVUVfQUNDRVNTT1IgJiYgTkdfVkFMSURBVE9SUyA9PT09PT09PT09PT09PT0qL1xuICBwdWJsaWMgb25Ub3VjaGVkOiAoKSA9PiB2b2lkID0gKCkgPT4ge1xuICAgIHRoaXMuZWRpdGFibGVUYWJsZUZvcm0ubWFya0FsbEFzVG91Y2hlZCgpO1xuICB9O1xuICB3cml0ZVZhbHVlKHZhbDogYW55KTogdm9pZCB7XG4gICAgaWYgKHZhbCAmJiB2YWwucmVzZXRGb3JtKSB7XG4gICAgICB0aGlzLmVkaXRhYmxlVGFibGVGb3JtLnJlc2V0KCk7XG4gICAgICB0aGlzLnJlc2V0VGFibGUoKTtcbiAgICAgIHJldHVybjtcbiAgICB9XG4gICAgdmFsICYmIHZhbC5sZW5ndGggPiAwICYmICh0aGlzLnRhYmxlRGF0YSA9IHZhbCk7XG4gIH1cbiAgcmVnaXN0ZXJPbkNoYW5nZShmbjogYW55KTogdm9pZCB7XG4gICAgZm4gJiYgdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZS52YWx1ZUNoYW5nZXMucGlwZShcbiAgICAgIG1hcCgodmFsdWUpID0+ICh0aGlzLmVkaXRhYmxlVGFibGVGb3JtLmNvbnRyb2xzLnRhYmxlIGFzIEZvcm1BcnJheSkuZ2V0UmF3VmFsdWUoKSlcbiAgICApLnN1YnNjcmliZShmbik7XG4gIH1cbiAgcmVnaXN0ZXJPblRvdWNoZWQoZm46IGFueSk6IHZvaWQge1xuICAgIGZuICYmICh0aGlzLm9uVG91Y2hlZCA9IGZuKTtcbiAgfVxuICBzZXREaXNhYmxlZFN0YXRlPyhpc0Rpc2FibGVkOiBib29sZWFuKTogdm9pZCB7XG4gICAgaXNEaXNhYmxlZCA/IHRoaXMuZWRpdGFibGVUYWJsZUZvcm0uY29udHJvbHMudGFibGUuZGlzYWJsZSgpIDogdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZS5lbmFibGUoKTtcbiAgICAvLyB0aHJvdyBuZXcgRXJyb3IoXCJNZXRob2Qgbm90IGltcGxlbWVudGVkLlwiKTtcbiAgfVxuICB2YWxpZGF0ZShjb250cm9sOiBBYnN0cmFjdENvbnRyb2wpOiBWYWxpZGF0aW9uRXJyb3JzIHtcbiAgICByZXR1cm4gdGhpcy5lZGl0YWJsZVRhYmxlRm9ybS5jb250cm9scy50YWJsZS52YWxpZCA/IG51bGwgOiB7IGludmFsaWRGb3JtOiB7IHZhbGlkOiBmYWxzZSwgbWVzc2FnZTogXCJlZGl0YWJsZVRhYmxlRm9ybSBmaWVsZHMgYXJlIGludmFsaWRcIiB9IH07XG4gIH1cbiAgLyogPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0gKi9cblxuICBuZ09uRGVzdHJveSgpOiB2b2lkIHtcbiAgICB0aGlzLnN1YnNjcmlwdGlvbi51bnN1YnNjcmliZSgpO1xuICB9XG59XG4iXX0=

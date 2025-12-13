@@ -1,0 +1,55 @@
+<div class="container-fluid mt-3 mb-3">
+        <div class="mt-2">
+            <div class="d-flex bd-highlight">
+                <div class="mr-auto pt-2 bd-highlight">
+                    <p class="font-weight-bold" style="color: #354052">
+                        Search Results
+                    </p>
+                </div>
+                <div class="pr-3 bd-highlight" >
+                    <label class="mr-2" style="font-size: 0.9rem;">Items Per Page</label>
+                    <mat-form-field [style.fontSize.px]="12" [style.width.px]="50">
+                        <mat-select [value]="selected">
+                            <mat-option *ngFor="let size of recordPerPageList" [value]="size">
+                                {{size}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="pt-2 bd-highlight">
+                    <a href="#">
+                        <u>Export to Excel</u>
+                    </a>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                    <table class="table table-bordered table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col" style="width: 100px;">Select</th>
+                          <th scope="col" style="width: 150px;">Bay Code</th>
+                          <th scope="col" style="width: 150px;">Bay Name</th>
+                          <th scope="col" style="width: 150px;">Effective From</th>
+                          <th scope="col" style="width: 150px;">Effective To</th>
+                          <th scope="col" style="width: 100px;">Active</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td> <mat-checkbox color="basic"></mat-checkbox></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><mat-checkbox color="basic"></mat-checkbox></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+      
+          <mat-paginator showFirstLastButtons hidePageSize [length]="50" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]">
+            </mat-paginator>
+        </div>
+      
+      </div>

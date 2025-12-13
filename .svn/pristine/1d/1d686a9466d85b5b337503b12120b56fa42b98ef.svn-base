@@ -1,0 +1,109 @@
+<div class="card-from mt-2">
+    <div class="card">
+        <div class="card-header">
+            <p class="mb-0">Call Attempt Details</p>
+        </div>
+        <div class="card-body">
+            <div [formGroup]="callAttemptForm" [style.fontSize.px]="11">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-select  placeholder="Response Type" formControlName="responseType" required>
+                                <mat-option *ngFor="let call of callResponseList" [value]="call"> 
+                                  {{call.lookupval}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="callAttemptForm.get('responseType').hasError('required')">
+                                <strong>Please select from List</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Call Attempt Date</mat-label>
+                            <input matInput placeholder="Call Attempt Date" [matDatepicker]="picker1" formControlName="callAttemptDate"   (click)="picker1.open()" [max]="today" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error *ngIf="callAttemptForm.get('callAttemptDate').hasError('required')">
+                                <strong>Please select Date</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Call Attempt Time</mat-label>
+                            <input type="time" matInput placeholder="Call Attempt Time" formControlName="callAttemptTime" matTooltip="Time in 24 hrs" required>
+                            <mat-error *ngIf="callAttemptForm.get('callAttemptTime').hasError('required')">
+                                <strong>Please select Time</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Additinal Comments</mat-label>
+                            <textarea matInput placeholder="Response Type" formControlName="additinalComments" required></textarea>
+                            <mat-error *ngIf="callAttemptForm.get('additinalComments').hasError('required')">
+                                <strong>Comments Required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    
+                </div>
+                <!-- <div class="row">
+                    
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Additinal Comments</mat-label>
+                            <textarea matInput placeholder="Response Type" formControlName="additinalComments" required></textarea>
+                            <mat-error *ngIf="callAttemptForm.get('additinalComments').hasError('required')">
+                                <strong>Comments Required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <div class="row">
+                        <div *ngIf="!isView" class="d-flex bd-highlight col-lg-6">
+                            <div class="w-50 flex-fill bd-highlight">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <label class="custom-file-label">Attach Recording <small style="color: #f44336">*</small></label>
+                                        <input type="file" (change)="uploadRecording($event)" class="custom-file-input"  formControlName="attachRecording">
+                                    </div>
+                                </div>
+                                <!-- <small *ngIf="callAttemptForm.get('attachRecording').hasError('callError')" style="color: #f44336"><strong>Field is Required</strong></small> -->
+                            </div>
+                        </div>
+                    <div class="col-lg-6" *ngIf="viewTable">
+                        <table class="table w-100 table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th></th>
+                                    <th>File Name</th>
+                                    <th>Recording </th>
+                                    <th *ngIf="isCreate || isEdit"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let file of files, let i= index">
+                                    <td style="vertical-align: middle;" >{{i+1}}</td>
+                                    <td *ngIf="isCreate" style="vertical-align: middle;" >{{file.file.name}}</td>
+                                    <td *ngIf="isView || isEdit"style="vertical-align: middle;" >{{file.file}}</td>
+                                    <td *ngIf="isCreate"><audio [src]="file.previewUrl"   height="10" controls></audio></td>
+                                    <!-- <td *ngIf="isView || isEdit"><audio src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"   height="10" controls></audio></td> -->
+                                    <td *ngIf="isView || isEdit"><audio height="10" controls>
+                                        <source src="{{file.previewUrl}}" /></audio>
+                                     </td>
+                                    <td *ngIf="isCreate || isEdit" style="vertical-align: middle;" ><mat-icon type="button" (click)="deleteAudio(file.id)">delete</mat-icon></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

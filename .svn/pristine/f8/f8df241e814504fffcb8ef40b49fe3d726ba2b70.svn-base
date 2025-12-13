@@ -1,0 +1,83 @@
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Free Service History </p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 10%;">Date</th>
+              <th scope="col">Type of Service </th>
+              <th scope="col">Hours </th>
+              <th *ngIf="isTelePhonic" scope="col">Job Card No. </th>
+              <th *ngIf="isTelePhonic" scope="col">PCR No. </th>
+              <th *ngIf="isTelePhonic" scope="col">WCR No.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let option of freeServiceHistorySurveyForm['controls']; let i = index;">
+              <td [textContent]="option.get('serviceDate').value">
+              </td>
+              <td [textContent]="option.get('serviceType').value">
+              </td>
+              <td [textContent]="option.get('totalHour').value">
+              </td>
+
+              <td *ngIf="isTelePhonic">
+                <p (click)="jcModal($event)" class="jobcardno">{{option.get('jobCardNo').value}}</p>
+              </td>
+              <td *ngIf="isTelePhonic">
+                  <p (click)="pcrModal($event)" class="jobcardno">{{option.get('pcrNo').value}}</p>
+              </td>
+              <td *ngIf="isTelePhonic">
+                <p (click)="wcrModal($event)" class="jobcardno">{{option.get('wcrNo').value}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="card-from mt-2">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">Survey History </p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive mt-1">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 10%;">Survey Code</th>
+              <th scope="col" style="width: 100px;">Date</th>
+              <th scope="col">Type of Survey </th>
+              <th scope="col">Done By </th>
+              <th scope="col">Satisfied </th>
+              <th *ngIf="isTelePhonic" scope="col">Additional Comments </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let option of surveyHistoryForm['controls']; let i = index;">
+              <td > <p (click)="surveyModal(option.get('surveyCode').value)" class="jobcardno">{{option.get('surveyCode').value}}</p> </td>
+              <td [textContent]="option.get('date').value"></td>
+              <td [textContent]="option.get('typeOfSurvey').value"></td>
+              <td [textContent]="option.get('doneBy').value"></td>
+              <td [textContent]="option.get('satisfied').value"></td>
+              <td [textContent]="option.get('additionalComment').value"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

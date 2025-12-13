@@ -1,0 +1,34 @@
+<div class="container-fluid mb-3 mt-4">
+    <div class="heading">
+        <p class="font-weight-bold">Branch Transfer Issue</p>
+      </div>
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Branch Transfer Issue</p>
+      </div>
+      <div class="card-body">
+<!-- 
+        <app-create-branch-trans-issue-container>
+      
+        </app-create-branch-trans-issue-container> -->
+        <app-create-branch-transfer-issue [branchTransferIssueForm]="branchTransferIssueForm"></app-create-branch-transfer-issue>
+        <app-branch-transfer-issue-item-details [itemForm]="itemForm"></app-branch-transfer-issue-item-details>
+      </div>
+  
+ 
+  <div class=" text-center mt-2 mb-2">
+      <button type="button" class="btn btn_primary pl-3 pr-3" (click)="validateForm('Save')"> Save
+      </button>
+      <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm('Submit')"> Submit
+      </button>
+      <button type="button"  class="btn btn_secondary pl-3 pr-3 ml-3 " disabled> View PDF
+      </button>
+      <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear
+      </button>
+      <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="exit()"> Exit
+      </button>
+    </div>
+</div>
+</div>
+</div>

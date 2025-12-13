@@ -1,0 +1,48 @@
+<div class="card-from">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p class="mb-0">{{title}} Organization Hierarchy</p>
+            <button class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">
+                Close
+            </button>
+        </div>
+
+        <div class="card-body">
+            <form>
+                <div [formGroup]="addHierarchyForm" [style.fontSize.px]="11">
+                    <div class="row">
+                        
+                        <div class="col-lg-2" *ngIf="parentHierArray.length>0">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Parent Organization</mat-label>
+                                <mat-select formControlName="parentOrgHierarchyId">
+                                    <mat-option *ngFor="let option of parentHierArray" [value]="option.org_hierarchy_id">
+                                        {{option.hierarchy_desc}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Code</mat-label>
+                                <input matInput placeholder="Code" required formControlName="hierarchyCode" (blur)="validateCode($event)">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Description</mat-label>
+                                <input matInput placeholder="Description" required formControlName="hierarchyDesc">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-checkbox formControlName="isactive">Is Active ?</mat-checkbox>
+                        </div>
+                        <div class="col-lg-2" style='padding-top: 2px'>
+                            <button type="button" class="btn btn_primary pl-3" (click)="validateAddForm()"> Submit </button>
+                        </div>
+                    </div>    
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

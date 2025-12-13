@@ -1,0 +1,430 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from mt-2">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">{{pageTitle}}</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="searchGroupForm">
+                  
+                    <div class="row">
+                        <div class="col-lg-2" *ngIf="key=='marketingClaimReport'">
+                            <mat-form-field class="w-100 pb_0" appearance="outline">
+                                <mat-label>From Activity Date</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="From Activity Date"  formControlName="fromDate"
+                                    [max]="newdate" (dateChange)="setToDate($event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2" *ngIf="key=='marketingClaimReport'">
+                            <mat-form-field class="w-100 pb_0" appearance="outline">
+                                <mat-label>To Activity Date</mat-label>
+                                <input matInput [matDatepicker]="picker1" placeholder="To Activity Date" formControlName="toDate"
+                                    [max]="maxDate" [min]="minDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2" *ngIf="key!='marketingClaimReport'">
+                            <mat-form-field class="w-100 pb_0" appearance="outline">
+                                <mat-label>Activity Date</mat-label>
+                                <input matInput [matDatepicker]="picker2" placeholder="Activity Date" formControlName="activityDate"
+                                    [max]="maxDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Activity Number</mat-label>
+                                <input matInput placeholder="Activity Number" formControlName="activityNumber"
+                                [matAutocomplete]="autoActivityNumber">
+                                <mat-autocomplete #autoActivityNumber="matAutocomplete" [panelWidth]="500" [displayWith]="displayActivityNumberFn">
+                                    <mat-option *ngFor="let option of activityNumberList" [value]="option">
+                                        {{option?.displayString}}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Activity Status</mat-label>
+                                <mat-select formControlName="activityStatus">
+                                    <mat-option *ngFor="let option of activityStatusList" [value]="option.statusName">
+                                        {{option?.statusName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>                
+                        </div>
+                        
+                        <div class="col-lg-2" *ngIf="key=='marketingClaimReport'">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Activity Claim Number</mat-label>
+                                <input matInput placeholder="Activity Claim Number" formControlName="activityClaimNumber"
+                                [matAutocomplete]="autoActivityClaimNumber">
+                                <mat-autocomplete #autoActivityClaimNumber="matAutocomplete" [panelWidth]="500" [displayWith]="displayClaimNumberFn">
+                                    <mat-option *ngFor="let option of claimNumberList" [value]="option">
+                                        {{option?.displayString}}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2" *ngIf="key=='marketingClaimReport'">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Activity Claim Status</mat-label>
+                                <mat-select formControlName="activityClaimStatus">
+                                    <mat-option *ngFor="let option of dropdownActivityClaimStatus" [value]="option.claimStatus">
+                                        {{option.claimStatus}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Product</mat-label>
+                                <mat-select formControlName="product"
+                                    (selectionChange)="selectProduct($event.value)">
+                                    <mat-option *ngFor="let option of products" [value]="option.product">
+                                        {{option?.product}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Series</mat-label>
+                                <mat-select formControlName="series"
+                                    (selectionChange)="selectSeries($event.value)">
+                                    <mat-option *ngFor="let option of seriesByProduct"
+                                        [value]="option.series">{{option?.series}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Model</mat-label>
+                                <mat-select formControlName="machineModel"
+                                    (selectionChange)="selectModel($event.value)">
+                                    <mat-option *ngFor="let option of modelBySeries"
+                                        [value]="option.model">
+                                        {{option?.model}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Sub Model</mat-label>
+                                <mat-select formControlName="subModel" 
+                                    (selectionChange)="selectSubModel($event.value)">
+                                    <mat-option *ngFor="let option of subModelByModel"
+                                        [value]="option.subModel">
+                                        {{option?.subModel}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Variant</mat-label>
+                                <mat-select formControlName="variant">
+                                    <mat-option *ngFor="let option of variants" [value]="option.variant">
+                                        {{option?.variant}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Branch</mat-label>
+                                <mat-select formControlName="branch">
+                                    <mat-option *ngFor="let option of branches" [value]="option.BRANCH_ID">
+                                        {{option?.branchcode}} - {{option?.BranchName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf='isKai'>
+                        <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Dealer Code</mat-label>
+                                <input matInput placeholder="Dealer Code/Dealer Name/Location" formControlName="dealerCode"
+                                    [matAutocomplete]="autoDealercode">
+                                <mat-autocomplete #autoDealercode="matAutocomplete" [panelWidth]="500" [displayWith]="displayDealerCodeFn">
+                                    <mat-option *ngFor="let option of dealercodeList?.result" [value]="option">
+                                        {{option?.displayString}}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+                                <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                                    <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                                        {{option.hierarchy_desc}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="mx-auto d-flex justify-content-between">
+                                
+                                <!-- mx-auto d-flex justify-content-between -->
+                            <div></div>
+                            <div>
+                                <button type="button" class="btn pr-3 mt-3 btn_primary" (click)="searchData()"> Search </button>
+                                <button type="button" class="btn px-3 mt-3 ml-2 btn_primary" (click)="clearForm()"> Clear </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
+<div class="container-fluid">
+    
+        <ng-container *ngIf="key=='activityClaimStatus'">
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+            [clickOnTableFields]="" 
+            (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [isExcelImport]="true" (exportToExcel)="marketingReport($event)">
+            
+                <td [ngsw-searchField]="state" [searchColumnName]="'state'" >
+                    <input class="w-100 borderRadius" #state>
+                </td>
+                <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" >
+                    <input class="w-100 borderRadius" #dealerCode>
+                </td>
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" >
+                    <input class="w-100 borderRadius" #dealerName>
+                </td>
+                <td [ngsw-searchField]="claimApproved" [searchColumnName]="'claimUploaded'" >
+                    <input class="w-100 borderRadius" #claimUploaded>
+                </td>
+                <td [ngsw-searchField]="claimApproved" [searchColumnName]="'claimApproved'" >
+                    <input class="w-100 borderRadius" #claimApproved>
+                </td>
+                <td [ngsw-searchField]="claimRejected" [searchColumnName]="'claimRejected'" >
+                    <input class="w-100 borderRadius" #claimRejected>
+                </td>
+                <td [ngsw-searchField]="pendingForApproval" [searchColumnName]="'pendingForApproval'" >
+                    <input class="w-100 borderRadius" #pendingForApproval>
+                </td>
+                <td [ngsw-searchField]="ageingLessThan30" [searchColumnName]="'ageingLessThan30'" >
+                    <input class="w-100 borderRadius" #ageingLessThan30>
+                </td>
+                <td [ngsw-searchField]="ageingLessThan31To45" [searchColumnName]="'ageingLessThan31To45'" >
+                    <input class="w-100 borderRadius" #ageingLessThan31To45>
+                </td>
+                <td [ngsw-searchField]="dhApproval" [searchColumnName]="'dhApproval'" >
+                    <input class="w-100 borderRadius" #dhApproval>
+                </td>
+                <td [ngsw-searchField]="completed" [searchColumnName]="'completed'" >
+                    <input class="w-100 borderRadius" #completed>
+                </td>
+                <td [ngsw-searchField]="pending" [searchColumnName]="'pending'" >
+                    <input class="w-100 borderRadius" #pending>
+                </td>
+            </ngsw-search-table>
+        </ng-container>
+        <ng-container *ngIf='key=="activityReportStatus"'>
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+            [clickOnTableFields]="" 
+            (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [isExcelImport]="true" (exportToExcel)="marketingReport($event)">
+            
+                <td [ngsw-searchField]="state" [searchColumnName]="'state'" >
+                    <input class="w-100 borderRadius" #state>
+                </td>
+                <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" >
+                    <input class="w-100 borderRadius" #dealerCode>
+                </td>
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" >
+                    <input class="w-100 borderRadius" #dealerName>
+                </td>
+                <td [ngsw-searchField]="approvedProposalTillDate" [searchColumnName]="'approvedProposalTillDate'" >
+                    <input class="w-100 borderRadius" #approvedProposalTillDate>
+                </td>
+                <td [ngsw-searchField]="reportUplodedTillDate" [searchColumnName]="'reportUplodedTillDate'" >
+                    <input class="w-100 borderRadius" #reportUplodedTillDate>
+                </td>
+                <td [ngsw-searchField]="reportPending" [searchColumnName]="'reportPending'" >
+                    <input class="w-100 borderRadius" #reportPending>
+                </td>
+                <td [ngsw-searchField]="contactReceived" [searchColumnName]="'contactReceived'" >
+                    <input class="w-100 borderRadius" #contactReceived>
+                </td>
+                <td [ngsw-searchField]="hpReceived" [searchColumnName]="'hpReceived'" >
+                    <input class="w-100 borderRadius" #hpReceived>
+                </td>
+                <td [ngsw-searchField]="bookingReceived" [searchColumnName]="'bookingReceived'" >
+                    <input class="w-100 borderRadius" #bookingReceived>
+                </td>
+                <td [ngsw-searchField]="retailDone" [searchColumnName]="'retailDone'" >
+                    <input class="w-100 borderRadius" #retailDone>
+                </td>
+                <td [ngsw-searchField]="deferred" [searchColumnName]="'deferred'" >
+                    <input class="w-100 borderRadius" #deferred>
+                </td>
+                <td [ngsw-searchField]="lost" [searchColumnName]="'lost'" >
+                    <input class="w-100 borderRadius" #lost>
+                </td>
+                <td [ngsw-searchField]="openContact" [searchColumnName]="'openContact'" >
+                    <input class="w-100 borderRadius" #openContact>
+                </td>
+                <td [ngsw-searchField]="openHp" [searchColumnName]="'openHp'" >
+                    <input class="w-100 borderRadius" #openHp>
+                </td>
+            </ngsw-search-table>
+        </ng-container>
+        <ng-container *ngIf='key=="activityProposalStatus"'>
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+            [clickOnTableFields]="" 
+            (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [isExcelImport]="true" (exportToExcel)="marketingReport($event)">
+            
+                <td [ngsw-searchField]="state" [searchColumnName]="'state'" >
+                    <input class="w-100 borderRadius" #state>
+                </td>
+                
+                <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" >
+                    <input class="w-100 borderRadius" #dealerCode>
+                </td>
+                
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" >
+                    <input class="w-100 borderRadius" #dealerName>
+                </td>
+                
+                <td [ngsw-searchField]="pendingProposalLastMonth" [searchColumnName]="'pendingProposalLastMonth'" >
+                    <input class="w-100 borderRadius" #pendingProposalLastMonth>
+                </td>
+                
+                <td [ngsw-searchField]="proposalReceived" [searchColumnName]="'proposalReceived'" >
+                    <input class="w-100 borderRadius" #proposalReceived>
+                </td>
+                
+                <td [ngsw-searchField]="proposalRejected" [searchColumnName]="'proposalRejected'" >
+                    <input class="w-100 borderRadius" #proposalRejected>
+                </td>
+                
+                <td [ngsw-searchField]="proposalHold" [searchColumnName]="'proposalHold'" >
+                    <input class="w-100 borderRadius" #proposalHold>
+                </td>
+                
+                <td [ngsw-searchField]="proposalApproved" [searchColumnName]="'proposalApproved'" >
+                    <input class="w-100 borderRadius" #proposalApproved>
+                </td>
+                
+                <td [ngsw-searchField]="pendingForApproval" [searchColumnName]="'pendingForApproval'" >
+                    <input class="w-100 borderRadius" #pendingForApproval>
+                </td>
+            </ngsw-search-table>
+        </ng-container>
+        <ng-container *ngIf='key=="marketingClaimReport"'>
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            [actionButtons]="actionButtons" [searchValue]="searchValue" [clearSearchRow]="clearSearchRow" 
+            [clickOnTableFields]="" 
+            (pageChange)="pageSizeChange($event)" [page]="page" [size]="size" [searchValue]="searchValue" [isExcelImport]="true" (exportToExcel)="marketingReport($event)">
+        
+                <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'">
+                    <input class="w-100 borderRadius" #dealerCode>
+                </td>
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                    <input class="w-100 borderRadius" #dealerName>
+                </td>
+                <td [ngsw-searchField]="dealerState" [searchColumnName]="'dealerState'">
+                    <input class="w-100 borderRadius" #dealerState>
+                </td>
+                <td [ngsw-searchField]="claimNumber" [searchColumnName]="'claimNumber'" >
+                    <input class="w-100 borderRadius" #claimNumber>
+                </td>
+                <td [ngsw-searchField]="claimStatus" [searchColumnName]="'claimStatus'" >
+                    <input class="w-100 borderRadius" #claimStatus>
+                </td>
+                <td [ngsw-searchField]="claimDate" [searchColumnName]="'claimDate'" >
+                    <input class="w-100 borderRadius" #claimDate>
+                </td>
+                <td [ngsw-searchField]="activityNumber" [searchColumnName]="'activityNumber'">
+                    <input class="w-100 borderRadius" #activityNumber>
+                </td>
+                <td [ngsw-searchField]="activityStatus" [searchColumnName]="'activityStatus'">
+                    <input class="w-100 borderRadius" #activityStatus>
+                </td>
+                <td [ngsw-searchField]="activityCreationDate" [searchColumnName]="'activityCreationDate'" >
+                    <input class="w-100 borderRadius" #activityCreationDate>
+                </td>
+                <td [ngsw-searchField]="activityType" [searchColumnName]="'activityType'">
+                    <input class="w-100 borderRadius" #activityType>
+                </td>
+                <td [ngsw-searchField]="noOfDays" [searchColumnName]="'noOfDays'">
+                    <input class="w-100 borderRadius" #noOfDays>
+                </td>
+                <td [ngsw-searchField]="fromActivityDate" [searchColumnName]="'fromActivityDate'">
+                    <input class="w-100 borderRadius" #fromActivityDate>
+                </td>
+                <td [ngsw-searchField]="toActivityDate" [searchColumnName]="'toActivityDate'">
+                    <input class="w-100 borderRadius" #toActivityDate>
+                </td>
+                <td [ngsw-searchField]="actualFromActivityDate" [searchColumnName]="'actualFromActivityDate'">
+                    <input class="w-100 borderRadius" #actualFromActivityDate>
+                </td>
+                <td [ngsw-searchField]="actualToActivityDate" [searchColumnName]="'actualToActivityDate'">
+                    <input class="w-100 borderRadius" #actualToActivityDate>
+                </td>
+                <td [ngsw-searchField]="location" [searchColumnName]="'location'">
+                    <input class="w-100 borderRadius" #location>
+                </td>
+                <td [ngsw-searchField]="hotEnquiries" [searchColumnName]="'hotEnquiries'">
+                    <input class="w-100 borderRadius" #hotEnquiries>
+                </td>
+                <td [ngsw-searchField]="warmEnquiries" [searchColumnName]="'warmEnquiries'">
+                    <input class="w-100 borderRadius" #warmEnquiries>
+                </td>
+                <td [ngsw-searchField]="coldEnquiries" [searchColumnName]="'coldEnquiries'">
+                    <input class="w-100 borderRadius" #coldEnquiries>
+                </td>
+                <td [ngsw-searchField]="costPerEnquiry" [searchColumnName]="'costPerEnquiry'">
+                    <input class="w-100 borderRadius" #costPerEnquiry>
+                </td>
+                <td [ngsw-searchField]="costPerHotEnquiry" [searchColumnName]="'costPerHotEnquiry'">
+                    <input class="w-100 borderRadius" #costPerHotEnquiry>
+                </td>
+                <td [ngsw-searchField]="totalBookings" [searchColumnName]="'totalBookings'">
+                    <input class="w-100 borderRadius" #totalBookings>
+                </td>
+                <td [ngsw-searchField]="costPerBooking" [searchColumnName]="'costPerBooking'">
+                    <input class="w-100 borderRadius" #costPerBooking>
+                </td>
+                <td [ngsw-searchField]="totalRetails" [searchColumnName]="'totalRetails'">
+                    <input class="w-100 borderRadius" #totalRetails>
+                </td>
+                <td [ngsw-searchField]="costPerRetail" [searchColumnName]="'costPerRetail'">
+                    <input class="w-100 borderRadius" #costPerRetail>
+                </td>
+                <td [ngsw-searchField]="activityEffectiveness" [searchColumnName]="'activityEffectiveness'">
+                    <input class="w-100 borderRadius" #activityEffectiveness>
+                </td>
+                <td [ngsw-searchField]="approvedAmount" [searchColumnName]="'approvedAmount'">
+                    <input class="w-100 borderRadius" #approvedAmount>
+                </td>
+                <td [ngsw-searchField]="actualClaimAmount" [searchColumnName]="'actualClaimAmount'">
+                    <input class="w-100 borderRadius" #actualClaimAmount>
+                </td>
+                <td [ngsw-searchField]="lastApprovedBy" [searchColumnName]="'lastApprovedBy'">
+                    <input class="w-100 borderRadius" #lastApprovedBy>
+                </td>
+            </ngsw-search-table>
+        </ng-container>
+</div>

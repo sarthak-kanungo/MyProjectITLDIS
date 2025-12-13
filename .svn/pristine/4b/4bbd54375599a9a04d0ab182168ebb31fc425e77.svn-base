@@ -1,0 +1,107 @@
+<div class="container-fluid mt-4">
+	<div class="container-fluid mb-3">
+        <div class="row">
+            <!-- <div class="col-lg-12"> -->
+            <div class="card-from w-100">
+            	<div class="card">
+                       <div class="card-header d-flex justify-content-between header">
+                            <p class="mb-0 label">Search Pick List Details</p>
+                               <div>
+                                <button [routerLink]="[ './create' ]"
+                                    class="font-weight-bold btn btn_header bg_white">
+                                    New
+                                </button>
+                               </div>
+                       </div>
+                       <div class="card-body">
+                        <form [formGroup]="plSearchResultForm">
+                            <div class="row">
+					            <div class="col-lg-12">
+					                <div class="card-from">
+                                        <app-picklist-search  [plSearchForm]="plSearchForm"></app-picklist-search>
+                                        <div class="text-center  mt-2 mb-2">
+                                            <button type="button" class="btn  btn_primary px-3"
+                                            (click)="searchData()" [insertQueryParams]="filterData"
+                                            (initialQueryParams)="initialQueryParams($event)">
+                                                Search
+                                            </button>
+                                            <button type="button" class="btn  btn_primary px-3 ml-2"
+                                            (click)="clearForm()">
+                                                Clear
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                       </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <!-- <ngsw-search-table ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" 
+            [totalElements]="totalSearchRecordCount" [page]="page" [size]="size" (actionOnTableRecord)="actionOnTableRecord($event)"
+            [clickOnTableFields]="[{ 'title': 'salesOrderNumber', 'isClickable': true },{ 'title': 'edit', 'isClickable': true }]"> -->
+            <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" 
+            [totalElements]="totalSearchRecordCount" [page]="page" [size]="size"
+            (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)"
+            [clickOnTableFields]="[{ 'title': 'picklistNumber', 'isClickable': true },{ 'title': 'edit', 'isClickable': true }]" [clearSearchRow]="clearSearchRow" >
+
+            <td></td>
+
+            <td [ngsw-searchField]="picklistNumber" [searchColumnName]="'picklistNumber'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #picklistNumber [(ngModel)] ="pickListNumberNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="picklistDate" [searchColumnName]="'picklistDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #picklistDate [(ngModel)] ="pickListDateNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="saleOrderNumber" [searchColumnName]="'saleOrderNumber'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #saleOrderNumber [(ngModel)] ="salesOrderNumberNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="saleOrderDate" [searchColumnName]="'saleOrderDate'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #saleOrderDate [(ngModel)] ="salesOrderDateNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="customerName" [searchColumnName]="'customerName'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #customerName [(ngModel)] ="customerNameNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="contactNumber" [searchColumnName]="'contactNumber'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #contactNumber [(ngModel)] ="mobileNumberNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #city [(ngModel)] ="cityNgModel">
+                </mat-form-field>
+            </td>
+
+            <td [ngsw-searchField]="picklistStatus" [searchColumnName]="'picklistStatus'">
+                <mat-form-field class="w-100 pb_0" appearance="outline" [style.fontSize.px]="10">
+                    <input matInput type="text" #picklistStatus [(ngModel)] ="pickListStatusNgModel">
+                </mat-form-field>
+            </td>
+            
+            
+
+                
+                
+            </ngsw-search-table>
+</div>
+
+

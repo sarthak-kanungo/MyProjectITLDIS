@@ -1,0 +1,20 @@
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+}
+.mat-radio-button{
+    font-weight: 400;
+    line-height: 1.125;
+    font-size: 10px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+.abcd mat-icon{
+vertical-align: middle;
+}
+
+.anchor{
+    cursor: pointer;
+    color: #fff;
+}
+.np .mat-form-field-wrapper{
+    padding: 0px!important;
+}

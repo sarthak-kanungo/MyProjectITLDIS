@@ -1,0 +1,59 @@
+<div class="card-body">
+    <div class="row" [formGroup]="reInstallationSearchForm" [style.fontSize.px]="11">
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Machine Series</mat-label>
+                <mat-select formControlName="series">
+                    <mat-option *ngFor="let series of machineseries" [value]="series.series">{{series.series}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Service Staff Name</mat-label>
+                <input matInput placeholder="Service Staff Name" formControlName="serviceStaffName"
+                    [matAutocomplete]="autoServiceStaffName">
+                <mat-autocomplete #autoServiceStaffName="matAutocomplete" [panelWidth]="500"
+                    >
+                    <mat-option *ngFor="let option of (serviceStaffNameList$ | async)" [value]="option.employeeName">
+                        {{option?.employeeName}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Re-Installation No.</mat-label>
+                <input matInput placeholder="Re-Installation No." formControlName="reInstallationNo"
+                    [matAutocomplete]="autoReinstallationNo">
+                <mat-autocomplete #autoReinstallationNo="matAutocomplete" [panelWidth]="500"
+                   >
+                    <mat-option *ngFor="let option of (reinstallationNumber$ | async)" [value]="option.reinstallationNumber">
+                        {{option?.reinstallationNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker"
+                    placeholder="Re-Installation Date From" formControlName="fromDate" readonly (click)="picker.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Re-Installation Date To" formControlName="toDate" 
+                readonly (click)="picker1.open()" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

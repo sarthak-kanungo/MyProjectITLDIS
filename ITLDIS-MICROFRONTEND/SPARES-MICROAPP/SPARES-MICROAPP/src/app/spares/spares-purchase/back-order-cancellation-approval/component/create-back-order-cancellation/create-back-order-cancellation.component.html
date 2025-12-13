@@ -1,0 +1,48 @@
+<div class="row" [formGroup]="backOrderCancellationForm">
+
+    <div class="col-lg-2" >
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Code</mat-label>
+            <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+            <!-- <mat-autocomplete #autoEmployeeCode="matAutocomplete" [displayWith]="displayCodeFn"
+                (optionSelected)="selectedDealer($event)" [panelWidth]="300">
+                <mat-option *ngFor="let option of dealerList" [value]="option">
+                    {{option.displayString}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="backOrderCancellationForm.get('dealerMaster').hasError('selectFromList')">Please select
+                from list</mat-error> -->
+        </mat-form-field>
+    </div>
+   
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Dealer Name </mat-label>
+            <input matInput placeholder="Dealer Name" formControlName="dealerName">
+
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Back Order Cancellation Number</mat-label>
+            <input matInput placeholder="Back Order Cancellation Numbe" formControlName="bocNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Requested Given By </mat-label>
+            <input matInput placeholder="Requested Given By" formControlName="reqGivenBy">
+
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile Number </mat-label>
+            <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
+        </mat-form-field>
+    </div>
+</div>

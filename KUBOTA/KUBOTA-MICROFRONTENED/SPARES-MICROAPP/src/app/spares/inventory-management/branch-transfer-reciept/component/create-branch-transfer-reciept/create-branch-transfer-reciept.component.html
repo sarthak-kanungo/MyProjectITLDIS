@@ -1,0 +1,60 @@
+<div class="row" [formGroup]="branchTransferRecieptForm">
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>BRANCH TRANSFER RECEIPT NO</mat-label>
+            <input matInput placeholder="Request No." formControlName="recieptNo">
+            <!-- <mat-select formControlName="requestFromBranch">
+               
+            </mat-select> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Issue No</mat-label>
+          <input type="text" matInput placeholder="Issue No" formControlName="transferIssue" [matAutocomplete]="autoIssueNo">
+          <mat-autocomplete #autoIssueNo="matAutocomplete" [displayWith]="displayFn" [panelWidth]="250"
+            (optionSelected)="issueNoSelected($event)">
+            <mat-option *ngFor="let option of recieptData" [value]="option">
+              {{option?.issueNo}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+         
+        </mat-form-field>
+      </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>ISSUING BRANCH</mat-label>
+            <input matInput formControlName="issueBranch" disabled>
+        </mat-form-field>
+    </div>
+    
+    
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>BRANCH TRANSFER RECEIPT DATE</mat-label>
+            <input readonly matInput [matDatepicker]="picker" placeholder="Branch Reciept Date"
+                (click)="picker.open()" formControlName="recieptDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>RECEIVING BRANCH </mat-label>
+            <input matInput formControlName="recieveBranch" >
+            
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>RECEIVED BY </mat-label>
+            <input matInput formControlName="receivedBy">
+        </mat-form-field>
+    </div>
+
+    
+
+</div>
+

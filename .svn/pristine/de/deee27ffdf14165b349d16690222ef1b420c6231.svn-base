@@ -1,0 +1,128 @@
+<div class="card-from mt-2">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Employment</p>
+      </div>
+      <div class="card-body">
+        <div [formGroup]="employmentForm" [style.fontSize.px]="11">
+          <div class="row">
+
+           
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Previous Exprience From Date</mat-label>
+                  <input matInput [matDatepicker]="picker1" placeholder="Previous Exprience From date" formControlName="preFromDate"
+                   (click)="picker1.open()"  [max]="today" (dateChange)="startDateClicked($event)">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+          </div>
+          
+          <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Previous Exprience To Date</mat-label>
+                  <input matInput [matDatepicker]="picker2" placeholder="Previous Exprience To Date" formControlName="preToDate"
+                   (click)="picker2.open()"  [max]="today" (dateChange)="endDateClicked($event)"  >
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="w-100">
+              <input matInput [matDatepicker]="picker3" placeholder="Joining Date" required formControlName="joiningDate" (dateChange)="joinDate($event)"  (dateChange)="endDateClicked($event)" [min]="employmentForm.get('preToDate').value" [max]="today">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                  <mat-label>Total Exprience (In Month)</mat-label>
+                  
+                  <input matInput placeholder="Total Exprience" formControlName="totalExperience">
+              </mat-form-field>
+          </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Latest Salary</mat-label>
+                <input matInput placeholder="Latest Salary" formControlName="latestSalary">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker4" placeholder="Leaving Date" formControlName="leavingDate" [min]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> PF No.</mat-label>
+                <input matInput placeholder="PF No." formControlName="pfNo">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> PAN No.</mat-label>
+                <input matInput placeholder="PAN No." formControlName="panNo">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Aadhar No.</mat-label>
+                <input matInput placeholder="Aadhar No." formControlName="aadharNo">
+              </mat-form-field>
+            </div> 
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> ESI No.</mat-label>
+                <input matInput placeholder="ESI No." formControlName="esiNo">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Bank Account No.</mat-label>
+                <input matInput placeholder="Bank Account No." formControlName="bankAccountNo">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Bank Name</mat-label>
+                <input matInput placeholder="Bank Name" formControlName="bankName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> Bank Branch</mat-label>
+                <input matInput placeholder="Bank Branch" formControlName="bankBranch">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label> IFSC Code</mat-label>
+                <input matInput placeholder="IFSC Code" formControlName="ifsCode">
+              </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2">
+              <div class="form-check" style="margin-top: 11px;">
+                  <div class="form-check mt-2">
+                      <mat-checkbox color="basic" formControlName="authorizedDiscount" style="font-size: 12px;margin-left: -20px;"  [labelPosition]="labelPosition">
+                        Authorized For Discount</mat-checkbox>
+                  </div>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

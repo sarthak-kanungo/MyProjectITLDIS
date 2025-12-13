@@ -1,0 +1,55 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Representatives Details</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="representativesDetailsTable">
+                <div formArrayName="representativesDetailsdataTable">
+                    <div class="table-responsive mt-1">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 10px">Sr.No.</th>
+                                    <th scope="col" class="text-left" style="width: 150px;">Representatives Name</th>
+                                    <th scope="col" style="width: 150px;">Representatives Type</th>
+                                    <th scope="col" style="width: 150px;">Chassis No.</th>
+                                    <!-- <th scope="col" style="width: 10px"></th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let detail of representativesDetailsTable.get('representativesDetailsdataTable')['controls'];index as i"
+                                    [formGroupName]="i">
+                                    <td>{{i + 1}}</td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Representatives Name"
+                                                [formControl]="detail.get('representativeName')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Representatives Type"
+                                                [formControl]="detail.get('representativeType')">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Chassis No."
+                                                [formControl]="detail.get('chassisNo')">
+                                        </mat-form-field>
+                                    </td>
+                                    <!-- <td>
+                                        <button class="btn btn-sm" (click)="deleteRepresentative()">
+                                            <mat-icon>clear</mat-icon>
+                                        </button></td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

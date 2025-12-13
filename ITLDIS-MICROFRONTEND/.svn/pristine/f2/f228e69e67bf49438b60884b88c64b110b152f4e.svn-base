@@ -1,0 +1,224 @@
+
+
+<div class="card-from mt-2">
+
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+          border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Part Details</p>
+        </div>
+        <!-- <mat-paginator   [pageSize]="pageSize" [length]="searchCount"
+        [pageSizeOptions]="[1,5, 10, 25,50,100]" [pageIndex]="pageIndex" (page)="handlePageChange($event)"
+        showFirstLastButtons>
+    </mat-paginator> -->
+
+        <!-- [length]="count" -->
+
+        <div class="card-body">
+            <div class="table-responsive" style="max-height: 350px; overflow: auto">
+                <table class="table table-bordered table-sm" style="white-space: nowrap; overflow-x: auto">
+                    <thead class="thead-light" style="
+    position: sticky;
+    top: 0;
+    background-color: #45afaf;
+    z-index: 1;
+">
+                        <tr>
+
+                            <th>Sr No</th>
+
+                            <th style="width: 100px">Item Number</th>
+                            <th style="width: 100px">Item Description</th>
+
+                            <th>Re-Order Qty</th>
+                            <th>Dealer Stock</th>
+                            <th>Kai Back Order</th>
+                            <th>Transit From Kai</th>
+                            <th>L12 Sales</th>
+                            <th>Suggestion Order Qty</th>
+                            <th>Actual Order Qty</th>
+                            <th>Order Value</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tableRowFg of partDetails?.controls; let i = index">
+                            <td align="center">
+                                {{i+1}}
+                            </td>
+                                <td>
+                                    {{tableRowFg.get("itemNo").value}} 
+                                </td>
+                                <td>
+                                    {{tableRowFg.get("itemDesc").value}} 
+                                </td>
+                                <td>
+                                    {{tableRowFg.get("reOrderQty").value}} 
+                                </td>
+
+                                <td>
+                                    {{tableRowFg.get("dealerStock").value}}
+                                </td>
+
+                                <td>
+                                    {{tableRowFg.get("kaiBackOrder").value}}
+                                </td>
+
+                                <td>
+                                    {{tableRowFg.get("transitFromKai").value}}
+                                </td>
+
+                                <td>
+                                    {{tableRowFg.get("l12mSales").value}}
+                                </td>
+                                <td>
+                                    {{tableRowFg.get("suggestedOrderQty").value}}
+                                </td>
+                                
+                                <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Actual Order Qty</mat-label>
+                                    <input matInput placeholder="Actual Order Qty"
+                                        (keyup)="calculatePrice($event)" autocomplete="off"
+                                        (keypress)="validateNumber($event)"
+                                        [formControl]="tableRowFg.get('actualOrderQty')">
+                                </mat-form-field>
+                            </td> -->
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Order Value</mat-label>
+                                    <input matInput placeholder="Order Value" (keypress)="validateNumber($event)"
+                                        [formControl]="tableRowFg.get('orderValue')">
+                                </mat-form-field>
+                            </td> -->
+                                
+                               
+                              
+
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Item Number</mat-label>
+                                    <input matInput placeholder="Item Number" [formControl]="tableRowFg.get('itemNo')">
+                                </mat-form-field>
+                            </td> -->
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Item Description</mat-label>
+                                    <input matInput placeholder="Item Description"
+                                        [formControl]="tableRowFg.get('itemDesc')">
+                                </mat-form-field>
+                            </td> -->
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Re-order Qty</mat-label>
+                                    <input matInput placeholder="Re-order Qty"
+                                        [formControl]="tableRowFg.get('reOrderQty')">
+                                </mat-form-field>
+                            </td> -->
+
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Dealer Stock</mat-label>
+                                    <input matInput placeholder="Dealer Stock"
+                                        [formControl]="tableRowFg.get('dealerStock')">
+                                </mat-form-field>
+                            </td> -->
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Kai Back Order</mat-label>
+                                    <input matInput placeholder="Kai Back Order"
+                                        [formControl]="tableRowFg.get('kaiBackOrder')">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Transit From Kai</mat-label>
+                                    <input matInput placeholder="Transit from Kai"
+                                        [formControl]="tableRowFg.get('transitFromKai')">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>L12 Sales</mat-label>
+                                    <input matInput placeholder="L12 Sales"
+                                        [formControl]="tableRowFg.get('l12mSales')">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Suggestion Order Qty</mat-label>
+                                    <input matInput placeholder="Suggestion Order Qty"
+                                        [formControl]="tableRowFg.get('suggestedOrderQty')">
+                                </mat-form-field>
+                            </td> -->
+
+                            <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Actual Order Qty</mat-label>
+                                    <input matInput placeholder="Actual Order Qty"
+                                        (keyup)="calculatePrice($event)" autocomplete="off"
+                                        (keypress)="validateNumber($event)"
+                                        [formControl]="$any(tableRowFg.get('actualOrderQty'))">
+                                </mat-form-field>
+                            </td>
+                            <td>{{tableRowFg.get("orderValue").value}}</td>
+                            <!-- <td>
+                                <mat-form-field appearance="outline" class="w-100" [style.fontSize.px]="10">
+                                    <mat-label>Order Value</mat-label>
+                                    <input matInput placeholder="Order Value" (keypress)="validateNumber($event)"
+                                    [formControl]="$any(tableRowFg.get('orderValue'))">
+                                </mat-form-field>
+                            </td> -->
+
+
+                        </tr>
+
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                            <td style="vertical-align: middle;">
+
+                            </td>
+                           
+                            <td style="text-align:left;">
+                                <b>Total Order Value</b>
+                            </td>
+                            <td style="text-align:middle;">
+                                <b>{{totalOrderValue?totalOrderValue:editTotalOrderValue}}</b>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

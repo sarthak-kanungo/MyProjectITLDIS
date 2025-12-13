@@ -1,0 +1,79 @@
+<div class="row" [formGroup]="branchTransferIndentForm">
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Request from Branch </mat-label>
+            <input matInput placeholder="Request No." formControlName="reqFromBranch">
+            <!-- <mat-select formControlName="requestFromBranch">
+               
+            </mat-select> -->
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Request No</mat-label>
+            <input matInput placeholder="Request No." formControlName="requestNumber">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <input matInput placeholder="Status" formControlName="status">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Request By </mat-label>
+            <input matInput placeholder="Request By." formControlName="reqBy">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Request To Branch </mat-label>
+            <mat-select formControlName="reqToBranch" (selectionChange)="selectionChange($event)">
+                <mat-option *ngFor="let branch of subBranchData" [value]="branch">
+                    {{branch.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-3" *ngIf="isEdit">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Request To Branch </mat-label>
+            <mat-select formControlName="reqToBranch"(selectionChange)="select($event)" >
+                <mat-option *ngFor="let branch of subBranchData"  [value]="branch.branchName">
+                    {{branch.branchName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-3" *ngIf="isView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Request To Branch </mat-label>
+            <input matInput placeholder="Request To Branch" formControlName="reqToBranch">
+           
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Indent Date</mat-label>
+            <input readonly matInput [matDatepicker]="picker" placeholder="Indent Date"
+                (click)="picker.open()" formControlName="requestDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remark </mat-label>
+            <textarea matInput formControlName="remarks"></textarea>
+        </mat-form-field>
+    </div>
+
+    
+
+</div>
+

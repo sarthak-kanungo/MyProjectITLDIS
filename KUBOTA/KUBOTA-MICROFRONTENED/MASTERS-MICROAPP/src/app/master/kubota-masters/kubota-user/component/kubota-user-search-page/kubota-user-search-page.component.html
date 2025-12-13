@@ -1,0 +1,58 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from mt-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between header">
+                            <p class="mb-0 label" style="padding: 2px;">Search Kubota User</p>
+                            <div>
+                                <button type="button" class="btn btn-xs ml-2 bg-white " [routerLink]="[ './create' ]">
+                                    <b class="btnName">New</b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form [formGroup]="searchKubotaUserForm">
+
+                            <app-search-kubota-user [kubotaUserForm]=kubotaUserForm (userSearchList) = "getDatatableResult($event)" 
+                            (userSearchCount) = "getSearchCount($event)"></app-search-kubota-user>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3" *ngIf="dataTable">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+            [totalElements]="totalTableRecords" (pageChange)="pageChange($event)" [searchValue]="searchValue"
+            [clickOnTableFields]="[{'title':'action','isClickable':true},{'title':'employeeCode','isClickable':true}]" 
+            (actionOnTableRecord)="actionOnTableRecord($event)">
+
+            <td [ngsw-searchField]="action" [searchColumnName]="'action'">
+                    <input class="w-100 borderRadius" type="text" #action [(ngModel)]="actionNg">
+            </td>			
+            <td [ngsw-searchField]="employeeCode" [searchColumnName]="'employeeCode'">
+                    <input class="w-100 borderRadius" type="text" #employeeCode [(ngModel)]="employeeCodeNg">
+            </td>
+            <td [ngsw-searchField]="employeeName" [searchColumnName]="'employeeName'">
+                    <input class="w-100 borderRadius" type="text" #employeeName [(ngModel)]="employeeNameNg">
+            </td>
+            <td [ngsw-searchField]="employeeStatus" [searchColumnName]="'employeeStatus'">
+                    <input class="w-100 borderRadius" type="text" #employeeStatus [(ngModel)]="employeeStatusNg">
+            </td>
+            <td [ngsw-searchField]="loginIdStatus" [searchColumnName]="'loginIdStatus'">
+                    <input class="w-100 borderRadius" type="text" #loginIdStatus [(ngModel)]="loginIdStatusNg">
+            </td>
+            
+        </ngsw-search-table>
+    </div>
+    <div *ngIf = "!dataTable">
+        <app-kubota-user-search-result></app-kubota-user-search-result>
+    </div>
+</div>

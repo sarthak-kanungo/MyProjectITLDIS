@@ -1,0 +1,311 @@
+<div class="card-body">
+    <form [style.fontSize.px]="10" [formGroup]="purchaseOrderCreate">
+        <div class="row">
+
+            <div class="col-lg-2" *ngIf="(isView || isEdit)">
+                <mat-form-field appearance="outline">
+                    <mat-label>PO No.</mat-label>
+                    <input matInput placeholder="PO No." formControlName="purchaseOrderNumber">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Supplier Type</mat-label>
+                    <mat-select formControlName="supplierType" required  (selectionChange)="clearItemDetailFormAndAddOneRow($event)">
+                        <mat-option *ngFor="let supplierType of supplierTypeList" [value]="supplierType.supplierType">
+                            {{supplierType.supplierType}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="purchaseOrderCreate.get('supplierType').hasError('required')">
+                        Supplier type is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- Order Planning Sheet Implemented By Ankit -->
+           
+            <div class="col-lg-2" *ngIf="showOrderPlanningDetails">
+                <mat-form-field appearance="outline">
+                    <mat-label>Order Planning Sheet No</mat-label>
+                    <input matInput placeholder="Order Planning Sheet No" formControlName="orderPlanningNo"
+                        [matAutocomplete]="orderNo">
+                    <mat-autocomplete #orderNo="matAutocomplete" [panelWidth]="200"
+                        [displayWith]="displayOrderPlanningNo" (optionSelected)="selectOrderPlanningNo($event)">
+                        <mat-option *ngFor="let option of opAutoSearchList | async" [value]="option">
+                            {{option.opsNo}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                  
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Order Type</mat-label>
+                    <!-- (selectionChange)="orderTypeChange($event)" -->
+                    <mat-select formControlName="orderType" required [compareWith]="compareOrderTypeFn" (selectionChange)="clearItemDetailFormAndAddOneRow($event)">
+                        <mat-option *ngFor="let orderType of orderTypeList" [value]="orderType">
+                            {{orderType.orderType}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="purchaseOrderCreate.get('orderType').hasError('required')">
+                        Order type is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="(isOtherPo || isOilAndLubricantPo)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Supplier Name</mat-label>
+                    <input matInput placeholder="Supplier Name" formControlName="supplierName"
+                        [matAutocomplete]="supplierName" required>
+                    <mat-autocomplete #supplierName="matAutocomplete" [displayWith]="displaySupplierNameFn"
+                        [panelWidth]="500" (optionSelected)="setGSTOnSupplierChange($event)">
+                        <mat-option *ngFor="let option of supplierNameList | async" [value]="option">
+                            {{option['supplierName']}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="purchaseOrderCreate.get('supplierName').hasError('required')">
+                        Supplier name is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2" *ngIf="(isMonthlyPo || isEmergencyPo)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Order Planning No.</mat-label>
+                    <input matInput placeholder="Order Planning No." formControlName="orderPlanningNo"
+                        [matAutocomplete]="orderPlanning">
+                    <mat-autocomplete #orderPlanning="matAutocomplete" [displayWith]="displayPlanningNumberFn"
+                        [panelWidth]="500">
+                        <mat-option *ngFor="let option of orderPlanningList | async"
+                            [value]="option.purchaseOrderNumber">
+                            {{option['purchaseOrderNumber']}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="purchaseOrderCreate.get('orderPlanningNo').hasError('required')">
+                        Order Planning No is required.
+                    </mat-error>
+                </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Job Card No.</mat-label>
+                    <input matInput placeholder="Job Card No." formControlName="serviceJobCard"
+                        [matAutocomplete]="poNumberAuto" (change)="jobCardNumberValue($event.target.value)">
+                    <mat-autocomplete #poNumberAuto="matAutocomplete" [displayWith]="displayJobCardNumberFn"
+                        [panelWidth]="400" (optionSelected)="jobCardNumberSelected($event)">
+                        <mat-option *ngFor="let option of jobCardNoAutoList | async" [value]="option">
+                            {{option.jobcardNo}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="purchaseOrderCreate.get('serviceJobCard').hasError('required')">
+                        Job card no. is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2" *ngIf="isMachineDownPo"> -->
+                <div class="col-lg-2" *ngIf="!kaiMonthlyOrder">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Mode of Transport</mat-label>
+                    <mat-select formControlName="transportMode">
+                        <mat-option *ngFor="let modeOfTransport of modeOfTransportList"
+                            [value]="modeOfTransport.modeOfTransfer">
+                            {{modeOfTransport.modeOfTransfer}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="purchaseOrderCreate.get('transportMode').hasError('required')">
+                        Mode of transport is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- <div class="col-lg-2" *ngIf="isMachineDownPo"> -->
+                <div class="col-lg-2"  *ngIf="!kaiMonthlyOrder">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Transporter</mat-label>
+                    <mat-select formControlName="transporter">
+                        <mat-option *ngFor="let transporter of transporterList" [value]="transporter.transporter">
+                            {{transporter.transporter}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="purchaseOrderCreate.get('transporter').hasError('required')">
+                        Transporter is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isCoDealerPo || isCoDealerOilPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer Code</mat-label>
+                    <input matInput placeholder="Dealer Code" formControlName="coDealerMaster"
+                        [matAutocomplete]="dealerCode">
+                    <mat-autocomplete #dealerCode="matAutocomplete" [panelWidth]="400"
+                        [displayWith]="displayDealerCodeFn" (optionSelected)="dealerCodeSelected($event)">
+                        <mat-option *ngFor="let option of dealerCodeAutoList | async" [value]="option">
+                            {{option.displayName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="purchaseOrderCreate.get('coDealerMaster').hasError('required')">
+                        Dealer code is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isCoDealerPo || isCoDealerOilPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Co-Dealer Name</mat-label>
+                    <input matInput placeholder="CO-DEALER " formControlName="coDealerName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="(isCoDealerPo || isOtherPo || isOilAndLubricantPo)">
+                <mat-form-field appearance="outline">
+                    <mat-label>GST No.</mat-label>
+                    <input matInput placeholder="GST No." formControlName="gstNumber">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isCoDealerPo">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Price Type</mat-label>
+                    <mat-select formControlName="priceType">
+                        <mat-option *ngFor="let priceType of priceTypeList" [value]="priceType.priceType">
+                            {{priceType.priceType}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="purchaseOrderCreate.get('priceType').hasError('required')">
+                        Price Type is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Model</mat-label>
+                    <input matInput placeholder="Model" formControlName="model">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo && itemDetailsDataFromJobCard?.serviceCategory==='Pre Sales'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mobile No.</mat-label>
+                    <input matInput placeholder="Mobile No." formControlName="mobileNumber">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hours </mat-label>
+                    <input matInput placeholder="Hours " formControlName="totalHour">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Chassis No.</mat-label>
+                    <input matInput placeholder="Chassis No." formControlName="chassisNumber">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo && itemDetailsDataFromJobCard?.serviceCategory==='Pre Sales'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Customer Name </mat-label>
+                    <input matInput placeholder="Customer Name " formControlName="customerName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isMachineDownPo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Engine No. </mat-label>
+                    <input matInput placeholder="Engine No. " formControlName="engineNumber">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Freight Borne By </mat-label>
+                    <input matInput placeholder="Freight Borne By " formControlName="freightBorneBy" required>
+                    <mat-error *ngIf="purchaseOrderCreate.get('freightBorneBy').hasError('required')">
+                        Freight borne by is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput placeholder="Remarks" formControlName="remarks">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline">
+                    <mat-label>PO Status</mat-label>
+                    <input matInput placeholder="PO Status" formControlName="purchaseOrderStatus">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>PO Date</mat-label>
+                    <input matInput placeholder="PO Date" formControlName="purchaseOrderDate">
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker> -->
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline">
+                    <mat-label>Created By</mat-label>
+                    <input matInput placeholder="Created By" formControlName="createdBy">
+                </mat-form-field>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="card-from mt-2" *ngIf="isKaiSupplier">
+        <div class="card" style="border: 1px solid #45afaf;">
+            <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+                <p class="mb-0" style="font-size: 13px;">KAI Outstanding(O/S)Status</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="p-2" *ngFor="let tableHeading of kaiStatusHeading">
+                                    {{tableHeading}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let outstanding of dealerOutstanding |async">
+                                <td>{{outstanding.creditLimit}}</td>
+                                <td>{{outstanding.currentOutStanding}}</td>
+                                <td>{{outstanding.paymentUnderProcess}}</td>
+                                <td>{{outstanding.availableLimit}}</td>
+                                <td>{{outstanding.overDuesOutStanding}}</td>
+                                <td>{{outstanding.orderUnderProcess}}</td>
+                                <td>{{outstanding.netPayableAmount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

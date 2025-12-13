@@ -1,0 +1,14 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: public-api.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/*
+ * Public API Surface of editable-table
+ */
+export { EtDataHandlerService } from './lib/et-data-handler.service';
+export { EtFormHandlerService } from './lib/et-form-handler.service';
+export { EditableTableComponent } from './lib/editable-table.component';
+export { EditableTableModule } from './lib/editable-table.module';
+export { ETValidationError } from './lib/editable-table-config';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2VkaXRhYmxlLXRhYmxlLyIsInNvdXJjZXMiOlsicHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUlBLHFDQUFjLCtCQUErQixDQUFDO0FBQzlDLHFDQUFjLCtCQUErQixDQUFDO0FBQzlDLHVDQUFjLGdDQUFnQyxDQUFDO0FBQy9DLG9DQUFjLDZCQUE2QixDQUFDO0FBQzVDLGtDQUFjLDZCQUE2QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBlZGl0YWJsZS10YWJsZVxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vbGliL2V0LWRhdGEtaGFuZGxlci5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2V0LWZvcm0taGFuZGxlci5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2VkaXRhYmxlLXRhYmxlLmNvbXBvbmVudCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9lZGl0YWJsZS10YWJsZS5tb2R1bGUnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvZWRpdGFibGUtdGFibGUtY29uZmlnJztcblxuIl19

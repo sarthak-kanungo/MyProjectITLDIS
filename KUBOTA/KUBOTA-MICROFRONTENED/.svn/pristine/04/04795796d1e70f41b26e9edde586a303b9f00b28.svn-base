@@ -1,0 +1,44 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Warranty Claim Request</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <app-warrenty-claim-request [wcrForm]="wcrForm"></app-warrenty-claim-request >
+          <app-warrenty-claim-request-implement *ngIf="implementForm && implementForm.length > 0" [implementForm]="implementForm"></app-warrenty-claim-request-implement>
+          <app-warrenty-claim-request-service-history *ngIf="serviceHistoryForm && serviceHistoryForm.length > 0" [serviceHistoryForm]="serviceHistoryForm"></app-warrenty-claim-request-service-history>
+          <app-warrenty-claim-request-concern [concernForm]="concernForm"></app-warrenty-claim-request-concern>
+          
+          <app-warrenty-claim-request-failure-parts *ngIf="failurePartsForm && failurePartsForm.length > 0" [failurePartsForm]="failurePartsForm"></app-warrenty-claim-request-failure-parts>
+          <app-labour-charges *ngIf="labourChargeForm && labourChargeForm.length > 0" [labourChargeForm]="labourChargeForm"></app-labour-charges>
+          <app-outside-labour-charges *ngIf="outsideChargesForm && outsideChargesForm.length > 0" [outsideChargesForm]="outsideChargesForm"></app-outside-labour-charges>
+          
+          <div *ngIf="(isView || isApprove)">
+              <app-approval-details [approvalHierDetails]="approvalHierDetails"></app-approval-details>
+          </div>
+	           
+          <!-- <app-warrenty-claim-request-remarks [remarkForm]="remarkForm"></app-warrenty-claim-request-remarks> -->
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;">
+            <button *ngIf="!isView" (click)="formValid('submit')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView" (click)="viewPrint('true')"> Print
+            </button>
+            <button *ngIf="isShowInspectionBtn" (click)="navigateToInspectionSheet()" type="button" class="btn btn_primary pl-3 pr-3 ml-3"> KAI Inspection Sheet
+            </button>
+            
+              <button *ngIf="isCreateDealerPaidInvoice" type="button" class="btn btn_primary px-3 ml-3" (click)="routeToInvoice('Dealer Paid')">Create Dealer Paid Invoice</button>
+              <button *ngIf="isCreateKaiInvoice" type="button" class="btn btn_primary px-3 ml-3" (click)="routeToInvoice('KAI')">Create KAI Invoice</button>
+            
+              <button *ngIf="viewName == 'approve'" (click)="formValid('Approve')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Approve
+              </button>
+              <button *ngIf="viewName == 'approve'" (click)="formValid('Reject')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Reject
+              </button>
+              
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

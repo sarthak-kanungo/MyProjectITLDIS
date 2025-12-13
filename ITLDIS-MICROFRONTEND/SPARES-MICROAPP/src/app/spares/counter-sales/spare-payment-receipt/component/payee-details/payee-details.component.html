@@ -1,0 +1,108 @@
+<div class="card-body">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Payee Details</p>
+        </div>
+
+        <div class="card-body">
+            <form [formGroup]="payeeDetailsForm" [style.fontSize.px]="10">
+                <div class="row">
+
+                    <!-- <div class="col-lg-2">
+                        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+                            <mat-label>Payee Code</mat-label>
+                            <input matInput placeholder="Payee Code" [matAutocomplete]="autoPayee"
+                                formControlName="payeeCode" required>
+                            <mat-autocomplete #autoPayee="matAutocomplete" [displayWith]="displayAutocompleteValueFn"
+                                [panelWidth]="500">
+                                <mat-option *ngFor="let option of payeeCodeList |async" [value]="option">
+                                    {{option.value}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="payeeDetailsForm.get('payeeCode').hasError('required')">
+                                This field is required</mat-error>
+                        </mat-form-field>
+                    </div> -->
+
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{chagedLabel?chagedLabel:'Customer'}} Name</mat-label>
+                            <input matInput placeholder="{{chagedLabel?chagedLabel:'Customer'}} Name" formControlName="customerName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 1 </mat-label>
+                            <input matInput placeholder="Address 1" formControlName="customerAddress1">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address 2 </mat-label>
+                            <input matInput placeholder="Address 2 " formControlName="customerAddress2">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City/Village </mat-label>
+                            <input matInput placeholder=" City/Village" formControlName="village">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Post Office </mat-label>
+                            <input matInput placeholder=" Post Office" formControlName="postOffice">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tehsil </mat-label>
+                            <input matInput placeholder="Tehsil" formControlName="tehsil">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>District </mat-label>
+                            <input matInput placeholder="District" formControlName="district">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State </mat-label>
+                            <input matInput placeholder=" State" formControlName="state">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country </mat-label>
+                            <input matInput placeholder=" Country" formControlName="country">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pin Code </mat-label>
+                            <input matInput placeholder=" Pin Code" formControlName="pinCode">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contact No. </mat-label>
+                            <input matInput placeholder=" Contact No." formControlName="contactNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-8">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Remarks </mat-label>
+                            <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

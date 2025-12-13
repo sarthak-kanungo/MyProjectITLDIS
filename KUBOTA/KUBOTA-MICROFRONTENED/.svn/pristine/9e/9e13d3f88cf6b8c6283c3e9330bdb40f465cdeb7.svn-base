@@ -1,0 +1,389 @@
+<div class="card-body">
+  <form [formGroup]="paymentReceiptForm" [style.fontSize.px]="10">
+    <div class="row">
+
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field appearance="outline">
+          <mat-label>Receipt No.</mat-label>
+          <input matInput placeholder="Receipt No." formControlName="receiptNo">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Enquiry No.</mat-label>
+          <input matInput placeholder="Enquiry No." formControlName="enquiry" [matAutocomplete]="autoEnquiryCode"
+            required>
+          <mat-autocomplete #autoEnquiryCode="matAutocomplete" [displayWith]="displayEnquiryNumberFn"
+            (optionSelected)="enquiryNumberSelected($event)" [panelWidth]="500">
+            <mat-option *ngFor="let option of searchEnquiryCode?.result" [value]="option">
+              {{option?.value}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-error *ngIf="paymentReceiptForm.get('enquiry').hasError('required')">Enquiry number is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2 ">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Receipt Type</mat-label>
+          <mat-select formControlName="receiptType" required>
+            <mat-option *ngFor="let receipt of dropdownPaymentReceiptType?.result" [value]="receipt?.receiptType"
+              (click)="selectionReceiptType(receipt)">
+              {{receipt?.receiptType}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="paymentReceiptForm.get('receiptType').hasError('required')">Receipt type required
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Receipt Date</mat-label>
+          <input matInput [matDatepicker]="receiptDate" placeholder="Receipt Date" formControlName="receiptDate">
+          <mat-datepicker-toggle matSuffix [for]="receiptDate"></mat-datepicker-toggle>
+          <mat-datepicker #receiptDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2 ">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Receipt Mode</mat-label>
+          <mat-select required formControlName="receiptMode" (selectionChange)="paymentModeSelected($event.value)">
+            <mat-option *ngFor="let mode of dropdownReceiptModeType?.result" [value]="mode?.receiptMode">
+              {{mode?.receiptMode}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="paymentReceiptForm.get('receiptMode').hasError('required')">Receipt mode is required
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Receipt Amount </mat-label>
+          <input matInput placeholder=" Receipt Amount" required formControlName="receiptAmount">
+          <mat-error *ngIf="paymentReceiptForm.get('receiptAmount').hasError('required')">Receipt amount is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Enquiry Status </mat-label>
+          <input matInput placeholder="Enquiry Status" formControlName="enquiryStatus">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enquiry Date</mat-label>
+          <input matInput [matDatepicker]="enquiryDate" placeholder="Enquiry Date" formControlName="enquiryDate">
+          <mat-datepicker-toggle matSuffix [for]="enquiryDate"></mat-datepicker-toggle>
+          <mat-datepicker #enquiryDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Name </mat-label>
+          <input matInput placeholder=" Customer Name" formControlName="customerName">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile No. </mat-label>
+          <input matInput placeholder=" Mobile No." formControlName="mobileNumber">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Variant </mat-label>
+          <input matInput placeholder=" Variant" formControlName="variant">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Address 1 </mat-label>
+          <input matInput placeholder="Address 1 " formControlName="address1">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Pincode </mat-label>
+          <input matInput placeholder=" Pincode" formControlName="pinCode">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Post Office </mat-label>
+          <input matInput placeholder=" Post Office" formControlName="postOffice">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Village/City </mat-label>
+          <input matInput placeholder=" Village/City" formControlName="city">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Taluka/Tehsil/Mandal </mat-label>
+          <input matInput placeholder=" Taluka/Tehsil/Mandal" formControlName="tehsil">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>District </mat-label>
+          <input matInput placeholder=" District" formControlName="district">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>State </mat-label>
+          <input matInput placeholder=" State" formControlName="state">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Balance </mat-label>
+          <input matInput placeholder="Customer Balance" formControlName="customerBalance">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Remarks </mat-label>
+          <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="showCheque">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+            border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Details</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Cheque/DD No. </mat-label>
+                <input matInput placeholder=" Cheque/DD No." formControlName="chequeDdNo" required>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <mat-label>Cheque/DD Date </mat-label>
+                <input matInput [matDatepicker]="chequeDate" placeholder="Cheque/DD Date" formControlName="chequeDdDate"
+                  required readonly (click)="chequeDate.open()">
+                <mat-datepicker-toggle matSuffix [for]="chequeDate"></mat-datepicker-toggle>
+                <mat-datepicker #chequeDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2 ">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cheque/DD Bank</mat-label>
+                <mat-select formControlName="chequeDdBank" required>
+                  <mat-option *ngFor="let cbank of dropDownCheckDdBankType?.result" [value]="cbank?.chequeDdBank">
+                    {{cbank?.chequeDdBank}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="showRtgs">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Details</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Transaction No. </mat-label>
+                <input matInput placeholder="Transaction No." formControlName="transactionNo" required>
+                <mat-error *ngIf="paymentReceiptForm.get('transactionNo').hasError('required')">Transaction no. is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <mat-label>Transaction Date</mat-label>
+                <input matInput [matDatepicker]="transactionDate" placeholder="Transaction Date"
+                  formControlName="transactionDate" required readonly (click)="transactionDate.open()"
+                  [max]="todaysDate">
+                <mat-datepicker-toggle matSuffix [for]="transactionDate"></mat-datepicker-toggle>
+                <mat-datepicker #transactionDate></mat-datepicker>
+                <mat-error *ngIf="paymentReceiptForm.get('transactionDate').hasError('required')">Transaction date is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2 ">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Bank</mat-label>
+                <mat-select formControlName="chequeDdBank" required>
+                  <mat-option *ngFor="let banks of dropdownBankType?.result" [value]="banks?.bank">{{banks?.bank}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="paymentReceiptForm.get('chequeDdBank').hasError('required')">Bank is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="showCredit">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Details</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Transaction No. </mat-label>
+                <input matInput placeholder=" Transaction No." formControlName="transactionNo" required>
+                <mat-error *ngIf="paymentReceiptForm.get('transactionNo').hasError('required')">Transaction no. is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <mat-label>Transaction Date</mat-label>
+                <input matInput [matDatepicker]="transactionDateCredit" placeholder="Transaction Date"
+                  formControlName="transactionDate" required readonly (click)="transactionDateCredit.open()"
+                  [max]="todaysDate">
+                <mat-datepicker-toggle matSuffix [for]="transactionDateCredit"></mat-datepicker-toggle>
+                <mat-datepicker #transactionDateCredit></mat-datepicker>
+                <mat-error *ngIf="paymentReceiptForm.get('transactionDate').hasError('required')">Transaction date is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Card No. </mat-label>
+                <input matInput placeholder=" Card No." formControlName="cardNo" required>
+                <mat-error *ngIf="paymentReceiptForm.get('cardNo').hasError('required')">Card no. is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2 ">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Card Type</mat-label>
+                <mat-select formControlName="cardType" required>
+                  <mat-option *ngFor="let cardType of dropdownCardType?.result" [value]="cardType?.cardType">
+                    {{cardType?.cardType}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="paymentReceiptForm.get('cardType').hasError('required')">Card type is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Card Name </mat-label>
+                <input matInput placeholder="Card Name" formControlName="cardName" required>
+                <mat-error *ngIf="paymentReceiptForm.get('cardName').hasError('required')">Card name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-from mt-2" *ngIf="showWallet">
+      <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+                  border: 1px solid #45afaf;">
+          <p class="mb-0" style="font-size: 13px;">Details</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Transaction No. </mat-label>
+                <input matInput placeholder=" Transaction No." formControlName="transactionNo" required>
+                <mat-error *ngIf="paymentReceiptForm.get('transactionNo').hasError('required')">Transaction no. is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <mat-label>Transaction Date</mat-label>
+                <input matInput [matDatepicker]="transactionDateEWallet" placeholder="Transaction Date"
+                  formControlName="transactionDate" required readonly (click)="transactionDateEWallet.open()"
+                  [max]="todaysDate">
+                <mat-datepicker-toggle matSuffix [for]="transactionDateEWallet"></mat-datepicker-toggle>
+                <mat-datepicker #transactionDateEWallet></mat-datepicker>
+                <mat-error *ngIf="paymentReceiptForm.get('transactionDate').hasError('required')">Transaction date is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Service Provider</mat-label>
+                <input matInput placeholder="Service Provider" formControlName="serviceProvides" required>
+                <mat-error *ngIf="paymentReceiptForm.get('serviceProvides').hasError('required')">service provider is
+                  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class=" text-center   mt-3 mb-2 ">
+      <button type="button" class="btn btn_primary pl-3 pr-3" *ngIf="!isView" (click)="validateForm()" [disabled]="isSubmitDisable"> Submit
+      </button>
+      <!-- <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3 " *ngIf="!isView" disabled> View PDF
+      </button> -->
+      <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView"  (click)="viewPrint('true')"> Print </button>
+      <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" *ngIf="!isView" (click)="clearForm()"> Clear
+      </button>
+      <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" [routerLink]="[isView?'../../':'../']"> Exit
+      </button>
+    </div>
+  </form>
+</div>

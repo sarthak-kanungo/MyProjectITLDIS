@@ -1,0 +1,43 @@
+mat-option {
+  color: black !important;
+}
+
+table {
+  width: 100%;
+  color: black;
+}
+
+th {
+  font-weight: bold
+}
+
+th,
+td {
+  font-size: 12px;
+}
+
+td {
+  color: black
+}
+
+table.table-sm th {
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+  padding-right: .3rem;
+}
+
+// .data2 {
+//   width: 125px;
+// }
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: gray;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #00a8a9 !important;
+}
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}

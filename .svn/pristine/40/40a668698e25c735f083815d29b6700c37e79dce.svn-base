@@ -1,0 +1,70 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Service History Search</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="searchForm">
+                    <div class='row'>
+                        <div class="col-lg-2">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Chassis No.</mat-label>
+                                <input matInput placeholder="Chassis No." formControlName="chassisNo" >
+                            </mat-form-field>
+                        </div> 
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn_primary px-3" style='margin-top:5px' (click)="searchMachineServiceHistory()">
+                                Search
+                            </button>   
+                            <button type="button" class="btn btn_primary px-3 ml-2" style='margin-top:5px' (click)="onClickClear()">
+                                Clear
+                            </button>
+                        </div>   
+                    </div>
+                </form>
+                <div class="mt-2">
+                    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+                        [searchValue]="searchValue" (pageChange)="pageChange($event)"
+                        [clearSearchRow]="clearSearchRow" >
+                        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'">
+                            <input class="w-100 borderRadius" #dealerName>
+                        </td>
+                        <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'">
+                            <input class="w-100 borderRadius" #jobCardNo>
+                        </td>
+                        <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'">
+                            <input class="w-100 borderRadius" #jobCardDate>
+                        </td>
+                        <td [ngsw-searchField]="machineInDate" [searchColumnName]="'machineInDate'">
+                            <input class="w-100 borderRadius" #machineInDate>
+                        </td>
+                        <td [ngsw-searchField]="status" [searchColumnName]="'status'">
+                            <input class="w-100 borderRadius" #status>
+                        </td>
+                        <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'">
+                            <input class="w-100 borderRadius" #chassisNo>
+                        </td>
+                        <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'">
+                            <input class="w-100 borderRadius" #engineNo>
+                        </td>
+                        <td [ngsw-searchField]="model" [searchColumnName]="'model'">
+                            <input class="w-100 borderRadius" #model>
+                        </td>
+                        <td [ngsw-searchField]="category" [searchColumnName]="'category'">
+                            <input class="w-100 borderRadius" #category>
+                        </td>
+                        <td [ngsw-searchField]="serviceType" [searchColumnName]="'serviceType'">
+                            <input class="w-100 borderRadius" #serviceType>
+                        </td>
+                        <td [ngsw-searchField]="currentHours" [searchColumnName]="'currentHours'">
+                            <input class="w-100 borderRadius" #currentHours>
+                        </td>
+                        <td [ngsw-searchField]="pcrNo" [searchColumnName]="'pcrNo'">
+                            <input class="w-100 borderRadius" #pcrNo>
+                        </td>
+                    </ngsw-search-table>
+            </div>
+        </div>
+    </div>
+</div>                    

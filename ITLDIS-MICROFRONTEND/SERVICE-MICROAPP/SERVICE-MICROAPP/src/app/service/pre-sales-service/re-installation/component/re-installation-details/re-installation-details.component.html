@@ -1,0 +1,48 @@
+<div class="row" [formGroup]="reInstallationDetailsForm" [style.fontSize.px]="11">
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Machine Series</mat-label>
+            <mat-select formControlName="series" (selectionChange)="selectionMachineSeries($event)"
+                [compareWith]="compareFn">
+                <mat-option *ngFor="let option of machineseries" [value]="option">{{option.series}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Service Staff Name</mat-label>
+            <input matInput placeholder="Service Staff Name" formControlName="serviceStaffName"
+                [matAutocomplete]="autoServiceStaffName" required (keydown)="onKeyDownServiceStaffName($event)">
+            <mat-autocomplete #autoServiceStaffName="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedServiceStaffName($event)" [displayWith]="displayFnServiceStaffName">
+                <mat-option *ngFor="let option of (serviceStaffNameList$ | async)" [value]="option">
+                    {{option?.employeeName}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="reInstallationDetailsForm.get('serviceStaffName').hasError('required')">
+                Service Staff Name is Required</mat-error>
+            <mat-error *ngIf="reInstallationDetailsForm.get('serviceStaffName').hasError('selectFromList')">
+                Please select from list</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isView || isEdit">
+        <mat-form-field appearance="outline">
+            <mat-label>Re-Installation No.</mat-label>
+            <input matInput placeholder="Re-Installation No." formControlName="reinstallationNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Re-Installation Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Re-Installation Date"
+                formControlName="reinstallationDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>

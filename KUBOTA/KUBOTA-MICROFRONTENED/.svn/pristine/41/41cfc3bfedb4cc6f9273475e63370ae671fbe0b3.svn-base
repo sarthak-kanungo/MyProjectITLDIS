@@ -1,0 +1,38 @@
+export enum ChildAppPort {
+  MAIN = 9000,
+  SALE_PRESALE = 9001,
+  SERVICE = 9002,
+  SPARE = 9003,
+  WARRANTY = 9004,
+  MASTER = 9005,
+  DASHBOARD = 9006,
+  CRM_TRAINING = 9008,
+  TRAINING = 9007
+
+}
+export enum ChildAppStartRoute {
+  WARRANTY = 'warranty',
+  DASHBOARD = 'dashboard',
+  SPARE = 'spares',
+  SERVICE = 'service',
+  SALE_PRESALE = 'sales-pre-sales',
+  MAIN = '',
+  MASTER='master',
+  CRM_TRAINING = 'crm-training',
+  TRAINING ='training'
+
+}
+export const environment = {
+  production: false,
+  version: 'v1.2.2-SNAPSHOT-110320201500',
+  //domain:'http://180.179.248.142:',
+  domain:'http://localhost:',
+  api: 'api',
+
+  baseUrl: 'http://localhost:8383',   //Development - SSR PORT 9000
+  // baseUrl: 'http://180.179.248.142:8383/kubota', ssrPort: 7000  //UAT - SSR PORT 7000
+  //  baseUrl: 'http://180.179.248.142:9595/kubota', ssrPort: 9000  //live - SSR PORT 9000
+  
+};
+
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

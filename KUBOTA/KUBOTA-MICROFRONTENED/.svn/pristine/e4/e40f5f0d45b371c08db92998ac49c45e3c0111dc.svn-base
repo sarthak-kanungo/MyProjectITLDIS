@@ -1,0 +1,54 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Product Concern Report</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <app-pcr [isShowReason]="isShowReason" *ngIf="pcrForm" [pcrForm]="pcrForm" [isKai]="isKai" [btnName]="btnName"></app-pcr>
+          <app-implements *ngIf="implementForm && implementFormLength" [implementForm]="implementForm"></app-implements>
+          <app-service-history *ngIf="serviceHistoryForm && serviceHistoryForm.length > 0" [serviceHistoryForm]="serviceHistoryForm"></app-service-history>
+          <app-pcr-concern [concernForm]="pcrForm"></app-pcr-concern>
+          <app-failure-parts *ngIf="failurePartForm && failurePartForm.length > 0" [failurePartForm]="failurePartForm" [machineMasterId]="machineMasterId"></app-failure-parts>
+          <app-labour-charges [labourChargeForm]="labourChargeForm"></app-labour-charges>
+          <app-outside-labour-charges [outsideLabourForm]="outsideChargeForm" [pcrForm]="pcrForm" (allowVideoUplodEvent)="allowVideoUplodEvent($event)"></app-outside-labour-charges>
+          <app-file-upload *ngIf="isWarrantyPhoto" [warrantyPcrVideos]="warrantyPcrVideos"></app-file-upload>
+          <!-- [warrantyPcrPhotos]="warrantyPcrPhotos" -->
+          <div *ngIf="(isView || isApprove)">
+              <app-approval-details [approvalHierDetails]="approvalHierDetails" [isApprove]="isApprove"></app-approval-details>
+          </div>
+          <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;" >
+            <!-- <button type="button" class="btn btn_primary px-3" (click)="formValid('save')"> Save
+            </button> -->
+            <button *ngIf="operation == 'jobCard'" type="button" class="btn btn_primary px-3 ml-3" (click)="formValid('submit')" [disabled]="isSubmitDisable"> Submit
+            </button>
+            <button *ngIf="operation == 'edit'" type="button" class="btn btn_primary px-3 ml-3" (click)="formValid('update')" [disabled]="isSubmitDisable"> Update PCR
+            </button>
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" *ngIf="isView" (click)="viewPrint('true')"> Print
+            </button>
+            <button type="button" class="btn btn_primary px-3 ml-3"  *ngIf="showGoToJc" (click)="viewPcrClick()"> Go To JobCard </button>
+            <button *ngIf="viewName == 'approve' && approveAllow" (click)="formValid('approve')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Approve
+            </button>
+            <button *ngIf="viewName == 'approve' && holdAllow" (click)="formValid('hold')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Hold
+            </button>
+            <button *ngIf="viewName == 'approve' && rejectAllow" (click)="formValid('reject')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Reject
+            </button>
+            <button *ngIf="showWcrBtn" (click)="navigateToWcr()" type="button" class="btn btn_primary px-3 ml-3"> Create WCR
+            </button>
+            <button *ngIf="viewWcr" (click)="navigateTViewoWcr()" type="button" class="btn btn_primary px-3 ml-3"> View WCR
+            </button>
+            <button *ngIf="showServiceGoodwillBtn && operation == 'view'" (click)="navigateToGoodwill('service')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Enable Service GoodWill
+            </button>
+            <button *ngIf="showSaleGoodwillBtn && operation == 'view'" (click)="navigateToGoodwill('sales')" type="button" class="btn btn_primary px-3 ml-3" [disabled]="isSubmitDisable"> Enable Sales GoodWill
+            </button>
+           
+            
+            <!-- <button type="button" (click)="back()" class="btn btn_secondary pl-3 pr-3 ml-3"> Back
+            </button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

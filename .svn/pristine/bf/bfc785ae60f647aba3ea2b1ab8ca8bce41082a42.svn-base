@@ -1,0 +1,96 @@
+<div class="card-body" [formGroup]="pdiDetailsSearchForm" [style.fontSize.px]="11">
+
+    <div class="row">
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No.</mat-label>
+                <input matInput placeholder="Chassis No." formControlName="chassisNo" [matAutocomplete]="autoChassisNo">
+                <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500"
+                    [displayWith]="displayFnChassisNo">
+                    <mat-option *ngFor="let option of kaiChassisNoList " [value]="option ">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Invoice No.</mat-label>
+                <input matInput placeholder="Invoice No." formControlName="kaiInvoiceNo"
+                    [matAutocomplete]="autoInvoiceNo">
+                <mat-autocomplete #autoInvoiceNo="matAutocomplete" [panelWidth]="500"
+                    [displayWith]="displayFnInvoiceNo">
+                    <mat-option *ngFor="let option of invoiceNoList " [value]="option ">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>DMS GRN No.</mat-label>
+                <input matInput placeholder="DMS GRN  No." formControlName="dmsgrnNo" [matAutocomplete]="autoGrnNo">
+                <mat-autocomplete #autoGrnNo="matAutocomplete" [panelWidth]="500" [displayWith]="displayFnGrnNo">
+                    <mat-option *ngFor="let option of dmsgrnNoList " [value]="option ">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="DMS GRN From Date"
+                    formControlName="dmsgrnFromDate" (click)="picker2.open()" [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker2">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker3" placeholder="DMS GRN To Date" (click)="picker3.open()"
+                    formControlName="dmsgrnToDate" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker3">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="PDI Date From" (click)="picker.open()"
+                    formControlName="pdiDateFrom" [max]="newdate" (dateChange)="setToDate1($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="PDI Date To" (click)="picker1.open()"
+                    formControlName="pdiDateTo" [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                    {{option.hierarchy_desc}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="container-fluid mt-4 ">
+    <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between header">
+                                <p class="mb-0">Search Re-Installation</p>
+                                <div>
+                                    <button type="button" class="btn btn-xs ml-2 bg-white "
+                                        [routerLink]="[ './create' ]">
+                                        <b class="btnName">New</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <app-re-installation-search [reInstallationSearchForm]=reInstallationSearchForm>
+                        </app-re-installation-search>
+
+                        <div class="text-center  mt-2 mb-2">
+                            <button type="button" class="btn  btn_primary px-3"
+                                (click)="onClickSearchInstallationDetails()" [insertQueryParams]="filterData"
+                                (initialQueryParams)="initialQueryParams($event)" (onUrlChange)="onUrlChange($event)">
+                                Search
+                            </button>
+                            <button type="button" class="btn  btn_secondary px-3 ml-2"
+                                (click)="onClickClearInstallationDetails()">
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+            (actionOnTableRecord)="actionOnTableRecord($event)" [actionButtons]="actionButtons"
+            [searchValue]="searchValue" (pageChange)="pageChange($event)"
+            [clickOnTableFields]="[{ 'title': 'reInstallationNumber', 'isClickable': true }, { 'title': 'edit', 'isClickable': true }]" [clearSearchRow]="clearSearchRow">
+
+            <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+
+                <input class="w-100 borderRadius" #edit [(ngModel)] ="editNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="machineSeries" [searchColumnName]="'machineSeries'">
+
+                <input class="w-100 borderRadius" #machineSeries [(ngModel)] ="machineSeriesNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="serviceStaffName" [searchColumnName]="'serviceStaffName'">
+
+                <input class="w-100 borderRadius" #serviceStaffName [(ngModel)] ="serviceStaffNameNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+            <td [ngsw-searchField]="reInstallationNumber" [searchColumnName]="'reInstallationNumber'">
+
+                <input class="w-100 borderRadius" #reInstallationNumber [(ngModel)] ="reInstallationNumberNgModel" [ngModelOptions]="{standalone: true}">
+
+            </td>
+
+            <td [ngsw-searchField]="reInstallationDate" [searchColumnName]="'reInstallationDate'"
+                class="reInstallationDate">
+                <input class="w-100 borderRadius" type="date" #reInstallationDate [(ngModel)] ="reInstallationDateNgModel" [ngModelOptions]="{standalone: true}">
+                    <!-- (change)="etSearchDateValueChange(reInstallationDate.value,'reInstallationDate')" -->
+            </td>
+
+        </ngsw-search-table>
+    </div>
+
+</div>

@@ -1,0 +1,30 @@
+.btn_primary {
+  border: 1px solid transparent !important;
+  color: #ffffff !important;
+  background-color: #028383 !important;
+}
+.btn_secondary {
+  border: 1px solid #6295b6 !important;
+  color: #028383 !important;
+}
+mat-option{
+  color: black !important;
+}
+
+input[type=checkbox]{
+  cursor: pointer;
+}
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #00a8a9;
+  
+}
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #00a8a9;
+}
+
+.red{
+  color : red;
+}
+.black{
+  color : black;
+}

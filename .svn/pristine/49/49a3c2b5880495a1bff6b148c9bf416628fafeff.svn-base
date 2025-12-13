@@ -1,0 +1,118 @@
+<div class="container-fluid mt-4 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <p class="mb-0"> Search Role</p>
+                        <button [routerLink]="[ './create' ]" class="font-weight-bold btn btn_header bg_white">
+                            New
+                        </button>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="roleForm" [style.fontSize.px]="10">
+                            <div class="row">
+                                <!-- <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Role Code</mat-label>
+                                        <input matInput placeholder="Role Code" formControlName="roleCode">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div> -->
+
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Role Code</mat-label>
+                                        <input matInput placeholder="Role Code" formControlName="roleCode"
+                                            [matAutocomplete]="autoRoleCode">
+                                        <mat-autocomplete #autoRoleCode="matAutocomplete"
+                                            [displayWith]="displayFnForRoleCode" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of role$?.result" [value]="option.roleCode">
+                                                {{option?.displayString}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Role Name</mat-label>
+                                        <input matInput placeholder="Role Name" formControlName="roleName"
+                                            [matAutocomplete]="autoRoleName">
+                                        <mat-autocomplete #autoRoleName="matAutocomplete"
+                                            [displayWith]="displayFnForRoleName" [panelWidth]="500">
+                                            <mat-option *ngFor="let option of role$?.result" [value]="option.roleName">
+                                                {{option?.displayString}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+
+
+                                <div class="col-lg-2 ">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Applicable To</mat-label>
+                                        <mat-select formControlName="Applicablefor">
+                                            <mat-option *ngFor="let applicable of applicables" [value]="applicable">
+                                                {{applicable.applicable}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2 ">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Is Active</mat-label>
+                                        <mat-select formControlName="Isactive">
+                                            <mat-option *ngFor="let isActive of IsActive" [value]="isActive">
+                                                {{isActive.id}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- <div class="col-lg-2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Role Desc.</mat-label>
+                                        <input matInput placeholder="Role Desc." formControlName="roledesc">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div> -->
+
+
+
+
+
+                                <!-- <div class="col-lg-2">
+                                    <div>
+                                        <button type="button" class="btn px-3 btn_primary"> Search </button>
+                                    </div>
+                                </div> -->
+                                <div class="text-center mt-2 mb-2">
+                                    <button type="button" (click)="search()" class="btn  btn_primary px-3"
+                                        (onUrlChange)="onUrlChange($event)">Search</button>
+                                    <button type="button" (click)="clearForm()"
+                                        class="btn  btn_primary px-3 ml-2">Clear</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <app-role-search-result #componentchild [dataTable]="dataTable" (pageChangeValue)="pageChange($event)"
+        [totalTableElements]="totalTableElements" [searchFilter]="searchFilter">
+    </app-role-search-result>
+
+</div>

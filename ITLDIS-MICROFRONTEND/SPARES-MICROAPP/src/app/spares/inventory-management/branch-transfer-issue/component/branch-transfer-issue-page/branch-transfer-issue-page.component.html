@@ -1,0 +1,40 @@
+
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Branch Transfer Issue</p>
+        </div>
+        <form  [style.fontSize.px]="10">
+           <div class="card-body">
+              <div>
+                <app-create-branch-transfer-issue [branchTransferIssueForm]="branchTransferIssueForm" (issueToBranchId)="issueToBranchId($event)"></app-create-branch-transfer-issue>
+                <app-branch-transfer-item-details [viewfinalAmount]="viewfinalAmount" [editFinalAmount]="editFinalAmount"></app-branch-transfer-item-details>
+              <!-- <app-create-branch-transfer-issue [branchTransferIssueForm]="branchTransferIssueForm"></app-create-branch-transfer-issue> -->
+              </div>
+              <div class=" text-center mt-2 ">
+                <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="submitIssueForm('save')"> Save
+                  </button>
+                  <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="submitIssueForm('submit')" > Submit
+                  </button>
+                  
+                  <button *ngIf="isView" type="button" class="btn btn_secondary px-3 ml-3 " 
+                  (click)="downloadIssuePdf()"> View PDF
+                  </button>
+                  <button  type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="exitForm()"> Exit
+                  </button>
+                  <button *ngIf="!isView" type="button" class="btn btn_primary pl-3 pr-3 ml-3"
+                      (click)="clearForm()"> Clear
+                  </button>
+                 
+              </div>
+           </div>
+      </form>            
+    </div>
+
+
+   </div>
+  </div>

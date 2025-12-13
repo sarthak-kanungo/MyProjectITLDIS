@@ -1,0 +1,109 @@
+<div class="container-fluid mt-3 mb-3">
+  <div class="mt-3" *ngIf="dataTable">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [searchValue]="searchValue"
+      [totalElements]="totalTableElements" (actionOnTableRecord)="actionOnTableRecord($event)" 
+      [actionButtons]="actionButtons" [clickOnTableFields]="clickOnTableFields" (pageChange)="pageChange($event)"
+     >
+     <!-- [page]="searchFilter['page'] ||0" [size]="searchFilter['size'] ||10" -->
+
+      <td></td>
+
+      <td [ngsw-searchField]="partyCode" [searchColumnName]="'partyCode'">
+        <input type="text" #partyCode [(ngModel)]="partyCodeNg">
+      </td>
+
+      <td [ngsw-searchField]="partyName" [searchColumnName]="'partyName'">
+        <input type="text" #partyName [(ngModel)]="partyNameNg">
+      </td>
+
+      <td [ngsw-searchField]="partyLocation" [searchColumnName]="'partyLocation'">
+        <input type="text" #partyLocation [(ngModel)]="partyLocationNg">
+      </td>
+
+      <td [ngsw-searchField]="title" [searchColumnName]="'title'">
+        <input type="text" #title [(ngModel)]="titleNg">
+      </td>
+
+      <td [ngsw-searchField]="contactName" [searchColumnName]="'contactName'">
+        <input type="text" #contactName [(ngModel)]="contactNameNg">
+      </td>
+
+      <td [ngsw-searchField]="gstNumber" [searchColumnName]="'gstNumber'">
+        <input type="text" #gstNumber [(ngModel)]="gstNumberNg">
+      </td>
+
+      <td [ngsw-searchField]="panNumber" [searchColumnName]="'panNumber'">
+        <input type="text" #panNumber [(ngModel)]="panNumberNg">
+      </td>
+
+      <td [ngsw-searchField]="adharCardNumber" [searchColumnName]="'adharCardNumber'">
+        <input type="text" #adharCardNumber [(ngModel)]="adharCardNumberNg">
+      </td>
+
+      <td [ngsw-searchField]="designation" [searchColumnName]="'designation'">
+        <input type="text" #designation [(ngModel)]="designationNg">
+      </td>
+
+      <td [ngsw-searchField]="mobileNumber" [searchColumnName]="'mobileNumber'">
+        <input type="text" #mobileNumber [(ngModel)]="mobileNumberNg">
+      </td>
+
+      <td [ngsw-searchField]="email" [searchColumnName]="'email'">
+        <input type="text" #email [(ngModel)]="emailNg">
+      </td>
+
+      <td [ngsw-searchField]="address1" [searchColumnName]="'address1'">
+        <input type="text" #address1 [(ngModel)]="address1Ng">
+      </td>
+
+      <td [ngsw-searchField]="address2" [searchColumnName]="'address2'">
+        <input type="text" #address2 [(ngModel)]="address2Ng">
+      </td>
+
+      <td [ngsw-searchField]="address3" [searchColumnName]="'address3'">
+        <input type="text" #address3 [(ngModel)]="address3Ng">
+      </td>
+
+      <td [ngsw-searchField]="category" [searchColumnName]="'category'">
+        <input type="text" #category [(ngModel)]="categoryNg">
+      </td>
+
+      <td [ngsw-searchField]="postOffice" [searchColumnName]="'postOffice'">
+        <input type="text" #postOffice [(ngModel)]="postOfficeNg">
+      </td>
+
+      <td [ngsw-searchField]="locality" [searchColumnName]="'locality'">
+        <input type="text" #locality [(ngModel)]="localityNg">
+      </td>
+
+      <td [ngsw-searchField]="city" [searchColumnName]="'city'">
+        <input type="text" #city [(ngModel)]="cityNg">
+      </td>
+
+      <td [ngsw-searchField]="tehsil" [searchColumnName]="'tehsil'">
+        <input type="text" #tehsil [(ngModel)]="tehsilNg">
+      </td>
+
+      <td [ngsw-searchField]="district" [searchColumnName]="'district'">
+        <input type="text" #district [(ngModel)]="districtNg">
+      </td>
+
+      <td [ngsw-searchField]="state" [searchColumnName]="'state'">
+        <input type="text" #state [(ngModel)]="stateNg">
+      </td>
+
+      <td [ngsw-searchField]="country" [searchColumnName]="'country'">
+        <input type="text" #country [(ngModel)]="countryNg">
+      </td>
+
+      <td [ngsw-searchField]="pinCode" [searchColumnName]="'pinCode'">
+        <input type="text" #pinCode [(ngModel)]="pinCodeNg">
+      </td>
+
+      <td [ngsw-searchField]="telephone" [searchColumnName]="'telephone'">
+        <input type="text" #telephone [(ngModel)]="telephoneNg">
+      </td>
+
+    </ngsw-search-table>
+  </div>
+</div>

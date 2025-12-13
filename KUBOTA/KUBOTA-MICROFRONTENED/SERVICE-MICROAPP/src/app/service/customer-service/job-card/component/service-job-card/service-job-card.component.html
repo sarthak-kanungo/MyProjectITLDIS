@@ -1,0 +1,32 @@
+<div [formGroup]="serviceJobCardForm" [style.fontSize.px]="11">
+    <div class="row">
+        <div class="col-lg-2" *ngIf="isCreate || (isEdit && serviceJobCardForm.controls.mechanicName.value==null)">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mechanic Name</mat-label>
+                <mat-select formControlName="mechanicName" [compareWith]="compareFn">
+                    <mat-option *ngFor="let mechanicName of mechanicNames" [value]="mechanicName">
+                        {{mechanicName.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2" *ngIf="(isEdit && serviceJobCardForm.controls.mechanicName.value) || isView">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mechanic Name</mat-label>
+                <input matInput placeholder="Mechanic Name" formControlName="mechanicName" readonly>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Mechanic Observation</mat-label>
+                <input matInput placeholder="Mechanic Observation" formControlName="serviceJobCardEditable">
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-10">
+            <editable-table [control]="serviceJobCardForm.get('serviceJobCardEditable')" [tableConfig]="tableConfig"
+                formControlName="serviceJobCardEditable" [formGroupForTableRow]="etControlsConfig">
+            </editable-table>
+        </div> -->
+    </div>
+</div>

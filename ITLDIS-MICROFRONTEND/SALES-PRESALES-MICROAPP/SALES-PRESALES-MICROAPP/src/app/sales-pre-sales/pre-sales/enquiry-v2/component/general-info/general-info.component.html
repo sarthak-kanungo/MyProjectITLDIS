@@ -1,0 +1,209 @@
+<div class="row" [formGroup]="generalInfo">
+    <div class="col-lg-2" *ngIf="isShowForViewAndViewMobile">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Enquiry No.</mat-label>
+            <input matInput placeholder="Enquiry No." formControlName="enquiryNumber">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100">
+            <mat-label>Enquiry Date</mat-label>
+            <input matInput [max]="tomorrow" [matDatepicker]="picker" placeholder="Enquiry Date" required
+                formControlName="enquiryDate" readonly (click)="picker.open()"
+                (dateChange)="selectionDateForEnquiryType($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="generalInfo.get('enquiryDate').hasError('required')">
+                Enquiry Date is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Sales Person</mat-label>
+            <mat-select required formControlName="salesPerson" [compareWith]="compareFnSalesPerson">
+                <mat-option *ngFor="let option of salesPersons" [value]="option">
+                    {{option?.salesPerson}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="generalInfo.get('salesPerson').hasError('required')">
+                Sales Person is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100">
+            <mat-label>Validation Date</mat-label>
+            <input matInput [matDatepicker]="picker3" placeholder="Validation Date" formControlName="validationDate">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Enquiry Type</mat-label>
+            <input matInput placeholder="Enquiry Type" formControlName="enquiryType">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isShowForViewAndViewMobile">
+        <mat-form-field appearance="outline">
+            <mat-label>Enquiry Status</mat-label>
+            <input matInput placeholder="Enquiry Status" formControlName="enquiryStatus">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Follow Up Type</mat-label>
+            <mat-select required formControlName="followUpType" [compareWith]="compareFnFollowUpType">
+                <mat-option *ngFor="let followUpType of followupTypes" [value]="followUpType">
+                    {{followUpType?.followUpType}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="generalInfo.get('followUpType').hasError('required')">
+                Follow Up Type is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Source</mat-label>
+            <mat-select required formControlName="source" (selectionChange)="selectSource($event)" [compareWith]="compareFnSource">
+                <mat-option *ngFor="let option of source" [value]="option">
+                    {{option?.source}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="generalInfo.get('source').hasError('required')">
+                Source is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Referral Person Name</mat-label>
+            <input matInput maxlength="30" placeholder="Referral Person Name" formControlName="referralPersonName"
+                [required]="isReferal ? true : null " (keypress)=onKeyPressReferralPersonName($event)>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Purpose Of Purchase</mat-label>
+            <mat-select required formControlName="purposeOfPurchase" [compareWith]="compareFnPurposeOfPurchase">
+                <mat-option *ngFor="let purpose of purposeOfPurchase" [value]="purpose">{{purpose.purposeOfPurchase}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="generalInfo.get('purposeOfPurchase').hasError('required')">
+                Purpose Of Purchase is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Generation Activity type</mat-label>
+            <mat-select formControlName="generationActivityType" [compareWith]="compareFnGenerationActivityType"
+                (selectionChange)="selectionGenerationActivityType($event)">
+                <mat-option *ngFor="let generation of generationActivationType" [value]="generation">
+                    {{generation?.generationActivityType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Generation Activity No.</mat-label>
+            <input matInput placeholder="Generation Activity No." formControlName="generationActivityNumber"
+                [matAutocomplete]="autoComGenerationActivityNo">
+            <mat-autocomplete #autoComGenerationActivityNo="matAutocomplete"
+                (optionSelected)="selectedGenerationActivityNumber($event)"
+                [displayWith]="displayFnForGenerationActivityNo">
+                <mat-option *ngFor="let option of (activityNumber$ | async)" [value]="option">
+                    {{option?.activityNumber}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="generalInfo.get('generationActivityNumber').hasError('selectFromList')">
+                Please select from list</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isShowForView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Conversion Activity type</mat-label>
+            <mat-select formControlName="conversionActivityType" [compareWith]="compareFnConversionActivityType"
+                (selectionChange)="selectionConverstionActivityType($event)">
+                <mat-option *ngFor="let conversion of activationType" [value]="conversion">
+                    {{conversion?.conversionActivityType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isShowForView">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Retail Conversion Activity</mat-label>
+            <mat-select formControlName="retailConversionActivity" [compareWith]="compareFnRetailConversionActivity"
+                (selectionChange)="selectionRetailConversionActivity($event)">
+                <mat-option *ngFor="let retailconversion of retailConversionActivityType" [value]="retailconversion">
+                    {{retailconversion?.retailConversionActivity}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="isShowForView">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Conversion Activity No.</mat-label>
+            <input matInput placeholder="Conversion Activity No." formControlName="conversionActivityNumber"
+                [matAutocomplete]="autoComConversionActivityNo">
+            <mat-autocomplete #autoComConversionActivityNo="matAutocomplete"
+                (optionSelected)="selectedConversionActivityNumber($event)"
+                [displayWith]="displayFnConversionActivityNo">
+                <mat-option *ngFor="let option of (conversionactivityNumber$ | async)" [value]="option">
+                    {{option?.activityNumber}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-error *ngIf="generalInfo.get('conversionActivityNumber').hasError('selectFromList')">
+                Please select from list</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100">
+            <mat-label>Tentative Purchase Date</mat-label>
+            <input matInput [min]="today" [matDatepicker]="picker1" placeholder="Tentative Purchase Date" required
+                formControlName="tentativePurchaseDate" readonly (click)="picker1.open()"
+                (dateChange)="selectionDateForEnquiryType($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="generalInfo.get('tentativePurchaseDate').hasError('required')">
+                Tentative Purchase Date is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100">
+            <mat-label>Next Follow Up Date</mat-label>
+            <input matInput [min]="generalInfo.controls.enquiryDate.value"
+                [max]="generalInfo.controls.tentativePurchaseDate.value" [matDatepicker]="picker2"
+                placeholder="Next Follow Up Date" required formControlName="nextFollowUpDate" readonly
+                (click)="picker2.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="generalInfo.get('nextFollowUpDate').hasError('required')">
+                Next Follow Up Date is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Remarks</mat-label>
+            <input matInput placeholder="Remarks" maxlength="50" required formControlName="remarks">
+            <mat-error *ngIf="generalInfo.get('remarks').hasError('required')">
+                Remarks is Required</mat-error>
+        </mat-form-field>
+    </div>
+</div>

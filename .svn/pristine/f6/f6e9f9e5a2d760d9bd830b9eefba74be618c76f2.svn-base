@@ -1,0 +1,46 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Branch Accessible</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="branchAccessible">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 10px;">Sr.No.</th>
+                <th scope="col">Branch </th>
+                <th scope="col">Accessible </th>
+                <th scope="col">Primary </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr  *ngFor="let branch of userBranchList; let i=index">
+                <td>{{i+1}}</td>
+                <td> <input matInput formControlName="branch" [value]="branch.branch_name"></td>
+                <td><mat-checkbox color="basic" [labelPosition]="labelPosition"  formCobtrolName="accessible"></mat-checkbox></td>
+                <td><mat-checkbox color="basic" [labelPosition]="labelPosition" [checked]="branch?.Active_status"  formCobtrolName="primery"></mat-checkbox></td>
+              </tr> -->
+              <!-- <tr  *ngFor="let branch of userBranchList; let i=index">
+                <td>{{i+1}}</td>
+                <td *ngIf="flag">{{branch.branch_name}}</td>
+                <td> <input matInput formControlName="branch" [value]="branch.branch_name"></td>
+                <td><input type="checkbox" color="basic" [checked]="branch?.IsmainBranch" formControlName="isactive" /> </td>
+                <td><input type="checkbox" color="basic" [checked]="branch?.Active_status"  formControlName="createdBy" /> </td>
+              </tr> -->
+              <tr *ngFor="let option of branchAccessibleForm['controls']; let i = index;">
+                <td>{{i+1}}</td>
+                <td> <input matInput >{{option.get('branch_name').value}}</td>
+                <td><input type="checkbox" color="basic" [checked]="option.get('Active_status').value" [formControl]="option.get('Active_status')"/> </td>
+                <td><input type="checkbox" color="basic" [checked]="option.get('IsmainBranch').value" [formControl]="option.get('IsmainBranch')"/> </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+      </div>
+
+    </div>
+  </div>

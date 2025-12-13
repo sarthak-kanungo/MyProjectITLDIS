@@ -1,0 +1,37 @@
+<div class="card-body">
+
+    <div [formGroup]="customerMasterSearchForm" [style.fontSize.px]="11">
+        <div class="row">
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Customer Code</mat-label>
+                    <input matInput placeholder="Customer Code" formControlName="customerCode"  [matAutocomplete]="autoCustcode" >
+                    <mat-autocomplete #autoCustcode="matAutocomplete" [panelWidth]="200" [displayWith]="displayFnForCustCode">
+                      <mat-option *ngFor="let option of customerCodeList" [value]="option" >
+                        {{option?.customerCode}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                      <mat-error *ngIf="customerMasterSearchForm.get('customerCode').hasError('selectFromList')">
+                      Please select from list</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mobile No/Customer Name/Tehsil</mat-label>
+                    <input matInput placeholder="Mobile No/Customer Name/Tehsil" formControlName="mobileNo" [matAutocomplete]="autoMobileNo">
+                    <mat-autocomplete #autoMobileNo="matAutocomplete" [panelWidth]="500" [displayWith]="displayFnForMobile">
+                      <mat-option *ngFor="let option of mobileNoList" [value]="option" >
+                        {{option?.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                      <mat-error *ngIf="customerMasterSearchForm.get('mobileNo').hasError('selectFromList')">
+                      Please select from list</mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+</div>

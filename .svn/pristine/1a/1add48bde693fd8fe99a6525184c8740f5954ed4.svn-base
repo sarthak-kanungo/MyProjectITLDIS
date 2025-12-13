@@ -1,0 +1,29 @@
+<div [formGroup]="dealerDetails">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Department Code</mat-label>
+                <input matInput placeholder="Department Code" formControlName="departmentCode" (change)="checkDuplicateDepartmentCode($event.target.value)">
+                <mat-error *ngIf="dealerDetails.get('departmentCode').hasError('departmentCodeErroe')">
+                    Department Code Already Exist
+                   </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Department Name</mat-label>
+                <input matInput placeholder="Department Name" formControlName="departmentName" (change)="checkDuplicateDepartmentName($event.target.value)">
+                <mat-error *ngIf="dealerDetails.get('departmentName').hasError('departmentNameErroe')">
+                    Department Name Already Exist
+                   </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-2" style="padding-top: 10px;">
+            <mat-checkbox formControlName="isSelected" color="basic" [checked]></mat-checkbox>
+            <span class="ml-1"> Active</span>
+        </div> -->
+    </div>
+</div>

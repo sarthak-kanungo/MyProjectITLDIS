@@ -1,0 +1,132 @@
+<div class="container-fluid mt-2 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="font-weight-bold" style="color: #354052">
+                        Service Claim List
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card-from">
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0">Search Service Claim</p>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="serviceClaimForm" [style.fontSize.px]="11">
+                            <div class="row">
+
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Claim No.</mat-label>
+                                        <input matInput placeholder="Claim No." formControlName="claimNo">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Claim Status</mat-label>
+                                        <mat-select formControlName="claimStatus">
+                                            <mat-option *ngFor="let item of status" [value]="item">{{item}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker" placeholder="Claim Date From" formControlName="claimdateFrom">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker1" placeholder="Claim Date To" formControlName="claimDateTo">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <div class="card-from mt-2" *ngIf="searchform">
+                            <div class="card" style="border: 1px solid #45afaf;">
+                                <div class="card-header" style="background-color: #45afaf;
+                                                border: 1px solid #45afaf;">
+                                    <p class="mb-0" style="font-size: 13px;"> Advance Search</p>
+                                </div>
+                                <div class="card-body">
+                                    <form [formGroup]="advanceSearchForm" [style.fontSize.px]="11">
+                                        <div class="row">
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Dealer Code</mat-label>
+                                                    <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+                                                    <mat-icon matSuffix>search</mat-icon>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                    <mat-form-field appearance="outline" class="w-100">
+                                                        <mat-label>Dealer Name</mat-label>
+                                                        <input matInput placeholder="Dealer Name" formControlName="dealerName">
+                                                        <mat-icon matSuffix>search</mat-icon>
+                                                    </mat-form-field>
+                                                </div>
+
+                                            <div class="col-lg-2">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Star Category</mat-label>
+                                                    <mat-select formControlName="starcategory">
+                                                        <mat-option *ngFor="let starcategory of starcategories"
+                                                            [value]="starcategory">
+                                                            {{starcategory}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 mt-2">
+                            <div class="mx-auto d-flex justify-content-between">
+                                <div></div>
+                                <button type="button" class="btn pl-3 pr-3 btn_primary"> Search </button>
+                                <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;"
+                                    (click)="searchform = !searchform">
+                                    <u> {{searchform ? 'Hide Advance Search Filters' : 'Advance Search'}}</u>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <app-service-claim-search-result></app-service-claim-search-result>
+
+</div>

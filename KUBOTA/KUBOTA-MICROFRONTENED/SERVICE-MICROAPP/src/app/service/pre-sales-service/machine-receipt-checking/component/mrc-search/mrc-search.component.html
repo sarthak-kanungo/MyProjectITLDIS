@@ -1,0 +1,182 @@
+<!-- <div class="container-fluid mt-2 mb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card-from">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0">Search Machine Receipt Checking</p>
+                    </div>
+                    <div class="card-body">
+                        <div [formGroup]="mrcSearchForm" [style.fontSize.px]="11">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>MRC No.</mat-label>
+                                        <input matInput placeholder="MRC No." formControlName="mrcNo">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>KAI Invoice No.</mat-label>
+                                        <input matInput placeholder="KAI Invoice No." formControlName="kaiInvoiceNo">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Chassis No.</mat-label>
+                                        <input matInput placeholder="Chassis No." formControlName="chassisNo">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker" placeholder="MRC Date From"
+                                            formControlName="mrcDateFrom">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-2">
+                                    <mat-form-field class="w-100">
+                                        <input matInput [matDatepicker]="picker1" placeholder="MRC Date To"
+                                            formControlName="mrcDateTo">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mx-auto text-center">
+                                    <button type="button" class="btn pl-3 pr-3 btn_primary"> Search </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [actionButtons]="actionButtons"
+            [totalElements]="totalSearchRecordCount" [searchValue]="searchValue"
+            (actionOnTableRecord)="actionOnTableRecord($event)" (pageChange)="pageChangeOfSearchTable($event)">
+        </ngsw-search-table>
+    </div>
+</div> -->
+
+
+
+<div class="card-body" [formGroup]="mrcSearchForm" [style.fontSize.px]="11">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100 pb_0">
+                <mat-label>MRC /KAI Invoice /Chassis Number</mat-label>
+                <input matInput placeholder="MRC /KAI Invoice /Chassis Number" formControlName="mrcNo"
+                    [matAutocomplete]="autoMrcNo" matTooltip="Search MRC Number,KAI Invoice Number,Chassis Number">
+                <mat-autocomplete #autoMrcNo="matAutocomplete"  [panelWidth]="500">
+                    <mat-option *ngFor="let option of (mrcNoList$ | async)" [value]="option.code">
+                        {{option?.value}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>KAI Invoice No.</mat-label>
+                <input matInput placeholder="KAI Invoice No." formControlName="kaiInvoiceNo"
+                    [matAutocomplete]="autoKaiInvoiceNo" >
+                <mat-autocomplete #autoKaiInvoiceNo="matAutocomplete"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of (kaiInvoiceNoList$ | async)" [value]="option.invoiceNumber">
+                        {{option?.invoiceNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> 
+        <!-- <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Chassis No.</mat-label>
+                <input matInput placeholder="Chassis No." formControlName="chassisNo"
+                    [matAutocomplete]="autoKaiChassisNo" >
+                <mat-autocomplete #autoKaiChassisNo="matAutocomplete" [displayWith]="displayFnChassisNo"
+                    [panelWidth]="500">
+                    <mat-option *ngFor="let option of (chassisNoList$ | async)" [value]="option">
+                        {{option?.chassisNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+        <div class="col-lg-2">
+            <mat-form-field class="w-100 pb_0" appearance="outline">
+                <mat-label>MRC From Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="MRC From Date"  formControlName="mrcDateFrom"
+                    [max]="newdate" (dateChange)="setToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100 pb_0" appearance="outline">
+                <mat-label>MRC To Date</mat-label>
+                <input matInput [matDatepicker]="picker1" placeholder="MRC To Date" formControlName="mrcDateTo"
+                    [max]="maxDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        
+        <div class="col-lg-2">
+            <mat-form-field class="w-100 pb_0" appearance="outline">
+                <mat-label>Invoice From Date</mat-label>
+                <input matInput [matDatepicker]="picker2" placeholder="Invoice From Date"  formControlName="invoiceDateFrom"
+                    [max]="newdate" (dateChange)="setInvoiceToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+            <mat-form-field class="w-100 pb_0" appearance="outline">
+                <mat-label>Invoice To Date</mat-label>
+                <input matInput [matDatepicker]="picker3" placeholder="Invoice To Date" formControlName="invoiceDateTo"
+                    [max]="imaxDate" [min]="iminDate">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-lg-2 " *ngFor="let sale of orgHierLevelList ;let i=index">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label> {{sale.LEVEL_DESC}}</mat-label>
+            <mat-select (selectionChange)="selectLevels($event,i)" formControlName="{{sale.LEVEL_CODE}}">
+                <mat-option *ngFor="let option of parentArray[i]" [value]="option">
+                    {{option.hierarchy_desc}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
+
+    <!-- <div class="col-lg-12 mt-2">
+        <div class="mx-auto d-flex justify-content-between">
+            <div></div>
+            <a class=" font-weight-bold mt-3 cursor_pointer " style="color: #007bff;font-size: 15px;"
+                (click)="searchform = !searchform">
+                <u>
+                    {{searchform ? 'Hide Advance Search Filters' : 'Advance Search'}}
+                </u>
+            </a>
+        </div>
+    </div> -->
+</div>

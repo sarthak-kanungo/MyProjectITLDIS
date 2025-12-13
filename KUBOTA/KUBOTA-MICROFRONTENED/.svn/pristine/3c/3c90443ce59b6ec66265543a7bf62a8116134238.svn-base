@@ -1,0 +1,12 @@
+<app-search-designation></app-search-designation>
+<!-- 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="text-center alert alert-secondary" style="margin-top: 50px">
+            Table Data Not Found </div>
+        </div>
+    </div>
+    </div> -->
+
+<!-- <app-add-designation></app-add-designation> -->

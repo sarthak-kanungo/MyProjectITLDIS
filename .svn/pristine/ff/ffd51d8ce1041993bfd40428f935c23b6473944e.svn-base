@@ -1,0 +1,31 @@
+this.dropDownProduct();
+    this.dropDownSeries();
+    this.dropDownModel();
+    this.dropDownSubModel();
+    this.dropDownVariant();
+
+    dropDownProduct() {
+        this.searchMachineItemService.getProductList().subscribe(response => {
+          this.productsList = response 
+        })
+      }
+      dropDownSeries() {
+        this.searchMachineItemService.getSeriesList().subscribe(response => {
+          this.seriesList = response 
+        })
+      }
+      dropDownModel() {
+        this.searchMachineItemService.getModelList().subscribe(response => {
+          this.modelsList = response 
+        })
+      }
+      dropDownSubModel() {
+        this.searchMachineItemService.getSubModelList().subscribe(response => {
+          this.subModelsList = response 
+        })
+      }
+      dropDownVariant() {
+        this.searchMachineItemService.getVariantList().subscribe(response => {
+          this.variantsList = response 
+        })
+      }

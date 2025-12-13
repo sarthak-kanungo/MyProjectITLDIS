@@ -1,0 +1,7 @@
+<div class="comtainer">
+
+  <div class="w-50  mx-auto text-center" style="    padding: 200px 0px;  ">
+    <div class="alert alert-danger" role="alert">
+      Session expired Proceed to <a [routerLink]="['/login']" class="alert-link">Login</a> again </div>
+  </div>
+</div>

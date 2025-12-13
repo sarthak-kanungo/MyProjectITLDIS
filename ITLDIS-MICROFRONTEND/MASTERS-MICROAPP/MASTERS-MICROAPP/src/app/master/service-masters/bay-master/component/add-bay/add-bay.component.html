@@ -1,0 +1,79 @@
+<div class="container-fluid mt-3 mb-3">
+    
+        <div class="mt-2">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="font-weight-bold" style="color: #354052">
+                Add Bay
+              </p>
+            </div>
+          </div>
+          <div class="card-from">
+      
+            <div class="card">
+              <div class="card-header">
+                <p class="mb-0">Add New</p>
+              </div>
+              <div class="card-body">
+      
+                <form [formGroup]="bayDetailsForm" [style.fontSize.px]="11">
+                  <div class="row">
+      
+      
+                    <div class="col-lg-2">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Bay Code</mat-label>
+                        <input matInput placeholder="Bay Code" formControlName="bayCode">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Bay Name</mat-label>
+                              <input matInput placeholder="Bay Name" formControlName="bayName">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-lg-2 ">
+                              <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Bay Type</mat-label>
+                                <mat-select formControlName="bayType">
+                                  <mat-option *ngFor="let bayType of bayTypes" [value]="bayType">{{bayType}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+
+                          <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker" placeholder="Effective From Date" formControlName="effectiveFromdate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <mat-form-field class="w-100">
+                                    <input matInput [matDatepicker]="picker1" placeholder="Effective To Date" formControlName="effectiveToDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+      
+                  </div>
+
+                  <div class="mx-auto text-center">
+                      <button type="button" class="btn px-3 btn_primary"> Submit </button>
+                    <button type="button" class="btn btn_secondary px-3 ml-3"> Clear
+                    </button>
+                   
+                  </div>
+               
+                </form>
+      
+              </div>
+            </div>
+      
+          </div>
+      
+        </div>
+      </div>

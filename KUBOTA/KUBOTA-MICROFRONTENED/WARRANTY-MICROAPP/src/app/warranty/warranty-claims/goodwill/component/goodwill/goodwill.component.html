@@ -1,0 +1,217 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="goodwillForm">
+    <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Goodwill Req No.</mat-label>
+            <input matInput placeholder="Goodwill Req No." formControlName="goodwillNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Goodwill Req Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Goodwill Req Date" formControlName="goodwillDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Goodwill Status</mat-label>
+            <input matInput placeholder="Goodwill Status" formControlName="status">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>PCR No.</mat-label>
+            <input matInput placeholder=" No." formControlName="pcrNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>PCR Date</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="PCR Date" formControlName="pcrDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Type of Goodwill</mat-label>
+            <mat-select formControlName="goodwillType">
+                <mat-option *ngFor="let value of goodwillType" [value]="value.goodwillType">{{value.goodwillType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Job Card No.</mat-label>
+            <input matInput placeholder="Job Card No." formControlName="jobCardNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Job Card Date</mat-label>
+            <input matInput [matDatepicker]="picker2" placeholder="Job Card Date" formControlName="jobCardDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Installation</mat-label>
+            <input matInput [matDatepicker]="picker3" placeholder="Date of Installation" formControlName="dateOfInstallation">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input matInput placeholder="Customer Name" formControlName="customerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Machine Model</mat-label>
+            <input matInput placeholder="Machine Model" formControlName="model">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date Of Failure</mat-label>
+            <input matInput [matDatepicker]="picker4" placeholder="Date Of Failure" formControlName="dateOfFailure">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Address</mat-label>
+            <input matInput placeholder="Customer Address" formControlName="address">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Cell Number</mat-label>
+            <input matInput placeholder="Customer Cell Number" formControlName="mobileNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Registration Number</mat-label>
+            <input matInput placeholder="Registration Number" formControlName="registrationNumber">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Chassis Number</mat-label>
+            <input matInput placeholder="Chassis Number" formControlName="chassisNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Engine Number</mat-label>
+            <input matInput placeholder="Engine Number" formControlName="engineNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Hours</mat-label>
+            <input matInput placeholder="Hours" formControlName="totalHour">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Sold To Dealer</mat-label>
+            <input matInput placeholder="Sold To Dealer" formControlName="soldToDealer">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Service Dealer</mat-label>
+            <input matInput placeholder="Service Dealer" formControlName="serviceDealer">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Service Dealer City</mat-label>
+            <input matInput placeholder="Service Dealer City" formControlName="serviceDealerAddress">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Crop</mat-label>
+            <mat-select formControlName="crop">
+                <mat-option *ngFor="let value of majorCropGrown" [value]="value.cropGrown">{{value.cropGrown}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Crop Condition</mat-label>
+            <mat-select formControlName="cropCondition">
+                <mat-option *ngFor="let value of cropCondition" [value]="value.fieldCondition">{{value.fieldCondition}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Failure Type</mat-label>
+            <mat-select formControlName="failureType">
+                <mat-option *ngFor="let value of failureType" [value]="value.failureType">{{value.failureType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Soil Type</mat-label>
+            <mat-select formControlName="soilType">
+                <mat-option *ngFor="let value of soilType" [value]="value.soilType">{{value.soilType}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Field Condition</mat-label>
+            <mat-select formControlName="fieldCondition">
+                <mat-option *ngFor="let value of fieldCondition" [value]="value.fieldCondition">{{value.fieldCondition}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>No. Of Times</mat-label>
+            <input matInput placeholder="No. Of Times" formControlName="failureCount">
+            <mat-error *ngIf="goodwillForm.get('failureCount').errors?.min">Number should be greater than 1.</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Budget Consumed (w/o taxes including this claim)</mat-label>
+            <input matInput placeholder="Budget Consumed" formControlName="budgetConsumed">
+        </mat-form-field>
+    </div>
+    
+</div>

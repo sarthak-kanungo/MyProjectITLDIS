@@ -1,0 +1,155 @@
+<div class="card-body">
+    <form [formGroup]="activityClaimDetailsForm" [style.fontSize.px]="11">
+        <div class="row">
+
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline">
+                    <mat-label>Activity Claim No.</mat-label>
+                    <input matInput placeholder="Activity Claim No." formControlName="claimNumber">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dealer Name.</mat-label>
+                    <input matInput placeholder="Dealer Name" formControlName="dealerName">
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Activity No.</mat-label>
+                    <input matInput placeholder="Activity No." formControlName="activityNo" required
+                        [matAutocomplete]="autoActivityNo" (keydown)="onKeyDownActivityNo($event)">
+                    <mat-autocomplete #autoActivityNo="matAutocomplete" [panelWidth]="500"
+                        (optionSelected)="selectedActivityNo($event)" [displayWith]="displayFnActivityNo">
+                        <mat-option *ngFor="let option of (activityNoList$ | async)" [value]="option">
+                            {{option?.activityNumber}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <mat-error *ngIf="activityClaimDetailsForm.get('activityNo').hasError('required')">
+                        Activity No. is Required</mat-error>
+                    <mat-error *ngIf="activityClaimDetailsForm.get('activityNo').hasError('selectFromList')">
+                        Please select from list</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Claim Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Activity Claim Date"
+                        formControlName="activityClaimDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Claim Status</mat-label>
+                    <input matInput placeholder="Activity Claim Status" formControlName="claimStatus">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Creation Date</mat-label>
+                    <input matInput [matDatepicker]="picker1" placeholder="Activity Creation Date"
+                        formControlName="activityCreationDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Type</mat-label>
+                    <input matInput placeholder="Activity Type" formControlName="activityType">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>From Date</mat-label>
+                    <input matInput [matDatepicker]="picker2" placeholder="From Date" formControlName="fromDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Actual From Date</mat-label>
+                    <input matInput [matDatepicker]="picker3" placeholder="Actual From Date"
+                        formControlName="actualFromDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>To Date</mat-label>
+                    <input matInput [matDatepicker]="picker4" placeholder="To Date" formControlName="toDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                    <mat-datepicker #picker4></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Actual To Date</mat-label>
+                    <input matInput [matDatepicker]="picker5" placeholder="Actual To Date"
+                        formControlName="actualToDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                    <mat-datepicker #picker5></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>No. of Days</mat-label>
+                    <input matInput placeholder="No. of Days" formControlName="noOfDays">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>No. of Machines</mat-label>
+                    <input matInput placeholder="No. of Machines" formControlName="noOfMachines">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <input matInput placeholder="Location" formControlName="location">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Activity Effectiveness</mat-label>
+                    <input matInput placeholder="No. of Days" formControlName="activityEffectiveness">
+                </mat-form-field>
+            </div>
+
+            <!--Suraj_01-02-2024-->
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Claim Approved Amount</mat-label>
+                    <input matInput placeholder="Claim Approved Amount" formControlName="approvedAmount">
+                </mat-form-field>
+            </div>
+            
+            <div class="col-lg-2" *ngIf="isView">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>KAI Remark</mat-label>
+                    <input matInput placeholder="KAI Remark" formControlName="kaiRemark">
+                </mat-form-field>
+            </div>
+
+        </div>
+    </form>
+</div>

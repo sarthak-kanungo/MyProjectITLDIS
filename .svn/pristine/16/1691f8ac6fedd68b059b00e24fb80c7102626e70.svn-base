@@ -1,0 +1,85 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+
+
+  <div class="card-from">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">PDI</p>
+      </div>
+      <div class="card-body">
+        <div class="row" [formGroup]="pdiDetailsForm" [style.fontSize.px]="11">
+          <div class="col-lg-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Chassis No.</mat-label>
+              <input matInput placeholder="Chassis No." formControlName="chassisNo" [matAutocomplete]="autoChassisNo"
+                required (keydown)="onKeyDownChasisNo($event)">
+              <mat-autocomplete #autoChassisNo="matAutocomplete" [panelWidth]="500"
+                (optionSelected)="selectedChassisNumber($event)" [displayWith]="displayFnChassisNo">
+                <mat-option *ngFor="let option of kaiChassisNoList " [value]="option">
+                  {{option?.value}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>search</mat-icon>
+              <mat-error *ngIf="pdiDetailsForm.get('chassisNo').hasError('selectFromList')">
+                Select From List </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2" *ngIf="isShowPdiNo">
+            <mat-form-field appearance="outline">
+              <mat-label>PDI No.</mat-label>
+              <input matInput placeholder="PDI No." formControlName="pdiNo">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>PDI Date</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="PDI Date" formControlName="pdiDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Engine No.</mat-label>
+              <input matInput placeholder="Engine No." formControlName="engineNo">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>KAI Invoice No.</mat-label>
+              <input matInput placeholder="KAI Invoice No." formControlName="kaiInvoiceNo">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Machine Model</mat-label>
+              <input matInput placeholder="Machine Model" formControlName="machineModel">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline">
+              <mat-label>DMS GRN No.</mat-label>
+              <input matInput placeholder="DMS GRN No." formControlName="dmsgrnNo">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>DMS GRN Date</mat-label>
+
+              <input matInput [matDatepicker]="picker1" placeholder="DMS GRN Date" formControlName="dmsgrnDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

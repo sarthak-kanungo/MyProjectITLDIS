@@ -1,0 +1,63 @@
+
+    
+<div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Incentive Scheme Claim</p>
+      </div>
+      <div class="card-body">
+        <form [style.fontSize.px]="10">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Claim No.</mat-label>
+                <input matInput placeholder="Claim No.">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Claim Date" [disabled]="disable">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2 ">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Claim Month</mat-label>
+                <mat-select [disabled]="disable">
+                  <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </form>
+<app-wholesale-incentive-scheme-details></app-wholesale-incentive-scheme-details>
+<app-retail-incentive-scheme-details></app-retail-incentive-scheme-details>
+
+
+
+
+        <div class=" text-center mt-2 ">
+            <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3" 
+            [routerLink]="[ '/sales/schemes/incentive-claim-approval' ]"> Go Back
+              </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3 "> Approve
+          </button>
+          <button type="button" class="btn btn_secondary pl-3 pr-3 ml-3"> Clear
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 ml-3"> Exit
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>

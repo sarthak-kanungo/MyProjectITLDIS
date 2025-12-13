@@ -1,0 +1,105 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Complaint</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="complaintForm">
+                <div formArrayName="complaintFormArray">
+
+                    <div class="table-responsive mt-1">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="width: 10px;">Sr.No.</th>
+                                    <th scope="col" style="width: 150px;">Item No.</th>
+                                    <th scope="col" style="width: 220px;">Description</th>
+                                    <th scope="col" style="width: 80px;">Type</th>
+                                    <th scope="col" style="width: 80px;">Qty.</th>
+                                    <th scope="col" style="width: 150px;">Remarks</th>
+                                    <th scope="col" style="width: 80px;" *ngIf="isView">Approved Qty.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let row of complaintForm['controls'].complaintFormArray['controls']; let i =
+                                index" [formGroupName]="i">
+                                    <td class="pt-4" style="width: 20px;height:25px;">
+                                        <mat-checkbox color="basic" class="form-control form-control-sm"
+                                            formControlName="isSelected" [checked]></mat-checkbox>
+                                    </td>
+                                    <td class="pt-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Item No.</mat-label>
+                                            <input matInput placeholder="Item No." formControlName="itemNo"
+                                                [matAutocomplete]="autoItemNumber">
+                                            <mat-autocomplete #autoItemNumber="matAutocomplete"
+                                                (optionSelected)="optionSelectedItemNo($event, row)"
+                                                [displayWith]="displayItemNoFn">
+                                                <mat-option *ngFor="let option of searchItemNo?.result"
+                                                    [value]="option">
+                                                    {{option?.itemNo}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-icon matSuffix>search</mat-icon>
+                                        </mat-form-field>
+
+                                    </td>
+                                    <td class="pt-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Description </mat-label>
+                                            <input matInput placeholder="Description" formControlName="itemDescription">
+                                        </mat-form-field>
+                                    </td>
+                                    <td class="pt-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Type</mat-label>
+                                            <mat-select formControlName="type">
+                                                <mat-option *ngFor="let type of dropdownType?.result" [value]="type">
+                                                    {{type.complaintType}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <td class="pt-3">
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Quantity</mat-label>
+                                            <input type=number class="quantity" matInput placeholder="Quantity"
+                                                formControlName="quantity" (keypress)=keyDigits($event)>
+                                        </mat-form-field>
+
+                                    </td>
+                                    <td class="pt-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Remarks</mat-label>
+                                            <input matInput placeholder="Remarks" formControlName="remarks">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td class="pt-3" *ngIf="isView">
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Approved Quantity</mat-label>
+                                            <input type=number matInput placeholder="Approved Quantity"
+                                                formControlName="approvedQuantity">
+                                        </mat-form-field>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+            <div class=" text-center ">
+                <button type="button" class="btn btn-sm btn_primary " *ngIf="!isView" (click)="addRow()"> Add
+                    Row</button>
+                <button type="button" class="btn btn-sm btn_secondary ml-2" *ngIf="!isView" (click)="deleteRow()">Delete
+                    Row </button>
+            </div>
+
+        </div>
+    </div>
+</div>

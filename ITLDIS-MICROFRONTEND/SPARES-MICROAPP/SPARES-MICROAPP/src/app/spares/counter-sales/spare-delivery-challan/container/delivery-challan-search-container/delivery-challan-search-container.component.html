@@ -1,0 +1,29 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="font-weight-bold" style="color: #354052">
+            Delivery Challan
+            </p>
+          </div>
+
+          <div>
+            <a [routerLink]="[ './create' ]" class="font-weight-bold">
+             <u>Create Delivery Challan
+            </u> 
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="col-lg-12">
+          <app-spare-delivery-challan-search></app-spare-delivery-challan-search>
+
+      </div>
+    </div>
+
+    <app-dynamic-table [tableTitle]="'Search Result'" [dataTable]="dataTable"  [totalElements]="totalTableElements">
+      </app-dynamic-table>
+</div>

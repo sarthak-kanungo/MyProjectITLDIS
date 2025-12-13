@@ -1,0 +1,154 @@
+<div class="container-fluid create-form mb-3 mt-4">
+  <!-- <div class="heading">
+    <p class="font-weight-bold">Marketing Activity Approval</p>
+  </div> -->
+  <div class="card-from mb-0">
+    <div class="card">
+      <div class="card-header">
+        <p class="mb-0">Marketing Activity Approval</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="activityApprovalFrom" [style.fontSize.px]="10">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <!-- *ngIf="!isCreate" -->
+              <mat-form-field appearance="outline">
+                <mat-label>Activity No.</mat-label>
+                <input matInput placeholder="Activity No." formControlName="activityNumber">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker" placeholder="Activity Creation Date"
+                  formControlName="activityCreationDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Purpose</mat-label>
+                <mat-select formControlName="activityPurpose" [compareWith]="compareFnActivityPurpose">
+                  <mat-option *ngFor="let purpose of getPurposeActivity?.result" [value]="purpose"> {{purpose?.purpose}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Activity Type</mat-label>
+                <mat-select formControlName="activityType" [compareWith]="compareFnActivityType">
+                  <mat-option *ngFor="let activityType of getActivityType?.result" [value]="activityType">
+                    {{activityType?.activityType}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+ <div class="col-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Activity Category</mat-label>
+        <mat-select required formControlName="activityCategory" [compareWith]="compareFnActivityCategory">
+          <mat-option *ngFor="let activityCategory of activityCategoryList?.result" [value]="activityCategory">
+            {{activityCategory?.category}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Location </mat-label>
+                <input matInput placeholder=" Location" formControlName="location">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Status </mat-label>
+                <input matInput placeholder=" Status" formControlName="activityStatus">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="From Date" formControlName="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="toDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>No of Days</mat-label>
+                <input matInput placeholder="No of Days" formControlName="numberOfDays">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Proposed Budget</mat-label>
+                <input matInput placeholder="Proposed Budget" formControlName="proposedBudget">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Max Allowed Budget </mat-label>
+                <input matInput placeholder="Max Allowed Budget " formControlName="maxAllowedBudget">
+              </mat-form-field>
+            </div>
+
+			<div class="col-lg-2">
+		      <mat-form-field appearance="outline">
+		        <mat-label>Claimable Amount</mat-label>
+		        <input matInput placeholder="Claimable Amount" formControlName="claimableAmount" type="number">
+		      </mat-form-field>
+		    </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Approved Amount </mat-label>
+                <input matInput placeholder=" Approved Amount" formControlName="approvedAmount">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+		<app-dealer-information [dealer]="dealer"></app-dealer-information>
+        <div *ngIf="isActivityCategoryKai">
+        	<app-heads [heads]="heads"></app-heads>
+        </div>
+        <div *ngIf="isActivityPurposeConversion">
+          <app-enquiry-information [enquiries]="enquiries"></app-enquiry-information>
+        </div>
+		<div *ngIf="isActivityCategoryKai">
+			<app-approval-details [approvalHierDetails]="approvalHierDetails"></app-approval-details>
+		</div>
+        <div class=" text-center mt-2 ">
+          <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="validateForm('Approved')"> Approve
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="validateForm('Hold')" *ngIf="activitystatus != 'Approved'"> Hold
+          </button>
+          <button type="button" class="btn btn_primary pl-3 pr-3 mr-3 " (click)="validateForm('Reject')" *ngIf="activitystatus != 'Approved'"> Reject
+          </button>
+          <button type="button" class=" btn btn_secondary pl-3 pr-3" (click)="back()"> Back
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container-fluid create-form  mt-4 mb-3">
+    <div class="card-from">
+      <div class="card">
+        <div class="card-header">
+          <p class="mb-0">Retro Fitment Campaign</p>
+        </div>
+        <div class="card-body">
+          <form>
+              <app-retro-fitment-campaign [rfcForm]="rfcForm"></app-retro-fitment-campaign>
+              <app-retro-fitment-campaign-material-details *ngIf="materialDetailsForm && materialDetailsFormLength" [materialDetailsForm]="materialDetailsForm"></app-retro-fitment-campaign-material-details>
+              <app-retro-fitment-campaign-labour-charges *ngIf="labourChargesForm && materialDetailsFormLength" [labourChargesForm]="labourChargesForm" [warrantyPcrPhotos]="warrantyPcrPhotos"></app-retro-fitment-campaign-labour-charges>
+
+            <div class=" text-center mt-2" style="margin-bottom: 6px;margin-top:6px;" >
+            
+              <button *ngIf="!isView" type="button" class="btn btn_primary px-3 ml-3" (click)="formValid('submit')"> Submit
+              </button>
+              <button *ngIf="!isView" type="button" class="btn btn_primary px-3 ml-3" (click)="clear()"> Clear
+              </button>
+              <button  *ngIf="isView" type="button" class="btn btn_secondary px-3 ml-3" (click)="printPdf()"> Print
+              </button>
+              <!-- <button type="button" class="btn btn_primary pl-3 pr-3 ml-3" > View PDF
+              </button>
+              <button type="button" class="btn btn_primary px-3 ml-3"> Clear
+              </button> -->
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

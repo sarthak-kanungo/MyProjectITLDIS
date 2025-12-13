@@ -1,0 +1,77 @@
+<form>
+    <div class="container-fluid create-form  mt-4  pb_0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-from">
+                    <div class="card">
+                        <div class="card-header">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between header">
+                                        <p class="mb-0">Search Assign Org Hierarchy To Dealer</p>
+                                        <div>
+                                            <button type="button" class="btn btn-xs ml-2 bg-white "
+                                                [routerLink]="[ './create' ]">
+                                                <b class="btnName">New</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <app-assign-org-hierarchy-to-dealer-search-result
+                                [assignOrgHierarchyToDealerForm]=assignOrgHierarchyToDealerForm>
+                            </app-assign-org-hierarchy-to-dealer-search-result>
+                        </div>
+                        <div class=" text-center mb-1">
+                            <button type="button" class="btn  btn_primary"
+                                (click)="searchAssignOrgHierarchyToDealerForTable()"> Search
+                            </button>
+                            <button type="button" class="btn  btn_primary px-3 ml-2"
+                                (click)="clearAssignOrgHierarchyToDealerForm()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="container-fluid">
+    <ngsw-search-table [tableTitle]="'Search Result'" [dataTable]="dataTable" [totalElements]="totalTableElements"
+        [actionButtons]="actionButtons" [searchValue]="searchValue" [clickOnTableFields]="[{title:'action'}]"
+        (actionOnTableRecord)="tableAction($event)" (pageChange)="pageChange($event)" [page]="page" [size]="size"
+        [searchValue]="searchValue">
+
+        <!-- <td [ngsw-searchField]="edit" [searchColumnName]="'edit'" class="edit">
+        <input class="w-100 borderRadius edit" #edit>
+    </td> -->
+
+        <td></td>
+
+
+        <td [ngsw-searchField]="dealerCode" [searchColumnName]="'dealerCode'" class="dealerCode">
+            <input class="w-100 borderRadius" #dealerCode [(ngModel)]="dealerCodeNg">
+        </td>
+        <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName">
+            <input class="w-100 borderRadius" #dealerName [(ngModel)]="dealerNameNg">
+        </td>
+
+        <td [ngsw-searchField]="departmentName" [searchColumnName]="'departmentName'" class="departmentName">
+            <input class="w-100 borderRadius" #departmentName [(ngModel)]="departmentNameNg">
+        </td>
+
+        <td [ngsw-searchField]="hierarchyCode" [searchColumnName]="'hierarchyCode'" class="hierarchyCode">
+            <input class="w-100 borderRadius" #hierarchyCode [(ngModel)]="hierarchyCodeNg">
+        </td>
+
+        <td [ngsw-searchField]="hierarchyDesc" [searchColumnName]="'hierarchyDesc'" class="hierarchyDesc">
+            <input class="w-100 borderRadius" #hierarchyDesc [(ngModel)]="hierarchyDescNg">
+        </td>
+    </ngsw-search-table>
+</div>

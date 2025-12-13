@@ -1,0 +1,109 @@
+<div class="row" [style.fontSize.px]="11" [formGroup]="wcrReportForm">
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Type of Warranty Claim</mat-label>
+            <mat-select formControlName="wcrType">
+                <mat-option *ngFor="let value of wcrType" [value]="value.wcr_type">{{value.wcr_type}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="From Date" (click)="picker.open()"
+                formControlName="fromDate" (dateChange)="setToDate($event)" [max]="newdate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="To Date" (click)="picker1.open()"
+                formControlName="toDate" [min]="fromDate" [max]="toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <!-- <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Status</mat-label>
+            <input matInput placeholder="Status" formControlName="status">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Model</mat-label>
+            <mat-select formControlName="model">
+                <mat-option *ngFor="let value of model" [value]="value.model">{{value.model}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Machine No.</mat-label>
+            <input matInput placeholder="Machine No." formControlName="chassisNo" [matAutocomplete]="auto">
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of chassisData" [value]="option.value">
+                    {{option.value}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Part No</mat-label>
+            <input #input matInput placeholder="Part No" formControlName="partNo" [matAutocomplete]="auto1">
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+                <mat-option *ngFor="let option of autoCompleteData" [value]="option.value">
+                    {{option.value}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Code</mat-label>
+            <input matInput placeholder="Dealer Code" formControlName="dealerCode" [matAutocomplete]="auto2">
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-autocomplete autoActiveFirstOption #auto2 = matAutocomplete [displayWith]="displayCodeFn" (optionSelected)="selectedDealer($event)">
+                <mat-option *ngFor="let option of dealerCode" [value]="option">
+                    {{option.value}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Dealer Name</mat-label>
+            <input readonly matInput placeholder="Dealer Name" formControlName="dealerName">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>State</mat-label>
+            <input matInput placeholder="State" formControlName="state">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Credit Note Req. No.</mat-label>
+            <input matInput placeholder="Credit Note Req.No." formControlName="creditNoteReqNo">
+            <mat-autocomplete>
+                <mat-option>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div> -->
+</div>

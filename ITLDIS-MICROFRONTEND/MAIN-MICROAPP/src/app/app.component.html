@@ -1,0 +1,22 @@
+<app-navbar (sideClick)="snav.toggle()" *ngIf="isLoggedIn$ | async"></app-navbar>
+<mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #snav mode="side" [fixedInViewport]="'Fixed'" style="margin-top: 60px;">
+        <div class="side-nav-border">
+            <mat-nav-list>
+                <app-menu-list-item *ngFor="let item of sideNavItemList$ | async" [item]="item">
+                </app-menu-list-item>
+            </mat-nav-list>
+        </div>
+        <div class="text-right pr-2"
+            style="font-size: 10px;position: absolute; bottom: 0;left: 0;right: 20px; background-color: #00a8a9;">
+            {{appVersion}}</div>
+    </mat-sidenav>
+    <mat-sidenav-content class="img-height cont-height">
+
+        <router-outlet ></router-outlet><!-- *ngIf="!(isLoggedIn$ | async)" -->
+        <!-- <app-breadcrumb class="d-block breadcrumb" *ngIf="isLoggedIn$ | async"></app-breadcrumb> -->
+        <!-- <app-iframe *ngIf="isLoggedIn$ | async"></app-iframe> -->
+        <ngx-ui-loader></ngx-ui-loader>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

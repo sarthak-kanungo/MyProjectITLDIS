@@ -1,0 +1,76 @@
+  <div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf;border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">ADD ATTACHMENTS</p>
+        </div>
+        <div class="card-body" [formGroup]="attachementForm">
+
+            <div class="card-group">      
+                <div class="card">
+                <div class="card-body">
+                        <div class=" input-group">
+                            <div class="input-group">
+                                <div class="custom-file" >
+                                   <label class="custom-file-label" *ngIf="!isApprove">Photo 1</label>
+                                   <input  type="file"  name="image1" required (change)="fileSelctionChangesPhoto1($event)" title="Maximum 5 documents allowed"
+                                     accept="image/x-png,image/jpeg" class="custom-file-input" formControlName="photo1" />
+                                 </div>
+                           </div>
+                        </div>
+                        <div class="row mt-2 text-center" *ngIf="!isView">
+                            <div class="col-md-5 d-flex justify-content-around" *ngFor="let file of files">
+                              <div class="card file-preview-card">
+                                <label class="custom-preview-label"> {{file.file.name}} </label>
+                                <img [src]="file.previewUrl" height="120" width="175" />
+                                <div class="card-body">
+                                  <i style="color: #45afaf;" class="material-icons" (click)="deleteImagePhoto1(file.id)">delete</i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mt-2 text-center" *ngIf="isView || isApprove">
+                            <div class="col-md-5 d-flex justify-content-around" *ngFor="let file of attachmentList">
+                                <div class="card file-preview-card">
+                                <label>{{file.fileName}}</label>
+                                    <img src="{{fileStaticPath}}/{{file.fileName}}" height="180" width="470" />
+                                    <div class="card-body">
+                                        <a href="{{fileStaticPath}}/{{file.fileName}}" download>
+                                            <hr>
+                                            <i style="color: #45afaf;" class="material-icons">cloud_download</i>
+                                        </a>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                          </div>
+
+                          
+                    </div>
+                </div>
+                <!-- <div class="card">
+                    <div class="card-body">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <label class="custom-file-label">Photo 2</label>
+                                <input type="file" name="image2" required (change)="fileSelctionChangesPhoto2($event)" title="Maximum 5 documents allowed"
+                                  accept="image/x-png,image/jpeg" class="custom-file-input" formControlName="photo2" />
+                              </div>
+                        </div>
+                        <div class="row mt-2 text-center" *ngIf="!isView">
+                            <div class="col-md-5 d-flex justify-content-around" *ngFor="let file of filesPhoto2">
+                              <div class="card file-preview-card">
+                                <label class="custom-preview-label"> {{file.file.name}} </label>
+                                <img [src]="file.previewUrl" height="120" width="177" />
+                                <div class="card-body">
+                                  <i style="color: #45afaf;" class="material-icons" (click)="deleteImagePhoto(file.id)">delete</i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

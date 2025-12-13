@@ -1,0 +1,196 @@
+<div class="container-fluid create-form mt-2 mb-3">
+  <div class="row ">
+    <!-- <div class="d-flex justify-content-between">
+          <div>
+            <p class="font-weight-bold" style="color: #354052">
+              Add Department
+            </p>
+          </div>
+        </div> -->
+    <div class="col-lg-12">
+      <div class="card-from mt-3">
+
+        <div class="card">
+          <div class="card-header">
+            <p class="mb-0">Create Dealer Territory Mapping</p>
+          </div>
+          <div class="card-body">
+
+            <form [formGroup]="addDealerTerritoryForm" [style.fontSize.px]="11">
+              <div class="row">
+
+                <div class="col-lg-3" *ngIf="isCreate">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Dealership</mat-label>
+                    <input matInput placeholder="Dealership" required formControlName="dealerMaster"
+                      [matAutocomplete]="autoDealer">
+                    <mat-autocomplete #autoDealer="matAutocomplete" [panelWidth]="300"
+                      (optionSelected)="selecredDealer($event)" (ngModelChange)="onKeyEmployeeeCode($event)"
+                      [displayWith]="displayDealer">
+                      <mat-option *ngFor="let option of dealerList" [value]="option">
+                        {{option?.dealerName}}
+                      </mat-option>
+
+                    </mat-autocomplete>
+                    <mat-error *ngIf="addDealerTerritoryForm.get('dealerMaster').hasError('required')">
+                      Please select from list</mat-error>
+
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3" *ngIf="isView || isEdit">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Dealership</mat-label>
+                    <input matInput placeholder="Dealership" formControlName="dealerMaster">
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="col-lg-3" *ngIf="isCreate">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Branch</mat-label>
+                    <mat-select formControlName="branchMaster" required>
+                      <mat-option *ngFor="let branch of branchList" [value]="branch">{{branch?.branchName}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="addDealerTerritoryForm.get('branchMaster').hasError('required')">
+                      Branch is Required</mat-error>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-lg-3" *ngIf="isView || isEdit">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Branch</mat-label>
+
+                    <mat-select placeholder="Branchrgbtny" formControlName="branchMaster">
+                      <mat-option *ngFor="let option of branchListForEditOrView"
+                        [value]="option.branchName">{{option.branchName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+
+
+
+
+                <div class="col-lg-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Country</mat-label>
+                    <input matInput placeholder="Country" formControlName="country">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-3" *ngIf="isCreate || isView || isEdit">
+                  <mat-form-field appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input matInput placeholder="State" formControlName="state">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-3" *ngIf="isView || isEdit">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Territory Number</mat-label>
+                    <input matInput placeholder="Territory Number" formControlName="territoryNo">
+                  </mat-form-field>
+                </div>
+
+
+
+
+                <div class="col-lg-3" *ngIf="isCreate">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>District</mat-label>
+                    <mat-select formControlName="district" required (selectionChange)="selectedDistrict($event)">
+                      <mat-option *ngFor="let dist of districtList" [value]="dist">{{dist?.district}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="addDealerTerritoryForm.get('district').hasError('required')">
+                      District is Required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-3" *ngIf="isView || isEdit">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>District</mat-label>
+                    <input matInput placeholder="District" formControlName="district">
+
+                  </mat-form-field>
+                </div>
+
+
+
+
+
+
+
+
+
+
+              
+                <!-- <div class="col-lg-2" *ngIf="isCreate">
+                <mat-form-field>
+                  <mat-label>Tehsil/ Taluk/ Mandaland</mat-label>
+                  <mat-select formControlName="tehsil" multiple>
+                   <mat-option *ngIf="tehsilList && tehsilList.length>0" #allSelected value="all"
+                   (click)="toggleAllSelection()">Select All</mat-option>
+                    <mat-option *ngFor="let value of tehsilList" [value]="value">{{value.tehsil}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div> -->
+           
+              <div class="col-lg-3" *ngIf="isCreate">
+                <ng-multiselect-dropdown [placeholder]="'Select tehsil'" required (onDeSelect)="deSelect($event)"
+                  (onDeSelectAll)="deSelectAll($event)" [settings]="createDropDownSettings" [data]="tehsilList"
+                  formControlName="tehsil"  (onSelect)="select($event)"
+                  (onSelectAll)="selectAll($event)">
+                </ng-multiselect-dropdown>
+              </div>
+
+
+
+
+                <div class="col-lg-3" *ngIf="isEdit">
+                  <ng-multiselect-dropdown [placeholder]="'Select tehsil'" (onDeSelect)="OnItemDeSelect($event)"
+                    (onDeSelectAll)="onDeSelectAll($event)" [settings]="dropdownSettings" [data]="tehsilListForEdit"
+                    formControlName="tehsil" [(ngModel)]="selectedCheckBox" (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+
+                <div class="col-lg-4" *ngIf="isView">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Tehsil/ Taluk/ Mandal</mat-label>
+                    <textarea matInput placeholder="Tehsil/ Taluk/ Mandal" formControlName="tehsil"></textarea>
+                  </mat-form-field>
+                </div>
+
+
+
+
+
+
+
+
+
+
+              </div>
+
+            </form>
+
+            <div class="text-center">
+              <button *ngIf="isCreate" type="button" class="btn px-3 btn_primary" (click)="validateForm()"> Submit
+              </button>
+              <button *ngIf="isEdit" type="button" class="btn px-3 btn_primary" (click)="validateForm()"> Update
+              </button>
+              <button *ngIf="isCreate" type="button" class="btn btn_secondary px-3 ml-2" (click)="clearForm()"> Clear
+              </button>
+              <button type="button" class="btn btn_primary px-3 ml-2" [routerLink]="['../../']"> Exit
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

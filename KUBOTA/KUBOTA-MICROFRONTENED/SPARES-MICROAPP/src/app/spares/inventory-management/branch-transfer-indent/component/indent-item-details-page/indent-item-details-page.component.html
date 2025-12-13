@@ -1,0 +1,89 @@
+<div class=" text-right" *ngIf="!isView && !isEdit">
+  <a class="btn btn-link" style="color: #00a8a9;font-size: 15px;" (click)="downloadTemplate()"><u>Download Template</u></a>
+  <a class="btn btn-link" style="color: #00a8a9;font-size: 15px;" (click)="uploadExcel()"><u>Excel Upload</u></a>
+</div>
+<div class="card-from mt-2 material-details" [formGroup]="indentItemForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">ITEM DETAILS</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of materialDetailHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of indentItemForm.controls; let i=index;" [formGroupName]="i">
+              <td class="chkBox">
+                <mat-checkbox [labelPosition]="'before'" (change)="change($event)" formControlName="isSelected">{{i+1}}</mat-checkbox>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Item No</mat-label>
+                  <input matInput placeholder="Item No" formControlName="sparePartMaster" [matAutocomplete]="off" (keypress)="getItemNumber()"  autocomplete="off">
+                  <mat-icon matSuffix>search</mat-icon>
+                  <mat-autocomplete [displayWith]="displayCodeFn" [panelWidth]="300" autoActiveFirstOption #off="matAutocomplete" (optionSelected)="getSpareItemDetails($event, list,i)" >
+                    <mat-option *ngFor="let option of autoCompleteData" [value]="option">
+                      {{option.displayValue}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="list.get('sparePartMaster').hasError('selectFromList')">Please select from list</mat-error>
+
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline" *ngIf="isView">
+                  <mat-label>Item No</mat-label>
+                  <input matInput placeholder="Item No" formControlName="sparePartMaster" />
+
+                </mat-form-field> -->
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Item Description</mat-label>
+                  <input matInput placeholder="Item Description" formControlName="itemDescription">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>REQUESTING BRANCH STOCK QTY</mat-label>
+                  <input matInput placeholder="REQUESTING BRANCH STOCK QTY" formControlName="reqBranchStockQty">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>SUPPLYING BRANCH STOCK QTY</mat-label>
+                  <input matInput placeholder="SUPPLYING BRANCH STOCK QTY" formControlName="supBranchStockQty">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>REQUEST QTY</mat-label>
+                  <input matInput placeholder="REQUEST QTY" formControlName="reqQty">
+                </mat-form-field>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row" *ngIf="!isView">
+        <div class="col-lg-12">
+          <div class="d-flex bd-highlight">
+
+            <div class="w-100 text-center">
+              <button (click)="addRow()" type="button" class="btn btn_primary px-2" style="font-size: 11px;"> Add Row
+              </button>
+              <button (click)="deleteRow()" type="button" class="btn btn_secondary px-2 ml-2" style="font-size: 11px;">
+                Delete Row
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+
+
+        <div class="container-fluid">
+            <ngsw-search-table [tableTitle]="'Job Card Pending For Approval'" [dataTable]="dataTable"
+                [totalElements]="totalTableElements" [actionButtons]="actionButtons" [searchValue]="searchValue"
+                [clickOnTableFields]="[{title:'jobCardNo'},{title:'approve'}]" (actionOnTableRecord)="tableAction($event)"
+                (pageChange)="pageChange($event)" [page]="page" [size]="size" [searchValue]="searchValue">
+                <td></td>
+                <td [ngsw-searchField]="jobCardNo" [searchColumnName]="'jobCardNo'" class="jobCardNo">
+                    <input class="w-100 borderRadius" #jobCardNo>
+                </td>
+                <td [ngsw-searchField]="status" [searchColumnName]="'status'" class="status">
+                    <input class="w-100 borderRadius" #status>
+                </td>
+                <td [ngsw-searchField]="chassisNo" [searchColumnName]="'chassisNo'" class="chassisNo">
+                    <input class="w-100 borderRadius" #chassisNo>
+                </td>
+                <td [ngsw-searchField]="engineNo" [searchColumnName]="'engineNo'" class="engineNo">
+                    <input class="w-100 borderRadius" #engineNo>
+                </td>
+                <td [ngsw-searchField]="model" [searchColumnName]="'model'" class="model">
+                    <input class="w-100 borderRadius" #model>
+                </td>
+                <td [ngsw-searchField]="jobCardDate" [searchColumnName]="'jobCardDate'" class="jobCardDate">
+                    <input class="w-100 borderRadius" type="date" #jobCardDate
+                        (change)="etSearchDateValueChange(jobCardDate.value,'jobCardDate')">
+                </td>
+                <td [ngsw-searchField]="dealerName" [searchColumnName]="'dealerName'" class="dealerName" style='width:250px'>
+                    <input class="w-100 borderRadius" #dealerName>
+                </td>
+                <td [ngsw-searchField]="serviceCategory" [searchColumnName]="'serviceCategory'" class="serviceCategory">
+                    <input class="w-100 borderRadius" #serviceCategory>
+                </td>
+                <td [ngsw-searchField]="placeOfService" [searchColumnName]="'placeOfService'" class="placeOfService">
+                    <input class="w-100 borderRadius" #placeOfService>
+                </td>
+                <td [ngsw-searchField]="taskDate" [searchColumnName]="'taskDate'" class="taskDate">
+                    <input class="w-100 borderRadius" type="date" #taskDate
+                        (change)="etSearchDateValueChange(taskDate.value,'taskDate')">
+                </td>
+                <td [ngsw-searchField]="taskTime" [searchColumnName]="'taskTime'" class="taskTime">
+                    <input class="w-100 borderRadius" #taskTime>
+                </td>
+
+            </ngsw-search-table>
+        </div>

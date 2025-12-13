@@ -1,0 +1,65 @@
+<div class="card-body">
+
+    <div [formGroup]="partyMasterSearchForm" [style.fontSize.px]="11">
+        <div class="row">
+            <!-- <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Party Code</mat-label>
+                    <input matInput placeholder="Party Code" formControlName="partyCode">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Party Name</mat-label>
+                    <input matInput placeholder="Party Name" formControlName="partyName">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div> -->
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Party Code</mat-label>
+                    <input matInput placeholder="Party Code" formControlName="partyCode"
+                        [matAutocomplete]="autoPartyCode">
+                    <mat-autocomplete #autoPartyCode="matAutocomplete"
+                       [displayWith]="displayFnForPartyCode"
+                        [panelWidth]="500">
+                        <mat-option *ngFor="let option of partyCode$?.result" [value]="option.partyCode">
+                            {{option?.partyCode}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <!-- <mat-error *ngIf="partyMasterSearchForm.get('partyCode').hasError('required')">
+                        Party Code is Required</mat-error>
+                    <mat-error *ngIf="partyMasterSearchForm.get('partyCode').hasError('selectFromList')">
+                        Please select from list</mat-error> -->
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-2">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Party Name</mat-label>
+                    <input matInput placeholder="Party Name" formControlName="partyName"
+                        [matAutocomplete]="autoPartyName">
+                    <mat-autocomplete #autoPartyName="matAutocomplete"
+                        [displayWith]="displayFnForPartyName"
+                        [panelWidth]="500">
+                        <mat-option *ngFor="let option of partyName$?.result" [value]="option.partyName">
+                            {{option?.partyName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <!-- <mat-error *ngIf="partyMasterSearchForm.get('partyName').hasError('required')">
+                        Party Code is Required</mat-error>
+                    <mat-error *ngIf="partyMasterSearchForm.get('partyName').hasError('selectFromList')">
+                        Please select from list</mat-error> -->
+                </mat-form-field>
+            </div>
+
+        </div>
+
+    </div>
+</div>

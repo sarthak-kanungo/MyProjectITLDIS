@@ -1,0 +1,86 @@
+<div class="card-from mt-2 material-details" [formGroup]="materialDetailForm">
+  <div class="card" style="border: 1px solid #45afaf;">
+    <div class="card-header" style="background-color: #45afaf;
+              border: 1px solid #45afaf;">
+      <p class="mb-0" style="font-size: 13px;">MATERIAL DETAILS</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="p-2" *ngFor="let tableHeading of materialDetailHeading">{{tableHeading}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of materialDetailForm.controls; let i=index" [formGroupName]="i">
+              <td>{{i+1}}</td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Item No</mat-label>
+                  <input matInput placeholder="Item No" formControlName="itemNo">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Item Desc.</mat-label>
+                  <input matInput placeholder="Item Desc." formControlName="itemDescription">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Unit Price</mat-label>
+                  <input matInput placeholder="Unit Price" formControlName="unitPrice">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Quantity</mat-label>
+                  <input matInput placeholder="Quantity" formControlName="quantity">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Value</mat-label>
+                  <input matInput placeholder="Value" formControlName="value">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Approved Qty</mat-label>
+                  <input matInput placeholder="Approved Qty" formControlName="approvedQty">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Approved Value</mat-label>
+                  <input matInput placeholder="Approved Value" formControlName="approvedVal">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <mat-label>Inspection Remark</mat-label>
+                  <input matInput placeholder="Inspection Remark" formControlName="inspectionRemark">
+                </mat-form-field>
+              </td>
+              <td class="chkBox">
+                <mat-checkbox [checked] formControlName="claimable"></mat-checkbox>
+              </td>
+              <td>
+                <!-- <mat-radio-button  formControlName="keyPartNumber" [disabled]="operation == 'view'"  value="Key Part Number" [checked]="list.controls.keyPartNumber.value" (change)="selectedRadBtn($event, list)"></mat-radio-button> -->
+
+                <mat-radio-group aria-label="Select an option" formControlName="keyPartNumber">
+                  <mat-radio-button  [disabled]="operation == 'view'"  value="true" [checked]="list.controls.keyPartNumber.value" (change)="selectedRadBtn($event, list)"></mat-radio-button>
+                </mat-radio-group>  
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="kQuickForm" *ngIf="radioBtnValue == 'Claimable from Vendor'">
+  <app-kai-inspection-sheet-k-quic-details [kQuickForm]="kQuickForm"></app-kai-inspection-sheet-k-quic-details>
+</div>

@@ -1,0 +1,244 @@
+<div class="card-body">
+  <div [formGroup]="sparesSalesInvoiceForm" [style.fontSize.px]="10">
+    <div class="row">
+
+      <div class="col-lg-2" *ngIf="isView">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Sales Invoice Number</mat-label>
+          <input matInput placeholder="Sales Invoice Number" formControlName="invoiceNumber">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Sales Invoice Date</mat-label>
+          <input matInput [matDatepicker]="picker1" placeholder="Invoice Date" formControlName="salesInvoiceDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Reference Document</mat-label>
+          <mat-select (selectionChange)="referenceDocumentChanges($event)" formControlName="referenceDocument" required>
+            <mat-option *ngFor="let refdoc of referenceDocList" [value]="refdoc.value">{{refdoc.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="sparesSalesInvoiceForm.get('referenceDocument').hasError('required')">
+            Ref. document is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2" *ngIf="isSalesOrderSelected!==undefined">
+        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+          <mat-label>{{referenceType}}/ Customer/ Mobile</mat-label>
+          <input matInput placeholder="{{isSalesOrderSelected?'Sales Order':(jobCardNumber?'Job Card':'WCR')}}/ Customer/ Mobile"
+            [matAutocomplete]="autoSalesOrder" formControlName="saleOrderOrJobCard" required>
+          <mat-autocomplete #autoSalesOrder="matAutocomplete" (optionSelected)="salesOrderSelection($event)"
+            [displayWith]="displayAutocompleteValueFn" [panelWidth]="500">
+            <mat-option *ngFor="let option of filteredSalesOrderOrJobCardList |async" [value]="option">
+              {{option.value}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-error *ngIf="sparesSalesInvoiceForm.get('saleOrderOrJobCard').hasError('required')">
+            This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="col-lg-2" *ngIf="!isSalesOrderSelected">
+        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+          <mat-label>Job Card/Customer/Mobile</mat-label>
+          <input matInput placeholder="Job Card/Customer/Mobile" [matAutocomplete]="autoJobCardNumber">
+          <mat-autocomplete #autoJobCardNumber="matAutocomplete" (optionSelected)="jobCardSelection($event)"
+            [displayWith]="displayAutocompleteValueFn">
+            <mat-option *ngFor="let option of filteredJobcCardList |async" [value]="option">
+              {{option.value}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div> -->
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <input matInput [matDatepicker]="picker2" placeholder="Ref Document Date"
+            formControlName="referenceDocumentDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+
+     <div class="col-lg-2" *ngIf="!isSalesOrderSelected">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Chassis No.</mat-label>
+            <input matInput placeholder="Chassis No." formControlName="chassisNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isSalesOrderSelected">
+        <mat-form-field appearance="outline">
+            <mat-label>Engine No.</mat-label>
+            <input matInput placeholder="Engine No." formControlName="engineNo">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" *ngIf="!isSalesOrderSelected">
+        <mat-form-field appearance="outline">
+            <mat-label>CSB No.</mat-label>
+            <input matInput placeholder="CSB No." formControlName="csbNo">
+        </mat-form-field>
+    </div>
+    
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Type</mat-label>
+          <input matInput placeholder="Customer Type" formControlName="customerType">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Customer Code</mat-label>
+          <input matInput placeholder="Customer Code" formControlName="customerCode">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Customer Name</mat-label>
+          <input matInput placeholder="Customer Name" formControlName="customerName">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Mobile No.</mat-label>
+          <input matInput placeholder="Customer Mobile No." required formControlName="mobileNo">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Address 1</mat-label>
+          <input matInput placeholder="Customer Address 1" formControlName="customerAddress1">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Customer Address 2</mat-label>
+          <input matInput placeholder="Customer Address 2" formControlName="customerAddress2">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <input matInput placeholder="Country" formControlName="country">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>District</mat-label>
+          <input matInput placeholder="District" formControlName="district">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Tehsil</mat-label>
+          <input matInput placeholder="Tehsil/ Taluk/ Mandal " formControlName="tehsil">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Village</mat-label>
+          <input matInput placeholder="Village" formControlName="village">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Pin Code</mat-label>
+          <input matInput placeholder="Pin code" formControlName="pincode">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Locality</mat-label>
+          <input matInput placeholder="Locality" formControlName="locality">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Sales Type</mat-label>
+          <mat-select formControlName="salesType" required>
+            <mat-option *ngFor="let type of saleTypeList" [value]="type.salesType">{{type.salesType}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="sparesSalesInvoiceForm.get('salesType').hasError('required')">
+            Sales type is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Mode of Transport</mat-label>
+          <mat-select formControlName="transportMode" >
+            <mat-option *ngFor="let mode of modeOfTransportList" [value]="mode.modeOfTransfer">{{mode.modeOfTransfer}}
+            </mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="sparesSalesInvoiceForm.get('transportMode').hasError('required')">
+            Transport mode is required</mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Transporter</mat-label>
+          <mat-select formControlName="transporter" >
+            <mat-option *ngFor="let transporter of transporterList" [value]="transporter.transporter">
+              {{transporter.transporter}}
+            </mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="sparesSalesInvoiceForm.get('transporter').hasError('required')">
+            Transporter is required</mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>L.R. No.</mat-label>
+          <input matInput placeholder="L.R. No." formControlName="lrNo" >
+          <!-- <mat-error *ngIf="sparesSalesInvoiceForm.get('lrNo').hasError('required')">
+            L.R.number is required</mat-error> -->
+        </mat-form-field>
+      </div>
+      <div class="col-lg-2">
+        <mat-form-field appearance="outline">
+          <mat-label>L.R. Date</mat-label>
+          <input matInput placeholder="L.R. Date" formControlName="lrDate" [matDatepicker]="picker3">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+      
+      <div class="col-lg-2">
+          <mat-radio-group class = "tp-radio-group" formControlName="paymentType" aria-label="Payment Type">
+            <mat-radio-button class = "tp-radio-button"  *ngFor = "let option of paymentTypes" [value] = "option" (change)="paymentSelection($event)">{{option}}</mat-radio-button>
+          </mat-radio-group>
+      </div>
+    </div>
+  </div>
+</div>

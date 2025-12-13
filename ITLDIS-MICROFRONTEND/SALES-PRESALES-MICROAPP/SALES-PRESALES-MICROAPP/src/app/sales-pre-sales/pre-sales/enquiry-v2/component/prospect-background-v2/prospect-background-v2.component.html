@@ -1,0 +1,63 @@
+<div class="card-from mt-2">
+        <div class="card" style="border: 1px solid #45afaf;">
+          <div class="card-header" style="background-color: #45afaf;
+                    border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Prospect Background</p>
+          </div>
+          <div class="card-body">
+              <div class="row" [formGroup]="prospectBackgroundForm">
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Occupation</mat-label>
+                    <mat-select formControlName="occupation" required (selectionChange)="selectionoccupation($event.value)" [compareWith]="compareFnOccupation">
+                      <mat-option *ngFor="let option of occupation" [value]="option">
+                        {{option?.occupation}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="prospectBackgroundForm.get('occupation').hasError('required')">
+                      Occupation is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2" *ngIf="isShowoByOccupation">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Other Occupation</mat-label>
+                    <input matInput placeholder="Other Occupation" maxlength="15" formControlName="otherOccupation">
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Land Size(In Acres)</mat-label>
+                    <input type="number" class="quantity" matInput placeholder="Land Size(In Acres)" required
+                      formControlName="landSize" onKeyPress="if(this.value.length==4) return false;" (keypress)="onKeyPressAlphaNumericsOnly($event)">
+                      <mat-error *ngIf="prospectBackgroundForm.get('landSize').hasError('required')">
+                        Land Size(In Acres) is Required</mat-error>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Soil Type</mat-label>
+                    <mat-select formControlName="soilName" multiple [compareWith]="compareFnSoilType">
+                      <mat-option *ngFor="let soil of soilType" [value]="soil">{{soil?.soilType}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+      
+                <div class="col-lg-2">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Major Crop Grown</mat-label>
+                    <mat-select formControlName="cropName" multiple [compareWith]="compareFnCropGrown">
+                      <mat-option *ngFor="let grown of  majorCropGrown" [value]="grown">{{grown?.cropGrown}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+      
+              </div>
+          </div>
+      
+        </div>
+      </div>

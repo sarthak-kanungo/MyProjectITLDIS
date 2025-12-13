@@ -1,0 +1,19 @@
+<div class="container-fluid create-form mb-3 mt-4">
+    <!--<div class="heading">
+        <p class="font-weight-bold">Marketing Activity Claim Creation</p>
+    </div>-->
+
+    <div class="card-from">
+        <div class="card">
+            <div class="card-header">
+                <p class="mb-0">Marketing Activity Claim</p>
+            </div>
+            
+            <app-activity-claim-creation></app-activity-claim-creation>
+       
+        </div>
+    </div>
+
+
+
+</div>

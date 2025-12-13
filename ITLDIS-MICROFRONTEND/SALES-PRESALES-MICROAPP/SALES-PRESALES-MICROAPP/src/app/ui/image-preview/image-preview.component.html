@@ -1,0 +1,10 @@
+<div class="card"  style="border: 1px solid #45afaf;">
+    <div class="card-header d-flex justify-content-between" style="background-color: #45afaf;
+        border: 1px solid #45afaf;">
+        <p class="mb-0">Preview Image</p>
+        <button class="font-weight-bold btn btn_header bg_white" (click)="closeDialog()">Close</button>
+    </div>
+    <mat-dialog-content>
+                <img src="{{fileName}}" width="100%" (error) ="onImgError($event)"/>
+    </mat-dialog-content>
+</div>

@@ -1,0 +1,166 @@
+<div class="container-fluid create-form  mt-3 mb-3">
+    <div class="card" style="border: 1px solid #45afaf;">
+        <div class="card-header" style="background-color: #45afaf; border: 1px solid #45afaf;">
+            <p class="mb-0" style="font-size: 13px;">Question Master</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="questionMasterHeader" [style.fontSize.px]="10">
+                
+                <div class="row">
+                    <!-- <div class="col-lg-3" *ngIf="!isCreate">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Question Code</mat-label>
+                            <input matInput placeholder="Question Code" [matAutocomplete]="qustcode"
+                                (ngModelChange)="getQuestionCode($event)" formControlName="questionCode">
+                            <mat-autocomplete #qustcode="matAutocomplete" [displayWith]="displayFnQuestionCode"
+                                [panelWidth]="300">
+                                <mat-option>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-icon matSuffix>search</mat-icon>
+                            <mat-error *ngIf="questionMasterHeader.get('questionCode').hasError('selectFromList')"> Select From List</mat-error>
+                        </mat-form-field>
+                    </div> -->
+
+                    <div class="col-lg-3" *ngIf="!isCreate">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Question Code</mat-label>
+                            <input matInput placeholder="Question Code" formControlName="questionCode">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Question Type</mat-label>
+                            <mat-select placeholder="Question Type" formControlName="questionType" required>
+                                <mat-option *ngFor="let type of questionType" [value]="type">
+                                    {{type.Survey_type_desc}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Question</mat-label>
+                            <input matInput placeholder="Question" formControlName="question" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                        <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker1" placeholder="Creation Date" readonly
+                                (click)="picker1.open()" formControlName="creationDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <div class="form-check mt-2">
+                            <mat-checkbox color="basic" formControlName="active"> Is Active </mat-checkbox>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+                <div class="card" style="border: 1px solid #45afaf;">
+                    <div class="table-responsive mt-1">
+                        <table class="table w-100 table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th></th>
+                                    <th scope="col">Active </th>
+                                    <th scope="col">Main Answer </th>
+                                    <th scope="col">Sub Answer </th>
+                                    <th scope="col">Multiple Answer </th>
+                                    <th scope="col">Consider Dissatisfied </th>
+                                    <th scope="col">Sub Answer </th>
+                                    <!-- <th>
+                                        <tr>
+                                            <th scope="col" >Active </th>
+                                            <th scope="col" >Select </th>
+                                            <th scope="col" >Sub Answer </th>
+                                        </tr>
+                                    </th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let option of questionMasterQuesFormArray['controls']; let i = index;">
+                                    <td style="vertical-align: middle;" *ngIf="isCreate">
+                                        <mat-icon type="button" (click)="deleteRow(i)">delete</mat-icon>
+                                    </td>
+                                    <td style="vertical-align: middle;" *ngIf="!isCreate"></td>
+                                    <td style="vertical-align: middle;">
+                                        <mat-checkbox color="basic" [formControl]="option.get('active')"></mat-checkbox>
+                                    </td>
+                                    <!-- <td style="vertical-align: middle;">
+                                        <mat-checkbox color="basic" [formControl]="option.get('select')"></mat-checkbox>
+                                    </td> -->
+                                    <td style="vertical-align: middle;">
+                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                            <input matInput placeholder="Main Answer" [formControl]="option.get('mainAnswer')" required>
+                                        </mat-form-field>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <mat-checkbox color="basic" [formControl]="option.get('subAnswer')" (change)='enableSubAns($event)'></mat-checkbox>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <mat-checkbox color="basic" [formControl]="option.get('multipleAnswer')"></mat-checkbox>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <mat-checkbox color="basic" color="basic" [formControl]="option.get('considerDissatisfied')"></mat-checkbox>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <thead class="thead">
+                                                <th scope="col" style="width: 20%;">Active </th>
+                                                <th scope="col" style="width: 80%;">Sub Answer</th>
+                                                <th></th>
+                                            </thead>
+                                            <tbody>
+                                                <tr
+                                                    *ngFor="let sub of option.get('subQuest')['controls']; let si = index;">
+                                                    <td style="vertical-align: middle;">
+                                                        <mat-checkbox color="basic" [formControl]="sub.get('isactive')">
+                                                        </mat-checkbox>
+                                                    </td>
+                                                    <!-- <td style="vertical-align: middle;">
+                                                        <mat-checkbox color="basic" [formControl]="sub.get('select')">
+                                                        </mat-checkbox>
+                                                    </td> -->
+                                                    <td style="vertical-align: middle;">
+                                                        <mat-form-field appearance="outline" [style.fontSize.px]="10">
+                                                            <input matInput placeholder="Sub Answer"
+                                                                [formControl]="sub.get('subAnsDesc')">
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" *ngIf="!isCreate"></td>
+                                                    <td style="vertical-align: middle;" *ngIf="isCreate">
+                                                        <mat-icon type="button"
+                                                            (click)="deleteSubQuestRow(option.get('subQuest'),si)">
+                                                            delete</mat-icon>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- <button type="button" class="btn_primary" style="margin-top: 5px;border-radius: 0.2rem;" (click)="addSubQuestRow(option)"> -->
+                                            <mat-icon *ngIf="isCreate" type="button" (click)="addSubQuestRow(option)" style="color: #028383 !important;">add_circle</mat-icon>
+                                        <!-- </button> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class=" text-center mt-2 mb-3">
+                            <button *ngIf="isCreate" type="button" class="btn btn-sm btn_primary " (click)="addRow()"> Add Row</button>
+                        </div>
+                    </div>
+                </div>
+                <div class=" text-center mt-2 mb-3">
+                    <button *ngIf="isCreate" type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()"> Submit</button>
+                    <button *ngIf="isEdit" type="button" class="btn btn_primary pl-3 pr-3 ml-3" (click)="validateForm()"> Update</button>
+                    <button *ngIf="isCreate" type="button" class="btn btn_secondary pl-3 pr-3 ml-3" (click)="clearForm()"> Clear</button>
+                </div>
+        </div>
+    </div>
+</div>

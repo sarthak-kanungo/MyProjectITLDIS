@@ -1,0 +1,36 @@
+<div class="card-from mt-2">
+    <div class="card" style="border: 1px solid #45afaf;">
+      <div class="card-header" style="background-color: #45afaf;
+      border: 1px solid #45afaf;">
+        <p class="mb-0" style="font-size: 13px;">Dealer Information</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="dealerDetailsFrom" [style.fontSize.px]="10">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Dealer Code</mat-label>
+                <input matInput placeholder="Dealer Code" formControlName="dealerCode">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Dealer Name </mat-label>
+                <input matInput placeholder=" Dealer Name" formControlName="dealerName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-2">
+              <mat-form-field appearance="outline">
+                <mat-label>State </mat-label>
+                <input matInput placeholder=" State" formControlName="state">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>

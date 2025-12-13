@@ -1,0 +1,10 @@
+<mat-toolbar class="navbar fixed-top">
+  <!-- <button mat-icon-button id="menu" (click)="minimizeSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button> -->
+  <span><a (click)="dashboard()"><img src="../../assets/brand-icon.svg" width="140" height="30"
+        style="margin-left: 16px" alt=""></a></span>
+  <span class="spacer"></span>
+
+ 
+</mat-toolbar>

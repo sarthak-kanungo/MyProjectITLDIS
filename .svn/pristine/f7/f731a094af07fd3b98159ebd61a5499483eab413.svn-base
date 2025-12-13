@@ -1,0 +1,146 @@
+<div class="row" [formGroup]="createSpareDescripancyForm">
+ 
+   
+   
+    
+    <div class="col-lg-2" *ngIf="isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>CLAIM / REQUEST TYPE</mat-label>
+            <mat-select  formControlName="claimType" required (selectionChange)="selectClaimType($event)">
+                <mat-option *ngFor="let option of claimTypeList"  [value]="option">
+                    {{[option]}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="createSpareDescripancyForm.get('claimType').hasError('required')">
+                Claim/Request Type is Required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="!isCreate">
+        <mat-form-field appearance="outline">
+            <mat-label>CLAIM / REQUEST TYPE</mat-label>
+            <input matInput placeholder="CLAIM / REQUEST TYPE" formControlName="claimType">
+            
+        </mat-form-field>
+    </div>
+
+
+    <div class="col-lg-2" *ngIf="!isCreate">
+        <mat-form-field appearance="outline">
+            <mat-label>CLAIM / REQUEST NO.</mat-label>
+            <input matInput placeholder="CLAIM / REQUEST NO." formControlName="claimNo">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>CLAIM / REQUEST DATE</mat-label>
+            <input matInput placeholder="CLAIM / REQUEST DATE" formControlName="claimDate">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" *ngIf="!isCreate">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <input matInput placeholder="status" formControlName="status">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2">
+        <mat-form-field class="w-100" appearance="outline" [style.fontSize.px]="10">
+            <input matInput placeholder="DMS GRN No" 
+                formControlName="grnNo" required
+                [matAutocomplete]="autoGrnNo" (keypress)="searchGrnNumber($event)" (keyup)="keyUp($event)">
+            <mat-autocomplete #autoGrnNo="matAutocomplete" [displayWith]="displayGrnNo"
+                (optionSelected)="grnNumberSelected($event)"
+                 [panelWidth]="250">
+                <mat-option *ngFor="let grnNumber of grnList"
+                    [value]="grnNumber">
+                    {{grnNumber?.grnNo}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+            
+            <mat-error *ngIf="createSpareDescripancyForm.get('grnNo').hasError('selectFromList')">Select from list</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>GRN DATE</mat-label>
+            <input matInput placeholder="GRN DATE" formControlName="grnDate">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>DEALER CODE</mat-label>
+            <input matInput placeholder="DEALER CODE" formControlName="dealerCode">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>CLAIM RAISED BY</mat-label>
+            <input matInput placeholder="CLAIM RAISED BY" formControlName="claimRaisedBy">
+        </mat-form-field>
+    </div>
+
+
+    
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>NO. OF BOXES SENT</mat-label>
+            <input matInput placeholder="NO. OF BOXES SENT" formControlName="noOfBoxSent">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>KAI INVOICE NO.</mat-label>
+            <input matInput placeholder="KAI INVOICE NO." formControlName="kaiInvoiceNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>INVOICE DATE</mat-label>
+            <input matInput placeholder="INVOICE DATE" formControlName="invoiceDate">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>MOBILE NO.</mat-label>
+            <input matInput placeholder="MOBILE NO." formControlName="mobileNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>NO. OF BOXES RECEIVED</mat-label>
+            <input matInput placeholder="NO. OF BOXES RECEIVED" formControlName="noofBoxesRecieved">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>MODE</mat-label>
+            <input matInput placeholder="MODE" formControlName="mode">
+        </mat-form-field>
+    </div>
+
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>TRANSPORTER</mat-label>
+            <input matInput placeholder="TRANSPORTER" formControlName="transporter">
+        </mat-form-field>
+    </div>
+    <div class="col-lg-2" >
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>L.R. NO</mat-label>
+            <input matInput placeholder="L.R. NO" formControlName="lrNo">
+        </mat-form-field>
+    </div>
+</div>
+

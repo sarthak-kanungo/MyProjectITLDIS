@@ -1,0 +1,19 @@
+
+   <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"style="background-color:#00a8a9;color:white">
+          <h5 class="modal-title">{{userCode}} {{errorMessage}}</h5>
+        </div>
+        <div class="modal-body">
+          <p>Do you want to logout this user <b>{{userCode}}.</b></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn  btn_primary" (click)="onLogout('logout')">LogOut
+        </button>
+     
+          <button type="button" class="btn  btn_secondary px-3 ml-2" (click)="onCancel()">
+            Cancel
+        </button>
+        </div>
+      </div>
+    </div>
