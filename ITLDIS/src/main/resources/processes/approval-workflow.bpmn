@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_ApprovalWorkflow" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+  <bpmn:process id="ApprovalProcess" name="Approval Workflow Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_Approval" name="Start Approval">
+      <bpmn:outgoing>Flow_StartToSubmit</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_Submit" name="Submit Request" camunda:assignee="${initiator}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="requestTitle" label="Request Title" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="requestDescription" label="Description" type="string" />
+          <camunda:formField id="amount" label="Amount" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_StartToSubmit</bpmn:incoming>
+      <bpmn:outgoing>Flow_SubmitToReview</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Review" name="Review Request" camunda:candidateGroups="managers">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="reviewComment" label="Review Comment" type="string" />
+          <camunda:formField id="approved" label="Approved" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_SubmitToReview</bpmn:incoming>
+      <bpmn:outgoing>Flow_ReviewToGateway</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Approval" name="Approval Decision">
+      <bpmn:incoming>Flow_ReviewToGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_GatewayToApprove</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GatewayToReject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Approve" name="Process Approval" camunda:assignee="${initiator}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="approvalNote" label="Approval Note" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_GatewayToApprove</bpmn:incoming>
+      <bpmn:outgoing>Flow_ApproveToEnd</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Reject" name="Handle Rejection" camunda:assignee="${initiator}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="rejectionReason" label="Rejection Reason" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_GatewayToReject</bpmn:incoming>
+      <bpmn:outgoing>Flow_RejectToEnd</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_Approved" name="Approved">
+      <bpmn:incoming>Flow_ApproveToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_Rejected" name="Rejected">
+      <bpmn:incoming>Flow_RejectToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_StartToSubmit" sourceRef="StartEvent_Approval" targetRef="Task_Submit" />
+    <bpmn:sequenceFlow id="Flow_SubmitToReview" sourceRef="Task_Submit" targetRef="Task_Review" />
+    <bpmn:sequenceFlow id="Flow_ReviewToGateway" sourceRef="Task_Review" targetRef="Gateway_Approval" />
+    <bpmn:sequenceFlow id="Flow_GatewayToApprove" name="Yes" sourceRef="Gateway_Approval" targetRef="Task_Approve">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approved == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_GatewayToReject" name="No" sourceRef="Gateway_Approval" targetRef="Task_Reject">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approved == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ApproveToEnd" sourceRef="Task_Approve" targetRef="EndEvent_Approved" />
+    <bpmn:sequenceFlow id="Flow_RejectToEnd" sourceRef="Task_Reject" targetRef="EndEvent_Rejected" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ApprovalWorkflow">
+    <bpmndi:BPMNPlane id="BPMNPlane_ApprovalWorkflow" bpmnElement="ApprovalProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_Approval" bpmnElement="StartEvent_Approval">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="155" y="142" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_Submit" bpmnElement="Task_Submit">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_Review" bpmnElement="Task_Review">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Approval_di" bpmnElement="Gateway_Approval" isMarkerVisible="true">
+        <dc:Bounds x="590" y="92" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="595" y="149" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_Approve" bpmnElement="Task_Approve">
+        <dc:Bounds x="700" y="27" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_Reject" bpmnElement="Task_Reject">
+        <dc:Bounds x="700" y="127" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_Approved" bpmnElement="EndEvent_Approved">
+        <dc:Bounds x="862" y="49" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="860" y="92" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_Rejected" bpmnElement="EndEvent_Rejected">
+        <dc:Bounds x="862" y="149" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="860" y="192" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_StartToSubmit_di" bpmnElement="Flow_StartToSubmit">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SubmitToReview_di" bpmnElement="Flow_SubmitToReview">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ReviewToGateway_di" bpmnElement="Flow_ReviewToGateway">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GatewayToApprove_di" bpmnElement="Flow_GatewayToApprove">
+        <di:waypoint x="640" y="92" />
+        <di:waypoint x="640" y="67" />
+        <di:waypoint x="700" y="67" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GatewayToReject_di" bpmnElement="Flow_GatewayToReject">
+        <di:waypoint x="640" y="142" />
+        <di:waypoint x="640" y="167" />
+        <di:waypoint x="700" y="167" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ApproveToEnd_di" bpmnElement="Flow_ApproveToEnd">
+        <di:waypoint x="800" y="67" />
+        <di:waypoint x="862" y="67" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_RejectToEnd_di" bpmnElement="Flow_RejectToEnd">
+        <di:waypoint x="800" y="167" />
+        <di:waypoint x="862" y="167" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

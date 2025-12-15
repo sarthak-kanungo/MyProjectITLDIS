@@ -247,10 +247,12 @@ public class LoginDAO
         try
         {
             con = new dbConnection().getConnection();
-
+            // If database connection fails (e.g. SQL Server not running), avoid NullPointerException
+            // and return a clear status string.
             if (con == null)
             {
-                result = "Connection Problem";
+                System.err.println("WARN: Database connection is null in LoginDAO.checkUser()");
+                return "Connection Problem";
             }
 
             //System.out.println("select uc.status,uc.user_type_id,spas1.User_Type,uc.Last_Changed,Reg_Date from USER_CHECK uc,SPAS101  spas1 where uc.user_type_id=spas1.User_Type_Id and User_Id='" + userId + "' and password='" + password + "'");

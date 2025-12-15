@@ -799,4 +799,71 @@
         <set-property property="pathnames" value="/WEB-INF/validator-rules.xml"/>
     </plug-in>
 
+    <!-- ============================================ -->
+    <!-- Camunda BPM Process Management Actions -->
+    <!-- ============================================ -->
+    
+    <!-- Start Process Instance -->
+    <action path="/camunda/startProcess" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="startProcess"
+            scope="request">
+        <forward name="success" path="/camunda/success.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+    
+    <!-- Get User Tasks -->
+    <action path="/camunda/getUserTasks" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="getUserTasks"
+            scope="request">
+        <forward name="taskList" path="/camunda/taskList.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+    
+    <!-- Get All User Tasks (including candidate tasks) -->
+    <action path="/camunda/getAllUserTasks" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="getAllUserTasks"
+            scope="request">
+        <forward name="taskList" path="/camunda/taskList.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+    
+    <!-- Get Task Details -->
+    <action path="/camunda/getTaskDetails" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="getTaskDetails"
+            scope="request">
+        <forward name="taskDetails" path="/camunda/taskDetails.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+    
+    <!-- Complete Task -->
+    <action path="/camunda/completeTask" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="completeTask"
+            scope="request">
+        <forward name="success" path="/camunda/success.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+    
+    <!-- Get Process Instance Details -->
+    <action path="/camunda/getProcessInstanceDetails" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="getProcessInstanceDetails"
+            scope="request">
+        <forward name="processInstanceDetails" path="/camunda/success.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+    
+    <!-- Delete Process Instance -->
+    <action path="/camunda/deleteProcessInstance" 
+            type="com.i4o.dms.itldis.camunda.action.ProcessAction" 
+            method="deleteProcessInstance"
+            scope="request">
+        <forward name="success" path="/camunda/success.jsp"/>
+        <forward name="error" path="/camunda/error.jsp"/>
+    </action>
+
 </struts-config>

@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Struts
+    participant Action
+    participant Service
+    participant DAO
+    participant Hibernate
+    participant Database
+    participant SAP
+    
+    User->>Browser: Access Application
+    Browser->>Struts: HTTP Request (.do)
+    Struts->>Action: Route to Action Class
+    Action->>Service: Business Logic
+    Service->>DAO: Data Access Request
+    DAO->>Hibernate: ORM Query
+    Hibernate->>Database: SQL Query
+    Database-->>Hibernate: Result Set
+    Hibernate-->>DAO: Entity Objects
+    DAO-->>Service: Data Objects
+    Service->>SAP: External API Call (if needed)
+    SAP-->>Service: Response
+    Service-->>Action: Business Result
+    Action->>Struts: Forward/Redirect
+    Struts->>Browser: JSP Response
+    Browser-->>User: Rendered Page

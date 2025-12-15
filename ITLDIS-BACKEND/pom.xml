@@ -23,6 +23,7 @@
 		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
 		<start-class>com.i4o.dms.itldis.ItldisApplication</start-class>
 		<lombok.version>1.18.32</lombok.version>
+		<camunda.version>7.18.0</camunda.version>
 	</properties>
 	
 	<dependencies>
@@ -184,6 +185,27 @@
 		    <groupId>com.nimbusds</groupId>
 		    <artifactId>nimbus-jose-jwt</artifactId>
 		    <version>9.40</version>
+		</dependency>
+		
+		<!-- Camunda BPM Spring Boot Starter -->
+		<dependency>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter</artifactId>
+			<version>${camunda.version}</version>
+		</dependency>
+		
+		<!-- Camunda BPM Spring Boot Starter REST -->
+		<dependency>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+			<version>${camunda.version}</version>
+		</dependency>
+		
+		<!-- Camunda BPM Spring Boot Starter Webapp (Cockpit, Tasklist, Admin) -->
+		<dependency>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+			<version>${camunda.version}</version>
 		</dependency>
 		
 		<!-- SAP JCo (Java Connector) for SAP Integration -->

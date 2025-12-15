@@ -81,6 +81,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		                .antMatchers("/api/kubotauser/forgotPassword").permitAll()
 		                .antMatchers("/api/files").permitAll()
 		                .antMatchers("/api/version/**").permitAll()
+		                // Camunda BPM Webapps and REST API access
+		                // Note: In production, these should be secured with proper authentication
+		                .antMatchers("/camunda/**", "/app/**", "/api/engine/**", "/rest/**").permitAll()
 		                .anyRequest().fullyAuthenticated())
                 .headers(headers -> headers
                 		.contentTypeOptions(withDefaults())

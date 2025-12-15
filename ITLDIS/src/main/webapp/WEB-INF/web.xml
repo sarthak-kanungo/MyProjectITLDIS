@@ -341,6 +341,18 @@
         <servlet-name>downloadFileServlet</servlet-name>
         <url-pattern>/downloadFileServlet</url-pattern>
     </servlet-mapping>
+    
+    <!-- Camunda BPM Listeners -->
+    <!-- ProcessEngineFactory must be initialized first -->
+    <listener>
+        <listener-class>com.i4o.dms.itldis.camunda.ProcessEngineFactory</listener-class>
+    </listener>
+    
+    <!-- ProcessDeploymentListener deploys BPMN processes after ProcessEngine is initialized -->
+    <listener>
+        <listener-class>com.i4o.dms.itldis.camunda.ProcessDeploymentListener</listener-class>
+    </listener>
+    
     <!--<listener>
         <listener-class>com.listener.StartupListener</listener-class>
     </listener>-->
