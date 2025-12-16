@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-04-07T14:49:13 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReport_Charge" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" resourceBundle="ApplicationResource_en_US" uuid="ea597a84-631e-44f5-879f-d8a5be0ae692">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL_Report"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="piNo" class="java.lang.String"/>
+	<parameter name="amountParam" class="java.math.BigDecimal"/>
+	<parameter name="currencyParam" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select CostHeadName, sum(CostHeadValue) as CostHeadValue from (
+select msp.CostHeadName, spch.CostHeadValue from SP_ORD_PI_CHRG_EXP spch
+ ,MSP_CostHead_EXP msp  
+ where spch.CostHeadID=msp.CostHeadID
+and spch.PI_NO=$P{piNo}
+--'PI/ZARA/3011/01/2016/7'
+union 
+select CostHeadName, 0 as CostHeadValue from MSP_CostHead_EXP
+) as tbl
+group by CostHeadName]]>
+	</queryString>
+	<field name="CostHeadName" class="java.lang.String"/>
+	<field name="CostHeadValue" class="java.math.BigDecimal"/>
+	<variable name="final_Total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CostHeadValue}]]></variableExpression>
+	</variable>
+	<variable name="Total_Final_value" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{final_Total}.add($P{amountParam}).setScale(2, java.math.RoundingMode.HALF_UP)]]></variableExpression>
+	</variable>
+	<variable name="currenyParam" class="java.lang.String"/>
+	<group name="CostHeadName">
+		<groupExpression><![CDATA[$F{CostHeadName}]]></groupExpression>
+	</group>
+	<group name="CostHeadValue">
+		<groupExpression><![CDATA[$F{CostHeadValue}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="17">
+			<textField>
+				<reportElement x="300" y="0" width="130" height="17" uuid="b5d523b9-f936-420f-97d2-dcc263403458"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CostHeadName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="125" height="17" uuid="812f9e27-86ac-41e5-a580-0c57aef04991"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5" rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CostHeadValue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="300" height="17" uuid="55e1fa1a-8ef4-4a4a-ae91-193a7146b045">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="109">
+			<staticText>
+				<reportElement x="0" y="19" width="555" height="25" uuid="3d720579-f1b9-424e-808e-5d84983a0d60">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[We declare that this  Proforma Invoice shows the actual price of the goods described and that all particulars are true and correct.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="44" width="280" height="17" uuid="33d70516-0d6e-4de8-a9b5-54ef51ebcec3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[CERTIFIED THAT GOODS ARE OF INDIAN ORIGIN.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="44" width="20" height="36" uuid="768193cd-df8b-46ae-a532-5674befa58ce">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[for ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="89" width="380" height="20" uuid="74c64fda-bb28-4287-a9a9-0389ac845dfe">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Note :  This Proforma Invoice Is Valid For One Month Only From The Issuing Date.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="80" width="175" height="29" uuid="7841fff9-b6ee-4f78-9d23-4b5873372df3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="20" spacingAfter="0"/>
+				</textElement>
+				<text><![CDATA[Authorised Signatory
+Signature & Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="44" width="155" height="36" uuid="181b18e2-9f1c-4d32-9a37-481ab9ab42ea">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[International Tractors Limited
+(Spare Parts Division)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="61" width="50" height="28" uuid="7b043ae1-b22c-4163-a151-51acd2e6a1fc">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="68" height="19" uuid="597cd8d2-7d2e-4aa2-9a5f-f162011a3ab3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Total Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="300" height="19" uuid="abc7ae90-335a-463b-9608-e58e32b2b5ce">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="0" width="125" height="19" uuid="1971ee0a-1983-43b1-a581-c41c8789306d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total_Final_value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="62" height="19" uuid="26de81a1-08c7-46dd-8b68-d35650313eda"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$P{currencyParam}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

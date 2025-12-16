@@ -1,0 +1,52 @@
+graph TB
+    subgraph "Client Layer"
+        Browser[Web Browser]
+        Mobile[Mobile Devices]
+    end
+    
+    subgraph "Presentation Layer"
+        JSP[JSP Pages]
+        Struts[Struts Framework]
+        SessionFilter[Session Filter]
+    end
+    
+    subgraph "Application Layer"
+        Actions[Struts Actions]
+        Forms[Action Forms/Beans]
+        Services[Business Logic]
+    end
+    
+    subgraph "Data Access Layer"
+        DAOs[DAO Classes]
+        Hibernate[Hibernate ORM]
+        DBConnection[Database Connection]
+    end
+    
+    subgraph "External Systems"
+        SAP[SAP System]
+        Email[Email Server]
+        ECAT[E-Catalog System]
+    end
+    
+    subgraph "Data Layer"
+        SQLServer[(SQL Server Database)]
+        H2DB[(H2 Database)]
+    end
+    
+    Browser --> JSP
+    Mobile --> JSP
+    JSP --> Struts
+    Struts --> SessionFilter
+    SessionFilter --> Actions
+    Actions --> Forms
+    Actions --> Services
+    Services --> DAOs
+    DAOs --> Hibernate
+    DAOs --> DBConnection
+    Hibernate --> SQLServer
+    DBConnection --> SQLServer
+    DBConnection --> H2DB
+    Actions --> SAP
+    Services --> Email
+    Actions --> ECAT
+

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2025-01-10T15:34:36 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Warranty_Dashboard_Report" pageWidth="1700" pageHeight="802" columnWidth="1700" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="5daee1ab-d2c4-4b74-8af1-c0a3729e0a04">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITLDIS"/>
+	<parameter name="DealerCode" class="java.lang.String"/>
+	<parameter name="fromDate" class="java.lang.String"/>
+	<parameter name="toDate" class="java.lang.String"/>
+	<parameter name="userId" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[exec WARRANTY_CLAIM_STATUS_DASHBOARD_EXPORT  $P{DealerCode},$P{fromDate},$P{toDate},$P{userId}]]>
+	</queryString>
+	<field name="Dealer_Name" class="java.lang.String"/>
+	<field name="NoOfClaimsPendingForCreation" class="java.lang.Integer"/>
+	<field name="NoOfClaimsCreated" class="java.lang.Integer"/>
+	<field name="NoOfClaimsPacked" class="java.lang.Integer"/>
+	<field name="NoOfClaimsDispatched" class="java.lang.Integer"/>
+	<field name="NoOfClaimsReceivedAtHoWarranty" class="java.lang.Integer"/>
+	<field name="NoOfClaimsApproved" class="java.lang.Integer"/>
+	<field name="NoOfClaimsTaxInvoiceReceived" class="java.lang.Integer"/>
+	<field name="NoOfClaimsCreditNoteIssued" class="java.lang.Integer"/>
+	<variable name="SrNo" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{SrNo}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1510" y="20" width="190" height="20" backcolor="#949494" uuid="3e243324-7430-4ba7-a90c-4260804b66af"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Credit Note Issued]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="1700" height="20" backcolor="#949494" uuid="4175cacf-3084-4255-a06f-8be8a58e8172"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Warranty Dashboard Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="580" y="20" width="130" height="20" backcolor="#949494" uuid="9c9e624d-e6da-4de4-88ce-c4d368f971ef"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Packed]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="450" y="20" width="130" height="20" backcolor="#949494" uuid="849b3606-82b3-4c9f-b2a4-4e14d9da228b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Created]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="20" width="50" height="20" backcolor="#949494" uuid="e5217759-e5ae-4f36-be75-0b7699273a64"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sr.No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1230" y="20" width="280" height="20" backcolor="#949494" uuid="11237e25-305d-402c-a96c-6c2512846429"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Tax Invoice Received to WTY Team]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="710" y="20" width="150" height="20" backcolor="#949494" uuid="cce65fb3-4581-4190-82fe-46e63ed895e1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Dispatched]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="860" y="20" width="220" height="20" backcolor="#949494" uuid="081823f5-54cf-47d9-847e-8569f741bb5c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Received to WTY Team]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1080" y="20" width="150" height="20" backcolor="#949494" uuid="8282929d-a7d8-41b1-9909-4877bd3fc706"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Approved]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="250" y="20" width="200" height="20" backcolor="#949494" uuid="1d98f61f-0dfe-4b6b-999f-5840cd5d9fba">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Claims Pending for Creation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="20" width="200" height="20" backcolor="#949494" uuid="6dfa3f5a-26bf-4ad3-a277-ced4f5fccb96"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dealer Code]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="18" uuid="489ab84d-cabd-4323-8805-9a7c0a520d34"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{SrNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="250" y="0" width="200" height="18" uuid="ac2e2e88-d241-44e9-a2a1-1a01a4500803"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsPendingForCreation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="450" y="0" width="130" height="18" uuid="8ebd5c4e-eef0-4587-86d1-65937e78a49c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsCreated}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="580" y="0" width="130" height="18" uuid="1676dedc-7a14-4143-8cde-0095c62f5009"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsPacked}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="710" y="0" width="150" height="18" uuid="07d6ea3d-5ee8-4beb-8a8e-6353e37a07fb"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsDispatched}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1510" y="0" width="190" height="18" uuid="7f04a569-ccd9-4e7c-8043-03c85f53d295"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsCreditNoteIssued}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="860" y="0" width="220" height="18" uuid="e0d65385-0239-480a-b1ad-067f3c4a5e32"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsReceivedAtHoWarranty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1080" y="0" width="150" height="18" uuid="a6889686-8714-408c-b215-a2281ef1f9f2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsApproved}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1230" y="0" width="280" height="18" uuid="5c384f97-01fa-41e6-9749-484c8fc7c5a4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NoOfClaimsTaxInvoiceReceived}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="50" y="0" width="200" height="18" uuid="e8877ea7-76b5-426b-a6eb-c8477fd6214c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Dealer_Name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

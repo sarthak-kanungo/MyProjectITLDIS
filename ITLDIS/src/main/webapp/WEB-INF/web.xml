@@ -232,7 +232,8 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <!-- Directly show the login page when accessing /ITLDIS/ -->
+        <welcome-file>login/Login.jsp</welcome-file>
     </welcome-file-list>
 
 
@@ -342,18 +343,9 @@
         <url-pattern>/downloadFileServlet</url-pattern>
     </servlet-mapping>
     
-    <!-- Camunda BPM Listeners -->
-    <!-- ProcessEngineFactory must be initialized first -->
-    <listener>
-        <listener-class>com.i4o.dms.itldis.camunda.ProcessEngineFactory</listener-class>
-    </listener>
-    
-    <!-- ProcessDeploymentListener deploys BPMN processes after ProcessEngine is initialized -->
-    <listener>
-        <listener-class>com.i4o.dms.itldis.camunda.ProcessDeploymentListener</listener-class>
-    </listener>
-    
-    <!--<listener>
-        <listener-class>com.listener.StartupListener</listener-class>
-    </listener>-->
+    <!-- Camunda BPM Listeners are temporarily disabled while stabilizing deployment.
+         To re-enable later, add listener entries for:
+           - com.i4o.dms.itldis.camunda.ProcessEngineFactory
+           - com.i4o.dms.itldis.camunda.ProcessDeploymentListener
+    -->
 </web-app>

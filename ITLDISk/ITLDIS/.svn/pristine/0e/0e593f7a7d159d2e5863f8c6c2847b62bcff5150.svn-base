@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-05-18T15:47:28 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proforma Invoice" pageWidth="595" pageHeight="950" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="72" bottomMargin="20" isFloatColumnFooter="true" resourceBundle="ApplicationResource_en_US" uuid="3ed76e5c-6d77-4cdb-8c2e-857f11048560">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL_Report"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="inch"/>
+	<parameter name="piNo" class="java.lang.String"/>
+	<parameter name="amountParam" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[select umd.address,umd.CountryCode, umd.DealerName,con.CountryName, 
+spi.PI_NO, spi.PI_DATE, spi.CONSIGNEE_NAME, spi.CONSIGNEE_ADDRESS, spi.DISCHARGE_PORT,
+(select dp.dischargePortName from MSP_DischargePort_EXP dp  where dp.dischargePortCode=spi.DISCHARGE_PORT) as dischargePortName,
+(select it.incoTermDesc from MSP_IncoTerms_EXP it where it.incoTermCode=spi.INCO_TERMS ) as IncoTermsDesc,
+(select mpt.paymentTermDesc from MSP_PaymentTerms_EXP mpt where mpt.paymentTermCode=spi.PAYMENT_TERMS) as PaymentTermDesc,
+spi.DESTINATION_PLACE,spi.PRE_CARRIAGE_BY, spi.PLACE_PRE_CARRIER,
+delterm.DeliveryTermDesc, spid.ORD_PART_NO, spid.AVL_PART_NO,spid.LEAD_TIME,
+(select cp.p1 from cat_part cp where cp.part_no=spid.ORD_PART_NO) as partDesc,
+spid.FINAL_PI_QTY,spid.PRICE, spdtl.CUST_PO_NO, spdtl.LAST_UPDATED_ON
+from UM_DealerMaster umd, 
+MSP_Countries_EXP con, 
+SP_ORD_PI_EXP spi, 
+SP_ORD_PI_DTL_EXP spid, 
+MSP_DeliveryTerms_EXP delterm,
+SP_ORD_DTL_EXP spdtl
+where umd.CountryCode=con.CountryCode 
+and umd.DealerCode=spi.DEALER_CODE
+and spi.DELIVERY_TERMS=delterm.DeliveryTermCode
+and spdtl.PO_DTL_ID=spid.PO_DTL_ID
+and spi.PI_NO=$P{piNo}]]>
+	</queryString>
+	<field name="address" class="java.lang.String"/>
+	<field name="CountryCode" class="java.lang.String"/>
+	<field name="DealerName" class="java.lang.String"/>
+	<field name="CountryName" class="java.lang.String"/>
+	<field name="PI_NO" class="java.lang.String"/>
+	<field name="PI_DATE" class="java.sql.Timestamp"/>
+	<field name="CONSIGNEE_NAME" class="java.lang.String"/>
+	<field name="CONSIGNEE_ADDRESS" class="java.lang.String"/>
+	<field name="DISCHARGE_PORT" class="java.lang.Integer"/>
+	<field name="dischargePortName" class="java.lang.String"/>
+	<field name="IncoTermsDesc" class="java.lang.String"/>
+	<field name="PaymentTermDesc" class="java.lang.String"/>
+	<field name="DESTINATION_PLACE" class="java.lang.String"/>
+	<field name="PRE_CARRIAGE_BY" class="java.lang.String"/>
+	<field name="PLACE_PRE_CARRIER" class="java.lang.String"/>
+	<field name="DeliveryTermDesc" class="java.lang.String"/>
+	<field name="ORD_PART_NO" class="java.lang.String"/>
+	<field name="AVL_PART_NO" class="java.lang.String"/>
+	<field name="LEAD_TIME" class="java.lang.String"/>
+	<field name="partDesc" class="java.lang.String"/>
+	<field name="FINAL_PI_QTY" class="java.lang.Integer"/>
+	<field name="PRICE" class="java.lang.Double"/>
+	<field name="CUST_PO_NO" class="java.lang.String"/>
+	<field name="LAST_UPDATED_ON" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="21" uuid="eb72295b-b795-4b3d-9923-de5bc91161f0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P R O F O R M A   I N V O I C E]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="82" width="265" height="15" uuid="f5d1b74f-0aff-4094-ad5e-f3c5813e0d76">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  PO.NO. & Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="66" width="265" height="16" uuid="fa766d13-94b0-44f4-bd36-40367f783c0e">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Exporters Reference :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="51" width="70" height="15" uuid="0905e712-48d2-4ba4-ae40-b1eb8c32cf0d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  IEC Code No. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="290" height="16" uuid="fe0995da-7a1f-463a-9eba-3113976b54d4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Consignor :
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="37" width="70" height="14" uuid="70a1f433-58d2-4e8e-9df0-892bd948a836"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="21" width="70" height="16" uuid="07792d99-aff1-46f8-9805-3ee6a33874d0">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  PI NO.  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="360" y="21" width="195" height="16" uuid="420f0c6c-2b9b-475d-b0a1-26c82f8aa334"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PI_NO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="360" y="37" width="195" height="14" uuid="d61a02c1-fb17-40fe-91fa-f98312952127"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PI_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="51" width="44" height="15" uuid="a7e3466b-cbba-4340-9a55-eb51d93dc969"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[TIN No. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="51" width="55" height="15" uuid="b2e03093-bc2e-454b-bbb8-c6fa81a7b607"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="0"/>
+				</textElement>
+				<text><![CDATA[0597049572]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="51" width="96" height="15" uuid="58c90275-aed7-4035-ae24-4ec87a92b41f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[03961089611]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="97" width="555" height="13" uuid="fad83d59-9a2f-4843-97e9-c9155bd11f45"/>
+				<subreportParameter name="piNo">
+					<subreportParameterExpression><![CDATA[$P{piNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="amountParam">
+					<subreportParameterExpression><![CDATA[$P{amountParam}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["subReport_PO.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="37" width="210" height="60" uuid="594e50be-5d8c-4958-9d9e-d32052179358"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacing="1_1_2" leftIndent="5" spacingBefore="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("label.common.consignorDetails")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="37" width="80" height="60" uuid="86c82835-246e-4fd8-9396-3c285a7213e0"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="218" splitType="Immediate">
+			<staticText>
+				<reportElement x="138" y="88" width="152" height="16" uuid="e6849716-7319-4e67-b3c7-75e163174f12"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Place of Receipt of Pre-Carrier:
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="43" width="290" height="16" uuid="c98caf95-45de-4eff-a05b-5eddfa48cb99"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CountryName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="119" width="265" height="16" uuid="b9041799-1dad-4fba-aea4-f17a6380447b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  BANK DETAILS :
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="290" height="16" uuid="cb559b57-0c3a-4a0e-863e-62b36a4868df"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Consignee :
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="290" y="16" width="265" height="14" uuid="c677181d-24d4-449b-92af-7133b7a7d3a1"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONSIGNEE_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="61" width="140" height="14" uuid="76ab63fa-3b55-4d8e-af5a-4fc869060c10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Country of Origin :
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="265" height="16" uuid="925e359e-1c1e-48e7-bf6a-ff479705da55"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Buyer (If other than consignee) :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="104" width="138" height="44" uuid="08608c44-30b9-4973-b804-8c3e4e5a7add"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font size="8"/>
+					<paragraph lineSpacing="Single" leftIndent="5" spacingBefore="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRE_CARRIAGE_BY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="166" width="80" height="23" uuid="2d95896f-1954-43eb-b6b9-4d91a6de519a"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESTINATION_PLACE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="430" y="61" width="125" height="14" uuid="7c4c6f06-75c4-43f9-8af5-380b156ce959"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Country of Final Destination:   
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="30" width="290" height="13" uuid="6a1c1e2e-e26a-4b8f-ab36-3389b6e26fd1"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="30" width="265" height="31" uuid="c9199e98-7efb-48a8-bdb4-4be5d4b363f7"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONSIGNEE_ADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="75" width="125" height="13" uuid="968a3a33-642a-4b51-bff7-6081f9c96d83"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CountryName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="75" width="140" height="13" uuid="c958adde-a791-471e-8c9c-bb31fe0badbf"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[INDIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="166" width="72" height="23" uuid="18e98dbd-d2ee-4afd-bca9-5b6c889da5b6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Final Destination:
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="16" width="290" height="14" uuid="dc9b6e85-8fc3-41c2-8cb1-004c9fed9514"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DealerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="148" width="70" height="18" uuid="228cc2f0-f1af-4967-a38e-2f0bc58f6b32"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Port of Loading:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="166" width="70" height="23" uuid="237b79f5-f330-46ac-af96-084928f9f726"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Port of 
+Discharge:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="148" width="152" height="18" uuid="fc692f53-07ed-452a-bd5c-6830361529af"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="290" height="29" uuid="83974a62-53bd-43b7-b739-3bf33de8ac4d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="88" width="140" height="16" uuid="b64d9ef8-e64a-4745-b3e2-b6f2c3e185d6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Delivery Terms :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="88" width="138" height="16" uuid="d71fa700-5bc1-43a5-bfe1-ce188d82c6a7"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Pre-Carriage by:
+]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="138" y="104" width="152" height="44" uuid="31f2b281-0744-416b-aa06-2b0a1b0fe808"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font size="8"/>
+					<paragraph lineSpacing="Single" leftIndent="5" spacingBefore="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PLACE_PRE_CARRIER}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="-20" y="189" width="575" height="29" uuid="de216e74-dd19-4c21-9eb7-3e8b516fa00c"/>
+				<subreportParameter name="piNo">
+					<subreportParameterExpression><![CDATA[$P{piNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="amountParam">
+					<subreportParameterExpression><![CDATA[$P{amountParam}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="poNo">
+					<subreportParameterExpression><![CDATA[$F{CUST_PO_NO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["subReportPI_1.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="290" y="135" width="265" height="54" uuid="61054fa1-9ae8-4f0f-a722-84b6af5a63e6"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacing="1_1_2" leftIndent="5" rightIndent="5" spacingBefore="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("label.common.bankDetails")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="166" width="68" height="23" uuid="0dd66f97-5b8e-4845-a50a-57c667e8674b"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dischargePortName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="430" y="88" width="125" height="16" uuid="d0af80ff-73da-46d2-8b75-63651cb91997"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Payment Terms :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="290" y="104" width="140" height="15" uuid="27dd14c2-74bc-498a-86e7-1c97f7a7eb01"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IncoTermsDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="104" width="125" height="15" uuid="d5aa9c19-73af-45df-badc-ed2d46c3921f"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PaymentTermDesc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="148" width="68" height="18" uuid="d9dd7749-1c11-420f-9d76-2b7296dfdd71"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[INDIA]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

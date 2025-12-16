@@ -1,0 +1,54 @@
+graph TB
+    subgraph "Frontend Technologies"
+        A1[JSP 2.5]
+        A2[JavaScript]
+        A3[JQuery]
+        A4[HTML/CSS]
+        A5[JasperReports]
+    end
+    
+    subgraph "Framework & Libraries"
+        B1[Apache Struts 1.2]
+        B2[Hibernate 3.x]
+        B3[JDBC]
+        B4[Apache Commons]
+        B5[Log4j]
+    end
+    
+    subgraph "Application Server"
+        C1[Apache Tomcat]
+        C2[JSP Container]
+        C3[Servlet Container]
+    end
+    
+    subgraph "Database"
+        D1[SQL Server]
+        D2[H2 Database]
+        D3[Stored Procedures]
+    end
+    
+    subgraph "External Integrations"
+        E1[SAP JCo]
+        E2[SMTP Server]
+        E3[E-Catalog API]
+    end
+    
+    A1 --> B1
+    A2 --> B1
+    A3 --> B1
+    A4 --> B1
+    A5 --> B1
+    
+    B1 --> C1
+    B2 --> C1
+    B3 --> C1
+    
+    B2 --> D1
+    B3 --> D1
+    B3 --> D2
+    B3 --> D3
+    
+    B1 --> E1
+    B1 --> E2
+    B1 --> E3
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <div class="mermaid">
+sequenceDiagram
+    participant User
+    participant Browser
+    participant StrutsFramework as "Struts Framework"
+    participant ServiceAction as serviceAction
+    participant MethodUtility as MethodUtility
+    participant ServiceDAO as serviceDAO
+    participant HibernateUtil as HibernateUtil
+    participant Database as "SQL Server DB"
+
+    User->>Browser: Click View All Job Card Tile
+    Browser->>StrutsFramework: GET /serviceProcess.do?option=init_viewallJobcarddetails
+    StrutsFramework->>ServiceAction: init_viewallJobcarddetails()
+    
+    ServiceAction->>ServiceAction: Extract request parameters (vinid, flag, range, status, dates)
+    ServiceAction->>ServiceAction: Get user_id from session
+    ServiceAction->>ServiceAction: Get userFunctionalities from session
+    
+    ServiceAction->>MethodUtility: getDealersDetailsUnderUser(user_id)
+    MethodUtility->>Database: Query UmUserDealerMatrix
+    Database-->>MethodUtility: Return dealer list
+    MethodUtility-->>ServiceAction: List dealerList
+    
+    alt User has functionality 101
+        ServiceAction->>ServiceAction: Set dealerCode from session
+    else User has other functionalities
+        ServiceAction->>Browser: Set dealerList attribute
+    end
+    
+    ServiceAction->>ServiceDAO: getJobCardDetails(sf, nameSrch, ColumnName, user_id, userFunctionalities)
+    
+    ServiceDAO->>HibernateUtil: getSessionFactory().openSession()
+    HibernateUtil-->>ServiceDAO: Session session
+    
+    ServiceDAO->>ServiceDAO: Build HQL query with filters (date range, status, search)
+    ServiceDAO->>Database: Execute HQL Query SELECT from Jobcarddetails, Dealervslocationcode
+    Database-->>ServiceDAO: ResultSet
+    
+    ServiceDAO->>ServiceDAO: Map results to serviceForm objects
+    ServiceDAO->>HibernateUtil: session.close()
+    ServiceDAO-->>ServiceAction: ArrayList jobcardDetails
+    
+    ServiceAction->>Browser: Set request attributes (jobcardDetails, dates, status, etc.)
+    ServiceAction->>StrutsFramework: Forward to view_alljobcardDetails
+    StrutsFramework->>Browser: Render v_viewalljobcard.jsp
+    Browser-->>User: Display Job Card List
+    </div>
+    <script>
+        mermaid.initialize({startOnLoad: true});
+    </script>
+</body>
+</html>
+

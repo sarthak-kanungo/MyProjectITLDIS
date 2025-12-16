@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Security Layers"
+        A1[Session Filter]
+        A2[Authentication]
+        A3[Authorization]
+        A4[Encryption]
+    end
+    
+    subgraph "User Management"
+        B1[User Roles]
+        B2[Permissions]
+        B3[Session Management]
+    end
+    
+    subgraph "Data Security"
+        C1[Password Encryption]
+        C2[SQL Injection Prevention]
+        C3[Input Validation]
+    end
+    
+    A1 --> A2
+    A2 --> A3
+    A3 --> B1
+    B1 --> B2
+    B2 --> B3
+    
+    A2 --> C1
+    A3 --> C2
+    A4 --> C1
+    A4 --> C3
+

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2019-01-02T15:07:51 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlWarrantyClaimAmountSubReport" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="51638db2-3daa-4f31-963b-1d321a372c8a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="packingNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec [Sp_WCPrintInvDTLview] $P{packingNo},1]]>
+	</queryString>
+	<field name="CMP_NO" class="java.lang.String"/>
+	<field name="WarrantyClaimNo" class="java.lang.String"/>
+	<field name="COMPDESC" class="java.lang.String"/>
+	<field name="DEFECTCODE" class="java.lang.String"/>
+	<field name="CAUSALORCONSEQ" class="java.lang.String"/>
+	<field name="PART_NO" class="java.lang.String"/>
+	<field name="PART_DESC" class="java.lang.String"/>
+	<field name="QTY" class="java.lang.Double"/>
+	<field name="UNIT_PRICE" class="java.math.BigDecimal"/>
+	<field name="VENDORCODE" class="java.lang.String"/>
+	<field name="CLAIMAMOUNT" class="java.lang.Double"/>
+	<field name="QTYAPPROVED" class="java.lang.Double"/>
+	<field name="APPROVEDAMOUNT" class="java.lang.Double"/>
+	<field name="REJECTIONDESC" class="java.lang.String"/>
+	<field name="REJECTIONREMARKS" class="java.lang.String"/>
+	<field name="PACKINGNO" class="java.lang.String"/>
+	<field name="BOXNO" class="java.lang.String"/>
+	<field name="QTYRECEIVED" class="java.lang.Double"/>
+	<field name="DISPATCHEDQTY" class="java.lang.Double"/>
+	<field name="DISPATCH_STATUS" class="java.lang.String"/>
+	<field name="HSNCODE" class="java.lang.String"/>
+	<field name="DEALERDISCPERCENTAGE" class="java.math.BigDecimal"/>
+	<field name="CLAIMTAXABLEVALUE" class="java.math.BigDecimal"/>
+	<field name="CLAIMCGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMCGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMSGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMSGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMUGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMUGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMIGSTRATE" class="java.math.BigDecimal"/>
+	<field name="CLAIMIGSTAMT" class="java.math.BigDecimal"/>
+	<field name="CLAIMTOTALTAXABLEVALUE" class="java.math.BigDecimal"/>
+	<field name="CLAIMTOTALTAXVALUE" class="java.math.BigDecimal"/>
+	<field name="CLAIMTOTALINVOICEAMOUNT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDTAXABLEVALUE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDCGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDCGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDSGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDSGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDUGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDUGSTAMT" class="java.math.BigDecimal"/>
+	<field name="APPROVEDIGSTRATE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDIGSTAMT" class="java.math.BigDecimal"/>
+	<field name="TotalClaimValue" class="java.math.BigDecimal"/>
+	<field name="UOM" class="java.lang.String"/>
+	<field name="APPROVEDTOTALTAXABLEVALUE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDTOTALTAXVALUE" class="java.math.BigDecimal"/>
+	<field name="APPROVEDTOTALINVOICEAMOUNT" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="170" height="15" uuid="46439da1-c958-4198-be58-294681ccfbf2"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PART_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="170" y="0" width="60" height="15" uuid="35c2b5ca-7bf3-46e1-beec-d0cd7ecb0c87"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HSNCODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="417" y="0" width="37" height="15" uuid="9b20555c-9ca5-4d26-ba61-0f9cc0b175af"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMTAXABLEVALUE}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="454" y="0" width="37" height="15" uuid="444837a6-8fdf-427b-99d9-e115e9846a8e"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMCGSTRATE}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="491" y="0" width="37" height="15" uuid="7f0666a5-e699-423a-af59-dadbfe59974f"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMCGSTAMT}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="528" y="0" width="37" height="15" uuid="f185f9c7-9a92-4001-bec0-beecfcff835d"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMSGSTRATE}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="565" y="0" width="37" height="15" uuid="3fe0d298-f4ff-495e-bba1-e46ba5592c9a"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMSGSTAMT}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="602" y="0" width="37" height="15" uuid="466bbe63-49b8-4734-98df-14a0734a5ef4"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMIGSTRATE}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="639" y="0" width="37" height="15" uuid="f0bfc3e5-bd04-4255-b22e-468c66e790cd"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMIGSTAMT}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="676" y="0" width="37" height="15" uuid="020d34ea-088f-42b2-8e04-634347815b66"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMUGSTRATE}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="713" y="0" width="57" height="15" uuid="d8ea1c86-e6e8-4339-86bf-0937cbb33f6f"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMUGSTAMT}.setScale(2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="639" y="15" width="131" height="15" uuid="4cc27c5a-df33-440b-a4d0-f4f036bed1d8"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMTOTALTAXABLEVALUE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="639" y="30" width="131" height="15" uuid="ea148f8d-d8d8-40d7-8e01-4fcaf6117215"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMTOTALTAXVALUE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="638" y="45" width="132" height="15" uuid="9b186aff-56c2-48d8-8bba-56c41f0cee1a"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLAIMTOTALINVOICEAMOUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="454" y="15" width="185" height="15" uuid="0c574516-0d26-446f-91ff-4b22d34387db"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="30" width="185" height="15" uuid="fe677350-9830-4b17-92a0-7758425f2d68"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="45" width="185" height="15" uuid="30bc55f7-9275-443e-b1f5-4ee24ae11ebb"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRAND TOTAL]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

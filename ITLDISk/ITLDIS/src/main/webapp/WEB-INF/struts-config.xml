@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+    <form-beans>
+        <form-bean name="inventoryForm" type="beans.inventoryForm"/>
+        <form-bean name="masterForm" type="beans.masterForm"/>
+        <form-bean name="loginForm" type="beans.LoginForm"/>
+        <form-bean name="serviceForm" type="beans.serviceForm"/>
+        <form-bean name="userForm" type="beans.UserManagementForm"/>
+        <form-bean name="pdiForm" type="beans.pdiForm"/>
+        <form-bean name="ApplicationMaster" type="beans.ApplicationMaster"/>
+        <form-bean name="customerForm" type="beans.ManageCustomerForm"/>
+        <!--
+     ====================================================================================================
+     Copied from  ITL-DIS Project
+     ====================================================================================================
+     -->
+        <form-bean name="webserviceform" type="webservice.webserviceform"/>
+        <form-bean name="createPDFActionForm" type="EAMG.Other.ActionFormBean.CreatePDFActionForm"/>
+        <form-bean name="EAMG_Variant_AggregatesActionForm" type="EAMG.Model.Action.EAMG_Variant_AggregatesActionForm"/>
+        <form-bean name="EAMG_GroupCreationByWzActionForm" type="EAMG.Group.ActionFormBean.EAMG_GroupCreationByWzActionForm"/>
+        <form-bean name="EAMG_LoginActionForm" type="EAMG.com.LoginAction.EAMG_LoginActionForm"/>
+        <form-bean name="userMgmt_manageUserBean" type="userMgmt.actionForm.userMgmt_manageUserBean"/>
+        <form-bean name="userSearchFormBean" type="userMgmt.actionForm.EAMG_userMgmt_userSearchForm"/>
+        <form-bean name="ecnFormBean" type="EAMG.Other.ActionFormBean.ECNFormBean"/>
+        <form-bean name="sBFormBean" type="EAMG_Service_Bulletin.EAMG_ServiceBulletinBean"/>
+        <form-bean name="usageBean" type="EAMmasterActionG.Other.ActionFormBean.UsageDetailBean"/>
+        <form-bean name="warrantyForm" type="beans.WarrantyForm"/>
+        <form-bean name="reportForm" type="beans.ReportForm"/>
+        <form-bean name="piForm" type="beans.piBean.PIFormBean"/>
+        <!--
+     ====================================================================================================
+     Copied from  ITL-DIS Project   ENDS
+     ====================================================================================================
+     -->
+
+    </form-beans>
+
+    <global-exceptions>
+
+    </global-exceptions>
+
+    <global-forwards>
+        <forward name="downloadReport" path="/common/downloadReport.jsp" />
+    </global-forwards>
+
+    <action-mappings>
+        <action path="/Welcome" forward="/login/Login.jsp"/>
+        <action path="/FillForm" forward="fillForm"/>
+        <action path="/forgetPass" forward="/login/forget_password.jsp"/>
+        <action path="/initService" forward="view_service"/>
+        <action path="/initWarranty" forward="view_warranty"/>
+        <action path="/initCatalogue" forward="view_catalogue"/>
+        <action path="/initExtWarranty" forward="view_extWarranty"/>
+        
+
+        <action input="/login/Login.jsp" name="loginForm" path="/login" scope="request" parameter="option" type="action.LoginAction">
+            <forward name="success" path="home"/>
+            <forward name="successEcat" path="/changelogin"/>
+            <forward name="home_path" path="home"/>
+            <forward name="logout" path="/login/Logout.jsp"/>
+            <forward name="fail" path="/login/Login.jsp"/>
+            <forward name="viewChassisforDashboard" path="viewChassisforDashboard_Path"/>
+            <forward name="messageforgot" path="/common/SuccessMessage.jsp"/>
+            <forward name="contactUS" path="locateUsPath"/>
+        </action>
+
+        <action input="/common/home_page.jsp" name="loginForm" path="/ChangeLogin" scope="request" parameter="option" type="action.ChangeAction">
+            <forward name="success" path="/changelogin.jsp"/>
+
+        </action>
+
+        <action name="warrantyForm" path="/warrantyAction" scope="request" parameter="option" type="action.WarrantyAction">
+            <forward name="warrantyList" path="warrantyListPath"/>
+            <forward name="pendingForDispatch" path="pendingForDispatchPath"/>
+            <forward name="partForDispatch" path="partForDispatchPath"/>
+            <forward name="createWarranty" path="createWarrantyPath"/>
+            <forward name="viewWarranty" path="viewWarrantyPath"/>
+            <forward name="viewPendingWarranty" path="viewPendingWarrantyPath"/>
+            <forward name="viewWarrantyDetail" path="viewWarrantyDetailPath"/>
+            <forward name="exportWarantyClaim" path="/warranty/exportWarantyClaim.jsp"/>
+            <forward name="approveWarranty" path="approveWarrantyPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="initPackedWarrantyList" path="initPackedWarrantyList_path" />
+            <forward name="initconsignment" path="initconsignment_path"/>
+            <forward name="pendingForAcknow" path="pendingForAcknow_path"/>
+            <forward name="acknowPacking" path="acknowPacking_path"/>
+            <forward name="viewPackingList" path="viewPackingList_path"/>
+            <forward name="packingDetails4View" path="packingDetails4View_path"/>
+            <forward name="printConsignment" path="printConsignment_path"/>
+            <forward name="pendingSAPList" path="pendingSAPList_path"/>
+            <forward name="viewCreditNoteList" path="viewCreditNoteList_path"/>
+            <forward name="exportViewCreditNoteList" path="/warranty/exportViewCreditNoteList.jsp"/>
+            <forward name="WarrantyMaterialView" path="/warranty/WarrantyMaterialView.jsp"/>
+            <forward name="claimReport" path="claimReportPath"/>
+            <forward name="claimReoprtExcel" path="/warranty/downloadClaimReoprt.jsp" />
+            <forward name="viewBajajExtendedWarrantyInv" path="viewBajajExtendedWarrantyInvPath"/>
+            <forward name="exportBajajExtendedWarrantyInv" path="/warranty/exportBajajExtendedWarrantyInv.jsp"/>
+            <forward name="sapDumpClaimReport" path="sapDumpClaimReportPath"/>
+            <forward name="sapDumpClaimReoprtExcel" path="/warranty/downloadSAPDumpClaimReoprt.jsp" />
+            <forward name="warInvoiceUpdate" path="/warranty/warInvoiceUpdate.jsp" />
+            <forward name="successPath" path="/warranty/success.jsp"/>
+            <forward name="initItlExtWarranty"  path="view_ITLextWarrantyPath"/> 
+            <forward name="exportItlExtendedWarrantyInv" path="warranty/exportItlExtendedWarrantyInv.jsp"/>
+            <forward name="viewItlExtendedWarrantyClaimStatus" path="viewItlExtendedWarrantyClaimStatusPath"/>
+            <forward name="viewTaxInvoiceUpdate" path="viewTaxInvoiceUpdatePath"/>
+            <forward name="viewTaxInvoiceUpload" path="viewTaxInvoiceUploadPath"/>
+            <forward name="printMassConsignment" path="printMassConsignment_path"/>
+            <forward name="initBajajExtWarranty"  path="view_BajajextWarrantyPath"/> 
+            <forward name="warrantyClaimStatusDashboard" path="warrantyClaimStatusDashboard_path"/>
+            <forward name="taxAcknowledgement" path="taxAcknowledgement_path"/>
+            <forward name="taxInvoiceAcknowledgeViewList" path="taxInvoiceAcknowledgeViewList_path"/>
+            <forward name="taxInvoiceAcknowledge" path="taxInvoiceAcknowledge_path"/>
+            <forward name="taxInvoiceStatus" path="taxInvoiceStatus_path"/>
+            <forward name="taxInvoiceAcknowledgeView" path="taxInvoiceAcknowledgeView_path"/>
+           
+        </action>
+
+        <action  name="serviceForm"  path="/ServiceProcessAction" scope="request" parameter="option" type="action.ServiceProcessAction">
+            <forward name="showInstallation" path="showInstallationpath"/>
+            <forward name="showForm" path="showserviceform"/>
+            <forward name="message" path="successMsg"/>
+        </action>
+
+        <action input="showserviceform" name="serviceForm" path="/ProcessAction" scope="request" parameter="option" type="action.ServiceProcessAction">
+            <forward name="message" path="successMsg"/>
+
+        </action>
+
+
+        <action name="masterForm" path="/masterAction" scope="request" parameter="option" type="action.masterAction" validate="true">
+            <forward name="masterOption" path="masterOptionPath"/>
+            <forward name="masterCmpOption" path="masterCmpOptionPath"/>
+            <forward name="masterJCOption" path="masterJCOptionPath"/>
+            <forward name="success" path="successPath"/>
+            <forward name="jobTypeMaster" path="jobTypeMasterPath"/>
+            <forward name="serviceTypeMaster" path="serviceTypeMasterPath"/>
+            <forward name="mechanicMaster" path="mechanicMasterPath"/>
+            <forward name="bayMaster" path="bayMasterPath"/>
+            <forward name="wageMaster" path="wageMasterPath"/>
+            <forward name="actionMaster" path="actionMasterPath"/>
+            <forward name="aggregateMaster" path="aggregateMasterPath"/>
+            <forward name="applicationMaster" path="applicationMasterPath"/>
+            <forward name="complaintCodeMaster" path="complaintCodeMasterPath"/>
+            <forward name="causalCodeMaster" path="causalCodeMasterPath"/>
+            <forward name="initComplaintJobCard" path="complaintJobCardPath"/>
+            <forward name="manageJobCard" path="mangJobCardPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="initActionJobCard" path="actionJobCardPath"/>
+            <forward name="languageContent" path="languageContentPath"/>
+            <forward name="jobCardStatus" path="jobCardStatusPath"/>
+            <forward name="jobLocation" path="jobLocationPath"/>
+            <forward name="nextserviceFrom" path="nextserviceFromPath"/>
+            <forward name="ownerDriven" path="ownerDrivenPath"/>
+            <forward name="otherJobWork" path="otherJobWorkPath"/>
+            <forward name="billMaster" path="billMasterPath"/>
+            <forward name="consequenceMaster" path="consequenceMasterPath"/>
+            <forward name="causalVsConsequence" path="causalVsConsequencePath"/>
+            <forward name="getfunctionAjax" path="/data_master/v_manage_function_ajax.jsp"/>
+            <forward name="managefunction" path="manage_function_path"/>
+
+            <forward name="contentMaster" path="contentMasterPath"/>
+            <forward name="subContentMaster" path="subContentMasterPath"/>
+            <!--<forward name="vendorMaster" path="vendorMasterPath"/>-->
+            <forward name="subAssemblyMaster" path="subAssemblyMasterPath"/>
+
+            <forward name="labourCodeMaster" path="labourCodeMasterPath"/>
+            <forward name="SubAggregateMaster" path="SubAggregateMasterPath"/>
+
+            <forward name="formCheckListMaster" path="formCheckListMasterPath"/>
+
+            <forward name="pdi_ins_parameterVsmake" path="pdi_ins_parameterVsmake_path" />
+            <forward name="initPartMaster" path="initPartMaster_Path" />
+            <forward name="warrantymodel" path="warrantymodel_path"/>
+            <forward name="warrantyTaxPercMaster" path="warrantyTaxPercMaster_path"/>
+            <forward name="initRejectionMaster"  path="initRejectionMaster_path"/>
+            <forward name="initSales" path="initSalesPath"/>
+            <forward name="uploadSAPPart" path="uploadSAPPartPath"/>
+            <forward name="pricelistExcel" path="pricelistExcelPath"/>
+            <forward name="manageUserVsPriceList" path="manageUserVsPriceListPath"/>
+            <forward name="manageSellingPercentage" path="manageSellingPercentagePath"/>
+            <forward name="manageUserHierarchy" path="manageUserHierarchyPath"/>
+            <forward name="custCategory" path="custCategoryPath"/>
+            <forward name="discountCategory" path="discountCategoryPath"/>            
+            <forward name="taxChargeOEMMaster" path="taxChargeOEMMasterPath"/>
+            <forward name="initManageChargeBranch" path="initManageChargeBranchPath"/>
+            <forward name="searchManageTaxCtgryBranchOption" path="searchManageTaxCtgryBranchOptionPath"/>
+            <forward name="masterTaxCtgryBranchOption" path="masterTaxCtgryBranchOptionPath"/>
+            <forward name="initTaxAssignToDealerMasters" path="initTaxAssignToDealerMastersPath"/>
+            <forward name="addTaxAssignToDealerMasters" path="/data_master/addTaxAssignToDealer.jsp"/>
+            <forward name="successPath" path="/customer_master/success.jsp"/>
+            <forward name="downloadPricelistExcel" path="downloadPricelistExcelPath"/>
+            <forward name="PricelistDownloadExcel" path="/master/download_pricelist.jsp" />
+            <forward name="initDownloadPartlist" path="initDownloadPartlist_Path" />               
+            <forward name="downloadPartlistExcel" path="/master/download_partlist.jsp" />
+            <forward name="vendorCodeMaster" path="vendorCodeMasterPath"/>
+
+        </action>
+        <action name="serviceForm" path="/serviceProcess" scope="request" parameter="option" type="action.serviceAction">
+
+            <forward name="success" path="successPath"/>
+            <forward name="message" path="successMsg"/>
+
+            <forward name="view_alljobcardDetails" path="view_alljobcardDetailsPath"/>
+            <!-- To show histoy of that form -->
+            <forward name="viewInvoiceList" path="viewInvoiceList_path"/>
+            <forward name="exportViewInvoiceList" path="/service/exportViewInvoiceList.jsp"/>
+            <forward name="viewTransacList" path="viewTransacList_path"/>
+            <forward name="exportTransacList" path="/service/exportTransacList.jsp"/>
+            <forward name="generateInvoice" path="generateInvoice_path" />
+            <forward name="initPendingDE4Approval" path="initPendingDE4Approval_path"/>
+            <forward name="initPending4validateVinNo" path="initPending4validateVinNo_path"/>
+            <forward name="closeJC" path="closeJCPath"/>
+            <forward name="viewJobcard" path="viewJobcard_path" />
+            <forward name="initCreateInvoiceList" path="initCreateInvoiceList_path" />
+            <forward name="printInvoice" path="printInvoice_path"/>
+            <forward name="printConSaleReturn" path="printConSaleReturn_path"/>
+            <forward name="printInvOtherDealer" path="printInvOtherDealer_path"/>
+            <forward name="printJobCard" path="printJobCard_path"/>
+            <forward name="searchhistory" path="searchhistory_path"/>
+            <forward name="serviceDoneLapse" path="serviceDoneLapse_path"/>
+            <forward name="exportServiceDoneLapse" path="/service/exportServiceDoneLapse.jsp"/>
+            <forward name="initsercviceReminder" path="sercviceReminder_path" />
+            <forward name="exportServiceReminder" path="/service/ExportServiceReminder.jsp" />
+            <forward name="printGrn" path="printGrn_path" />
+            <forward name="printExportDetail" path="printExportDetail_path" />
+            <forward name="getFollowup" path="getFollowupPath"/>
+            <forward name="printTaxInvoice" path="printTaxInvoice_path"/>
+            <forward name="initAddExtWarranty" path="initAddExtWarrantyPath"/>
+            <forward name="viewExtWarranty" path="viewExtWarrantyPath"/>
+            <forward name="extWarrPopup" path="/service/viewExtWarrPopup.jsp"/>
+            <forward name="exportExtWarranty" path="/service/exportExtWarranty.jsp"/>
+            <forward name="initEditExtWarranty" path="/service/updateExtWarranty.jsp"/>
+            <forward name="successExtWarr" path="/service/successExtWarr.jsp"/>
+            <forward name="premiumAmount" path="/serviceProcess.do?option=initAddExtWarranty"/>
+            <forward name="initAddItlExtWarranty" path="initAddItlExtWarrantyPath"/>
+            <forward name="viewItlExtendedWarranty" path="viewItlExtendedWarrantyPath"/>
+            <forward name="exportItlExtWarranty" path="/service/exportItlExtWarranty.jsp"/>
+            <forward name="extItlWarrPopup" path="/service/viewItlExtWarrPopup.jsp"/>
+            <forward name="initEditItlExtWarranty" path="/service/updateItlExtWarranty.jsp"/>
+        </action>
+        <!-- action for create job Cardd-->
+        <action name="serviceForm" path="/serviceCreateJC" scope="request" parameter="option" type="action.createJobCardAction">
+            <forward name="vehicleInformationFill" path="fillvehicleInformationPath"/>
+            <forward name="customerInformationFill" path="fillcustomerInformationPath"/>
+            <forward name="initComplaintFill" path="fillcomplaintPath"/>
+            <forward name="initEstimateFill" path="fillestimatePath"/>
+            <forward name="standardChecksFill" path="fillstandardChecksPath"/>
+            <forward name="vehicle_History_detailFill" path="fillhistoryPath"/>
+            <forward name="initActualFill" path="fillactualPath"/>
+            <forward name="success" path="successPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="initStatusFill" path="fillstatusPath"/>
+            <forward name="viewPDI" path="viewPDIPath"/>
+            <forward name="vehicle_History_detail" path="vehicle_History_detailPath"/>
+            <forward name="vehicleInformationHis" path="/createJC/v_vehicle_informationfill.jsp"/>
+            <forward name="customerInformationHis" path="/createJC/v_customer_informationfill.jsp"/>
+            <forward name="initComplaintHis" path="/createJC/v_complaintfill.jsp"/>
+            <forward name="initEstimateHis" path="/createJC/v_estimatefill.jsp"/>
+            <forward name="standardChecksHis" path="/createJC/v_standard_checkfill.jsp"/>
+            <forward name="initStatusHis" path="/createJC/v_statusfill.jsp"/>
+            <forward name="initActualHis" path="/createJC/v_actualfill.jsp"/>
+            <forward name="printStandardChecklist" path="printcheckList_path"/>
+            <forward name="initSearchComplain" path="/createJC/complainSearch.jsp" />
+            <forward name="printEstimate" path="printEstimate_path"/>
+        </action>
+        <!--Pending For PDI-->
+        <action name="pdiForm" path="/pdiServiceProcess" scope="request" parameter="option" type="action.pdiAction">
+            <forward name="pdiVehicleInformation" path="pdiVehicleInformationPath"/>
+            <forward name="customerInformation" path="customerInformationPath"/>
+            <forward name="initComplaint" path="complaintPath"/>
+            <forward name="initEstimate" path="estimatePath"/>
+            <forward name="viewPDIData" path="viewPDIDataPath"/>
+            <forward name="success" path="successPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="initViewPDI" path="initViewPDIPath"/>
+            <forward name="initStatus" path="statusPath"/>
+            <forward name="vehicle_History_detail" path="vehicle_History_detailPath"/>
+            <forward name="view_allpendingjobcardDetails" path="view_allpendingjobcardDetailsPath"/>
+            <forward name="printPDI" path="printPDI_path"/>
+            <forward name="exportInitViewPDI" path="/pdi/v_pdi_details_Excel.jsp"/>
+            <forward name="allPendingPDIExport" path="/pdi/v_pending_pdi_details_Excel.jsp"/>
+        </action>
+        <!--<action to get all other links-->
+        <action name="serviceForm" path="/serviceOptProcess" scope="request" parameter="option" type="action.serviceOptionsAction">
+            <forward name="viewPDI" path="viewPDIPath"/>
+
+        </action>
+        <!--<action path="/ManageUser" forward="manageUser"/>-->
+        <action name="userForm" path="/UserManagement" scope="request" parameter="option" type="action.UserManagementAction">
+            <forward name="manageUserList" path="manageUserListPath"/>
+            <forward name="manageUserType" path="userTypePath"/>
+            <forward name="manageRegion" path="regionPath"/>
+            <forward name="manageUser" path="createUser"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="messagenewwindow" path="/common/SuccessMessage.jsp"/>
+            <forward name="modifyuser" path="modifyuserPath"/>
+            <!--<forward name="getUserAjax" path="/usermgmt/v_user_detail_ajax.jsp"/>-->
+            <forward name="getUserAjax" path="getUserAjaxPath"/>
+            <forward name="getUserProfile" path="getUserProfilePath"/>
+            <forward name="showchangestatus" path="changeStatusPath"/>
+            <forward name="manageCustomer" path="mangCusPath"/>
+            <forward name="addCust" path="addCustPath"/>
+            <forward name="addCustOpenWindow" path="/usermgmt/v_add_Customer.jsp"/>
+            <forward name="modifyCust" path="modifyCustPath"/>
+            <forward name="getCustomerAjax" path="/usermgmt/v_modify_Customer_Ajax.jsp"/>
+            <forward name="addRegionResult" path="/common/SuccessMessage.jsp"/>
+            <forward name="afterdelete" path="/UserManagement.do?option=initUserType"/>
+            <forward name="UserInformation" path="UserInformation"/>
+            <forward name="initAssignRoles" path="initAssignRoles_path"/>
+            <forward name="changePassword" path="changePassword_path"/>
+            <forward name="manageDealerList" path="manageDealerListPath"/>
+            <forward name="manageDealer" path="createDealer"/>
+            <forward name="getDealerAjax" path="getDealerAjaxPath"/>
+        </action>
+        <action name="serviceForm" path="/installProcess" scope="request" parameter="option" type="action.installAction">
+            <forward name="initInstallInfo" path="initInstallInfo_path"/>
+            <forward name="initInstallCustomerInfo" path="initInstallCustomerInfo_path"/>
+            <forward name="standardChecks4Ins" path="standardChecks4Ins_path"/>
+            <forward name="ViewAllInstallList" path="ViewAllInstallList_path"/>
+            <forward name="ViewInstallList" path="ViewInstallList_path"/> <!--view instalation -->
+            <forward name="ViewInstallPrint" path="ViewInstallPrint_path"/><!--view and print Installation-->
+            <forward name="message" path="successMsg"/>
+            <forward name="printINS" path="printINS_path"/>
+            <forward name="exportViewInstallList" path="/installation/v_view_InstallList_Excel.jsp"/>
+            <forward name="exportPendingInstallList" path="/installation/v_pending_InstallList_Excel.jsp"/>
+        </action>
+        <action name="inventoryForm" path="/inventoryAction" scope="request" type="action.InvtoryAction" validate="false" parameter="option">
+            <forward name="inventoryOption" path="inventoryOptionPath"/>
+            <forward name="uploadInventoryfwd" path="uploadinventoryOptionPath"/>
+            <forward name="viewinventory" path="viewinventoryOptionPath"/>
+            <forward name="lockinventory" path="lockinventoryOptionPath"/>
+            <forward name="initCounterSale" path="initCounterSalePath"/>
+            <forward name="counterSale" path="counterSaleOptionPath"/>
+            <forward name="createSalesReturn" path="createSalesReturnPath"/>
+            <forward name="createChallan" path="createChallanPath"/>
+            <forward name="success" path="successPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="initaddInventory" path="initaddInventory_path" />
+            <forward name="viewinventory4HO" path="viewinventory4HO_path" />
+            <forward name="exportinventory" path="/inventory/exportInventory.jsp"/>
+            <forward name="inventoryLedgerReport" path="inventoryLedgerReport_path" />
+            <forward name="exportLedgerReport" path="/inventory/exportLedgerReport.jsp"/>
+            <forward name="uploadBinLoc" path="uploadBinLoc_path" />
+            <forward name="manageReorderLevel" path="manageReorderLevel_path" />
+            <forward name="viewReorderLevel" path="viewReorderLevel_path" />
+            <forward name="addReorderPartToCart" path="addReorderPartToCart_path" />
+            <forward name="exportReorderLevel" path="/inventory/exportReorderLevel.jsp" />
+            <forward name="createNewOrder" path="createNewOrder_Path" />
+            <forward name="addPartInNewOrder" path="addPartInNewOrder_Path" />
+            <forward name="viewOrder" path="viewOrder_Path" />
+            <forward name="exportViewOrder" path="/inventory/exportViewOrder.jsp" />
+            <forward name="viewOrderDetail" path="viewOrderDetail_Path" />
+            <forward name="exportViewOrderDetail" path="/inventory/exportViewOrderDetail.jsp"/>
+            <forward name="viewOrderInvoice" path="viewOrderInvoice_Path" />
+            <forward name="viewOrderInvoiceDetail" path="viewOrderInvoiceDetail_Path" />
+            <forward name="exportOrderInvoiceList" path="/inventory/exportOrderInvoiceList.jsp"/>
+            <forward name="exportProfarmaInvoice" path="/inventory/exportCSProfarmaInvoice.jsp"/>
+            <forward name="failPartExcelCreation" path="/inventory/exportFailPartCreation.jsp"/>
+            <forward name="createGRN" path="createGRN_Path"/>
+            <forward name="backOrderReportListExport" path="/inventory/pendingQtyReport.jsp"/>
+            <forward name="backOrderQtyDealerList" path="backOrderQtyDealerListPath"/>
+            <forward name="exportBillingDetailsList" path="/inventory/exportBillingDetailsList.jsp"/>
+            <forward name="uploadStockAdjustment" path="uploadStockAdjustmentPath"/>
+            <forward name="pendingCancelLinesForAcceptance" path="pendingCancelLinesForAcceptance_Path" />           
+            <!--<forward name="readingerr" path="readingStockErrpath"/>-->
+
+
+        </action>
+
+        <!--
+     ====================================================================================================
+     Copied from  ITL-DIS Project
+     ====================================================================================================
+     -->
+         <!-- ========================= Part Details =====================================-->
+        <action  path="/EAMG_PartAction" scope="request" type="EAMG.Part.Action.EAMG_CreatePartyByWz" validate="false">
+            <forward name="initPart" path="/authJSP/EAMG_Part/EAMG_create_part_wz.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_empty_page.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Part/EAMG_create_part_wz.jsp"  path="/EAMG_Partcreationwz" scope="request" type="EAMG.Part.Action.EAMG_PartCreationByWizardAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_part_creation_wiz_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Part/EAMG_create_part_wz.jsp"/>
+            <forward name="exist" path="/authJSP/EAMG_Part/EAMG_create_part_wz.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Part/EAMG_browse_part_excel.jsp"  path="/add_part" scope="request" type="EAMG.Part.Action.EAMG_AddPartAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_parts_insertion_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Part/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Part/EAMG_reading_err.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Part/EAMG_Upload_SAP_Part.jsp"  path="/sap_partExcel" scope="request" type="EAMG.Part.Action.EAMG_SAP_PartAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_parts_insertion_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Part/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Part/EAMG_reading_err.jsp"/>
+        </action>
+
+        <action input="/authJSP/EAMG_Part/EAMG_browse_part_excel.jsp"  path="/upload_pricelist" scope="request" type="EAMG.Part.Action.EAMG_PriceListAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_pricelist_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Part/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Part/EAMG_reading_err.jsp"/>
+        </action>
+
+        <action input="/authJSP/EAMG_Part/EAMG_delete_unused_parts.jsp" path="/EAMG_deleteunusedparts" scope="request" type="EAMG.Part.Action.EAMG_DeleteUnusedpartsAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_parts_deleted_successfully.jsp"/>
+        </action>
+        <action path="/EAMG_modify_comp_by_excel" type="EAMG.Part.Action.EAMG_ModifyPartByExcel">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_param_modify.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Part/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Part/EAMG_reading_err.jsp"/>
+            <forward name="wizard2" path="/authJSP/EAMG_Part/EAMG_part_modify_partparam.jsp"/>
+            <forward name="insertionResult" path="/authJSP/EAMG_Part/EAMG_modify_excel_success.jsp"/>
+
+        </action>
+
+
+
+
+
+        <action input="/authJSP/EAMG_Part/EAMG_part_modify_partparam.jsp" path="/EAMG_CompModifParamsAction" scope="request" type="EAMG.Part.Action.EAMG_CompModifParamsAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_comp_modif_success.jsp"/>
+        </action>
+        <action path="/EAMG_update_comp" type="EAMG.Part.Action.EAMG_UpdateCompByExcelAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_modify_excel_success.jsp"/>
+        </action>
+        <!-- ========================= Variant Details =====================================-->
+        <action path="/EAMG_create_model" scope="request" type="EAMG.Model.Action.EAMG_CreateModel">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_model_creation.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Variant/EAMG_model_creation.jsp"  path="/EAMG_CreateModel"  scope="request" type="EAMG.Model.Action.EAMG_AddModelAction">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_attach_groups.jsp"/>
+            <forward name="exist" path="/authJSP/EAMG_Variant/EAMG_model_creation.jsp"/>
+            <forward name="fail" path="/authJSP/EAMG_Variant/EAMG_model_error_page.jsp"/>
+        </action>
+
+        <!--<action input="/authJSP/EAMG_Variant/EAMG_model_creation.jsp"  path="/displayGroupsAction" scope="request" type="EAMG.Model.Action.EAMG_DisplayGroupsAction">
+            <forward name="displayGroup" path="/authJSP/EAMG_Variant/EAMG_display_groups.jsp"/>
+        </action>-->
+
+        <action input="/authJSP/EAMG_Variant/EAMG_attach_groups.jsp"  path="/EAMG_attachgroup" scope="request" type="EAMG.Model.Action.EAMG_AttachGroupAction">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_model_success.jsp"/>
+        </action>
+        <action path="/temp_model" type="EAMG.Model.Action.EAMG_TempModelCreationAction">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_attach_groups.jsp"/>
+            <forward name="statusSuccess" path="/authJSP/EAMG_Variant/EAMG_output_page.jsp"/>
+        </action>
+        <action path="/EAMG_complete_model" type="EAMG.Model.Action.EAMG_CompleteModelAction">
+            <forward name="success" path="/common/EAMG_home_page.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Variant/EAMG_modify_model_details.jsp" path="/EAMG_modify_model_details" scope="request" type="EAMG.Model.Action.EAMG_ModifyModelDetailsAction">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_output_page.jsp"/>
+            <forward name="fail" path="/authJSP/EAMG_Variant/EAMG_model_error_page.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_VariantEAMG_Variant/EAMG_delete_model" path="/delete_model" type="EAMG.Model.Action.EAMG_DeleteModelAction">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_delete_model_success.jsp" />
+        </action>
+        <action  name="EAMG_Variant_AggregatesActionForm" path="/EAMG_Variant_Aggregates" scope="session" type="EAMG.Model.Action.EAMG_Variant_AggregatesAction" validate="false">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_variant_aggregates_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Variant/EAMG_variant_aggregates_success.jsp"/>
+            <forward name="init" path="/authJSP/EAMG_Variant/EAMG_variant_aggregates.jsp"/>
+            <forward name="initAggregate" path="/authJSP/EAMG_Variant/EAMG_variant_aggregates_value.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Variant/EAMG_add_aggregate.jsp"  path="/EAMG_CreateAggregate"  scope="request" type="EAMG.Model.Action.EAMG_AddAggregateAction">
+            <forward name="success" path="/authJSP/EAMG_Variant/EAMG_success_Aggareagte.jsp"/>
+            <forward name="exist" path="/authJSP/EAMG_Variant/EAMG_add_aggregate.jsp"/>
+            <forward name="fail" path="/authJSP/EAMG_Variant/EAMG_success_Aggareagte.jsp"/>
+        </action>
+        <!-- ========================= Group Details =====================================-->
+        <action path="/EAMG_Create_Group" forward="/authJSP/EAMG_Group/EAMG_Create_Group.jsp"/>
+        <action path="/EAMG_show_grps" forward="/authJSP/EAMG_Group/EAMG_show_grps.jsp"/>
+
+        <action  name="EAMG_GroupCreationByWzActionForm" path="/EAMG_GroupCreationByWzAction" scope="request" type="EAMG.Group.Action.EAMG_GroupCreationByWzAction">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_attach_parts.jsp"/>
+            <forward name="failure" path="/common/EAMG_session_expired.jsp"/>
+            <forward name="message" path="/authJSP/EAMG_Group/EAMG_output_page.jsp"/>
+        </action>
+
+        <action input="/authJSP/EAMG_Group/EAMG_show_grps.jsp"  path="/EAMG_ShowGrpBomCustom" scope="request" type="EAMG.Group.Action.EAMG_ShowGrpBomCustomAction" >
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_show_grpimage_bom.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Group/EAMG_Create_Group.jsp"  path="/EAMG_create_group1" type="EAMG.Group.Action.EAMG_CreateGroupAction">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_show_grp_xls_data.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Group/EAMG_output_page.jsp"/>
+        </action>
+        <action path="/EAMG_create_group_data" type="EAMG.Group.Action.EAMG_CreateGroupDataAction">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_output_page.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Group/EAMG_reading_err.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Group/EAMG_unused_groups.jsp" path="/EAMG_delete_unused_groups" type="EAMG.Group.Action.EAMG_DeleteUnusedGroupsAction">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_delete_unused_groups_success.jsp" />
+        </action>
+        <action input="/authJSP/EAMG_Group/EAMG_modify_group_details_wz.jsp" path="/EAMG_ModifyGroupDetailsAction" type="EAMG.Group.Action.EAMG_ModifyGroupDetailsAction">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_modify_group_details_success.jsp"/>
+        </action>
+        <action path="/grp_modify" type="EAMG.Group.Action.EAMG_GrpModifiedAction">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_grp_bom_modify_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Group/EAMG_grp_bom_modify_fail.jsp"/>
+        </action>
+        <!-- ========================= Kit Details =====================================-->
+
+        <action path="/EAMG_create_ass_wz" type="EAMG.Kit.Action.EAMG_CreateAssemblyByWz">
+            <forward name="success1" path="/authJSP/EAMG_KIT/EAMG_create_part_wz.jsp"/>
+            <forward name="success2" path="/authJSP/EAMG_KIT/EAMG_create_assembly_by_wz.jsp"/>
+            <forward name="success3" path="/authJSP/EAMG_KIT/EAMG_create_kit_wz.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_KIT/EAMG_empty_page.jsp"/>
+        </action>
+        <action path="/EAMG_check_kit_exist" type="EAMG.Kit.Action.EAMG_CreateKitByWizardAction">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_create_kit_bom.jsp"/>
+            <forward name="exist" path="/authJSP/EAMG_KIT/EAMG_create_kit_wz.jsp"/>
+            <forward name="invalidimg" path="/authJSP/EAMG_KIT/EAMG_invalid_kit_image.jsp"/>
+        </action>
+        <action path="/EAMG_kitInsertionByWz" type="EAMG.Kit.Action.EAMG_KitInsertionByWzAction">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_create_kit_wz_success.jsp"/>
+        </action>
+        <action path="/create_kit" type="EAMG.Kit.Action.EAMG_KitCreationAction">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_show_xls_validation_success.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_KIT/EAMG_reading_err.jsp"/>
+        </action>
+        <action path="/kit_creation" type="EAMG.Kit.Action.EAMG_CreateKitDataAction">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_add_parameter_success.jsp"/>
+        </action>
+        <action path="/EAMG_modify_kit_by_excel" type="EAMG.Kit.Action.EAMG_ModifyKitByExcel">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_param_modify.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_KIT/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_KIT/EAMG_reading_err.jsp"/>
+            <forward name="wizard1" path="/authJSP/EAMG_KIT/EAMG_modify_Kit_by_options.jsp"/>
+        </action>
+        <action path="/EAMG_modify_kit" type="EAMG.Kit.Action.EAMG_ModifyKitDetailsAction">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_kit_modify_success.jsp"/>
+            <forward name="invalidimg" path="/authJSP/EAMG_KIT/EAMG_invalid_kit_image.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_KIT/EAMG_delete_unused_kits.jsp" path="/EAMG_deleteunusedkits" scope="request" type="EAMG.Kit.Action.EAMG_DeleteUnusedKitsAction">
+            <forward name="success" path="/authJSP/EAMG_KIT/EAMG_delete_unused_kits_success.jsp"/>
+        </action>
+
+        <!-- ========================= Tool Details =====================================-->
+
+        <action path="/EAMG_create_ass_wz_tool" type="EAMG.Tool.Action.EAMG_CreateAssemblyByWz">
+            <forward name="success3" path="/authJSP/EAMG_Tool/EAMG_create_tool_wz.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Tool/EAMG_empty_page.jsp"/>
+        </action>
+        <action path="/EAMG_check_tool_exist" type="EAMG.Tool.Action.EAMG_CreateToolByWizardAction">
+            <forward name="success4" path="/authJSP/EAMG_Tool/EAMG_create_tool_bom.jsp"/>
+            <forward name="success" path="/authJSP/EAMG_Tool/EAMG_create_tool_wz_success.jsp"/>
+            <forward name="exist" path="/authJSP/EAMG_Tool/EAMG_create_tool_wz.jsp"/>
+            <forward name="invalidimg" path="/authJSP/EAMG_Tool/EAMG_invalid_tool_image.jsp"/>
+        </action>
+        <action path="/EAMG_toolInsertionByWz" type="EAMG.Tool.Action.EAMG_ToolInsertionByWzAction">
+            <forward name="success" path="/authJSP/EAMG_Tool/EAMG_create_tool_wz_success.jsp"/>
+        </action>
+        <action path="/create_tool" type="EAMG.Tool.Action.EAMG_ToolCreationAction">
+            <forward name="success" path="/authJSP/EAMG_Tool/EAMG_show_xls_validation_success.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Tool/EAMG_reading_err.jsp"/>
+            <forward name="insertsuccess" path="/authJSP/EAMG_Tool/EAMG_tools_insertion_success.jsp"/>
+        </action>
+        <action path="/tool_creation" type="EAMG.Tool.Action.EAMG_CreateToolDataAction">
+            <forward name="success" path="/authJSP/EAMG_Tool/EAMG_add_parameter_success.jsp"/>
+        </action>
+        <action path="/EAMG_modify_tool_by_excel" type="EAMG.Tool.Action.EAMG_ModifyToolByExcel">
+            <forward name="wizard2" path="/authJSP/EAMG_Tool/EAMG_modify_tool_details.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Tool/EAMG_show_xls_validation_success.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Tool/EAMG_reading_err.jsp"/>
+            <forward name="wizard1" path="/authJSP/EAMG_Tool/EAMG_modify_tool_by_options.jsp"/>
+            <forward name="insertionResult" path="/authJSP/EAMG_Tool/EAMG_tools_insertion_success.jsp"/>
+        </action>
+        <action path="/EAMG_modify_tool" type="EAMG.Tool.Action.EAMG_ModifyToolDetailsAction">
+            <forward name="success" path="/authJSP/EAMG_Tool/EAMG_tool_modify_success.jsp"/>
+            <forward name="invalidimg" path="/authJSP/EAMG_Tool/EAMG_invalid_tool_image.jsp"/>
+        </action>
+        <action input="/authJSP/EAMG_Tool/EAMG_delete_unused_tools.jsp" path="/EAMG_deleteunusedtools" scope="request" type="EAMG.Tool.Action.EAMG_DeleteUnusedToolsAction">
+            <forward name="success" path="/authJSP/EAMG_Tool/EAMG_delete_unused_tools_success.jsp"/>
+        </action>
+        <!-- ========================= Other Details =====================================-->
+        <action  path="/EAMG_CreateEAMGPart_OMEPart" scope="request" type="EAMG.Other.Action.EAMG_EAMGPart_OEMPartAction">
+            <forward name="success" path="/authJSP/other/EAMG_parts_insertion_success.jsp"/>
+            <forward name="failure" path="/authJSP/other/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Part/EAMG_reading_err.jsp"/>
+        </action>
+
+        <action path="/EAMG_CreateAlternates" type="EAMG.Group.Action.EAMG_CreateAlternates">
+            <forward name="success" path="/authJSP/EAMG_Group/EAMG_create_alternates_success.jsp"/>
+        </action>
+        <action  name="EAMG_Variant_AggregatesActionForm" path="/EAMG_addVehicle" scope="request" type="EAMG.Model.Action.EAMG_addVehicleAction" validate="false">
+            <forward name="success"  path="/authJSP/EAMG_Variant/EAMG_AddVehicle_Variant_success.jsp"/>
+        </action>
+
+        <action  path="/getSelectedOMEPartByEAMGPart" scope="session" type="EAMG.Other.Action.EAMG_EAMG_VS_OMEAction" validate="false">
+            <forward name="getOMEAPart" path="/authJSP/other/EAMG_EAMG_VS_OMEMatrixAjax.jsp"/>
+        </action>
+        <action  path="/EAMG_VS_OMEAction" scope="session" type="EAMG.Other.Action.EAMG_VS_OMEAction" validate="false">
+            <forward name="success" path="/authJSP/other/EAMG_OME_Martrix_success.jsp"/>
+            <forward name="failure" path="/authJSP/other/EAMG_Assign_EAMG_vs_OME_Matrix.jsp"/>
+        </action>
+        <action name="userMgmt_manageUserBean"  path="/userMgmt_assignRolesToUser" scope="request" type="userMgmt.action.userMgmt_assignRolesToUserAction" validate="false">
+            <forward name="success"  path="/common/EAMG_action_success.jsp"/>
+            <forward name="showuser"  path="/userMgmt/AssignProduct_User.jsp"/>
+            <forward name="showproducttype"  path="/userMgmt/AssignProductType_User.jsp"/>
+            <forward name="showuserajax"  path="/userMgmt/AssignProduct_UserAjax.jsp"/>
+        </action>
+
+        <action name="EAMG_Variant_AggregatesActionForm"  path="/Assign_ComponentToModelAction" scope="request" type="EAMG.Model.Action.AssignComponentToModelAction" validate="false">
+            <forward name="success"  path="/common/EAMG_action_success.jsp"/>
+            <forward name="showmodel"  path="/authJSP/EAMG_Variant/AssignComponent_to_Model.jsp"/>
+            <forward name="showmodelajax"  path="/authJSP/EAMG_Variant/AssignComponentToModelAjax.jsp"/>
+        </action>
+
+
+        <action  name="ecnFormBean" type="EAMG.Other.Action.UploadECN" path="/UploadECN" scope="request">
+            <forward name="uploadECN" path="/authJSP/ecn/UploadECN.jsp"/>
+            <forward name="affectedModel" path="/authJSP/ecn/AffectedModelECN.jsp"/>
+            <forward name="errorPage" path="/common/EAMG_error_page.jsp"/>
+            <forward name="success" path="/common/ActionSuccess.jsp"/>
+        </action>
+
+        <action  name="createPDFActionForm" path="/CreatePDF"  type="EAMG.Other.Action.CreatePDFAction" scope="request" validate="false">
+            <forward name="success"  path="/common/EAMG_action_success.jsp"/>
+            <forward name="showuser"  path="/userMgmt/AssignProduct_User.jsp"/>
+            <forward name="showproducttype"  path="/userMgmt/AssignProductType_User.jsp"/>
+        </action>
+
+        <action input="/authJSP/other/EAMG_Upload_TSN_matrix.jsp"  path="/EAMG_Upload_tsn_matrix" scope="request" type="EAMG.Other.Action.EAMG_AddTSNAction">
+            <forward name="success" path="/authJSP/other/EAMG_TSN_upload_success.jsp"/>
+            <forward name="failure" path="/authJSP/other/EAMG_TSN_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/other/EAMG_TSN_reading_err.jsp"/>
+        </action>
+
+        <action path="/ECNReportDisp" scope="request" type="EAMG.Other.Action.EAMG_ECNReportDisp">
+            <forward name="success" path="/authJSP/ecn/EAMG_ECNReport.jsp"/>
+        </action>
+
+        <action input="/authJSP/ecn/EAMG_ECNReport.jsp"  path="/ECNReport" scope="request" type="EAMG.Other.Action.EAMG_ECNReport">
+            <forward name="success" path="/authJSP/ecn/EAMG_ECNReportSuccess.jsp"/>
+            <forward name="failure" path="/authJSP/ecn/EAMG_ECNReportSuccess.jsp"/>
+        </action>
+
+        <action name="EAMG_GroupCreationByWzActionForm" path="/changeFCodeTableSequence" scope="request" type="EAMG.Group.Action.EAMG_ChangeFCodeSequenceAction" validate="false">
+            <forward name="initFCodeSequenceDisplay" path="/authJSP/EAMG_Group/ChnageFCodeSequence.jsp"/>
+            <forward name="success" path="/common/EAMG_action_success.jsp"/>
+        </action>
+
+        <action  name="EAMG_GroupCreationByWzActionForm" path="/ChangeGroupSequence" scope="request" type="EAMG.Group.Action.ChangeGroupSequenceAction" validate="false">
+            <forward name="success"  path="/common/EAMG_action_success.jsp"/>
+            <forward name="initGroupSequence"  path="/authJSP/EAMG_Group/ChangeGroupSequence.jsp"/>
+        </action>
+
+        <!-- ========================= Service Bulletin Details =====================================-->
+        <action  name="sBFormBean" path="/serviceBulletin" scope="request" type="EAMG_Service_Bulletin.EAMG_ServiceBulletinAction" >
+            <forward name="success"  path="/common/EAMG_action_success.jsp"/>
+            <forward name="initSBUpdate"  path="/authJSP/EAMG_ServiceBulletin/updateServiceBulletin.jsp"/>
+            <forward name="viewBulletin"  path="/authJSP/EAMG_ServiceBulletin/viewBulletin.jsp"/>
+            <forward name="viewBulletinDetails"  path="/authJSP/EAMG_ServiceBulletin/viewBulletinDetails.jsp"/>
+            <forward name="initSBDelete"  path="/authJSP/EAMG_ServiceBulletin/initBulletinDelete.jsp"/>
+        </action>
+        <action  name="usageBean" path="/UsageDetails" scope="request" type="EAMG.Other.Action.UsageDetailAction">
+            <forward name="success"  path="/common/usageSuccessMessage.jsp"/>
+        </action>
+        <action input="/" name="webserviceform" path="/webservice" scope="session" type="webservice.webserviceAction" validate="false">
+            <forward name="webservicefwd" path="/authJSP/webService/EAMG_Advance_Search.jsp"/>
+        </action>
+        <!--added by satendra-->
+        <action path="/reportAction" name="reportForm" scope="request" type="action.ReportAction" validate="false" parameter="option">
+            <forward name="success" path="misReportSearchPage"/>
+            <forward name="viewMisDMSReport" path="viewMisDMSReportPath"/>
+            <forward name="exportviewMisDMSReport" path="/reportUI/exportviewMisReportDMS.jsp"/>
+            <forward name="options" path="reportOptionsPath"/>
+            <forward name="viewSpareLube" path="viewSpareLubePath"/>
+            <forward name="viewSpareLubeRolling" path="viewSpareLubeRollingPath"/>
+            <forward name="viewSpareLubeSTK" path="viewSpareLubePathSTK"/>
+            <forward name="viewSpareLubeRollingSTK" path="viewSpareLubeRollingPathSTK"/>
+            <forward name="viewSaleInvoice" path="viewSaleInvoice_Path" />
+            <forward name="successReport" path="viewSaleInvoice_Path"/>
+            <forward name="failure" path="viewSaleInvoice_Path"/>
+            <forward name="viewPedningPIConfirmationReport" path="viewPendingPIReport_Path" />
+            <forward name="successPIConfirmationReport" path="viewPendingPIReport_Path" />
+            <forward name="failurePIConfirmation" path="viewPendingPIReport_Path" />
+            <forward name="viewOrderInvDetReport" path="viewOrderInvDetReport_Path" />
+            <forward name="exportViewOrderInvDetReport" path="/reportUI/exportViewOrderInvDetReport.jsp" />
+            <forward name="successGstr1" path="gstr1ReportSearchPage"/>
+            <forward name="successGstr2" path="gstr2ReportSearchPage"/>
+
+        </action>
+        <!--added by avinash-->
+        <action   path="/uploadPricelist" scope="request" validate="false" type="EAMG.Part.Action.EAMG_PriceListAction">
+            <forward name="success" path="successPricelistPath"/>
+            <forward name="failure" path="failureValidationErrPath"/>
+            <forward name="readingerr" path="readingerrpath"/>
+        </action>
+        <action  path="/sapPartExcel" scope="request" type="EAMG.Part.Action.EAMG_SAP_PartAction">
+            <forward name="success" path="successPartsInsertionPath"/>
+            <forward name="failure" path="failureValidationErrPath"/>
+            <forward name="readingerr" path="readingerrpath"/>
+        </action>
+        <action path="/partvsAlternatPainted" scope="request"  parameter="option" type="EAMG.Part.Action.PartVsAlternatPaintedAction">
+            <forward name="success" path="/authJSP/EAMG_Part/EAMG_parts_insertion_success.jsp"/>
+            <forward name="failure" path="/authJSP/EAMG_Part/EAMG_validation_err.jsp"/>
+            <forward name="readingerr" path="/authJSP/EAMG_Part/EAMG_reading_err.jsp"/>
+        </action>
+        <action name="inventoryForm" path="/inventoryEXPAction" scope="request" type="action.inventoryEXPAction" validate="false" parameter="option">
+           <forward name="initCreateEXPOrder" path="initCreateEXPOrder_path"/>
+           <forward name="getPoListByodType" path="/inventoryEXP/createNewEXPOrderAjax.jsp"/>
+           <forward name="inventoryEXPOption" path="inventoryEXPOptionPath"/>
+           <forward name="createNewEXPOrder" path="createNewEXPOrder_Path" />
+            <forward name="addPartInNewEXPOrder" path="addPartInNewEXPOrder_Path" />
+            <forward name="success" path="successPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="viewOrderEXP" path="viewOrderEXP_Path" />
+            <forward name="exportViewOrderEXP" path="/inventoryEXP/exportViewOrder.jsp" />
+            <!--<forward name="inventoryOption" path="inventoryOptionPath"/>-->
+            <forward name="exportViewOrderEXPDetail" path="/inventoryEXP/exportViewOrderDetail.jsp"/>
+            <forward name="viewOrderDetailEXP" path="viewOrderDetailEXP_Path" />
+
+            <forward name="initcreatePIforExpoOrder" path="initcreatePIforExpoOrderPath"/>
+            <forward name="viewEXPOrderInvoice" path="viewEXPOrderInvoice_Path" />
+            <forward name="exportEXPBillingDetailsList" path="/inventoryEXP/exportEXPBillingDetailsList.jsp"/>
+            <forward name="exportEXPOrderInvoiceList" path="/inventoryEXP/exportEXPOrderInvoiceList.jsp"/>
+            <forward name="viewEXPOrderInvoiceDetail" path="viewEXPOrderInvoiceDetail_Path" />
+            <forward name="downloadPIOrderSAP" path="/inventoryEXP/downloadPIOrderForSAP.jsp" />
+            <forward name="initUploadSAPAck" path="initUploadSAPAckPath" />
+            <forward name="initUploadSAPCommercial" path="initUploadSAPCommercialPath" />
+            <forward name="initUploadCancelledExp" path="initUploadCancelledExpPath" />
+             <forward name="createGRNEXP" path="createGRNEXP_Path"/>
+
+        </action>
+        <action name="piForm" path="/createPIAction" scope="request" type="action.piAction.CreatePIAction" parameter="option">
+            <forward name="success" path="successPath"/>
+            <forward name="message" path="successMsg"/>
+            <forward name="initcreatePIforExpoOrder" path="initcreatePIforExpoOrderPath"/>
+            <forward name="initListForInitPI" path="initListForInitPIPath"/>
+            <forward name="createPIExpoOrder" path="createPIExpoOrderPath"/>
+            <forward name="initViewPI" path="initViewPIPath"/>
+            <forward name="viewPIDetail" path="viewPIDetailPIPath"/>
+        </action>
+        <action name="customerForm" path="/manageCustomerAction" scope="request" type="action.ManageCustomerAction" parameter="option">
+            <forward name="masterCustomerOption" path="masterCustomerOptionPath"/>
+            <forward name="searchCustomerOption" path="searchCustomerOptionPath"/>
+            <forward name="initReceivePayment" path="/customer_master/receivePayment.jsp"/>
+            <!--<forward name="showPaymentHistory" path="showPaymentHistoryPath"/>-->
+            <forward name="showPaymentHistory" path="/customer_master/paymentHistory.jsp"/>
+            <forward name="success" path="/customer_master/success.jsp"/>            
+        </action>
+        
+        
+        <!-- added by aman 08-05-20205 -->
+         <action path="/DigitalSignatureAction" type="action.DigitalSignatureAction"  scope="request"
+              	validate="false" parameter="digitalSignCallback">
+          </action>
+        
+
+        <!--
+     ====================================================================================================
+     Copied from  ITL-DIS Project   ENDS
+     ====================================================================================================
+     -->
+
+    </action-mappings>
+
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+    <message-resources parameter="com/myapp/struts/ApplicationResource"/>
+
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+
+    <!-- ========================= Validator plugin ================================= -->
+
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn" >
+        <set-property property="pathnames" value="/WEB-INF/validator-rules.xml"/>
+    </plug-in>
+
+</struts-config>

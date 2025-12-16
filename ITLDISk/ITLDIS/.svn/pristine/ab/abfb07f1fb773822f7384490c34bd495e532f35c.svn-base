@@ -1,0 +1,596 @@
+error.connection=Connection Failure.
+error.userid.required=Please Enter User Id.
+error.password.required=Please Enter Password.
+error.login.failed=Login Failed. Enter correct User Id and Password.
+error.login.inactive=Login Failed. User Id is InActive in the System.
+error.unknown=Unknown Error, Please contact System Admin.
+error.custom={0}
+errors.required={0} is required.
+
+################################################################
+#home page jsp#
+
+
+
+
+
+label.common.Welcome=&#2310;&#2346;&#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2361;&#2376;
+label.common.editProfile=&#2319;&#2337;&#2367;&#2335; &#2350;&#2366;&#2311; &#2346;&#2381;&#2352;&#2379;&#2347;&#2366;&#2311;&#2354;
+label.common.Signout=&#2360;&#2366;&#2311;&#2344; &#2310;&#2313;&#2335;
+label.delivery.SaleEnquiryRef=\u092A\u0942\u091B\u0924\u093E\u091B \u0938\u0902\u0926\u0930\u094D\u092D \u092C\u093F\u0915\u094D\u0930\u0940
+
+
+label.common.home=&#2361;&#2379;&#2350;
+label.common.contactUs=&#2361;&#2350;&#2360;&#2375; &#2360;&#2306;&#2346;&#2352;&#2381;&#2325; &#2325;&#2352;&#2375;&#2306;
+label.common.contactname=&#2325;&#2366;&#2306;&#2335;&#2375;&#2325;&#2381;&#2335; &#2344;&#2375;&#2350
+label.common.contactno=&#2325;&#2366;&#2306;&#2335;&#2375;&#2325;&#2381;&#2335; &#2344;&#2306;. 
+
+
+
+
+
+#=============================dash board===========================
+
+
+
+label.common.warranty= &#2357;&#2366;&#2352;&#2306;&#2335;&#2368;
+label.common.spares= &#2360;&#2381;&#2346;&#2375;&#2309;&#2352;&#2381;&#2360;
+label.common.catalogue= &#2325;&#2376;&#2335;&#2375;&#2354;&#2377;&#2327;
+
+label.common.pendingforpdi= &#2346;&#2375;&#2306;&#2337;&#2367;&#2306;&#2327; &#2347;&#2377;&#2352; &#2346;&#2368;.&#2337;&#2368;.&#2310;&#2312;
+label.common.viewpdidetail= &#2357;&#2381;&#2351;&#2370; &#2346;&#2368;.&#2337;&#2368;.&#2310;&#2312; &#2337;&#2367;&#2335;&#2375;&#2354;
+label.common.jobcardforpdi=&#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337; &#2347;&#2377;&#2352; &#2346;&#2368;.&#2337;&#2368;.&#2310;&#2312;
+label.common.installation=&#2311;&#2306;&#2360;&#2381;&#2335;&#2366;&#2354;&#2375;&#2358;&#2344;
+label.common.viewalljobcard=&#2357;&#2381;&#2351;&#2370; &#2310;&#2354; &#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337;
+label.common.freeservice=&#2347;&#2381;&#2352;&#2368; &#2360;&#2352;&#2381;&#2357;&#2367;&#2360;
+label.common.paidservice=&#2346;&#2375;&#2337; &#2360;&#2352;&#2381;&#2357;&#2367;&#2360;
+label.common.wrrepairservice=&#2337;&#2348;&#2381;&#2354;&#2370;.&#2310;&#2352;.&#2352;&#2367;&#2346;&#2375;&#2351;&#2352; &#2360;&#2352;&#2381;&#2357;&#2367;&#2360;
+label.common.registercomplaint=&#2352;&#2332;&#2367;&#2360;&#2381;&#2335;&#2352; &#2325;&#2306;&#2346;&#2381;&#2354;&#2375;&#2306;&#2335;
+label.common.createestimate=&#2325;&#2381;&#2352;&#2367;&#2319;&#2335; &#2319;&#2360;&#2381;&#2335;&#2368;&#2350;&#2375;&#2335;
+label.common.issuespares=&#2311;&#2358;&#2370; &#2360;&#2381;&#2346;&#2375;&#2309;&#2352;&#2381;&#2360;
+label.common.closejobcard=&#2325;&#2381;&#2354;&#2379;&#2332; &#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337;
+label.common.generateinvoice=&#2332;&#2344;&#2352;&#2375;&#2335; &#2311;&#2344;&#2357;&#2377;&#2311;&#2360;
+label.common.issuegatepass=&#2311;&#2358;&#2370; &#2327;&#2375;&#2335; &#2346;&#2366;&#2360;
+label.common.tbd=(&#2335;&#2368; &#2348;&#2368; &#2337;&#2368;)
+label.common.printInvoice= Print Invoice
+label.common.referenceNo=Reference No.
+label.common.viewInvoice= View Invoice
+label.common.message=Message
+label.common.INSno=Installation No.
+label.common.INSDate=INS Date
+label.common.Regno  =Reg. No.
+label.common.dealerCode  =Dealer Code
+#=================HEADING========
+
+label.common.usermanagement=&#2351;&#2370;&#2332;&#2352; &#2350;&#2376;&#2344;&#2375;&#2332;&#2350;&#2375;&#2306;&#2335;
+
+label.common.vehicleinfo=&#2357;&#2381;&#2361;&#2368;&#2325;&#2354; &#2311;&#2344;&#2347;&#2366;&#2352;&#2381;&#2350;&#2375;&#2358;&#2344;
+label.common.customerinfo=&#2325;&#2360;&#2381;&#2335;&#2350;&#2352; &#2311;&#2344;&#2347;&#2366;&#2352;&#2381;&#2350;&#2375;&#2358;&#2344;
+label.common.standardcheck=&#2360;&#2381;&#2335;&#2376;&#2339;&#2381;&#2337;&#2352;&#2381;&#2337; &#2330;&#2375;&#2325;
+label.common.complaint=&#2325;&#2306;&#2346;&#2381;&#2354;&#2375;&#2306;&#2335;
+label.common.estimate=&#2319;&#2360;&#2381;&#2335;&#2368;&#2350;&#2375;&#2335;
+label.common.actuals=&#2319;&#2325;&#2381;&#2330;&#2369;&#2309;&#2354;&#2381;&#2360;
+label.common.status=&#2360;&#2381;&#2335;&#2375;&#2335;&#2360;
+label.common.history=&#2361;&#2367;&#2360;&#2381;&#2335;&#2381;&#2352;&#2368;
+
+
+
+#========vehicle information=====================
+
+label.common.Masters=&#2350;&#2376;&#2360;&#2381;&#2335;&#2352;&#2381;&#2332;&#2364;
+label.common.Service=&#2360;&#2352;&#2381;&#2357;&#2367;&#2360;
+label.common.inventory=&#2311;&#2344;&#2381;&#2357;&#2375;&#2306;&#2335;&#2352;&#2368;
+
+label.common.Chassisno=&#2330;&#2375;&#2360;&#2367;&#2360; &#2344;&#2306;.
+label.common.Jobtype=&#2332;&#2377;&#2348; &#2335;&#2366;&#2311;&#2346;
+label.common.Modelfamily =&#2350;&#2377;&#2337;&#2354; &#2347;&#2376;&#2350;&#2367;&#2354;&#2368;
+label.common.Saledate=&#2360;&#2375;&#2354; &#2337;&#2375;&#2335;
+label.common.Productcategory=&#2346;&#2381;&#2352;&#2379;&#2337;&#2325;&#2381;&#2335; &#2325;&#2375;&#2335;&#2375;&#2327;&#2352;&#2368;
+label.common.Dealerjobcardno =&#2337;&#2368;&#2354;&#2352; &#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337; &#2344;&#2306;.
+label.common.Modelcode  =&#2350;&#2377;&#2337;&#2354; &#2325;&#2379;&#2337;
+label.common.Modelcodedesc  =&#2350;&#2377;&#2337;&#2354; &#2325;&#2379;&#2337; &#2337;&#2375;&#2360;&#2381;&#2325;
+label.common.hrmworking  =&#2320;&#2330;.&#2320;&#2350;.&#2310;&#2352; &#2357;&#2352;&#2381;&#2325;&#2367;&#2306;&#2327;
+label.common.Modelfamilydesc  =&#2350;&#2377;&#2337;&#2354; &#2347;&#2376;&#2350;&#2367;&#2354;&#2368; &#2337;&#2375;&#2360;&#2381;&#2325;.
+label.common.engineno  =&#2311;&#2306;&#2332;&#2344; &#2344;&#2306;&#2348;&#2352;
+label.common.hrm  =&#2320;&#2330;.&#2320;&#2350;.&#2310;&#2352;
+label.common.Registrationno  =&#2352;&#2332;&#2367;&#2360;&#2381;&#2335;&#2381;&#2352;&#2375;&#2358;&#2344; &#2344;&#2306;.
+label.common.event  =&#2311;&#2357;&#2375;&#2306;&#2335;
+label.common.location  =&#2354;&#2379;&#2325;&#2375;&#2358;&#2344;
+label.common.Servicebookletno  =&#2360;&#2352;&#2381;&#2357;&#2367;&#2360; &#2348;&#2369;&#2325;&#2354;&#2375;&#2335; &#2344;&#2306;.
+label.common.servicetype  =&#2360;&#2352;&#2381;&#2357;&#2367;&#2360; &#2335;&#2366;&#2311;&#2346;
+label.common.tractorindate  =&#2335;&#2381;&#2352;&#2375;&#2325;&#2381;&#2335;&#2352; &#2311;&#2344; &#2337;&#2375;&#2335;
+label.common.Couponno  =&#2325;&#2370;&#2346;&#2344;  &#2344;&#2306;.
+label.common.Ownerdriven   =&#2323;&#2344;&#2352; &#2337;&#2381;&#2352;&#2367;&#2357;&#2375;&#2344;
+label.common.Jobcardstatus   =&#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337; &#2360;&#2381;&#2335;&#2375;&#2335;&#2360;
+label.common.nextservicefromhere   =&#2344;&#2375;&#2325;&#2381;&#2360;&#2381;&#2335; &#2360;&#2352;&#2381;&#2357;&#2367;&#2360; &#2347;&#2381;&#2352;&#2377;&#2350; &#2361;&#2367;&#2351;&#2352;
+label.common.Jobcardpriority    =&#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337; &#2346;&#2381;&#2352;&#2366;&#2351;&#2379;&#2352;&#2367;&#2335;&#2368;
+label.common.warrantyapplicable    =&#2357;&#2366;&#2352;&#2306;&#2335;&#2368; &#2319;&#2346;&#2381;&#2354;&#2368;&#2325;&#2375;&#2348;&#2354;
+
+label.common.jobcardno =&#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337; &#2344;&#2306;
+label.common.viewalljobcard =&#2357;&#2381;&#2351;&#2370; &#2310;&#2354; &#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337;
+
+label.common.pdi =&#2346;&#2368; &#2337;&#2368; &#2310;&#2312;
+
+#==================================================================customer and payee ==================
+
+
+label.common.CustomerName= &#2327;&#2381;&#2352;&#2366;&#2361;&#2325; &#2325;&#2366; &#2344;&#2366;&#2350;
+label.common.PayeeName= &#2346;&#2375;&#2312; &#2325;&#2366; &#2344;&#2366;&#2350;
+label.common.village= &#2327;&#2366;&#2306;&#2357;
+label.common.talukatahsil= &#2340;&#2366;&#2354;&#2369;&#2325;&#2366; / &#2340;&#2361;&#2360;&#2368;&#2354;
+label.common.district= &#2332;&#2367;&#2354;&#2366;
+label.common.pincode= &#2346;&#2367;&#2344; &#2325;&#2379;&#2337;
+label.common.state= &#2352;&#2366;&#2332;&#2381;&#2351;
+label.common.Country= &#2342;&#2375;&#2358;
+label.common.mobilephone= &#2350;&#2379;&#2348;&#2366;&#2311;&#2354; &#2347;&#2364;&#2379;&#2344;
+label.common.landline= &#2354;&#2376;&#2306;&#2337;&#2354;&#2366;&#2311;&#2344;
+label.common.emailid= &#2312; &#2350;&#2375;&#2354; &#2310;&#2312;&#2337;&#2368;
+label.common.sizeoflandhold= &#2360;&#2366;&#2311;&#2332; &#2321;&#2398; &#2354;&#2376;&#2306;&#2337; &#2361;&#2379;&#2354;&#2381;&#2337;&#2367;&#2306;&#2327;
+label.common.maincrop= &#2350;&#2369;&#2326;&#2381;&#2351; &#2347;&#2360;&#2354;&#2375;&#2306;
+label.common.occupation= &#2357;&#2381;&#2351;&#2357;&#2360;&#2366;&#2351;
+label.common.PayeeAddress= Payee Address
+label.common.Prodcat=Category
+label.common.familydesc=Family Desc
+label.common.codedesc=Model Desc
+label.common.tractorRecdate=Recived On
+
+#==================================standardcheck
+
+label.common.sno=&#2325;&#2381;&#2352;&#2350; &#2344;&#2306;.
+label.common.activity=&#2319;&#2325;&#2381;&#2335;&#2367;&#2357;&#2367;&#2335;&#2368;
+label.common.ok=&#2323;&#2325;&#2375; \ &#2344;&#2379;&#2335; &#2323;&#2325;&#2375;
+label.common.actiontaken=&#2319;&#2325;&#2381;&#2358;&#2344; &#2335;&#2375;&#2325;&#2344;
+label.common.remarks=&#2352;&#2367;&#2350;&#2366;&#2352;&#2381;&#2325;&#2381;&#2360;
+label.common.status=&#2360;&#2381;&#2335;&#2375;&#2335;&#2360;
+
+
+
+
+ 
+#==================================complaint=======
+
+label.common.customerverbatim= &#2325;&#2360;&#2381;&#2335;&#2350;&#2352; &#2357;&#2375;&#2352;&#2381;&#2348;&#2340;&#2368;&#2350;
+label.common.customer =&#2325;&#2360;&#2381;&#2335;&#2350;&#2352;
+label.common.application= &#2319;&#2346;&#2381;&#2354;&#2368;&#2325;&#2375;&#2358;&#2344;
+label.common.aggregate= &#2319;&#2327;&#2381;&#2352;&#2368;&#2327;&#2375;&#2335;
+label.common.subaggregate= &#2360;&#2348; &#2319;&#2327;&#2381;&#2352;&#2368;&#2327;&#2375;&#2335;
+label.common.subassembly= &#2360;&#2348;&#2309;&#2360;&#2375;&#2306;&#2348;&#2354;&#2368; &#2325;&#2379;&#2337;
+label.common.defect= &#2337;&#2367;&#2347;&#2375;&#2325;&#2381;&#2335;
+label.common.cause= &#2325;&#2377;&#2332;
+label.common.consequences= &#2325;&#2306;&#2360;&#2368;&#2325;&#2381;&#2357;&#2375;&#2344;&#2381;&#2360;&#2375;&#2360;
+label.common.foremanobservation=&#2347;&#2379;&#2352;&#2350;&#2376;&#2344; &#2321;&#2348;&#2381;&#2332;&#2352;&#2357;&#2375;&#2358;&#2344;
+
+#=============================actuals=======================================
+
+
+
+label.common.partno=&#2346;&#2366;&#2352;&#2381;&#2335; &#2344;&#2306;.
+label.common.partdesc=&#2346;&#2366;&#2352;&#2381;&#2335; &#2337;&#2375;&#2360;&#2381;&#2325;.
+label.common.selectcomplaint=&#2360;&#2375;&#2354;&#2375;&#2325;&#2381;&#2335; &#2325;&#2306;&#2346;&#2381;&#2354;&#2375;&#2306;&#2335;
+label.common.casualconq=&#2325;&#2380;&#2360;&#2354;/&#2325;&#2306;&#2360;&#2368;&#2325;&#2381;&#2357;&#2375;&#2344;&#2381;&#2360;
+label.common.unitprice=&#2351;&#2370;&#2344;&#2367;&#2335; &#2346;&#2381;&#2352;&#2366;&#2311;&#2360;
+label.common.qty=&#2325;&#2381;&#2351;&#2370;&#2335;&#2368;&#2357;&#2366;&#2312;
+label.common.amount=&#2309;&#2350;&#2366;&#2313;&#2306;&#2335;
+label.common.billto=&#2348;&#2367;&#2354; &#2335;&#2370;
+label.common.discount=&#2337;&#2367;&#2360;&#2381;&#2325;&#2366;&#2313;&#2306;&#2335;
+label.common.finalamount=&#2347;&#2366;&#2311;&#2344;&#2354; &#2309;&#2350;&#2366;&#2313;&#2306;&#2335;
+label.common.category=Category
+
+
+
+label.common.work=&#2357;&#2352;&#2381;&#2325;
+label.common.description=&#2337;&#2367;&#2360;&#2381;&#2325;&#2381;&#2352;&#2367;&#2346;&#2381;&#2358;&#2344;
+label.common.lubes=&#2354;&#2369;&#2348;&#2381;&#2360;
+
+
+label.common.totalpartvalue=&#2335;&#2379;&#2335;&#2354; &#2346;&#2366;&#2352;&#2381;&#2335;&#2381;&#2360; &#2357;&#2376;&#2354;&#2381;&#2351;&#2370;
+label.common.labourcharge=&#2354;&#2375;&#2348;&#2352; &#2330;&#2366;&#2352;&#2381;&#2332;&#2375;&#2332;
+label.common.totallabourcharge=&#2335;&#2379;&#2335;&#2354; &#2354;&#2375;&#2348;&#2352; &#2330;&#2366;&#2352;&#2381;&#2332;&#2375;&#2332;
+label.common.othercharges=&#2309;&#2342;&#2352; &#2330;&#2366;&#2352;&#2381;&#2332;&#2375;&#2332;
+label.common.deliverytime=&#2337;&#2367;&#2354;&#2368;&#2357;&#2352;&#2368; &#2335;&#2366;&#2311;&#2350;
+label.common.totallubesvalue=&#2335;&#2379;&#2335;&#2354; &#2354;&#2369;&#2348;&#2381;&#2360; &#2357;&#2376;&#2354;&#2381;&#2351;&#2370;
+label.common.promised=&#2346;&#2381;&#2352;&#2377;&#2350;&#2367;&#2360;&#2381;&#2337;
+label.common.reqbycust=&#2352;&#2367;&#2325;&#2381;&#2357;&#2366;&#2351;&#2352;&#2381;&#2337; &#2348;&#2366;&#2351;&#2375; &#2325;&#2360;&#2381;&#2335;&#2350;&#2352;
+label.common.currentestimate=&#2325;&#2352;&#2306;&#2335; &#2319;&#2360;&#2381;&#2335;&#2368;&#2350;&#2375;&#2335;
+label.common.actualdate=&#2319;&#2325;&#2381;&#2330;&#2369;&#2309;&#2354; &#2337;&#2375;&#2335;
+label.common.totalestimate=&#2335;&#2379;&#2335;&#2354; &#2319;&#2360;&#2381;&#2335;&#2368;&#2350;&#2375;&#2335;
+label.common.totalothercharge=&#2335;&#2379;&#2335;&#2354; &#2309;&#2342;&#2352; &#2330;&#2366;&#2352;&#2381;&#2332;&#2375;&#2332;
+label.common.totalactual=TOTAL ACTUALS
+label.common.actualdate=ACTUAL DATE
+label.common.totaldiscount=Total Discount
+label.common.otherdiscount=Other Discount
+
+
+
+
+
+
+
+#=============================status=======================================
+label.common.timeinfo=&#2335;&#2366;&#2311;&#2350; &#2311;&#2344;&#2381;&#2347;&#2379;
+label.common.machanicinfo=&#2350;&#2376;&#2325;&#2375;&#2344;&#2367;&#2325; &#2311;&#2344;&#2381;&#2347;&#2379;
+label.common.workstartedon=&#2357;&#2352;&#2381;&#2325; &#2360;&#2381;&#2335;&#2366;&#2352;&#2381;&#2335;&#2375;&#2337; &#2323;&#2344;
+label.common.workfinishedon=&#2357;&#2352;&#2381;&#2325; &#2347;&#2367;&#2344;&#2367;&#2358;&#2381;&#2337; &#2323;&#2344;
+label.common.vehicleouton=&#2357;&#2381;&#2361;&#2368;&#2325;&#2354; &#2310;&#2313;&#2335; &#2323;&#2344;
+label.common.bay=&#2348;&#2375;
+label.common.machanicname=&#2350;&#2376;&#2325;&#2375;&#2344;&#2367;&#2325; &#2344;&#2375;&#2350;
+label.common.finalinspectionby=&#2347;&#2366;&#2311;&#2344;&#2354; &#2311;&#2306;&#2360;&#2381;&#2346;&#2375;&#2325;&#2381;&#2358;&#2344; &#2348;&#2366;&#2351;&#2375;
+
+#=============================history=======================================
+
+label.common.viewdetails=&#2357;&#2381;&#2351;&#2370; &#2337;&#2367;&#2335;&#2375;&#2354;&#2381;&#2360;
+label.common.servicesdoneon=&#2360;&#2352;&#2381;&#2357;&#2367;&#2360;&#2375;&#2332; &#2337;&#2344; &#2323;&#2344;
+label.common.donebydealer=&#2337;&#2344; &#2348;&#2366;&#2319; &#2337;&#2368;&#2354;&#2352;
+
+
+label.common.createjobcard=&#2325;&#2381;&#2352;&#2367;&#2319;&#2335; &#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337;
+label.common.historyjobcard=&#2361;&#2367;&#2360;&#2381;&#2335;&#2381;&#2352;&#2368; &#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337;
+
+
+
+#==============================pending for pdi==================
+
+label.common.date=&#2337;&#2375;&#2335;
+label.common.formtype=&#2347;&#2377;&#2352;&#2381;&#2350; &#2335;&#2366;&#2311;&#2346;
+label.common.enter=&#2319;&#2306;&#2335;&#2352;
+label.common.submit=&#2360;&#2348;&#2350;&#2367;&#2335;
+label.common.next=&#2344;&#2375;&#2325;&#2381;&#2360;&#2381;&#2335;
+label.common.tractorrecieveddate=&#2335;&#2381;&#2352;&#2375;&#2325;&#2381;&#2335;&#2352; &#2352;&#2367;&#2360;&#2368;&#2357;&#2337; &#2337;&#2375;&#2335;
+label.common.otherTractorDetail=Other Tractor Detail
+label.common.jobcard=&#2332;&#2377;&#2348; &#2325;&#2366;&#2352;&#2381;&#2337;
+label.common.information=&#2311;&#2344;&#2347;&#2366;&#2352;&#2381;&#2350;&#2375;&#2358;&#2344;
+label.common.representative=&#2352;&#2367;&#2346;&#2381;&#2352;&#2375;&#2332;&#2375;&#2344;&#2381;&#2335;&#2375;&#2335;&#2367;&#2357;
+label.common.name=&#2344;&#2375;&#2350;
+label.common.visit= &#2357;&#2367;&#2332;&#2367;&#2335;
+label.common.delivery= &#2337;&#2367;&#2354;&#2368;&#2357;&#2352;&#2368;
+label.common.nooffamilymembers= &#2344;&#2306;.&#2321;&#2398; &#2347;&#2376;&#2350;&#2367;&#2354;&#2368; &#2350;&#2375;&#2306;&#2348;&#2352;&#2381;&#2360;
+label.common.detailofothertractorownedifany= &#2337;&#2367;&#2335;&#2375;&#2354; &#2321;&#2398; &#2309;&#2342;&#2353; &#2335;&#2381;&#2352;&#2375;&#2325;&#2381;&#2335;&#2352; &#2323;&#2344;&#2381;&#2337;(&#2311;&#2347; &#2319;&#2344;&#2368;)
+label.common.modeofpayment=&#2350;&#2379;&#2337; &#2321;&#2398; &#2346;&#2375;&#2350;&#2375;&#2306;&#2335;
+label.common.nameofbank=&#2344;&#2375;&#2350; &#2321;&#2398; &#2348;&#2376;&#2306;&#2325;
+label.common.partvendorname=&#2346;&#2366;&#2352;&#2381;&#2335; &#2357;&#2375;&#2306;&#2337;&#2352; &#2344;&#2375;&#2350;
+label.common.part=&#2346;&#2366;&#2352;&#2381;&#2335;
+label.common.instructions=&#2311;&#2306;&#2360;&#2381;&#2335;&#2381;&#2352;&#2325;&#2381;&#2358;&#2306;&#2360;
+label.common.tickhere=&#2335;&#2367;&#2325; &#2361;&#2367;&#2351;&#2352;
+label.common.accessoriesrecieved= &#2319;&#2325;&#2381;&#2360;&#2375;&#2360;&#2352;&#2368;&#2332; &#2352;&#2367;&#2360;&#2368;&#2357;&#2337;
+label.common.major= &#2350;&#2375;&#2332;&#2352;
+
+#==========================masteroption==========================
+
+label.common.manage=&#2350;&#2376;&#2344;&#2375;&#2332;
+label.common.master=&#2350;&#2366;&#2360;&#2381;&#2335;&#2352;
+
+#=============================PDI=================================
+label.common.InvoiceNo=Invoice No
+label.common.InvoiceDate= Invoice Date
+label.common.pdilabel4checklist=Inspect following parameters according to 2WD and 4WD variants:
+label.common.to=To
+label.common.pdiNo=PDI No.
+label.common.pdiNoDate=PDI No. & Date
+label.common.pending4DEapproval=Pending for DE Approval
+label.common.deTMSApprove=DE TMS Approve
+label.common.jobcardDate =Job Card Date
+label.common.JobcardPayeeName =Payee Name
+label.common.pending4chassisvalidate=Pending for Chassis Validation
+label.common.Edit=Edit
+label.common.action=Action
+label.common.reOpenJobCard=Re-Open/Reject Job Card
+label.common.tractorInon  =Tractor In On
+label.common.tractorOuton  =Tractor Out On
+label.common.mechanicName=Mechanic Name
+label.common.jobCardSummary=Job Card Summary
+label.common.TractorDetails=Tractor Details
+label.common.InspectedBy=Inspected By
+label.common.ComplaintDetails=Complaint Details
+label.common.totalSparesValue=Total Spares Value
+label.common.totalSublets=Total Sublets
+label.common.workType=Work Type
+label.common.workDesc=Work Description
+label.common.viewjobCard=View Job Card
+label.common.GrandTotal=Grand Total
+label.common.Labour=Labour
+label.common.label4viewpart=Parts details
+label.common.Sublets=Sublets
+label.common.noRecordFound= No Record Found. !
+label.common.pendingDays= Pending Days
+label.common.pdiSuccess= PDI successfully created for chassis No.
+label.common.pdiFailure= Unable to create PDI Information, Please contact system Administrator.
+label.common.pdiexist= PDI already exist chassis No
+label.common.addMore=Add More
+label.common.tryAgain=Try Again
+label.common.modifyMore=Modify More
+label.common.deleteMore=Delete More
+label.common.assignMore=Assign More
+label.common.generateinvoice=Generate Invoice
+label.common.invoiceSuccess= Invoice successfully generated with Invoice No.
+label.common.invoiceFailure= Unable to Generate Invoice, Please contact system Administrator.
+label.common.invoiceexist= Invoice already exist for given Reference No.
+label.common.vehicleInfoSuccess=Vehicle Information has been Successfully Added with Job Card No
+label.common.vehicleInfoFailure=Unable to add Vehicle Information, Please Contact System Administrator.
+label.common.vehicleInfoFailure4locCode=Location code for your Dealership does not exists. Kindly contact Administrator.
+label.common.vehicleInfoFailure4exist=Kindly first close Job Card and then create the new Job Card for chassis No. :
+label.common.vehicleInfoFailure4jobType=Job Card Cannot be created as it's already exist for other job type with chassis No. :
+label.common.vehicleInfoUpdateSuccess=Vehicle Information has been Successfully Updated for Job Card No. :
+label.common.vehicleInfoUpdateFailure=Unable to Update Vehicle Information, Please Contact System Administrator.
+label.common.custInfoSuccess=Payee Information has been Successfully Added for Job card No. :
+label.common.custInfoFailure=Unable to add Payee Information, Please Contact System Administrator.
+label.common.stndChkSuccess=Standard Checks have been Successfully Added.
+label.common.stndChkFailure=Unable to add Standard Checks, Please Contact System Administrator.
+label.common.compSuccess=Complaint has been Successfully Added.
+label.common.compFailure=Unable to add Complaint, Please Contact System Administrator.
+label.common.estimateSuccess=Estimate Information has been Successfully Added.
+label.common.estimateFailure=Unable to add Estimate Information, Please Contact System Administrator.
+label.common.actualsSuccess=Actuals Information has been Successfully Added.
+label.common.actualsFailure=Unable to add Actuals Information, Please Contact System Administrator.
+label.common.statusSuccess=Status Time Information and Mechanic Information has been Successfully Added.
+label.common.statusFailure=Unable to add Status Time Information and Mechanic Information, Please contact system Administrator.
+label.common.warrantytaxpercSuccess=Warranty Tax Percentage has been Successfully Added.
+label.common.warrantytaxpercFailure=Unable to add Warranty Tax Percentage, Please contact system Administrator.
+label.common.warrantytaxpercExist=Warranty Tax Percentage already exist for given Tax Type and Sate.
+label.common.partvsmakeSuccess=Parameter Vs Make has been Successfully Added.
+label.common.partvsmakeFailure=Unable to add Parameter Vs Make, Please contact system Administrator.
+label.common.partvsmakeExist=Parameter Vs Make already exist for given Part Name and Make.
+label.common.jobCardUpdateSuccess=Job card has been Successfully updated.
+label.common.jobCardUpdateFailure=Unable to update Job card, Please contact system Administrator.
+
+label.common.ttllabourcharge_small=Total Labour Charges
+label.common.ttllubesvalue_small=Total Lubes Value
+label.common.amt_small=Amount
+label.common.partno_small=Part No.
+label.common.partdesc_small=Part Desc.
+label.common.qty_small=Qty
+label.common.unitprice_small=Unit Price
+label.common.discount_small=Discount
+label.common.billto_small=Bill To
+label.common.spares_small=Spares
+label.common.lubes_small=Lubes
+abel.common.invoice=Invoice
+
+
+#=======================================Inventory===============================
+label.common.addInventory=Add Inventory from other Dealers
+label.common.transDate=Transaction Date
+label.common.billdate=Bill date
+label.common.billNo=Bill No.
+label.common.inventorySuccess=Inventory has been Successfully Added.
+label.common.inventoryFailure=Unable to add Inventory, Please contact system Administrator.
+label.common.inventoryExist=Inventory already exist for given Part Name and Make.
+label.common.vandorName=Vendor Name
+label.common.wipQty=WIP Qty
+label.common.currentQty=Current Qty
+label.common.binLocation=Bin Location
+label.common.viewPDINote=Please click on PDI No. for View PDI.
+label.common.pendingPDINote=Please click on Chassis No. for Create PDI.
+
+label.common.dealerName=Dealer Name
+label.common.pDIDonedate=PDI Date
+label.common.FromDate=From Date
+label.common.ToDate=To Date
+label.catalogue.products=Products
+label.catalogue.product=Product
+label.common.tools=&#2335;&#2370;&#2354;&#2381;&#2360;
+label.catalogue.kits=Kits
+label.catalogue.lubes=Lubes
+label.catalogue.cart=Cart
+label.catalogue.cartHeader=Part Details
+label.catalogue.admin=Admin
+label.catalogue.search=Advance Search
+label.catalogue.advanceSearch=Chassis Part Search
+label.catalogue.advanceSearchHeader=Chassis Wise Part Search
+
+
+###################### HEADERS #################################
+label.catalogue.productAvailable=Products Available for
+label.catalogue.toolsAvailable=Tools Available
+label.catalogue.kitsAvailable=Kits Available
+label.catalogue.model=Model
+label.catalogue.modelsAvailable=Models available for
+label.catalogue.variant=Variant
+label.catalogue.variantsAvailable=Variants available for
+label.catalogue.aggregate=Aggregate
+label.catalogue.aggregatesAvailable=Aggregates Available for
+label.catalogue.group=Group
+label.catalogue.groupsAvailable=Groups Available
+label.catalogue.detailsOf=Details of Part No.
+label.catalogue.noDetailsFound=No details found
+label.catalogue.newComponent=New Component
+label.catalogue.oldComponent=Old Component
+label.catalogue.status=Status
+label.catalogue.fromTSN=From TSN
+label.catalogue.effectiveFrom=Effective From
+label.catalogue.promotionalItem=Promotional Item
+label.catalogue.changeHistory=Change History
+label.catalogue.tillTSN=Till TSN: X
+label.catalogue.partDetails=Part Details
+
+#################### TABLE LABELS ############################
+label.catalogue.sno=S No.
+label.catalogue.partNo=Part No.
+label.catalogue.kitNo=Kit No.
+label.catalogue.toolNo=Tool No.
+label.catalogue.kitDescription=Kit Description
+label.catalogue.partName=Part Name
+label.catalogue.variantNo=Variant No.
+label.catalogue.group=Group
+label.catalogue.description=Description
+label.catalogue.quantity=Qty
+label.catalogue.orderQuantity=Order Qty
+label.catalogue.orderedQuantity=Ordered Qty
+label.catalogue.note=Note:If Image is not visible, then
+label.catalogue.clickHere=Click Here
+label.catalogue.installSVG=to install SVG Viewer.
+label.catalogue.applicableVariantGroup=Applicable Variant/Group for Part No.
+label.catalogue.applicableKits=Applicable Kits for Part No.
+label.catalogue.applicableVariant=Applicable Variant for Part No.
+label.catalogue.viewAllAggregates=VIEW ALL AGGREGATES
+label.catalogue.serviceability =Serviceability
+label.catalogue.remarks=Remarks
+label.catalogue.mrp=MRP
+label.catalogue.bomOfPartNo=BOM of Part No.
+label.catalogue.delete=Delete
+
+#################### SEARCH LABELS ############################
+label.catalogue.product=Product
+label.catalogue.modelDesc=Model Desc
+label.catalogue.partDesc=Part Desc.
+label.catalogue.dataFound=Data Found
+label.catalogue.whereUsed=Where Used
+label.catalogue.searchedDetails=Searched Details
+label.catalogue.variants=Variant
+label.catalogue.viewVariantDetails=* Click On Variant to view its details.
+label.catalogue.searchResult=Search Result - Parts Found
+
+#################### ADVANCED SEARCH LABELS ############################
+label.catalogue.searchModelCategory=Search Model Category :
+label.catalogue.searchPartCategory=Search Part Category :
+label.catalogue.forDomestic=For Domestic
+label.catalogue.forExport=For Export
+label.catalogue.forTractorParts=For Tractor Parts
+label.catalogue.forEngineParts=For Engine Parts
+label.catalogue.chassisNo=Chassis No.
+#label.catalogue.engineNo=Engine No.
+label.catalogue.partCode=Part Code
+
+######################## MESSAGES #####################################
+label.catalogue.sessionExpired=SESSION EXPIRED
+label.catalogue.loginAgain=Please Login Again
+label.catalogue.unusedPart=Unused Part
+label.catalogue.noProductExist=No Product Exist
+label.catalogue.noModelExist=No Model Exist
+label.catalogue.noGroupExist=No Group Exist
+label.catalogue.noVariantExist=No Variant Exist
+label.catalogue.noAggregateVariant=No Aggregate Exist for Variant
+label.catalogue.aggNotAttached=All the Aggregates of this Model have not been attached.
+label.catalogue.incompleteModel=You will be viewing an Incomplete Model.
+
+############################# ALT #######################################
+label.catalogue.viewAggregate=View Aggregate
+label.catalogue.exportVariantBOM=Export Variant BOM
+label.catalogue.groupListView=Group List View
+label.catalogue.kitsAvialable=Kits Avialable
+label.catalogue.printCatalogue=Print Catalogue
+label.catalogue.groupPictureView=Group Picture View
+
+################### warranty ##############################
+
+label.warranty.jobCardPendingForWarranty=JOB CARD PENDING FOR WARRANTY
+label.warranty.warranty=WARRANTY
+label.warranty.warrantyClaimForm=WARRANTY CLAIM FORM
+label.warranty.jobCardDetails=Job Card Details
+label.warranty.consignmentdetails=Consignment Details
+label.warranty.partsDisptachedFor=Parts Disptached For
+label.warranty.selectDispatchedBy=Select Dispatched By
+label.warranty.grCourierRRNo=GR/Courier/RR No.
+label.warranty.transporterCourierName=Transporter/Courier Name
+label.warranty.browseGRCourierRRcopy=Browse GR/Courier/RR copy
+label.warranty.complaintNo=Complaint No.
+label.warranty.causalConsequential=Causal/Consequential
+label.warranty.claimValue=Claim Value
+label.warranty.claimDate=Claim Date
+label.warranty.warrantyClaimNo=Warranty Claim No.
+label.warranty.TMSRefNo=TMS Ref. No.
+label.warranty.customerAddress=Customer Address
+label.warranty.modelNo=Model No.
+label.warranty.dateofDelivery=Date of Delivery
+label.warranty.dateofReplacement=Date of Replacement
+label.warranty.dateofFailure=Date of Failure
+label.warranty.hours=Hours
+label.warranty.total=Total
+label.warranty.NDP=NDP
+label.warranty.S.No=S.No.
+label.warranty.vehicleNo=Vehicle No.
+
+label.warranty.generateClaim=Generate Claim
+label.warranty.failedPartsFileAttached=Failed Parts File Attached
+label.warranty.defectDescription=Defect Description
+label.warranty.venderCode=Vender Code
+label.warranty.claimStatus=Claim Status
+label.warranty.claimNo=CLAIM No.
+
+label.warranty.ifNotByHand=If not By Hand, then enter following information.
+label.warranty.freeService=Free Service
+label.warranty.approveWarrantyClaim=APPROVE WARRANTY CLAIM
+label.warranty.approvedAmmount=Approved Ammount
+label.warranty.reasonforRejection=Reason for Rejection
+label.warranty.qtyApproved=Qty Approved
+label.warranty.qtyRejected=Qty Rejected
+label.warranty.claimedPartAganistComplaint=Claimed Part Aganist Complaint
+label.warranty.subAssembly=Sub Assembly
+label.warranty.subAggregate=Sub Aggregate
+label.warranty.formanObservation=Forman Observation
+label.warranty.claimComplaintDetails=Claim & Complaint Details
+label.common.anyobservation=Observation
+
+label.common.systransDate=System Trans. Date
+label.common.transDesc=Transaction desc.
+label.common.inWard=InWard
+label.common.outWard=OutWard
+label.common.ledgerReport=View Stock Ledger
+label.common.stockReport=Stock Ledger
+label.common.opening=Opening
+label.common.closing=Closing
+label.common.pending4Dispatch=Pending for Dispatch
+label.common.packingNo=Packing No
+label.common.packingDate=Packing Date
+label.common.noOfClaims=No Of Claims
+label.common.dispatchedThrough=Dispatched Through
+label.common.dispatchedFor=Dispatched For
+label.common.dispatchedDate=Dispatched Date
+label.common.courierNo=GR/RR/Courier No
+label.common.courierName=GR/RR/Courier Name
+label.common.courierCopyFile=Courier Copy File
+label.common.consignmentDetails=Update Consignment Details
+label.common.listofClaimNo=List of Claim No.
+label.common.dispatchedSuccess=Consignment Details Updated Successfully for Packing Number :
+label.common.dispatchedFailure=Unable to Update Consignment Details, Please contact system Administrator.
+label.common.viewPackingList=View packing List
+label.common.consignmentNo=GR/RR/Courier No[Name]
+label.common.courierFile=Courier File
+label.common.packingList=Packing List
+label.common.consignmentDetails=Consignment Details
+label.common.pendingForAcknow=Pending For Acknowledge
+label.warranty.genAcknow=Generate Acknowledge
+label.warranty.receivedBy=Received By
+label.warranty.receivedDate=Received Date
+label.common.pendingSAPgeneration=Pending SAP Credit Note Generation
+label.common.serviceReminder=Service Reminder
+label.common.insCheckList=List of Instructions Given
+label.common.uploadBinLoc=Upload Bin Location
+sonalikaCatalogueUrl = http://202.164.37.227:9090/sonalikaspc?applogid=
+## Create PI
+
+label.spare.initCreatePI=Pending For PI
+label.spare.createPI=Create PI
+label.spare.PIFailMessage=PI cannot be created for the selected orders as the order header details are different.
+label.spare.PISuccessMessage=PI has been successfully created with PI Number :
+label.spare.PICreationFailure=Error Occured While Creating PI.
+label.spare.PIAcceptFailure=Error Occured While Updating PI.
+label.spare.PIAcceptSuccess= updated successfully.
+label.common.selectBuyer=Select Buyer
+label.common.selectOrderType=Select Order type
+label.common.orderForBuyer=Order for Buyer
+label.common.orderedPart=Ordered<br/>Part No.
+label.common.partDescPI=Part Desc
+label.common.orderedQtyPI=Ordered<br/>Qty
+label.common.selectStatus=Select<br/>Status
+label.common.leadTime=Lead Time
+label.common.availablePartNo=Available<br/>Part No.
+label.common.piQty=PI Qty
+label.common.pricePI=Price
+label.common.amountPI=Amount
+label.common.preCarriageBy=Pre-Carriage by
+label.common.placeOfReceipt=Place of Receipt of Pre-Carrier
+label.common.termsOfDelivery=Terms of Delivery Payment
+label.common.MaterialValue=Material Value
+label.common.TotalAmount=Total Amount
+label.spare.initViewPI=View PI
+label.spare.initViewPIDetail=View PI Detail
+label.spare.piNo=PI No.
+label.spare.piDate=PI Date
+label.spare.GenerateOrder=Generate Order
+label.spare.AcceptPI=Accept PI
+label.common.basePIQty=Base<br/>PI Qty
+label.common.acceptedPIQty=Accepted<br/>PI Qty
+label.spare.piDetails=PI Details
+label.common.avlPartDescPI=Available<br/>Part Desc
+label.spare.BookedQty=Booked<br/>Qty
+label.spare.PendingQty=Pending<br/>Qty

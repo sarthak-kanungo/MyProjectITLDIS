@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <filter>
+        <description>checks for valid session</description>
+        <filter-name>filter</filter-name>
+        <filter-class>com.filter.sessionFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>filter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>filter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+
+
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+
+    <!--<resource-ref>
+        <description>ITLDIS Database</description>
+        <res-ref-name>jdbc/dbServer</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>-->
+
+    <servlet>
+        <servlet-name>changelogin</servlet-name>
+        <servlet-class>action.ChangeAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>changelogin</servlet-name>
+        <url-pattern>/changelogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Authenticate_user</servlet-name>
+        <servlet-class>viewEcat.comEcat.Authenticate_user</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Authenticate_user</servlet-name>
+        <url-pattern>/Authenticate_user</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Authenticate_criteria</servlet-name>
+        <servlet-class>viewEcat.comEcat.Authenticate_criteria</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Authenticate_criteria</servlet-name>
+        <url-pattern>/Authenticate_criteria</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TopHeader</servlet-name>
+        <servlet-class>viewEcat.comEcat.TopHeader</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopHeader</servlet-name>
+        <url-pattern>/TopHeader</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>View_EngineSeries</servlet-name>
+        <servlet-class>viewEcat.comEcat.View_EngineSeries</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>View_EngineSeries</servlet-name>
+        <url-pattern>/View_EngineSeries</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>AllCompAvailable</servlet-name>
+        <servlet-class>viewEcat.comEcat.AllCompAvailable</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllCompAvailable</servlet-name>
+        <url-pattern>/AllCompAvailable</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>View_cart</servlet-name>
+        <servlet-class>viewEcat.orderEcat.View_cart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>View_cart</servlet-name>
+        <url-pattern>/View_cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdvancesearchOption_1</servlet-name>
+        <servlet-class>viewEcat.comEcat.AdvancesearchOption_1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdvancesearchOption_1</servlet-name>
+        <url-pattern>/AdvancesearchOption_1</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>View_EngineModel</servlet-name>
+        <servlet-class>viewEcat.comEcat.View_EngineModel</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>View_EngineModel</servlet-name>
+        <url-pattern>/View_EngineModel</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MainModels</servlet-name>
+        <servlet-class>viewEcat.comEcat.MainModels</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainModels</servlet-name>
+        <url-pattern>/MainModels</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewAggregates</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewAggregates</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewAggregates</servlet-name>
+        <url-pattern>/ViewAggregates</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewModel_PictureView</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewModel_PictureView</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewModel_PictureView</servlet-name>
+        <url-pattern>/ViewModel_PictureView</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewModel_pictureView1</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewModel_pictureView1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewModel_pictureView1</servlet-name>
+        <url-pattern>/ViewModel_pictureView1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewGroupImage_BOM</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewGroupImage_BOM</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewGroupImage_BOM</servlet-name>
+        <url-pattern>/ViewGroupImage_BOM</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>viewGroupImageTopHeading</servlet-name>
+        <servlet-class>viewEcat.comEcat.viewGroupImageTopHeading</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>viewGroupImageTopHeading</servlet-name>
+        <url-pattern>/viewGroupImageTopHeading</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Group_details_only</servlet-name>
+        <servlet-class>viewEcat.comEcat.Group_details_only</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Group_details_only</servlet-name>
+        <url-pattern>/Group_details_only</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewGroupImages</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewGroupImages</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewGroupImages</servlet-name>
+        <url-pattern>/ViewGroupImages</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewModel</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewModel</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewModel</servlet-name>
+        <url-pattern>/ViewModel</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>PartDetails</servlet-name>
+        <servlet-class>viewEcat.comEcat.PartDetails</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PartDetails</servlet-name>
+        <url-pattern>/PartDetails</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GroupDetail</servlet-name>
+        <servlet-class>viewEcat.comEcat.GroupDetail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GroupDetail</servlet-name>
+        <url-pattern>/GroupDetail</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+
+    <servlet>
+        <servlet-name>getModelDescByProduct</servlet-name>
+        <servlet-class>viewEcat.comEcat.getModelDescByProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getModelDescByProduct</servlet-name>
+        <url-pattern>/getModelDescByProduct</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Adv_search_ind_model</servlet-name>
+        <servlet-class>viewEcat.comEcat.Adv_search_ind_model</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Adv_search_ind_model</servlet-name>
+        <url-pattern>/Adv_search_ind_model</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Part_where_used</servlet-name>
+        <servlet-class>viewEcat.comEcat.Part_where_used</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Part_where_used</servlet-name>
+        <url-pattern>/Part_where_used</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GroupPrintable</servlet-name>
+        <servlet-class>viewEcat.comEcat.GroupPrintable</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GroupPrintable</servlet-name>
+        <url-pattern>/GroupPrintable</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GroupWhereUsed</servlet-name>
+        <servlet-class>viewEcat.comEcat.GroupWhereUsed</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GroupWhereUsed</servlet-name>
+        <url-pattern>/GroupWhereUsed</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewAggregates1</servlet-name>
+        <servlet-class>viewEcat.comEcat.ViewAggregates1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewAggregates1</servlet-name>
+        <url-pattern>/ViewAggregates1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ModelExport_bom</servlet-name>
+        <servlet-class>viewEcat.comEcat.ModelExport_bom</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModelExport_bom</servlet-name>
+        <url-pattern>/ModelExport_bom</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>Add_2_cart</servlet-name>
+        <servlet-class>viewEcat.orderEcat.Add_2_cart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Add_2_cart</servlet-name>
+        <url-pattern>/Add_2_cart</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ExportCartToExcel</servlet-name>
+        <servlet-class>viewEcat.orderEcat.ExportCartToExcel</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExportCartToExcel</servlet-name>
+        <url-pattern>/ExportCartToExcel</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DelPartFrmExcel</servlet-name>
+        <servlet-class>viewEcat.orderEcat.DelPartFrmExcel</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DelPartFrmExcel</servlet-name>
+        <url-pattern>/DelPartFrmExcel</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>compAvailable</servlet-name>
+        <servlet-class>viewEcat.comEcat.compAvailable</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>compAvailable</servlet-name>
+        <url-pattern>/compAvailable</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ModelPrintable</servlet-name>
+        <servlet-class>viewEcat.comEcat.ModelPrintable</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModelPrintable</servlet-name>
+        <url-pattern>/ModelPrintable</url-pattern>
+    </servlet-mapping>
+        <servlet>
+        <servlet-name>downloadFileServlet</servlet-name>
+        <servlet-class>EAMG_Service_Bulletin.FileDownloadServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>downloadFileServlet</servlet-name>
+        <url-pattern>/downloadFileServlet</url-pattern>
+    </servlet-mapping>
+    <!--<listener>
+        <listener-class>com.listener.StartupListener</listener-class>
+    </listener>-->
+</web-app>

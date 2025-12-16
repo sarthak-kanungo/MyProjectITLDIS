@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-04-30T11:58:30 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReport_PO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0aac8f6d-1be9-4aa0-97a7-f8e22e0fbadc">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL_Report"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="piNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT OHE.CUST_PO_NO, CUST_PO_DATE FROM SP_ORD_HDR_EXP OHE, 
+SP_ORD_DTL_EXP ODE, SP_ORD_PI_DTL_EXP OPDE
+WHERE OHE.CUST_PO_NO =ODE.CUST_PO_NO AND ODE.PO_DTL_ID=OPDE.PO_DTL_ID
+AND OPDE.PI_NO =$P{piNo}]]>
+	</queryString>
+	<field name="CUST_PO_NO" class="java.lang.String"/>
+	<field name="CUST_PO_DATE" class="java.sql.Timestamp"/>
+	<variable name="poNo" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CUST_PO_NO}]]></variableExpression>
+	</variable>
+	<variable name="getPoNo" class="java.lang.String">
+		<variableExpression><![CDATA[$F{CUST_PO_NO}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="290" y="0" width="265" height="15" uuid="176d83bf-b9a1-42ae-9d91-4e1cb1b685f0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CUST_PO_NO}.concat("  [ ")+(new SimpleDateFormat("dd/MM/yyyy").format($F{CUST_PO_DATE}))+" ]"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="290" height="15" uuid="469332d5-eede-461b-9baf-65b8ba9290b9"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

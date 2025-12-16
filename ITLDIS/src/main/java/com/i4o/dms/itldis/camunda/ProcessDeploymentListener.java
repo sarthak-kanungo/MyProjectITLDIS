@@ -22,9 +22,32 @@ public class ProcessDeploymentListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         try {
             // Wait a bit to ensure ProcessEngine is initialized first
-            Thread.sleep(1000);
-            
-            ProcessEngine engine = ProcessEngineFactory.getProcessEngine();
+            // Use a more robust wait mechanism
+            ProcessEngine engine = null;
+            int maxRetries = 10;
+            int retryCount = 0;
+            while (retryCount < maxRetries) {
+                try {
+                    engine = ProcessEngineFactory.getProcessEngine();
+                    if (engine != null) {
+                        break; // ProcessEngine is ready
+                    }
+                } catch (Exception e) {
+                    // ProcessEngine not ready yet, wait and retry
+                }
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    sce.getServletContext().log("Interrupted while waiting for ProcessEngine");
+                    return; // Exit gracefully if interrupted
+                }
+                retryCount++;
+            }
+            if (engine == null) {
+                sce.getServletContext().log("ProcessEngine not available, skipping process deployment");
+                return;
+            }
             RepositoryService repositoryService = engine.getRepositoryService();
             
             // List of process files to deploy

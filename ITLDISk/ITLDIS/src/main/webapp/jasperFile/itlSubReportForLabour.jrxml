@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-10-13T12:48:27 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itlSubReportForLabour" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="df75746c-0d62-4385-bbd8-f12bf80c4e4d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ITL"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<parameter name="imgPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec SP_showTaxInvoice $P{invoiceNo},2]]>
+	</queryString>
+	<field name="invoice_no" class="java.lang.String"/>
+	<field name="part_order_seq" class="java.lang.Integer"/>
+	<field name="Part_no" class="java.lang.String"/>
+	<field name="Part_desc" class="java.lang.String"/>
+	<field name="part_category" class="java.lang.String"/>
+	<field name="CommodityCode" class="java.lang.String"/>
+	<field name="Qty" class="java.lang.Double"/>
+	<field name="Unit_Value" class="java.lang.Double"/>
+	<field name="Discount" class="java.lang.Double"/>
+	<field name="BillDesc" class="java.lang.String"/>
+	<field name="final_amount" class="java.lang.Double"/>
+	<field name="SeqNo" class="java.lang.Integer"/>
+	<field name="PartOtherDiscount" class="java.math.BigDecimal"/>
+	<field name="LabourOtherDiscount" class="java.math.BigDecimal"/>
+	<variable name="labourTotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{final_amount}]]></variableExpression>
+	</variable>
+	<variable name="srlNo" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{srlNo}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{CommodityCode}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement x="0" y="1" width="190" height="14" isRemoveLineWhenBlank="true" uuid="4802d050-56ed-4eaf-ab9b-082a1a21e7cf"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CommodityCode}+" DETAILS"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="15" width="30" height="15" isRemoveLineWhenBlank="true" uuid="f7326753-5830-401d-88cc-714a69cce069"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="30" y="15" width="80" height="15" isRemoveLineWhenBlank="true" uuid="80e1f0a0-be33-4156-9e4f-b42ca144f3de"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="110" y="15" width="120" height="15" isRemoveLineWhenBlank="true" uuid="0ad7bd02-d49a-4a2c-869e-bee463a0802e"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="15" width="40" height="15" isRemoveLineWhenBlank="true" uuid="ca4f8f84-bfa6-4582-b7b7-7dae4f11ad1e"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Category]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="270" y="15" width="40" height="15" isRemoveLineWhenBlank="true" uuid="233b2d02-12bc-40e8-9818-249d2783a834"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[QTY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="15" width="40" height="15" isRemoveLineWhenBlank="true" uuid="1a83b01e-89aa-455d-862c-a8296971ab57"/>
+					<textElement textAlignment="Right">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[MRP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="350" y="15" width="50" height="15" isRemoveLineWhenBlank="true" uuid="a8805470-d904-44da-ab16-7ffcd33141b4"/>
+					<textElement textAlignment="Right">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Discount]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="15" width="60" height="15" isRemoveLineWhenBlank="true" uuid="de135e82-9a86-48c7-9340-7dcdb1bd8467"/>
+					<textElement textAlignment="Right">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bill Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="460" y="15" width="90" height="15" isRemoveLineWhenBlank="true" uuid="3fb364cd-6f72-4c82-a7fb-0ac30a112880"/>
+					<textElement textAlignment="Right">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Amount]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="110" y="0" width="444" height="13" isRemoveLineWhenBlank="true" uuid="c95d0790-b7e0-493f-aed0-3ebed7e17630"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOTAL " + $F{CommodityCode}+ " VALUE                       " + $V{labourTotal}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement positionType="Float" x="0" y="13" width="555" height="7" isRemoveLineWhenBlank="true" uuid="eb45d599-b6e5-49f3-b12b-5040feb5921b"/>
+					<subreportParameter name="invoiceNo">
+						<subreportParameterExpression><![CDATA[$P{invoiceNo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="hsnCode">
+						<subreportParameterExpression><![CDATA[$F{CommodityCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["itlTaxReport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="20">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="0" width="554" height="20" isRemoveLineWhenBlank="true" uuid="07783998-4f2b-48a5-90b5-0ff21801595b"/>
+				<subreportParameter name="invoiceNo">
+					<subreportParameterExpression><![CDATA[$P{invoiceNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgPath">
+					<subreportParameterExpression><![CDATA[$P{imgPath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["itlHeaderForLabour.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="80" height="15" isRemoveLineWhenBlank="true" uuid="8a22e026-49f9-4317-96d9-431be480e5a9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Part_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="120" height="15" isRemoveLineWhenBlank="true" uuid="9849f44a-6f40-465a-88f5-fef31ebfa675"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Part_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="40" height="15" isRemoveLineWhenBlank="true" uuid="afa76704-3918-4c8b-bd39-9ad3176c12c2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{part_category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="40" height="15" isRemoveLineWhenBlank="true" uuid="6512631d-16a9-4aff-abd6-6a4b33876928"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="40" height="15" isRemoveLineWhenBlank="true" uuid="4afc567e-8877-4d2f-bb43-9a0aeb5c60f4"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Unit_Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="50" height="15" isRemoveLineWhenBlank="true" uuid="57dcd584-951f-4ab7-aa14-bba374b6f3b2"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Discount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="60" height="15" isRemoveLineWhenBlank="true" uuid="6f4d6041-b0f0-4857-9245-8a7977d03702"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BillDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="90" height="15" isRemoveLineWhenBlank="true" uuid="1b24fb24-0d29-4124-b5b0-b3282a140e61"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_amount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="30" height="14" isRemoveLineWhenBlank="true" uuid="6b052a52-f5f0-4a93-8855-313cf7e71771"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{srlNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="108" splitType="Stretch">
+			<textField>
+				<reportElement x="108" y="20" width="444" height="13" isRemoveLineWhenBlank="true" uuid="23938f2a-c309-468a-8a59-99b5652bfc5f"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GRAND TOTAL                     "+ $V{labourTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="504" height="20" isRemoveLineWhenBlank="true" uuid="15e31f80-3406-493a-bd6b-4dfe04c148f8"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["OTHER DISCOUNT                        "+$F{LabourOtherDiscount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="89" width="210" height="19" isRemoveLineWhenBlank="true" uuid="9ab69b99-b4d3-4c97-9b1b-9ab6a1ad8165"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Name & Signature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="339" y="89" width="210" height="19" isRemoveLineWhenBlank="true" uuid="651e5a2d-88ab-4067-bdec-4c314f10515d"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name & Signature with Stamp]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

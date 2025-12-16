@@ -1,3 +1,21 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ITLDIS Login</title>
+</head>
+<body>
+<h2>ITLDIS Login (Temporary Page)</h2>
+<form method="post" action="login.do">
+    <input type="hidden" name="option" value="login"/>
+    <label>User ID: <input type="text" name="userid"/></label><br/>
+    <label>Password: <input type="password" name="password"/></label><br/>
+    <input type="submit" value="Login"/>
+</form>
+<p>This is a minimal placeholder login page added to restore application access.</p>
+</body>
+</html>
+
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
