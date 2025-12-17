@@ -1,0 +1,44 @@
+sequenceDiagram
+participant Client as "Client Application"
+participant Controller as Controller
+participant Validator as "Spring Validator"
+participant GExHandler as GlobalExceptionHandler
+participant ApiResponse as ApiResponse
+participant HashMap as HashMapStringString
+participant ResponseEntity as ResponseEntity
+Client->>Controller: POST or PUT Request
+Controller->>Validator: Validate Request Body
+activate Validator
+alt ValidationFails
+Validator-->>Controller: Exception thrown
+deactivate Validator
+Controller-->>GExHandler: Exception propagated
+activate GExHandler
+GExHandler->>GExHandler: handleValidationExceptions
+GExHandler->>ApiResponse: new ApiResponse
+activate ApiResponse
+ApiResponse-->>GExHandler: apiResponse instance
+deactivate ApiResponse
+GExHandler->>HashMap: new HashMap
+activate HashMap
+HashMap-->>GExHandler: errors map instance
+deactivate HashMap
+GExHandler->>GExHandler: getAllErrors
+GExHandler->>GExHandler: forEach extract errors
+loop ForEachFieldError
+GExHandler->>HashMap: put fieldName errorMessage
+end
+GExHandler->>ApiResponse: setMessage Validation Failed
+GExHandler->>ApiResponse: setStatus BAD_REQUEST
+GExHandler->>ResponseEntity: ResponseEntity status body
+activate ResponseEntity
+ResponseEntity-->>GExHandler: ResponseEntity with status 400
+deactivate ResponseEntity
+GExHandler-->>Client: HTTP 400 Response
+deactivate GExHandler
+else ValidationPasses
+Validator-->>Controller: Validation successful
+deactivate Validator
+Controller->>Controller: Process request normally
+end
+

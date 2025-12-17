@@ -1,0 +1,6 @@
+sequenceDiagram
+participant Client as "Client Application"
+participant Controller as Controller
+Client->>Controller: Test message
+Controller-->>Client: Response
+
