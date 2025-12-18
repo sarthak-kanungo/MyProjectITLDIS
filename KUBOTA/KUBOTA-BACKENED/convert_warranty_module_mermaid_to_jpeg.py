@@ -44,19 +44,21 @@ def mermaid_to_jpeg(mermaid_code, output_path, title="Diagram", width=7680, heig
     cleaned_code = cleaned_code.replace('&lt;', '<').replace('&gt;', '>')
     cleaned_code = cleaned_code.replace('&amp;', '&')
     
-    # Fix participant aliases - wrap multi-word aliases in quotes
-    cleaned_code = re.sub(r'as\s+([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)+)', r'as "\1"', cleaned_code)
-    cleaned_code = re.sub(r'as\s+([A-Z]+(?:\s+[A-Z]+)+)', r'as "\1"', cleaned_code)
-    
     # Fix generic types in message labels - remove angle brackets but keep content
     cleaned_code = re.sub(r'<([^>]+)>', r' \1', cleaned_code)
     
-    # Remove any leading/trailing whitespace from each line but preserve structure
+    # Remove any leading/trailing whitespace from each line but preserve blank lines and structure
     lines = cleaned_code.split('\n')
     cleaned_lines = []
     for line in lines:
         stripped = line.strip()
-        if stripped:
+        # Preserve blank lines to maintain diagram structure
+        if not stripped:
+            cleaned_lines.append('')
+        else:
+            # Fix participant aliases - wrap multi-word aliases in quotes (line by line to avoid cross-line matches)
+            # Only wrap if there are multiple words separated by spaces on the same line
+            stripped = re.sub(r'as\s+([A-Z][a-zA-Z]+\s+[A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)', r'as "\1"', stripped)
             cleaned_lines.append(stripped)
     cleaned_code = '\n'.join(cleaned_lines)
     
@@ -131,21 +133,40 @@ def mermaid_to_jpeg(mermaid_code, output_path, title="Diagram", width=7680, heig
             # Additional wait to ensure rendering is complete
             page.wait_for_timeout(5000)
             
-            # Verify SVG is actually rendered
+            # Verify SVG is actually rendered and has content
             svg_element = page.query_selector('svg')
             if not svg_element:
                 browser.close()
                 raise Exception("SVG element not found after rendering")
             
             # Check if SVG has actual content
-            svg_inner_html = page.evaluate('document.querySelector("svg").innerHTML')
-            if not svg_inner_html or len(svg_inner_html.strip()) < 500:
-                # Try waiting a bit more
-                page.wait_for_timeout(3000)
-                svg_inner_html = page.evaluate('document.querySelector("svg").innerHTML')
-                if not svg_inner_html or len(svg_inner_html.strip()) < 500:
-                    browser.close()
-                    raise Exception(f"SVG content too short ({len(svg_inner_html) if svg_inner_html else 0} chars) - diagram may not have rendered")
+            svg_info = page.evaluate('''
+                () => {
+                    const svg = document.querySelector('svg');
+                    if (!svg) return {found: false};
+                    const paths = svg.querySelectorAll('path');
+                    const texts = svg.querySelectorAll('text');
+                    const innerHTML = svg.innerHTML || '';
+                    return {
+                        found: true,
+                        pathCount: paths.length,
+                        textCount: texts.length,
+                        contentLength: innerHTML.length,
+                        hasContent: paths.length > 0 || texts.length > 0
+                    };
+                }
+            ''')
+            
+            if not svg_info['found']:
+                browser.close()
+                raise Exception("SVG element not found")
+            
+            if not svg_info['hasContent'] or svg_info['contentLength'] < 1000:
+                # Check for JavaScript errors
+                console_logs = []
+                page.on('console', lambda msg: console_logs.append(msg.text))
+                browser.close()
+                raise Exception(f"SVG appears empty (paths: {svg_info['pathCount']}, texts: {svg_info['textCount']}, content: {svg_info['contentLength']} chars). Console: {console_logs[-5:] if console_logs else 'none'}")
             
         except Exception as e:
             browser.close()
@@ -155,10 +176,6 @@ def mermaid_to_jpeg(mermaid_code, output_path, title="Diagram", width=7680, heig
         screenshot_bytes = page.screenshot(full_page=True, type='png')
         
         browser.close()
-        
-        # Verify screenshot was captured
-        if not screenshot_bytes or len(screenshot_bytes) < 10000:
-            raise Exception(f"Screenshot appears to be empty or corrupted ({len(screenshot_bytes) if screenshot_bytes else 0} bytes)")
     
     # Convert PNG to JPEG with maximum quality
     img = Image.open(io.BytesIO(screenshot_bytes))
@@ -177,13 +194,7 @@ def mermaid_to_jpeg(mermaid_code, output_path, title="Diagram", width=7680, heig
     if file_size < 10000:  # Less than 10KB is suspicious
         raise Exception(f"Generated image is too small ({file_size} bytes) - likely corrupted")
     
-    # Verify image dimensions are reasonable
-    width, height = img.size
-    if width < 100 or height < 100:
-        raise Exception(f"Generated image dimensions are too small ({width}x{height}) - likely corrupted")
-    
-    
-    print(f"Created: {output_path} ({file_size // 1024} KB, {width}x{height})")
+    print(f"Created: {output_path} ({file_size // 1024} KB)")
 
 def main():
     """Main function to convert all diagrams"""

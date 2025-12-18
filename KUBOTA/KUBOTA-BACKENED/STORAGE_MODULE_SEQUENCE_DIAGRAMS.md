@@ -97,7 +97,7 @@ sequenceDiagram
         FileUploadController-->>Client: Error response
     else Empty File
         MultipartFile-->>FileStorageService: isEmpty() = true
-        FileStorageService->>FileStorageService: throw FileStorageException<br/>("Failed to store empty file")
+        FileStorageService->>FileStorageService: throw FileStorageException (Failed to store empty file)
         FileStorageService-->>StorageService: Exception thrown
         StorageService-->>FileUploadController: FileStorageException
         FileUploadController-->>Client: Error response
@@ -113,7 +113,7 @@ This diagram shows the flow when uploading a Base64 encoded image.
 ```mermaid
 sequenceDiagram
     participant Client as Client/API Consumer
-    participant Service as Service Layer<br/>(Various Controllers)
+    participant Service as Service Layer Various Controllers
     participant StorageService as StorageService Interface
     participant FileStorageService as FileStorageService
     participant Base64Decoder as Base64 Decoder
@@ -187,24 +187,24 @@ sequenceDiagram
     FileSystem-->>UrlResource: true/false
     
     alt File Exists and Readable
-        UrlResource-->>FileStorageService: exists() = true<br/>isReadable() = true
+        UrlResource-->>FileStorageService: exists() = true isReadable() = true
         FileStorageService-->>StorageService: Resource
         StorageService-->>FileUploadController: Resource
-        FileUploadController->>FileUploadController: Set HttpHeaders.CONTENT_DISPOSITION<br/>("attachment; filename=\"" + file.getFilename() + "\"")
-        FileUploadController-->>Client: ResponseEntity.ok()<br/>with Resource body
+        FileUploadController->>FileUploadController: Set HttpHeaders.CONTENT_DISPOSITION (attachment filename)
+        FileUploadController-->>Client: ResponseEntity.ok() with Resource body
     else File Not Found
-        UrlResource-->>FileStorageService: exists() = false<br/>OR isReadable() = false
-        FileStorageService->>FileStorageService: throw MyFileNotFoundException<br/>("Could not read file: " + filename)
+        UrlResource-->>FileStorageService: exists() = false OR isReadable() = false
+        FileStorageService->>FileStorageService: throw MyFileNotFoundException (Could not read file)
         FileStorageService-->>StorageService: Exception thrown
         StorageService-->>FileUploadController: MyFileNotFoundException
-        FileUploadController->>FileUploadController: @ExceptionHandler<br/>handleStorageFileNotFound()
+        FileUploadController->>FileUploadController: @ExceptionHandler handleStorageFileNotFound()
         FileUploadController-->>Client: ResponseEntity.notFound()
     else Malformed URL
         FileSystem-->>FileStorageService: MalformedURLException
-        FileStorageService->>FileStorageService: throw MyFileNotFoundException<br/>("Could not read file: " + filename, e)
+        FileStorageService->>FileStorageService: throw MyFileNotFoundException (Could not read file, e)
         FileStorageService-->>StorageService: Exception thrown
         StorageService-->>FileUploadController: MyFileNotFoundException
-        FileUploadController->>FileUploadController: @ExceptionHandler<br/>handleStorageFileNotFound()
+        FileUploadController->>FileUploadController: @ExceptionHandler handleStorageFileNotFound()
         FileUploadController-->>Client: ResponseEntity.notFound()
     end
 ```
@@ -261,52 +261,48 @@ This diagram shows how files are deleted from storage.
 
 ```mermaid
 sequenceDiagram
-    participant Client as Client/API Consumer
-    participant Service as Service Layer<br/>(Various Controllers)
+    participant Client as Client API Consumer
+    participant Service as Service Layer Various Controllers
     participant StorageService as StorageService Interface
     participant FileStorageService as FileStorageService
     participant FileSystem as File System
 
-    Note over Client,FileSystem: Single File Deletion
-    Client->>Service: Request to delete file<br/>(String filePath)
-    Service->>StorageService: deleteExistingFile(filePath)
-    StorageService->>FileStorageService: deleteExistingFile(String)
+    Client->>Service: Request to delete file String filePath
+    Service->>StorageService: deleteExistingFile filePath
+    StorageService->>FileStorageService: deleteExistingFile String
     
-    FileStorageService->>FileStorageService: load(filePath)
-    FileStorageService->>FileStorageService: rootLocation.resolve(filePath)
+    FileStorageService->>FileStorageService: load filePath
+    FileStorageService->>FileStorageService: rootLocation resolve filePath
     FileStorageService-->>FileStorageService: Path
     
     FileStorageService->>FileStorageService: Check if path contains filePath
     alt Path Contains File Path
-        FileStorageService->>FileSystem: Files.deleteIfExists(load(filePath))
+        FileStorageService->>FileSystem: Files deleteIfExists load filePath
+        FileSystem-->>FileStorageService: Delete result
         alt File Deleted Successfully
-            FileSystem-->>FileStorageService: true (file deleted)
             FileStorageService-->>StorageService: Success
             StorageService-->>Service: File deleted
             Service-->>Client: Success response
         else File Not Found
-            FileSystem-->>FileStorageService: false (file didn't exist)
-            FileStorageService-->>StorageService: Success (no-op)
+            FileStorageService-->>StorageService: Success no-op
             StorageService-->>Service: Success
             Service-->>Client: Success response
         else IO Exception
-            FileSystem-->>FileStorageService: IOException
-            FileStorageService->>FileStorageService: e.printStackTrace()
-            FileStorageService-->>StorageService: Error (logged)
+            FileStorageService->>FileStorageService: e printStackTrace
+            FileStorageService-->>StorageService: Error logged
             StorageService-->>Service: Error
             Service-->>Client: Error response
         end
-    else Path Doesn't Match
-        FileStorageService-->>StorageService: No operation (skip deletion)
+    else Path Does Not Match
+        FileStorageService-->>StorageService: No operation skip deletion
         StorageService-->>Service: No action taken
         Service-->>Client: Response
     end
     
-    Note over Client,FileSystem: Delete All Files
     Client->>Service: Request to delete all files
-    Service->>StorageService: deleteAll()
-    StorageService->>FileStorageService: deleteAll()
-    FileStorageService->>FileSystem: FileSystemUtils.deleteRecursively<br/>(rootLocation.toFile())
+    Service->>StorageService: deleteAll
+    StorageService->>FileStorageService: deleteAll
+    FileStorageService->>FileSystem: FileSystemUtils deleteRecursively rootLocation toFile
     FileSystem-->>FileStorageService: All files deleted
     FileStorageService-->>StorageService: Success
     StorageService-->>Service: All files deleted
@@ -321,49 +317,46 @@ This diagram shows how errors are handled throughout the storage module.
 
 ```mermaid
 sequenceDiagram
-    participant Client as Client/API Consumer
+    participant Client as Client API Consumer
     participant Controller as Controller Layer
     participant StorageService as StorageService Interface
     participant FileStorageService as FileStorageService
     participant FileSystem as File System
     participant ExceptionHandler as Exception Handler
 
-    Note over Client,ExceptionHandler: FileStorageException Flow
-    Client->>Controller: Request (upload/delete/load)
+    Client->>Controller: Request upload delete load
     Controller->>StorageService: Operation call
     StorageService->>FileStorageService: Operation execution
     
     alt FileSystem Error
         FileStorageService->>FileSystem: File operation
         FileSystem-->>FileStorageService: IOException
-        FileStorageService->>FileStorageService: throw FileStorageException<br/>(message, cause)
+        FileStorageService->>FileStorageService: throw FileStorageException message cause
         FileStorageService-->>StorageService: FileStorageException
         StorageService-->>Controller: FileStorageException
         Controller->>ExceptionHandler: Unhandled exception
         ExceptionHandler-->>Client: 500 Internal Server Error
     end
     
-    Note over Client,ExceptionHandler: MyFileNotFoundException Flow
-    Client->>Controller: GET /api/files/{filename}
-    Controller->>StorageService: loadAsResource(filename)
-    StorageService->>FileStorageService: loadAsResource()
+    Client->>Controller: GET /api/files filename
+    Controller->>StorageService: loadAsResource filename
+    StorageService->>FileStorageService: loadAsResource
     
     alt File Not Found
         FileStorageService->>FileSystem: Check file existence
-        FileSystem-->>FileStorageService: File doesn't exist
-        FileStorageService->>FileStorageService: throw MyFileNotFoundException<br/>("Could not read file: " + filename)
+        FileSystem-->>FileStorageService: File does not exist
+        FileStorageService->>FileStorageService: throw MyFileNotFoundException Could not read file
         FileStorageService-->>StorageService: MyFileNotFoundException
         StorageService-->>Controller: MyFileNotFoundException
-        Controller->>Controller: @ExceptionHandler<br/>handleStorageFileNotFound()
-        Controller-->>Client: ResponseEntity.notFound()<br/>(404 Not Found)
+        Controller->>Controller: @ExceptionHandler handleStorageFileNotFound
+        Controller-->>Client: ResponseEntity.notFound 404 Not Found
     end
     
-    Note over Client,ExceptionHandler: Empty File Error
-    Client->>Controller: POST /api/saveFile (empty file)
-    Controller->>StorageService: store(emptyFile, fileName)
-    StorageService->>FileStorageService: store()
-    FileStorageService->>FileStorageService: Check file.isEmpty()
-    FileStorageService->>FileStorageService: throw FileStorageException<br/>("Failed to store empty file")
+    Client->>Controller: POST /api/saveFile empty file
+    Controller->>StorageService: store emptyFile fileName
+    StorageService->>FileStorageService: store
+    FileStorageService->>FileStorageService: Check file isEmpty
+    FileStorageService->>FileStorageService: throw FileStorageException Failed to store empty file
     FileStorageService-->>StorageService: FileStorageException
     StorageService-->>Controller: FileStorageException
     Controller->>ExceptionHandler: Unhandled exception

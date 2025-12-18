@@ -1,0 +1,34 @@
+sequenceDiagram
+participant Client as ClientApplication
+participant Controller as TrainingProgramCalendarController
+participant TpcRepo as TrainingProgramCalendarRepo
+participant DB as Database
+Note over Client: Get Master Data
+Note over Client: Get Program Location
+Client->>Controller: GET /api/training/training program calender/getProgramLocation type
+Controller->>TpcRepo: getProgramLocation(type)
+TpcRepo->>DB: CALL sp_Get_Training_Mst_Location( type)
+DB-->>TpcRepo: List Map (locations)
+TpcRepo-->>Controller: location
+Controller-->>Client: ResponseEntity ApiResponse with locations
+Note over Client: Get Training Type
+Client->>Controller: GET /api/training/training program calender/getTrainingType departmentName type
+Controller->>TpcRepo: getTrainingType
+TpcRepo->>DB: CALL sp_Get_Training_Mst_Type
+DB-->>TpcRepo: List Map (training types)
+TpcRepo-->>Controller: result
+Controller-->>Client: ResponseEntity ApiResponse with training types
+Note over Client: Get Training Module
+Client->>Controller: GET /api/training/training program calender/getTrainingModule trainingTypeId type
+Controller->>TpcRepo: getTrainingModule
+TpcRepo->>DB: CALL sp_Get_Training_Mst_Module
+DB-->>TpcRepo: List Map
+TpcRepo-->>Controller: result
+Controller-->>Client: ResponseEntity ApiResponse with training modules
+Note over Client: Get Dealer Name
+Client->>Controller: GET /api/training/training program calender/getDealerName allStateName
+Controller->>TpcRepo: getDealerName(allStateName)
+TpcRepo->>DB: CALL sp_Get_Dealers_By_States( allStateName)
+DB-->>TpcRepo: List Map (dealers)
+TpcRepo-->>Controller: result
+Controller-->>Client: ResponseEntity ApiResponse with dealers

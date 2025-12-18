@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""
-Test script to validate Mermaid syntax
-"""
+"""Test script to see actual Mermaid error messages"""
 
 import re
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-def test_mermaid_syntax(mermaid_code):
-    """Test if Mermaid code renders without errors"""
+def test_mermaid_diagram(diagram_code, diagram_num):
+    """Test a Mermaid diagram and show the error if any"""
+    
     html_content = f"""<!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +15,7 @@ def test_mermaid_syntax(mermaid_code):
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         body {{
-            margin: 0;
-            padding: 80px;
+            margin: 20px;
             background: white;
             font-family: Arial, sans-serif;
         }}
@@ -25,113 +23,68 @@ def test_mermaid_syntax(mermaid_code):
             display: block;
             width: 100%;
         }}
+        .error {{
+            color: red;
+            font-weight: bold;
+        }}
     </style>
 </head>
 <body>
+    <h2>Diagram {diagram_num}</h2>
     <div class="mermaid">
-{mermaid_code}
+{diagram_code}
     </div>
     <script>
         mermaid.initialize({{
             startOnLoad: true,
             theme: 'default',
-            securityLevel: 'loose',
-            sequence: {{
-                diagramMarginX: 100,
-                diagramMarginY: 20,
-                actorMargin: 100,
-                width: 300,
-                height: 130,
-                boxMargin: 20,
-                boxTextMargin: 10,
-                noteMargin: 20,
-                messageMargin: 70,
-                mirrorActors: true,
-                bottomMarginAdj: 1,
-                useMaxWidth: true,
-                rightAngles: false,
-                showSequenceNumbers: false
-            }}
+            securityLevel: 'loose'
         }});
     </script>
 </body>
 </html>"""
     
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=False)  # Show browser to see error
         page = browser.new_page(viewport={'width': 1920, 'height': 1080})
         
         page.set_content(html_content, wait_until='domcontentloaded')
+        page.wait_for_timeout(5000)
         
-        try:
-            page.wait_for_selector('svg', timeout=10000)
-            page.wait_for_timeout(2000)
-            
-            # Check for error messages - try multiple selectors and get more details
-            error_info = page.evaluate('''
-                () => {
-                    // Try to find error elements
-                    const errorDiv = document.querySelector('.error-text');
-                    if (errorDiv) return {text: errorDiv.textContent, html: errorDiv.innerHTML};
-                    
-                    const errorSpan = document.querySelector('span.error-text');
-                    if (errorSpan) return {text: errorSpan.textContent, html: errorSpan.innerHTML};
-                    
-                    // Check body text
-                    const bodyText = document.body.textContent;
-                    if (bodyText.includes('Syntax error')) {
-                        return {text: bodyText, html: document.body.innerHTML.substring(0, 500)};
-                    }
-                    
-                    // Check for any error indicators
-                    const allText = document.body.innerText || document.body.textContent;
-                    if (allText.includes('error') || allText.includes('Error')) {
-                        return {text: allText.substring(0, 200), html: 'Found error text'};
-                    }
-                    
-                    return null;
-                }
-            ''')
-            
-            error_text = error_info['text'] if error_info else None
-            
-            svg_content = page.evaluate('document.querySelector("svg") ? document.querySelector("svg").innerHTML : null')
-            
-            browser.close()
-            
-            if error_text:
-                return False, error_text
-            elif svg_content and len(svg_content) > 500:
-                return True, "Success"
-            else:
-                return False, "SVG not rendered properly"
-                
-        except Exception as e:
-            browser.close()
-            return False, str(e)
+        # Get page content to see if there are errors
+        content = page.content()
+        svg = page.query_selector('svg')
+        
+        if svg:
+            svg_text = svg.inner_text()
+            print(f"\nDiagram {diagram_num} SVG Text (first 500 chars):")
+            print(svg_text[:500])
+        else:
+            print(f"\nDiagram {diagram_num}: No SVG found!")
+            # Check for error messages
+            body_text = page.inner_text('body')
+            print("Body text:")
+            print(body_text[:1000])
+        
+        input("Press Enter to close browser...")
+        browser.close()
+
+def main():
+    script_dir = Path(__file__).parent
+    markdown_file = script_dir / "STORAGE_MODULE_SEQUENCE_DIAGRAMS.md"
+    
+    with open(markdown_file, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    pattern = r'```mermaid\n(.*?)\n```'
+    diagrams = re.findall(pattern, content, re.DOTALL)
+    
+    # Test diagrams 6 and 7
+    for i in [5, 6]:  # 0-indexed, so 5=diagram 6, 6=diagram 7
+        print(f"\n{'='*60}")
+        print(f"Testing Diagram {i+1}")
+        print(f"{'='*60}")
+        test_mermaid_diagram(diagrams[i], i+1)
 
 if __name__ == "__main__":
-    import sys
-    import io
-    if sys.platform == 'win32':
-        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    
-    cleaned_file = Path("ExceptionFlow/03_3-final-clean.txt")
-    
-    if not cleaned_file.exists():
-        print(f"File not found: {cleaned_file}")
-        exit(1)
-    
-    with open(cleaned_file, 'r', encoding='utf-8') as f:
-        code = f.read()
-    
-    print("Testing Mermaid syntax...")
-    success, message = test_mermaid_syntax(code)
-    
-    if success:
-        print("SUCCESS: Syntax is valid!")
-    else:
-        print(f"ERROR: Syntax error: {message}")
-        if len(message) > 100:
-            print(f"Full error message (first 500 chars): {message[:500]}")
-
+    main()

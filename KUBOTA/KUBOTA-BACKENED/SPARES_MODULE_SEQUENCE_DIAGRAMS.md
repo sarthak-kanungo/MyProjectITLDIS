@@ -656,27 +656,24 @@ sequenceDiagram
     participant SalesOrderRepo as SpareSalesOrderRepository
     participant DB as Database
 
-    %% Sales Order Search Flow
-    Note over Client,DB: Sales Order Search with Filters
+    Client->>Controller: POST /api/spares/salesorder/search SpareSearchSalesOrderDto with filters
     
-    Client->>Controller: POST /api/spares/salesorder/search<br/>(SpareSearchSalesOrderDto with filters)
-    
-    Controller->>UserAuth: getDealerId()
+    Controller->>UserAuth: getDealerId
     UserAuth-->>Controller: dealerId
     
-    Controller->>Service: searchSalesOrders(searchDto, dealerId)
+    Controller->>Service: searchSalesOrders searchDto dealerId
     
-    Service->>Service: Build query with filters:<br/>- orderNumber<br/>- customerName<br/>- dateRange<br/>- status<br/>- partNumber
+    Service->>Service: Build query with filters orderNumber customerName dateRange status partNumber
     
-    Service->>SalesOrderRepo: findByFilters(searchDto, dealerId)
-    SalesOrderRepo->>DB: SELECT * FROM spare_sales_order<br/>WHERE dealer_id = ? AND ...<br/>(with filters)
-    DB-->>SalesOrderRepo: List<SpareSalesOrder>
+    Service->>SalesOrderRepo: findByFilters searchDto dealerId
+    SalesOrderRepo->>DB: SELECT FROM spare_sales_order WHERE dealer_id AND filters
+    DB-->>SalesOrderRepo: List SpareSalesOrder
     
     Service->>Service: Map entities to DTOs
     Service->>Service: Calculate totals and status
     
-    Service-->>Controller: List<SpareSaleOrderResponseDto>
-    Controller-->>Client: ResponseEntity<List<SpareSaleOrderResponseDto>>
+    Service-->>Controller: List SpareSaleOrderResponseDto
+    Controller-->>Client: ResponseEntity List SpareSaleOrderResponseDto
 ```
 
 ---
@@ -695,38 +692,35 @@ sequenceDiagram
     participant MovementRepo as InventoryMovementRepository
     participant DB as Database
 
-    %% Reports Generation Flow
-    Note over Client,DB: Report Generation (Inventory Movement, Closing Stock, Non-Moving Parts)
+    Client->>Controller: POST /api/spares/reports/inventorymovement ReportSearchDto with dateRange filters
     
-    Client->>Controller: POST /api/spares/reports/inventorymovement<br/>(ReportSearchDto with dateRange, filters)
-    
-    Controller->>UserAuth: getDealerId()
+    Controller->>UserAuth: getDealerId
     UserAuth-->>Controller: dealerId
     
     Controller->>Controller: Validate date range
     
-    alt Report Type = Inventory Movement
-        Controller->>MovementRepo: findInventoryMovements(dateRange, dealerId)
-        MovementRepo->>DB: SELECT * FROM inventory_movement<br/>WHERE dealer_id = ? AND date BETWEEN ? AND ?
-        DB-->>MovementRepo: List<InventoryMovement>
+    alt Report Type Inventory Movement
+        Controller->>MovementRepo: findInventoryMovements dateRange dealerId
+        MovementRepo->>DB: SELECT FROM inventory_movement WHERE dealer_id AND date BETWEEN
+        DB-->>MovementRepo: List InventoryMovement
         Controller->>Controller: Map to InventoryMovementDto
         Controller->>Controller: Calculate movement totals
         
-    else Report Type = Closing Stock
-        Controller->>StockRepo: findClosingStock(dateRange, dealerId)
-        StockRepo->>DB: SELECT part_number, SUM(quantity) as closing_stock<br/>FROM stock<br/>WHERE dealer_id = ? AND date <= ?<br/>GROUP BY part_number
-        DB-->>StockRepo: List<ClosingStock>
+    else Report Type Closing Stock
+        Controller->>StockRepo: findClosingStock dateRange dealerId
+        StockRepo->>DB: SELECT part_number SUM quantity as closing_stock FROM stock WHERE dealer_id AND date GROUP BY part_number
+        DB-->>StockRepo: List ClosingStock
         Controller->>Controller: Map to ClosingStockReportDto
         
-    else Report Type = Non-Moving Parts
-        Controller->>StockRepo: findNonMovingParts(thresholdDays, dealerId)
-        StockRepo->>DB: SELECT * FROM stock<br/>WHERE dealer_id = ?<br/>AND last_movement_date < DATE_SUB(NOW(), INTERVAL ? DAY)
-        DB-->>StockRepo: List<NonMovingStock>
+    else Report Type Non-Moving Parts
+        Controller->>StockRepo: findNonMovingParts thresholdDays dealerId
+        StockRepo->>DB: SELECT FROM stock WHERE dealer_id AND last_movement_date DATE_SUB NOW INTERVAL DAY
+        DB-->>StockRepo: List NonMovingStock
         Controller->>Controller: Map to NonMovingPartsStockReportDto
         Controller->>Controller: Calculate stock value
     end
     
-    Controller-->>Client: ResponseEntity<List<ReportDto>>
+    Controller-->>Client: ResponseEntity List ReportDto
 ```
 
 ---

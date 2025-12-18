@@ -24,14 +24,9 @@ sequenceDiagram
     participant Service as Service/Controller Class
     participant Memory as JVM Memory
 
-    %% Class Loading and Constant Initialization
-    Note over JVM,Memory: Application Startup - Constant Loading
-    
     JVM->>ClassLoader: Load DmsConstants class
     ClassLoader->>ClassLoader: Locate DmsConstants.class file
     ClassLoader->>DmsConstants: Load class bytecode
-    
-    Note over DmsConstants: Interface Definition contains constants:<br/>SM_ACTIVITY_STATUS, PHOTO_SUBMIT, PHOTO_ANSWERED
     
     DmsConstants->>Memory: Initialize constant values in constant pool
     Memory->>Memory: Store SM_ACTIVITY_STATUS string literal
@@ -40,19 +35,15 @@ sequenceDiagram
     
     DmsConstants-->>ClassLoader: Class loaded with constants
     ClassLoader-->>JVM: DmsConstants class ready
-    
-    Note over JVM: Constants are now available<br/>in JVM constant pool
 
-    %% Constant Access at Runtime
-    Note over Service,Memory: Runtime Constant Access
     Service->>Service: Import DmsConstants interface
-    Service->>DmsConstants: Access constant (e.g., DmsConstants.PHOTO_SUBMIT)
+    Service->>DmsConstants: Access constant DmsConstants.PHOTO_SUBMIT
     
     DmsConstants->>Memory: Lookup constant value in constant pool
     Memory-->>DmsConstants: Return string literal Submitted
     DmsConstants-->>Service: Return constant value
     
-    Note over Service: Service uses constant value<br/>for comparison or lookup
+    Service->>Service: Service uses constant value for comparison or lookup
 ```
 
 ---

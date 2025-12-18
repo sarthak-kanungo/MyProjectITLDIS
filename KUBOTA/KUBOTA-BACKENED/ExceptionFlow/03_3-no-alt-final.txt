@@ -1,0 +1,37 @@
+sequenceDiagram
+participant Client as ClientApplication
+participant Controller as Controller
+participant Validator as SpringValidator
+participant GExHandler as GlobalExceptionHandler
+participant ApiResponse as ApiResponse
+participant HashMap as HashMapStringString
+participant ResponseEntity as ResponseEntity
+Client->>Controller: POST PUT Request
+Controller->>Validator: Validate Request
+activate Validator
+Validator-->>Controller: MethodArgumentNotValidException thrown
+deactivate Validator
+Controller-->>GExHandler: Exception propagated
+activate GExHandler
+GExHandler->>GExHandler: handleValidationExceptions
+GExHandler->>ApiResponse: new ApiResponse
+activate ApiResponse
+ApiResponse-->>GExHandler: apiResponse instance
+deactivate ApiResponse
+GExHandler->>HashMap: new HashMap
+activate HashMap
+HashMap-->>GExHandler: errors map instance
+deactivate HashMap
+GExHandler->>GExHandler: getAllErrors
+loop ForEachFieldError
+GExHandler->>HashMap: put fieldName errorMessage
+end
+GExHandler->>ApiResponse: setMessage ValidationFailed
+GExHandler->>ApiResponse: setStatus BADREQUEST
+GExHandler->>ResponseEntity: ResponseEntity status body
+activate ResponseEntity
+ResponseEntity-->>GExHandler: ResponseEntity with status 400
+deactivate ResponseEntity
+GExHandler-->>Client: HTTP 400 Response
+deactivate GExHandler
+
