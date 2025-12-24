@@ -14,28 +14,65 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'services',
+        redirectTo: 'services/pending-pdi',
         pathMatch: 'full'
       },
       {
         path: 'services',
-        loadComponent: () => import('./features/dashboard/pages/services-module/services-module.component').then(m => m.ServicesModuleComponent)
+        redirectTo: 'services/pending-pdi',
+        pathMatch: 'full'
       },
       {
-        path: 'services/job-cards',
-        loadComponent: () => import('./features/dashboard/pages/services-module/services-module.component').then(m => m.ServicesModuleComponent)
+        path: 'services/pending-pdi',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/pending-pdi/pending-pdi.component').then(m => m.PendingPdiComponent)
       },
       {
-        path: 'services/invoices',
-        loadComponent: () => import('./features/dashboard/pages/services-module/services-module.component').then(m => m.ServicesModuleComponent)
+        path: 'services/view-pdi',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-pdi/view-pdi.component').then(m => m.ViewPdiComponent)
       },
       {
-        path: 'services/schedules',
-        loadComponent: () => import('./features/dashboard/pages/services-module/services-module.component').then(m => m.ServicesModuleComponent)
+        path: 'services/pending-installation',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/pending-installation/pending-installation.component').then(m => m.PendingInstallationComponent)
       },
       {
-        path: 'services/warranty',
-        loadComponent: () => import('./features/dashboard/pages/services-module/services-module.component').then(m => m.ServicesModuleComponent)
+        path: 'services/view-installation',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-installation/view-installation.component').then(m => m.ViewInstallationComponent)
+      },
+      {
+        path: 'services/create-job-card',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/create-job-card/create-job-card.component').then(m => m.CreateJobCardComponent)
+      },
+      {
+        path: 'services/view-job-cards',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-job-cards/view-job-cards.component').then(m => m.ViewJobCardsComponent)
+      },
+      {
+        path: 'services/pending-closure',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/pending-closure/pending-closure.component').then(m => m.PendingClosureComponent)
+      },
+      {
+        path: 'services/chassis-validation',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/chassis-validation/chassis-validation.component').then(m => m.ChassisValidationComponent)
+      },
+      {
+        path: 'services/reopen-job-card',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/reopen-job-card/reopen-job-card.component').then(m => m.ReopenJobCardComponent)
+      },
+      {
+        path: 'services/generate-invoice',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/generate-invoice/generate-invoice.component').then(m => m.GenerateInvoiceComponent)
+      },
+      {
+        path: 'services/search-history',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/search-history/search-history.component').then(m => m.SearchHistoryComponent)
+      },
+      {
+        path: 'services/reminder',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/service-reminder/service-reminder.component').then(m => m.ServiceReminderComponent)
+      },
+      {
+        path: 'services/due-date',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/service-due-date/service-due-date.component').then(m => m.ServiceDueDateComponent)
       },
       {
         path: 'spares',

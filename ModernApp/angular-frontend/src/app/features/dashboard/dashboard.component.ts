@@ -52,28 +52,82 @@ export class DashboardComponent implements OnInit {
       expanded: false,
       children: [
         {
-          id: 'services-job-cards',
-          label: 'Job Cards',
+          id: 'services-pending-pdi',
+          label: 'Pending For PDI',
+          icon: 'pending_actions',
+          route: '/dashboard/services/pending-pdi'
+        },
+        {
+          id: 'services-view-pdi',
+          label: 'View PDI Detail',
+          icon: 'visibility',
+          route: '/dashboard/services/view-pdi'
+        },
+        {
+          id: 'services-pending-installation',
+          label: 'Pending For Installation',
+          icon: 'pending',
+          route: '/dashboard/services/pending-installation'
+        },
+        {
+          id: 'services-view-installation',
+          label: 'View Installation',
+          icon: 'install_mobile',
+          route: '/dashboard/services/view-installation'
+        },
+        {
+          id: 'services-create-job-card',
+          label: 'Create Job Card',
+          icon: 'add_task',
+          route: '/dashboard/services/create-job-card'
+        },
+        {
+          id: 'services-view-job-cards',
+          label: 'View All Job Card',
           icon: 'assignment',
-          route: '/dashboard/services/job-cards'
+          route: '/dashboard/services/view-job-cards'
         },
         {
-          id: 'services-invoices',
-          label: 'Invoices',
-          icon: 'receipt',
-          route: '/dashboard/services/invoices'
+          id: 'services-pending-closure',
+          label: 'Pending Job Card For Closure',
+          icon: 'lock_clock',
+          route: '/dashboard/services/pending-closure'
         },
         {
-          id: 'services-schedules',
-          label: 'Service Schedules',
-          icon: 'schedule',
-          route: '/dashboard/services/schedules'
+          id: 'services-chassis-validation',
+          label: 'Pending For Job Card Chassis Validation',
+          icon: 'verified_user',
+          route: '/dashboard/services/chassis-validation'
         },
         {
-          id: 'services-warranty',
-          label: 'Extended Warranty',
-          icon: 'verified',
-          route: '/dashboard/services/warranty'
+          id: 'services-reopen-job-card',
+          label: 'Re-Open/Reject Job Card',
+          icon: 'refresh',
+          route: '/dashboard/services/reopen-job-card'
+        },
+        {
+          id: 'services-generate-invoice',
+          label: 'Generate Invoice',
+          icon: 'receipt_long',
+          route: '/dashboard/services/generate-invoice'
+        },
+        {
+          id: 'services-search-history',
+          label: 'Search Tractor History',
+          icon: 'search',
+          route: '/dashboard/services/search-history'
+        },
+        {
+          id: 'services-reminder',
+          label: 'Service Reminder',
+          icon: 'notifications_active',
+          route: '/dashboard/services/reminder'
+        },
+        {
+          id: 'services-due-date',
+          label: 'Service Due Date / Lapse Report',
+          icon: 'event_busy',
+          route: '/dashboard/services/due-date'
         }
       ]
     },
