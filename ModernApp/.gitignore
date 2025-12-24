@@ -1,0 +1,22 @@
+# Angular
+angular-frontend/node_modules/
+angular-frontend/dist/
+angular-frontend/.angular/
+
+# Spring Boot
+spring-boot-backend/**/target/
+spring-boot-backend/**/.mvn/
+spring-boot-backend/**/mvnw
+spring-boot-backend/**/mvnw.cmd
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.class
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+

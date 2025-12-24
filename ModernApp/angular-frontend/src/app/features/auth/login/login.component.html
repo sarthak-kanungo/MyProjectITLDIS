@@ -1,0 +1,116 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to your account to continue</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" placeholder="Enter your username" autocomplete="username">
+        <mat-icon matPrefix>person</mat-icon>
+        @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched) {
+          <mat-error>{{ getErrorMessage('username') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input 
+          matInput 
+          [type]="hidePassword() ? 'password' : 'text'"
+          formControlName="password" 
+          placeholder="Enter your password"
+          autocomplete="current-password">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button 
+          mat-icon-button 
+          matSuffix 
+          (click)="togglePasswordVisibility()" 
+          type="button"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword()">
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+          <mat-error>{{ getErrorMessage('password') }}</mat-error>
+        }
+      </mat-form-field>
+
+      @if (useCustomCaptcha()) {
+        <!-- Custom Captcha with Math/String Challenges -->
+        <app-custom-captcha #customCaptcha (verifiedEvent)="onCustomCaptchaVerified($event)"></app-custom-captcha>
+      } @else {
+        <!-- Google reCAPTCHA -->
+        <div class="captcha-container">
+          <div class="captcha-header">
+            <label class="captcha-label">Security Verification</label>
+            @if (captchaVerified()) {
+              <mat-icon class="captcha-success-icon">check_circle</mat-icon>
+            }
+          </div>
+          
+          @if (!captchaLoaded()) {
+            <div class="captcha-loading">
+              <mat-spinner diameter="20"></mat-spinner>
+              <span>Loading security verification...</span>
+            </div>
+          }
+          
+          <div id="recaptcha-container" [class.captcha-error]="captchaError()"></div>
+          
+          @if (captchaError()) {
+            <div class="error-message">
+              <mat-icon>error</mat-icon>
+              <span>{{ captchaError() }}</span>
+              <button mat-button type="button" (click)="resetCaptcha()" class="retry-button">
+                Retry
+              </button>
+            </div>
+          }
+          
+          @if (captchaExpired() && !captchaError()) {
+            <div class="warning-message">
+              <mat-icon>warning</mat-icon>
+              <span>Captcha expired. Please verify again.</span>
+            </div>
+          }
+          
+          @if (loginForm.get('captcha')?.hasError('required') && loginForm.get('captcha')?.touched && !captchaError()) {
+            <div class="error-message">
+              <mat-icon>info</mat-icon>
+              <span>Please complete the security verification</span>
+            </div>
+          }
+          
+          @if (captchaVerified()) {
+            <div class="success-message">
+              <mat-icon>verified</mat-icon>
+              <span>Security verification completed</span>
+            </div>
+          }
+        </div>
+      }
+
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit" 
+        class="login-button"
+        [disabled]="isLoading() || !canSubmit">
+        @if (isLoading()) {
+          <mat-spinner diameter="20" class="spinner"></mat-spinner>
+          <span>Signing in...</span>
+        } @else {
+          <span>Sign In</span>
+        }
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Don't have an account? <a routerLink="/register">Sign up</a></p>
+    </div>
+  </div>
+</div>
+

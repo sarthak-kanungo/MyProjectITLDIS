@@ -1,0 +1,190 @@
+<div class="services-module">
+  <div class="module-header">
+    <div>
+      <h1>Services Module</h1>
+      <p>Manage job cards, invoices, service schedules, and extended warranties</p>
+    </div>
+  </div>
+  
+  <!-- Debug: Component loaded -->
+  <div style="padding: 10px; background: #f0f0f0; margin-bottom: 20px; border-radius: 4px;">
+    <strong>Component Status:</strong> Loaded successfully | Stats: {{ jobCardStats().total }} job cards
+  </div>
+
+  <div class="stats-overview">
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ jobCardStats().total }}</h3>
+          <p>Total Job Cards</p>
+        </div>
+        <mat-icon class="stat-icon" color="primary">assignment</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Open: {{ jobCardStats().open }}</span>
+        <span class="detail-item">Pending: {{ jobCardStats().pending }}</span>
+        <span class="detail-item">Closed: {{ jobCardStats().closed }}</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ invoiceStats().total }}</h3>
+          <p>Total Invoices</p>
+        </div>
+        <mat-icon class="stat-icon" color="accent">receipt</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Pending: {{ invoiceStats().pending }}</span>
+        <span class="detail-item">Generated: {{ invoiceStats().generated }}</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ serviceScheduleStats().due }}</h3>
+          <p>Service Schedules Due</p>
+        </div>
+        <mat-icon class="stat-icon" color="warn">schedule</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Overdue: {{ serviceScheduleStats().overdue }}</span>
+        <span class="detail-item">Completed: {{ serviceScheduleStats().completed }}</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ extendedWarrantyStats().active }}</h3>
+          <p>Active Extended Warranties</p>
+        </div>
+        <mat-icon class="stat-icon" color="primary">verified</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Expired: {{ extendedWarrantyStats().expired }}</span>
+        <span class="detail-item">Pending: {{ extendedWarrantyStats().pending }}</span>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-tab-group [(selectedIndex)]="selectedTab">
+    <mat-tab label="Job Cards">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Job Card Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Create Job Card
+          </button>
+        </div>
+        
+        <mat-card>
+          @if (isLoading()) {
+            <div class="loading-container">
+              <mat-spinner></mat-spinner>
+              <p>Loading data from Services Microservice...</p>
+            </div>
+          } @else if (jobCardsDataSource().length === 0) {
+            <div class="empty-state">
+              <mat-icon>inbox</mat-icon>
+              <p>No job cards found. Create your first job card to get started.</p>
+            </div>
+          } @else {
+            <table mat-table [dataSource]="jobCardsDataSource()" class="data-table">
+              <ng-container matColumnDef="jobCardNo">
+                <th mat-header-cell *matHeaderCellDef>Job Card No</th>
+                <td mat-cell *matCellDef="let row">{{ row.jobCardNo }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="vinNo">
+                <th mat-header-cell *matHeaderCellDef>VIN No</th>
+                <td mat-cell *matCellDef="let row">{{ row.vinNo }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="customerName">
+                <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+                <td mat-cell *matCellDef="let row">{{ row.customerName }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-chip [color]="getStatusColor(row.status)">{{ row.status }}</mat-chip>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let row">{{ formatDate(row.jobCardDate || row.date) }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let row">
+                  <button mat-icon-button color="primary" [matTooltip]="'View Details'">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  <button mat-icon-button color="accent" [matTooltip]="'Edit'">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          }
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Invoices">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Invoice Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Generate Invoice
+          </button>
+        </div>
+        <mat-card>
+          <p>Invoice management features coming soon...</p>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Service Schedules">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Service Schedule Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Create Schedule
+          </button>
+        </div>
+        <mat-card>
+          <p>Service schedule management features coming soon...</p>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Extended Warranty">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Extended Warranty Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Add Extended Warranty
+          </button>
+        </div>
+        <mat-card>
+          <p>Extended warranty management features coming soon...</p>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

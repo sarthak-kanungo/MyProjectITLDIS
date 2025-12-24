@@ -1,0 +1,233 @@
+<div class="spares-module">
+  <div class="module-header">
+    <div>
+      <h1>Spares Module</h1>
+      <p>Manage invoices, sales orders, purchase orders, and inventory</p>
+    </div>
+  </div>
+
+  <div class="stats-overview">
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ invoiceStats().total }}</h3>
+          <p>Total Invoices</p>
+        </div>
+        <mat-icon class="stat-icon" color="primary">receipt</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Pending: {{ invoiceStats().pending }}</span>
+        <span class="detail-item">Completed: {{ invoiceStats().completed }}</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ salesOrderStats().total }}</h3>
+          <p>Sales Orders</p>
+        </div>
+        <mat-icon class="stat-icon" color="accent">shopping_cart</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Pending: {{ salesOrderStats().pending }}</span>
+        <span class="detail-item">Completed: {{ salesOrderStats().completed }}</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ purchaseOrderStats().total }}</h3>
+          <p>Purchase Orders</p>
+        </div>
+        <mat-icon class="stat-icon" color="warn">assignment</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Pending: {{ purchaseOrderStats().pending }}</span>
+        <span class="detail-item">Approved: {{ purchaseOrderStats().approved }}</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-info">
+          <h3>{{ stockStats().totalItems }}</h3>
+          <p>Stock Items</p>
+        </div>
+        <mat-icon class="stat-icon" color="primary">inventory</mat-icon>
+      </div>
+      <div class="stat-details">
+        <span class="detail-item">Low Stock: {{ stockStats().lowStock }}</span>
+        <span class="detail-item">Out of Stock: {{ stockStats().outOfStock }}</span>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-tab-group [(selectedIndex)]="selectedTab">
+    <mat-tab label="Invoices">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Spare Parts Invoice Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Create Invoice
+          </button>
+        </div>
+        
+        <mat-card>
+          <table mat-table [dataSource]="invoicesDataSource()" class="data-table">
+            <ng-container matColumnDef="invoiceNo">
+              <th mat-header-cell *matHeaderCellDef>Invoice No</th>
+              <td mat-cell *matCellDef="let row">{{ row.invoiceNo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="customerName">
+              <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+              <td mat-cell *matCellDef="let row">{{ row.customerName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <td mat-cell *matCellDef="let row">₹{{ row.amount | number }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip [color]="getStatusColor(row.status)">{{ row.status }}</mat-chip>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let row">{{ row.date }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" [matTooltip]="'View Details'">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" [matTooltip]="'Edit'">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" [matTooltip]="'Print'">
+                  <mat-icon>print</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="invoiceColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: invoiceColumns;"></tr>
+          </table>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Sales Orders">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Sales Order Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Create Sales Order
+          </button>
+        </div>
+        <mat-card>
+          <p>Sales order management features coming soon...</p>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Purchase Orders">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Purchase Order Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Create Purchase Order
+          </button>
+        </div>
+        
+        <mat-card>
+          <table mat-table [dataSource]="purchaseOrdersDataSource()" class="data-table">
+            <ng-container matColumnDef="poNo">
+              <th mat-header-cell *matHeaderCellDef>PO No</th>
+              <td mat-cell *matCellDef="let row">{{ row.poNo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="supplierName">
+              <th mat-header-cell *matHeaderCellDef>Supplier Name</th>
+              <td mat-cell *matCellDef="let row">{{ row.supplierName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <td mat-cell *matCellDef="let row">₹{{ row.amount | number }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip [color]="getStatusColor(row.status)">{{ row.status }}</mat-chip>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let row">{{ row.date }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" [matTooltip]="'View Details'">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" [matTooltip]="'Approve'">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="poColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: poColumns;"></tr>
+          </table>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Inventory">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Inventory Management</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Stock Adjustment
+          </button>
+        </div>
+        <mat-card>
+          <p>Inventory management features coming soon...</p>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="GRN">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Goods Receipt Note (GRN)</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Create GRN
+          </button>
+        </div>
+        <mat-card>
+          <p>GRN management features coming soon...</p>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

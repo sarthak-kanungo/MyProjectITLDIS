@@ -1,0 +1,200 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "shell": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/shell",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "shell:build:production"
+            },
+            "development": {
+              "buildTarget": "shell:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "services-mfe": {
+      "projectType": "application",
+      "root": "projects/services-mfe",
+      "sourceRoot": "projects/services-mfe/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/services-mfe",
+            "index": "projects/services-mfe/src/index.html",
+            "main": "projects/services-mfe/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/services-mfe/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "customWebpackConfig": {
+              "path": "projects/services-mfe/webpack.config.js"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "services-mfe:build",
+            "port": 4203
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "services-mfe:build:production"
+            },
+            "development": {
+              "buildTarget": "services-mfe:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "spares-mfe": {
+      "projectType": "application",
+      "root": "projects/spares-mfe",
+      "sourceRoot": "projects/spares-mfe/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/spares-mfe",
+            "index": "projects/spares-mfe/src/index.html",
+            "main": "projects/spares-mfe/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/spares-mfe/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "customWebpackConfig": {
+              "path": "projects/spares-mfe/webpack.config.js"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "spares-mfe:build",
+            "port": 4204
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "spares-mfe:build:production"
+            },
+            "development": {
+              "buildTarget": "spares-mfe:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}
+

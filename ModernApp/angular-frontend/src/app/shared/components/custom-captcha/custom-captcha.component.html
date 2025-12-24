@@ -1,0 +1,97 @@
+<div class="custom-captcha-container">
+  <div class="captcha-header">
+    <div class="header-left">
+      <mat-icon class="security-icon">security</mat-icon>
+      <span class="captcha-title">Security Challenge</span>
+    </div>
+    @if (isVerified()) {
+      <mat-icon class="verified-icon">verified</mat-icon>
+    }
+  </div>
+
+  <div class="challenge-section">
+    @if (currentChallenge()) {
+      <div class="challenge-display">
+        <div class="challenge-type-badge" [class.math-badge]="currentChallenge()?.type === 'math'" 
+             [class.string-badge]="currentChallenge()?.type === 'string'">
+          <mat-icon>{{ currentChallenge()?.type === 'math' ? 'calculate' : 'text_fields' }}</mat-icon>
+          <span>{{ currentChallenge()?.type === 'math' ? 'Math' : 'Word' }} Challenge</span>
+        </div>
+        
+        <div class="question-text">
+          {{ challengeText() }}
+        </div>
+        
+        @if (currentChallenge()?.hint && !isVerified()) {
+          <div class="hint-text">
+            <mat-icon>lightbulb</mat-icon>
+            <span>Hint: {{ currentChallenge()?.hint }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="answer-section">
+        <mat-form-field appearance="outline" class="answer-field">
+          <mat-label>Your Answer</mat-label>
+          <input 
+            matInput 
+            [formControl]="answerControl"
+            [disabled]="isVerified()"
+            (keyup.enter)="verifyAnswer()"
+            placeholder="Enter your answer">
+          <mat-icon matPrefix>edit</mat-icon>
+          @if (isVerified()) {
+            <mat-icon matSuffix class="success-icon">check_circle</mat-icon>
+          }
+        </mat-form-field>
+
+        <div class="action-buttons">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="verifyAnswer()"
+            [disabled]="!answerControl.value || isVerified() || answerControl.invalid"
+            class="verify-button">
+            <mat-icon>check</mat-icon>
+            <span>Verify</span>
+          </button>
+          
+          <button 
+            mat-stroked-button 
+            (click)="refreshChallenge()"
+            [disabled]="isVerified()"
+            class="refresh-button">
+            <mat-icon>refresh</mat-icon>
+            <span>New Challenge</span>
+          </button>
+        </div>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="error-message">
+          <mat-icon>error</mat-icon>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      @if (isVerified()) {
+        <div class="success-message">
+          <mat-icon>check_circle</mat-icon>
+          <span>Challenge completed successfully!</span>
+        </div>
+      }
+
+      @if (isExpired()) {
+        <div class="expired-message">
+          <mat-icon>schedule</mat-icon>
+          <span>Challenge expired. Generating new challenge...</span>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="attempts-indicator">
+    <span>Attempts: {{ attempts() }}/{{ maxAttempts }}</span>
+  </div>
+</div>
+
