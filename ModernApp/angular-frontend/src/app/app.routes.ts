@@ -14,13 +14,12 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'services/pending-pdi',
+        redirectTo: 'services',
         pathMatch: 'full'
       },
       {
         path: 'services',
-        redirectTo: 'services/pending-pdi',
-        pathMatch: 'full'
+        loadComponent: () => import('./features/dashboard/pages/services-module/services-module.component').then(m => m.ServicesModuleComponent)
       },
       {
         path: 'services/pending-pdi',
@@ -79,24 +78,80 @@ export const routes: Routes = [
         loadComponent: () => import('./features/dashboard/pages/spares-module/spares-module.component').then(m => m.SparesModuleComponent)
       },
       {
-        path: 'spares/invoices',
-        loadComponent: () => import('./features/dashboard/pages/spares-module/spares-module.component').then(m => m.SparesModuleComponent)
+        path: 'spares/view-inventory',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/view-inventory/view-inventory.component').then(m => m.ViewInventoryComponent)
       },
       {
-        path: 'spares/sales-orders',
-        loadComponent: () => import('./features/dashboard/pages/spares-module/spares-module.component').then(m => m.SparesModuleComponent)
+        path: 'spares/counter-sale',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/counter-sale/counter-sale.component').then(m => m.CounterSaleComponent)
       },
       {
-        path: 'spares/purchase-orders',
-        loadComponent: () => import('./features/dashboard/pages/spares-module/spares-module.component').then(m => m.SparesModuleComponent)
+        path: 'spares/add-inventory',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/add-inventory/add-inventory.component').then(m => m.AddInventoryComponent)
       },
       {
-        path: 'spares/inventory',
-        loadComponent: () => import('./features/dashboard/pages/spares-module/spares-module.component').then(m => m.SparesModuleComponent)
+        path: 'spares/counter-sales-return',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/counter-sales-return/counter-sales-return.component').then(m => m.CounterSalesReturnComponent)
       },
       {
-        path: 'spares/grn',
-        loadComponent: () => import('./features/dashboard/pages/spares-module/spares-module.component').then(m => m.SparesModuleComponent)
+        path: 'spares/transaction-details',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/transaction-details/transaction-details.component').then(m => m.TransactionDetailsComponent)
+      },
+      {
+        path: 'spares/view-invoice',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/view-invoice/view-invoice.component').then(m => m.ViewInvoiceComponent)
+      },
+      {
+        path: 'spares/view-stock-ledger',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/view-stock-ledger/view-stock-ledger.component').then(m => m.ViewStockLedgerComponent)
+      },
+      {
+        path: 'spares/manage-reorder-level',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/manage-reorder-level/manage-reorder-level.component').then(m => m.ManageReorderLevelComponent)
+      },
+      {
+        path: 'spares/view-reorder-level',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/view-reorder-level/view-reorder-level.component').then(m => m.ViewReorderLevelComponent)
+      },
+      {
+        path: 'spares/add-reorder-parts',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/add-reorder-parts/add-reorder-parts.component').then(m => m.AddReorderPartsComponent)
+      },
+      {
+        path: 'spares/create-new-order',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/create-new-order/create-new-order.component').then(m => m.CreateNewOrderComponent)
+      },
+      {
+        path: 'spares/create-new-order-vor',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/create-new-order-vor/create-new-order-vor.component').then(m => m.CreateNewOrderVorComponent)
+      },
+      {
+        path: 'spares/view-order',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/view-order/view-order.component').then(m => m.ViewOrderComponent)
+      },
+      {
+        path: 'spares/pending-cancelled-lines',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/pending-cancelled-lines/pending-cancelled-lines.component').then(m => m.PendingCancelledLinesComponent)
+      },
+      {
+        path: 'spares/view-purchase-order-invoice',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/view-purchase-order-invoice/view-purchase-order-invoice.component').then(m => m.ViewPurchaseOrderInvoiceComponent)
+      },
+      {
+        path: 'spares/create-grn',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/create-grn/create-grn.component').then(m => m.CreateGrnComponent)
+      },
+      {
+        path: 'spares/back-order-report',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/back-order-report/back-order-report.component').then(m => m.BackOrderReportComponent)
+      },
+      {
+        path: 'spares/order-details-report',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/order-details-report/order-details-report.component').then(m => m.OrderDetailsReportComponent)
+      },
+      {
+        path: 'spares/invoice-details-report',
+        loadComponent: () => import('./features/dashboard/pages/spares-module/pages/invoice-details-report/invoice-details-report.component').then(m => m.InvoiceDetailsReportComponent)
       }
     ]
   },

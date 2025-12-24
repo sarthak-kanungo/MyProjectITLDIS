@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -139,43 +139,150 @@ export class DashboardComponent implements OnInit {
       expanded: false,
       children: [
         {
-          id: 'spares-invoices',
-          label: 'Invoices',
+          id: 'spares-view-inventory',
+          label: 'View Inventory',
+          icon: 'inventory',
+          route: '/dashboard/spares/view-inventory'
+        },
+        {
+          id: 'spares-counter-sale',
+          label: 'Counter Sale',
+          icon: 'point_of_sale',
+          route: '/dashboard/spares/counter-sale'
+        },
+        {
+          id: 'spares-add-inventory',
+          label: 'Add Inventory From Other Dealers',
+          icon: 'add_shopping_cart',
+          route: '/dashboard/spares/add-inventory'
+        },
+        {
+          id: 'spares-counter-sales-return',
+          label: 'Counter Sales Return',
+          icon: 'assignment_return',
+          route: '/dashboard/spares/counter-sales-return'
+        },
+        {
+          id: 'spares-transaction-details',
+          label: 'Transaction Details',
+          icon: 'receipt_long',
+          route: '/dashboard/spares/transaction-details'
+        },
+        {
+          id: 'spares-view-invoice',
+          label: 'View Invoice',
           icon: 'receipt',
-          route: '/dashboard/spares/invoices'
+          route: '/dashboard/spares/view-invoice'
         },
         {
-          id: 'spares-sales-orders',
-          label: 'Sales Orders',
-          icon: 'shopping_cart',
-          route: '/dashboard/spares/sales-orders'
+          id: 'spares-view-stock-ledger',
+          label: 'View Stock Ledger',
+          icon: 'book',
+          route: '/dashboard/spares/view-stock-ledger'
         },
         {
-          id: 'spares-purchase-orders',
-          label: 'Purchase Orders',
-          icon: 'shopping_bag',
-          route: '/dashboard/spares/purchase-orders'
+          id: 'spares-manage-reorder-level',
+          label: 'Manage Re-Order Level',
+          icon: 'settings',
+          route: '/dashboard/spares/manage-reorder-level'
         },
         {
-          id: 'spares-inventory',
-          label: 'Inventory',
-          icon: 'warehouse',
-          route: '/dashboard/spares/inventory'
+          id: 'spares-view-reorder-level',
+          label: 'View Re-Order Level',
+          icon: 'visibility',
+          route: '/dashboard/spares/view-reorder-level'
         },
         {
-          id: 'spares-grn',
-          label: 'GRN',
+          id: 'spares-add-reorder-parts',
+          label: 'Add Re-Order Parts To Cart',
+          icon: 'add_shopping_cart',
+          route: '/dashboard/spares/add-reorder-parts'
+        },
+        {
+          id: 'spares-create-new-order',
+          label: 'Create New Order',
+          icon: 'add_business',
+          route: '/dashboard/spares/create-new-order'
+        },
+        {
+          id: 'spares-create-new-order-vor',
+          label: 'Create New Order (VOR)',
+          icon: 'add_business',
+          route: '/dashboard/spares/create-new-order-vor'
+        },
+        {
+          id: 'spares-view-order',
+          label: 'View Order',
+          icon: 'list_alt',
+          route: '/dashboard/spares/view-order'
+        },
+        {
+          id: 'spares-pending-cancelled-lines',
+          label: 'Pending Cancelled Lines For Acceptance',
+          icon: 'cancel',
+          route: '/dashboard/spares/pending-cancelled-lines'
+        },
+        {
+          id: 'spares-view-purchase-order-invoice',
+          label: 'View Purchase Order Invoice',
+          icon: 'description',
+          route: '/dashboard/spares/view-purchase-order-invoice'
+        },
+        {
+          id: 'spares-create-grn',
+          label: 'Create GRN',
           icon: 'inventory_2',
-          route: '/dashboard/spares/grn'
+          route: '/dashboard/spares/create-grn'
+        },
+        {
+          id: 'spares-back-order-report',
+          label: 'Back Order Report',
+          icon: 'assessment',
+          route: '/dashboard/spares/back-order-report'
+        },
+        {
+          id: 'spares-order-details-report',
+          label: 'Order Details Report',
+          icon: 'summarize',
+          route: '/dashboard/spares/order-details-report'
+        },
+        {
+          id: 'spares-invoice-details-report',
+          label: 'Invoice Details Report',
+          icon: 'description',
+          route: '/dashboard/spares/invoice-details-report'
         }
       ]
     }
   ]);
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.currentUser.set(this.authService.currentUser());
+    this.expandActiveMenu();
+  }
+
+  expandActiveMenu(): void {
+    const currentPath = window.location.pathname;
+    this.menuItems().forEach(item => {
+      if (item.children) {
+        // Check if any child route is active
+        const hasActiveChild = item.children.some(child => {
+          return child.route && currentPath.startsWith(child.route);
+        });
+        // Also check if the parent route itself is active
+        const isParentActive = item.route && currentPath === item.route;
+        if (hasActiveChild || isParentActive) {
+          item.expanded = true;
+        }
+      }
+    });
+    // Update signal to trigger change detection
+    this.menuItems.set([...this.menuItems()]);
   }
 
   toggleSidenav(): void {
@@ -184,8 +291,11 @@ export class DashboardComponent implements OnInit {
 
   toggleMenu(item: MenuItem, event: Event): void {
     if (item.children) {
-      event.preventDefault();
-      event.stopPropagation();
+      // If clicking the parent item, navigate to its dashboard and expand menu
+      if (item.route) {
+        this.router.navigate([item.route]);
+      }
+      // Toggle expansion
       item.expanded = !item.expanded;
       // Update the signal to trigger change detection
       this.menuItems.set([...this.menuItems()]);

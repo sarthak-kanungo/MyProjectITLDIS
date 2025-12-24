@@ -14,8 +14,8 @@
         <div>
           <a 
             mat-list-item 
-            [routerLink]="item.children ? null : (item.route || null)"
-            [routerLinkActive]="item.children ? '' : 'active'"
+            [routerLink]="item.route || null"
+            [routerLinkActive]="item.children ? 'active-parent' : 'active'"
             [class.active-parent]="item.children && isRouteActive(item)"
             (click)="toggleMenu(item, $event)">
             <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
