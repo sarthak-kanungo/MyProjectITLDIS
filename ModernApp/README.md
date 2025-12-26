@@ -52,24 +52,39 @@ ModernApp/
 
 ### Running the Application
 
-#### 1. Start Backend (Spring Boot)
+**📖 For detailed instructions, see [HOW_TO_RUN.md](./HOW_TO_RUN.md)**
 
+#### Quick Start (All Services)
+
+**Backend Services (3 microservices):**
+
+1. **Auth Service** (Port 8886):
 ```bash
 cd spring-boot-backend/auth-service
 mvn spring-boot:run
 ```
 
-Backend will start on `http://localhost:8080`
+2. **Services Service** (Port 8082):
+```bash
+cd spring-boot-backend/services-service
+mvn spring-boot:run
+```
 
-#### 2. Start Frontend (Angular)
+3. **Spares Service** (Port 8083):
+```bash
+cd spring-boot-backend/spares-service
+mvn spring-boot:run
+```
+
+**Frontend (Port 4200):**
 
 ```bash
 cd angular-frontend
-npm install
+npm install    # First time only
 npm start
 ```
 
-Frontend will start on `http://localhost:4200`
+**Access the application:** `http://localhost:4200`
 
 ### Default Credentials
 
@@ -135,11 +150,21 @@ See [spring-boot-backend/README.md](./spring-boot-backend/README.md) for detaile
 
 ## Database
 
-H2 in-memory database is used for development. Access H2 Console at:
-- URL: `http://localhost:8080/h2-console`
+H2 in-memory database is used for development. Access H2 Console for each service:
+
+**Auth Service:**
+- URL: `http://localhost:8886/h2-console`
 - JDBC URL: `jdbc:h2:mem:authdb`
 - Username: `sa`
 - Password: (empty)
+
+**Services Service:**
+- URL: `http://localhost:8082/h2-console`
+- JDBC URL: `jdbc:h2:mem:servicesdb`
+
+**Spares Service:**
+- URL: `http://localhost:8083/h2-console`
+- JDBC URL: `jdbc:h2:mem:sparesdb`
 
 ## License
 

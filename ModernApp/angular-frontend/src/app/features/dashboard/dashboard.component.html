@@ -3,10 +3,14 @@
     #sidenav 
     [mode]="'side'" 
     [opened]="sidenavOpened()"
+    [class.collapsed]="!sidenavOpened()"
     class="dashboard-sidenav">
     
     <div class="sidenav-header">
-      <h2>Modern App</h2>
+      <img src="assets/logo.svg" alt="Modern App Logo" class="app-logo" [class.collapsed]="!sidenavOpened()" />
+      <button mat-icon-button class="collapse-btn" (click)="toggleSidenav()" [attr.aria-label]="sidenavOpened() ? 'Collapse sidebar' : 'Expand sidebar'">
+        <mat-icon>{{ sidenavOpened() ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
     </div>
 
     <mat-nav-list>
@@ -14,17 +18,22 @@
         <div>
           <a 
             mat-list-item 
-            [routerLink]="item.route || null"
+            [routerLink]="item.children ? null : (item.route || null)"
             [routerLinkActive]="item.children ? 'active-parent' : 'active'"
             [class.active-parent]="item.children && isRouteActive(item)"
-            (click)="toggleMenu(item, $event)">
+            (click)="item.children ? toggleMenu(item, $event) : null">
             <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-            <span matListItemTitle>{{ item.label }}</span>
+            <span matListItemTitle [class.hide-text]="!sidenavOpened()">{{ item.label }}</span>
             @if (item.badge) {
               <mat-icon matListItemMeta [matBadge]="item.badge" matBadgeColor="warn">notifications</mat-icon>
             }
             @if (item.children) {
-              <mat-icon matListItemMeta>{{ item.expanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+              <span 
+                matListItemMeta 
+                class="expand-icon"
+                [class.expanded]="item.expanded"
+                aria-hidden="true">
+              </span>
             }
           </a>
           
@@ -33,11 +42,12 @@
               @for (child of item.children; track child.id) {
                 <a 
                   mat-list-item 
-                  [routerLink]="child.route || null"
+                  [routerLink]="child.route"
                   [routerLinkActive]="'active'"
-                  class="submenu-item">
+                  class="submenu-item"
+                  (click)="scrollToTop()">
                   <mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
-                  <span matListItemTitle>{{ child.label }}</span>
+                  <span matListItemTitle [class.hide-text]="!sidenavOpened()">{{ child.label }}</span>
                 </a>
               }
             </div>
@@ -45,6 +55,14 @@
         </div>
       }
     </mat-nav-list>
+
+    <!-- Logout Section -->
+    <div class="sidenav-footer">
+      <button (click)="logout()" class="logout-item">
+        <mat-icon>logout</mat-icon>
+        <span [class.hide-text]="!sidenavOpened()">Logout</span>
+      </button>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content class="dashboard-content">
@@ -83,7 +101,10 @@
     </mat-toolbar>
 
     <div class="dashboard-main">
-      <router-outlet></router-outlet>
+      <div class="dashboard-content-wrapper">
+        <router-outlet></router-outlet>
+        <!-- Component will be inserted here by Angular router -->
+      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

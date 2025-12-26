@@ -1,6 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Component, OnInit, OnDestroy, signal, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule, ViewportScroller } from '@angular/common';
+import { Router, RouterModule, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,9 +41,10 @@ export interface MenuItem {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   sidenavOpened = signal(true);
   currentUser = signal<any>(null);
+  private routerSubscription?: Subscription;
   menuItems = signal<MenuItem[]>([
     {
       id: 'services',
@@ -258,12 +260,131 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private viewportScroller: ViewportScroller,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.currentUser.set(this.authService.currentUser());
     this.expandActiveMenu();
+    
+    // Subscribe to router events to scroll to top on navigation
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        // CRITICAL: Reset scroll IMMEDIATELY and aggressively on navigation end
+        const contentWrapper = document.querySelector('.dashboard-content-wrapper') as HTMLElement;
+        
+        const forceScrollReset = () => {
+          if (contentWrapper) {
+            contentWrapper.scrollTop = 0;
+            (contentWrapper as any).scrollTop = 0;
+            contentWrapper.scrollTo(0, 0);
+            contentWrapper.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+          }
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        };
+        
+        // Reset immediately
+        forceScrollReset();
+        
+        // Use requestAnimationFrame for immediate reset
+        requestAnimationFrame(() => {
+          forceScrollReset();
+        });
+        
+        // Use MutationObserver to watch for component insertion
+        if (contentWrapper) {
+          const observer = new MutationObserver(() => {
+            forceScrollReset();
+          });
+          
+          observer.observe(contentWrapper, { 
+            childList: true, 
+            subtree: false 
+          });
+          
+          setTimeout(() => {
+            observer.disconnect();
+            forceScrollReset();
+          }, 200);
+        }
+        
+        // Aggressive scroll reset at multiple intervals
+        [0, 1, 5, 10, 20, 50, 100, 200, 300, 500].forEach(delay => {
+          setTimeout(() => forceScrollReset(), delay);
+        });
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Initial scroll to top
+    this.scrollToTop();
+  }
+
+  scrollToTop(): void {
+    // Get the scrollable wrapper (this is the actual scrollable element now)
+    const contentWrapper = document.querySelector('.dashboard-content-wrapper') as HTMLElement;
+    
+    // CRITICAL: Use multiple methods to force scroll to top
+    if (contentWrapper) {
+      // Method 1: Direct property assignment
+      contentWrapper.scrollTop = 0;
+      
+      // Method 2: scrollTo method
+      contentWrapper.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      
+      // Method 3: scrollIntoView on the wrapper itself
+      contentWrapper.scrollIntoView({ behavior: 'instant', block: 'start', inline: 'nearest' });
+      
+      // Method 4: Force via style
+      contentWrapper.style.scrollBehavior = 'auto';
+    }
+    
+    // Also scroll window/document to top
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Use ViewportScroller
+    try {
+      this.viewportScroller.scrollToPosition([0, 0]);
+    } catch (e) {
+      // Fallback if ViewportScroller fails
+    }
+    
+    // Force multiple scroll attempts using requestAnimationFrame
+    requestAnimationFrame(() => {
+      if (contentWrapper) {
+        contentWrapper.scrollTop = 0;
+        contentWrapper.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    });
+    
+    // Multiple timeouts to catch different render phases
+    const scrollAttempts = [0, 1, 5, 10, 20, 50, 100, 200, 300];
+    scrollAttempts.forEach(delay => {
+      setTimeout(() => {
+        if (contentWrapper) {
+          contentWrapper.scrollTop = 0;
+          contentWrapper.scrollTo({ top: 0, behavior: 'instant' });
+          // Also try scrollIntoView on first child if it exists
+          const firstChild = contentWrapper.firstElementChild as HTMLElement;
+          if (firstChild) {
+            firstChild.scrollIntoView({ behavior: 'instant', block: 'start', inline: 'nearest' });
+          }
+        }
+      }, delay);
+    });
   }
 
   expandActiveMenu(): void {
@@ -291,14 +412,17 @@ export class DashboardComponent implements OnInit {
 
   toggleMenu(item: MenuItem, event: Event): void {
     if (item.children) {
-      // If clicking the parent item, navigate to its dashboard and expand menu
-      if (item.route) {
-        this.router.navigate([item.route]);
-      }
+      // Prevent navigation when toggling menu
+      event.preventDefault();
+      event.stopPropagation();
       // Toggle expansion
-      item.expanded = !item.expanded;
+      const currentExpanded = item.expanded;
+      item.expanded = !currentExpanded;
       // Update the signal to trigger change detection
       this.menuItems.set([...this.menuItems()]);
+    } else if (item.route) {
+      // Navigate to route if no children
+      this.router.navigate([item.route]);
     }
   }
 
@@ -316,6 +440,92 @@ export class DashboardComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  navigateToRoute(route: string | undefined, event?: Event): void {
+    if (route) {
+      // Prevent default link behavior if event is provided
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      // Navigate to the route
+      this.router.navigate([route]).then(() => {
+        // Navigation successful - close sidebar on mobile if needed
+        if (window.innerWidth < 768) {
+          this.sidenavOpened.set(false);
+        }
+      }).catch(err => {
+        console.error('Navigation error:', err);
+      });
+    }
+  }
+
+  navigateToChildRoute(route: string | undefined, event: Event): void {
+    if (route) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      const contentWrapper = document.querySelector('.dashboard-content-wrapper') as HTMLElement;
+      
+      // Function to force scroll to top
+      const forceScrollTop = () => {
+        if (contentWrapper) {
+          contentWrapper.scrollTop = 0;
+          contentWrapper.scrollTo(0, 0);
+        }
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      };
+      
+      // Reset scroll BEFORE navigation
+      forceScrollTop();
+      
+      // Use requestAnimationFrame to ensure scroll happens before navigation
+      requestAnimationFrame(() => {
+        forceScrollTop();
+        
+        // Navigate
+        this.router.navigateByUrl(route).then(() => {
+          // Continuous scroll reset using requestAnimationFrame loop
+          let frameCount = 0;
+          const maxFrames = 60; // ~1 second at 60fps
+          
+          const scrollLoop = () => {
+            forceScrollTop();
+            frameCount++;
+            if (frameCount < maxFrames) {
+              requestAnimationFrame(scrollLoop);
+            }
+          };
+          
+          // Start the loop
+          requestAnimationFrame(scrollLoop);
+          
+          // Also use MutationObserver
+          if (contentWrapper) {
+            const observer = new MutationObserver(() => {
+              forceScrollTop();
+            });
+            observer.observe(contentWrapper, { childList: true, subtree: false });
+            setTimeout(() => observer.disconnect(), 1000);
+          }
+          
+          // Timeout fallbacks
+          [0, 10, 50, 100, 200, 500, 1000].forEach(delay => {
+            setTimeout(() => forceScrollTop(), delay);
+          });
+        }).catch((err) => {
+          console.error('Navigation error:', err);
+          this.router.navigate([route]).then(() => {
+            forceScrollTop();
+            setTimeout(() => forceScrollTop(), 100);
+          });
+        });
+      });
+    }
   }
 }
 
