@@ -8,9 +8,6 @@
     
     <div class="sidenav-header">
       <img src="assets/logo.svg" alt="Modern App Logo" class="app-logo" [class.collapsed]="!sidenavOpened()" />
-      <button mat-icon-button class="collapse-btn" (click)="toggleSidenav()" [attr.aria-label]="sidenavOpened() ? 'Collapse sidebar' : 'Expand sidebar'">
-        <mat-icon>{{ sidenavOpened() ? 'menu_open' : 'menu' }}</mat-icon>
-      </button>
     </div>
 
     <mat-nav-list>
