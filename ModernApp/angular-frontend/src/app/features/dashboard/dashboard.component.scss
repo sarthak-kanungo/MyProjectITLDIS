@@ -53,25 +53,28 @@
       position: fixed !important;
       overflow-y: auto;
       overflow-x: hidden;
+      z-index: 10;
     }
 
     .mat-drawer-content {
-      width: 100% !important;
-      margin-left: 0 !important;
-      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
       overflow: visible !important;
       display: flex !important;
       flex-direction: column !important;
       position: relative !important;
       height: 100vh !important;
+      z-index: 1;
     }
 
     .mat-drawer-opened ~ .mat-drawer-content {
       margin-left: 280px !important;
+      width: calc(100% - 280px) !important;
     }
     
     .mat-drawer-closed ~ .mat-drawer-content {
       margin-left: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
     }
     
     // Ensure all components rendered by router-outlet are visible
@@ -95,7 +98,7 @@
     0 0 0 1px rgba(0, 0, 0, 0.05);
   border-right: none;
   position: relative;
-  z-index: 1;
+  z-index: 10;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -653,10 +656,9 @@
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   overflow: hidden;
   position: relative;
-  margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box;
   
@@ -669,9 +671,36 @@
       max-height: 100vh !important;
       overflow: hidden !important;
       position: relative !important;
-      margin: 0 !important;
       padding: 0 !important;
       box-sizing: border-box !important;
+    }
+    
+    .mat-drawer-opened ~ .mat-drawer-content {
+      margin-left: 280px !important;
+      width: calc(100% - 280px) !important;
+    }
+    
+    .mat-drawer-closed ~ .mat-drawer-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+}
+
+// Ensure dashboard-content gets margin-left when sidebar is open
+::ng-deep {
+  .dashboard-container {
+    .mat-drawer-opened ~ .mat-drawer-content.dashboard-content {
+      margin-left: 280px !important;
+      width: calc(100% - 280px) !important;
+      max-width: calc(100% - 280px) !important;
+    }
+    
+    .mat-drawer-closed ~ .mat-drawer-content.dashboard-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
     }
   }
 }
@@ -680,16 +709,17 @@
   .dashboard-container {
     .mat-drawer-content {
       transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      width: 100% !important;
     }
 
     .mat-drawer-opened ~ .mat-drawer-content {
       margin-left: 280px !important;
+      width: calc(100% - 280px) !important;
     }
 
     .mat-drawer-closed ~ .mat-drawer-content {
       margin-left: 0 !important;
       width: 100% !important;
+      max-width: 100% !important;
     }
   }
 }
@@ -778,17 +808,16 @@
 }
 
 .dashboard-content-wrapper {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0;
   scroll-behavior: auto;
   display: block !important;
-  width: 100% !important;
   height: 100% !important;
   max-height: 100% !important;
   box-sizing: border-box !important;
