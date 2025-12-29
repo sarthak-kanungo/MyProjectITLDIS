@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface JobCard {
@@ -29,6 +29,87 @@ export interface ServiceInvoice {
   totalAmount?: number;
   status?: string;
   invoiceDate?: string;
+}
+
+export interface PendingChassis {
+  vinNo: string;
+  modelFamily: string;
+  modelCode: string;
+  dealerCode: string;
+  dealerName: string;
+  locationName: string;
+  locationCode: string;
+  pdiPendingDays: number;
+  pdiPendingDate?: string;
+}
+
+export interface PendingPdiSearchParams {
+  chassisNo?: string;
+  dealerCode?: string;
+  page?: number;
+  size?: number;
+}
+
+export interface PendingPdiResponse {
+  content: PendingChassis[];
+  totalElements: number;
+  totalPages: number;
+  currentPage: number;
+  size: number;
+}
+
+export interface PdiDetail {
+  vinNo: string;
+  pdiNo: string;
+  pdiDate: string;
+  modelFamily: string;
+  modelCode: string;
+  dealerCode: string;
+  dealerName: string;
+  locationName: string;
+  locationCode: string;
+  refPDIno?: string;
+}
+
+export interface PdiDetailSearchParams {
+  chassisNo?: string;
+  dealerCode?: string;
+  fromDate?: string;
+  toDate?: string;
+  status?: string;
+  useDateRange?: boolean;
+  page?: number;
+  size?: number;
+}
+
+export interface PdiDetailResponse {
+  content: PdiDetail[];
+  totalElements: number;
+  totalPages: number;
+  currentPage: number;
+  size: number;
+}
+
+export interface PdiDetailView {
+  vinNo: string;
+  engineNo: string;
+  modelFamily: string;
+  modelCode: string;
+  modelFamilyDesc: string;
+  modelCodeDesc: string;
+  pdiNo: string;
+  invoiceDate: string;
+  tractorReceivedDate: string;
+  pdiDate: string;
+  invoiceNo: string;
+  dealerName: string;
+  dealerCode: string;
+  locationName: string;
+  locationCode: string;
+  remarks: string;
+  pdiDoneBy: string;
+  jobCardNo: string;
+  createJobCard: boolean;
 }
 
 @Injectable({
@@ -91,6 +172,73 @@ export class ServicesApiService {
 
   generateInvoiceFromJobCard(jobCardNo: string, invoice: ServiceInvoice): Observable<ServiceInvoice> {
     return this.http.post<ServiceInvoice>(`${this.apiUrl}/invoices/generate/${jobCardNo}`, invoice);
+  }
+
+  // Pending PDI
+  getPendingPdiChassisList(params: PendingPdiSearchParams): Observable<PendingPdiResponse> {
+    let httpParams = new HttpParams();
+    if (params.chassisNo) httpParams = httpParams.set('chassisNo', params.chassisNo);
+    if (params.dealerCode) httpParams = httpParams.set('dealerCode', params.dealerCode);
+    if (params.page !== undefined) httpParams = httpParams.set('page', params.page.toString());
+    if (params.size) httpParams = httpParams.set('size', params.size.toString());
+    
+    return this.http.get<PendingPdiResponse>(`${this.apiUrl}/pdi/pending-chassis`, {
+      params: httpParams
+    });
+  }
+
+  exportPendingPdiChassisList(params: PendingPdiSearchParams): Observable<Blob> {
+    let httpParams = new HttpParams();
+    if (params.chassisNo) httpParams = httpParams.set('chassisNo', params.chassisNo);
+    if (params.dealerCode) httpParams = httpParams.set('dealerCode', params.dealerCode);
+    
+    return this.http.get(`${this.apiUrl}/pdi/pending-chassis/export`, {
+      params: httpParams,
+      responseType: 'blob'
+    });
+  }
+
+  // View PDI Details
+  getPdiDetailsList(params: PdiDetailSearchParams): Observable<PdiDetailResponse> {
+    let httpParams = new HttpParams();
+    if (params.chassisNo) httpParams = httpParams.set('chassisNo', params.chassisNo);
+    if (params.dealerCode) httpParams = httpParams.set('dealerCode', params.dealerCode);
+    if (params.fromDate) httpParams = httpParams.set('fromDate', params.fromDate);
+    if (params.toDate) httpParams = httpParams.set('toDate', params.toDate);
+    if (params.status) httpParams = httpParams.set('status', params.status);
+    if (params.useDateRange !== undefined) httpParams = httpParams.set('useDateRange', params.useDateRange.toString());
+    if (params.page !== undefined) httpParams = httpParams.set('page', params.page.toString());
+    if (params.size) httpParams = httpParams.set('size', params.size.toString());
+    
+    return this.http.get<PdiDetailResponse>(`${this.apiUrl}/pdi/details`, {
+      params: httpParams
+    });
+  }
+
+  exportPdiDetailsList(params: PdiDetailSearchParams): Observable<Blob> {
+    let httpParams = new HttpParams();
+    if (params.chassisNo) httpParams = httpParams.set('chassisNo', params.chassisNo);
+    if (params.dealerCode) httpParams = httpParams.set('dealerCode', params.dealerCode);
+    if (params.fromDate) httpParams = httpParams.set('fromDate', params.fromDate);
+    if (params.toDate) httpParams = httpParams.set('toDate', params.toDate);
+    if (params.status) httpParams = httpParams.set('status', params.status);
+    if (params.useDateRange !== undefined) httpParams = httpParams.set('useDateRange', params.useDateRange.toString());
+    
+    return this.http.get(`${this.apiUrl}/pdi/details/export`, {
+      params: httpParams,
+      responseType: 'blob'
+    });
+  }
+
+  // Get PDI Detail View
+  getPdiDetailView(vinNo: string, pdiNo: string): Observable<PdiDetailView> {
+    let httpParams = new HttpParams();
+    httpParams = httpParams.set('vinNo', vinNo);
+    httpParams = httpParams.set('pdiNo', pdiNo);
+    
+    return this.http.get<PdiDetailView>(`${this.apiUrl}/pdi/details/view`, {
+      params: httpParams
+    });
   }
 }
 
