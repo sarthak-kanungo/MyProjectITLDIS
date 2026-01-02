@@ -51,7 +51,7 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
         <mat-card-content>
           <!-- Search Form -->
           <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
-            <div class="search-row">
+            <div class="search-row" [class.dates-active]="searchForm.get('useDateRange')?.value">
               <mat-form-field appearance="outline" class="chassis-field">
                 <mat-label>Chassis No</mat-label>
                 <input matInput formControlName="chassisNo" placeholder="Enter Chassis No">
@@ -227,16 +227,24 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
       gap: 8px !important; 
     }
     .search-form {
-      margin-bottom: 24px;
+      width: 149.25% !important;
+      max-width: 149.25% !important;
+      min-width: 149.25% !important;
       padding: 16px;
       background: #f5f5f5;
       border-radius: 4px;
+      transform: scale(0.67);
+      transform-origin: left top;
+      margin-bottom: -30px !important; /* Compensate for empty space left by scale */
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      box-sizing: border-box;
     }
     .search-row {
       display: flex;
       gap: 16px;
-      align-items: flex-start;
-      flex-wrap: wrap;
+      align-items: center;
+      flex-wrap: nowrap; /* Keep single line */
     }
     .chassis-field {
       flex: 1;
@@ -246,7 +254,7 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
     .date-field {
       width: 150px;
@@ -261,12 +269,24 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
     .dealer-field {
       flex: 1;
       min-width: 300px;
+      transition: all 0.2s ease;
+    }
+    .search-row.dates-active .dealer-field {
+      flex: 0.5;
+      min-width: 150px;
+    }
+    /* Hide subscript wrapper to save vertical space even when scaled */
+    ::ng-deep .search-form .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+    ::ng-deep .search-form .mat-mdc-form-field-bottom-align {
+      display: none !important;
     }
     .button-group {
       display: flex;
       gap: 8px;
       align-items: center;
-      margin-top: 8px;
+      margin-top: 0;
     }
     .table-container {
       margin-top: 16px;
@@ -317,7 +337,7 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
   loading: boolean = false;
   hasResults: boolean = false;
   searched: boolean = false;
-  
+
   // Pagination
   totalElements: number = 0;
   pageSize: number = 15;
@@ -333,7 +353,7 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const today = new Date();
-    
+
     this.searchForm = this.fb.group({
       chassisNo: [''],
       useDateRange: [false],
@@ -379,16 +399,16 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.searched = true;
     this.loading = true;
     this.currentPage = 0;
-    
+
     const formValue = this.searchForm.value;
     const searchParams: PdiDetailSearchParams = {
       chassisNo: formValue.chassisNo?.trim() || undefined,
       dealerCode: formValue.dealerCode === 'ALL' ? undefined : formValue.dealerCode,
       status: formValue.status === 'all' ? undefined : formValue.status,
       useDateRange: formValue.useDateRange,
-      fromDate: formValue.useDateRange && formValue.fromDate ? 
+      fromDate: formValue.useDateRange && formValue.fromDate ?
         this.formatDate(formValue.fromDate) : undefined,
-      toDate: formValue.useDateRange && formValue.toDate ? 
+      toDate: formValue.useDateRange && formValue.toDate ?
         this.formatDate(formValue.toDate) : undefined,
       page: this.currentPage,
       size: this.pageSize
@@ -416,16 +436,16 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loading = true;
-    
+
     const formValue = this.searchForm.value;
     const searchParams: PdiDetailSearchParams = {
       chassisNo: formValue.chassisNo?.trim() || undefined,
       dealerCode: formValue.dealerCode === 'ALL' ? undefined : formValue.dealerCode,
       status: formValue.status === 'all' ? undefined : formValue.status,
       useDateRange: formValue.useDateRange,
-      fromDate: formValue.useDateRange && formValue.fromDate ? 
+      fromDate: formValue.useDateRange && formValue.fromDate ?
         this.formatDate(formValue.fromDate) : undefined,
-      toDate: formValue.useDateRange && formValue.toDate ? 
+      toDate: formValue.useDateRange && formValue.toDate ?
         this.formatDate(formValue.toDate) : undefined,
       page: this.currentPage,
       size: this.pageSize
@@ -455,9 +475,9 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
       dealerCode: formValue.dealerCode === 'ALL' ? undefined : formValue.dealerCode,
       status: formValue.status === 'all' ? undefined : formValue.status,
       useDateRange: formValue.useDateRange,
-      fromDate: formValue.useDateRange && formValue.fromDate ? 
+      fromDate: formValue.useDateRange && formValue.fromDate ?
         this.formatDate(formValue.fromDate) : undefined,
-      toDate: formValue.useDateRange && formValue.toDate ? 
+      toDate: formValue.useDateRange && formValue.toDate ?
         this.formatDate(formValue.toDate) : undefined
     };
 
