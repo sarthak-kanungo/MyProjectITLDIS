@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ServicesApiService, PdiDetail, PdiDetailSearchParams, PdiDetailView } from '../../services-api.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
@@ -36,8 +38,10 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
     MatNativeDateModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
   ],
   template: `
     <div class="page-container">
@@ -117,7 +121,7 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
               <mat-spinner diameter="40"></mat-spinner>
             </div>
             
-            <table mat-table [dataSource]="dataSource" class="pdi-table" *ngIf="!loading">
+            <table mat-table [dataSource]="tableDataSource" matSort class="pdi-table" *ngIf="!loading">
               <!-- S.No Column -->
               <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef>S.No</th>
@@ -126,13 +130,33 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
 
               <!-- Chassis No Column -->
               <ng-container matColumnDef="vinNo">
-                <th mat-header-cell *matHeaderCellDef>Chassis No</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="vinNo" (click)="toggleFilter('vinNo', $event)">
+                  <div class="header-with-filter">
+                    <span>Chassis No</span>
+                    <input matInput class="column-filter" 
+                           [class.visible]="visibleFilters['vinNo']"
+                           placeholder="Filter..." 
+                           (keyup)="applyColumnFilter($event, 'vinNo')" 
+                           (click)="$event.stopPropagation()"
+                           (blur)="onFilterBlur('vinNo')">
+                  </div>
+                </th>
                 <td mat-cell *matCellDef="let element">{{ element.vinNo }}</td>
               </ng-container>
 
               <!-- PDI No Column -->
               <ng-container matColumnDef="pdiNo">
-                <th mat-header-cell *matHeaderCellDef>PDI No</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="pdiNo" (click)="toggleFilter('pdiNo', $event)">
+                  <div class="header-with-filter">
+                    <span>PDI No</span>
+                    <input matInput class="column-filter" 
+                           [class.visible]="visibleFilters['pdiNo']"
+                           placeholder="Filter..." 
+                           (keyup)="applyColumnFilter($event, 'pdiNo')" 
+                           (click)="$event.stopPropagation()"
+                           (blur)="onFilterBlur('pdiNo')">
+                  </div>
+                </th>
                 <td mat-cell *matCellDef="let element">
                   <a href="javascript:void(0)" (click)="viewPdiData(element)" class="pdi-link">
                     {{ element.pdiNo }}
@@ -142,25 +166,65 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
 
               <!-- PDI Done Date Column -->
               <ng-container matColumnDef="pdiDate">
-                <th mat-header-cell *matHeaderCellDef>PDI Done Date</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="pdiDate" (click)="toggleFilter('pdiDate', $event)">
+                  <div class="header-with-filter">
+                    <span>PDI Done Date</span>
+                    <input matInput class="column-filter" 
+                           [class.visible]="visibleFilters['pdiDate']"
+                           placeholder="Filter..." 
+                           (keyup)="applyColumnFilter($event, 'pdiDate')" 
+                           (click)="$event.stopPropagation()"
+                           (blur)="onFilterBlur('pdiDate')">
+                  </div>
+                </th>
                 <td mat-cell *matCellDef="let element">{{ element.pdiDate }}</td>
               </ng-container>
 
               <!-- Model Family Column -->
               <ng-container matColumnDef="modelFamily">
-                <th mat-header-cell *matHeaderCellDef>Model Family</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="modelFamily" (click)="toggleFilter('modelFamily', $event)">
+                  <div class="header-with-filter">
+                    <span>Model Family</span>
+                    <input matInput class="column-filter" 
+                           [class.visible]="visibleFilters['modelFamily']"
+                           placeholder="Filter..." 
+                           (keyup)="applyColumnFilter($event, 'modelFamily')" 
+                           (click)="$event.stopPropagation()"
+                           (blur)="onFilterBlur('modelFamily')">
+                  </div>
+                </th>
                 <td mat-cell *matCellDef="let element">{{ element.modelFamily }}</td>
               </ng-container>
 
               <!-- Dealer Name Column -->
               <ng-container matColumnDef="dealerName" *ngIf="showDealerDropdown">
-                <th mat-header-cell *matHeaderCellDef>Dealer Name</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="dealerName" (click)="toggleFilter('dealerName', $event)">
+                  <div class="header-with-filter">
+                    <span>Dealer Name</span>
+                    <input matInput class="column-filter" 
+                           [class.visible]="visibleFilters['dealerName']"
+                           placeholder="Filter..." 
+                           (keyup)="applyColumnFilter($event, 'dealerName')" 
+                           (click)="$event.stopPropagation()"
+                           (blur)="onFilterBlur('dealerName')">
+                  </div>
+                </th>
                 <td mat-cell *matCellDef="let element">{{ element.dealerCode }} [{{ element.dealerName }}]</td>
               </ng-container>
 
               <!-- Location Column -->
               <ng-container matColumnDef="location" *ngIf="showDealerDropdown">
-                <th mat-header-cell *matHeaderCellDef>Location</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="location" (click)="toggleFilter('location', $event)">
+                  <div class="header-with-filter">
+                    <span>Location</span>
+                    <input matInput class="column-filter" 
+                           [class.visible]="visibleFilters['location']"
+                           placeholder="Filter..." 
+                           (keyup)="applyColumnFilter($event, 'location')" 
+                           (click)="$event.stopPropagation()"
+                           (blur)="onFilterBlur('location')">
+                  </div>
+                </th>
                 <td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
               </ng-container>
 
@@ -288,6 +352,56 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
       align-items: center;
       margin-top: 0;
     }
+    .button-group mat-icon {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        margin-right: 4px;
+    }
+    .pdi-table th {
+        position: relative;
+    }
+    .header-with-filter {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        position: relative;
+        cursor: pointer;
+    }
+    .header-with-filter span {
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .header-with-filter span::after {
+        content: '🔍';
+        font-size: 10px;
+        opacity: 0.5;
+    }
+    .column-filter {
+        width: 100%;
+        font-size: 10px;
+        padding: 2px 4px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        background: white;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        margin-top: 4px;
+        color: black;
+        font-weight: normal;
+    }
+    .column-filter.visible {
+        display: block;
+        opacity: 1;
+    }
+    .column-filter:focus {
+        outline: 1px solid #1976d2;
+        border-color: #1976d2;
+    }
     .table-container {
       margin-top: 16px;
       position: relative;
@@ -329,14 +443,21 @@ import { PdiDetailDialogComponent } from './pdi-detail-dialog.component';
   `]
 })
 export class ViewPdiComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
+
   searchForm: FormGroup;
   dataSource: PdiDetail[] = [];
+  tableDataSource = new MatTableDataSource<PdiDetail>([]);
   displayedColumns: string[] = [];
   dealerList: any[] = [];
   showDealerDropdown: boolean = true; // Set based on user permissions
   loading: boolean = false;
   hasResults: boolean = false;
   searched: boolean = false;
+
+  // Column filters
+  columnFilters: { [key: string]: string } = {};
+  visibleFilters: { [key: string]: boolean } = {};
 
   // Pagination
   totalElements: number = 0;
@@ -376,6 +497,30 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     setTimeout(() => this.scrollToTop(), 0);
     setTimeout(() => this.scrollToTop(), 50);
     setTimeout(() => this.scrollToTop(), 100);
+
+    // Set up custom sort accessor
+    this.tableDataSource.sortingDataAccessor = (item: PdiDetail, property: string) => {
+      switch (property) {
+        case 'dealerName':
+          return item.dealerName || '';
+        case 'location':
+          return item.locationName || '';
+        default:
+          const value = (item as any)[property];
+          return value != null ? value : '';
+      }
+    };
+
+    // Connect sort to data source after view init
+    setTimeout(() => {
+      this.connectSort();
+    }, 200);
+  }
+
+  private connectSort(): void {
+    if (this.sort) {
+      this.tableDataSource.sort = this.sort;
+    }
   }
 
   private setupDisplayedColumns(): void {
@@ -417,9 +562,16 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.apiService.getPdiDetailsList(searchParams).subscribe({
       next: (response) => {
         this.dataSource = response.content || [];
+        this.tableDataSource.data = this.dataSource;
         this.totalElements = response.totalElements || 0;
         this.hasResults = this.dataSource.length > 0;
         this.loading = false;
+
+        // Reconnect sort after data load
+        if (this.sort) {
+          this.tableDataSource.sort = this.sort;
+        }
+        this.reapplyColumnFilters();
       },
       error: (error) => {
         console.error('Error loading PDI details list:', error);
@@ -454,9 +606,12 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.apiService.getPdiDetailsList(searchParams).subscribe({
       next: (response) => {
         this.dataSource = response.content || [];
+        this.tableDataSource.data = this.dataSource;
         this.totalElements = response.totalElements || 0;
         this.hasResults = this.dataSource.length > 0;
         this.loading = false;
+
+        this.reapplyColumnFilters();
       },
       error: (error) => {
         console.error('Error loading PDI details list:', error);
@@ -502,6 +657,91 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  toggleFilter(column: string, event: Event): void {
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'INPUT' || target.closest('.mat-sort-header-arrow')) {
+      return;
+    }
+
+    if (target.closest('button') || target.closest('.mat-sort-header')) {
+      const sortArrow = target.querySelector('.mat-sort-header-arrow');
+      if (sortArrow && sortArrow.contains(target)) {
+        return;
+      }
+    }
+
+    this.visibleFilters[column] = !this.visibleFilters[column];
+
+    if (this.visibleFilters[column]) {
+      setTimeout(() => {
+        const headerCell = (event.currentTarget as HTMLElement);
+        const input = headerCell.querySelector('.column-filter') as HTMLInputElement;
+        if (input) input.focus();
+      }, 0);
+    }
+  }
+
+  onFilterBlur(column: string): void {
+    if (!this.columnFilters[column] || this.columnFilters[column].trim() === '') {
+      setTimeout(() => {
+        if (!this.columnFilters[column] || this.columnFilters[column].trim() === '') {
+          this.visibleFilters[column] = false;
+        }
+      }, 200);
+    }
+  }
+
+  applyColumnFilter(event: Event, column: string): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.columnFilters[column] = filterValue.trim().toLowerCase();
+
+    if (this.columnFilters[column] && this.columnFilters[column].length > 0) {
+      this.visibleFilters[column] = true;
+    }
+
+    this.reapplyColumnFilters();
+  }
+
+  private reapplyColumnFilters(): void {
+    this.tableDataSource.filterPredicate = (data: PdiDetail, filter: string) => {
+      for (const [col, filterVal] of Object.entries(this.columnFilters)) {
+        if (filterVal && filterVal.length > 0) {
+          let cellValue = '';
+
+          switch (col) {
+            case 'vinNo':
+              cellValue = (data.vinNo || '').toLowerCase();
+              break;
+            case 'pdiNo':
+              cellValue = (data.pdiNo || '').toLowerCase();
+              break;
+            case 'pdiDate':
+              cellValue = (data.pdiDate || '').toLowerCase();
+              break;
+            case 'modelFamily':
+              cellValue = (data.modelFamily || '').toLowerCase();
+              break;
+            case 'dealerName':
+              cellValue = ((data.dealerCode || '') + ' ' + (data.dealerName || '')).toLowerCase();
+              break;
+            case 'location':
+              cellValue = (data.locationName || '').toLowerCase();
+              break;
+            default:
+              cellValue = '';
+          }
+
+          if (!cellValue.includes(filterVal)) {
+            return false;
+          }
+        }
+      }
+      return true;
+    };
+
+    this.tableDataSource.filter = Math.random().toString();
   }
 
   viewPdiData(element: PdiDetail): void {
