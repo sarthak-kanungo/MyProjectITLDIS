@@ -110,6 +110,33 @@ export interface PdiDetailView {
   pdiDoneBy: string;
   jobCardNo: string;
   createJobCard: boolean;
+  travelCardParts: TravelCardPart[];
+  checklist: ChecklistGroup[];
+}
+
+export interface TravelCardPart {
+  sno: number;
+  contentDesc: string; // Part Name
+  observation: string; // Part Vendor Name
+  serialNo: string;    // Part Serial No
+}
+
+export interface ChecklistItem {
+  subContentId: string;
+  subContentDesc: string;
+  textBoxOption: string; // "OK", "NOT OK" or value
+  actionTaken: string;
+  observations: string;
+}
+
+export interface ChecklistGroup {
+  contentId: string;
+  contentDesc: string;
+  items: ChecklistItem[];
+  // For groups that don't have sub-items but direct status
+  status?: string;
+  actionTaken?: string;
+  observations?: string;
 }
 
 @Injectable({
@@ -118,7 +145,7 @@ export interface PdiDetailView {
 export class ServicesApiService {
   private readonly apiUrl = 'http://localhost:8082/api/services';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Job Cards
   getAllJobCards(): Observable<JobCard[]> {
@@ -181,7 +208,7 @@ export class ServicesApiService {
     if (params.dealerCode) httpParams = httpParams.set('dealerCode', params.dealerCode);
     if (params.page !== undefined) httpParams = httpParams.set('page', params.page.toString());
     if (params.size) httpParams = httpParams.set('size', params.size.toString());
-    
+
     return this.http.get<PendingPdiResponse>(`${this.apiUrl}/pdi/pending-chassis`, {
       params: httpParams
     });
@@ -191,7 +218,7 @@ export class ServicesApiService {
     let httpParams = new HttpParams();
     if (params.chassisNo) httpParams = httpParams.set('chassisNo', params.chassisNo);
     if (params.dealerCode) httpParams = httpParams.set('dealerCode', params.dealerCode);
-    
+
     return this.http.get(`${this.apiUrl}/pdi/pending-chassis/export`, {
       params: httpParams,
       responseType: 'blob'
@@ -209,7 +236,7 @@ export class ServicesApiService {
     if (params.useDateRange !== undefined) httpParams = httpParams.set('useDateRange', params.useDateRange.toString());
     if (params.page !== undefined) httpParams = httpParams.set('page', params.page.toString());
     if (params.size) httpParams = httpParams.set('size', params.size.toString());
-    
+
     return this.http.get<PdiDetailResponse>(`${this.apiUrl}/pdi/details`, {
       params: httpParams
     });
@@ -223,7 +250,7 @@ export class ServicesApiService {
     if (params.toDate) httpParams = httpParams.set('toDate', params.toDate);
     if (params.status) httpParams = httpParams.set('status', params.status);
     if (params.useDateRange !== undefined) httpParams = httpParams.set('useDateRange', params.useDateRange.toString());
-    
+
     return this.http.get(`${this.apiUrl}/pdi/details/export`, {
       params: httpParams,
       responseType: 'blob'
@@ -235,7 +262,7 @@ export class ServicesApiService {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('vinNo', vinNo);
     httpParams = httpParams.set('pdiNo', pdiNo);
-    
+
     return this.http.get<PdiDetailView>(`${this.apiUrl}/pdi/details/view`, {
       params: httpParams
     });

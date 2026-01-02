@@ -91,26 +91,30 @@ public class DataInitializer implements ApplicationRunner {
     }
 
     private void initializePdiDetails() {
-        // First, create some vehicles with completed PDI status (pdiStatus='Y')
-        createCompletedPdiVehicle("VIN101", "DLR001", "CHASSIS101", "Tractor", "MODEL001", LocalDate.now().minusDays(2));
-        createCompletedPdiVehicle("VIN102", "DLR001", "CHASSIS102", "Tractor", "MODEL002", LocalDate.now().minusDays(5));
-        createCompletedPdiVehicle("VIN103", "DLR002", "CHASSIS103", "Harvester", "MODEL003", LocalDate.now().minusDays(8));
-        createCompletedPdiVehicle("VIN104", "DLR002", "CHASSIS104", "Tractor", "MODEL001", LocalDate.now().minusDays(12));
-        createCompletedPdiVehicle("VIN105", "DLR003", "CHASSIS105", "Harvester", "MODEL004", LocalDate.now().minusDays(15));
-        createCompletedPdiVehicle("VIN106", "DLR003", "CHASSIS106", "Tractor", "MODEL002", LocalDate.now().minusDays(18));
-        createCompletedPdiVehicle("VIN107", "DLR004", "CHASSIS107", "Tractor", "MODEL001", LocalDate.now().minusDays(22));
-        createCompletedPdiVehicle("VIN108", "DLR004", "CHASSIS108", "Harvester", "MODEL003", LocalDate.now().minusDays(25));
-        createCompletedPdiVehicle("VIN109", "DLR005", "CHASSIS109", "Tractor", "MODEL002", LocalDate.now().minusDays(28));
-        createCompletedPdiVehicle("VIN110", "DLR005", "CHASSIS110", "Harvester", "MODEL004", LocalDate.now().minusDays(30));
-        createCompletedPdiVehicle("VIN111", "DLR001", "CHASSIS111", "Tractor", "MODEL001", LocalDate.now().minusDays(1));
-        createCompletedPdiVehicle("VIN112", "DLR002", "CHASSIS112", "Tractor", "MODEL002", LocalDate.now().minusDays(3));
-        createCompletedPdiVehicle("VIN113", "DLR003", "CHASSIS113", "Harvester", "MODEL003", LocalDate.now().minusDays(6));
-        createCompletedPdiVehicle("VIN114", "DLR004", "CHASSIS114", "Tractor", "MODEL001", LocalDate.now().minusDays(10));
-        createCompletedPdiVehicle("VIN115", "DLR005", "CHASSIS115", "Harvester", "MODEL004", LocalDate.now().minusDays(14));
+        // Create 50 vehicles with completed PDI status (pdiStatus='Y') for testing View PDI
+        String[] modelFamilies = {"TRACTOR", "HARVESTER", "IMPLEMENT", "ROTAVATOR"};
+        String[] modelCodes = {"MODEL001", "MODEL002", "MODEL003", "MODEL004"};
+        String[] dealers = {"DLR001", "DLR002", "DLR003", "DLR004", "DLR005"};
+
+        for (int i = 1; i <= 50; i++) {
+            String vinid = String.format("VIN%03d", 100 + i);
+            String binNo = String.format("CHASSIS%03d", 100 + i);
+            String dealerCode = dealers[(i - 1) % dealers.length];
+            String modelFamily = modelFamilies[(i - 1) % modelFamilies.length];
+            String modelCode = modelCodes[(i - 1) % modelCodes.length];
+            
+            // Varied dates
+            LocalDate pdiDate = LocalDate.now().minusDays(i % 365); 
+            
+            // Special case for INS records (e.g., every 5th record)
+            boolean isInstallation = (i % 5 == 0);
+            
+            createCompletedPdiVehicle(vinid, dealerCode, binNo, modelFamily, modelCode, pdiDate, isInstallation);
+        }
     }
 
     private void createCompletedPdiVehicle(String vinid, String dealerCode, String vinNo, 
-                                           String modelFamily, String modelCode, LocalDate pdiDate) {
+                                           String modelFamily, String modelCode, LocalDate pdiDate, boolean isInstallation) {
         // Create vehicle with completed PDI status
         VehicleDetails vehicle = new VehicleDetails();
         vehicle.setVinid(vinid);
@@ -127,7 +131,10 @@ public class DataInitializer implements ApplicationRunner {
 
         // Create corresponding PDI Details record
         PdiDetails pdiDetails = new PdiDetails();
-        pdiDetails.setPdiNo("PDI" + vinid.substring(3));
+        // Use INS prefix if isInstallation is true
+        String prefix = isInstallation ? "INS" : "PDI";
+        pdiDetails.setPdiNo(prefix + "/2025/" + (100 + Integer.parseInt(vinid.substring(3))));
+        
         pdiDetails.setDealercode(dealerCode);
         pdiDetails.setVinNo(vinNo);
         pdiDetails.setPdiDate(pdiDate);

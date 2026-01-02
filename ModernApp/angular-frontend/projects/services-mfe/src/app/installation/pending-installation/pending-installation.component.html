@@ -1,0 +1,81 @@
+<div class="pending-installation-container">
+
+    <div class="breadcrumb_container">
+        <span class="breadcrumb_link"><a href="#">SERVICE</a> > PENDING FOR INSTALLATION</span>
+    </div>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <div style="text-align: center;">
+        <div class="content_right1">
+            <div class="con_slidediv2">
+                <h1>PENDING FOR INSTALLATION</h1>
+
+                <!-- Search Form as Table -->
+                <table class="search-table" width="100%" border="0" cellspacing="0" cellpadding="4"
+                    bordercolor="#cccccc">
+                    <tr height="25" bgcolor="#FFFFFF">
+                        <td align="center" class="headingSpas">
+                            <form (submit)="filterData(); $event.preventDefault()">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td style="padding-left:10px" width="100px" class="headingSpas" nowrap
+                                            align="right">
+                                            <span class="formLabel">Chassis No&nbsp;&nbsp;</span>
+                                        </td>
+                                        <td style="padding-left:10px" width="140px" align="left">
+                                            <input type="text" [(ngModel)]="searchTerm" name="nameSrch" class="txtField"
+                                                style="width:200px">
+                                        </td>
+
+                                        <td align="left" style="padding-left: 10px; white-space: nowrap;">
+                                            <input type="button" value="SEARCH" class="btn" (click)="filterData()">
+                                            &nbsp;
+                                            <input type="button" value="EXPORT" class="btn" (click)="exportToCSV()">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Data Grid -->
+                <div class="grid-container">
+                    <table class="data-table" cellspacing="1" cellpadding="4" width="100%" bgcolor="#cccccc">
+                        <thead>
+                            <tr bgcolor="#eeeeee" class="grid-header">
+                                <th width="3%" align="center">S No.</th>
+                                <th width="15%" align="left">Chassis No.</th>
+                                <th width="10%" align="left">Model Family</th>
+                                <th width="10%" align="left">Model Code</th>
+                                <th width="20%" align="left">Customer Name</th>
+                                <th width="10%" align="left">Mobile Phone</th>
+                                <th width="10%" align="center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of filteredInstallations; let i = index" bgcolor="#FFFFFF"
+                                class="grid-row">
+                                <td align="center">{{ i + 1 }}</td>
+                                <td align="left">{{ item.vinNo }}</td>
+                                <td align="left">{{ item.modelFamily }}</td>
+                                <td align="left">{{ item.modelCode }}</td>
+                                <td align="left">{{ item.customerName }}</td>
+                                <td align="left">{{ item.mobilePh }}</td>
+                                <td align="center">
+                                    <a [routerLink]="['/dashboard/services/installation-form', item.vinNo]">Submit</a>
+                                </td>
+                            </tr>
+                            <tr *ngIf="filteredInstallations.length === 0" bgcolor="#FFFFFF">
+                                <td colspan="7" class="no-records" align="center">No Record Found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

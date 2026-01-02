@@ -574,7 +574,30 @@ public class PdiService {
             dto.setPdiDoneBy(pdi.getCreatedBy() != null ? pdi.getCreatedBy() : "-");
             dto.setTractorReceivedDate("-"); // Not available in current schema
             dto.setJobCardNo(""); // Not available in current schema
-            dto.setCreateJobCard(false);
+            dto.setCreateJobCard(true); // Enabled for demo workflow
+            dto.setJobCardNo("JC-" + dto.getVinNo().substring(Math.max(0, dto.getVinNo().length() - 5)));
+
+            // Mock Data for Travel Card Parts (Replica of legacy functionality capability)
+            List<com.modernapp.services.dto.TravelCardPartDto> parts = new ArrayList<>();
+            parts.add(new com.modernapp.services.dto.TravelCardPartDto(1, "Battery", "Exide", "BAT-8822"));
+            parts.add(new com.modernapp.services.dto.TravelCardPartDto(2, "Starter Motor", "Bosch", "SM-1102"));
+            parts.add(new com.modernapp.services.dto.TravelCardPartDto(3, "Alternator", "Lucas", "ALT-5541"));
+            dto.setTravelCardParts(parts);
+
+            // Mock Data for Checklist (Replica of legacy functionality capability)
+            List<com.modernapp.services.dto.ChecklistGroupDto> checklist = new ArrayList<>();
+            
+            List<com.modernapp.services.dto.ChecklistItemDto> electricalItems = new ArrayList<>();
+            electricalItems.add(new com.modernapp.services.dto.ChecklistItemDto("101", "Check Battery Condition", "OK", "", "Voltage 12.5V"));
+            electricalItems.add(new com.modernapp.services.dto.ChecklistItemDto("102", "Check Lights & Indicators", "OK", "", "All working"));
+            checklist.add(new com.modernapp.services.dto.ChecklistGroupDto("100", "Electrical System", electricalItems));
+
+            List<com.modernapp.services.dto.ChecklistItemDto> engineItems = new ArrayList<>();
+            engineItems.add(new com.modernapp.services.dto.ChecklistItemDto("201", "Check Oil Level", "OK", "", "Level Correct"));
+            engineItems.add(new com.modernapp.services.dto.ChecklistItemDto("202", "Check Coolant Level", "OK", "", "Top up done"));
+             checklist.add(new com.modernapp.services.dto.ChecklistGroupDto("200", "Engine System", engineItems));
+
+            dto.setChecklist(checklist);
 
             return dto;
 

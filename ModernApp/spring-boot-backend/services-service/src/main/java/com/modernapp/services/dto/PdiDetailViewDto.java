@@ -22,6 +22,8 @@ public class PdiDetailViewDto {
     private String pdiDoneBy;
     private String jobCardNo;
     private boolean createJobCard;
+    private java.util.List<TravelCardPartDto> travelCardParts;
+    private java.util.List<ChecklistGroupDto> checklist;
 
     public PdiDetailViewDto() {
     }
@@ -177,6 +179,22 @@ public class PdiDetailViewDto {
 
     public void setCreateJobCard(boolean createJobCard) {
         this.createJobCard = createJobCard;
+    }
+
+    public java.util.List<TravelCardPartDto> getTravelCardParts() {
+        return travelCardParts;
+    }
+
+    public void setTravelCardParts(java.util.List<TravelCardPartDto> travelCardParts) {
+        this.travelCardParts = travelCardParts;
+    }
+
+    public java.util.List<ChecklistGroupDto> getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(java.util.List<ChecklistGroupDto> checklist) {
+        this.checklist = checklist;
     }
 }
 
