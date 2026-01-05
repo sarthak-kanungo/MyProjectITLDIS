@@ -608,22 +608,7 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     <html xmlns:x="urn:schemas-microsoft-com:office:excel">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <!--[if gte mso 9]>
-      <xml>
-        <x:ExcelWorkbook>
-          <x:ExcelWorksheets>
-            <x:ExcelWorksheet>
-              <x:Name>View_PDI_List</x:Name>
-              <x:WorksheetOptions>
-                <x:Print>
-                  <x:ValidPrinterInfo/>
-                </x:Print>
-              </x:WorksheetOptions>
-            </x:ExcelWorksheet>
-          </x:ExcelWorksheets>
-        </x:ExcelWorkbook>
-      </xml>
-      <![endif]-->
+
       <style>
         body { font-family: Arial, sans-serif; font-size: 11px; }
         .textPaging { font-weight: bold; background-color: #eeeeee; }
@@ -634,10 +619,10 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     </head>
     <body>
       <center>
-         <h3>View PDI Detail</h3>
+         <h3>VIEW PDI DETAIL</h3>
          <table width="100%" border="1" cellspacing="1" cellpadding="4">
            <!-- Filter Row -->
-           <tr bgcolor="#eeeeee" height="20">
+           <tr bgcolor="#eeeeee" height="30">
               <td colspan="7" align="left" bgcolor="#eeeeee" class="textPaging">
                  <span>
                     <b>Filter On :-</b> &nbsp;&nbsp;
@@ -670,7 +655,7 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     } else {
       data.forEach((item, index) => {
         html += `
-          <tr bgcolor="#ffffff" height="20">
+          <tr bgcolor="#ffffff" height="30">
              <td align="center">${index + 1}</td>
              <td align="left">${item.vinNo}</td>
              <td align="left">${item.pdiNo}</td>
@@ -681,6 +666,13 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
           </tr>`;
       });
     }
+
+    // Add empty row with border at the bottom
+    html += `
+      <tr height="30">
+        <td colspan="7"></td>
+      </tr>
+    `;
 
     html += `
          </table>
