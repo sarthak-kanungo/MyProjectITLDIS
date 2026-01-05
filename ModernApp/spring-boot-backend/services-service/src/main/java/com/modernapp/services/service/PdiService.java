@@ -48,32 +48,12 @@ public class PdiService {
                                                      int page, int size) {
         try {
             // Build query filters
-            List<VehicleDetails> allPendingVehicles;
-            
-            if (chassisNo != null && !chassisNo.trim().isEmpty() && 
-                dealerCode != null && !dealerCode.trim().isEmpty() && !dealerCode.equalsIgnoreCase("ALL")) {
-                // Filter by both chassis and dealer
-                allPendingVehicles = vehicleDetailsRepository.findByPdiStatus('N')
-                    .stream()
-                    .filter(v -> v.getVinNo() != null && v.getVinNo().toUpperCase().contains(chassisNo.trim().toUpperCase()))
-                    .filter(v -> v.getDealerCode() != null && v.getDealerCode().equals(dealerCode.trim()))
-                    .collect(Collectors.toList());
-            } else if (chassisNo != null && !chassisNo.trim().isEmpty()) {
-                // Filter by chassis only
-                allPendingVehicles = vehicleDetailsRepository.findByPdiStatus('N')
-                    .stream()
-                    .filter(v -> v.getVinNo() != null && v.getVinNo().toUpperCase().contains(chassisNo.trim().toUpperCase()))
-                    .collect(Collectors.toList());
-            } else if (dealerCode != null && !dealerCode.trim().isEmpty() && !dealerCode.equalsIgnoreCase("ALL")) {
-                // Filter by dealer only
-                allPendingVehicles = vehicleDetailsRepository.findByDealerCode(dealerCode.trim())
-                    .stream()
-                    .filter(v -> v.getPdiStatus() != null && v.getPdiStatus().equals('N'))
-                    .collect(Collectors.toList());
-            } else {
-                // No filters
-                allPendingVehicles = vehicleDetailsRepository.findByPdiStatus('N');
-            }
+            // Prepare filters
+            String chassisFilter = (chassisNo != null && !chassisNo.trim().isEmpty()) ? chassisNo.trim() : null;
+            String dealerFilter = (dealerCode != null && !dealerCode.trim().isEmpty() && !dealerCode.equalsIgnoreCase("ALL")) ? dealerCode.trim() : null;
+
+            // Use DB search
+            List<VehicleDetails> allPendingVehicles = vehicleDetailsRepository.findPendingPdiChassis(chassisFilter, dealerFilter);
 
             // Get all dealers for lookup
             Map<String, DealerVsLocationCode> dealerMap = dealerRepository.findAll()
@@ -153,28 +133,12 @@ public class PdiService {
     public List<PendingChassisDto> getAllPendingChassisForExport(String chassisNo, String dealerCode) {
         try {
             // Build query filters (same logic as getPendingChassisList but without pagination)
-            List<VehicleDetails> allPendingVehicles;
-            
-            if (chassisNo != null && !chassisNo.trim().isEmpty() && 
-                dealerCode != null && !dealerCode.trim().isEmpty() && !dealerCode.equalsIgnoreCase("ALL")) {
-                allPendingVehicles = vehicleDetailsRepository.findByPdiStatus('N')
-                    .stream()
-                    .filter(v -> v.getVinNo() != null && v.getVinNo().toUpperCase().contains(chassisNo.trim().toUpperCase()))
-                    .filter(v -> v.getDealerCode() != null && v.getDealerCode().equals(dealerCode.trim()))
-                    .collect(Collectors.toList());
-            } else if (chassisNo != null && !chassisNo.trim().isEmpty()) {
-                allPendingVehicles = vehicleDetailsRepository.findByPdiStatus('N')
-                    .stream()
-                    .filter(v -> v.getVinNo() != null && v.getVinNo().toUpperCase().contains(chassisNo.trim().toUpperCase()))
-                    .collect(Collectors.toList());
-            } else if (dealerCode != null && !dealerCode.trim().isEmpty() && !dealerCode.equalsIgnoreCase("ALL")) {
-                allPendingVehicles = vehicleDetailsRepository.findByDealerCode(dealerCode.trim())
-                    .stream()
-                    .filter(v -> v.getPdiStatus() != null && v.getPdiStatus().equals('N'))
-                    .collect(Collectors.toList());
-            } else {
-                allPendingVehicles = vehicleDetailsRepository.findByPdiStatus('N');
-            }
+            // Prepare filters
+            String chassisFilter = (chassisNo != null && !chassisNo.trim().isEmpty()) ? chassisNo.trim() : null;
+            String dealerFilter = (dealerCode != null && !dealerCode.trim().isEmpty() && !dealerCode.equalsIgnoreCase("ALL")) ? dealerCode.trim() : null;
+
+            // Use DB search
+            List<VehicleDetails> allPendingVehicles = vehicleDetailsRepository.findPendingPdiChassis(chassisFilter, dealerFilter);
 
             // Get all dealers for lookup
             Map<String, DealerVsLocationCode> dealerMap = dealerRepository.findAll()

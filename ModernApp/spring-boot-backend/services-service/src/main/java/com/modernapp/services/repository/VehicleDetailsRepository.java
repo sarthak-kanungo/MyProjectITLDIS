@@ -18,7 +18,7 @@ public interface VehicleDetailsRepository extends JpaRepository<VehicleDetails, 
     List<VehicleDetails> findByDealerCode(String dealerCode);
     
     @Query("SELECT v FROM VehicleDetails v WHERE v.pdiStatus = 'N' " +
-           "AND (:chassisNo IS NULL OR v.vinNo LIKE %:chassisNo%) " +
+           "AND (:chassisNo IS NULL OR v.vinNo LIKE CONCAT('%', :chassisNo, '%')) " +
            "AND (:dealerCode IS NULL OR v.dealerCode = :dealerCode)")
     List<VehicleDetails> findPendingPdiChassis(@Param("chassisNo") String chassisNo, 
                                                @Param("dealerCode") String dealerCode);
