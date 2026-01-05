@@ -472,12 +472,15 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.loading = true;
     const formValue = this.searchForm.value;
 
+    const fromDateLegacy = formValue.useDateRange && formValue.fromDate ? this.formatDateForApi(formValue.fromDate) : undefined;
+    const toDateLegacy = formValue.useDateRange && formValue.toDate ? this.formatDateForApi(formValue.toDate) : undefined;
+
     const searchParams: PdiDetailSearchParams = {
       chassisNo: formValue.chassisNo?.trim() || undefined,
       status: formValue.status === 'all' ? undefined : formValue.status,
       useDateRange: formValue.useDateRange,
-      fromDate: formValue.useDateRange ? formValue.fromDate : undefined,
-      toDate: formValue.useDateRange ? formValue.toDate : undefined,
+      fromDate: fromDateLegacy,
+      toDate: toDateLegacy,
       page: this.currentPage,
       size: this.pageSize
     };
@@ -497,6 +500,17 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  // Helper to convert YYYY-MM-DD to dd/MM/yyyy
+  private formatDateForApi(dateStr: string): string {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateStr;
+  }
+
 
   // Local Processing (Filtering & Sorting)
   processData(): void {
@@ -556,12 +570,15 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.loading = true;
     const formValue = this.searchForm.value;
 
+    const fromDateLegacy = formValue.useDateRange && formValue.fromDate ? this.formatDateForApi(formValue.fromDate) : undefined;
+    const toDateLegacy = formValue.useDateRange && formValue.toDate ? this.formatDateForApi(formValue.toDate) : undefined;
+
     const searchParams: PdiDetailSearchParams = {
       chassisNo: formValue.chassisNo?.trim() || undefined,
       status: formValue.status === 'all' ? undefined : formValue.status,
       useDateRange: formValue.useDateRange,
-      fromDate: formValue.useDateRange ? formValue.fromDate : undefined,
-      toDate: formValue.useDateRange ? formValue.toDate : undefined,
+      fromDate: fromDateLegacy,
+      toDate: toDateLegacy,
       page: 0,
       size: 10000 // Fetch larger set (simulating 'all') for export
     };
@@ -569,7 +586,7 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     this.apiService.getPdiDetailsList(searchParams).subscribe({
       next: (response) => {
         const data = response.content || [];
-        this.generateLegacyExcel(data, formValue);
+        this.generateLegacyExcel(data, formValue, fromDateLegacy, toDateLegacy);
         this.loading = false;
       },
       error: (error) => {
@@ -580,10 +597,10 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private generateLegacyExcel(data: PdiDetail[], filters: any): void {
+  private generateLegacyExcel(data: PdiDetail[], filters: any, fromDateFormatted?: string, toDateFormatted?: string): void {
     // Replicate filters text from Legacy JSP
     const chassisFilter = filters.chassisNo || '';
-    const dateRange = filters.useDateRange ? `${filters.fromDate} to ${filters.toDate}` : '';
+    const dateRange = filters.useDateRange && fromDateFormatted && toDateFormatted ? `${fromDateFormatted} to ${toDateFormatted}` : '';
     const statusFilter = filters.status || 'All';
     const dealerFilter = 'ALL'; // Default since we don't have Dealer selection context in this component yet
 
