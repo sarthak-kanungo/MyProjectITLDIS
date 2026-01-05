@@ -24,12 +24,6 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
               PDI For Chassis No: {{ data?.vinNo }}
            </div>
            <div class="header-actions">
-               <a *ngIf="data?.createJobCard" 
-                  href="javascript:void(0)" 
-                  (click)="viewJobCard()" 
-                  class="view-job-card-link">
-                 View Job Card
-               </a>
                <button mat-icon-button (click)="printPDI()" title="Print">
                  <mat-icon>print</mat-icon>
                </button>
@@ -234,13 +228,7 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
         padding-right: 10px;
     }
 
-    .view-job-card-link {
-       color: #0056b3;
-       text-decoration: underline;
-       font-weight: bold;
-       cursor: pointer;
-       font-size: 11px;
-    }
+
 
     .pdi-content {
         padding: 5px;
@@ -392,17 +380,7 @@ export class PdiDetailComponent implements OnInit {
         }
     }
 
-    viewJobCard(): void {
-        if (this.data) {
-            this.router.navigate(['/dashboard/services/view-job-card'], {
-                queryParams: {
-                    jobCardNo: this.data.jobCardNo,
-                    vinNo: this.data.vinNo,
-                    flag: 'PDI'
-                }
-            });
-        }
-    }
+
 
     goBack(): void {
         this.router.navigate(['/dashboard/services/view-pdi']);

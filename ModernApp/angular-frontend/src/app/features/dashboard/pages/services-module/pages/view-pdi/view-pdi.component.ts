@@ -433,15 +433,15 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const today = new Date();
+    const now = new Date();
+    // Get local date string YYYY-MM-DD
+    const todayStr = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
 
     this.searchForm = this.fb.group({
       chassisNo: [''],
-      useDateRange: [false],
-      fromDate: [yesterday.toISOString().split('T')[0]],
-      toDate: [today.toISOString().split('T')[0]],
+      useDateRange: [true], // Default Checked as per requirement
+      fromDate: [todayStr], // Default Today
+      toDate: [todayStr],   // Default Today
       status: ['all']
     });
   }
