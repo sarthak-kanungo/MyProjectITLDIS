@@ -430,7 +430,8 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private apiService: ServicesApiService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -552,17 +553,141 @@ export class ViewPdiComponent implements OnInit, AfterViewInit {
   }
 
   onExport(): void {
-    // Implement format-specific export if needed, logic remains similar
-    console.log('Exporting...');
+    this.loading = true;
+    const formValue = this.searchForm.value;
+
+    const searchParams: PdiDetailSearchParams = {
+      chassisNo: formValue.chassisNo?.trim() || undefined,
+      status: formValue.status === 'all' ? undefined : formValue.status,
+      useDateRange: formValue.useDateRange,
+      fromDate: formValue.useDateRange ? formValue.fromDate : undefined,
+      toDate: formValue.useDateRange ? formValue.toDate : undefined,
+      page: 0,
+      size: 10000 // Fetch larger set (simulating 'all') for export
+    };
+
+    this.apiService.getPdiDetailsList(searchParams).subscribe({
+      next: (response) => {
+        const data = response.content || [];
+        this.generateLegacyExcel(data, formValue);
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Export failed', error);
+        this.loading = false;
+        alert('Export failed. Please try again.');
+      }
+    });
+  }
+
+  private generateLegacyExcel(data: PdiDetail[], filters: any): void {
+    // Replicate filters text from Legacy JSP
+    const chassisFilter = filters.chassisNo || '';
+    const dateRange = filters.useDateRange ? `${filters.fromDate} to ${filters.toDate}` : '';
+    const statusFilter = filters.status || 'All';
+    const dealerFilter = 'ALL'; // Default since we don't have Dealer selection context in this component yet
+
+    let html = `
+    <html xmlns:x="urn:schemas-microsoft-com:office:excel">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <!--[if gte mso 9]>
+      <xml>
+        <x:ExcelWorkbook>
+          <x:ExcelWorksheets>
+            <x:ExcelWorksheet>
+              <x:Name>View_PDI_List</x:Name>
+              <x:WorksheetOptions>
+                <x:Print>
+                  <x:ValidPrinterInfo/>
+                </x:Print>
+              </x:WorksheetOptions>
+            </x:ExcelWorksheet>
+          </x:ExcelWorksheets>
+        </x:ExcelWorkbook>
+      </xml>
+      <![endif]-->
+      <style>
+        body { font-family: Arial, sans-serif; font-size: 11px; }
+        .textPaging { font-weight: bold; background-color: #eeeeee; }
+        .headingSpas { font-weight: bold; font-size: 11px; background-color: #cccccc; }
+        table { border-collapse: collapse; }
+        td, th { border: 1px solid #cccccc; padding: 4px; font-size: 11px; }
+      </style>
+    </head>
+    <body>
+      <center>
+         <h3>View PDI Detail</h3>
+         <table width="100%" border="1" cellspacing="1" cellpadding="4">
+           <!-- Filter Row -->
+           <tr bgcolor="#eeeeee" height="20">
+              <td colspan="7" align="left" bgcolor="#eeeeee" class="textPaging">
+                 <span>
+                    <b>Filter On :-</b> &nbsp;&nbsp;
+                    <b>Chassis No : [</b> ${chassisFilter} <b>]</b> &nbsp;&nbsp;
+                    <b>PDI Date   : [</b> ${dateRange} <b>]</b> &nbsp;&nbsp;
+                    <b>Status     : [</b> ${statusFilter} <b>]</b> &nbsp;&nbsp;
+                    <b>Dealer     : [</b> ${dealerFilter} <b>]</b>
+                 </span>
+              </td>
+           </tr>
+           
+           <!-- Header Row -->
+           <tr bgcolor="#eeeeee" height="20">
+               <th align="center">S.No</th>
+               <th align="left">Chassis No.</th>
+               <th align="left">PDI No.</th>
+               <th align="left">PDI Date</th>
+               <th align="left">Model Family</th>
+               <th align="left">Dealer Name</th>
+               <th align="left">Location</th>
+           </tr>
+    `;
+
+    // Data Rows
+    if (data.length === 0) {
+      html += `
+         <tr>
+           <td colspan="7" align="center" style="color:red; padding:10px;">No Records Found</td>
+         </tr>`;
+    } else {
+      data.forEach((item, index) => {
+        html += `
+          <tr bgcolor="#ffffff" height="20">
+             <td align="center">${index + 1}</td>
+             <td align="left">${item.vinNo}</td>
+             <td align="left">${item.pdiNo}</td>
+             <td align="left">${item.pdiDate}</td>
+             <td align="left">${item.modelFamily}</td>
+             <td align="left">${item.dealerCode || ''} [${item.dealerName || ''}]</td>
+             <td align="left">${item.locationName || ''}</td>
+          </tr>`;
+      });
+    }
+
+    html += `
+         </table>
+      </center>
+    </body>
+    </html>
+    `;
+
+    const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'View_PDI_List.xls';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   }
 
   viewPdiData(item: PdiDetail): void {
-    this.apiService.getPdiDetailView(item.vinNo, item.pdiNo).subscribe(view => {
-      this.dialog.open(PdiDetailDialogComponent, {
-        width: '900px',
-        data: view
-      });
-    });
+    // Encode parameters to Base64 to handle special characters (slashes) safely in URL
+    const vinNoEnc = btoa(item.vinNo);
+    const pdiNoEnc = btoa(item.pdiNo);
+    this.router.navigate(['/dashboard/services/view-pdi-detail', vinNoEnc, pdiNoEnc]);
   }
 
   // Pagination Logic

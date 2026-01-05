@@ -8,6 +8,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)
   },
   {
+    path: 'print/services/pdi/:vinNo/:pdiNo',
+    loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-pdi/pdi-print.component').then(m => m.PdiPrintComponent)
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard],
@@ -32,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'services/view-pdi',
         loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-pdi/view-pdi.component').then(m => m.ViewPdiComponent)
+      },
+      {
+        path: 'services/view-pdi-detail/:vinNo/:pdiNo',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-pdi/pdi-detail.component').then(m => m.PdiDetailComponent)
       },
       {
         path: 'services/pending-installation',
