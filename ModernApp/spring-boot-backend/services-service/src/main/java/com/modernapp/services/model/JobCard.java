@@ -24,6 +24,8 @@ public class JobCard {
     private String jobLocation;
     private String serviceType;
     private String status; // OPEN, PENDING, CLOSED, APPROVED
+    private String dealerCode;
+    private String mobilePhone;
 
     private LocalDateTime jobCardDate;
     private LocalDateTime createdAt;
@@ -130,6 +132,22 @@ public class JobCard {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDealerCode() {
+        return dealerCode;
+    }
+
+    public void setDealerCode(String dealerCode) {
+        this.dealerCode = dealerCode;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
     public LocalDateTime getJobCardDate() {

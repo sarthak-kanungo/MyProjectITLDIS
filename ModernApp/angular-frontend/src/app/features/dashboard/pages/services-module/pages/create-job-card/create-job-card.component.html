@@ -1,0 +1,208 @@
+<div class="page-container">
+  <div class="breadcrumb">
+    SERVICE <span class="divider">▶</span> <span class="current">CREATE JOB CARD</span>
+  </div>
+
+  <div class="main-card">
+    <div class="card-header-bar">
+      Job Card
+    </div>
+
+    <div class="tabs-container">
+      <div class="tab active">VEHICLE INFORMATION</div>
+      <div class="tab">CUSTOMER INFORMATION</div>
+      <div class="tab">STANDARD CHECK</div>
+      <div class="tab">COMPLAINT</div>
+      <div class="tab">ESTIMATE</div>
+      <div class="tab">ACTUALS</div>
+      <div class="tab">STATUS</div>
+      <div class="tab">HISTORY</div>
+    </div>
+
+    <div class="form-content">
+      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+        <div class="grid-3-col">
+
+          <!-- Column 1 -->
+          <div class="col">
+            <div class="form-group">
+              <label>PRODUCT CATEGORY</label>
+              <select formControlName="productCategory">
+                <option value="Tractor">Tractor</option>
+                <option value="Harvester">Harvester</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>CHASSIS NO. <span class="required">*</span></label>
+              <div class="input-with-icon">
+                <input type="text" formControlName="vinNo" (blur)="onVinBlur()">
+                <mat-icon class="search-arrow" fontIcon="arrow_drop_down" color="warn"></mat-icon>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>SALE DATE <span class="required">*</span></label>
+              <input type="text" formControlName="saleDate" readonly class="readonly-field">
+            </div>
+
+            <div class="form-group">
+              <label>ENGINE NO.</label>
+              <input type="text" formControlName="engineNo">
+            </div>
+
+            <div class="form-group">
+              <label>REGISTRATION NO.</label>
+              <input type="text" formControlName="registrationNo">
+            </div>
+
+            <div class="form-group">
+              <label>SERVICE BOOKLET NO.</label>
+              <input type="text" formControlName="serviceBookletNo">
+            </div>
+
+            <div class="form-group">
+              <label>COUPON NO.</label>
+              <input type="text" formControlName="couponNo">
+            </div>
+
+            <div class="form-group">
+              <label>JOB CARD PRIORITY</label>
+              <select formControlName="jobCardPriority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="col">
+            <div class="form-group">
+              <label>JOB TYPE <span class="required">*</span></label>
+              <select formControlName="jobType">
+                <option value="">--Select--</option>
+                <option *ngFor="let option of initData?.jobTypes" [value]="option.value">
+                  {{option.label}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>DEALER JOB CARD NO.</label>
+              <input type="text" formControlName="dealerJobCardNo">
+            </div>
+
+            <div class="form-group radio-group-row">
+              <label>HMR WORKING <span class="required">*</span></label>
+              <mat-radio-group formControlName="hmrWorking">
+                <mat-radio-button value="Yes" color="primary">Yes</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="form-group">
+              <label>HMR <span class="required">*</span></label>
+              <input type="number" formControlName="hmr">
+            </div>
+
+            <div class="form-group">
+              <label>EVENT</label>
+              <select formControlName="event">
+                <option value="NA">NA</option>
+                <option value="Camp">Camp</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>SERVICE TYPE <span class="required">*</span></label>
+              <select formControlName="serviceType">
+                <option value="">--select--</option>
+                <option *ngFor="let option of initData?.serviceTypes" [value]="option.value">
+                  {{option.label}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>OWNER DRIVEN <span class="required">*</span></label>
+              <select formControlName="ownerDriven">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>VOR JOB CARD <span class="required">*</span></label>
+              <select formControlName="vorJobCard">
+                <option value="">--select--</option>
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="col">
+            <div class="form-group">
+              <label>MODEL FAMILY <span class="required">*</span></label>
+              <input type="text" formControlName="modelFamily">
+            </div>
+
+            <div class="form-group">
+              <label>MODEL FAMILY DESC.</label>
+              <input type="text" formControlName="modelFamilyDesc">
+            </div>
+
+            <div class="form-group">
+              <label>MODEL CODE <span class="required">*</span></label>
+              <input type="text" formControlName="modelCode">
+            </div>
+
+            <div class="form-group">
+              <label>MODEL CODE DESC.</label>
+              <input type="text" formControlName="modelCodeDesc">
+            </div>
+
+            <div class="form-group">
+              <label>LOCATION <span class="required">*</span></label>
+              <select formControlName="location">
+                <option value="">--select--</option>
+                <option *ngFor="let option of initData?.locations" [value]="option.value">
+                  {{option.label}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group multi-input">
+              <label>TRACTOR IN DATE <span class="required">*</span></label>
+              <div class="date-time-group">
+                <input type="text" formControlName="tractorInDate" class="date-input" placeholder="dd/mm/yyyy">
+                <div class="time-inputs">
+                  <input type="text" formControlName="tractorInTimeHours" class="time-box">
+                  <span>:</span>
+                  <input type="text" formControlName="tractorInTimeMinutes" class="time-box">
+                  <mat-icon fontIcon="keyboard_arrow_down" class="time-dropdown-icon"></mat-icon>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>NEXT SERVICE FROM HERE <span class="required">*</span></label>
+              <select formControlName="nextServiceFromHere">
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button type="button" class="btn-reset">RESET</button>
+          <button type="submit" class="btn-save" [disabled]="!vehicleForm.valid">SAVE</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

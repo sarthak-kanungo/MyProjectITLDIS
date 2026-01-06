@@ -165,6 +165,27 @@ export class ServicesApiService {
     return this.http.get<JobCard[]>(`${this.apiUrl}/job-cards`);
   }
 
+  getViewJobCards(
+    fromDate?: string,
+    toDate?: string,
+    status?: string,
+    dealerCode?: string,
+    searchColumn?: string,
+    searchValue?: string
+  ): Observable<ViewJobCardDTO[]> {
+    let httpParams = new HttpParams();
+    if (fromDate) httpParams = httpParams.set('fromDate', fromDate);
+    if (toDate) httpParams = httpParams.set('toDate', toDate);
+    if (status) httpParams = httpParams.set('status', status);
+    if (dealerCode) httpParams = httpParams.set('dealerCode', dealerCode);
+    if (searchColumn) httpParams = httpParams.set('searchColumn', searchColumn);
+    if (searchValue) httpParams = httpParams.set('searchValue', searchValue);
+
+    return this.http.get<ViewJobCardDTO[]>(`${this.apiUrl}/job-cards/view`, {
+      params: httpParams
+    });
+  }
+
   getJobCardById(id: number): Observable<JobCard> {
     return this.http.get<JobCard>(`${this.apiUrl}/job-cards/${id}`);
   }
@@ -302,6 +323,15 @@ export class ServicesApiService {
       params: httpParams
     });
   }
+
+  // Job Card Creation Support
+  getVehicleInfoInitData(): Observable<VehicleInfoInitData> {
+    return this.http.get<VehicleInfoInitData>(`${this.apiUrl}/job-cards/init-vehicle-info`);
+  }
+
+  getVehicleDetails(vinNo: string): Observable<VehicleDetails> {
+    return this.http.get<VehicleDetails>(`${this.apiUrl}/job-cards/vehicle-details/${vinNo}`);
+  }
 }
 
 export interface ViewInstallation {
@@ -315,5 +345,44 @@ export interface ViewInstallation {
   dealerCode: string;
   location: string;
   deliveryDate: string;
+}
+
+export interface DropdownOption {
+  label: string;
+  value: string;
+}
+
+export interface VehicleInfoInitData {
+  jobTypes: DropdownOption[];
+  locations: DropdownOption[];
+  serviceTypes: DropdownOption[];
+  productCategories: DropdownOption[];
+}
+
+export interface VehicleDetails {
+  vinNo: string;
+  engineNo: string;
+  saleDate: string;
+  modelFamily: string;
+  sellingDealerCode: string;
+  sellingDealerName: string;
+  plateNo: string;
+  modelCode: string;
+  modelDescription: string;
+  customerName: string;
+  customerId: string;
+}
+
+export interface ViewJobCardDTO {
+  jobCardNo: string;
+  jobCardDate: string;
+  vinNo: string;
+  payeeName: string;
+  dealerCode: string;
+  dealerName: string;
+  location: string;
+  locationCode: string;
+  status: string;
+  mobilePhone: string;
 }
 

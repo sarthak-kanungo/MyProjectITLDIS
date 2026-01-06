@@ -93,5 +93,25 @@ public class JobCardController {
         jobCardService.deleteJobCard(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/init-vehicle-info")
+    public ResponseEntity<com.modernapp.services.dto.VehicleInfoInitDataDTO> getVehicleInfoInitData() {
+        return ResponseEntity.ok(jobCardService.getVehicleInfoInitData());
+    }
+
+    @GetMapping("/vehicle-details/{vinNo}")
+    public ResponseEntity<com.modernapp.services.dto.VehicleDetailsDTO> getVehicleDetails(@PathVariable String vinNo) {
+        return ResponseEntity.ok(jobCardService.getVehicleDetails(vinNo));
+    }
+    @GetMapping("/view")
+    public ResponseEntity<List<com.modernapp.services.dto.ViewJobCardDTO>> viewJobCards(
+            @RequestParam(required = false) String fromDate,
+            @RequestParam(required = false) String toDate,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String dealerCode,
+            @RequestParam(required = false) String searchColumn,
+            @RequestParam(required = false) String searchValue) {
+        return ResponseEntity.ok(jobCardService.getViewJobCards(fromDate, toDate, status, dealerCode, searchColumn, searchValue));
+    }
 }
 
