@@ -1,4 +1,4 @@
-.job-card-view-container {
+.reopen-job-card-container {
     font-family: Arial, sans-serif;
     padding: 5px;
     background-color: #fff;
@@ -13,11 +13,13 @@
         .separator {
             margin: 0 5px;
             font-size: 10px;
+            color: #0000FF;
         }
 
         .breadcrumb-link {
             text-decoration: none;
             color: #0000FF;
+            font-weight: bold;
 
             &:hover {
                 text-decoration: underline;
@@ -40,89 +42,6 @@
         text-transform: uppercase;
     }
 
-    .filters-container {
-        background-color: #f7f7f7;
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        font-size: 11px;
-
-        .filter-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 10px;
-
-            label {
-                display: flex;
-                align-items: center;
-                gap: 3px;
-                cursor: pointer;
-            }
-        }
-
-        .search-input {
-            width: 120px;
-            padding: 1px 2px;
-            border: 1px solid #abadb3;
-            font-size: 11px;
-        }
-
-        .status-group,
-        .date-check-group,
-        .date-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-
-            label {
-                font-weight: normal;
-                color: #000;
-            }
-        }
-
-        .status-group select {
-            padding: 1px;
-            border: 1px solid #abadb3;
-            font-size: 11px;
-            width: 80px;
-        }
-
-        .date-group {
-            .date-input {
-                width: 80px;
-                padding: 1px 2px;
-                border: 1px solid #abadb3;
-                font-size: 11px;
-            }
-
-            .to-label {
-                margin: 0 5px;
-            }
-        }
-
-        .search-btn {
-            margin-left: auto;
-            padding: 1px 15px;
-            font-size: 11px;
-            font-weight: bold;
-            color: #b00;
-            cursor: pointer;
-            border: 1px solid #999;
-            background: linear-gradient(to bottom, #f0f0f0 0%, #dcdcdc 100%);
-            border-radius: 2px;
-            text-transform: uppercase;
-
-            &:hover {
-                background: linear-gradient(to bottom, #dcdcdc 0%, #f0f0f0 100%);
-            }
-        }
-    }
-
     .table-responsive {
         overflow-x: auto;
     }
@@ -139,12 +58,13 @@
             th {
                 padding: 4px;
                 border: 1px solid #d0d0d0;
-                font-weight: normal;
-                color: #333;
+                font-weight: bold;
+                color: #000;
                 white-space: nowrap;
                 background-color: #f0f0f0;
                 vertical-align: top;
-                position: relative; // For filter popup positioning
+                position: relative;
+                text-align: left;
 
                 &.center-align {
                     text-align: center;
@@ -171,19 +91,10 @@
                     border: 1px solid #e0e0e0;
                     color: #333;
                     white-space: nowrap;
+                    vertical-align: middle;
 
                     &.center-align {
                         text-align: center;
-                    }
-
-                    a {
-                        color: #000;
-                        text-decoration: none;
-
-                        &:hover {
-                            text-decoration: underline;
-                            color: blue;
-                        }
                     }
 
                     &.no-records {
@@ -197,7 +108,6 @@
         }
     }
 
-    // Styles for Sort/Filter Headers
     .th-content {
         display: flex;
         align-items: center;
@@ -229,7 +139,7 @@
     }
 
     .filter-popup {
-        display: block; // Show when *ngIf is true
+        display: block;
         margin-top: 5px;
         width: 100%;
         text-align: left;
@@ -241,6 +151,12 @@
         font-size: 10px;
         border: 1px solid #999;
         padding: 2px;
+    }
+
+    .status-select {
+        font-size: 10px;
+        padding: 1px;
+        border: 1px solid #abadb3;
     }
 
     .custom-paginator {

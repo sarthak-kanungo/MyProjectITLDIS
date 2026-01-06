@@ -16,6 +16,7 @@ export interface JobCard {
   status: string;
   jobCardDate?: string;
   date?: string;
+  mobilePhone?: string;
 }
 
 export interface ServiceInvoice {
@@ -198,6 +199,10 @@ export class ServicesApiService {
     return this.http.get<JobCard[]>(`${this.apiUrl}/job-cards/status/${status}`);
   }
 
+  getJobCardsByVinNo(vinNo: string): Observable<JobCard[]> {
+    return this.http.get<JobCard[]>(`${this.apiUrl}/job-cards/vinNo/${vinNo}`);
+  }
+
   createJobCard(jobCard: JobCard): Observable<JobCard> {
     return this.http.post<JobCard>(`${this.apiUrl}/job-cards`, jobCard);
   }
@@ -332,7 +337,39 @@ export class ServicesApiService {
   getVehicleDetails(vinNo: string): Observable<VehicleDetails> {
     return this.http.get<VehicleDetails>(`${this.apiUrl}/job-cards/vehicle-details/${vinNo}`);
   }
+
+  getServiceReminders(
+    fromDate?: string,
+    toDate?: string,
+    jobType?: string,
+    dealerCode?: string
+  ): Observable<ServiceReminder[]> {
+    let httpParams = new HttpParams();
+    if (fromDate) httpParams = httpParams.set('fromDate', fromDate);
+    if (toDate) httpParams = httpParams.set('toDate', toDate);
+    if (jobType) httpParams = httpParams.set('jobType', jobType);
+    if (dealerCode) httpParams = httpParams.set('dealerCode', dealerCode);
+
+    return this.http.get<ServiceReminder[]>(`${this.apiUrl}/reminders`, { params: httpParams });
+  }
+
+  // Service Done/Lapse
+  getServiceDoneLapse(
+    fromDate?: string,
+    toDate?: string,
+    status?: string,
+    dealerCode?: string
+  ): Observable<ServiceDoneLapse[]> {
+    let httpParams = new HttpParams();
+    if (fromDate) httpParams = httpParams.set('fromDate', fromDate);
+    if (toDate) httpParams = httpParams.set('toDate', toDate);
+    if (status) httpParams = httpParams.set('status', status);
+    if (dealerCode) httpParams = httpParams.set('dealerCode', dealerCode);
+
+    return this.http.get<ServiceDoneLapse[]>(`${this.apiUrl}/reports/done-lapse`, { params: httpParams });
+  }
 }
+
 
 export interface ViewInstallation {
   insNo: string;
@@ -386,3 +423,31 @@ export interface ViewJobCardDTO {
   mobilePhone: string;
 }
 
+
+
+export interface ServiceReminder {
+  scheduleID: string;
+  vinNo: string;
+  modelCodeDesc: string;
+  jobTypeDesc: string;
+  customerName: string;
+  contactNo: string;
+  dueDate: string;
+  followUpStatus: string;
+  lastFollowUpDate: string;
+  dealerCode: string;
+  dealerName: string;
+}
+
+export interface ServiceDoneLapse {
+  vinNo: string;
+  modelCode: string;
+  modelCodeDesc: string;
+  jobTypeDesc: string;
+  jobCardNo: string;
+  jobCardDate: string;
+  hmr: string;
+  dealerCode: string;
+  dealerName: string;
+  locationName: string;
+}

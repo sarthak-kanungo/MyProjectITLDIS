@@ -1,56 +1,10 @@
-<div class="job-card-view-container">
+<div class="pending-closure-container">
     <div class="breadcrumb-bar">
-        <a href="#" class="breadcrumb-link">SERVICE</a> <span class="separator">▶</span> VIEW ALL JOB CARD
+        <a href="#" class="breadcrumb-link">SERVICE</a> <span class="separator">▶</span> PENDING JOB CARD FOR CLOSURE
     </div>
 
     <div class="card-header-bar">
-        VIEW ALL JOB CARD
-    </div>
-
-    <div class="filters-container">
-        <div class="filter-row">
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="searchType" value="jobCardNo" [(ngModel)]="searchColumn"> Job Card No.
-                </label>
-                <label>
-                    <input type="radio" name="searchType" value="vinNo" [(ngModel)]="searchColumn"> Chassis No.
-                </label>
-                <label>
-                    <input type="radio" name="searchType" value="mobilePhone" [(ngModel)]="searchColumn"> Contact No.
-                </label>
-            </div>
-
-            <input type="text" class="search-input" [(ngModel)]="searchValue" placeholder="">
-
-            <div class="status-group">
-                <label>Status</label>
-                <select [(ngModel)]="selectedStatus">
-                    <option value="ALL">ALL</option>
-                    <option value="OPEN">OPEN</option>
-                    <option value="CLOSED">CLOSED</option>
-                    <option value="PENDING">PENDING</option>
-                    <option value="APPROVED">APPROVED</option>
-                    <option value="REJECTED">REJECTED</option>
-                </select>
-            </div>
-
-            <div class="date-check-group">
-                <label>
-                    <input type="checkbox" [(ngModel)]="useDateRange"> Tractor In Date
-                </label>
-            </div>
-
-            <div class="date-group">
-                <input type="text" placeholder="dd/mm/yyyy" [(ngModel)]="fromDate" [disabled]="!useDateRange"
-                    class="date-input">
-                <label class="to-label">To</label>
-                <input type="text" placeholder="dd/mm/yyyy" [(ngModel)]="toDate" [disabled]="!useDateRange"
-                    class="date-input">
-            </div>
-
-            <button class="search-btn" (click)="fetchJobCards()">SEARCH</button>
-        </div>
+        PENDING JOB CARD FOR CLOSURE
     </div>
 
     <div class="table-responsive">

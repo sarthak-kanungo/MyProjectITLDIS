@@ -1,0 +1,324 @@
+.page-container {
+    padding: 10px;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.breadcrumb {
+    color: #0056b3;
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.title-bar {
+    background: linear-gradient(to bottom, #f0f0f0 0%, #d0d0d0 100%);
+    height: 25px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #aaa;
+    margin-bottom: 20px;
+    position: relative;
+
+    .blue-stripe {
+        width: 5px;
+        height: 100%;
+        background-color: #0044cc;
+    }
+
+    .title-text {
+        margin-left: auto;
+        margin-right: 10px;
+        font-weight: bold;
+        font-size: 12px;
+        color: #333;
+    }
+}
+
+.search-panel {
+    background-color: #f9f9f9;
+    padding: 10px 5px;
+    border-top: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 11px;
+
+    input {
+        margin-right: 4px;
+    }
+}
+
+.legacy-input,
+.legacy-select {
+    border: 1px solid #a0a0a0;
+    padding: 2px 4px;
+    font-size: 11px;
+    height: 22px;
+    border-radius: 0;
+}
+
+.label-text {
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.ml-4 {
+    margin-left: 20px;
+}
+
+.ml-2 {
+    margin-left: 10px;
+}
+
+.button-group {
+    margin-left: 30px;
+    display: flex;
+    gap: 5px;
+}
+
+.btn-legacy {
+    background: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%);
+    border: 1px solid #999;
+    color: #a40000;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 2px 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:hover {
+        background: #d0d0d0;
+    }
+}
+
+.table-container {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+
+        th {
+            background-color: #f0f0f0;
+            color: black;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: left;
+            padding: 5px;
+            border: 1px solid #ccc;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 4px 5px;
+            border: 1px solid #ccc;
+            font-size: 11px;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .w-sno {
+            width: 40px;
+            text-align: center;
+        }
+
+        .w-chassis {
+            width: 150px;
+        }
+
+        .w-action {
+            width: 60px;
+            text-align: center;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fbfbfb;
+        }
+    }
+}
+
+.cell-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// History Icon
+.icon-history {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    cursor: pointer;
+
+    .h-text {
+        background-color: #ffcc99;
+        color: #5b2c00;
+        font-weight: bold;
+        font-size: 9px;
+        padding: 0 2px;
+        border: 1px solid #cc7a00;
+        line-height: 10px;
+    }
+
+    .h-sub {
+        font-size: 7px;
+        color: black;
+        line-height: 8px;
+    }
+}
+
+// Follow Up Icon: Blue Circle with Arrow
+.icon-followup {
+    width: 18px;
+    height: 18px;
+    background-color: #0099cc;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 6px solid white;
+        margin-bottom: 2px;
+    }
+}
+
+
+/* Styles for Sort/Filter & Pagination (From Search History) */
+.th-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.col-title {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.search-icon {
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
+    color: #555;
+    cursor: pointer;
+    margin-left: 4px;
+
+    &:hover {
+        color: #000;
+    }
+}
+
+.filter-popup {
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+    text-align: left;
+}
+
+.filter-input {
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    border: 1px solid #999;
+    padding: 2px;
+}
+
+.custom-paginator {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #0000FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+
+    a {
+        text-decoration: none;
+        color: #0000FF;
+        font-weight: bold;
+        margin: 0 2px;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+
+        &.disabled {
+            opacity: 0.5;
+            cursor: default;
+
+            .pager-icon {
+                color: #999;
+            }
+        }
+
+        &.active {
+            color: #0000FF;
+            text-decoration: none;
+            cursor: default;
+            font-size: small;
+        }
+
+        &:hover:not(.disabled):not(.active) {
+            text-decoration: underline;
+        }
+    }
+
+    .pager-icon {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        color: #0000FF;
+    }
+
+    .page-number {
+        padding: 0 4px;
+        font-size: 11px;
+    }
+}
+
+.black-text {
+    color: black !important;
+}
+
+.link {
+    color: #0000FF;
+    text-decoration: underline;
+    cursor: pointer;
+
+    // font-weight: bold; // Optional, removing to match standard link feel if needed, but legacy often bold.
+    &:hover {
+        color: #000088;
+    }
+}

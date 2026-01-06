@@ -1,0 +1,179 @@
+<div class="search-history-container">
+    <div class="breadcrumb-bar">
+        <a href="/dashboard/services" class="breadcrumb-link">SERVICE</a> <span class="separator">▶</span> SEARCH
+        TRACTOR HISTORY
+    </div>
+
+    <div class="main-layout-border">
+        <!-- Header Row -->
+        <div class="header-row">
+            <div class="blue-accent"></div>
+            <div class="header-title">Search Tractor History</div>
+        </div>
+
+        <!-- Search Content -->
+        <div class="content-area">
+            <form (submit)="submitForm(); $event.preventDefault()">
+                <table class="search-table">
+                    <tr>
+                        <td width="100" align="right" class="label-td">Chassis No.</td>
+                        <td width="160">
+                            <input name="vinNo" type="text" class="search-input" [(ngModel)]="vinNo" />
+                        </td>
+                        <td align="left">
+                            <button type="submit" class="search-btn">SEARCH</button>
+                        </td>
+                        <td width="*"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <!-- History Not Found Message Bar -->
+        <div *ngIf="searched && !loading && historyList.length === 0" class="status-bar">
+            History not Found!
+        </div>
+
+        <!-- Data Table Section -->
+        <div *ngIf="historyList.length > 0" class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="5%" class="center-align">S No.</th>
+
+                        <th width="15%" (click)="sortData('jobCardNo')" class="sortable">
+                            <div class="th-content">
+                                <span class="col-title">Job Card No. <span *ngIf="sortColumn === 'jobCardNo'">{{
+                                        sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('jobCardNo'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['jobCardNo']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [value]="filterValues['jobCardNo'] || ''"
+                                    (keyup)="applyFilter('jobCardNo', $event)" placeholder="Search Job Card...">
+                            </div>
+                        </th>
+
+                        <th width="15%" (click)="sortData('jobType')" class="sortable">
+                            <div class="th-content">
+                                <span class="col-title">Job Type <span *ngIf="sortColumn === 'jobType'">{{ sortDirection
+                                        === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('jobType'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['jobType']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [value]="filterValues['jobType'] || ''"
+                                    (keyup)="applyFilter('jobType', $event)" placeholder="Search Job Type...">
+                            </div>
+                        </th>
+
+                        <th width="10%" (click)="sortData('jobCardDate')" class="sortable">
+                            <div class="th-content">
+                                <span class="col-title">Job Card Date <span *ngIf="sortColumn === 'jobCardDate'">{{
+                                        sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('jobCardDate'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['jobCardDate']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [value]="filterValues['jobCardDate'] || ''"
+                                    (keyup)="applyFilter('jobCardDate', $event)" placeholder="Search Date...">
+                            </div>
+                        </th>
+
+                        <th width="20%" (click)="sortData('customerName')" class="sortable">
+                            <div class="th-content">
+                                <span class="col-title">Contact Name <span *ngIf="sortColumn === 'customerName'">{{
+                                        sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('customerName'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['customerName']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [value]="filterValues['customerName'] || ''"
+                                    (keyup)="applyFilter('customerName', $event)" placeholder="Search Name...">
+                            </div>
+                        </th>
+
+                        <th width="10%" (click)="sortData('mobilePhone')" class="sortable">
+                            <div class="th-content">
+                                <span class="col-title">Contact No. <span *ngIf="sortColumn === 'mobilePhone'">{{
+                                        sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('mobilePhone'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['mobilePhone']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [value]="filterValues['mobilePhone'] || ''"
+                                    (keyup)="applyFilter('mobilePhone', $event)" placeholder="Search Contact...">
+                            </div>
+                        </th>
+
+                        <th width="10%" class="left-align">HRM Working</th>
+
+                        <th width="10%" (click)="sortData('status')" class="sortable">
+                            <div class="th-content">
+                                <span class="col-title">Status <span *ngIf="sortColumn === 'status'">{{ sortDirection
+                                        === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('status'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['status']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [value]="filterValues['status'] || ''"
+                                    (keyup)="applyFilter('status', $event)" placeholder="Search Status...">
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let card of paginatedList; let i = index">
+                        <td class="center-align">{{ getSerialNumber(i) }}</td>
+                        <td class="left-align">
+                            <a href="javascript:void(0)" class="link" (click)="printInvoice(card.jobCardNo)">{{
+                                card.jobCardNo }}</a>
+                        </td>
+                        <td class="left-align">{{ card.jobType || '-' }}</td>
+                        <td class="left-align">{{ card.jobCardDate ? (card.jobCardDate | date:'dd/MM/yyyy') : '-' }}
+                        </td>
+                        <td class="left-align">{{ card.customerName }}</td>
+                        <td class="left-align">{{ card.mobilePhone }}</td>
+                        <td class="left-align">
+                            YES (21)
+                        </td>
+                        <td class="left-align">{{ card.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Paginator -->
+            <div class="custom-paginator" *ngIf="totalPages > 0">
+                <a href="javascript:void(0)" (click)="goToPage(0)" [class.disabled]="currentPage === 0" title="First">
+                    <mat-icon class="pager-icon">first_page</mat-icon>
+                </a>
+                <a href="javascript:void(0)" (click)="goToPage(currentPage - 1)" [class.disabled]="currentPage === 0"
+                    title="Previous" *ngIf="currentPage > 0">
+                    <mat-icon class="pager-icon">navigate_before</mat-icon>
+                </a>
+
+                <ng-container *ngFor="let p of getPageNumbers()">
+                    <a href="javascript:void(0)" (click)="goToPage(p)" class="page-number"
+                        [class.active]="p === currentPage">{{
+                        p + 1 }}</a>
+                </ng-container>
+
+                <a href="javascript:void(0)" (click)="goToPage(currentPage + 1)"
+                    [class.disabled]="currentPage >= totalPages - 1" title="Next">
+                    <mat-icon class="pager-icon">navigate_next</mat-icon>
+                </a>
+                <a href="javascript:void(0)" (click)="goToPage(totalPages - 1)"
+                    [class.disabled]="currentPage >= totalPages - 1" title="Last">
+                    <mat-icon class="pager-icon">last_page</mat-icon>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

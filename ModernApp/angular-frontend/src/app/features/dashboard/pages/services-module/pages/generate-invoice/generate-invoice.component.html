@@ -1,56 +1,10 @@
-<div class="job-card-view-container">
+<div class="generate-invoice-container">
     <div class="breadcrumb-bar">
-        <a href="#" class="breadcrumb-link">SERVICE</a> <span class="separator">▶</span> VIEW ALL JOB CARD
+        <a href="#" class="breadcrumb-link">SERVICE</a> <span class="separator">▶</span> GENERATE INVOICE
     </div>
 
     <div class="card-header-bar">
-        VIEW ALL JOB CARD
-    </div>
-
-    <div class="filters-container">
-        <div class="filter-row">
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="searchType" value="jobCardNo" [(ngModel)]="searchColumn"> Job Card No.
-                </label>
-                <label>
-                    <input type="radio" name="searchType" value="vinNo" [(ngModel)]="searchColumn"> Chassis No.
-                </label>
-                <label>
-                    <input type="radio" name="searchType" value="mobilePhone" [(ngModel)]="searchColumn"> Contact No.
-                </label>
-            </div>
-
-            <input type="text" class="search-input" [(ngModel)]="searchValue" placeholder="">
-
-            <div class="status-group">
-                <label>Status</label>
-                <select [(ngModel)]="selectedStatus">
-                    <option value="ALL">ALL</option>
-                    <option value="OPEN">OPEN</option>
-                    <option value="CLOSED">CLOSED</option>
-                    <option value="PENDING">PENDING</option>
-                    <option value="APPROVED">APPROVED</option>
-                    <option value="REJECTED">REJECTED</option>
-                </select>
-            </div>
-
-            <div class="date-check-group">
-                <label>
-                    <input type="checkbox" [(ngModel)]="useDateRange"> Tractor In Date
-                </label>
-            </div>
-
-            <div class="date-group">
-                <input type="text" placeholder="dd/mm/yyyy" [(ngModel)]="fromDate" [disabled]="!useDateRange"
-                    class="date-input">
-                <label class="to-label">To</label>
-                <input type="text" placeholder="dd/mm/yyyy" [(ngModel)]="toDate" [disabled]="!useDateRange"
-                    class="date-input">
-            </div>
-
-            <button class="search-btn" (click)="fetchJobCards()">SEARCH</button>
-        </div>
+        GENERATE INVOICE
     </div>
 
     <div class="table-responsive">
@@ -59,7 +13,7 @@
                 <tr>
                     <th width="5%" class="center-align">S No.</th>
 
-                    <th width="20%" (click)="sort('jobCardNo')" class="sortable">
+                    <th width="15%" (click)="sort('jobCardNo')" class="sortable">
                         <div class="th-content">
                             <span class="col-title">Job Card No. <span *ngIf="sortColumn === 'jobCardNo'">{{
                                     sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
@@ -72,7 +26,7 @@
                         </div>
                     </th>
 
-                    <th width="20%" (click)="sort('vinNo')" class="sortable">
+                    <th width="15%" (click)="sort('vinNo')" class="sortable">
                         <div class="th-content">
                             <span class="col-title">Chassis No. <span *ngIf="sortColumn === 'vinNo'">{{ sortDirection
                                     === 'asc' ? '▲' : '▼' }}</span></span>
@@ -84,7 +38,7 @@
                         </div>
                     </th>
 
-                    <th width="15%" (click)="sort('jobCardDate')" class="sortable center-align">
+                    <th width="10%" (click)="sort('jobCardDate')" class="sortable center-align">
                         <div class="th-content center-content">
                             <span class="col-title">Tractor In Date <span *ngIf="sortColumn === 'jobCardDate'">{{
                                     sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
@@ -95,6 +49,12 @@
                             (click)="$event.stopPropagation()">
                             <input type="text" class="filter-input" [value]="filterValues['jobCardDate']"
                                 (keyup)="applyFilter($event, 'jobCardDate')" placeholder="Search Date...">
+                        </div>
+                    </th>
+
+                    <th width="10%" class="sortable">
+                        <div class="th-content">
+                            <span class="col-title">Job Card Priority</span>
                         </div>
                     </th>
 
@@ -125,37 +85,32 @@
                         </div>
                     </th>
 
-                    <th width="10%" (click)="sort('status')" class="sortable center-align">
-                        <div class="th-content center-content">
-                            <span class="col-title">Status <span *ngIf="sortColumn === 'status'">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span></span>
-                            <mat-icon class="search-icon" (click)="toggleFilter('status', $event)">search</mat-icon>
-                        </div>
-                        <div class="filter-popup" *ngIf="visibleFilters['status']" (click)="$event.stopPropagation()">
-                            <input type="text" class="filter-input" [value]="filterValues['status']"
-                                (keyup)="applyFilter($event, 'status')" placeholder="Search Status...">
-                        </div>
-                    </th>
+                    <th width="15%" class="center-align">Action</th>
 
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let card of filteredJobCards; let i = index">
                     <td class="center-align">{{ getSerialNumber(i) }}</td>
-                    <td><a href="javascript:void(0)" (click)="viewJobCard(card.jobCardNo)">{{ card.jobCardNo }}</a></td>
+                    <td>{{ card.jobCardNo }}</td>
                     <td>{{ card.vinNo }}</td>
                     <td class="center-align">{{ card.jobCardDate }}</td>
+                    <td>Low</td> <!-- Hardcoded match -->
                     <td>{{ card.payeeName }}</td>
                     <td>{{ card.mobilePhone }}</td>
-                    <td class="center-align">{{ card.status }}</td>
+                    <td class="center-align">
+                        <a href="javascript:void(0)" class="action-link" (click)="onGenerateInvoice(card)">Generate
+                            Invoice</a>
+                    </td>
                 </tr>
                 <tr *ngIf="filteredJobCards.length === 0">
-                    <td colspan="7" class="no-records">No records found.</td>
+                    <td colspan="8" class="no-records">No records found.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
+    <!-- Paginator hidden if 0 elements, or assuming functionality same as reopen -->
     <div class="custom-paginator" *ngIf="totalElements > 0">
         <a href="javascript:void(0)" (click)="goToPage(0)" [class.disabled]="currentPage === 0" title="First">
             <mat-icon class="pager-icon">first_page</mat-icon>

@@ -1,0 +1,210 @@
+<div class="page-container">
+
+    <div class="breadcrumb">
+        <a routerLink="/dashboard/services" style="text-decoration:none; color: #0056b3;">SERVICE</a> &nbsp;▶&nbsp;
+        <span class="black-text">SERVICE REMINDER</span>
+    </div>
+
+    <div class="title-bar">
+        <div class="blue-stripe"></div>
+        <div class="title-text">SERVICE REMINDER</div>
+    </div>
+
+    <div class="search-panel">
+        <div class="search-row">
+            <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="searchParams.range"> Due Date
+            </label>
+
+            <input type="date" [(ngModel)]="searchParams.fromDate" [disabled]="!searchParams.range"
+                class="legacy-input">
+            <span class="label-text">To</span>
+            <input type="date" [(ngModel)]="searchParams.toDate" [disabled]="!searchParams.range" class="legacy-input">
+
+            <span class="label-text ml-4">Job Type</span>
+            <select [(ngModel)]="searchParams.jobType" class="legacy-select">
+                <option *ngFor="let type of jobTypes" [value]="type.value">{{type.label}}</option>
+            </select>
+
+            <div class="button-group">
+                <button class="btn-legacy" (click)="loadData()">SEARCH</button>
+                <button class="btn-legacy">EXPORT</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="w-sno">S No.</th>
+
+                    <!-- Chassis No -->
+                    <th class="w-chassis" (click)="sort('vinNo')">
+                        <div class="th-content">
+                            <span class="col-title">Chassis No. <span *ngIf="sortColumn === 'vinNo'">{{ sortDirection
+                                    === 'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('vinNo'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['vinNo']" (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['vinNo']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Model Code Desc -->
+                    <th (click)="sort('modelCodeDesc')">
+                        <div class="th-content">
+                            <span class="col-title">Model Code Desc. <span *ngIf="sortColumn === 'modelCodeDesc'">{{
+                                    sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('modelCodeDesc'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['modelCodeDesc']"
+                            (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['modelCodeDesc']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Job Type -->
+                    <th (click)="sort('jobTypeDesc')">
+                        <div class="th-content">
+                            <span class="col-title">Job Type <span *ngIf="sortColumn === 'jobTypeDesc'">{{ sortDirection
+                                    === 'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('jobTypeDesc'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['jobTypeDesc']"
+                            (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['jobTypeDesc']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Customer Name -->
+                    <th (click)="sort('customerName')">
+                        <div class="th-content">
+                            <span class="col-title">Customer Name <span *ngIf="sortColumn === 'customerName'">{{
+                                    sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('customerName'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['customerName']"
+                            (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['customerName']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Contact No -->
+                    <th (click)="sort('contactNo')">
+                        <div class="th-content">
+                            <span class="col-title">Contact No. <span *ngIf="sortColumn === 'contactNo'">{{
+                                    sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('contactNo'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['contactNo']"
+                            (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['contactNo']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Due Date -->
+                    <th (click)="sort('dueDate')">
+                        <div class="th-content">
+                            <span class="col-title">Due Date <span *ngIf="sortColumn === 'dueDate'">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('dueDate'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['dueDate']" (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['dueDate']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Follow Up Status -->
+                    <th (click)="sort('followUpStatus')">
+                        <div class="th-content">
+                            <span class="col-title">Follow Up Status <span *ngIf="sortColumn === 'followUpStatus'">{{
+                                    sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('followUpStatus'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['followUpStatus']"
+                            (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['followUpStatus']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <!-- Last Follow Up Date -->
+                    <th (click)="sort('lastFollowUpDate')">
+                        <div class="th-content">
+                            <span class="col-title">Last Follow Up Date <span
+                                    *ngIf="sortColumn === 'lastFollowUpDate'">{{ sortDirection === 'asc' ? '▲' : '▼'
+                                    }}</span></span>
+                            <mat-icon class="search-icon"
+                                (click)="toggleFilter('lastFollowUpDate'); $event.stopPropagation()">search</mat-icon>
+                        </div>
+                        <div class="filter-popup" *ngIf="visibleFilters['lastFollowUpDate']"
+                            (click)="$event.stopPropagation()">
+                            <input type="text" class="filter-input" [(ngModel)]="filters['lastFollowUpDate']"
+                                (keyup)="applyClientFilters()" placeholder="Search...">
+                        </div>
+                    </th>
+
+                    <th class="w-action">Follow Up</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of paginatedReminders; let i = index">
+                    <td class="center-text">{{ (currentPage * pageSize) + i + 1 }}</td>
+                    <td><a class="link" (click)="viewHistory(item.vinNo)">{{item.vinNo}}</a></td>
+                    <td>{{item.modelCodeDesc}}</td>
+                    <td>{{item.jobTypeDesc}}</td>
+                    <td>{{item.customerName}}</td>
+                    <td>{{item.contactNo}}</td>
+                    <td>{{item.dueDate}}</td>
+                    <td>{{item.followUpStatus}}</td>
+                    <td>{{item.lastFollowUpDate}}</td>
+                    <td class="center-text">
+                        <div class="icon-followup" (click)="openFollowUp(item.scheduleID)">
+                            <div class="arrow-up"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="paginatedReminders.length === 0">
+                    <td colspan="10" class="no-data">No records found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginator -->
+    <div class="custom-paginator" *ngIf="totalPages > 0">
+        <a (click)="goToPage(0)" [class.disabled]="currentPage === 0" title="First">
+            <mat-icon class="pager-icon">first_page</mat-icon>
+        </a>
+        <a (click)="goToPage(currentPage - 1)" [class.disabled]="currentPage === 0" title="Previous"
+            *ngIf="currentPage > 0">
+            <mat-icon class="pager-icon">navigate_before</mat-icon>
+        </a>
+
+        <ng-container *ngFor="let p of pageNumbers">
+            <a (click)="goToPage(p)" class="page-number" [class.active]="p === currentPage">{{ p + 1 }}</a>
+        </ng-container>
+
+        <a (click)="goToPage(currentPage + 1)" [class.disabled]="currentPage >= totalPages - 1" title="Next">
+            <mat-icon class="pager-icon">navigate_next</mat-icon>
+        </a>
+        <a (click)="goToPage(totalPages - 1)" [class.disabled]="currentPage >= totalPages - 1" title="Last">
+            <mat-icon class="pager-icon">last_page</mat-icon>
+        </a>
+    </div>
+
+</div>

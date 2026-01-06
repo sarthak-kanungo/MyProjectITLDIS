@@ -1,0 +1,76 @@
+<div class="page-container">
+
+    <div class="breadcrumb">SERVICE &nbsp;▶&nbsp; SERVICE DONE/LAPSE REPORT</div>
+
+    <div class="title-bar">
+        <div class="blue-stripe"></div>
+        <div class="title-text">SERVICE DONE/LAPSE REPORT</div>
+    </div>
+
+    <div class="search-panel">
+        <div class="search-row">
+            <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="searchParams.range"> Due Date
+            </label>
+
+            <input type="date" [(ngModel)]="searchParams.fromDate" [disabled]="!searchParams.range"
+                class="legacy-input">
+            <span class="label-text">To</span>
+            <input type="date" [(ngModel)]="searchParams.toDate" [disabled]="!searchParams.range" class="legacy-input">
+
+            <span class="label-text ml-4">Status</span>
+            <select [(ngModel)]="searchParams.status" class="legacy-select">
+                <option *ngFor="let opt of statusOptions" [value]="opt.value">{{opt.label}}</option>
+            </select>
+
+            <div class="button-group">
+                <button class="btn-legacy" (click)="loadData()">SEARCH</button>
+                <button class="btn-legacy">EXPORT</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="w-sno">S No.</th>
+                    <th (click)="sort('vinNo')">Chassis No.</th>
+                    <th (click)="sort('modelCode')">Model Code</th>
+                    <th>Model Code Desc.</th>
+                    <th (click)="sort('jobTypeDesc')">Job Type</th>
+                    <th (click)="sort('jobCardNo')">Job Card No.</th>
+                    <th>HMR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of paginatedData; let i = index">
+                    <td class="center-text">{{ (currentPage * pageSize) + i + 1 }}</td>
+                    <td>{{item.vinNo}}</td>
+                    <td>{{item.modelCode}}</td>
+                    <td>{{item.modelCodeDesc}}</td>
+                    <td>{{item.jobTypeDesc}}</td>
+                    <td>{{item.jobCardNo}} <span *ngIf="item.jobCardDate">[{{item.jobCardDate}}]</span></td>
+                    <td>{{item.hmr}}</td>
+                </tr>
+                <tr *ngIf="paginatedData.length === 0">
+                    <td colspan="7" class="no-data">No records found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-bar" *ngIf="totalPages > 1">
+        <a (click)="goToPage(0)">|&lt;</a>
+        <a (click)="goToPage(currentPage - 1)">&lt;</a>
+
+        <ng-container *ngFor="let p of pageNumbers">
+            <span *ngIf="p === currentPage" class="page-num active">{{ p + 1 }}</span>
+            <a *ngIf="p !== currentPage" class="page-num" (click)="goToPage(p)">{{ p + 1 }}</a>
+        </ng-container>
+
+        <a (click)="goToPage(currentPage + 1)">&gt;</a>
+        <a (click)="goToPage(totalPages - 1)">&gt;|</a>
+    </div>
+
+</div>

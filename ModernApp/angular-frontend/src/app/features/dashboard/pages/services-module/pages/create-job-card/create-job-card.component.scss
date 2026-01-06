@@ -18,6 +18,16 @@
     vertical-align: middle;
   }
 
+  .breadcrumb-link {
+    text-decoration: none;
+    color: #0000FF;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .current {
     font-weight: bold;
   }
@@ -136,9 +146,7 @@
     box-sizing: border-box;
   }
 
-  select {
-    /* Custom arrow if needed, but default is fine */
-  }
+
 
   .readonly-field {
     background-color: #f0f0f0;

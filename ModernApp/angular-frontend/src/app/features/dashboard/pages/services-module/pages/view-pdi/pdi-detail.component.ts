@@ -6,10 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ServicesApiService, PdiDetailView } from '../../services-api.service';
 
 @Component({
-    selector: 'app-pdi-detail',
-    standalone: true,
-    imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
-    template: `
+  selector: 'app-pdi-detail',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
+  template: `
     <div class="view-pdi-container">
       <!-- Breadcrumb -->
       <div class="breadcrumb_container">
@@ -44,44 +44,44 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
                 <td class="label">Product Category:</td>
                 <td>Tractor</td>
                 <td class="label">Model Family:</td>
-                <td>{{ data?.modelFamily }}</td>
+                <td>{{ data.modelFamily }}</td>
                 <td class="label">Model Code:</td>
-                <td>{{ data?.modelCode }}</td>
+                <td>{{ data.modelCode }}</td>
               </tr>
               <tr>
                 <td class="label">Chassis No:</td>
-                <td>{{ data?.vinNo }}</td>
+                <td>{{ data.vinNo }}</td>
                 <td class="label">Model Family Desc:</td>
-                <td>{{ data?.modelFamilyDesc || '-' }}</td>
+                <td>{{ data.modelFamilyDesc || '-' }}</td>
                 <td class="label">Model Code Desc:</td>
-                <td>{{ data?.modelCodeDesc || '-' }}</td>
+                <td>{{ data.modelCodeDesc || '-' }}</td>
               </tr>
               <tr>
                 <td class="label">Invoice Date:</td>
-                <td>{{ data?.invoiceDate }}</td>
+                <td>{{ data.invoiceDate }}</td>
                 <td class="label">Tractor Received Date:</td>
-                <td>{{ data?.tractorReceivedDate || '-' }}</td>
+                <td>{{ data.tractorReceivedDate || '-' }}</td>
                 <td class="label">PDI No & Date:</td>
-                <td>{{ data?.pdiNo }} [{{ data?.pdiDate }}]</td>
+                <td>{{ data.pdiNo }} [{{ data.pdiDate }}]</td>
               </tr>
               <tr>
                 <td class="label">Invoice No:</td>
-                <td>{{ data?.invoiceNo }}</td>
+                <td>{{ data.invoiceNo }}</td>
                 <td class="label">Engine No:</td>
-                <td>{{ data?.engineNo }}</td>
+                <td>{{ data.engineNo }}</td>
                 <td class="label">Dealer Name:</td>
-                <td>{{ data?.dealerName }} [{{ data?.dealerCode }}]</td>
+                <td>{{ data.dealerName }} [{{ data.dealerCode }}]</td>
               </tr>
               <tr>
                 <td class="label">PDI Done By:</td>
-                <td>{{ data?.pdiDoneBy }}</td>
+                <td>{{ data.pdiDoneBy }}</td>
                 <td colspan="4"></td>
               </tr>
             </table>
           </div>
 
           <!-- Tractor Information (Travel Card Parts) Section -->
-          <div class="info-section" *ngIf="data?.travelCardParts && data!.travelCardParts!.length > 0">
+          <div class="info-section" *ngIf="data.travelCardParts && data!.travelCardParts!.length > 0">
              <table class="data-table">
                <thead>
                  <tr>
@@ -92,7 +92,7 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
                  </tr>
                </thead>
                <tbody>
-                 <tr *ngFor="let part of data?.travelCardParts; let i = index">
+                 <tr *ngFor="let part of data.travelCardParts; let i = index">
                    <td class="text-center">{{ i + 1 }}</td>
                    <td>{{ part.contentDesc }}</td>
                    <td>{{ part.observation }}</td>
@@ -103,7 +103,7 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
           </div>
 
           <!-- PDI Checklist Section -->
-          <div class="info-section" *ngIf="data?.checklist && data!.checklist!.length > 0">
+          <div class="info-section" *ngIf="data.checklist && data!.checklist!.length > 0">
             <div class="section-header">
               <h3>PDI Checklist</h3>
             </div>
@@ -118,7 +118,7 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let group of data?.checklist; let i = index">
+                <ng-container *ngFor="let group of data.checklist; let i = index">
                   <ng-container *ngIf="group.items && group.items.length > 0; else singleGroupRow">
                     <tr>
                       <td colspan="5" class="group-header">
@@ -153,7 +153,7 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
             <table class="info-table">
                <tr>
                  <td class="label" style="width: 20%">Any Observation:</td>
-                 <td>{{ data?.remarks }}</td>
+                 <td>{{ data.remarks }}</td>
                </tr>
             </table>
           </div>
@@ -169,7 +169,7 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
       </div>
     </div>
   `,
-    styles: [`
+  styles: [`
     .view-pdi-container {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 11px;
@@ -325,64 +325,64 @@ import { ServicesApiService, PdiDetailView } from '../../services-api.service';
   `]
 })
 export class PdiDetailComponent implements OnInit {
-    data: PdiDetailView | null = null;
-    loading: boolean = false;
+  data: PdiDetailView | null = null;
+  loading: boolean = false;
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private apiService: ServicesApiService
-    ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private apiService: ServicesApiService
+  ) { }
 
-    ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            const vinNoEnc = params['vinNo'];
-            const pdiNoEnc = params['pdiNo'];
-            if (vinNoEnc && pdiNoEnc) {
-                try {
-                    const vinNo = atob(vinNoEnc);
-                    const pdiNo = atob(pdiNoEnc);
-                    this.fetchData(vinNo, pdiNo);
-                } catch (e) {
-                    console.error('Error decoding params', e);
-                }
-            }
-        });
-
-        // Scroll to top
-        window.scrollTo(0, 0);
-    }
-
-    fetchData(vinNo: string, pdiNo: string): void {
-        this.loading = true;
-        this.apiService.getPdiDetailView(vinNo, pdiNo).subscribe({
-            next: (view) => {
-                this.data = view;
-                this.loading = false;
-            },
-            error: (err) => {
-                console.error('Error fetching PDI details', err);
-                this.loading = false;
-            }
-        });
-    }
-
-    printPDI(): void {
-        const vinNoEnc = this.route.snapshot.params['vinNo'];
-        const pdiNoEnc = this.route.snapshot.params['pdiNo'];
-        if (vinNoEnc && pdiNoEnc) {
-            const url = this.router.serializeUrl(
-                this.router.createUrlTree(['/print/services/pdi', vinNoEnc, pdiNoEnc])
-            );
-            window.open(url, '_blank', 'width=1000,height=800,scrollbars=yes,resizable=yes');
-        } else {
-            window.print(); // Fallback if params missing
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const vinNoEnc = params['vinNo'];
+      const pdiNoEnc = params['pdiNo'];
+      if (vinNoEnc && pdiNoEnc) {
+        try {
+          const vinNo = atob(vinNoEnc);
+          const pdiNo = atob(pdiNoEnc);
+          this.fetchData(vinNo, pdiNo);
+        } catch (e) {
+          console.error('Error decoding params', e);
         }
+      }
+    });
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+  }
+
+  fetchData(vinNo: string, pdiNo: string): void {
+    this.loading = true;
+    this.apiService.getPdiDetailView(vinNo, pdiNo).subscribe({
+      next: (view) => {
+        this.data = view;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching PDI details', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  printPDI(): void {
+    const vinNoEnc = this.route.snapshot.params['vinNo'];
+    const pdiNoEnc = this.route.snapshot.params['pdiNo'];
+    if (vinNoEnc && pdiNoEnc) {
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['/print/services/pdi', vinNoEnc, pdiNoEnc])
+      );
+      window.open(url, '_blank', 'width=1000,height=800,scrollbars=yes,resizable=yes');
+    } else {
+      window.print(); // Fallback if params missing
     }
+  }
 
 
 
-    goBack(): void {
-        this.router.navigate(['/dashboard/services/view-pdi']);
-    }
+  goBack(): void {
+    this.router.navigate(['/dashboard/services/view-pdi']);
+  }
 }

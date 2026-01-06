@@ -1,4 +1,4 @@
-.job-card-view-container {
+.pending-closure-container {
     font-family: Arial, sans-serif;
     padding: 5px;
     background-color: #fff;
@@ -40,89 +40,6 @@
         text-transform: uppercase;
     }
 
-    .filters-container {
-        background-color: #f7f7f7;
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        font-size: 11px;
-
-        .filter-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 10px;
-
-            label {
-                display: flex;
-                align-items: center;
-                gap: 3px;
-                cursor: pointer;
-            }
-        }
-
-        .search-input {
-            width: 120px;
-            padding: 1px 2px;
-            border: 1px solid #abadb3;
-            font-size: 11px;
-        }
-
-        .status-group,
-        .date-check-group,
-        .date-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-
-            label {
-                font-weight: normal;
-                color: #000;
-            }
-        }
-
-        .status-group select {
-            padding: 1px;
-            border: 1px solid #abadb3;
-            font-size: 11px;
-            width: 80px;
-        }
-
-        .date-group {
-            .date-input {
-                width: 80px;
-                padding: 1px 2px;
-                border: 1px solid #abadb3;
-                font-size: 11px;
-            }
-
-            .to-label {
-                margin: 0 5px;
-            }
-        }
-
-        .search-btn {
-            margin-left: auto;
-            padding: 1px 15px;
-            font-size: 11px;
-            font-weight: bold;
-            color: #b00;
-            cursor: pointer;
-            border: 1px solid #999;
-            background: linear-gradient(to bottom, #f0f0f0 0%, #dcdcdc 100%);
-            border-radius: 2px;
-            text-transform: uppercase;
-
-            &:hover {
-                background: linear-gradient(to bottom, #dcdcdc 0%, #f0f0f0 100%);
-            }
-        }
-    }
-
     .table-responsive {
         overflow-x: auto;
     }
@@ -144,7 +61,6 @@
                 white-space: nowrap;
                 background-color: #f0f0f0;
                 vertical-align: top;
-                position: relative; // For filter popup positioning
 
                 &.center-align {
                     text-align: center;
@@ -152,6 +68,7 @@
 
                 &.sortable {
                     cursor: pointer;
+                    position: relative;
 
                     &:hover {
                         background-color: #e6e6e6;
@@ -197,7 +114,6 @@
         }
     }
 
-    // Styles for Sort/Filter Headers
     .th-content {
         display: flex;
         align-items: center;
