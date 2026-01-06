@@ -7,22 +7,22 @@ import jakarta.persistence.*;
 public class DealerVsLocationCode {
     
     @Id
-    @Column(name = "DealerCode")
+    @Column(name = "dealer_code")
     private String dealerCode;
     
-    @Column(name = "LocationCode")
+    @Column(name = "location_code")
     private String locationCode;
     
-    @Column(name = "DealerName")
+    @Column(name = "dealer_name")
     private String dealerName;
     
-    @Column(name = "Location")
+    @Column(name = "location")
     private String location;
     
-    @Column(name = "Address")
+    @Column(name = "address")
     private String address;
     
-    @Column(name = "StateName")
+    @Column(name = "state_name")
     private String stateName;
 
     // Constructors

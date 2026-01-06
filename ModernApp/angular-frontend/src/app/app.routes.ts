@@ -46,6 +46,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/dashboard/pages/services-module/pages/pending-installation/pending-installation.component').then(m => m.PendingInstallationComponent)
       },
       {
+        path: 'services/install-info/:vinNo',
+        loadComponent: () => import('./features/dashboard/pages/services-module/pages/install-info/install-info.component').then(m => m.InstallInfoComponent)
+      },
+      {
         path: 'services/view-installation',
         loadComponent: () => import('./features/dashboard/pages/services-module/pages/view-installation/view-installation.component').then(m => m.ViewInstallationComponent)
       },

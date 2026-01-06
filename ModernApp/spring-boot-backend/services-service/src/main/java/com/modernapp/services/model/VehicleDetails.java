@@ -9,35 +9,44 @@ import java.time.LocalDateTime;
 public class VehicleDetails {
     
     @Id
-    @Column(name = "VINID")
+    @Column(name = "vinid")
     private String vinid;
     
-    @Column(name = "DealerCode")
+    @Column(name = "dealer_code")
     private String dealerCode;
     
-    @Column(name = "vinNo")
+    @Column(name = "vin_no")
     private String vinNo;
     
-    @Column(name = "ModelFamily")
+    @Column(name = "model_family")
     private String modelFamily;
     
-    @Column(name = "ModelCode")
+    @Column(name = "model_code")
     private String modelCode;
     
-    @Column(name = "PDI_STATUS")
+    @Column(name = "pdi_status")
     private Character pdiStatus;
     
-    @Column(name = "PDI_PENDING_DATE")
+    @Column(name = "pdi_pending_date")
     private LocalDate pdiPendingDate;
     
-    @Column(name = "CustomerName")
+    @Column(name = "customer_name")
     private String customerName;
     
-    @Column(name = "EngineNo")
+    @Column(name = "engine_no")
     private String engineNo;
     
-    @Column(name = "RegNo")
+    @Column(name = "reg_no")
     private String regNo;
+
+    @Column(name = "ins_status")
+    private Character insStatus;
+
+    @Column(name = "delivery_date")
+    private LocalDate deliveryDate;
+
+    @Column(name = "mobile_ph")
+    private Long mobilePh;
 
     // Constructors
     public VehicleDetails() {
@@ -132,6 +141,31 @@ public class VehicleDetails {
 
     public void setRegNo(String regNo) {
         this.regNo = regNo;
+    }
+
+
+    public Character getInsStatus() {
+        return insStatus;
+    }
+
+    public void setInsStatus(Character insStatus) {
+        this.insStatus = insStatus;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public Long getMobilePh() {
+        return mobilePh;
+    }
+
+    public void setMobilePh(Long mobilePh) {
+        this.mobilePh = mobilePh;
     }
 }
 

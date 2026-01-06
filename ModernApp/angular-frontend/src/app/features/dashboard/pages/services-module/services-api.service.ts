@@ -139,6 +139,19 @@ export interface ChecklistGroup {
   observations?: string;
 }
 
+export interface PendingInstallation {
+  vinNo: string;
+  modelFamily: string;
+  modelCode: string;
+  customerName: string;
+  mobilePh: number;
+  dealerName: string;
+  dealerCode: string;
+  location: string;
+  locationCode: string;
+  deliveryDate: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -257,6 +270,7 @@ export class ServicesApiService {
     });
   }
 
+
   // Get PDI Detail View
   getPdiDetailView(vinNo: string, pdiNo: string): Observable<PdiDetailView> {
     let httpParams = new HttpParams();
@@ -267,5 +281,39 @@ export class ServicesApiService {
       params: httpParams
     });
   }
+
+  // Pending Installation
+  getPendingInstallations(chassisNo?: string, dealerCode?: string): Observable<PendingInstallation[]> {
+    let httpParams = new HttpParams();
+    if (chassisNo) httpParams = httpParams.set('chassisNo', chassisNo);
+    if (dealerCode) httpParams = httpParams.set('dealerCode', dealerCode);
+
+    return this.http.get<PendingInstallation[]>(`${this.apiUrl}/installation/pending`, {
+      params: httpParams
+    });
+  }
+
+  getCompletedInstallations(chassisNo?: string, dealerCode?: string): Observable<ViewInstallation[]> {
+    let httpParams = new HttpParams();
+    if (chassisNo) httpParams = httpParams.set('chassisNo', chassisNo);
+    if (dealerCode) httpParams = httpParams.set('dealerCode', dealerCode);
+
+    return this.http.get<ViewInstallation[]>(`${this.apiUrl}/installation/view`, {
+      params: httpParams
+    });
+  }
+}
+
+export interface ViewInstallation {
+  insNo: string;
+  insDate: string;
+  vinNo: string;
+  modelFamily: string;
+  customerName: string;
+  mobilePh: string;
+  dealerName: string;
+  dealerCode: string;
+  location: string;
+  deliveryDate: string;
 }
 

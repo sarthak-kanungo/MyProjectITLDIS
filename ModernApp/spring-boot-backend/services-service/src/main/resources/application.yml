@@ -21,13 +21,15 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    defer-datasource-initialization: true
     properties:
       hibernate:
         format_sql: true
         default_schema: PUBLIC
   sql:
     init:
-      mode: never
+      mode: always
+      data-locations: classpath:data.sql,classpath:view-installation-data.sql
 
 logging:
   level:
