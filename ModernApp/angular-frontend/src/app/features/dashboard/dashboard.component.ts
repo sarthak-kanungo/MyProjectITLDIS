@@ -10,7 +10,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 import { AuthService } from '../../core/services/auth.service';
+
+export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+  showDelay: 0,
+  hideDelay: 0,
+  touchendHideDelay: 0,
+  position: 'right',
+  touchGestures: 'auto'
+};
 
 export interface MenuItem {
   id: string;
@@ -36,7 +45,11 @@ export interface MenuItem {
     MatListModule,
     MatMenuModule,
     MatBadgeModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
+  ],
+  providers: [
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -263,19 +276,19 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private viewportScroller: ViewportScroller,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.currentUser.set(this.authService.currentUser());
     this.expandActiveMenu();
-    
+
     // Subscribe to router events to scroll to top on navigation
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         // CRITICAL: Reset scroll IMMEDIATELY and aggressively on navigation end
         const contentWrapper = document.querySelector('.dashboard-content-wrapper') as HTMLElement;
-        
+
         const forceScrollReset = () => {
           if (contentWrapper) {
             contentWrapper.scrollTop = 0;
@@ -287,32 +300,32 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
         };
-        
+
         // Reset immediately
         forceScrollReset();
-        
+
         // Use requestAnimationFrame for immediate reset
         requestAnimationFrame(() => {
           forceScrollReset();
         });
-        
+
         // Use MutationObserver to watch for component insertion
         if (contentWrapper) {
           const observer = new MutationObserver(() => {
             forceScrollReset();
           });
-          
-          observer.observe(contentWrapper, { 
-            childList: true, 
-            subtree: false 
+
+          observer.observe(contentWrapper, {
+            childList: true,
+            subtree: false
           });
-          
+
           setTimeout(() => {
             observer.disconnect();
             forceScrollReset();
           }, 200);
         }
-        
+
         // Aggressive scroll reset at multiple intervals
         [0, 1, 5, 10, 20, 50, 100, 200, 300, 500].forEach(delay => {
           setTimeout(() => forceScrollReset(), delay);
@@ -334,34 +347,34 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   scrollToTop(): void {
     // Get the scrollable wrapper (this is the actual scrollable element now)
     const contentWrapper = document.querySelector('.dashboard-content-wrapper') as HTMLElement;
-    
+
     // CRITICAL: Use multiple methods to force scroll to top
     if (contentWrapper) {
       // Method 1: Direct property assignment
       contentWrapper.scrollTop = 0;
-      
+
       // Method 2: scrollTo method
       contentWrapper.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      
+
       // Method 3: scrollIntoView on the wrapper itself
       contentWrapper.scrollIntoView({ behavior: 'instant', block: 'start', inline: 'nearest' });
-      
+
       // Method 4: Force via style
       contentWrapper.style.scrollBehavior = 'auto';
     }
-    
+
     // Also scroll window/document to top
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
-    
+
     // Use ViewportScroller
     try {
       this.viewportScroller.scrollToPosition([0, 0]);
     } catch (e) {
       // Fallback if ViewportScroller fails
     }
-    
+
     // Force multiple scroll attempts using requestAnimationFrame
     requestAnimationFrame(() => {
       if (contentWrapper) {
@@ -369,7 +382,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         contentWrapper.scrollTo({ top: 0, behavior: 'instant' });
       }
     });
-    
+
     // Multiple timeouts to catch different render phases
     const scrollAttempts = [0, 1, 5, 10, 20, 50, 100, 200, 300];
     scrollAttempts.forEach(delay => {
@@ -449,7 +462,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         event.preventDefault();
         event.stopPropagation();
       }
-      
+
       // Navigate to the route
       this.router.navigate([route]).then(() => {
         // Navigation successful - close sidebar on mobile if needed
@@ -466,9 +479,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     if (route) {
       event.preventDefault();
       event.stopPropagation();
-      
+
       const contentWrapper = document.querySelector('.dashboard-content-wrapper') as HTMLElement;
-      
+
       // Function to force scroll to top
       const forceScrollTop = () => {
         if (contentWrapper) {
@@ -479,20 +492,20 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       };
-      
+
       // Reset scroll BEFORE navigation
       forceScrollTop();
-      
+
       // Use requestAnimationFrame to ensure scroll happens before navigation
       requestAnimationFrame(() => {
         forceScrollTop();
-        
+
         // Navigate
         this.router.navigateByUrl(route).then(() => {
           // Continuous scroll reset using requestAnimationFrame loop
           let frameCount = 0;
           const maxFrames = 60; // ~1 second at 60fps
-          
+
           const scrollLoop = () => {
             forceScrollTop();
             frameCount++;
@@ -500,10 +513,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
               requestAnimationFrame(scrollLoop);
             }
           };
-          
+
           // Start the loop
           requestAnimationFrame(scrollLoop);
-          
+
           // Also use MutationObserver
           if (contentWrapper) {
             const observer = new MutationObserver(() => {
@@ -512,7 +525,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             observer.observe(contentWrapper, { childList: true, subtree: false });
             setTimeout(() => observer.disconnect(), 1000);
           }
-          
+
           // Timeout fallbacks
           [0, 10, 50, 100, 200, 500, 1000].forEach(delay => {
             setTimeout(() => forceScrollTop(), delay);
@@ -527,5 +540,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
   }
+
 }
 

@@ -53,21 +53,24 @@ export class ServiceReminderComponent implements OnInit {
 
   ngOnInit() {
     this.initDates();
+    this.loadJobTypes();
     this.loadData();
+  }
+
+  loadJobTypes() {
+    this.serviceApi.getReminderJobTypes().subscribe(data => {
+      this.jobTypes = [
+        { label: 'ALL', value: '' },
+        ...data.map(item => ({ label: item.jobTypeDesc, value: item.jobTypeID }))
+      ];
+    });
   }
 
   initDates() {
     const today = new Date();
-    const lastMonth = new Date();
-    lastMonth.setMonth(today.getMonth() - 1);
-    lastMonth.setDate(1);
-
-    const future = new Date();
-    future.setDate(today.getDate() + 15);
-
     // Native date input uses yyyy-MM-dd
-    this.searchParams.fromDate = this.datePipe.transform(lastMonth, 'yyyy-MM-dd') || '';
-    this.searchParams.toDate = this.datePipe.transform(future, 'yyyy-MM-dd') || '';
+    this.searchParams.fromDate = this.datePipe.transform(today, 'yyyy-MM-dd') || '';
+    this.searchParams.toDate = this.datePipe.transform(today, 'yyyy-MM-dd') || '';
   }
 
   loadData() {

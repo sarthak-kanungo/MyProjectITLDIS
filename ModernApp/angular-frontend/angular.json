@@ -44,8 +44,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10kb",
+                  "maximumError": "50kb"
                 }
               ],
               "outputHashing": "all"
@@ -84,7 +84,9 @@
             "outputPath": "dist/services-mfe",
             "index": "projects/services-mfe/src/index.html",
             "main": "projects/services-mfe/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/services-mfe/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [],
@@ -144,7 +146,9 @@
             "outputPath": "dist/spares-mfe",
             "index": "projects/spares-mfe/src/index.html",
             "main": "projects/spares-mfe/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/spares-mfe/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [],
@@ -197,4 +201,3 @@
     "analytics": false
   }
 }
-

@@ -1,76 +1,179 @@
 <div class="page-container">
 
-    <div class="breadcrumb">SERVICE &nbsp;▶&nbsp; SERVICE DONE/LAPSE REPORT</div>
-
-    <div class="title-bar">
-        <div class="blue-stripe"></div>
-        <div class="title-text">SERVICE DONE/LAPSE REPORT</div>
+    <div class="breadcrumb">
+        <a routerLink="/dashboard/services" style="text-decoration: none; color: #0056b3;">SERVICE</a>
+        &nbsp;▶&nbsp;
+        <span style="color: black;">SERVICE DUE DATE/LAPSE REPORT</span>
     </div>
 
-    <div class="search-panel">
-        <div class="search-row">
-            <label class="checkbox-label">
-                <input type="checkbox" [(ngModel)]="searchParams.range"> Due Date
-            </label>
+    <div class="content-box">
+        <div class="title-bar">
+            <div class="blue-stripe"></div>
+            <div class="title-text" style="color: black;">SERVICE DUE DATE/LAPSE REPORT</div>
+        </div>
 
-            <input type="date" [(ngModel)]="searchParams.fromDate" [disabled]="!searchParams.range"
-                class="legacy-input">
-            <span class="label-text">To</span>
-            <input type="date" [(ngModel)]="searchParams.toDate" [disabled]="!searchParams.range" class="legacy-input">
+        <div class="search-panel">
+            <div class="search-row">
+                <label class="checkbox-label">
+                    <input type="checkbox" [(ngModel)]="searchParams.range"> Due Date
+                </label>
 
-            <span class="label-text ml-4">Status</span>
-            <select [(ngModel)]="searchParams.status" class="legacy-select">
-                <option *ngFor="let opt of statusOptions" [value]="opt.value">{{opt.label}}</option>
-            </select>
+                <input type="date" [(ngModel)]="searchParams.fromDate" [disabled]="!searchParams.range"
+                    class="legacy-input">
+                <span class="label-text">To</span>
+                <input type="date" [(ngModel)]="searchParams.toDate" [disabled]="!searchParams.range"
+                    class="legacy-input">
 
-            <div class="button-group">
-                <button class="btn-legacy" (click)="loadData()">SEARCH</button>
-                <button class="btn-legacy">EXPORT</button>
+                <span class="label-text ml-4">Status</span>
+                <select [(ngModel)]="searchParams.status" class="legacy-select">
+                    <option *ngFor="let opt of statusOptions" [value]="opt.value">{{opt.label}}</option>
+                </select>
+
+                <div class="button-group">
+                    <button class="btn-legacy" (click)="loadData()">SEARCH</button>
+                    <button class="btn-legacy" (click)="exportData()">EXPORT</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th class="w-sno">S No.</th>
-                    <th (click)="sort('vinNo')">Chassis No.</th>
-                    <th (click)="sort('modelCode')">Model Code</th>
-                    <th>Model Code Desc.</th>
-                    <th (click)="sort('jobTypeDesc')">Job Type</th>
-                    <th (click)="sort('jobCardNo')">Job Card No.</th>
-                    <th>HMR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of paginatedData; let i = index">
-                    <td class="center-text">{{ (currentPage * pageSize) + i + 1 }}</td>
-                    <td>{{item.vinNo}}</td>
-                    <td>{{item.modelCode}}</td>
-                    <td>{{item.modelCodeDesc}}</td>
-                    <td>{{item.jobTypeDesc}}</td>
-                    <td>{{item.jobCardNo}} <span *ngIf="item.jobCardDate">[{{item.jobCardDate}}]</span></td>
-                    <td>{{item.hmr}}</td>
-                </tr>
-                <tr *ngIf="paginatedData.length === 0">
-                    <td colspan="7" class="no-data">No records found</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="w-sno">S No.</th>
 
-    <div class="pagination-bar" *ngIf="totalPages > 1">
-        <a (click)="goToPage(0)">|&lt;</a>
-        <a (click)="goToPage(currentPage - 1)">&lt;</a>
+                        <!-- Chassis No -->
+                        <th (click)="sort('vinNo')">
+                            <div class="th-content">
+                                <span class="col-title">Chassis No. <span *ngIf="sortColumn === 'vinNo'">{{
+                                        sortDirection
+                                        === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('vinNo'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['vinNo']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [(ngModel)]="filters['vinNo']"
+                                    (keyup)="applyClientFilters()" placeholder="Search Chassis No.">
+                            </div>
+                        </th>
 
-        <ng-container *ngFor="let p of pageNumbers">
-            <span *ngIf="p === currentPage" class="page-num active">{{ p + 1 }}</span>
-            <a *ngIf="p !== currentPage" class="page-num" (click)="goToPage(p)">{{ p + 1 }}</a>
-        </ng-container>
+                        <!-- Model Code -->
+                        <th (click)="sort('modelCode')">
+                            <div class="th-content">
+                                <span class="col-title">Model Code <span *ngIf="sortColumn === 'modelCode'">{{
+                                        sortDirection
+                                        === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('modelCode'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['modelCode']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [(ngModel)]="filters['modelCode']"
+                                    (keyup)="applyClientFilters()" placeholder="Search Model Code">
+                            </div>
+                        </th>
 
-        <a (click)="goToPage(currentPage + 1)">&gt;</a>
-        <a (click)="goToPage(totalPages - 1)">&gt;|</a>
+                        <!-- Model Code Desc -->
+                        <th (click)="sort('modelCodeDesc')">
+                            <div class="th-content">
+                                <span class="col-title">Model Code Desc. <span *ngIf="sortColumn === 'modelCodeDesc'">{{
+                                        sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('modelCodeDesc'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['modelCodeDesc']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [(ngModel)]="filters['modelCodeDesc']"
+                                    (keyup)="applyClientFilters()" placeholder="Search Model Code Desc.">
+                            </div>
+                        </th>
+
+                        <!-- Job Type -->
+                        <th (click)="sort('jobTypeDesc')">
+                            <div class="th-content">
+                                <span class="col-title">Job Type <span *ngIf="sortColumn === 'jobTypeDesc'">{{
+                                        sortDirection
+                                        === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('jobTypeDesc'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['jobTypeDesc']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [(ngModel)]="filters['jobTypeDesc']"
+                                    (keyup)="applyClientFilters()" placeholder="Search Job Type">
+                            </div>
+                        </th>
+
+                        <!-- Job Card No -->
+                        <th (click)="sort('jobCardNo')">
+                            <div class="th-content">
+                                <span class="col-title">Job Card No. <span *ngIf="sortColumn === 'jobCardNo'">{{
+                                        sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('jobCardNo'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['jobCardNo']"
+                                (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [(ngModel)]="filters['jobCardNo']"
+                                    (keyup)="applyClientFilters()" placeholder="Search Job Card No.">
+                            </div>
+                        </th>
+
+                        <!-- HMR -->
+                        <th (click)="sort('hmr')">
+                            <div class="th-content">
+                                <span class="col-title">HMR <span *ngIf="sortColumn === 'hmr'">{{ sortDirection ===
+                                        'asc' ?
+                                        '▲' : '▼' }}</span></span>
+                                <mat-icon class="search-icon"
+                                    (click)="toggleFilter('hmr'); $event.stopPropagation()">search</mat-icon>
+                            </div>
+                            <div class="filter-popup" *ngIf="visibleFilters['hmr']" (click)="$event.stopPropagation()">
+                                <input type="text" class="filter-input" [(ngModel)]="filters['hmr']"
+                                    (keyup)="applyClientFilters()" placeholder="Search HMR">
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of paginatedData; let i = index">
+                        <td class="center-text">{{ (currentPage * pageSize) + i + 1 }}</td>
+                        <td>{{item.vinNo}}</td>
+                        <td>{{item.modelCode}}</td>
+                        <td>{{item.modelCodeDesc}}</td>
+                        <td>{{item.jobTypeDesc}}</td>
+                        <td>{{item.jobCardNo}} <span *ngIf="item.jobCardDate">[{{item.jobCardDate}}]</span></td>
+                        <td>{{item.hmr}}</td>
+                    </tr>
+                    <tr *ngIf="paginatedData.length === 0">
+                        <td colspan="7" class="no-data">No records found</td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7" [style.height]="totalPages > 1 ? 'auto' : '5px'"
+                            [style.padding]="totalPages > 1 ? '4px 5px' : '0'">
+                            <div class="pagination-bar" *ngIf="totalPages > 1">
+                                <a *ngIf="currentPage > 0" (click)="goToPage(0)">|&lt;</a>
+                                <a *ngIf="currentPage > 0" (click)="goToPage(currentPage - 1)">&lt;</a>
+
+                                <ng-container *ngFor="let p of pageNumbers">
+                                    <span *ngIf="p === currentPage" class="page-num active">{{ p + 1 }}</span>
+                                    <a *ngIf="p !== currentPage" class="page-num" (click)="goToPage(p)">{{ p + 1 }}</a>
+                                </ng-container>
+
+                                <a *ngIf="currentPage < totalPages - 1" (click)="goToPage(currentPage + 1)">&gt;</a>
+                                <a *ngIf="currentPage < totalPages - 1" (click)="goToPage(totalPages - 1)">&gt;|</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
     </div>
 
 </div>

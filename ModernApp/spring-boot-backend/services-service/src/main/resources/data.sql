@@ -70,3 +70,19 @@ INSERT INTO job_cards (job_card_no, vin_no, customer_name, dealer_code, status, 
 ('J/PNB/3031/11/2024/9', '0405ZF45560', 'Unknown', 'DI-60 MM Rx', 'OPEN', '2024-11-21T10:00:00', ''),
 ('J/PNB/3031/11/2024/8', 'CYDDE162883MS', 'SHIVAJI PATIL', '34', 'CLOSED', '2024-11-08T10:00:00', '94121275524'),
 ('J/PNB/3031/10/2024/7', '0404ZF43555', 'Unknown', 'DI-35', 'OPEN', '2024-10-01T10:00:00', '');
+
+-- Insert JobTypeMaster data
+-- Criteria: isActive='Y' AND freeService='Y'
+-- Ordered by seqNo
+-- Columns: jobTypeID, jobTypeDesc, isActive, freeService, seqNo
+
+INSERT INTO Jobtypemaster (job_typeid, job_type_desc, is_active, free_service, seq_no) VALUES 
+('2', '2nd Free Service', 'Y', 'Y', 2),
+('3', '3rd Free Service', 'Y', 'Y', 3),
+('4', '4th Free Service', 'Y', 'Y', 4),
+('5', '5th Free Service', 'Y', 'Y', 5),
+('6', '6th Free Service', 'Y', 'Y', 6),
+('7', '7th Free Service', 'Y', 'Y', 7),
+('8', '8th Free Service', 'Y', 'Y', 8),
+('9', '9th Free Service', 'Y', 'Y', 9);
+

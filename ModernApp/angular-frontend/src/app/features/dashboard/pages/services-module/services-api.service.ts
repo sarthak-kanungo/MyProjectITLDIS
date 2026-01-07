@@ -368,6 +368,28 @@ export class ServicesApiService {
 
     return this.http.get<ServiceDoneLapse[]>(`${this.apiUrl}/reports/done-lapse`, { params: httpParams });
   }
+
+  exportServiceDoneLapse(
+    fromDate?: string,
+    toDate?: string,
+    status?: string,
+    dealerCode?: string
+  ): Observable<Blob> {
+    let httpParams = new HttpParams();
+    if (fromDate) httpParams = httpParams.set('fromDate', fromDate);
+    if (toDate) httpParams = httpParams.set('toDate', toDate);
+    if (status) httpParams = httpParams.set('status', status);
+    if (dealerCode) httpParams = httpParams.set('dealerCode', dealerCode);
+
+    return this.http.get(`${this.apiUrl}/reports/done-lapse/export`, {
+      params: httpParams,
+      responseType: 'blob'
+    });
+  }
+
+  getReminderJobTypes(): Observable<JobTypeMaster[]> {
+    return this.http.get<JobTypeMaster[]>(`${this.apiUrl}/reminders/job-types`);
+  }
 }
 
 
@@ -450,4 +472,10 @@ export interface ServiceDoneLapse {
   dealerCode: string;
   dealerName: string;
   locationName: string;
+}
+
+export interface JobTypeMaster {
+  jobTypeID: string;
+  jobTypeDesc: string;
+  seqNo?: number;
 }

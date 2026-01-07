@@ -47,6 +47,7 @@ body {
 
 // Material components should also use Inter
 ::ng-deep {
+
   .mat-mdc-button,
   .mat-mdc-raised-button,
   .mat-mdc-outlined-button,
@@ -65,19 +66,21 @@ body {
   .mat-mdc-dialog-content {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
-  
+
   // Standardize table font sizes to match View PDI Detail
   .mat-mdc-table {
-    th, td {
+
+    th,
+    td {
       font-size: 11px !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     }
   }
-  
+
   // Standardize form field font sizes
   .mat-mdc-form-field {
     font-size: 14px !important;
-    
+
     .mat-mdc-text-field-wrapper {
       .mat-mdc-form-field-input-control {
         font-size: 14px !important;
@@ -85,7 +88,7 @@ body {
       }
     }
   }
-  
+
   // Standardize button font sizes
   .mat-mdc-button,
   .mat-mdc-raised-button,
@@ -93,14 +96,14 @@ body {
     font-size: 14px !important;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
-  
+
   // Standardize card titles
   .mat-mdc-card-title {
     font-size: 18px !important;
     font-weight: 600 !important;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
-  
+
   // Standardize card content
   .mat-mdc-card-content {
     font-size: 14px !important;
@@ -108,7 +111,8 @@ body {
   }
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -122,7 +126,7 @@ html, body {
   box-shadow: var(--shadow-md);
   padding: 24px;
   transition: all 0.3s ease;
-  
+
   &:hover {
     box-shadow: var(--shadow-lg);
   }
@@ -137,13 +141,13 @@ html, body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -160,10 +164,9 @@ html, body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: var(--primary-color);
     color: white;
   }
 }
-
