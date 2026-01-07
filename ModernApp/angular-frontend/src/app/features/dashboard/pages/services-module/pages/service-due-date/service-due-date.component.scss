@@ -118,13 +118,97 @@
     }
 }
 
+.table-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 10px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ccc;
+    font-size: 11px;
+    flex-wrap: wrap;
+
+    .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .summary-label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .summary-value {
+            color: #000;
+            font-weight: bold;
+        }
+
+        &.page-size-selector {
+            margin-left: auto;
+
+            .page-size-select {
+                width: 60px;
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
 .table-container {
     padding: 0 5px;
+    position: relative;
+    min-height: 200px;
+
+    &.loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #0044cc;
+            font-weight: bold;
+            font-size: 12px;
+
+            mat-icon {
+                font-size: 32px;
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        max-height: calc(100vh - 300px);
+        overflow-y: auto;
+    }
 
     table {
         width: 100%;
         border-collapse: collapse;
         border: 1px solid #ccc;
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
 
         th {
             background-color: #f0f0f0;
@@ -137,6 +221,10 @@
             white-space: nowrap;
             cursor: pointer;
             position: relative;
+
+            &:hover {
+                background-color: #e0e0e0;
+            }
         }
 
         td {
@@ -145,6 +233,14 @@
             font-size: 11px;
             color: #333;
             vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: #f0f7ff !important;
+            }
         }
 
         .center-text {
@@ -244,4 +340,102 @@
     padding: 2px;
     color: black;
     box-sizing: border-box;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-legacy {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    mat-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+    }
+
+    &[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.column-visibility {
+    position: relative;
+    margin-left: 10px;
+
+    .column-toggle-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+    }
+
+    .column-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 5px;
+        background-color: white;
+        border: 1px solid #999;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        min-width: 200px;
+        max-height: 300px;
+        overflow-y: auto;
+
+        .column-menu-header {
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            font-size: 11px;
+            color: #333;
+        }
+
+        .column-menu-item {
+            padding: 6px 12px;
+            border-bottom: 1px solid #f0f0f0;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: #f8f8f8;
+            }
+
+            .column-checkbox {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                font-size: 11px;
+                margin: 0;
+                width: 100%;
+
+                input[type="checkbox"] {
+                    cursor: pointer;
+                    margin: 0;
+                }
+
+                span {
+                    flex: 1;
+                    user-select: none;
+                }
+            }
+        }
+    }
 }

@@ -30,20 +30,70 @@
                 </select>
 
                 <div class="button-group">
-                    <button class="btn-legacy" (click)="loadData()">SEARCH</button>
+                    <button class="btn-legacy" (click)="loadData()" [disabled]="isLoading">
+                        <mat-icon *ngIf="isLoading" class="spinning">refresh</mat-icon>
+                        <span>{{ isLoading ? 'LOADING...' : 'SEARCH' }}</span>
+                    </button>
+                    <button class="btn-legacy" (click)="refreshData()" [disabled]="isLoading" title="Refresh Data">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
                     <button class="btn-legacy" (click)="exportData()">EXPORT</button>
                 </div>
             </div>
         </div>
 
-        <div class="table-container">
+        <!-- Summary Statistics -->
+        <div class="table-summary" *ngIf="!isLoading">
+            <div class="summary-item">
+                <span class="summary-label">Total Records:</span>
+                <span class="summary-value">{{ totalRecords }}</span>
+            </div>
+            <div class="summary-item" *ngIf="filteredRecords !== totalRecords">
+                <span class="summary-label">Filtered:</span>
+                <span class="summary-value">{{ filteredRecords }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Showing:</span>
+                <span class="summary-value">{{ currentPageStart }} - {{ currentPageEnd }} of {{ filteredRecords }}</span>
+            </div>
+            <div class="summary-item page-size-selector">
+                <span class="summary-label">Rows per page:</span>
+                <select [(ngModel)]="pageSize" (change)="onPageSizeChange()" class="legacy-select page-size-select">
+                    <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+                </select>
+            </div>
+            <div class="summary-item column-visibility">
+                <button class="btn-legacy column-toggle-btn" (click)="toggleColumnMenu()" title="Show/Hide Columns">
+                    <mat-icon>view_column</mat-icon>
+                    <span>Columns</span>
+                </button>
+                <div class="column-menu" *ngIf="showColumnMenu" (click)="$event.stopPropagation()">
+                    <div class="column-menu-header">Show/Hide Columns</div>
+                    <div class="column-menu-item" *ngFor="let col of columns">
+                        <label class="column-checkbox">
+                            <input type="checkbox" [(ngModel)]="col.visible" (change)="saveColumnVisibility()" (click)="$event.stopPropagation()">
+                            <span>{{ col.label }}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container" [class.loading]="isLoading">
+            <div class="loading-overlay" *ngIf="isLoading">
+                <div class="loading-spinner">
+                    <mat-icon class="spinning">refresh</mat-icon>
+                    <span>Loading data...</span>
+                </div>
+            </div>
+            <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
                         <th class="w-sno">S No.</th>
 
                         <!-- Chassis No -->
-                        <th (click)="sort('vinNo')">
+                        <th *ngIf="isColumnVisible('vinNo')" (click)="sort('vinNo')">
                             <div class="th-content">
                                 <span class="col-title">Chassis No. <span *ngIf="sortColumn === 'vinNo'">{{
                                         sortDirection
@@ -59,7 +109,7 @@
                         </th>
 
                         <!-- Model Code -->
-                        <th (click)="sort('modelCode')">
+                        <th *ngIf="isColumnVisible('modelCode')" (click)="sort('modelCode')">
                             <div class="th-content">
                                 <span class="col-title">Model Code <span *ngIf="sortColumn === 'modelCode'">{{
                                         sortDirection
@@ -75,7 +125,7 @@
                         </th>
 
                         <!-- Model Code Desc -->
-                        <th (click)="sort('modelCodeDesc')">
+                        <th *ngIf="isColumnVisible('modelCodeDesc')" (click)="sort('modelCodeDesc')">
                             <div class="th-content">
                                 <span class="col-title">Model Code Desc. <span *ngIf="sortColumn === 'modelCodeDesc'">{{
                                         sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
@@ -90,7 +140,7 @@
                         </th>
 
                         <!-- Job Type -->
-                        <th (click)="sort('jobTypeDesc')">
+                        <th *ngIf="isColumnVisible('jobTypeDesc')" (click)="sort('jobTypeDesc')">
                             <div class="th-content">
                                 <span class="col-title">Job Type <span *ngIf="sortColumn === 'jobTypeDesc'">{{
                                         sortDirection
@@ -106,7 +156,7 @@
                         </th>
 
                         <!-- Job Card No -->
-                        <th (click)="sort('jobCardNo')">
+                        <th *ngIf="isColumnVisible('jobCardNo')" (click)="sort('jobCardNo')">
                             <div class="th-content">
                                 <span class="col-title">Job Card No. <span *ngIf="sortColumn === 'jobCardNo'">{{
                                         sortDirection === 'asc' ? '▲' : '▼' }}</span></span>
@@ -121,7 +171,7 @@
                         </th>
 
                         <!-- HMR -->
-                        <th (click)="sort('hmr')">
+                        <th *ngIf="isColumnVisible('hmr')" (click)="sort('hmr')">
                             <div class="th-content">
                                 <span class="col-title">HMR <span *ngIf="sortColumn === 'hmr'">{{ sortDirection ===
                                         'asc' ?
@@ -139,21 +189,21 @@
                 <tbody>
                     <tr *ngFor="let item of paginatedData; let i = index">
                         <td class="center-text">{{ (currentPage * pageSize) + i + 1 }}</td>
-                        <td>{{item.vinNo}}</td>
-                        <td>{{item.modelCode}}</td>
-                        <td>{{item.modelCodeDesc}}</td>
-                        <td>{{item.jobTypeDesc}}</td>
-                        <td>{{item.jobCardNo}} <span *ngIf="item.jobCardDate">[{{item.jobCardDate}}]</span></td>
-                        <td>{{item.hmr}}</td>
+                        <td *ngIf="isColumnVisible('vinNo')">{{item.vinNo}}</td>
+                        <td *ngIf="isColumnVisible('modelCode')">{{item.modelCode}}</td>
+                        <td *ngIf="isColumnVisible('modelCodeDesc')">{{item.modelCodeDesc}}</td>
+                        <td *ngIf="isColumnVisible('jobTypeDesc')">{{item.jobTypeDesc}}</td>
+                        <td *ngIf="isColumnVisible('jobCardNo')">{{item.jobCardNo}} <span *ngIf="item.jobCardDate">[{{item.jobCardDate}}]</span></td>
+                        <td *ngIf="isColumnVisible('hmr')">{{item.hmr}}</td>
                     </tr>
                     <tr *ngIf="paginatedData.length === 0">
-                        <td colspan="7" class="no-data">No records found</td>
+                        <td [attr.colspan]="getVisibleColumnsCount()" class="no-data">No records found</td>
                     </tr>
 
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="7" [style.height]="totalPages > 1 ? 'auto' : '5px'"
+                        <td [attr.colspan]="getVisibleColumnsCount()" [style.height]="totalPages > 1 ? 'auto' : '5px'"
                             [style.padding]="totalPages > 1 ? '4px 5px' : '0'">
                             <div class="pagination-bar" *ngIf="totalPages > 1">
                                 <a *ngIf="currentPage > 0" (click)="goToPage(0)">|&lt;</a>
@@ -171,6 +221,7 @@
                     </tr>
                 </tfoot>
             </table>
+            </div>
         </div>
 
 
